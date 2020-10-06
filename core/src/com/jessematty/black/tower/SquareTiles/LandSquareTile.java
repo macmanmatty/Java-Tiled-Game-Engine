@@ -2,10 +2,10 @@ package com.jessematty.black.tower.SquareTiles;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Groups;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
@@ -13,34 +13,23 @@ import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
-import com.jessematty.black.tower.Components.Tile;
+import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStat;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.Maps.Area;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Maps.GameMap;
 
-import java.io.Serializable;
 
-public class  LandSquareTile extends Entity implements Serializable { // base class all other tile classes extend
-	private transient  Area area;
-	private  boolean enterable=true;
-	protected boolean unchangeable=false;
-	protected boolean checked;
-	protected boolean inArea;
-	protected  transient GameMap map;
-	protected  transient Position position;
+public class  LandSquareTile extends Entity { // base class all other tile classes extend
+	protected transient  boolean unchangeable=false;
+	protected  transient boolean checked;
+	protected  transient boolean inArea;
+	protected  transient PositionComponent position;
 	protected transient Tile tileComponent;
-	protected String atlasName;
-	protected  transient GameAssets assetts;
-	protected transient TiledMapTile mapTile;
-	public LandSquareTile(int locationX, int locationY){
-		Tile tile= new Tile();
-		this.tileComponent=tile;
-		tile.setAtlasName("assetts.atlas");
+	public LandSquareTile(int locationX, int locationY, int yTiles){ tileComponent= new Tile();
+		tileComponent.setAtlasName("assetts.atlas");
 		 NumericStats numericStats= new NumericStats();
 		BooleanStats booleanStats= new BooleanStats();
 		StringStats stringStats=new StringStats();
@@ -60,17 +49,22 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
 		add(numericStatsChangable);
 		add(stringStatsChangable);
 		add(tileWeatherNumericStatsChangable);
-		add(tile);
+		add(tileComponent);
 		add(groups);
+		add(new Action());
+
 		tileWeatherNumericStatsChangable.addStatToChange(new TileWeatherChangableNumericStat(true,"temperature", 70,-275, 20000));
 		numericStats.addStat(new NumericStat(false,"COF" ,1,0,10));
 		numericStatsChangable.addStatToChange(new ChangableNumericStat(false,"temperature",  0,0,3, 0));
-		Position  position= new Position();
+		PositionComponent position= new PositionComponent();
 		position.getTiles().add(this);
 		position.removeBounds();
 		position.setTileLocationX(locationX);
 		position.setTileLocationY(locationY);
 		add(position);
+		float screenLocationX = (position.getTileLocationX() ) * 32;
+		float screenLocationY =  (yTiles - position.getTileLocationY()) * 32;
+		position.setPosition(screenLocationX, screenLocationY);
 		this.position=position;
 		add(new Name(true, toString()));
 
@@ -82,29 +76,29 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
 
 
 
-	public void setTextureRegion( TextureRegion region){
-		mapTile.setTextureRegion(region);
-	}
+
+
 	public void addEntity(Entity occupant) { // adds  a new Object to the square
 		if (occupant == null) {
 			return;
 		}
 		tileComponent.getEntities().add(occupant);
+		tileComponent.setEntered(true);
 
 	}
-	
+
 
 	public void removeEntity(Entity entity){
 		tileComponent.getEntities().removeValue(entity, true);
 	}
-	
+
 	public void setLocationX(int x){
 		position.setTileLocationX(x);
 	}
 	public void setLocationY(int y){
 		position.setTileLocationY(y);
 	}
-	
+
 	public int getLocationX() {
 		return position.getTileLocationX();
 	}
@@ -112,59 +106,38 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
 		return position.getTileLocationY();
 	}
 	public float getScreenLocationx() {
-		return position.getScreenLocationX();
+		return position.getLocationX();
 	}
 	public float getScreenLocationy() {
-		return position.getScreenLocationY();
+		return position.getLocationY();
 	}
 	public boolean isEnterable() {
-		return enterable;
+		return tileComponent.isEnterable();
 	}
-	
+
 	public void setEnterable(boolean enterable) {
-		this.enterable = enterable;
-	}
-	public void setMap(GameMap map) {
-		this.map = map;
-		float screenLocationX = (position.getTileLocationX() + 1) * 32;
-		float screenLocationY = (map.getYSize() - position.getTileLocationY() - 1) * 32;
-		position.setSetScreenLocations(screenLocationX, screenLocationY);
-		assetts = map.getGameAssets();
-
+		this.tileComponent.setEnterable(enterable);
 	}
 
-	public Position getPosition() {
+
+	public PositionComponent getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
 
 	public Tile getTileComponent() {
 		return tileComponent;
 	}
 
-	public void setTileComponent(Tile tileComponent) {
-		this.tileComponent = tileComponent;
 
-	}
 
-	public GameAssets getAssetts() {
-		return assetts;
-	}
-	public void setAssetts(GameAssets assetts) {
-		this.assetts = assetts;
-	}
 	@Override
 	public String toString() { // overridden for scene 2d ui list to display thing name rather than class name.
 		return  "tile  x "+ position.getTileLocationX() +" y "+ position.getTileLocationY();
 	}
-	
-	
-	public TiledMapTile getMapTile() {
-		return mapTile;
-	}
+
+
+
     public Array<Entity> getEntities() {
         return tileComponent.getEntities();
     }
@@ -173,11 +146,19 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
     }
 	public Array<Entity> getEntities( Class <?extends Component>... components){
 
-	    Array< Entity> entitiesToReturn=assetts.getMapDraw().getGameComponentMapper().getEntitiesWithComponents(tileComponent.getEntities(), components);
+	    Array< Entity> entitiesToReturn= GameComponentMapper.getEntitiesWithComponents(tileComponent.getEntities(), components);
 
 
 		return entitiesToReturn;
 	}
+
+	public Array<Entity> getEntities(Array<String> numericStats, Array<String> stringStats, Array<String> booleanStats, Class<? extends Component>... components) {
+		Array< Entity> entitiesToReturn=GameComponentMapper.getEntitiesContainingStats(tileComponent.getEntities(), numericStats, stringStats, booleanStats,  components);
+
+
+		return  entitiesToReturn;
+	}
+
 	public boolean isInArea() {
 		return inArea;
 	}
@@ -196,12 +177,7 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-	public Area getArea() {
-		return area;
-	}
-	public void setArea(Area area) {
-		this.area = area;
-	}
+
 	public boolean hasEntity(Entity entity){
 		Array<Entity> entities=tileComponent.getEntities();
 		int size=entities.size;
@@ -214,6 +190,11 @@ public class  LandSquareTile extends Entity implements Serializable { // base cl
 	}
 
 
+	public void setPosition(PositionComponent position) {
+		this.position = position;
+	}
 
-
+	public void setTileComponent(Tile tileComponent) {
+		this.tileComponent = tileComponent;
+	}
 }

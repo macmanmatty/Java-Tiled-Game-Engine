@@ -634,11 +634,6 @@ protected  LandSquareTile tile;
 
             tile.setEnterable(enterable.isChecked());
 
-            tile.setMap(map);
-
-
-
-
 
     return tile;
 

@@ -7,16 +7,16 @@ import com.jessematty.black.tower.Components.Container;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
-import com.jessematty.black.tower.Components.PhysicalObject;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class ChangeItemLocationSystem extends GameEntitySystem {
 
        private  Pack pack;
        private  Entity entity;
-       private PhysicalObject object;
-       private Position position;
+       private PhysicalObjectComponent object;
+       private PositionComponent position;
        private Item item;
        private ComponentMapper<ID> idComponentMapper;
        private ComponentMapper<Item> itemComponentMapper;

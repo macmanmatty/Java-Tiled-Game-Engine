@@ -34,7 +34,6 @@ public   class TileWeatherChangableNumericStat extends com.jessematty.black.towe
         this.value = other.value;
         this.minValue = other.minValue;
         this.maxValue = other.maxValue;
-        this.canBeNegative = other.canBeNegative;
     }
 
 

@@ -5,7 +5,7 @@ import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRe
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.TextureAtlas.AtlasNamedAtlasRegionSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.EntitySerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.EntitySerializer;
 
 public class CopyObject {
 

@@ -5,49 +5,50 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
+import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.BodyParts.Body;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
 import com.jessematty.black.tower.Maps.World;
 
-@Transient
 
 public class ZRPGPlayer implements Component {
 
-    private transient Movable movable;
-    private transient Position position;
-    private transient NumericStats numericStats;
-    private transient BooleanStats booleanStats;
-    private transient StringStats stringStats;
-    private transient  OwnerComponent ownerComponent;
-
-    private transient  Ears ears;
-    private transient  Nose nose;
-    private transient Eyes eyes;
+    private  Movable movable;
+    private  PositionComponent position;
+    private  NumericStats numericStats;
+    private  BooleanStats booleanStats;
+    private  StringStats stringStats;
+    private  OwnerComponent ownerComponent;
+    private   Ears ears;
+    private   Nose nose;
+    private  Eyes eyes;
     private String id;
-
-
-    private transient PhysicalObject physicalObject;
-    private transient Drawable drawable;
-    private transient AnimatableComponent animatable;
-    private transient Thrower thrower;
-    private transient Entity rightHand;
-    private transient Holder []  handHolders= new Holder[2];
-    private transient Entity leftHand;
-    private transient  Entity leftFoot;
-    private transient Entity rightFoot;
-    private transient Pack pack;
-    private transient Entity playerEntity;
-    private transient com.jessematty.black.tower.Components.Actions.Action action;
-    private transient AttackMode attackMode;
-    private transient com.jessematty.black.tower.Components.BodyParts.Body body;
-    private transient  Name name;
-    private transient World world;
-    private transient com.jessematty.black.tower.Components.Stats.NumericStat speed;
+    private  PhysicalObjectComponent physicalObject;
+    private  Drawable drawable;
+    private  AnimatableComponent animatable;
+    private  Thrower thrower;
+    private  Entity rightHand;
+    private  Holder[]  handHolders= new Holder[2];
+    private  Entity leftHand;
+    private   Entity leftFoot;
+    private  Entity rightFoot;
+    private  Pack pack;
+    private  Entity playerEntity;
+    private  Action action;
+    private  AttackMode attackMode= new AttackMode("slash");
+    private  AttachedComponent attachedComponent;
+    private  Body body;
+    private   Name name;
+    private  World world;
+    private  NumericStat speed;
+    private   ImageComponent imageComponent;
     private boolean showBottomBar;
     private boolean autoPickUpFirstItem;
     private DominateHand dominateHand;
@@ -60,30 +61,32 @@ public class ZRPGPlayer implements Component {
 
     public ZRPGPlayer(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
+        this.world=world;
+
         this.movable = playerEntity.getComponent(Movable.class);
-        this.position = playerEntity.getComponent(Position.class);
+        this.position = playerEntity.getComponent(PositionComponent.class);
         this.numericStats = playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.NumericStats.class);
         this.booleanStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.BooleanStats.class);
         this.stringStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.StringStats.class);
-        this.physicalObject = playerEntity.getComponent(PhysicalObject.class);
+        this.physicalObject = playerEntity.getComponent(PhysicalObjectComponent.class);
         this.drawable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.Drawable.class);
         this.animatable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.AnimatableComponent.class);
         this.action= playerEntity.getComponent(com.jessematty.black.tower.Components.Actions.Action.class);
-        this.body= playerEntity.getComponent(com.jessematty.black.tower.Components.BodyParts.Body.class);
+        this.attachedComponent = playerEntity.getComponent(AttachedComponent.class);
         this.ears= playerEntity.getComponent(Ears.class);
         this.eyes= playerEntity.getComponent(Eyes.class);
         this.nose= playerEntity.getComponent(Nose.class);
-        this.ownerComponent= playerEntity.getComponent(OwnerComponent.class);
+        this.body=playerEntity.getComponent(Body.class);
+        this.imageComponent=playerEntity.getComponent(ImageComponent.class);
+        this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
         this.id=playerEntity.getComponent(ID.class).getId();
-
-
-
-        //this.rightHand=world.getEntity(body.getBodyParts().get("rightHand"));
-//        this.leftHand=world.getEntity(body.getBodyParts().get("lefttHand"));
-       // handHolders[1]=rightHand.getComponent(Holder.class);
-        //handHolders[0]=leftHand.getComponent(Holder.class);
-       // this.rightFoot=world.getEntity(body.getBodyParts().get("rightFoot"));
-       // this.leftFoot=world.getEntity(body.getBodyParts().get("leftFoot"));
+        this.rightHand=world.getEntity(body.getBodyParts().get("rightHand"));
+        this.leftHand=world.getEntity(body.getBodyParts().get("leftHand"));
+        System.out.println ("hands "+leftHand + ", " +rightHand);
+        handHolders[1]=rightHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+        handHolders[0]=leftHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+        this.rightFoot=world.getEntity(body.getBodyParts().get("rightFoot"));
+        this.leftFoot=world.getEntity(body.getBodyParts().get("leftFoot"));
         this.pack= playerEntity.getComponent(Pack.class);
         this.thrower= playerEntity.getComponent(Thrower.class);
         this.name= playerEntity.getComponent(Name.class);
@@ -107,7 +110,7 @@ public class ZRPGPlayer implements Component {
     }
 
 
-    public Position getPosition() {
+    public PositionComponent getPosition() {
         return position;
     }
 
@@ -117,7 +120,7 @@ public class ZRPGPlayer implements Component {
     }
 
 
-    public PhysicalObject getPhysicalObject() {
+    public PhysicalObjectComponent getPhysicalObject() {
         return physicalObject;
     }
 
@@ -159,7 +162,7 @@ public class ZRPGPlayer implements Component {
 
 
 
-    public Holder [] getHolders() {
+    public com.jessematty.black.tower.Components.AttachEntity.Holder[] getHolders() {
         return handHolders;
 
 
@@ -204,8 +207,8 @@ public class ZRPGPlayer implements Component {
         return rightFoot;
     }
 
-    public Body getBody() {
-        return body;
+    public AttachedComponent getAttachedComponent() {
+        return attachedComponent;
     }
 
     public StringStat getName() {
@@ -230,7 +233,7 @@ public class ZRPGPlayer implements Component {
         return speed;
     }
 
-    public OwnerComponent getOwnerComponent() {
+    public com.jessematty.black.tower.Components.AttachEntity.OwnerComponent getOwnerComponent() {
         return ownerComponent;
     }
 
@@ -292,6 +295,18 @@ public class ZRPGPlayer implements Component {
 
     public void setHandToUse(int handToUse) {
         this.handToUse = handToUse;
+    }
+
+    public ImageComponent getImageComponent() {
+        return imageComponent;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 }
 

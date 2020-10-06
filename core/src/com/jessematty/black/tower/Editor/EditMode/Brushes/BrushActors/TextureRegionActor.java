@@ -13,7 +13,7 @@ public class TextureRegionActor extends ClipBoardActor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.setColor(color);
+        batch.setColor(getColor());
             if (textureRegion != null) {
                 batch.draw(textureRegion, locationX, locationY);
             }

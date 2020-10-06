@@ -103,11 +103,15 @@ public class InList {
 		}
 		return false;
 	}
+	// check if two lists have one object that is the same if so returns true else returns false  also returns true if both lists are empty
 	public static  boolean isInList(Array<? extends Object> names, Array<? extends Object> otherNames) {
-		int number = otherNames.size;
-		int number2 = names.size;
-		for (int count = 0; count < number; count++) {
-			for (int count2 = 0; count2 < number2; count2++) {
+		int size = otherNames.size;
+		int size2 = names.size;
+		if(size==0 && size2==0){
+			return  true;
+		}
+		for (int count = 0; count < size; count++) {
+			for (int count2 = 0; count2 < size2; count2++) {
 				if (names.get(count2).equals(otherNames.get(count))) {
 					return true;
 				}
@@ -137,12 +141,28 @@ public class InList {
 	}
 	
 	
-	public static  boolean isInList(Object  name, Array<? extends Object> names) {
-		Object manClass;
+	public static  boolean isInList(Array<? extends Object> names, Object object) {
 		int number = names.size;
 		for (int count = 0; count < number; count++) {
-			manClass = names.get(count);
-			if (name.equals(manClass)) {
+			 Object object2 = names.get(count);
+			if (object.equals(object2)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// check to see if an object is in a given array  if equals is false == will be used for comparison else  the object equals method will be used
+	public static  boolean isInList(Array<? extends Object> names, Object object, boolean equals) {
+		int number = names.size;
+		for (int count = 0; count < number; count++) {
+			Object object2 = names.get(count);
+			if (object.equals(object2) && equals==false) {
+				return true;
+			}
+
+			else if (object.equals(object2)){
+
 				return true;
 			}
 		}

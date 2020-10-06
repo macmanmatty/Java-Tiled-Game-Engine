@@ -13,20 +13,22 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slas
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.DominateHand;
-import com.jessematty.black.tower.Components.EquipItem;
+import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
+import com.jessematty.black.tower.Components.HoldPosition;
 import com.jessematty.black.tower.Components.Ingest;
-import com.jessematty.black.tower.Components.Holder;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.Components.Position;
-import com.jessematty.black.tower.GameBaseClasses.Entity.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Player.PlayerFunction.PlayerFunction;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ItemActionWindow;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Maps.World;
 
 public class ZRPGPlayerFunctions {
@@ -35,6 +37,11 @@ public class ZRPGPlayerFunctions {
     private ZRPGPlayer player;
     private MapDraw mapDraw;
     private ComponentMapper<ID> idComponentMapper;
+    private int holdPositionNumber;
+    private World world;
+
+
+
 
 
 
@@ -42,6 +49,7 @@ public class ZRPGPlayerFunctions {
         this.player = player;
         this.mapDraw = mapDraw;
         idComponentMapper=mapDraw.getGameComponentMapper().getIdComponentMapper();
+        this.world=mapDraw.getWorld();
     }
 
 
@@ -49,8 +57,6 @@ public class ZRPGPlayerFunctions {
         player.getPlayerEntity().add(new MovingOnGround());
         player.getAction().setStat("move");
         player.getMovable().moveRight();
-
-
 
     }
     public void moveLeft() {
@@ -61,9 +67,6 @@ public class ZRPGPlayerFunctions {
 
         player.getMovable().moveLeft();
         System.out.println("moved left!!");
-
-
-
 
 
     }
@@ -146,12 +149,14 @@ public class ZRPGPlayerFunctions {
 
     }
 
+
+
     public void pickupItem() {
         Holder []  holder=player.getHandHolders();
 
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
 
-            Position position = player.getPosition();
+            PositionComponent position = player.getPosition();
             GameMap map = mapDraw.getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationX());
 
             Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileSizeX(), Item.class);
@@ -201,19 +206,33 @@ public class ZRPGPlayerFunctions {
 
     public void eatItem(int hand) {
             Ingest ingest = new Ingest();
-            ingest.setIngestorid(player.getId());
+            ingest.setIngestorID(player.getId());
             player.getHand(hand).add(ingest);
     }
 
     public void slashItem(int hand) {
             Slash slash = new Slash();
-            player.getHand(hand).add(slash);
+            Holder holder=player.getHandHolders()[ hand];
+            String itemToHoledID=holder.getItemToHoldId();
+            if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
+                Entity heldItem = world.getEntity(holder.getItemToHoldId());
+                    heldItem.add(slash);
+                player.getAction().setStat("slash");
+            }
 
     }
 
     public void thrustItem(int hand) {
         Thrust thrust = new Thrust();
-        player.getHand(hand).add(thrust);
+        Holder holder=player.getHandHolders()[ hand];
+        String itemToHoledID=holder.getItemToHoldId();
+        if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
+            Entity heldItem = world.getEntity(holder.getItemToHoldId());
+            heldItem.add(thrust);
+            player.getAction().setStat("thrust");
+        }
+
+
 
     }
 
@@ -231,9 +250,13 @@ public class ZRPGPlayerFunctions {
     }
 
 
-    public void throwItem(int hand) {
+    public void throwItem(int handNumber) {
         Throw throwV= new Throw();
-        player.getHand(hand).add(throwV);
+       Entity hand=player.getHand(handNumber);
+       if(hand!=null) {
+           hand.add(throwV);
+       }
+
     }
 
 
@@ -248,7 +271,7 @@ public class ZRPGPlayerFunctions {
 
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
 
-            Position position = player.getPosition();
+            PositionComponent position = player.getPosition();
             GameMap map = mapDraw.getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationX());
 
             Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), Pack.class);
@@ -261,8 +284,6 @@ public class ZRPGPlayerFunctions {
 
                 String text="Select A Pack To Add To";
                     mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw.getWorld()), ScreenPosition.CENTER);
-
-
 
             }
 
@@ -348,5 +369,24 @@ public class ZRPGPlayerFunctions {
         }
     }
 
+
+    public void changeHoldPosition(int hand) {
+        Holder holder = player.getHandHolders()[hand];
+        HoldPosition []  holdPosition=HoldPosition.values();
+        int holdPositions=holdPosition.length;
+
+        holdPositionNumber++;
+        if(holdPositionNumber>=holdPositions){
+            holdPositionNumber=0;
+
+        }
+
+        holder.setHoldPosition(holdPosition[holdPositionNumber]);
+
+
+
+
+
+    }
 
 }

@@ -9,8 +9,10 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 
+import com.jessematty.black.tower.Components.Markers.Killable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.List;
@@ -44,7 +46,7 @@ public class DieSystem extends GameEntitySystem { // checks  the die when zero  
 
     @Override
     public void update(float deltaTime) {
-        entities= getEngine().getEntitiesFor(Family.all(Action.class, NumericStats.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(Action.class, NumericStats.class, Killable.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){

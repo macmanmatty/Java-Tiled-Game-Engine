@@ -3,9 +3,13 @@ package com.jessematty.black.tower.Editor.World;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.EditorImageComponent;
+import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
@@ -21,6 +25,14 @@ public class WorldObjects {
     private Array<TextureRegionPage> textureRegionGroups= new Array<>();
     private Array<NamedColor> namedColors= new Array<>();
     private Array<String> textures = new Array<>();
+    private Array<AnimatableComponent> animatableComponents= new Array<>();
+    private Array<EditorImageComponent> editorImageComponents= new Array<>();
+    private Array<ImageComponent> imageComponents= new Array<>();
+    private Array<TileSet> tileSets= new Array<>();
+
+
+
+
     public WorldObjects() {
         numericStats.add( new NumericStat(true, "speed", 0, 0 , Double.MAX_VALUE));
         changeActions.add("ingest");
@@ -74,26 +86,44 @@ public class WorldObjects {
         return namedColors;
     }
     public void  addColor(NamedColor color){
-        if(!InList.isInList(color, namedColors)) {
+        if(!InList.isInList(namedColors, color)) {
             namedColors.add(color);
         }
     }
     public void  addStat(StringStat stat){
-        if(!InList.isInList(stat, stringStats)) {
+        if(!InList.isInList(stringStats, stat)) {
             stringStats.add(stat);
         }
     }
     public void  addStat(BooleanStat stat){
-        if(!InList.isInList(stat, booleanStats)) {
+        if(!InList.isInList(booleanStats, stat)) {
             booleanStats.add(stat);
         }
     }
     public void  addStat(NumericStat stat){
-        if(!InList.isInList(stat, numericStats)) {
+        if(!InList.isInList(numericStats, stat)) {
             numericStats.add(stat);
         }
     }
     public Array<TextureRegionPage> getTextureRegionGroups() {
         return textureRegionGroups;
     }
+
+    public Array<AnimatableComponent> getAnimatableComponents() {
+        return animatableComponents;
+    }
+
+    public Array<EditorImageComponent> getEditorImageComponents() {
+        return editorImageComponents;
+    }
+
+    public Array<ImageComponent> getImageComponents() {
+        return imageComponents;
+    }
+
+    public Array<TileSet> getTileSets() {
+        return tileSets;
+    }
+
+
 }

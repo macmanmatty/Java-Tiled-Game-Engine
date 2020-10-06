@@ -30,8 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
@@ -43,7 +42,7 @@ import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
@@ -60,8 +59,6 @@ import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.World.WorldObjects;
 
 import java.util.ArrayList;
-
-import javafx.scene.control.SelectionMode;
 
 
 public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScreen {
@@ -94,7 +91,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     private final World world;
     private final DragAndDrop dragAndDrop;
     private final KeyListener keyListener;
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
     private int currentLayerNumber;
     private Rectangle selectedArea = new Rectangle();
     private final WorldObjects worldObjects;
@@ -112,7 +109,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
 
 
-    public MapEditScreen(GameAssets assets, TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
+    public MapEditScreen(GameAssets assets, ClipBoard clipBoard,  TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
         this.gameAssets = assets;
         this.world = world;
         this.dragAndDrop = dragAndDrop;
@@ -125,6 +122,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         positionComponentMapper = gameComponentMapper.getPositionComponentMapper();
         this.worldObjects = worldObjects;
         this.topMenu = topMenu;
+        this.clipBoard=clipBoard;
 
 
     }
@@ -140,7 +138,6 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         float viewPortHeight = 960;
         mapViewport = new ExtendViewport(viewPortWidth, viewPortHeight, camera);
 
-        this.clipBoard = new ClipBoard(this);
 
         mapEditWindows= new MapEditWindows(this);
 
@@ -211,9 +208,10 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     }
 
 
-            public void runGame(World world, ZRPGPlayer player){
+            public void runGame(World world, Entity player){
+        world.setPlayer(player);
        gameAssets.getMapDraw().changeMap(currentMap);
-        gameAssets.showGame( player);
+        //gameAssets.showGame(world, player );
             }
     public int getxSize() {
         return xSize;
@@ -316,10 +314,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         LandMap map= null;
      return map;
    }
-   public void saveMap(){
-        LandMap map=createMap();
-        map.saveMap();
-   }
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -397,12 +392,12 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         if (object instanceof Entity) {
             Entity entityToPlace = (Entity) object;
 
-            Position position = positionComponentMapper.get(entityToPlace);
+            PositionComponent position = positionComponentMapper.get(entityToPlace);
             position.setMapWorldLocationX(currentMap.getWorldX());
             position.setMapWorldLocationY(currentMap.getWorldX());
-            position.setScreenLocationX(x);
-            position.setScreenLocationY(y);
-            world.addEntity(entityToPlace);
+            position.setLocationX(x);
+            position.setLocationY(y);
+            world.addEntityToWorld(entityToPlace);
             entityToPlaceImage.addAction(Actions.removeActor());
         }
 
@@ -536,11 +531,11 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
                 if (entityToPlaceImage != null) {
                     getUiStage().addActor(entityToPlaceImage);
                 }
-                Position position = positionComponentMapper.get(entityToPlace);
+                PositionComponent position = positionComponentMapper.get(entityToPlace);
                 position.setMapWorldLocationX(currentMap.getWorldX());
                 position.setMapWorldLocationY(currentMap.getWorldX());
-                position.setScreenLocationX(x);
-                position.setScreenLocationY(y);
+                position.setLocationX(x);
+                position.setLocationY(y);
             }
         }
 

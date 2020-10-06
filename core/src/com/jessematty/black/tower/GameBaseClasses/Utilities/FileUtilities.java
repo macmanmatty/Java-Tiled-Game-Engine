@@ -2,6 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
 import com.kotcrab.vis.ui.widget.file.FileUtils;
 
+import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +34,13 @@ public class FileUtilities {
             return  fileSeperator;
 
         }
+
+    public static String getOperatingSystem(){
+        return System.getProperties().getProperty("os.name").toLowerCase();
+    }
         public static ArrayList<File> findFiles(String path) {
+            files.clear();
+            fileNames.clear();
             return  findFilesInternal(path);
         }
         private static  ArrayList<File> findFilesInternal(String path){
@@ -52,10 +60,12 @@ public class FileUtilities {
             }
             return files;
         }
-        public static  ArrayList<File> findFiles(String path, List<String> extensions) {
+        public static  List<File> findFiles(String path, List<String> extensions) {
+            files.clear();
+            fileNames.clear();
             return  findFilesInternal(path, extensions);
         }
-        public  static ArrayList<File> findFilesInternal(String path, List<String> extensions) {
+        private  static List<File> findFilesInternal(String path, List<String> extensions) {
             File folder = new File(path);
             File[] listOfFiles = folder.listFiles((FileFilter) null);
             ArrayList<String> names = new ArrayList<String>();
@@ -75,7 +85,90 @@ public class FileUtilities {
             }
             return files;
         }
-        public static ArrayList<File> findFiles(List<File> filesToSearch) {
+    public static  List<File> findFiles(List<File> filesToSearch) {
+        files.clear();
+        fileNames.clear();
+        return  findFilesInternal(filesToSearch);
+    }
+
+
+
+    public static  List<File>  actOnFiles(List<File> files, FileAction fileAction) {
+        files.clear();
+        fileNames.clear();
+     return actOnFilesInternal( files, fileAction);
+    }
+
+    public static  List<File> actOnFiles(String path, FileAction fileAction) {
+        files.clear();
+        fileNames.clear();
+        return  actOnFilesInternal(path, fileAction);
+    }
+
+    private static  List<File> actOnFilesInternal(String path, FileAction fileAction){ // gets all assetts names used as strings in WoodWand selceted directory with given path
+
+        File folder= new File(path);
+        File [] listOfFiles=folder.listFiles((FileFilter) null);
+        ArrayList<String> names= new ArrayList<String>();
+
+        int size=listOfFiles.length;
+        for (int count = 0; count < size; count++) {
+            if(!(listOfFiles[count].getName().charAt(0)==exclude)) {
+                File file=listOfFiles[count];
+                if (file.isFile()) {
+                    files.add(file);
+                    fileNames.add(file.getName());
+                    try {
+                        fileAction.act(file);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (file.isDirectory()) {
+
+
+                    actOnFilesInternal(file.getPath(), fileAction);
+
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+        return files;
+
+    }
+
+
+    private static List<File> actOnFilesInternal(List<File> filesToSearch, FileAction fileAction) {
+        int size=filesToSearch.size();
+        for(int count=0; count<size; count++){
+            File file=filesToSearch.get(count);
+            if(file.isFile()){
+                files.add(file);
+                fileNames.add(file.getName());
+                try {
+                    fileAction.act(file);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(file.isDirectory()){
+                List<File> files= findFilesInternal(file.getAbsolutePath());
+                actOnFilesInternal(files, fileAction);
+            }
+        }
+        return files;
+    }
+
+
+
+
+    public static ArrayList<File> findFilesInternal(List<File> filesToSearch) {
             int size=filesToSearch.size();
             for(int count=0; count<size; count++){
                 File file=filesToSearch.get(count);
@@ -159,28 +252,58 @@ public class FileUtilities {
             return false;
         }
 
-        public static  boolean createDirectories(String path){
-            // creates directories from a path  to a directory returns true if the directory was created or if it allready exists returns false if the
-           // directory was not created  or if the path  is not to a  directory.
-             File file= new File(path);
-             if(!file.isDirectory()){
-                 return false;
-
-             }
-
-
-            if( !file.exists()) {
-                return file.mkdirs();
-            }
-
-            return true;
-
+           public static  boolean createDirectories(String path){
+        // creates directories from a path  to a directory returns true if the directory was created or if it allready exists returns false if the
+        // directory was not created  or if the path  is not to a  directory.
+        File file= new File(path);
+        if(!file.isDirectory()){
+            return false;
 
         }
 
 
+        if( !file.exists()) {
+            return file.mkdirs();
+        }
 
-        public static  boolean isAudioFile(File file) { // checks to see the file extension matches on the  given audio file extensions
+        return true;
+
+
+    }
+
+    public static  File createFile(String path, String fileName){
+        // creates directories from a path  to a directory returns true if the directory was created or if it allready exists returns false if the
+        // directory was not created  or if the path  is not to a  directory.
+        File directory= new File(path);
+
+        if( !directory.exists()) {
+             directory.mkdirs();
+        }
+        String fullPath=path+getFileSeparator()+fileName;
+
+        File file= new File(fullPath);
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (FileExistsException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        return file;
+
+
+
+    }
+
+
+
+
+    public static  boolean isAudioFile(File file) { // checks to see the file extension matches on the  given audio file extensions
             String extension=getExtensionOfFile(file);
             int size= codecExtensions.size();
             for( int count=0; count<size; count++){

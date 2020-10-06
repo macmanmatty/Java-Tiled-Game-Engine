@@ -151,7 +151,7 @@ public class SelfChangeNumericStatsSystem extends GameTimeIntervalSystem {
             // see if groups and actions match
             if (!(statChangeGroups.isEmpty()) && !(changeStatChangeGroups.isEmpty())) {// if stat can be changed
                 groupsMatch = InList.isInList(changeStatChangeGroups, statChangeGroups);
-                actionChange = InList.isInList(action, changeStat.getActionsToChangeOn());
+                actionChange = InList.isInList(changeStat.getActionsToChangeOn(), action);
             }
 
 

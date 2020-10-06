@@ -5,15 +5,15 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Attachable;
+import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.CurseItem;
-import com.jessematty.black.tower.Components.EquipItem;
+import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.OwnedComponent;
-import com.jessematty.black.tower.Components.OwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
+import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class CurseItemSystem extends GameEntitySystem{
@@ -55,8 +55,6 @@ public class CurseItemSystem extends GameEntitySystem{
             Attachable itemAttachable = attachableComponentMapper.get(item);
             itemAttachable.setRemovable(false);
             item.remove(CurseItem.class);
-
-
         }
     }
 

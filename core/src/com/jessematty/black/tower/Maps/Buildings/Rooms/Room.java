@@ -14,19 +14,6 @@ public   abstract  class  Room extends Building {
 	public Room() {
 	}
 
-	public Room(GameAssets assetManager,Skin skin) {
-		super(assetManager, skin);
-	}
-
-	public Room( int xSize, int ySize, GameAssets gameAssets) {
-		super(xSize, ySize, gameAssets);
-	}
-
-	public Room( int xSize, int ySize, GameAssets gameAssets, Skin skin) {
-		super( xSize, ySize, gameAssets, skin);
-	}
-
-
 
 
 

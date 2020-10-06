@@ -5,11 +5,11 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.OwnedComponent;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Root;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Tile;
+import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -18,7 +18,7 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class RootFeedSystem extends GameTimeIntervalSystem {
     private ComponentMapper<Tile> tileComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<Root> rootComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ImmutableArray<Entity> entities;
@@ -44,7 +44,7 @@ public class RootFeedSystem extends GameTimeIntervalSystem {
         for(int count=0; count<size; count++) {
             Entity entity = entities.get(count);
             Root  root= rootComponentMapper.get(entity);
-            Position position=positionComponentMapper.get(entity);
+            PositionComponent position=positionComponentMapper.get(entity);
             LandSquareTile tile=position.getTiles().get(0);
             ChangeStats.changeStats(entity, tile,"capillary" , true,  true, true );
 

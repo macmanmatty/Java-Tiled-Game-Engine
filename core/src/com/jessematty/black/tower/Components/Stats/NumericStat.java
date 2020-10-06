@@ -7,10 +7,9 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
 
 public   class NumericStat extends Stat {
-    protected   double value;
+    protected   double value; // the current stat value
     protected    double minValue;
     protected   double maxValue;
-    protected   boolean canBeNegative;
     protected boolean killWhenZero;// if this true this  stat is watch ed along with anyother stats the entity has with this checked
     // and when they reach zero the entity is killed
     protected    boolean displayMinAndMax =true;
@@ -26,8 +25,18 @@ public   class NumericStat extends Stat {
         super(displayable, name);
         this.value = value;
         this.minValue = minValue;
+
         this.maxValue = maxValue;
     }
+
+    public NumericStat(GameAssets assets, boolean displayable, String name, double value, double minValue, double maxValue) {
+        super(displayable, name);
+        this.value = value;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        createStatBar(assets);
+    }
+
 
 
     public NumericStat(String name) {
@@ -42,10 +51,8 @@ public   class NumericStat extends Stat {
         this.value = other.value;
         this.minValue = other.minValue;
         this.maxValue = other.maxValue;
-        this.canBeNegative = other.canBeNegative;
         this.killWhenZero = other.killWhenZero;
-
-        this.canBeNegative = other.canBeNegative;
+        this.displayMinAndMax=other.displayMinAndMax;
         int size=linkedStatsToChange.size;
         for(int count=0; count<size; count++) {
             linkedStatsToChange.add(new SelfChangableNumericStat(other.linkedStatsToChange.get(count)));
@@ -143,12 +150,7 @@ public   class NumericStat extends Stat {
 
     }
    
-    public boolean isCanBeNegative() {
-        return canBeNegative;
-    }
-    public void setCanBeNegative(boolean canBeNegative) {
-        this.canBeNegative = canBeNegative;
-    }
+
     @Override
     public String toString() {
         if(displayMinAndMax =true) {
@@ -183,7 +185,6 @@ public   class NumericStat extends Stat {
 
     public void setKillWhenZero(boolean killWhenZero) {
         this.killWhenZero = killWhenZero;
-        this.canBeNegative=killWhenZero;
     }
 
     public void subtractValues(NumericStat stat) {

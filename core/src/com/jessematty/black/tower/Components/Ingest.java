@@ -5,15 +5,15 @@ import com.badlogic.ashley.core.Component;
 public class Ingest implements Component {
 
 
-   private  String ingestorid;
+   private  String ingestorID;
 
 
-   public String getIngestorid() {
-      return ingestorid;
+   public String getIngestorID() {
+      return ingestorID;
    }
 
-   public void setIngestorid(String ingestorid) {
-      this.ingestorid = ingestorid;
+   public void setIngestorID(String ingestorID) {
+      this.ingestorID = ingestorID;
    }
 }
 

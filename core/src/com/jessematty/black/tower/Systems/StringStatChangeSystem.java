@@ -16,7 +16,7 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 @Transient
@@ -114,11 +114,11 @@ public class StringStatChangeSystem extends GameEntitySystem{
                     // if stat is randomly changed randomly change between min max values
 
                     if(addStat) {
-                        stat.addTextToStat(changeStat.getText());
+                        stat.addTextToStat(changeStat.getStat());
                     }
                     else{
 
-                        stat.removeTextFromStat(changeStat.getText());
+                        stat.removeTextFromStat(changeStat.getStat());
                     }
 
                     change = true;

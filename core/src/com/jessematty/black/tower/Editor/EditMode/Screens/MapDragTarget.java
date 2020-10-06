@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
-import com.jessematty.black.tower.Components.Position;
-import com.jessematty.black.tower.GameBaseClasses.Generators.Entity.EntityGenerator;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -50,16 +50,16 @@ public class MapDragTarget extends Target {
         if(placeMode == PlaceMode.PLACE){
             Entity entityToPlace = (Entity) mapEditScreen.getClipBoard().getCurrentObject();
             World world= mapEditScreen.getWorld();
-            ComponentMapper<Position> positionComponentMapper= mapEditScreen.getGameComponentMapper().getPositionComponentMapper();
+            ComponentMapper<PositionComponent> positionComponentMapper= mapEditScreen.getGameComponentMapper().getPositionComponentMapper();
 
             if(currentMap!=null) {
                 EntityGenerator.copyEntity(entityToPlace);
-                Position position = positionComponentMapper.get(entityToPlace);
+                PositionComponent position = positionComponentMapper.get(entityToPlace);
                 position.setMapWorldLocationX(currentMap.getWorldX());
                 position.setMapWorldLocationY(currentMap.getWorldX());
-                position.setScreenLocationX(unprojectedScreenCoordinates.x);
-                position.setScreenLocationY(unprojectedScreenCoordinates.y);
-                world.addEntity(entityToPlace);
+                position.setLocationX(unprojectedScreenCoordinates.x);
+                position.setLocationY(unprojectedScreenCoordinates.y);
+                world.addEntityToWorld(entityToPlace);
             }
 
         }

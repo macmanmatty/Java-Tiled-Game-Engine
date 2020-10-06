@@ -34,9 +34,6 @@ public class RestSystem extends GameEntitySystem {
             action.setStat("rest");
             movable.setCurrentSpeed(0);
 
-
-
-
         }
 
 

@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.jessematty.black.tower.Components.Markers.Moved;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Markers.BooleanStatChanged;
 import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
@@ -56,7 +57,9 @@ public class SetEntityStatChangedSystem extends GameEntitySystem {
             else{
                 entity.remove(BooleanStatChanged.class);
             }
+
+            entity.remove(Moved.class);
+
         }
-        super.update(deltaTime);
     }
 }

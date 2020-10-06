@@ -1,6 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.Loaders;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
@@ -14,9 +17,22 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectMap.Values;
+import com.badlogic.gdx.utils.Predicate;
+import com.esotericsoftware.kryo.Kryo;
+import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameSettings;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureAtlasPacker;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Components.AnimatableSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.TiledMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Entity.EntityKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Entity.LandSquareTileKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.BuildingKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.MapKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.WorldKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldReader;
@@ -24,15 +40,17 @@ import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldWriter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.Maps.Buildings.Building;
+import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
-import java.io.File;
+import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+
 public class GameAssets { // class that holds  the assett assetManager and game instance for changing screens
     // loading world  and assetts Never createFromJson anymore than one instance of this.
     private ArrayList<TextureAtlasRegionNames> regionNames= new ArrayList<TextureAtlasRegionNames>();
@@ -46,12 +64,23 @@ public class GameAssets { // class that holds  the assett assetManager and game 
     private JsonLoader jsonLoader= new JsonLoader();
     private ObjectMap<String , NamedScreen> screens= new ObjectMap<>();
     private TextureAtlasPacker textureAtlasPacker= new TextureAtlasPacker();
+    private GameSettings settings= new GameSettings();
+    private final Kryo kryo= new Kryo();
     public GameAssets(Game game){
          assetManager = new AssetManager();
         this.game = game;
+
      }
      public void setup(){
          this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
+         kryo.register(TiledMap.class, new TiledMapSerializer(true, this));
+         kryo.register(Entity.class,  new EntityKryoSerializer(this));
+         kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
+         kryo.register(AnimatableComponent.class, new AnimatableSerializer(this));
+        kryo.register(World.class, new WorldKryoSerializer(this));
+       kryo.register(LandMap.class, new MapKryoSerializer(this));
+        kryo.register(Building.class, new BuildingKryoSerializer(this));
+
      }
     public void showPreviousScreen(){ // changes the screen back to the screen that was displayed before
        game.setScreen(previousScreen);
@@ -62,14 +91,14 @@ public class GameAssets { // class that holds  the assett assetManager and game 
         regionNames.addAll(Arrays.asList(names));
         return regionNames;
     }
-    public World loadGame(String path) throws MapLoadingExeception { // deserlalizies  the world game object
-        com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldReader worldReader= new WorldReader(this);
-        setWorld(world);
+    public World loadGame(String path) throws MapLoadingExeception, LoadingException { // deserlalizies  the world game object
+       WorldReader worldReader= new WorldReader(this);
+        world=worldReader.loadWorld(path);
         return world;
  }
  public Skin loadInternalSkin(String skinName, String atlasName){ // loads a skin  with given name and texture atlas
      TextureAtlas atlas = new TextureAtlas("skins/"+atlasName+".atlas");
-     Skin skin= new Skin (Gdx.files.internal("skins/"+skinName+".json"), atlas);
+     NamedSkin skin= new NamedSkin (Gdx.files.internal("skins/"+skinName+".json"), atlas);
    assetManager.load("skins/"+skinName+".json", Skin.class, new SkinLoader.SkinParameter("skins/"+atlasName+".atlas"));
    return skin;
  }
@@ -88,15 +117,15 @@ public class GameAssets { // class that holds  the assett assetManager and game 
     assetManager.load(fullSkinPath, Skin.class, new SkinLoader.SkinParameter(fullAtlasPath));
     return skin;
 }
- public  Skin getSkin(String name){
-     Skin skin= assetManager.get(name, Skin.class)  ;
+ public Skin getSkin(String name){
+  Skin skin= assetManager.get(name, Skin.class)  ;
      return skin;
  }
 
 
 
     public void saveGame(World world, String path){ // serailizes  a game world instance  using binary serialaztion
-        new WorldWriter(this, world).saveWorld(path);
+        new WorldWriter(this).saveWorld(world, path);
     }
     public AtlasRegion getBitMaskedAtlasRegion (String atlasName, String kind, int bitmaskNumber, float setNumber) { // returns WoodWand texture region based on  which set and bitmask numer is used and set number
         String index= kind+ bitmaskNumber+","+setNumber;
@@ -121,6 +150,9 @@ public class GameAssets { // class that holds  the assett assetManager and game 
 
          }
     }
+
+
+    // get a region from the current loaded texture  atlas
     public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
         return   new AtlasNamedAtlasRegion(currentAtlas.findRegion(atlasRegionName));
     }
@@ -130,44 +162,7 @@ public class GameAssets { // class that holds  the assett assetManager and game 
     public AssetManager getAssetManager() {
         return assetManager;
     }
-   public Texture loadTextureFromFile(){ // loads WoodWand texture froma file
-        File image=null;
-        Texture texture=null;
-        JFrame frame = new JFrame();
-        JFileChooser chooser= new JFileChooser();
-        frame.add(chooser);
-        frame.toFront();
-        frame.setVisible(true);
-        File file=chooser.getSelectedFile();
-        String path=file.getPath();
-        String extension= getExtensionOfFile(file);
-        if(extension.equalsIgnoreCase("png")) {
-            assetManager.load(path, Texture.class);
-        }
-else if(extension.equalsIgnoreCase("atlas") ){
-           assetManager.load(path, TextureAtlas.class);
-       }
-       return texture;
-    }
-public TiledMap loadTMXMapFromFile() { // loads WoodWand tiled landSquareTileMap from WoodWand file
-    File image = null;
-    Texture texture = null;
-    JFrame frame = new JFrame();
-    JFileChooser chooser = new JFileChooser();
-    frame.add(chooser);
-    frame.toFront();
-    frame.setVisible(true);
-    File file = chooser.getSelectedFile();
-    String path = file.getPath();
-    String extension = getExtensionOfFile(file);
-    if (extension.equalsIgnoreCase("tmx")) {
-         TiledMap map = new TmxMapLoader().load(path);
-         assetManager.load(path, TiledMap.class);
-        assetManager.finishLoading();
-        return map;
-    }
-return null;
-}
+
     public TiledMap loadExternalTMXMap(String path) { // loads tiles TMXTileMap froma given name
         TiledMap map = new TmxMapLoader().load(path);
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -232,20 +227,7 @@ return null;
         }
        return  atlas;
     }
-    public void splitTexture(int width, int height, Texture texture, String atlasName, String textureName){
-         AtlasRegion region = new AtlasRegion(texture, 0, 0 , texture.getWidth(), texture.getHeight());
-       AtlasRegion [] []regionSplit= (AtlasRegion[][]) region.split(width, height);
-       int xsize=regionSplit.length;
-       int ysize=regionSplit[0].length;
-       for (int countx=0; countx<xsize; countx++){
-           for (int county=0; county<ysize; county++){
-               addAtlasRegionToAtlas(regionSplit[countx][county], textureName+"."+countx+"."+county,atlasName );
-           }
-           }
-    }
-    public void saveAssettNames(TextureAtlasRegionNames name , String path){
-        jsonLoader.writeObjectToFile(name, path,  false);
-    }
+
     public TextureAtlasRegionNames getAssettNames(  String path) {
         TextureAtlasRegionNames names = jsonLoader.loadObject(TextureAtlasRegionNames.class, path);
         return names;
@@ -262,18 +244,6 @@ return null;
             game.setScreen(screen);
         }
     }
-    public  String getExtensionOfFile(File file) // returns the extension of given file like .png or .tmx ECT.
-        {
-        String fileExtension="";
-        // Get file Name first
-        String fileName=file.getName();
-        // If fileName do not contain "." or starts with "." then it is not a  valid file
-        if(fileName.contains(".") && fileName.lastIndexOf(".")!= 0)
-        {
-        fileExtension=fileName.substring(fileName.lastIndexOf(".")+1);
-        }
-        return fileExtension;
-        }
           public <T> T  loadObject(String filePath, Class<T> thingClass){
         T object= jsonLoader.loadObject(thingClass, filePath);
         return  object;
@@ -301,29 +271,39 @@ return null;
     public void dispose(){
         assetManager.dispose();
         previousScreen.dispose();
+        currentAtlas.dispose();
+        mapDraw.dispose();
+        Values<NamedScreen> namedScreens=screens.values();
+        while(namedScreens.hasNext()){
+            NamedScreen screen= (NamedScreen) namedScreens.next();
+            screen.dispose();
+        }
         game.dispose();
     }
     public World getWorld() {
         return world;
     }
-    public void setWorld(World world) {
-        this.world = world;
-        this.mapDraw= new MapDraw( this,world, true);
-        //this.currentAtlas= loadTextureAtlasByPath(world.getTextureAtlasPath());
-    }
+
     public void saveTextureAtlas( String path,  NamedTextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
             textureAtlasPacker.packAtlas(path, atlas.getAtlasFileName(), atlas, pageWidth, pageHeight, padding);
     }
-    public void showGame( ZRPGPlayer player){
-        mapDraw.setPlayer(player);
-        game.setScreen(mapDraw);
+    public void setWorld(World world){
+
+        this.world = world;
+        this.mapDraw= new MapDraw( this,world, true);
+        mapDraw.setPlayer(new ZRPGPlayer(world, world.getPlayer()));
     }
+
+    public void showGame(){
+        game.setScreen(mapDraw);
+
+    }
+
+
     public Skin getDefaultSkin() {
         return skin;
     }
-    public static String getOperatingSystem(){
-        return System.getProperties().getProperty("os.name").toLowerCase();
-    }
+
     public MapDraw getMapDraw() {
         return mapDraw;
     }
@@ -333,5 +313,18 @@ return null;
     public void exit() {
         dispose();
         System.exit(0);
+    }
+
+
+    public GameSettings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(GameSettings settings) {
+        this.settings = settings;
+    }
+
+    public Kryo getKryo() {
+        return kryo;
     }
 }

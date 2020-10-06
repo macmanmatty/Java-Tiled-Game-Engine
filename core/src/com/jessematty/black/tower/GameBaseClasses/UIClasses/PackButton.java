@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 
 
@@ -116,10 +116,10 @@ public class PackButton extends TextButton {
                 addListener(new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						Position position=player.getPosition();
+						PositionComponent position=player.getPosition();
 
 						Window window=new ObjectInfo(assetts).displayInfo( player,item, new Skin(), "");
-                        assetts.getMapDraw().addWindow(window, position.getScreenLocationX(), position.getScreenLocationY());
+                        assetts.getMapDraw().addWindow(window, position.getLocationX(), position.getLocationY());
 
 
 

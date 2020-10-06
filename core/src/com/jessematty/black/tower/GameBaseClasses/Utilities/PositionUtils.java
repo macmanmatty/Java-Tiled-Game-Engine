@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.Maps.World;
 
@@ -11,12 +11,12 @@ public class PositionUtils {
     private  PositionUtils() {
     }
 
-    public static Vector2 getFacingEdge(Position  position){
+    public static Vector2 getFacingEdge(PositionComponent position){
         float x=0;
         float y=0;
          Direction direction=position.getDirection();
-         float screenLocationY=position.getScreenLocationY();
-         float screenLocationX=position.getScreenLocationX();
+         float screenLocationY=position.getLocationY();
+         float screenLocationX=position.getLocationX();
          Rectangle boundingBox=position.getBoundsBoundingRectangle();
 
         switch (direction){
@@ -63,12 +63,12 @@ public class PositionUtils {
     }
 
 
-    public Position getStartingPosition(World world, Position creatingEntityPosition, Position createdEntityPosition,  Direction direction){
+    public PositionComponent getStartingPosition(World world, PositionComponent creatingEntityPosition, PositionComponent createdEntityPosition, Direction direction){
 
 
         Rectangle parentEntityBounds=creatingEntityPosition.getBoundsBoundingRectangle();
-        float parentEntityScreenLocationX=creatingEntityPosition.getScreenLocationX();
-        float parentEntityScreenLocationY=creatingEntityPosition.getScreenLocationY();
+        float parentEntityScreenLocationX=creatingEntityPosition.getLocationX();
+        float parentEntityScreenLocationY=creatingEntityPosition.getLocationY();
         float parentEntityHeight=creatingEntityPosition.getHeight();
         float parentEntityHeightFromGround=creatingEntityPosition.getHeightFromGround();
         return createdEntityPosition;

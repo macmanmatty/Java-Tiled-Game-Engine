@@ -1,11 +1,10 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosebleWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 
-public  abstract class EditWindow extends ClosebleWindow{
+public  abstract class EditWindow extends ClosableWindow {
 
     protected final Skin skin;
     protected final EditScreen editScreen;

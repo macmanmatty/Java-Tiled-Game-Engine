@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
@@ -144,7 +145,7 @@ import javax.swing.SwingUtilities;
                                     String path=getSelectedFile().getAbsolutePath();
                                     try {
                                         maps= assetts.loadGame(path);
-                                    } catch (MapLoadingExeception mapLoadingExeception) {
+                                    } catch (MapLoadingExeception | LoadingException mapLoadingExeception) {
                                         mapLoadingExeception.printStackTrace();
                                     }
 

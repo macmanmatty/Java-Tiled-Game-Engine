@@ -6,7 +6,6 @@ import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 
 public class BasicHouse extends Shop {
         public BasicHouse(GameAssets spiritSheet, Skin skin) {
-            super(spiritSheet,   skin);
         }
 
 

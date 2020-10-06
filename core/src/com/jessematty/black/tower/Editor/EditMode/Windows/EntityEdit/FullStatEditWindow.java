@@ -80,7 +80,7 @@ public   class FullStatEditWindow extends MapEditWindow {
             makeTileWeatherChangeableNumericStat();
         }
 
-        if(stat instanceof  BooleanStat){
+        if(stat instanceof BooleanStat){
             makeBooleanStatWindow();
         }
 

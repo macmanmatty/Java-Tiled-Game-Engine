@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.World;
 import com.kotcrab.vis.ui.VisUI;
 import java.io.File;

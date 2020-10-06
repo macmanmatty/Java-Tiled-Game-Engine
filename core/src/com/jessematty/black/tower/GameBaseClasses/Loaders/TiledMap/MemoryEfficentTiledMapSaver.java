@@ -12,11 +12,10 @@ import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 
-public class MemoryEfficentTiledMapSaver {
+public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
    protected  int [] [] [] cells; // the saved tiled map cells
     protected int layers; // number of map layers
    protected String [] layerNames; // the names of the layers
-    protected transient GameAssets assetts;
     protected MapProperties mapProperties = new  MapProperties();
     protected  Array<CellSaver> uniqueCells= new Array<>();
 
@@ -24,9 +23,7 @@ public class MemoryEfficentTiledMapSaver {
 
     public MemoryEfficentTiledMapSaver() {
     }
-    public MemoryEfficentTiledMapSaver(GameAssets assetts) {
-        this.assetts = assetts;
-    }
+
     public TiledMap loadMap( GameAssets assetts){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
@@ -77,7 +74,7 @@ public class MemoryEfficentTiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap, String path, String atlasName){
+    public void saveMap(TiledMap tiledMap, String atlasName){
         this. mapProperties=tiledMap.getProperties();
         this.mapProperties.put("atlasName", atlasName);
         int xSize=mapProperties.get("width", Integer.class);
@@ -103,14 +100,18 @@ public class MemoryEfficentTiledMapSaver {
                             AtlasStaticTiledMapTile tile2 = (AtlasStaticTiledMapTile) tile;
                             saver.setRegionNames(tile2.getNames());
                             saver.setColor(tile2.getColor());
+                            saver.setTileClass(AtlasStaticTiledMapTile.class);
                         } else if (tileClass.equals(AtlasAnimatedTiledMapTile.class)) {
                             AtlasAnimatedTiledMapTile tile2 = (AtlasAnimatedTiledMapTile) tile;
                             saver.setAnimated(true);
                             saver.setRegionNames((tile2.getNames()));
                             saver.setColor(tile2.getColor());
+                            saver.setTileClass(AtlasAnimatedTiledMapTile.class);
+
+
                         }
 
-                        if(!InList.isInList(saver, uniqueCells)){
+                        if(!InList.isInList(uniqueCells, saver)){
                             uniqueCells.add(saver);
                         }
 
@@ -122,7 +123,6 @@ public class MemoryEfficentTiledMapSaver {
                 }
             }
         }
-        assetts.saveObject(this, path, false);
     }
 
    CellSaver getCellSaver( Array<CellSaver> cellSaverArray, int hashCode){

@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.World.WorldObjects;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
@@ -32,7 +33,7 @@ public  class BuildingEditScreen extends MapEditScreen {
     ArrayList<EnterenceSquareTile> buildingOutdoorEnterenceTiles= new ArrayList<EnterenceSquareTile>();
     TextButton addEnterence;
 
-    public BuildingEditScreen(GameAssets assets, TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
-        super(assets, topMenu, dragAndDrop, keyListener, skin, world, worldObjects);
+    public BuildingEditScreen(GameAssets assets, ClipBoard clipBoard, TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
+        super(assets, clipBoard, topMenu, dragAndDrop, keyListener, skin, world, worldObjects);
     }
 }

@@ -3,12 +3,12 @@ package com.jessematty.black.tower.Systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Holder;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
-import com.jessematty.black.tower.Components.PhysicalObject;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class RemoveItemFromPack extends GameEntitySystem {
@@ -16,8 +16,8 @@ public class RemoveItemFromPack extends GameEntitySystem {
 
     private Pack pack;
     private Entity itemToGet;
-    private PhysicalObject object;
-    private Position position;
+    private PhysicalObjectComponent object;
+    private PositionComponent position;
     private Item item;
     private  int  counter;
     private Holder holder;

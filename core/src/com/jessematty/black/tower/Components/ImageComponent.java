@@ -1,11 +1,9 @@
 package com.jessematty.black.tower.Components;
 
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
 
 public class ImageComponent implements SerializableComponet {
    private transient Image image;
@@ -67,11 +65,13 @@ public class ImageComponent implements SerializableComponet {
 
     @Override
     public void deSerialize(GameAssets assets) {
-        AtlasNamedAtlasRegion atlasNamedAtlasRegion=assets.getAtlasRegionByName(imageName, atlasName);
+        if(imageName!=null && !imageName.isEmpty()) {
+            AtlasNamedAtlasRegion atlasNamedAtlasRegion = assets.getAtlasRegionByName(imageName, atlasName);
 
-        this.image=new Image(atlasNamedAtlasRegion);
-        this.atlasRegion=atlasNamedAtlasRegion;
+            this.image = new Image(atlasNamedAtlasRegion);
+            this.atlasRegion = atlasNamedAtlasRegion;
 
+        }
 
     }
 

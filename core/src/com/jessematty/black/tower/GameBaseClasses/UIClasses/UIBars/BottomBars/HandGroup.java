@@ -15,12 +15,12 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ActionButton;
 
-public class HandGroup {
+public class HandGroup extends HorizontalGroup {
 
-    private HorizontalGroup horizontalGroup = new HorizontalGroup();
     private Skin skin;
     private GameComponentMapper gameComponentMapper;
     private MapDraw draw;
+    private float fontScale =.6f;
 
 
     public HandGroup(MapDraw draw) {
@@ -31,23 +31,27 @@ public class HandGroup {
     }
 
     public   void update(Skin skin, Entity heldItem){
-       horizontalGroup.clear();
+      clear();
        this.skin = skin;
        if(heldItem!=null) {
            ComponentMapper<Name> nameComponentMapper = gameComponentMapper.getNameComponentMapper();
            ComponentMapper<ActionComponents> actionComponentsComponentMapper = gameComponentMapper.getActionComponentsComponentMapper();
            ComponentMapper<ImageComponent> imageComponentComponentMapper = gameComponentMapper.getImageComponentMapper();
-           String itemName = nameComponentMapper.get(heldItem).getText();
-           Label nameLabel = new Label("Left Hand: " + itemName, skin);
-           horizontalGroup.addActor(nameLabel);
-           Image image=imageComponentComponentMapper.get(heldItem).getImage();
-           horizontalGroup.addActor(image);
+           String itemName = nameComponentMapper.get(heldItem).getStat();
+           Label nameLabel = new Label(" Hand: " + itemName, skin);
+           nameLabel.setFontScale(fontScale);
+           addActor(nameLabel);
+           Image image = imageComponentComponentMapper.get(heldItem).getImage();
+           if (image != null){
+               addActor(image);
+       }
+
            Array<ActionComponent> actionComponents=actionComponentsComponentMapper.get(heldItem).getActionComponents();
            int size=actionComponents.size;
            for(int count=0; count<size; count++){
                ActionComponent actionComponent=actionComponents.get(count);
-               ActionButton actionButton= new ActionButton(actionComponent, heldItem);
-               horizontalGroup.addActor(actionButton);
+               //ActionButton actionButton= new ActionButton(actionComponent, heldItem);
+              // addActor(actionButton);
 
            }
 
@@ -56,13 +60,19 @@ public class HandGroup {
        else{
 
            Label nameLabel = new Label("Left Hand: " , skin);
-           horizontalGroup.addActor(nameLabel);
+          addActor(nameLabel);
+           nameLabel.setFontScale(fontScale);
+
 
        }
 
    }
 
-    public HorizontalGroup getHorizontalGroup() {
-        return horizontalGroup;
+    public float getFontScale() {
+        return fontScale;
+    }
+
+    public void setFontScale(float fontScale) {
+        this.fontScale = fontScale;
     }
 }

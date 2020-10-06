@@ -43,7 +43,7 @@ public class ChangableStringStat extends StringStat {
 
     @Override
     public String toString() {
-        return name+": "+getText();
+        return name+": "+ getStat();
     }
 
 

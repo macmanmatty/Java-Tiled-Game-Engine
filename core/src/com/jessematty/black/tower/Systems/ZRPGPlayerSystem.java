@@ -6,13 +6,17 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
-import com.jessematty.black.tower.Components.Attachable;
-import com.jessematty.black.tower.Components.Holdable;
+import com.jessematty.black.tower.Components.AttachEntity.Attachable;
+import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.Ingestable;
 import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.Loadable;
+import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.Readable;
 import com.jessematty.black.tower.Components.Shootable;
@@ -25,15 +29,13 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameInputKeys;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Actors.ZRPGActors;
 
 
 public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcessor {
-
-
-
     private ZRPGPlayer player;
-   private GameInputKeys gameInputKeys = new GameInputKeys();
-   private int handNumber;
+   private GameInputKeys gameInputKeys;
+   private int handNumber=1;
    private Entity [] items= new Entity[2];
    private ComponentMapper<Thrustable > thrustableComponentMapper;
    private ComponentMapper<Ingestable> ingestableComponentMapper;
@@ -47,14 +49,20 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
    private ComponentMapper<Holdable> holdableComponentMapper;
    private ComponentMapper<Attachable> attachableComponentMapper;
    private ZRPGPlayerFunctions playerFunctions;
+   private ZRPGActors zrpgActors;
+
+   private Vector3 target;
     public ZRPGPlayerSystem(MapDraw draw) {
         super(draw);
+        this.gameInputKeys=draw.getAssetts().getSettings().getGameInputKeys();
+        zrpgActors=new ZRPGActors(draw);
+
+
     }
 
 
     @Override
     public void addedToEngine(Engine engine) {
-
         GameComponentMapper gameComponentMapper=getGameComponentMapper();
         slashableComponentMapper=gameComponentMapper.getSlashableComponentMapper();
         shootableComponentMapper=gameComponentMapper.getShootableComponentMapper();
@@ -80,7 +88,6 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
     @Override
     public boolean keyDown(int keycode) {
-        
 
 
         if (keycode == gameInputKeys.getMoveRightKey()&& player.getAction().isActing()==false   ) {
@@ -124,40 +131,45 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
 
 
-        } else if (keycode == gameInputKeys.getAttackKey() && player.getAction().isActing()==false) {
-
-
-
-
-
-        } else if (keycode == gameInputKeys.getEatKey() && player.getAction().isActing()==false) {
+        }
+        else if (keycode == gameInputKeys.getEatKey() && player.getAction().isActing()==false) {
 
 
            playerFunctions.eatItem(player.getHandToUse());
 
-        } else if (keycode == gameInputKeys.getChangeAttackModeKey() && player.getAction().isActing()==false) {
-            if(items[handNumber]!=null){
-
-                if(items[handNumber].getComponent(Throwable.class)!=null){
-
-
-                }
-
-
-            }
-
-
-
-        } else if (keycode == gameInputKeys.getThrowKey() && player.getAction().isActing()==false) {
+        }
+        else if (keycode == gameInputKeys.getThrowKey() && player.getAction().isActing()==false) {
            playerFunctions.throwItem(player.getHandToUse());
 
         }
-        else if (keycode == gameInputKeys.getChangeHoldPositionKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getSlashKey() && player.getAction().isActing()==false) {
+            playerFunctions.slashItem(handNumber);
+            System.out.println("slashed");
+
+        }
+
+        else if (keycode == gameInputKeys.getThrustKey() && player.getAction().isActing()==false) {
+            playerFunctions.thrustItem(handNumber);
+
+        }
+        else if (keycode == gameInputKeys.getShootKey() && player.getAction().isActing()==false) {
+            playerFunctions.shootItem(handNumber);
+
+        }
+
+
+
+
+
+        else if (keycode == gameInputKeys.getPickUpItemKey() && player.getAction().isActing()==false ) {
+            playerFunctions.pickupItem();
+
 
 
         }
-        else if (keycode == gameInputKeys.getPickUpItemKey() && player.getAction().isActing()==false ) {
-            playerFunctions.pickupItem();
+        else if (keycode == gameInputKeys.getChangeHoldPositionKey() && player.getAction().isActing()==false ) {
+            playerFunctions.changeHoldPosition(handNumber);
+            System.out.println("Hold Position Changed");
 
 
 
@@ -165,33 +177,26 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
 
         else if (keycode == gameInputKeys.getChangeHandNumberKey() && player.getAction().isActing()==false) {
-          playerFunctions.changeHandNumber();
+
+            if(handNumber==1) {
+                handNumber = 0;
+            }
+            else{
+                handNumber=1;
+            }
+            System.out.println("Current Hand Number: "+handNumber);
 
         }
 
-        else if (keycode == Keys.CONTROL_RIGHT) {
+        else if (keycode == gameInputKeys.getIncreaseSpeedKey()) {
             player.getSpeed().addValues(1, 0, 0);
 
 
-        } else if (keycode == Keys.ALT_RIGHT) {
+        } else if (keycode ==gameInputKeys.getDecreaseSpeedKey() ){
             player.getSpeed().addValues(-1, 0, 0);
 
 
         }
-
-
-
-
-         else if (keycode == Keys.Q) {
-
-
-
-
-        } else if (keycode == Keys.B) {
-
-
-        }
-
 
         return true;
     }
@@ -208,7 +213,9 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
     public boolean keyUp(int keycode) {
        if ( gameInputKeys.isAMoveKey(keycode)) {
             player.getPlayerEntity().remove(MovingOnGround.class);
-            player.getAction().setStat("rest");
+           player.getPlayerEntity().remove(Moved.class);
+
+           player.getAction().setStat("rest");
             player.getMovable().setMoved(false);
             System.out.println("Key up!!");
 
@@ -270,7 +277,22 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        return false;
+        Image targetImage=zrpgActors.getTargetImage();
+
+        if(player.getButtonMode()==ZRPGPlayerButtonModes.TARGET){
+            targetImage.setPosition(screenX, screenY);
+            targetImage.setVisible(true);
+
+        }
+        else{
+            targetImage.setVisible(false);
+
+        }
+
+
+
+
+        return  true;
     }
 
     @Override

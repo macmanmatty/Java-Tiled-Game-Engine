@@ -13,9 +13,7 @@ public class ChangeStats {
         entity.add(new StringStatsChangeComponent(entity2, action, addStat));
         if(changeBothEntities) {
             entity2.add(new BooleanStatsChangeComponent(entity, action, addStat2));
-
             entity2.add(new NumericStatsChangeComponent(entity, action, addStat2));
-
             entity2.add(new StringStatsChangeComponent(entity, action, addStat2));
         }
 

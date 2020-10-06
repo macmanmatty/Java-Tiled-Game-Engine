@@ -5,18 +5,18 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Animation.Drawable;
 import com.jessematty.black.tower.Components.Glow;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 @Transient
 public  class GlowSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Drawable> drawableComponentMapper;
     private ComponentMapper<Glow> glowComponentMapper;
-    private ComponentMapper<Position> positions;
+    private ComponentMapper<PositionComponent> positions;
     private RenderSystem renderSystem;
     public GlowSystem(MapDraw draw, RenderSystem system, int priority) {
         super(priority, draw );
@@ -30,11 +30,11 @@ public  class GlowSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(AnimatableComponent.class, Drawable.class, Position.class, Action.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(AnimatableComponent.class, Drawable.class, PositionComponent.class, Action.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Position position=positions.get(entity);
+            PositionComponent position=positions.get(entity);
             Drawable drawable = drawableComponentMapper.get(entity);
             if(getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=getDraw().getCurrentMap()) {
                 drawable.setDraw(false);

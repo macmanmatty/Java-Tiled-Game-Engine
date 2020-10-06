@@ -19,7 +19,7 @@ public class StringStat extends Stat {
     public StringStat() {
     }
 
-    public String getText() {
+    public String getStat() {
 
 
         return stat;
@@ -77,6 +77,8 @@ public class StringStat extends Stat {
     public Stat makeCopy() {
         return  new StringStat(this);
     }
+
+
 
 
 }

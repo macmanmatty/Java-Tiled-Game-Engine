@@ -23,7 +23,7 @@ public class AnimatedTiledMapTileActor  extends ClipBoardActor {
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.setColor(color);
+        batch.setColor(getColor());
        AtlasStaticTiledMapTile tile=frameTiles[currentFrame];
         if(tile!=null) {
             textureRegion =tile.getTextureRegion();

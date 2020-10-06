@@ -26,7 +26,7 @@ public class GameMapEdit {
     public void fill(int locationX, int locationY, LandSquareTile fillTile) {
 
     LandSquareTile landSquareTile = currentMap.getMapSquare(locationX, locationY);
-    String  type = landSquareTile.getComponent(StringStats.class).getStringStat("type").getText();
+    String  type = landSquareTile.getComponent(StringStats.class).getStringStat("type").getStat();
 
     fillCell(locationX, locationY, fillTile, type);
 
@@ -34,7 +34,7 @@ public class GameMapEdit {
 
     public void fillCell(int locationX, int locationY, LandSquareTile fillTile, String type) {
         LandSquareTile landSquareTile = currentMap.getMapSquare(locationX, locationY);
-        String  currentTileType = landSquareTile.getComponent(StringStats.class).getStringStat("type").getText();
+        String  currentTileType = landSquareTile.getComponent(StringStats.class).getStringStat("type").getStat();
 
         if (currentTileType.equalsIgnoreCase(type)) {
             currentMap.getMap()[locationX][locationY]=fillTile;

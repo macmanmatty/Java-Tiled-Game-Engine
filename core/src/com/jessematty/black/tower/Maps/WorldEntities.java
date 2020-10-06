@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Maps;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.GameBaseClasses.Generators.Entity.IEntityGenerator;
+import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 
 public class WorldEntities {
 

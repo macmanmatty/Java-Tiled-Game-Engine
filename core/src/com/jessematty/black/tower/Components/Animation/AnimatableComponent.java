@@ -3,20 +3,23 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-public class AnimatableComponent implements SerializableComponet {
+public class AnimatableComponent implements SerializableComponet{
     //ObjectMap of directions  that links to ObjectMap of actions and ObjectMap integers that links to the animations;
     protected    ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
     protected boolean eightDirections=true;
     protected int currentFrameNumber; // the current animation frame number
     protected String currentAction="rest"; // the current animation action
     protected Direction currentDirection=Direction.UP; // the current animation direction;
-    protected   AtlasRegion staticTexture; // the static texture if not animating
     protected boolean singleImage; // whether or no to animate
     protected  int frameRateCounter=0;
     protected  int currrentFrameRate=1;
@@ -25,7 +28,9 @@ public class AnimatableComponent implements SerializableComponet {
     protected  int currentLayerNumber;
     protected boolean layerChanged;
     protected boolean newlyCreated =true;
-    private AtlasNamedAtlasRegion staticImage;
+    protected String defaultAction="rest";
+
+    private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
         this(true);
     }
@@ -55,20 +60,39 @@ public class AnimatableComponent implements SerializableComponet {
             direction=Direction.getBaseDirection(direction);
         }
 
-        return animations.get(direction.toString()).get(action).getFrames().length;
+        Animation animation=animations.get(direction.toString()).get(action);
+        if(animation!=null) {
+            return animation.getFrames().length;
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
+        }
     }
-    public int getFrameRate(  Direction direction, String action) {
+    public int getFrameRate(Direction direction, String action) {
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
         }
-        return animations.get(direction.toString()).get(action).getFrameRate();
-    }
+        Animation animation=animations.get(direction.toString()).get(action);
+        if(animation!=null) {
+            return animation.getFrameRate();
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
+        }   }
     public Vector2 getScreenOffsets(  Direction direction, String action) {
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
         }
-        return animations.get(direction.toString()).get(action).getOffsets();
-    }
+        Animation animation= animations.get(direction.toString()).get(action);
+        if(animation!=null) {
+            return animation.getOffsets();
+        }
+        else{
+
+            return  new Vector2(0, 0);
+        }      }
     public void setScreenOffset( Direction direction, String action,  float x, float y) {
         animations.get(direction.toString()).get(action).setOffsets(new Vector2(x, y));
     }
@@ -120,8 +144,14 @@ public class AnimatableComponent implements SerializableComponet {
         return currentFrameNumber;
     }
     public NamedColor getCurrentColor(){
-        return animations.get(currentDirection.toString()).get(currentAction).getColor();
-    }
+        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        if(animation!=null) {
+            return animation.getColor();
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getColor();
+        }    }
     public String getCurrentAction() {
         return currentAction;
     }
@@ -135,15 +165,22 @@ public class AnimatableComponent implements SerializableComponet {
     public void setCurrentDirection(Direction currentDirection) {
         this.currentDirection = currentDirection;
     }
-   public  AtlasRegion getCurrentTexture(){
+   public  AtlasNamedAtlasRegion getCurrentTexture(){
         if(singleImage==true) {
             return staticTexture;
         }
 
-        return animations.get(currentDirection.toString()).get(currentAction).getFrames()[currentFrameNumber];
+        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        if(animation!=null) {
+            return animation.getFrames()[currentFrameNumber];
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getFrames()[0];
+        }
     }
     public void nextFrame(){
-        currrentFrameRate=getFrameRate(currentDirection, currentAction);
+        currrentFrameRate= getFrameRate(currentDirection, currentAction);
         if(frameRateCounter%currrentFrameRate==0 && singleImage==false) {
             currentFrameNumber++;
             if (currentFrameNumber >= getCurrentNumberOfFrames()) {
@@ -153,10 +190,38 @@ public class AnimatableComponent implements SerializableComponet {
         frameRateCounter++;
     }
     public   int getCurrentNumberOfFrames(){
-        return animations.get(currentDirection.toString()).get(currentAction).getFrames().length;
-    }
-  public   int getCurrentLayerNumber(){
-      currentLayerNumber=animations.get(currentDirection.toString()).get(currentAction).getLayerNumber();
+        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        if(animation!=null) {
+            return animation.getFrames().length;
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
+        }    }
+
+    public   int getCurrentFrameRate(){
+        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        if(animation!=null) {
+            return animation.getFrameRate();
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
+        }    }
+
+
+
+    public   int getCurrentLayerNumber(){
+     Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+     if(animation!=null) {
+     currentLayerNumber=animation .getLayerNumber();
+     }
+     else{
+
+         currentLayerNumber=0;
+
+     }
+
         if(previousLayerNumber!=currentLayerNumber){
             layerChanged=true;
             previousLayerNumber=currentLayerNumber;
@@ -167,12 +232,19 @@ public class AnimatableComponent implements SerializableComponet {
         return currentLayerNumber;
     }
     public Vector2 getCurrentDrawOffsets(){
-        return   animations.get(currentDirection.toString()).get(currentAction).getOffsets();
+        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        if(animation!=null) {
+            return animation.getOffsets();
+        }
+        else{
+
+            return animations.get(currentDirection.toString()).get(defaultAction).getOffsets();
+        }
     }
-    public AtlasRegion getStaticTexture() {
+    public AtlasNamedAtlasRegion getStaticTexture() {
         return staticTexture;
     }
-    public void setStaticTexture(AtlasRegion staticTexture) {
+    public void setStaticTexture(AtlasNamedAtlasRegion staticTexture) {
         this.staticTexture = staticTexture;
     }
     public boolean isSingleImage() {
@@ -234,11 +306,52 @@ public class AnimatableComponent implements SerializableComponet {
     public void serialize() {
     }
 
-    public AtlasNamedAtlasRegion getStaticImage() {
-        return staticImage;
+
+
+    public String getDefaultAction() {
+        return defaultAction;
     }
 
-    public void setStaticImage(AtlasNamedAtlasRegion staticImage) {
-        this.staticImage = staticImage;
+    public void setDefaultAction(String defaultAction) {
+        this.defaultAction = defaultAction;
     }
+
+    public void setAnimations(ObjectMap<String, ObjectMap<String, Animation>> animations) {
+        this.animations = animations;
+    }
+
+
+
+    public void setEightDirections(boolean eightDirections) {
+        this.eightDirections = eightDirections;
+    }
+
+    public void setCurrentFrameNumber(int currentFrameNumber) {
+        this.currentFrameNumber = currentFrameNumber;
+    }
+
+    public void setFrameRateCounter(int frameRateCounter) {
+        this.frameRateCounter = frameRateCounter;
+    }
+
+    public void setCurrrentFrameRate(int currrentFrameRate) {
+        this.currrentFrameRate = currrentFrameRate;
+    }
+
+    public void setPreviousLayerNumber(int previousLayerNumber) {
+        this.previousLayerNumber = previousLayerNumber;
+    }
+
+    public void setCurrentLayerNumber(int currentLayerNumber) {
+        this.currentLayerNumber = currentLayerNumber;
+    }
+
+    public void setLayerChanged(boolean layerChanged) {
+        this.layerChanged = layerChanged;
+    }
+
+    public void setNewlyCreated(boolean newlyCreated) {
+        this.newlyCreated = newlyCreated;
+    }
+
 }

@@ -50,6 +50,8 @@ public class GameTime {
         }
 
         seasonSet();
+        microSecondCounter++;
+
     }
 
     private void seasonSet() { // sets the squares season based on gameTime
@@ -83,6 +85,10 @@ public class GameTime {
     public float getCurrentNumbersOfHoursLapsedInCurrentDay(){
 
         return hourCounter;
+    }
+
+    public double getGameSeconds() {
+        return gameSeconds;
     }
 
     public Season getSeason() {

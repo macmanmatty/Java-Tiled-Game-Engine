@@ -29,8 +29,6 @@ import com.jessematty.black.tower.Maps.World;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.annotation.W3CDomHandler;
-
 public class PackDisplay {
 private Skin skin;
 private Pack pack;
@@ -52,7 +50,6 @@ private ComponentMapper<Name> nameComponentMapper;
 		nameComponentMapper=gameComponentMapper.getNameComponentMapper();
 		itemImageComponentMapper=gameComponentMapper.getImageComponentMapper();
 		actionComponentsComponentMapper=gameComponentMapper.getActionComponentsComponentMapper();
-		world=gameAssets.getWorld();
 
 
 	}
@@ -70,7 +67,7 @@ private ComponentMapper<Name> nameComponentMapper;
 		ArrayList<Entity>singleItems = new ArrayList<Entity>();
 		int size=matchingItems.size;
 		if (matchingItems.isEmpty()==false){
-		String nameItem1=nameComponentMapper.get(matchingItems.get(0)).getText();
+		String nameItem1=nameComponentMapper.get(matchingItems.get(0)).getStat();
 		singleItems.add(matchingItems.get(0));
 		int itemAmount=1;
 		String nameItem2="";
@@ -95,7 +92,7 @@ private ComponentMapper<Name> nameComponentMapper;
 		Image itemImage=null;
 		for (int count=0; count<size; count++){
 				final Entity item=singleItems.get(count);
-			name=nameComponentMapper.get(item).getText();
+			name=nameComponentMapper.get(item).getStat();
 			 itemLabel=new Label(name, skin);
 			 ImageComponent imageComponentCompenent =itemImageComponentMapper.get(item);
 			 if(imageComponentCompenent !=null){
@@ -168,7 +165,7 @@ private ComponentMapper<Name> nameComponentMapper;
 		HorizontalGroup bottomButtons= new HorizontalGroup();
 		bottomButtons.getChildren().add(exit);
 		window.add(bottomButtons);
-		gameAssets.getMapDraw().addWindow(window,player.getPosition().getScreenLocationX()+100, player.getPosition().getScreenLocationY()+100);
+		gameAssets.getMapDraw().addWindow(window,player.getPosition().getLocationX()+100, player.getPosition().getLocationY()+100);
 		return window;
 	}
 

@@ -9,7 +9,6 @@ public abstract  class ClipBoardActor extends Actor {
 
     protected  float locationX;
     protected  float locationY;
-    protected Color color= NamedColor.WHITE;
     protected float rotation;
     public float getLocationX() {
         return locationX;
@@ -18,21 +17,13 @@ public abstract  class ClipBoardActor extends Actor {
     public void setLocations(float locationX, float locationY) {
         this.locationX = locationX;
         this.locationY=locationY;
+       setColor(NamedColor.WHITE);
     }
 
     public float getLocationY() {
         return locationY;
     }
 
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     public void setLocationX(float locationX) {
         this.locationX = locationX;

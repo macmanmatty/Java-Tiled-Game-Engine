@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Loaders;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.GameBaseClasses.Generators.Entity.LPCGenerator.Animations.LPCAnimation;
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCAnimations;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 
 public class AnimationLoader {
-   private  ObjectMap<String , LPCAnimation> animations= new ObjectMap<>();
+   private  ObjectMap<String , LPCAnimations> animations= new ObjectMap<>();
    private AnimatableComponent animatableComponent;
 
 
@@ -42,9 +42,9 @@ public class AnimationLoader {
 
 
 
-                    LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                    LPCAnimations lpcAnimation = animations.get(nameToKeep);
                     if (lpcAnimation ==null) {
-                        lpcAnimation =new LPCAnimation(nameToKeep);
+                        lpcAnimation =new LPCAnimations(nameToKeep);
                         animations.put(nameToKeep, lpcAnimation);
                         lpcAnimation.hasFemale=true;
                         lpcAnimation.filePath= StringUtils.removeEnd(fullPath, fileName);
@@ -67,9 +67,9 @@ public class AnimationLoader {
 
 
 
-                        LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                        LPCAnimations lpcAnimation = animations.get(nameToKeep);
                         if (lpcAnimation ==null) {
-                            lpcAnimation =new LPCAnimation(nameToKeep);
+                            lpcAnimation =new LPCAnimations(nameToKeep);
                             animations.put(nameToKeep, lpcAnimation);
                             lpcAnimation.hasMale=true;
                             lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -93,9 +93,9 @@ public class AnimationLoader {
 
 
 
-                            LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                            LPCAnimations lpcAnimation = animations.get(nameToKeep);
                             if (lpcAnimation ==null) {
-                                lpcAnimation =new LPCAnimation(nameToKeep);
+                                lpcAnimation =new LPCAnimations(nameToKeep);
                                 animations.put(nameToKeep, lpcAnimation);
                                 lpcAnimation.hasFemale=true;
                                 lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -118,9 +118,9 @@ public class AnimationLoader {
 
 
 
-                                LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                 if (lpcAnimation ==null) {
-                                    lpcAnimation =new LPCAnimation(nameToKeep);
+                                    lpcAnimation =new LPCAnimations(nameToKeep);
                                     animations.put(nameToKeep, lpcAnimation);
                                     lpcAnimation.hasFemale=true;
                                     lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -143,9 +143,9 @@ public class AnimationLoader {
 
 
 
-                                    LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                    LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                     if (lpcAnimation ==null) {
-                                        lpcAnimation =new LPCAnimation(nameToKeep);
+                                        lpcAnimation =new LPCAnimations(nameToKeep);
                                         animations.put(nameToKeep, lpcAnimation);
                                         lpcAnimation.hasFemale=true;
                                         lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -169,9 +169,9 @@ public class AnimationLoader {
 
 
 
-                                        LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                        LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                         if (lpcAnimation ==null) {
-                                            lpcAnimation =new LPCAnimation(nameToKeep);
+                                            lpcAnimation =new LPCAnimations(nameToKeep);
                                             animations.put(nameToKeep, lpcAnimation);
                                             lpcAnimation.hasFemale=true;
                                             lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -191,9 +191,9 @@ public class AnimationLoader {
 
 
 
-                                            LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                            LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                             if (lpcAnimation ==null) {
-                                                lpcAnimation =new LPCAnimation(nameToKeep);
+                                                lpcAnimation =new LPCAnimations(nameToKeep);
                                                 animations.put(nameToKeep, lpcAnimation);
                                                 lpcAnimation.hasFemale=true;
                                                 lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -216,9 +216,9 @@ public class AnimationLoader {
 
 
 
-                                                LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                                LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                                 if (lpcAnimation ==null) {
-                                                    lpcAnimation =new LPCAnimation(nameToKeep);
+                                                    lpcAnimation =new LPCAnimations(nameToKeep);
                                                     animations.put(nameToKeep, lpcAnimation);
                                                     lpcAnimation.hasFemale=true;
                                                     lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -241,9 +241,9 @@ public class AnimationLoader {
 
 
 
-                                                    LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                                    LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                                     if (lpcAnimation ==null) {
-                                                        lpcAnimation =new LPCAnimation(nameToKeep);
+                                                        lpcAnimation =new LPCAnimations(nameToKeep);
                                                         animations.put(nameToKeep, lpcAnimation);
                                                         lpcAnimation.hasFemale=true;
                                                         lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -264,9 +264,9 @@ public class AnimationLoader {
 
 
 
-                                                        LPCAnimation lpcAnimation = animations.get(nameToKeep);
+                                                        LPCAnimations lpcAnimation = animations.get(nameToKeep);
                                                         if (lpcAnimation ==null) {
-                                                            lpcAnimation =new LPCAnimation(nameToKeep);
+                                                            lpcAnimation =new LPCAnimations(nameToKeep);
                                                             animations.put(nameToKeep, lpcAnimation);
                                                             lpcAnimation.hasFemale=true;
                                                             lpcAnimation.filePath=StringUtils.removeEnd(fullPath, fileName);
@@ -314,7 +314,7 @@ public class AnimationLoader {
 
     }
 
-    public void  hasNames(String fullPath, LPCAnimation lpcAnimation, String fileName){
+    public void  hasNames(String fullPath, LPCAnimations lpcAnimation, String fileName){
         if (StringUtils.containsIgnoreCase(fileName, "walk")){
             lpcAnimation.hasWalk=true;
 

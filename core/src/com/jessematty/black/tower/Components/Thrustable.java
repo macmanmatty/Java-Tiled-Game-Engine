@@ -1,15 +1,18 @@
 package com.jessematty.black.tower.Components;
 
+import com.badlogic.gdx.math.Vector2;
+import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 
 public class Thrustable implements ActionableComponent {
 
-    private float distanceMoved;
+    private float distanceMoved=0f;
     private Direction direction;
     private boolean isThrusting;
-    private float thrustSpeed;
+    private float thrustSpeed=3f;
     private float lengthToThrustPerTurn;
-    private float  maxThrustDistance;
+    private Vector2 startPosition= new Vector2();
+    private  float maxDistance;
 
 
     public float getDistanceMoved() {
@@ -52,12 +55,20 @@ public class Thrustable implements ActionableComponent {
         this.lengthToThrustPerTurn = lengthToThrustPerTurn;
     }
 
-    public float getMaxThrustDistance() {
-        return maxThrustDistance;
+    public Vector2 getStartPosition() {
+        return startPosition;
     }
 
-    public void setMaxThrustDistance(float maxThrustDistance) {
-        this.maxThrustDistance = maxThrustDistance;
+    public void setStartPosition(Vector2 startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public float getMaxDistance() {
+        return maxDistance;
+    }
+
+    public void setMaxDistance(float maxDistance) {
+        this.maxDistance = maxDistance;
     }
 }
 

@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.BitMaskable;
 import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 
@@ -15,7 +15,7 @@ public  class BitMaskSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Drawable> drawables;
     private ComponentMapper<BitMaskable> bitmaskables;
-    private ComponentMapper<Position> positions;
+    private ComponentMapper<PositionComponent> positions;
     private BitMask bitMask= new BitMask();
     public BitMaskSystem(MapDraw draw) {
         super(draw);
@@ -30,12 +30,12 @@ public  class BitMaskSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(BitMaskable.class, Drawable.class, Position.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(BitMaskable.class, Drawable.class, PositionComponent.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Position position=positions.get(entity);
+            PositionComponent position=positions.get(entity);
             Drawable drawable =drawables.get(entity);
             BitMaskable bitMaskable=bitmaskables.get(entity);
             int bitNumber=bitMask.eightSideBitMapCalculator(position.getTiles().get(0),entity,  getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()));

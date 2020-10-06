@@ -35,14 +35,6 @@ public class Tavern extends Building {
 
 
 
-
-	public Tavern() {
-	}
-
-	public Tavern(GameAssets assetManager,  Skin skin) {
-		super(assetManager,  skin);
-	}
-
 	public int getMinStats() {
 		return minStats;
 	}

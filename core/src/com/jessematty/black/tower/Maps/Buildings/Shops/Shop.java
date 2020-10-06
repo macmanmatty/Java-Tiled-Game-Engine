@@ -13,15 +13,6 @@ public  class Shop  extends Building {
 	public Shop() {
 	}
 
-	public Shop(GameAssets assetManager,  Skin skin) {
-		super(assetManager,  skin);
-	}
 
-	public Shop(int xSize, int ySize, GameAssets gameAssets) {
-		super( xSize, ySize, gameAssets);
-	}
 
-	public Shop( int xSize, int ySize, GameAssets gameAssets, Skin skin) {
-		super(xSize, ySize, gameAssets, skin);
-	}
 }

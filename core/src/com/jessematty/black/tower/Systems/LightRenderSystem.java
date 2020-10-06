@@ -9,7 +9,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.jessematty.black.tower.Components.Light;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.Comparator;
@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 public  class LightRenderSystem extends SortedIteratingSystem{
     private ComponentMapper<Light> lights;
-    private ComponentMapper<Position> positions;
+    private ComponentMapper<PositionComponent> positions;
     private final  MapDraw mapDraw;
 
 
@@ -57,12 +57,12 @@ public  class LightRenderSystem extends SortedIteratingSystem{
 
             Entity entity=entities.get(count);
             Light light = lights.get(entity);
-                Position position = positions.get(entity);
+                PositionComponent position = positions.get(entity);
 
                 batch.setColor(light.getColor());
                 batch.getShader().setUniformf("bright", light.getBrightness());
-                float positionX = position.getScreenLocationX() + light.getDrawOffsetX();
-                float positionY = position.getScreenLocationY() + light.getDrawOffsetY();
+                float positionX = position.getLocationX() + light.getDrawOffsetX();
+                float positionY = position.getLocationY() + light.getDrawOffsetY();
 
 
 

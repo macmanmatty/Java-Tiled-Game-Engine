@@ -6,31 +6,35 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Rectangle;
+import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
 import com.jessematty.black.tower.Components.Markers.VisibleOnScreen;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 
-public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a flag component for visible onscreen  and adds or removes it based on the players position.
+public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a flag component for visible onscreen  and on current map and adds or removes it based on the players position.
     ImmutableArray<Entity>  entities;
-    private ComponentMapper<Position> positions;
+    private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<VisibleOnScreen> visibleOnScreenComponentMapper;
-    public SetPositionMarkersSystem(MapDraw draw) {
-        super(draw);
+    private ComponentMapper<Action> actionComponentMapper;
+    public SetPositionMarkersSystem(MapDraw draw, int priority) {
+        super( priority, draw);
     }
     @Override
     public void addedToEngine(Engine engine) {
         positions=getGameComponentMapper().getPositionComponentMapper();
         visibleOnScreenComponentMapper=getGameComponentMapper().getVisibleOnScreenComponentMapper();
+        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(Position.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( Action.class, PositionComponent.class).get());
         int size=entities.size();
-        if(getDraw().getPlayer().getMovable().isMoved()==false){// player didn't move no need to calculate anything
+
+        if(getDraw().getPlayer().getMovable().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLaspedInSeconds()>2){// player didn't move no need to calculate anything
             return;
 
         }
@@ -38,7 +42,8 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
         for(int count=0;  count<size; count++ ) {
             Entity entity=entities.get(count);
-            Position position=positions.get(entity);
+            PositionComponent position=positions.get(entity);
+
 
 
             if(MapUtilities.getEntityMap(getWorld(), position).equals(getDraw().getCurrentMap())){
@@ -47,9 +52,10 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
             else{
                 entity.remove(OnCurrentMap.class);
 
+
             }
 
-            Position playerPosition=getDraw().getPlayer().getPosition();
+            PositionComponent playerPosition=getDraw().getPlayer().getPosition();
             double distance= MathUtilities.calculateMinScreenDistance(playerPosition, position);
             float maxScreenSize=Math.max(getDraw().getViewPortWidth(), getDraw().getViewPortHeight())+32;
 

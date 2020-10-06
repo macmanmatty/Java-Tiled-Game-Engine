@@ -6,12 +6,13 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Markers.AnimationFinished;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
+import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.Animation.Drawable;
 import com.jessematty.black.tower.Components.Glow;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.Components.Animation.AnimationState;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -23,7 +24,7 @@ public  class AnimationSystem extends GameEntitySystem {
     private ComponentMapper<Drawable> drawableComponentMapper;
     private ComponentMapper<AnimatableComponent> animatableComponentMapper;
     private ComponentMapper<Action> actionComponentMapper;
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
     private  ComponentMapper<Glow> glowComponentMapper;
     private RenderSystem renderSystem;
     public AnimationSystem(MapDraw draw, RenderSystem system, int priority) {
@@ -40,17 +41,12 @@ public  class AnimationSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(  AnimatableComponent.class, Drawable.class, Position.class, Action.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  AnimatableComponent.class, Drawable.class, PositionComponent.class, Action.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Position position= positionComponentMapper.get(entity);
+            PositionComponent position= positionComponentMapper.get(entity);
             Drawable drawable = drawableComponentMapper.get(entity);
-            if(getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=getDraw().getCurrentMap()) {
-                // not on current map  don't draw or calculate anything realated to drawing
-                drawable.setDraw(false);
-                continue;
-            }
             drawable.setDraw(true);
             AnimatableComponent animatable= animatableComponentMapper.get(entity);
 
@@ -66,7 +62,7 @@ public  class AnimationSystem extends GameEntitySystem {
                 }
 
                 Action action = actionComponentMapper.get(entity);
-                String currentAction=action.getText();
+                String currentAction=action.getStat();
                 action.setAnimationFrames(animatable.getFrames(currentAction, direction));
                 action.setCurrentFrame(animatable.getCurrentFrameNumber());
                 action.setFrameRate(animatable.getFrameRate(direction,currentAction ));
@@ -127,7 +123,7 @@ public  class AnimationSystem extends GameEntitySystem {
 
 
         }
-            drawable.setLayerNumber(position.getScreenLocationY()); //set layer number equal to y position
+            drawable.setLayerNumber(-position.getLocationY()-drawable.getTextureRegion().getRegionHeight()); //set layer number equal to y position
             if(drawable.isLayerChanged() || drawable.isSubLayerChanged()){ // layer changed sort entities before drawing them
                 renderSystem.forceSort();
             }

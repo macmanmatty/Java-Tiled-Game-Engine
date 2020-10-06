@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.TiledMapTileChangable;
+import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -26,25 +27,18 @@ public class BitMask {
     int [] [] bitValues = new int [3][3];
     int [] [] fourBitValues = new int [3][3];
     int  [] [] bitValuesTile2= new int [3][3];
-    int [] eightBitMaskValues = new int [16];
-ArrayList<Integer> trimValues  = new ArrayList <Integer>();
+    int [] eightBitMaskPartialWangValues = new int [16];
+    int [] eightBitMaskPartialWangValuesNoDiagonals = new int [14];
+    int [] eightBitMaskWangValues = new int [32];
+
+    ArrayList<Integer> bitmaskValues = new ArrayList <Integer>();
+
     public BitMask(){
-        trimValues.add(0);
-        trimValues.add(1);
-        trimValues.add(2);
-        trimValues.add(4);
-        trimValues.add(7);
-        trimValues.add(3);
-        trimValues.add(6);
-        trimValues.add(8);
-        trimValues.add(16);
-        trimValues.add(32);
-        trimValues.add(64);
-        trimValues.add(128);
-        trimValues.add(224);
-        trimValues.add(7);
-        trimValues.add(41);
-        trimValues.add(148);
+
+
+
+
+
         bitValues[0][0]=1;
         bitValues[1][0]=2;
         bitValues[2][0]=4;
@@ -70,24 +64,76 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
         fourBitValues[0][2]=0;
         fourBitValues[1][2]=8;
         fourBitValues[2][2]=0;
-        eightBitMaskValues[0]=0;
-        eightBitMaskValues[1]=11;
-        eightBitMaskValues[2]=22;
-        eightBitMaskValues[3]=31;
-        eightBitMaskValues[4]=104;
-        eightBitMaskValues[5]=107;
-        eightBitMaskValues[6]=126;
-        eightBitMaskValues[7]=127;
-        eightBitMaskValues[8]=208;
-        eightBitMaskValues[9]=214;
-        eightBitMaskValues[10]=219;
-        eightBitMaskValues[11]=223;
-        eightBitMaskValues[12]=248;
-        eightBitMaskValues[13]=251;
-        eightBitMaskValues[14]=254;
-        eightBitMaskValues[15]=255;
+        eightBitMaskPartialWangValues[0]=0;
+        eightBitMaskPartialWangValues[1]=11;
+        eightBitMaskPartialWangValues[2]=22;
+        eightBitMaskPartialWangValues[3]=31;
+        eightBitMaskPartialWangValues[4]=104;
+        eightBitMaskPartialWangValues[5]=107;
+        eightBitMaskPartialWangValues[6]=126;
+        eightBitMaskPartialWangValues[7]=127;
+        eightBitMaskPartialWangValues[8]=208;
+        eightBitMaskPartialWangValues[9]=214;
+        eightBitMaskPartialWangValues[10]=219;
+        eightBitMaskPartialWangValues[11]=223;
+        eightBitMaskPartialWangValues[12]=248;
+        eightBitMaskPartialWangValues[13]=251;
+        eightBitMaskPartialWangValues[14]=254;
+        eightBitMaskPartialWangValues[15]=255;
+
+        eightBitMaskPartialWangValuesNoDiagonals[0]=0;
+        eightBitMaskPartialWangValuesNoDiagonals[1]=11;
+        eightBitMaskPartialWangValuesNoDiagonals[2]=22;
+        eightBitMaskPartialWangValuesNoDiagonals[3]=31;
+        eightBitMaskPartialWangValuesNoDiagonals[4]=104;
+        eightBitMaskPartialWangValuesNoDiagonals[5]=107;
+        eightBitMaskPartialWangValuesNoDiagonals[6]=127;
+        eightBitMaskPartialWangValuesNoDiagonals[7]=208;
+        eightBitMaskPartialWangValuesNoDiagonals[8]=214;
+        eightBitMaskPartialWangValuesNoDiagonals[9]=223;
+        eightBitMaskPartialWangValuesNoDiagonals[10]=248;
+        eightBitMaskPartialWangValuesNoDiagonals[11]=251;
+        eightBitMaskPartialWangValuesNoDiagonals[12]=254;
+        eightBitMaskPartialWangValuesNoDiagonals[13]=255;
+
+
+
+        eightBitMaskWangValues[0]=0;
+        eightBitMaskWangValues[1]=2;
+        eightBitMaskWangValues[2]=8;
+        eightBitMaskWangValues[3]=10;
+        eightBitMaskWangValues[4]=11;
+        eightBitMaskWangValues[5]=16;
+        eightBitMaskWangValues[6]=18;
+        eightBitMaskWangValues[7]=127;
+        eightBitMaskWangValues[8]=22;
+        eightBitMaskWangValues[9]=24;
+        eightBitMaskWangValues[10]=26;
+        eightBitMaskWangValues[11]=31;
+        eightBitMaskWangValues[12]=64;
+        eightBitMaskWangValues[13]=66;
+        eightBitMaskWangValues[14]=72;
+        eightBitMaskWangValues[15]=74;
+        eightBitMaskWangValues[16]=80;
+        eightBitMaskWangValues[17]=82;
+        eightBitMaskWangValues[18]=88;
+        eightBitMaskWangValues[19]=90;
+        eightBitMaskWangValues[20]=104;
+        eightBitMaskWangValues[21]=107;
+        eightBitMaskWangValues[22]=126;
+        eightBitMaskWangValues[23]=127;
+        eightBitMaskWangValues[24]=208;
+        eightBitMaskWangValues[25]=214;
+        eightBitMaskWangValues[26]=219;
+        eightBitMaskWangValues[27]=223;
+        eightBitMaskWangValues[28]=248;
+        eightBitMaskWangValues[29]=251;
+        eightBitMaskWangValues[30]=254;
+        eightBitMaskWangValues[31]=255;
+        
+
     }
-    public int [] [] makeTrimmedHeightTileBitMap(ArrayList<Integer> numbers , int [] [] map) { // makes a bit map  with tiles containing only the 16 bit
+    public int [] [] makeTrimmedHeightTileBitMap(Array<Integer> numbers , int [] [] map, MaskMode maskMode) { // makes a bit map  with tiles containing only the 16 bit
         // mask values listed in the eight bit values int array.
         int xSize=map.length;
         int ySize=map[0].length;
@@ -97,11 +143,11 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
             boolean trimmedSomthing = false;
             for (int countx = 0; countx < xSize; countx++) {
                 for (int county = 0; county < ySize; county++) {
-                    int size2 = numbers.size();
+                    int size2 = numbers.size;
                     for (int count = 0; count < size2; count++) {
                         if (map[countx][county] == numbers.get(count)) {
                             int bit=eightSideBitMapCalculator(numbers.get(count), countx, county, map); //get mask value
-                            boolean trimmedTile = trimTile(bit); // if tiles bit value not in the list it was trimmed
+                            boolean trimmedTile = trimTile(bit, maskMode); // if tiles bit value not in the list it was trimmed
                             if (trimmedTile == true) {
                                 map[countx][county]--; // make layer number lower  as tile has been cut out .
                                 if (trimmedSomthing == false) {
@@ -119,7 +165,7 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
         }
         return bitNumberMap;
     }
-    public int [] [] makeTrimmedTileBitMap(ArrayList<Integer> numbers , int [] [] map) { // makes a bit map  with tiles containing only the 16 bit
+    public int [] [] makeTrimmedTileBitMap(ArrayList<Integer> numbers , int [] [] map, MaskMode maskMode) { // makes a bit map  with tiles containing only the 16 bit
         // mask values listed in the eight bit values int array.
         int xSize=map.length;
         int ySize=map[0].length;
@@ -133,7 +179,7 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
                     for (int count = 0; count < size2; count++) {
                         if (map[countx][county] == numbers.get(count)) {
                             int bit=eightSideBitMapEqualCalculator(numbers.get(count), countx, county, map); //get mask value
-                            boolean trimmedIt = trimTile(bit); // if tiles bit value not in the list it was trimmed
+                            boolean trimmedIt = trimTile(bit, maskMode); // if tiles bit value not in the list it was trimmed
                             if (trimmedIt == true) {
                                 map[countx][county]--; // make map number lower  as tile has been cut out .
                                 if (trimmedSomthing == false) {
@@ -227,13 +273,47 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
         }
         return fiveBitConverter(bitMap,centerBit);
     }
-    private boolean trimTile(int maskNumber) { // determines if tile has a bit number that corresponds to  one of the 16 various 8 bit  bitmasking values
-        for(int count=0; count<16; count++){
-            if(maskNumber==eightBitMaskValues[count]){
-                return false;
-            }
+    private boolean trimTile(int maskNumber, MaskMode maskMode) {
+        // determines if a  tile should be trimmed based on  a bit number that corresponds to  one of the 16 various 8 bit  bitmasking values return
+
+        switch(maskMode) {
+
+            case FULL_WANG_SET:
+                for(int count=0; count<32; count++){
+                    if(maskNumber== eightBitMaskPartialWangValues[count]){
+                        return false;
+                    }
+                }
+                return  true;
+            case PARTIAL_WANG_SET:
+                for (int count = 0; count < 16; count++) {
+                    if (maskNumber == eightBitMaskPartialWangValues[count]) {
+                        return false;
+                    }
+                }
+                return  true;
+            case PARTIAL_WANG_SET_NO_DIAGONALS:
+                for (int count = 0; count < 14; count++) {
+                    if (maskNumber == eightBitMaskPartialWangValuesNoDiagonals[count]) {
+                        return false;
+                    }
+                }
+                return  true;
+            case CUSTOM:
+                int size=bitmaskValues.size();
+                for (int count = 0; count < size; count++) {
+                    if (maskNumber == bitmaskValues.get(count)) {
+                        return false;
+                    }
+                }
+                return  true;
         }
-        return true;
+        
+         
+
+            return  true;
+
+
     }
 
     public int fourSideBitMapCalculator( LandSquareTile tile,  Entity entity, GameMap map ){ //calculates  the  bitmap value for tile based on wether or  the 4  compass directions are the same as it
@@ -393,7 +473,7 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
         int bitMapValue=eightBitConverter(bitMap);
         return bitMapValue;
     }
-    public int eightSideBitMapCalculator(LandSquareTile tile, BooleanStat  flag,  boolean flagState , LandSquareTile [] [] map ){
+    public int eightSideBitMapCalculator(LandSquareTile tile, BooleanStat flag, boolean flagState , LandSquareTile [] [] map ){
         // calculates  an eight bit bit number for bit masking based on whether or not a tile has a certain component
         boolean [] [] bitMap = new boolean [3] [3];
         for (int countx = -1; countx < 2; countx++) {
@@ -566,8 +646,8 @@ ArrayList<Integer> trimValues  = new ArrayList <Integer>();
                 LandSquareTile tile2 = map[x][y];
                 StringStat stat2 = tile2.getComponent(StringStats.class).getStringStat(stat.getName());
                 if (stat2 != null) {
-                    String text2 = stat2.getText();
-                    String text= stat.getText();
+                    String text2 = stat2.getStat();
+                    String text= stat.getStat();
                     if (text.equalsIgnoreCase(text2)) {
                         bitMap[countx + 1][county + 1] = true;
                     }
@@ -839,18 +919,18 @@ int ySize=map[0].length;
             for (int countx=0; countx<xSize;  countx++){
                 for (int county=0; county<ySize; county++){
                     boolean in=false;
-                    int size=trimValues.size();
+                    int size= bitmaskValues.size();
                     for (int count=0; count<size; count++) {
                         int bitValue=eightSideBitMapCalculator(number,map, countx, county);
-                        if (trimValues.get(count).equals(bitValue)) {
+                        if (bitmaskValues.get(count).equals(bitValue)) {
                             map[countx][county]--;
                         }
                     }
                 }
             }
         }
-    public int[] getEightBitMaskValues() {
-        return eightBitMaskValues;
+    public int[] getEightBitMaskPartialWangValues() {
+        return eightBitMaskPartialWangValues;
     }
 
 

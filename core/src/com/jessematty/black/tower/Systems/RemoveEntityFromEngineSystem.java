@@ -5,15 +5,17 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 
 public class RemoveEntityFromEngineSystem extends GameEntitySystem {
 
-    private ComponentMapper<Position> positions;
-
-    private ImmutableArray<Entity> entities;
+    private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
 
 
     public RemoveEntityFromEngineSystem(MapDraw draw) {
@@ -24,7 +26,7 @@ public class RemoveEntityFromEngineSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        positions=getGameComponentMapper().getPositionComponentMapper();
+        ownedComponentComponentMapper = GameComponentMapper.getOwnedComponentComponentMapper();
     }
 
     @Override
@@ -34,14 +36,35 @@ public class RemoveEntityFromEngineSystem extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Position position=positions.get(entity);
-           getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()).removeEntity(entity);
-           getEngine().removeEntity(entity);
+            Array<Entity> ownedEntities= EntityUtilities.getAllConnectedEntities(entity, getWorld(), false);
+           removeAttachedEntities(ownedEntities);
+            getWorld().removeEntityFromWorld(entity);
+
 
         }
 
 
 
+
+
+
+    }
+
+    private  void removeAttachedEntities(Array<Entity> entities){
+
+        int size=entities.size;
+        for(int count=0; count<size; count++){
+            Entity entity=entities.get(count);
+            OwnedComponent ownedComponent=ownedComponentComponentMapper.get(entity);
+
+            if(ownedComponent!=null && ownedComponent.isRemoveEntityFromEngineOnOwnerRemoval()){
+                getWorld().removeEntityFromWorld(entity);
+            }
+
+
+
+
+        }
 
     }
 

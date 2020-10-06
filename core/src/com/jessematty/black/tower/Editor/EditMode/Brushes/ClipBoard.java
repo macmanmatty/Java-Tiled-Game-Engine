@@ -21,28 +21,24 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
+// contains the current object to be copied or placed.
 public class ClipBoard  extends Actor implements ItemSettable {
-    private LandSquareTile [] [] tiles;
-    private final MapEditScreen mapEditScreen;
     private float  screenLocationX;
     private float  screenLocationY;
     private boolean snapToGrid;
-    private int tileSizeX;
-    private int tileSizeY;
     private Rectangle selectedArea;
     private Array<ClipBoardChangeListener> clipBoardChangeListeners= new Array<>();
-    private Object currentObject;
-    private ClipBoardActor clipBoardActor;
+    private Object currentObject; // the current object the clip board holds
+    private ClipBoardActor clipBoardActor; // the current actor to draw for the clipboard icon
     private TextureRegion pointer;
     private String pointerTextureRegionName;
-    
-    public ClipBoard(MapEditScreen mapEditScreen) {
-        this.mapEditScreen = mapEditScreen;
-        this.tileSizeX=mapEditScreen.getTileWidth();
-        this.tileSizeY=mapEditScreen.getTileHeight();
-        pointer=mapEditScreen.getGameAssets().getAtlasRegionByName("pointer", "editorAssets");
+
+    public ClipBoard() {
 
     }
+
+    // return a copy of the current cell
     public Cell getCurrentCell() {
         return MapTools.copyCell((Cell) currentObject);
         
@@ -50,18 +46,24 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public void setCurrentCell(Cell currentCell) {
         this.currentObject = currentCell;
     }
+    //  if the clipboard contains a tiled cell rotates it  left
     public  void rotateCellLeft(){
         if(currentObject instanceof  Cell) {
             Cell currentCell= (Cell) currentObject;
             currentCell.setRotation(currentCell.getRotation() - 90);
         }
+
     }
+    //  if the clipboard contains a tiled cell rotates it  right
+
     public void rotateCellRight(){
         if(currentObject instanceof  Cell) {
             Cell currentCell= (Cell) currentObject;
             currentCell.setRotation(currentCell.getRotation() + 90);
         }
     }
+
+    // draws the currents actor
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if(clipBoardActor!=null) {
@@ -74,6 +76,7 @@ public class ClipBoard  extends Actor implements ItemSettable {
     @Override
     protected void drawDebugBounds(ShapeRenderer shapes) {
     }
+    //sets the screen locations for the clipboard object and actor
     public void setScreenLocations(float x , float y){
         this.screenLocationX=x;
         this.screenLocationY=y;
@@ -92,10 +95,8 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public void setSnapToGrid(boolean snapToGrid) {
         this.snapToGrid = snapToGrid;
     }
-    public void setTileSize(int x, int y){
-        this.tileSizeX=x;
-        this.tileSizeX=y;
-    }
+
+    // returns the selected area  that mouse has selected
     public Rectangle getSelectedArea() {
         return selectedArea;
     }
@@ -105,13 +106,16 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public Array<ClipBoardChangeListener> getClipBoardChangeListeners() {
         return clipBoardChangeListeners;
     }
+    // retusn the object the clipboard currently holds
     public Object getCurrentObject() {
         return currentObject;
     }
+    // sets the clip board object and the actor image  for the current object
     public void setCurrentObject(Object currentObject) {
         this.currentObject = currentObject;
         setClipBoardActor();
     }
+    // sets the actor to be drawn for the clipboard icon
     private void setClipBoardActor() {
         if(currentObject instanceof  Cell ){
             TiledMapTile tiledMapTile=((Cell) currentObject).getTile();
@@ -175,6 +179,8 @@ public class ClipBoard  extends Actor implements ItemSettable {
         
     }
 
+
+    // sets the current pointer based of the current action
     private  void  setPointer(){
 
 

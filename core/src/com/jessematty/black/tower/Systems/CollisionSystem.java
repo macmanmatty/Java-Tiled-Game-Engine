@@ -6,28 +6,30 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
 import com.jessematty.black.tower.Components.ID;
 
 import com.jessematty.black.tower.Components.Movable;
-import com.jessematty.black.tower.Components.OwnerComponent;
-import com.jessematty.black.tower.Components.PhysicalObject;
-import com.jessematty.black.tower.Components.Position;
-import com.jessematty.black.tower.GameBaseClasses.Entity.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
+import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 
 public class CollisionSystem extends GameEntitySystem { // system that detects for collision
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Movable> movables;
-    private ComponentMapper<Position> positions;
-    private ComponentMapper<PhysicalObject> objects;
-    private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
+    private ComponentMapper<PositionComponent> positions;
+    private ComponentMapper<PhysicalObjectComponent> objects;
+    private ComponentMapper<Name> nameComponentMapper;
     private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<Action> actionComponentMapper;
     public CollisionSystem(MapDraw draw) {
         super(draw);
     }
@@ -36,11 +38,13 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         movables=getGameComponentMapper().getMovableComponentMapper();
         positions=getGameComponentMapper().getPositionComponentMapper();
         objects=getGameComponentMapper().getPhysicalObjectComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
         idComponentMapper=getGameComponentMapper().getIdComponentMapper();
+        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
+        nameComponentMapper=getGameComponentMapper().getNameComponentMapper();
+
     }
     public void update(float deltaTime) { // collision detection  for a move object
-        entities=getEngine().getEntitiesFor(Family.all(Movable.class, MovingOnGround.class,    Position.class, PhysicalObject.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(Movable.class,   PositionComponent.class, PhysicalObjectComponent.class).get());
         int size=entities.size();
         for(int counter=0; counter<size; counter++){
         Entity entity=entities.get(counter);
@@ -48,36 +52,46 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         if(movable.isMoved()==false){ // didn't move nothing to check
             continue;
         }
-            Position position=positions.get(entity);
-        PhysicalObject physicalObject= objects.get(entity);
-        float screenLocationX=position.getScreenLocationX();
-        float screenLocationY=position.getScreenLocationY();
+            PositionComponent position=positions.get(entity);
+        PhysicalObjectComponent physicalObject= objects.get(entity);
+        float screenLocationX=position.getLocationX();
+        float screenLocationY=position.getLocationY();
         Vector3 speed= movable.getVelocity();
         int mapX=position.getMapWorldLocationX();
         int mayY=position.getMapWorldLocationY();
-        int tileSizeX=getWorld().getMap(mapX, mayY).getTileSizeX();
-            int tileSizeY=getWorld().getMap(mapX, mayY).getTileSizeY();
 
-            int checkDistanceX = (int)(speed.x/tileSizeX)+tileSizeX; // how far to check in the xAxis;
-             int checkDistanceY = (int)( speed.y/tileSizeY)+tileSizeY; // how far to check in the yAxis;
+            Rectangle rectangle=position.getBoundsBoundingRectangle();
+            if(rectangle.x==0 || rectangle.y==0){
+                continue;
+            }
+            GameMap map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+
+            int tileSizeX=map.getTileSizeX();
+            int tileSizeY=map.getTileSizeY();
+
+            int checkDistanceX = (int)((Math.abs(speed.x)+rectangle.width)/tileSizeX)+1; // how far to check in the xAxis;
+             int checkDistanceY = (int)(( Math.abs(speed.y)+rectangle.height)/tileSizeY)+1; // how far to check in the yAxis;
 
             // get all owned entities of the movable
-            Array<String> ownedEntityIds=EntityUtilities.getAllOwnedEntitiesIDs(entity, getWorld());
-        GameMap map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
-        Array<Entity> occupants= MapUtilities.getAllEntities(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
+        Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
                 int size2 = occupants.size;
                 for (int count = 0; count < size2; count++) {
                     Entity occupant = occupants.get(count);
-                    String id=idComponentMapper.get(occupant).getId();
 
-                    if(InList.isInList(id, ownedEntityIds)){
+
+                    Movable occupantMovable = movables.get(occupant);
+                    PositionComponent occupantPosition = positions.get(occupant);
+                    if(occupantPosition.isHasBounds()==false){
                         continue;
                     }
-                    Movable occupantMovable = movables.get(occupant);
-                    Position occupantPosition = positions.get(occupant);
-                    PhysicalObject occupantBody = objects.get(occupant);
-                    if ((entity.equals(occupant))) { // check to make sure the object isn't colliding into itself
+                    PhysicalObjectComponent occupantBody = objects.get(occupant);
+                   boolean connected= EntityUtilities.isEntityConnected(entity, occupant, getWorld());
+
+                    if (connected==true) { // check to make sure the object isn't colliding into itself
+
                         continue;
+
+
                     }
                     if ( occupantPosition != null  && physicalObject!=null ) { // collide with a object
                         Polygon occupantBounds1 = occupantPosition.getBounds();
@@ -87,8 +101,20 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                             collide = Intersector.overlapConvexPolygons(occupantBounds1, occupantBounds2);
                     }
                      if (collide == true) {
-                            getEngine().addSystem(new ElasticCollision(   getDraw(), map, entity, movable, physicalObject, position,  occupant, occupantMovable, occupantBody, occupantPosition));
-                         ChangeStats.changeStats(entity, occupant, "touch",  true, true, true);
+                         if(occupantBody.getEntitySolidity()==1) {
+                             getEngine().addSystem(new ElasticCollision(getDraw(), map, entity, movable, physicalObject, position, occupant, occupantMovable, occupantBody, occupantPosition));
+                         }
+                         else{
+
+                             getEngine().addSystem(new InelasticCollision(getDraw(), map, entity, movable, physicalObject, position, occupant, occupantMovable, occupantBody, occupantPosition));
+
+                         }
+
+                           ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
+                           Action entityAction=actionComponentMapper.get(entity);
+                         Action occupantAction=actionComponentMapper.get(occupant);
+                         entityAction.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
+                         occupantAction.setStat("collide with "+nameComponentMapper.get(entity).getStat());
                          return;
                         }
                     }
@@ -98,7 +124,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         }
         return;
     }
-    public  boolean heightCheck(Position occupantBounds, Position occupant2Bounds) {
+    public  boolean heightCheck(PositionComponent occupantBounds, PositionComponent occupant2Bounds) {
          float maxOccupantHeight=occupantBounds.getHeight()+occupantBounds.getHeightFromGround();
         float minOccupantHeight=occupantBounds.getHeightFromGround();
         float minHeight=occupant2Bounds.getHeightFromGround();

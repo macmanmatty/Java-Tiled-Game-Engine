@@ -30,7 +30,7 @@ public  class AddComponentToEntity extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            AddComponent addComponent=addComponentComponentMapper.get(entity);
+            AddComponent addComponent =addComponentComponentMapper.get(entity);
             entity.add(addComponent.getComponent());
             entity.remove(AddComponent.class);
 

@@ -33,10 +33,12 @@ public  class Building extends GameMap  {
 		buildingID= UUID.randomUUID().toString();
 
 	}
-	protected Building(GameAssets assetManager, Skin skin) {
-		super(assetManager, skin);
-	}
 
+	public Building(int xSize, int ySize) {
+		super(xSize, ySize);
+		buildingID= UUID.randomUUID().toString();
+
+	}
 
 	protected void makeBuildingShadow(){ // makes the shadow texture using pixmaps for y part each part of the building.
 		int size=buildingLengths.size();
@@ -63,12 +65,7 @@ public  class Building extends GameMap  {
 		TextureRegion region=new TextureRegion(new Texture(pixmap));
 		float shadowY=upperLeftCornerTileY;
 	}
-	public Building(int xSize, int ySize, GameAssets gameAssets) {
-		super(xSize, ySize, gameAssets);
-	}
-	public Building(int xSize, int ySize, GameAssets gameAssets, Skin skin) {
-		super( xSize, ySize, gameAssets, skin);
-	}
+
 	@Override
 	public void mapTurnActions(float deltaTime, GameTime gameTime) {
 		super.mapTurnActions(deltaTime, gameTime);
@@ -81,9 +78,7 @@ public  class Building extends GameMap  {
 		return ySize;
 	}
 
-	public LandSquareTile[][] getMap() {
-		return map;
-	}
+
 	public int getxStart() {
 		return xStart;
 	}

@@ -8,14 +8,14 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
 import com.jessematty.black.tower.Components.Movable;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Target;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class LaunchProjectileSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Movable> movableComponentMapper;
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<Action> actionComponentMapper;
     private ComponentMapper<Target> targetComponentMapper;
 
@@ -36,13 +36,13 @@ public class LaunchProjectileSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Target.class, Movable.class, Position.class, Action.class, Shoot.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( Target.class, Movable.class, PositionComponent.class, Action.class, Shoot.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
             Action action= actionComponentMapper.get(entity);
-                Position position = positionComponentMapper.get(entity);
+                PositionComponent position = positionComponentMapper.get(entity);
                 Target target=targetComponentMapper.get(entity);
 
 

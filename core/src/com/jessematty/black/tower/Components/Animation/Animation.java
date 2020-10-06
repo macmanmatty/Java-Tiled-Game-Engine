@@ -8,6 +8,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 public class Animation implements ColorSettable {
   private  transient   AtlasNamedAtlasRegion [] frames= new AtlasNamedAtlasRegion[0];
   private String [] atlasRegionNames = new String [0];
+  private String atlasName;
   
    private  String action="";
     private int layerNumber;
@@ -23,6 +24,7 @@ public class Animation implements ColorSettable {
         this.frames = frames;
         int size=frames.length;
         atlasRegionNames = new String[size];
+        atlasName=frames[0].getAtlasName();
         for(int count=0; count<size; count++){
             atlasRegionNames[count]=frames[count].name;
             
@@ -82,10 +84,10 @@ public class Animation implements ColorSettable {
     public void deSerialize(GameAssets assets){
         
         int size= atlasRegionNames.length;
-                AtlasNamedAtlasRegion[] regions = new AtlasNamedAtlasRegion[size];
+                frames = new AtlasNamedAtlasRegion[size];
                 for (int count = 0; count < size; count++) {
                     String name = atlasRegionNames[count];
-                    regions[count] = assets.getAtlasRegionByName(name, "assetts.atlas");
+                    frames [count] = assets.getAtlasRegionByName(name, atlasName);
                 }
             }
         

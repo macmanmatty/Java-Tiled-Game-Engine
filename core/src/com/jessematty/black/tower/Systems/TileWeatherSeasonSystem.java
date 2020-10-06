@@ -7,7 +7,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Tile;
+import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStat;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;

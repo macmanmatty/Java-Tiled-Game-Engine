@@ -5,6 +5,8 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableL
 public class NamedColor extends Color implements Nameable {
    private  String name;
    public static final  NamedColor WHITE= new NamedColor(1,1,1,1 , "White");
+    public static final  NamedColor BLACK= new NamedColor(0,0,0 , 1, "Black");
+
     public NamedColor(String name) {
         this.name = name;
     }
@@ -15,6 +17,9 @@ public class NamedColor extends Color implements Nameable {
     public NamedColor(int rgba8888) {
         super(rgba8888);
         this.name = getName();
+    }
+
+    public NamedColor() {
     }
 
     public NamedColor(float r, float g, float b, float a, String name) {
@@ -38,6 +43,9 @@ public class NamedColor extends Color implements Nameable {
         super(color);
          name= makeName(color);
     }
+
+
+
     @Override
     public String getName() {
         return name;

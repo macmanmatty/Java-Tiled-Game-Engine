@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Components.TalkComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.MessageBoxes.TalkBox;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 
 public class TalkSystem extends EventSystem { // talking fighter action that displays a speech bubble
   private ComponentMapper<TalkComponent> talkComponentMapper;
@@ -35,8 +35,6 @@ public class TalkSystem extends EventSystem { // talking fighter action that dis
          Array<Entity> entities= MapUtilities.getClosestEntities(map, player.getPosition(),  voiceDistance, TalkComponent.class );
         TalkBox talkBox= new TalkBox("Conversation", getDraw().getCurrentMap().getSkin(), getGameComponentMapper());
         talkBox.setTalkers(entities);
-
-
          getDraw().addWindow(talkBox, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 

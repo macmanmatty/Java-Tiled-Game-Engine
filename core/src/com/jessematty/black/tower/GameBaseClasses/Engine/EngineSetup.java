@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Engine;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
@@ -9,27 +10,33 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Components.Name;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.BoundsChangeable;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.AddOwnerSystem;
 import com.jessematty.black.tower.Systems.BooleanStatChangeSystem;
+import com.jessematty.black.tower.Systems.ChangeBoundsSystem;
+import com.jessematty.black.tower.Systems.ChangeHeldItemBoundsSystem;
 import com.jessematty.black.tower.Systems.ColorChangeSystem;
 import com.jessematty.black.tower.Systems.DropSystem;
 import com.jessematty.black.tower.Systems.DyingSystem;
 import com.jessematty.black.tower.Systems.EquipItemSystem;
 import com.jessematty.black.tower.Systems.ErrorSystem;
 import com.jessematty.black.tower.Systems.PlaySoundSystem;
+import com.jessematty.black.tower.Systems.RemoveOwnerSystem;
 import com.jessematty.black.tower.Systems.SelfChangeNumericStatsSystem;
 import com.jessematty.black.tower.Systems.NumericStatChangeSystem;
+import com.jessematty.black.tower.Systems.SetPositionMarkersSystem;
 import com.jessematty.black.tower.Systems.SetSpeedToMovableSystem;
+import com.jessematty.black.tower.Systems.SlashSystem;
 import com.jessematty.black.tower.Systems.SoundSystem;
 import com.jessematty.black.tower.Systems.StringStatChangeSystem;
+import com.jessematty.black.tower.Systems.ThrustSystem;
 import com.jessematty.black.tower.Systems.TimeChangingStatSystem;
 import com.jessematty.black.tower.Systems.UnEquipItemSystem;
 import com.jessematty.black.tower.Systems.AnimationSystem;
 import com.jessematty.black.tower.Systems.BoundingBoxRenderer;
 import com.jessematty.black.tower.Systems.BreathSystem;
-import com.jessematty.black.tower.Systems.ChangeBounds;
 import com.jessematty.black.tower.Systems.ChangeTileNumericStatSystem;
 import com.jessematty.black.tower.Systems.CollisionSystem;
 import com.jessematty.black.tower.Systems.DieSystem;
@@ -52,12 +59,13 @@ public class EngineSetup {
 
     private  static  boolean hasPackSystem=true;
 
+     static ComponentMapper<Drawable> drawableComponentMapper;
     private static Comparator<Entity> entityComparator= new Comparator<Entity>() {
         @Override
         public int compare(Entity entity1, Entity entity2) {
 
-            Drawable drawable1=entity1.getComponent(Drawable.class);
-            Drawable drawable2=entity2.getComponent(Drawable.class);
+            Drawable drawable1=drawableComponentMapper.get(entity1);
+            Drawable drawable2=drawableComponentMapper.get(entity2);
             if(drawable1!=null && drawable2!=null) {
                 float layerNumber1 = drawable1.getLayerNumber();
 
@@ -65,23 +73,22 @@ public class EngineSetup {
 
 
                 if (layerNumber1 != layerNumber2) {
-                    return (int) (layerNumber2 - layerNumber1);
+                    return Float.compare(layerNumber1, layerNumber2);
 
                 } else {
 
-                    String name1=entity1.getComponent(Name.class).getText();
-                    String name2=entity2.getComponent(Name.class).getText();
 
 
 
-                    return (int) (drawable2.getSubLayerNumber() - drawable1.getSubLayerNumber());
+
+                    return Float.compare(drawable1.getSubLayerNumber() , drawable2.getSubLayerNumber());
 
 
                 }
 
             }
+           return 0;
 
-            return 0;
 
 
         }
@@ -90,7 +97,8 @@ public class EngineSetup {
 
     public  static void addBaseSystemsToEngine(Engine engine, MapDraw draw, ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer ){
 
-       Family drawableFamily= Family.all(Position.class, Drawable.class).get();
+        drawableComponentMapper=draw.getGameComponentMapper().getDrawableComponentMapper();
+       Family drawableFamily= Family.all(PositionComponent.class, Drawable.class).get();
        RenderSystem renderSystem=new RenderSystem (draw.getGameComponentMapper(),drawableFamily, entityComparator,  draw.getBatch(), mapBuffer ,2);
        RenderSystem lightSystem=new RenderSystem(draw.getGameComponentMapper(), drawableFamily, entityComparator,  draw.getBatch(), lightBuffer, 3);
 
@@ -102,13 +110,16 @@ public class EngineSetup {
        MoveOnGroundSystem moveOnGroundSystem =new MoveOnGroundSystem(draw);
 
        engine.addSystem(moveOnGroundSystem);
-       AnimationSystem animationSystem =new AnimationSystem(draw, renderSystem, 1);
-        engine.addSystem(new SoundSystem(draw, 2));
-        engine.addSystem( new PlaySoundSystem(draw, 3));
+        engine.addSystem(new SetPositionMarkersSystem(draw, 0));
+        engine.addSystem(new SetEntityPositionAndActionToOwnerSystem(1,draw));
+
+        engine.addSystem(new ChangeBoundsSystem(draw, 2));
+        engine.addSystem(new ChangeHeldItemBoundsSystem(draw, 3));
+        AnimationSystem animationSystem =new AnimationSystem(draw, renderSystem, 4);
+        engine.addSystem(new SoundSystem(draw, 5));
+        engine.addSystem( new PlaySoundSystem(draw, 6));
         engine.addSystem(animationSystem);
-       engine.addSystem(new ChangeBounds(draw));
        engine.addSystem(new CollisionSystem(draw));
-       engine.addSystem(new SetEntityPositionAndActionToOwnerSystem(0,draw));
        engine.addSystem(new RemoveEntityFromEngineSystem(draw));
        engine.addSystem(new DieSystem(draw));
        engine.addSystem(new DyingSystem(draw));
@@ -131,6 +142,10 @@ public class EngineSetup {
        engine.addSystem(new UnEquipItemSystem(draw));
        engine.addSystem(new DropSystem(draw));
        engine.addSystem(new ColorChangeSystem(draw));
+       engine.addSystem(new AddOwnerSystem(draw));
+       engine.addSystem(new RemoveOwnerSystem(draw));
+       engine.addSystem(new SlashSystem(draw));
+       engine.addSystem(new ThrustSystem(draw));
 
 
          engine.addSystem(new SetSpeedToMovableSystem(draw));
@@ -143,7 +158,7 @@ public class EngineSetup {
 
    public static  void addRenderSystemsToEngine( GameComponentMapper gameComponentMapper, Engine engine, Batch batch,  ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer){
 
-       Family drawableFamily= Family.all(Position.class, Drawable.class).get();
+       Family drawableFamily= Family.all(PositionComponent.class, Drawable.class).get();
        RenderSystem renderSystem=new RenderSystem( gameComponentMapper, drawableFamily, entityComparator,  batch, mapBuffer ,2);
        RenderSystem lightSystem=new RenderSystem( gameComponentMapper, drawableFamily, entityComparator,  batch, lightBuffer, 3);
        engine.addSystem(renderSystem);

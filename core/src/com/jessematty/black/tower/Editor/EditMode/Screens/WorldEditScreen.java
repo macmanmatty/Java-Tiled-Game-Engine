@@ -18,12 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Generators.Entity.EntityGenerator;
+import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.MapTools;
@@ -53,6 +54,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         private  Table mapButtonsTable= new Table();
         private  final DragAndDrop dragAndDrop = new DragAndDrop();
         private  final KeyListener keyListener= new KeyListener();
+        private final  ClipBoard clipBoard= new ClipBoard();
     public WorldEditScreen(Skin skin, GameAssets assetts, World world) {
         this.assetts=assetts;
         this.tileSize=tileSize;
@@ -63,7 +65,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         this.skin=skin;
         worldObjects= new WorldObjects();
         topMenu=new TopMenu();
-        mapEditScreen =new com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen( assetts, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
+        mapEditScreen =new com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen( assetts, clipBoard, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
     }
     public void editMap(GameMap currentMap){
         mapEditScreen.changeMap(currentMap);

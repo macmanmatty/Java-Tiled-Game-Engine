@@ -1,11 +1,8 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.TopBars;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.UIWindow;
-import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.UIWindow;
 
 public class DefaultRPGTopWindow extends UIWindow {
 

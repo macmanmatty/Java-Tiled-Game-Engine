@@ -3,27 +3,33 @@ package com.jessematty.black.tower.Components.Animation;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.ColorSettable;
+import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-public class Drawable implements Component , ColorSettable {
+public class Drawable implements Component , ColorSettable , SerializableComponet{
 
-   private AtlasRegion currentRegion;
+   private transient AtlasRegion currentRegion;
+   private String currentRegionName;
+   private String currentRegionAtlasName;
    private NamedColor color= NamedColor.WHITE;
-   private float  brightness=1;
+   private float  brightness=.33f;
     private Vector2 drawOffsets= new Vector2();
     private boolean draw=true;
     private  float layerNumber;
     private float previousLayerNumber;
     private float subLayerNumber;
     private ColorChangeMode colorChangeMode=ColorChangeMode.NONE;
-    private String currentRegionName;
     private String atlasName;
     private boolean layerChanged;
     private boolean calculateColor;
     private float previousSubLayerNumber;
     private boolean subLayerChanged;
+    private boolean calculateBrightness=true;
+
 
     public Drawable(String atlasName) {
         this.atlasName = atlasName;
@@ -36,9 +42,11 @@ public class Drawable implements Component , ColorSettable {
         return currentRegion;
     }
 
-    public void setCurrentRegion(AtlasRegion currentRegion) {
+    public void setCurrentRegion(AtlasNamedAtlasRegion currentRegion) {
         this.currentRegion = currentRegion;
         this.currentRegionName=currentRegion.name;
+        this.currentRegionAtlasName=currentRegion.getAtlasName();
+
     }
 
     public NamedColor getColor() {
@@ -146,5 +154,23 @@ public class Drawable implements Component , ColorSettable {
         return subLayerChanged;
     }
 
+    public boolean isCalculateBrightness() {
+        return calculateBrightness;
+    }
 
+    public void setCalculateBrightness(boolean calculateBrightness) {
+        this.calculateBrightness = calculateBrightness;
+    }
+
+    @Override
+    public void deSerialize(GameAssets assets) {
+        currentRegion=assets.getAtlasRegionByName(currentRegionName, currentRegionAtlasName);
+
+
+    }
+
+    @Override
+    public void serialize() {
+
+    }
 }

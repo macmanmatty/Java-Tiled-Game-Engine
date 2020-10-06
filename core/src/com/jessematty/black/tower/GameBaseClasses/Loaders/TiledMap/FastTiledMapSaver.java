@@ -11,11 +11,10 @@ import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 
-public class FastTiledMapSaver {
+public class FastTiledMapSaver implements TiledMapSaver {
    protected  CellSaver[] [] [] cells; // the saved tiled map cells
     protected int layers; // number of map layers
    protected String [] layerNames; // the names of the layers
-    protected transient GameAssets assetts;
     protected MapProperties mapProperties = new  MapProperties();
 
 
@@ -23,7 +22,7 @@ public class FastTiledMapSaver {
     public FastTiledMapSaver() {
     }
     public FastTiledMapSaver(GameAssets assetts) {
-        this.assetts = assetts;
+
     }
     public TiledMap loadMap(GameAssets assetts){
         int xSize=mapProperties.get("width", Integer.class);
@@ -73,7 +72,7 @@ public class FastTiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap, String path, String atlasName){
+    public void saveMap(TiledMap tiledMap, String atlasName){
         this. mapProperties=tiledMap.getProperties();
         this.mapProperties.put("atlasName", atlasName);
         int xSize=mapProperties.get("width", Integer.class);
@@ -99,11 +98,13 @@ public class FastTiledMapSaver {
                             AtlasStaticTiledMapTile tile2 = (AtlasStaticTiledMapTile) tile;
                             saver.setRegionNames(tile2.getNames());
                             saver.setColor(tile2.getColor());
+                            saver.setTileClass(AtlasStaticTiledMapTile.class);
                         } else if (tileClass.equals(AtlasAnimatedTiledMapTile.class)) {
                             AtlasAnimatedTiledMapTile tile2 = (AtlasAnimatedTiledMapTile) tile;
                             saver.setAnimated(true);
                             saver.setRegionNames((tile2.getNames()));
                             saver.setColor(tile2.getColor());
+                            saver.setTileClass(AtlasAnimatedTiledMapTile.class);
                         }
 
 
@@ -114,7 +115,6 @@ public class FastTiledMapSaver {
                 }
             }
         }
-        assetts.saveObject(this, path, false);
     }
 
 

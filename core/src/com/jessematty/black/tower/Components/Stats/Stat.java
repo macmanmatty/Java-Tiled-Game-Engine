@@ -16,6 +16,8 @@ public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
     protected float  visibleDistance=1;
     protected  float smellDistance=1;
     protected boolean removable;
+    protected Array<String> displayGroups= new Array();
+    protected boolean changeable;
     public Stat() {
     }
 
@@ -28,12 +30,16 @@ public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
         this.visibleDistance = other.visibleDistance;
         this.smellDistance = other.smellDistance;
         this.removable = other.removable;
+        this.displayGroups= new Array<>(other.displayGroups);
+
     }
 
     public Stat(boolean displayable, String name) {
         this.displayable = displayable;
         this.name = name;
     }
+
+
 
 
     public Stat(String name) {
@@ -115,5 +121,17 @@ public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
 
     public void setRemovable(boolean removable) {
         this.removable = removable;
+    }
+
+    public Array<String> getDisplayGroups() {
+        return displayGroups;
+    }
+
+    public boolean isChangeable() {
+        return changeable;
+    }
+
+    public void setChangeable(boolean changeable) {
+        this.changeable = changeable;
     }
 }

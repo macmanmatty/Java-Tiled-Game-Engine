@@ -1,9 +1,8 @@
 package com.jessematty.black.tower.Components;
 
-import com.badlogic.ashley.core.Component;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 
-public class Throwable implements ActionableComponent  {
+public class Throwable implements ActionableComponent {
     private float throwSpeed;
 
     public float getThrowSpeed() {

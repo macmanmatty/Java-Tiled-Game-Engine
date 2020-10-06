@@ -18,7 +18,7 @@ import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.PhysicalObject;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
@@ -38,7 +38,7 @@ public class ObjectInfo {
     ComponentMapper<BooleanStats> booleanStatsComponentMapper;
     ComponentMapper<StringStats> stringStatsComponentMapper;
 
-    ComponentMapper<PhysicalObject> objectComponentMapper;
+    ComponentMapper<PhysicalObjectComponent> objectComponentMapper;
     ComponentMapper<ImageComponent> itemImageComponentMapper;
 
     public ObjectInfo(GameAssets assetts) {
@@ -62,7 +62,7 @@ public class ObjectInfo {
         int size=entities.size;
         for(int count=0; count<size; count++){
             final Entity entity=entities.get(count);
-            Label label = new Label(nameComponentMapper.get(entity).getText(), skin, style);
+            Label label = new Label(nameComponentMapper.get(entity).getStat(), skin, style);
             Image image= itemImageComponentMapper.get(entity).getImage();
             Button button= new TextButton("Info", skin, style);
             button.addListener(new ClickListener(){
@@ -81,7 +81,7 @@ public class ObjectInfo {
 
         nameComponentMapper = gameComponentMapper.getNameComponentMapper();
         window = new Window("window", skin);
-        String name = player.getName().getText();
+        String name = player.getName().getStat();
         Label label = new Label(name, skin, style);
         window.add(label);
 
@@ -94,7 +94,7 @@ public class ObjectInfo {
         for (Iterator<String> stringIterator = stringStatNames.iterator(); stringIterator.hasNext();) {
             StringStat stat = stringStats.getStringStat(stringIterator.next());
             if (stat.isDisplayable()) {
-                String statString = stat.getName() + ": " + stat.getText();
+                String statString = stat.getName() + ": " + stat.getStat();
                 Label numericStatLabel = new Label(statString, skin);
                 window.add(numericStatLabel);
             }

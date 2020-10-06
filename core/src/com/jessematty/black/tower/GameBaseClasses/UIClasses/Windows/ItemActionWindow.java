@@ -13,8 +13,6 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionComponent;
 import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ActionButton;
 import com.jessematty.black.tower.Maps.World;
 
 public class ItemActionWindow extends GameWindow {
@@ -47,7 +45,7 @@ public class ItemActionWindow extends GameWindow {
             HorizontalGroup horizontalGroup = new HorizontalGroup();
             Name name=nameComponentMapper.get(entity);
             ImageComponent imageComponent=imageComponentComponentMapper.get(entity);
-            String itemName=name.getText();
+            String itemName=name.getStat();
             Label nameLabel= new Label(itemName, skin);
             horizontalGroup.addActor(nameLabel);
             Image image= imageComponent.getImage();

@@ -1,8 +1,8 @@
 package com.jessematty.black.tower.Components;
 
-import com.badlogic.ashley.core.Component;
+import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 
-public class Playable implements ActionableComponent  {
+public class Playable implements ActionableComponent {
     private boolean currentPlayer;
 
     public boolean isCurrentPlayer() {

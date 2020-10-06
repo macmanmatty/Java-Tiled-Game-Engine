@@ -35,7 +35,6 @@ public   class ChangableNumericStat extends NumericStat {// class for changing a
         this.value = other.getDoubleValue();
         this.minValue = other.getMinValue();
         this.maxValue = other.getMaxValue();
-        this.canBeNegative = other.isCanBeNegative();
 
     }
 
@@ -48,7 +47,6 @@ public   class ChangableNumericStat extends NumericStat {// class for changing a
         this.value = other.value;
         this.minValue = other.minValue;
         this.maxValue = other.maxValue;
-        this.canBeNegative = other.canBeNegative;
         this.amountOfTimeToChangeFor = other.amountOfTimeToChangeFor;
         this.actionsToChangeOn=new Array<>(other.actionsToChangeOn);
 

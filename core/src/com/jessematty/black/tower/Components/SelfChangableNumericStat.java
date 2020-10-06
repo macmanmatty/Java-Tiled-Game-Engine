@@ -32,7 +32,6 @@ public   class SelfChangableNumericStat extends com.jessematty.black.tower.Compo
         this.value = other.value;
         this.minValue = other.minValue;
         this.maxValue = other.maxValue;
-        this.canBeNegative = other.canBeNegative;
         this.amountOfTimeToChangeFor = other.amountOfTimeToChangeFor;
         this.changePercent =other.changePercent;
         int size=other.statsToFollow.size;

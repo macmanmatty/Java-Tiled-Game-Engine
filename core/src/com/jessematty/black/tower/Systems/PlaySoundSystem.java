@@ -6,27 +6,25 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PlaySound;
-import com.jessematty.black.tower.Components.Ears;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SoundComponent;
+import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 
 
 public  class PlaySoundSystem extends GameEntitySystem{
     private ComponentMapper<SoundComponent> soundComponentComponentMapper;
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
    private  ImmutableArray<Entity> entities;
     private ZRPGPlayer player;
-    private Position playerPosition;
+    private PositionComponent playerPosition;
 
 
 
-    Batch batch;
 
     public PlaySoundSystem(MapDraw draw, int priorty) {
         super(priorty, draw);
@@ -50,18 +48,18 @@ public  class PlaySoundSystem extends GameEntitySystem{
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        entities=getEngine().getEntitiesFor(Family.all( Action.class, SoundComponent.class, Position.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( PlaySound.class ,  SoundComponent.class, PositionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
 
             Entity entity = entities.get(count);
             SoundComponent soundComponent = soundComponentComponentMapper.get(entity);
-            Position noisePosition = positionComponentMapper.get(entity);
+            PositionComponent noisePosition = positionComponentMapper.get(entity);
             float soundMinFrequency = soundComponent.getCurrentSoundMinFrequency();
             float soundMaxFrequency = soundComponent.getCurrentSoundMaxFrequency();
-            Ears ears = player.getEars();
-            float minHearingFrequency = ears.getMinFrequency();
-            float maxHearingFrequency = ears.getMaxFrequency();
+            NumericStats numericStats=player.getNumericStats();
+            float minHearingFrequency =numericStats.getNumericStat("minHearingFrequency").getFloatValue();
+            float maxHearingFrequency = numericStats.getNumericStat("maxHearingFrequency").getFloatValue();
 
 
             if(MathUtilities.overLaps(soundMinFrequency, soundMaxFrequency, minHearingFrequency, maxHearingFrequency)){
@@ -75,15 +73,15 @@ public  class PlaySoundSystem extends GameEntitySystem{
 
 
 
-        public void playSound(SoundComponent soundComponent, Position noisePosition) {
+        public void playSound(SoundComponent soundComponent, PositionComponent noisePosition) {
 
-             float maxSoundDistance=player.getEars().getHearingDistance();
+             float maxSoundDistance=player.getNumericStats().getNumericStat("hearingDistance").getFloatValue();
 
 
-            float noiseLocationX = noisePosition.getScreenLocationX();
-            float noiseLocationY = noisePosition.getScreenLocationY();
-            float playerLocationX = playerPosition.getScreenLocationX();
-            float playerLocationY = playerPosition.getScreenLocationY();
+            float noiseLocationX = noisePosition.getLocationX();
+            float noiseLocationY = noisePosition.getLocationY();
+            float playerLocationX = playerPosition.getLocationX();
+            float playerLocationY = playerPosition.getLocationY();
 
             float xDistance = Math.abs(noiseLocationX - playerLocationX);
             float yDistance = Math.abs(noiseLocationY - playerLocationY);

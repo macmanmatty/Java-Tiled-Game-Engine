@@ -5,15 +5,15 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Breather;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 @Transient
 
 public class BreathSystem extends GameEntitySystem {
 
-    private ComponentMapper<Position> positions;
+    private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<Breather> breathers;
 
     ImmutableArray<Entity> entities;
@@ -38,7 +38,7 @@ public class BreathSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Position.class, Breather.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( PositionComponent.class, Breather.class).get());
 
         int size=entities.size();
 
@@ -46,7 +46,7 @@ public class BreathSystem extends GameEntitySystem {
                 for(int count=0; count<size; count++){
 
                     Entity entity=entities.get(count);
-                    Position position=positions.get(entity);
+                    PositionComponent position=positions.get(entity);
 
 
 

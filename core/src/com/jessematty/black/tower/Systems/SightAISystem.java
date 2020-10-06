@@ -6,14 +6,16 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.jessematty.black.tower.Components.SoundComponent;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.AIComponent;
+import com.jessematty.black.tower.Components.Eyes;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 
 public  class SightAISystem extends GameEntitySystem{
-    private ComponentMapper<SoundComponent> noisies = ComponentMapper.getFor(SoundComponent.class);
-    private ComponentMapper<Position> positions=ComponentMapper.getFor(Position.class);
+    private ComponentMapper<Eyes> eyesComponentMapper;
+    private ComponentMapper<PositionComponent> positionComponentMapper;
+    private ComponentMapper<AIComponent> aiComponentComponentMapper;
     ImmutableArray<Entity> entities;
 
 
@@ -25,6 +27,9 @@ public  class SightAISystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
+        eyesComponentMapper=getGameComponentMapper().getEyesComponentMapper();
+        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
+        aiComponentComponentMapper=getGameComponentMapper().getAiComponentMapper();
 
 
 
@@ -38,17 +43,18 @@ public  class SightAISystem extends GameEntitySystem{
         super.update(deltaTime);
 
 
-        entities=getEngine().getEntitiesFor(Family.all(SoundComponent.class, Position.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(AIComponent.class, Eyes.class, PositionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
 
             Entity entity=entities.get(count);
-            SoundComponent soundComponent = noisies.get(entity);
-            if(soundComponent.isPlaySound()) {
+            AIComponent aiComponent=aiComponentComponentMapper.get(entity);
+            Eyes eyes=eyesComponentMapper.get(entity);
+            PositionComponent position=positionComponentMapper.get(entity);
 
 
 
-                }
+
 
             }
 

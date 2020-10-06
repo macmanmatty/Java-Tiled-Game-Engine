@@ -24,7 +24,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.ProgressListener;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveFloatField;

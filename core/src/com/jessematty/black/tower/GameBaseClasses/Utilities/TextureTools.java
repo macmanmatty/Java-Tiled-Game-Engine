@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
@@ -30,6 +31,14 @@ public class TextureTools {
         return  false;
         
         
+    }
+
+    public AtlasRegion [] [] splitTexture(int width, int height, Texture texture, String atlasName, String textureName){
+        AtlasRegion region = new AtlasRegion(texture, 0, 0 , texture.getWidth(), texture.getHeight());
+        AtlasRegion [] []regionSplit= (AtlasRegion[][]) region.split(width, height);
+
+        return  regionSplit;
+
     }
     
     

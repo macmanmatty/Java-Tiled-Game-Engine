@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 
 public class MathUtilities {
 
@@ -10,7 +10,7 @@ public class MathUtilities {
     private  MathUtilities() {
     }
 
-    public static  double calculateMinScreenDistance(Position position1 , Position position2){
+    public static  double calculateMinScreenDistance(PositionComponent position1 , PositionComponent position2){
 
         Rectangle position2BoundingRectangle=position2.getBounds().getBoundingRectangle();
         Rectangle position1BoundingRectangle=position1.getBounds().getBoundingRectangle();

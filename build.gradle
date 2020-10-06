@@ -29,6 +29,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        junitVersion = '4.12'
     }
 
     repositories {
@@ -75,8 +76,13 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        androidTestImplementation"junit:junit:$junitVersion"
+        androidTestImplementation 'com.android.support:support-annotations:23.1.1'
+        androidTestImplementation 'com.android.support.test:runner:0.4.1'
+        androidTestImplementation 'com.android.support.test:rules:0.4.1'
 
-        
+
+
     }
 }
 
@@ -129,6 +135,9 @@ project(":core") {
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api group: 'commons-io', name: 'commons-io', version: '2.6'
         api group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+        api group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+        api group: 'com.cyphercove.gdx', name: 'gdxtokryo', version: '1.1.1'
+        testImplementation"junit:junit:$junitVersion"
 
 
     }

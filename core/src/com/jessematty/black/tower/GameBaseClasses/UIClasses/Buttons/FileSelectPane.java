@@ -108,7 +108,11 @@ public class FileSelectPane extends VerticalGroup  {
                                    Runnable runnable= new Runnable() {
                                         @Override
                                         public void run() {
-                                            fileAction.act(file);
+                                            try {
+                                                fileAction.act(file);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
 
                                         }
 

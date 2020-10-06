@@ -1,11 +1,8 @@
 package com.jessematty.black.tower.Components;
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
+import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 
-public class Wearable implements ActionableComponent  {
+public class Wearable implements ActionableComponent {
 
 
 

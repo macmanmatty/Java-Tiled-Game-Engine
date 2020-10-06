@@ -14,7 +14,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Entity.Transient;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableBooleanStat;
@@ -115,7 +115,7 @@ public class BooleanStatChangeSystem extends GameEntitySystem{
             // see if groups and actions match
             if (!(statChangeGroups.isEmpty()) && !(changeStatChangeGroups.isEmpty())) {// if stat can be changed
                 groupsMatch = InList.isInList(changeStatChangeGroups, statChangeGroups);
-                actionChange = InList.isInList(action, changeStat.getActionsToChangeOn());
+                actionChange = InList.isInList(changeStat.getActionsToChangeOn(), action);
             }
 
 

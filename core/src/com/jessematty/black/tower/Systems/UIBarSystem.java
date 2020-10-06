@@ -1,26 +1,16 @@
 package com.jessematty.black.tower.Systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
-import com.jessematty.black.tower.Components.Container;
-import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.OwnerComponent;
-import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.UIWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Table.UITable;
 
 public class UIBarSystem extends GameEntitySystem {
 
-       private  ComponentMapper<Pack> pack;
-       private ComponentMapper<ID> idComponentMapper;
-       private ComponentMapper<Item> itemComponentMapper;
-       private ComponentMapper<Container> containerComponentMapper;
-       private ComponentMapper<OwnerComponent> ownerComponent;
-       private UIWindow topBar;
-       private UIWindow bottomBar;
-       private UIWindow leftBar;
-       private UIWindow rightBar;
+
+       private UITable topBar;
+       private UITable bottomBar;
+       private UITable leftBar;
+       private UITable rightBar;
 
 
     public UIBarSystem(MapDraw draw) {
@@ -32,8 +22,6 @@ public class UIBarSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        pack=getGameComponentMapper().getPackComponentMapper();
 
 
     }
@@ -58,35 +46,35 @@ public class UIBarSystem extends GameEntitySystem {
 
     }
 
-    public UIWindow getTopBar() {
+    public UITable getTopBar() {
         return topBar;
     }
 
-    public void setTopBar(UIWindow topBar) {
+    public void setTopBar(UITable topBar) {
         this.topBar = topBar;
     }
 
-    public UIWindow getBottomBar() {
+    public UITable getBottomBar() {
         return bottomBar;
     }
 
-    public void setBottomBar(UIWindow bottomBar) {
+    public void setBottomBar(UITable bottomBar) {
         this.bottomBar = bottomBar;
     }
 
-    public UIWindow getLeftBar() {
+    public UITable getLeftBar() {
         return leftBar;
     }
 
-    public void setLeftBar(UIWindow leftBar) {
+    public void setLeftBar(UITable leftBar) {
         this.leftBar = leftBar;
     }
 
-    public UIWindow getRightBar() {
+    public UITable getRightBar() {
         return rightBar;
     }
 
-    public void setRightBar(UIWindow rightBar) {
+    public void setRightBar(UITable rightBar) {
         this.rightBar = rightBar;
     }
 }

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.Tools.BucketFill;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Generators.MapGenerators.HeightMapGen;
+import com.jessematty.black.tower.Generators.MapGenerators.HeightMapGen;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
@@ -19,11 +19,14 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.BitMaskException;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
+import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
+
 import java.util.ArrayList;
+
 public class TiledMapEdit {
    private  TiledMap currentTiledMap;
     private NamedTiledMapTileLayer currentLayer;
@@ -238,7 +241,7 @@ public class TiledMapEdit {
         mapLayer.setVisible(!mapLayer.isVisible());
     }
     protected void loadTiledMap() { // loads a new tmx landSquareTileMap made with tiled landSquareTileMap program
-        TiledMap map=gameAssets.loadTMXMapFromFile();
+        TiledMap map=MapTools.loadTMXMapFromFile(gameAssets);
         if(map!=null) {
             currentTiledMap= map;
             MapProperties properties= currentTiledMap.getProperties();
@@ -250,14 +253,16 @@ public class TiledMapEdit {
             mapYPixels = ySize * tileSizeY;
         }
     }
+
+
     // creates a bitmasked height map of tiles based given sets of bitmasking tiles.
-    public void createMaskedSet(  String atlasName, String name, int max, int min, int smooth) {
+    public void createMaskedSet(  String atlasName, String name, int max, int min, int smooth, MaskMode maskMode) {
         int [] [] soilBitNumberMap;
         int [] [] soilMap;
                 HeightMapGen heightMapMaker= new HeightMapGen(xSize, ySize);
         soilMap=heightMapMaker.makeHeightMap(min,max,smooth);
-      ArrayList< Integer> soilMapNumbers= new ArrayList<Integer>();
-        int numberOfSoilLayers=soilMapNumbers.size();
+      Array< Integer> soilMapNumbers= new Array<Integer>();
+        int numberOfSoilLayers=soilMapNumbers.size;
         for (int count = 0; count < numberOfSoilLayers; count++) {
             TiledMapTileLayer layer2 = new TiledMapTileLayer(xSize, ySize, 32, 32);
             layer2.setName("layer" + currentTiledMap.getLayers().size());
@@ -266,7 +271,7 @@ public class TiledMapEdit {
             layer.setName("layer" + currentTiledMap.getLayers().size());
             currentTiledMap.getLayers().add(layer);
         }
-        soilBitNumberMap=bitMask.makeTrimmedHeightTileBitMap(soilMapNumbers, soilMap); // make trimmed bit map
+        soilBitNumberMap=bitMask.makeTrimmedHeightTileBitMap(soilMapNumbers, soilMap, maskMode); // make trimmed bit map
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
                 for (int count = 0; count < numberOfSoilLayers; count++) {

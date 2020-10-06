@@ -9,14 +9,14 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop
 import com.jessematty.black.tower.Components.Container;
 
 
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Maps.MapUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 public class DropItemSystem extends GameEntitySystem {
 
-  ComponentMapper<Position> positionGameComponentMapper;
+  ComponentMapper<PositionComponent> positionGameComponentMapper;
   ComponentMapper<Container> containerComponentMapper;
 
 
@@ -35,12 +35,12 @@ public class DropItemSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
 
-       ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(Drop.class, Position.class).get());
+       ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(Drop.class, PositionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
 
             Entity entity=entities.get(count);
-            Position position=positionGameComponentMapper.get(entity);
+            PositionComponent position=positionGameComponentMapper.get(entity);
             LandSquareTile tile= MapUtilities.getNextTile(getWorld(), position);
 
 

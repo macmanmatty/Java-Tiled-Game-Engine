@@ -2,11 +2,11 @@ package com.jessematty.black.tower.Systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.IntArray;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind.Astar4;
 import com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind.Astar8;
 import com.jessematty.black.tower.Components.Movable;
 import com.jessematty.black.tower.Components.MoveToSingleTile;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class MoveToLocation extends GameEntitySystem {
    private LandSquareTile moveTile;
    private  ArrayList<LandSquareTile> placesToMove;
-  private  Position position;
+  private PositionComponent position;
   private GameMap map;
    private  int xSize;
     private int ySize;
@@ -41,7 +41,7 @@ public class MoveToLocation extends GameEntitySystem {
     public void update(float deltaTime) { //  if path is null it sets it tries  to floatThing the owner to WoodWand given location one tile at actionTurns using the path it finds.
 
         if (placesToMove == null) {
-            placesToMove = pathFind(map,position.getScreenLocationX() ,position.getScreenLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
+            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
         }
 
 
@@ -56,7 +56,7 @@ public class MoveToLocation extends GameEntitySystem {
 
         } else if (placesToMove.get(0).isEnterable()==false || placesToMove.get(0).getEntities(SolidObject.class).size>0) { // things can floatThing in the  way of the path  and if they do recalculate the path
 
-            placesToMove = pathFind(map,position.getScreenLocationX() ,position.getScreenLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
+            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
             if (placesToMove.size() > 0) {
                 entity.add(new MoveToSingleTile());
                 if (movable.getLocationToMoveTo().equals(placesToMove.get(0))) {
@@ -74,7 +74,7 @@ public class MoveToLocation extends GameEntitySystem {
 
         }
         else{
-            placesToMove = pathFind(map,position.getScreenLocationX() ,position.getScreenLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
+            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
             if (placesToMove.size() <= 0) {
 
 

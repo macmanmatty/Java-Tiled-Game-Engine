@@ -1,8 +1,7 @@
 package com.jessematty.black.tower.Components.ChangeImage;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.jessematty.black.tower.Components.Stats.StringStat;
+
 // component that changes  an  an entities image on a string.
 public class ChangeImage implements Component {
 

@@ -1,9 +1,9 @@
 package com.jessematty.black.tower.Components;
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector3;
+import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class Movable implements ActionableComponent {
-    private float currentSpeed; // the current speed in world units per second
+    private float currentSpeed=1; // the current speed in world units per second
     private float moveAngle;// the angle of movement in radians
     private Vector3 velocity= new Vector3(); // the x and y  speeds
     private boolean moved; // whether or not the entity moved

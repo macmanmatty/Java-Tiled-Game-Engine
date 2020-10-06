@@ -5,18 +5,15 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.AddOwnerComponent;
-import com.jessematty.black.tower.Components.Attachable;
-import com.jessematty.black.tower.Components.Position;
-import com.jessematty.black.tower.Components.RemoveOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.Attachable;
+import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 
-public class RemoveOwnerSystem extends GameEntitySystem { // checks  the die when zero  stats  for all entities  if all stats are zero
-    // marks the entities  as dying.
-
-    private ComponentMapper<AddOwnerComponent> addOwnerComponentComponentMapper;
+public class RemoveOwnerSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Attachable> attachableComponentMapper;
+    private ComponentMapper<RemoveOwnerComponent> removeOwnerComponentComponentMapper;
 
 
     public RemoveOwnerSystem(MapDraw draw) {
@@ -27,8 +24,9 @@ public class RemoveOwnerSystem extends GameEntitySystem { // checks  the die whe
 
     @Override
     public void addedToEngine(Engine engine) {
-        addOwnerComponentComponentMapper=getGameComponentMapper().getAddOwnerComponentComponentMapper();
         attachableComponentMapper=getGameComponentMapper().getAttachableComponentMapper();
+        removeOwnerComponentComponentMapper=getGameComponentMapper().getRemoveOwnerComponentComponentMapper();
+
     }
 
     @Override
@@ -39,11 +37,13 @@ public class RemoveOwnerSystem extends GameEntitySystem { // checks  the die whe
     @Override
     public void update(float deltaTime) {
         entities= getEngine().getEntitiesFor(Family.all(RemoveOwnerComponent.class).get());
-
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            AddOwnerComponent addOwnerComponent=addOwnerComponentComponentMapper.get(entity);
+            RemoveOwnerComponent removeOwnerComponent=removeOwnerComponentComponentMapper.get(entity);
+            String entityToRemoveID=removeOwnerComponent.getEntityToRemoveID();
+            Entity entityToRemove=getWorld().getEntity(entityToRemoveID);
+            EntityUtilities.detachEntity(getWorld(), entity, entityToRemove, true);
             entity.remove(RemoveOwnerComponent.class);
 
 

@@ -18,7 +18,7 @@ public class AtlasNamedAtlasRegionSerializer implements Json.Serializer<AtlasNam
     public void write(Json json, AtlasNamedAtlasRegion region, Class aClass) {
         json.writeObjectStart();
        json.writeField(region, "name", "name"); // write the json name
-        json.writeField("atlasName", "atlasName"); // write the atlas name
+        json.writeField(region, "atlasName", "atlasName"); // write the atlas name
        json.writeObjectEnd();
 
     }

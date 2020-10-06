@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components;
 
 import com.badlogic.ashley.core.Component;
+import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 
 import java.util.HashMap;
@@ -10,8 +11,8 @@ public class BitMaskable implements Component {
 
    private  int bitNumber;
    boolean bitNumberChanged;
-
-   private Map<Integer, AtlasNamedAtlasRegion> textureRegion= new HashMap<Integer, AtlasNamedAtlasRegion>();
+   private transient  Map<Integer, AtlasNamedAtlasRegion> textureRegion= new HashMap<Integer, AtlasNamedAtlasRegion>();
+   private Stat statToMaskOn;
 
     public int getBitNumber() {
         return bitNumber;
@@ -36,5 +37,9 @@ public class BitMaskable implements Component {
 
     public void setBitNumberChanged(boolean bitNumberChanged) {
         this.bitNumberChanged = bitNumberChanged;
+    }
+
+    public void setStatToMaskOn(Stat statToMaskOn) {
+        this.statToMaskOn = statToMaskOn;
     }
 }

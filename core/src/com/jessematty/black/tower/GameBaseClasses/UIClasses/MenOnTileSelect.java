@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Holder;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -49,7 +49,7 @@ public class MenOnTileSelect
 		 manChecks = new ArrayList<CheckBox>();
 		 window = new Window("window", skin);
 		 Table windowTable = window.center();
-		 String name = player.getName().getText();
+		 String name = player.getName().getStat();
 		 Label label = new Label(name, skin, styleName);
 		 window.add(name);
 
@@ -62,7 +62,7 @@ public class MenOnTileSelect
 		 for (Iterator<String> stringIterator = stringStatNames.iterator();  stringIterator.hasNext();) {
 			 StringStat stat = stringStats.getStringStat(stringIterator.next());
 			 if (stat.isDisplayable()) {
-				 String statString = stat.getName() + ": " + stat.getText();
+				 String statString = stat.getName() + ": " + stat.getStat();
 				 Label numericStatLabel = new Label(statString, skin);
 				 window.add(numericStatLabel);
 			 }
@@ -107,7 +107,7 @@ public class MenOnTileSelect
 					String itemName="";
 					
 					if (nameComponent != null) {
-						itemName=nameComponent.getText();
+						itemName=nameComponent.getStat();
 					}
 					Label itemLabel = new Label("Hand"+count+  ": " + itemName, skin);
 					window.add(itemLabel);

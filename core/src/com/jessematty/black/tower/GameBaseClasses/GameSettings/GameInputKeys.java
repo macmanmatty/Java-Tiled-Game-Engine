@@ -14,9 +14,8 @@ public class GameInputKeys {
     int moveRightDownKey= Keys.M;
     int throwKey = Keys.T;
     int pickUpItemKey= Keys.P;
-    int attackKey= Keys.SPACE;
     int changeAttackModeKey= Keys.SYM;
-    int changeHoldPositionKey= Keys.SHIFT_RIGHT;
+    int changeHoldPositionKey= Keys.H;
     int eatKey= Keys.E;
     int drinkKey= Keys.W;
     int dropItemKey= Keys.D;
@@ -29,6 +28,11 @@ public class GameInputKeys {
     int changeHandNumberKey= Keys.BACKSLASH;
     int increaseSpeedKey = Keys.CONTROL_RIGHT;
     int decreaseSpeedKey = Keys.ALT_RIGHT;
+    int slashKey=Keys.SPACE;
+    int thrustKey=Keys.ALT_RIGHT;
+    int shootKey=Keys.ALT_LEFT;
+
+
 
 
 
@@ -102,13 +106,6 @@ public class GameInputKeys {
         this.pickUpItemKey = pickUpItemKey;
     }
 
-    public int getAttackKey() {
-        return attackKey;
-    }
-
-    public void setAttackKey(int attackKey) {
-        this.attackKey = attackKey;
-    }
 
     public int getChangeAttackModeKey() {
         return changeAttackModeKey;
@@ -252,5 +249,32 @@ public class GameInputKeys {
 
     public void setDecreaseSpeedKey(int decreaseSpeedKey) {
         this.decreaseSpeedKey = decreaseSpeedKey;
+    }
+
+    public int getSlashKey() {
+        return slashKey;
+    }
+
+
+    public int getThrustKey() {
+        return thrustKey;
+    }
+
+
+
+    public int getShootKey() {
+        return shootKey;
+    }
+
+    public void setSlashKey(int slashKey) {
+        this.slashKey = slashKey;
+    }
+
+    public void setThrustKey(int thrustKey) {
+        this.thrustKey = thrustKey;
+    }
+
+    public void setShootKey(int shootKey) {
+        this.shootKey = shootKey;
     }
 }

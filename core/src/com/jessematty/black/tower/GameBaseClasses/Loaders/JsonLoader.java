@@ -49,11 +49,12 @@ public class JsonLoader {
     public void saveTiledMap(  TiledMap map, int xSize, int ySize,  String path, String atlasName, GameAssets assetts ){ //saves tiled map using the map saver class
         if(fastSaveTiledMaps ==true) {
             FastTiledMapSaver saver = new FastTiledMapSaver(assetts);
-            saver.saveMap(map, path, atlasName);
+            saver.saveMap(map,  atlasName);
         }
         else{
-            MemoryEfficentTiledMapSaver saver = new MemoryEfficentTiledMapSaver(assetts);
-            saver.saveMap(map, path, atlasName);
+            MemoryEfficentTiledMapSaver saver = new MemoryEfficentTiledMapSaver();
+            saver.saveMap(map,  atlasName);
+            writeObjectToFile(saver, path, false);
 
         }
 

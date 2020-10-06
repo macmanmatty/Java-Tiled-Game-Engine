@@ -137,6 +137,38 @@ public enum Direction {
     }
             return -1;
 }
+
+
+    public static float getAngelInRadians(Direction direction) { // get the clockwise degrees assuming that up is 0 or 360 degrees
+        switch(direction)
+        {
+            case UP:
+                return 0;
+            case DOWN:
+                return (float) Math.PI;
+            case LEFT:
+                return (float) 4.71239;
+
+            case RIGHT:
+               return  (float) 1.5708;
+            case LEFTUP:
+                return (float) 5.5065138;
+
+            case LEFTDOWN:
+                return (float) 3.9357175;
+            case RIGHTUP:
+                return (float) 0.7941248;
+            case RIGHTDOWN:
+                return (float) 2.3649211;
+            case SAME:
+                return 0;
+        }
+        return 0;
+    }
+
+
+
+
     public static float getSwingAngle(Direction directionTo, Direction directionFrom) { // returns the angle between two directions
         switch (directionTo) {
             case UP:

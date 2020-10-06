@@ -10,8 +10,8 @@ import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Launched;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
 import com.jessematty.black.tower.Components.Movable;
-import com.jessematty.black.tower.Components.Position;
 import com.jessematty.black.tower.Components.Launchable;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Target;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -19,7 +19,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
 
 public class LaunchEntity extends GameEntitySystem {
-  private ComponentMapper<Position> positionComponentMapper;
+  private ComponentMapper<PositionComponent> positionComponentMapper;
    private ComponentMapper<Launchable> throwComponentMapper;
    private ComponentMapper<Action> actionComponentMapper;
    private ComponentMapper<Target> targetComponentMapper;
@@ -42,7 +42,7 @@ public class LaunchEntity extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-      ImmutableArray<Entity> entities= getEngine().getEntitiesFor(Family.all(  Target.class, Position.class, Launchable.class, Launched.class  ).get());
+      ImmutableArray<Entity> entities= getEngine().getEntitiesFor(Family.all(  Target.class, PositionComponent.class, Launchable.class, Launched.class  ).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
             Entity entity=entities.get(count);
@@ -51,11 +51,11 @@ public class LaunchEntity extends GameEntitySystem {
             Action action=actionComponentMapper.get(entity);
             Target target=targetComponentMapper.get(entity);
 
-            Position entityPosition=positionComponentMapper.get(entity);
+            PositionComponent entityPosition=positionComponentMapper.get(entity);
                  float targetX=target.getScreenLocationX();
                  float targetY=target.getScreenLocationY();
-                 float entityX=entityPosition.getScreenLocationX();
-                 float entityY=entityPosition.getScreenLocationY();
+                 float entityX=entityPosition.getLocationX();
+                 float entityY=entityPosition.getLocationY();
 
                 float speed = launchableComponent.getLaunchSpeed();
             GameMap map=getDraw().getWorld().getMap(target.getMapTargetX(), target.getMapTargetY());

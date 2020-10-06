@@ -3,18 +3,13 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.Components.Animation.Drawable;
 import com.jessematty.black.tower.Components.ImageComponent;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
@@ -53,6 +48,7 @@ public class EditEntityWindow  extends MapEditWindow implements ClipBoardChangeL
 
     public void setEntity(Entity entity) {
         this.entity = entity;
+        makeWindow();
     }
 
     @Override

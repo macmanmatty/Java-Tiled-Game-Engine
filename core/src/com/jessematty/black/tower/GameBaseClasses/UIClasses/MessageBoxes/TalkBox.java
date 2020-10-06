@@ -13,14 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.TalkComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 
-public class TalkBox extends Window {
+public class TalkBox extends ClosableWindow {
     private SelectBox<String> participants;
     private String styleName;
     private TextField questionField;

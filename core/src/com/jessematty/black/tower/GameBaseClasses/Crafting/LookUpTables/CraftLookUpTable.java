@@ -5,7 +5,7 @@ import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.PhysicalObject;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
@@ -29,7 +29,7 @@ public class CraftLookUpTable  extends LookUpTable{
       
         for(int count=0; count<size;  count++){
             Entity entity=entities.get(count);
-            PhysicalObject physicalObject=physicalObjectComponentMapper.get(entity);
+            PhysicalObjectComponent physicalObject=physicalObjectComponentMapper.get(entity);
             mass=mass+physicalObject.getMass();
             volume=volume+physicalObject.getVolume();
             numericStatsForEntitiesAddedToCreate.add(numericStatsComponentMapper.get(entity));
@@ -132,12 +132,12 @@ public class CraftLookUpTable  extends LookUpTable{
 }
     private boolean stringStatInRange(StringStat stringStat) {
         String statName = stringStat.getName();
-        String text=stringStat.getText();
+        String text=stringStat.getStat();
         int size3 = numericStatsForEntitiesAddedToCreate.size;
         for (int count3 = 0; count3 < size3; count3++) {
             StringStat entitiesStringStat = stringStatsForEntitiesAddedToCreate.get(count3).getStringStat(statName);
             if (entitiesStringStat != null) {
-                if (!(text.equals(entitiesStringStat.getText()))) {
+                if (!(text.equals(entitiesStringStat.getStat()))) {
                     return false;
                 }
             }

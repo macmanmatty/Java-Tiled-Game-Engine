@@ -1,5 +1,9 @@
 package com.jessematty.black.tower.Components;
 
-public enum AttackMode {
-    SLASH, THRUST
+import com.jessematty.black.tower.Components.Stats.StringStat;
+
+public class AttackMode  extends StringStat {
+    public AttackMode( String stat) {
+        super(true, "Attack Mode", stat);
+    }
 }

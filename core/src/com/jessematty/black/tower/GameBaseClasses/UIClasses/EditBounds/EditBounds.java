@@ -13,13 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Position;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 public class EditBounds extends Image  {
     private TextureRegion region;
     private Entity entity;
-    private Position position;
+    private PositionComponent position;
     private Array<Vector2> points= new Array<>();
     private Array<Line> lines= new Array<Line>();
     private int clicks;
@@ -165,7 +165,7 @@ public class EditBounds extends Image  {
     }
     public void setEntity(Entity entity) {
         this.entity = entity;
-        position=entity.getComponent(Position.class);
+        position=entity.getComponent(PositionComponent.class);
     }
     public KeyListener getKeyListener() {
         return keyListener;

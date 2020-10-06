@@ -1,5 +1,8 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	Arial: {
+		file: Arial Black.fnt
+	}
 	Black_Readable: {
 		file: Xerox Sans Serif Narrow.fnt
 	}
@@ -12,8 +15,14 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	EnglishGold: {
 		file: OldeEnglish.fnt
 	}
+	Georgia: {
+		file: Georgia.fnt
+	}
 	HammerThin_Regular: {
 		file: HammerThin Regular.fnt
+	}
+	Comic_Sans: {
+		file: Herculanum.fnt
 	}
 	LargeOld: {
 		file: Carta_Magna-line-demo-FFP.fnt
@@ -50,6 +59,12 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 	SpeechBubble: {
 		file: HammerThin Regular.fnt
+	}
+	Times: {
+		file: Times New Roman.fnt
+	}
+	Times_White: {
+		file: Times New Roman.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {
@@ -95,10 +110,22 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.47666663
 		a: 1
 	}
+	RED: {
+		r: 0.93666667
+		g: 0.16547775
+		b: 0.28599733
+		a: 1
+	}
 	Teal: {
 		r: 0.102277756
 		g: 0.8522305
 		b: 0.87666667
+		a: 1
+	}
+	White: {
+		r: 1
+		g: 1
+		b: 1
 		a: 1
 	}
 	Yellow: {
@@ -110,9 +137,9 @@ com.badlogic.gdx.graphics.Color: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
-		up: label1
-		down: label2
-		over: label3
+		up: brickBlock
+		down: brickBlockD
+		over: brickBlockL
 	}
 	MinusUD: {
 		up: minusUD4
@@ -171,6 +198,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: buttonBrick2
 		down: buttonBrick3
 		over: buttonBrick
+	}
+	closelpc: {
+		up: closeButton2
+		down: buttonClose3
+		over: closeButton
+		disabled: closeButton
+	}
+	closegreen: {
+		up: close
+		down: close4
+		over: closeOver
+		disabled: close2
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -234,11 +273,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	Small: {
 		font: HammerThin_Regular
 		fontColor: Gold
-	},
+	}
 	SpeechBubble: {
-		background: speechBubble
 		font: HammerThin_Regular
-		fontColor: Gold	}
+		fontColor: Gold
+		background: speechBubble
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
@@ -430,6 +470,33 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		background: ninePartchWindow
 		titleFont: LargeOld
 		titleFontColor: Gold
+	}
+	green: {
+		background: window16t
+		titleFont: LargeOld
+		titleFontColor: White
+	}
+	lpcNoTitle: {
+		background: window16
+		titleFont: Black_Readable
+		titleFontColor: Gold
+	}
+	lpcFancy: {
+		background: window1
+		titleFont: Black_Readable
+	}
+	lpcBrownNoTitle: {
+		background: window17
+		titleFont: EnglishGold
+	}
+	lpcBrown: {
+		background: window17t
+		titleFont: Times
+	}
+	windowCompass: {
+		background: windowCompass
+		titleFont: EnglishGold
+		titleFontColor: RED
 	}
 }
 }

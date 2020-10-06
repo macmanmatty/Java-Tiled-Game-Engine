@@ -12,14 +12,14 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringSt
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
-import com.jessematty.black.tower.Components.PhysicalObject;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 public class CraftEntity {/// class for combining multiple entities  into one
-   protected ComponentMapper<PhysicalObject> physicalObjectComponentMapper;
+   protected ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper;
    protected  ComponentMapper<NumericStats> numericStatsComponentMapper;
    protected ComponentMapper<BooleanStats> booleanStatsComponentMapper;
    protected  ComponentMapper<StringStats> stringStatsComponentMapper;
@@ -74,7 +74,6 @@ public class CraftEntity {/// class for combining multiple entities  into one
                   NumericStat newStat = new NumericStat(numericStatName);
                   newStat.setDisplayable(numericStat.isDisplayable());
                   newStat.setKillWhenZero(numericStat.isKillWhenZero());
-                  newStat.setCanBeNegative(numericStat.isCanBeNegative());
                   newStat.setCombinable(numericStat.isCombinable());
                   combinedNumericStats.addStat(newStat);
                }
@@ -138,7 +137,6 @@ public class CraftEntity {/// class for combining multiple entities  into one
                   NumericStat newStat = new NumericStat(changableNumericStatName);
                   newStat.setDisplayable(changableNumericStat.isDisplayable());
                   newStat.setKillWhenZero(changableNumericStat.isKillWhenZero());
-                  newStat.setCanBeNegative(changableNumericStat.isCanBeNegative());
                   newStat.setCombinable(changableNumericStat.isCombinable());
                   combinedNumericStats.addStat(newStat);
                }

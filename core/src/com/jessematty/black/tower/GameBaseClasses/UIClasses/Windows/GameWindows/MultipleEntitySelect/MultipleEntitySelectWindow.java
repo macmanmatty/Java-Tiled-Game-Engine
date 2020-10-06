@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosebleWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.GameWindow;
 
 import javax.swing.text.html.parser.Entity;
@@ -13,7 +13,7 @@ import javax.swing.text.html.parser.Entity;
 public class MultipleEntitySelectWindow implements GameWindow {
 
 
-   private  ClosebleWindow window;
+   private ClosableWindow window;
    private Array<Entity> entities;
    private GameComponentMapper gameComponentMapper;
    private MapDraw mapDraw;
@@ -24,7 +24,7 @@ public class MultipleEntitySelectWindow implements GameWindow {
         this.mapDraw = mapDraw;
         this.gameComponentMapper=mapDraw.getGameComponentMapper();
         this.skin=mapDraw.getCurrentMap().getSkin();
-        this.window= new ClosebleWindow("Entities", skin);
+        this.window= new ClosableWindow("Entities", skin);
 
 
     }
@@ -37,7 +37,7 @@ public class MultipleEntitySelectWindow implements GameWindow {
     }
 
     @Override
-    public ClosebleWindow getWindow() {
+    public ClosableWindow getWindow() {
         return window;
     }
 

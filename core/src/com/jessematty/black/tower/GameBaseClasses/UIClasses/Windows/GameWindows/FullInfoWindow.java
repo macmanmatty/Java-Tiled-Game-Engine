@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
-import com.jessematty.black.tower.Components.OwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -23,10 +23,11 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Entity.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Maps.World;
 
 public class FullInfoWindow extends GameWindow {
@@ -39,6 +40,7 @@ public class FullInfoWindow extends GameWindow {
    private ComponentMapper<StringStats> stringStatsComponentMapper;
    private ComponentMapper<NumericStats> numericStatsComponentMapper;
    private ComponentMapper<BooleanStats>booleanStatsComponentMapper;
+   private final String displayName="FullInfoWindow";
    
 
     public FullInfoWindow( MapDraw mapDraw, Entity entity) {
@@ -63,7 +65,7 @@ public class FullInfoWindow extends GameWindow {
     }
 
     private  void makeUI(){
-        String name=nameComponentMapper.get(entity).getText();
+        String name=nameComponentMapper.get(entity).getStat();
 
 
 
@@ -118,8 +120,8 @@ public class FullInfoWindow extends GameWindow {
             while (stringKeys.hasNext()) {
                 String key = stringKeys.next();
                 StringStat stringStat = stringStatsMap.get(key);
-                if (stringStat.isDisplayable()) {
-                    Label statLabel = new Label(stringStat.getName() + ": " + stringStat.getText(), skin);
+                if (stringStat.isDisplayable() && InList.isInList(stringStat.getDisplayGroups(), displayName)) {
+                    Label statLabel = new Label(stringStat.getName() + ": " + stringStat.getStat(), skin);
                    add(statLabel);
                 }
 
@@ -135,7 +137,7 @@ public class FullInfoWindow extends GameWindow {
                 String key = numericKeys.next();
                 NumericStat numericStat = numericStatsMap.get(key);
                 HorizontalGroup numericStatGroup = new HorizontalGroup();
-                if (numericStat.isDisplayable()) {
+                if (numericStat.isDisplayable() && InList.isInList(numericStat.getDisplayGroups(), displayName)) {
                     Label statLabel = new Label(numericStat.getName() + ": " + numericStat.getDoubleValue() + "/" + numericStat.getMaxValue(), skin);
                     numericStatGroup.addActor(statLabel);
                     StatBar statBar = numericStat.getStatBar();
@@ -159,7 +161,7 @@ public class FullInfoWindow extends GameWindow {
                 String key = booleanKeys.next();
                 BooleanStat booleanStat = booleanStatsMap.get(key);
                 HorizontalGroup booleanStatGroup = new HorizontalGroup();
-                if (booleanStat.isDisplayable()) {
+                if (booleanStat.isDisplayable() && InList.isInList(booleanStat.getDisplayGroups(), displayName)) {
                     Label statLabel = new Label(booleanStat.getName() + ": " +  String.valueOf(booleanStat.getFlag()) , skin);
                     booleanStatGroup.addActor(statLabel);
 
@@ -185,7 +187,7 @@ public class FullInfoWindow extends GameWindow {
 
 
         ownerComponentComponentMapper = gameComponentMapper.getOwnerComponentComponentMapper();
-        String name=nameComponentMapper.get(entity).getText();
+        String name=nameComponentMapper.get(entity).getStat();
 
 
         OwnerComponent ownerComponent = ownerComponentComponentMapper.get(entity);
@@ -238,7 +240,7 @@ public class FullInfoWindow extends GameWindow {
 
     public HorizontalGroup makeImageAndName( Skin skin, Entity entity){
 
-        String name=nameComponentMapper.get(entity).getText();
+        String name=nameComponentMapper.get(entity).getStat();
 
         Image image = imageComponentMapper.get(entity).getImage();
         HorizontalGroup nameAndImage = new HorizontalGroup();

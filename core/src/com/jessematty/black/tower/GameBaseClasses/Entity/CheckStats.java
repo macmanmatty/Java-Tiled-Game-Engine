@@ -1,6 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Entity;
 
-import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -181,8 +180,8 @@ public class CheckStats {
 
             }
             else{
-                String statToCheckValue=statToCheck.getText();
-                String statValue=stat.getText();
+                String statToCheckValue=statToCheck.getStat();
+                String statValue=stat.getStat();
                 if(!statToCheckValue.equals(statValue)){
                     return  false;
 

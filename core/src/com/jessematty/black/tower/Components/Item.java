@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,11 @@ public class Item implements Component {
     private boolean onGround;
     private float price;
     private boolean dropOnoDie;
+    private boolean held;
+    private String heldItemAction="rest";
+
+
+
 
     public boolean isInPack() {
         return inPack;
@@ -63,5 +69,22 @@ public class Item implements Component {
 
     public void setDropOnoDie(boolean dropOnoDie) {
         this.dropOnoDie = dropOnoDie;
+    }
+
+
+    public boolean isHeld() {
+        return held;
+    }
+
+    public void setHeld(boolean held) {
+        this.held = held;
+    }
+
+    public String getHeldItemAction() {
+        return heldItemAction;
+    }
+
+    public void setHeldItemAction(String heldItemAction) {
+        this.heldItemAction = heldItemAction;
     }
 }
