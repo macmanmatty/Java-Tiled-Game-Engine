@@ -4,7 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
@@ -214,7 +215,7 @@ public class TiledMapTileSetUtilities {
     public boolean setCheck( TileSet tileSet, MaskMode maskMode){
 
 
-        ObjectMap<Integer, Array<String>> setTileNames=tileSet.getSetRegionNames();
+        ObjectMap<Integer, Array<NumberedTile>> setTileNames=tileSet.getSetRegionNames();
 
         if(setTileNames.size==0){
 

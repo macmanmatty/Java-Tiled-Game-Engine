@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Maps;
 
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 
 import java.util.ArrayList;
 import java.util.Collections;

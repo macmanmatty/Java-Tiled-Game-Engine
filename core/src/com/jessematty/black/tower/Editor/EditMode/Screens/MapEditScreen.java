@@ -144,6 +144,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         mapStage = new Stage(mapViewport, batch);
         mapStage.getBatch().setProjectionMatrix(camera.combined);
         uiStage = new Stage();
+        inputMultiplexer.addProcessor(keyListener);
         inputMultiplexer.addProcessor(uiStage);
         inputMultiplexer.addProcessor(this);
         inputMultiplexer.addProcessor(mapStage);
@@ -559,6 +560,16 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         
         
     }
+    // sets the screen to to a world position
+    public void setCameraToMapCoordinates(float  mapX, float mapY ){
+
+        Vector3 screenCoordinates= camera.project(new Vector3(mapX, mapY, 0));
+        camera.translate(new Vector2(screenCoordinates.x, screenCoordinates.y));
+
+
+    }
+
+
     private Vector2 setCoordinatesToTile(float screenX, float screenY){
         int tilesX= (int) (screenX/ tileWidth);
         int tilesY= (int) (screenY/ tileHeight);

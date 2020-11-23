@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.SelectMode;
+import com.jessematty.black.tower.Editor.EditMode.MapTools.Tools.BitMaskTiledMapCells;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.PlaceMode;
 
@@ -133,8 +135,10 @@ public class MapEditButtons extends MapEditWindow {
         bitmask.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return  true;
 
+                mapEditScreen.setPlaceMode(PlaceMode.BITMASK);
+
+            return true;
             }
         });
         erase =new ImageButton(new TextureRegionDrawable( assets.getAtlasRegionByName("terrianSelect", "editorAssets")));

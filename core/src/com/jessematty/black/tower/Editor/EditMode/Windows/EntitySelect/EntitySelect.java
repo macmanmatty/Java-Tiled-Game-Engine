@@ -2,6 +2,7 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.EntitySelect;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,6 +29,7 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
     private ClipBoard clipBoard;
 
 
+
     
     public EntitySelect(MapEditScreen mapEditScreen, Skin skin) {
         this.assets = assets;
@@ -46,9 +48,6 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
     }
     public void makeTable(){
       int numberOfEntities=entities.size;
-
-
-
             for(int count=0; count<numberOfEntities; count++) {
                 Entity entity=entities.get(count);
                  EditorImageComponent editorImageComponent=editorImageComponentComponentMapper.get(entity);
@@ -63,11 +62,6 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
                 ItemSelectImageButton<Entity> itemSelectImageButton= new ItemSelectImageButton<>(entity,region, clipBoard );
 
                  add(itemSelectImageButton);
-
-
-
-
-
 
             }
 

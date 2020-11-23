@@ -3,6 +3,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,8 +18,10 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
@@ -45,7 +49,7 @@ import javax.swing.JFrame;
 public class MapTools {
     private final CopyObject copyObject;
     private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
-    private  final GameAssets gameAssets;
+    private final GameAssets gameAssets;
     private  static final BitMask bitMask= new BitMask();
     private static AtlasNamedAtlasRegion emptyGridTile;
     private static AtlasNamedAtlasRegion emptyTile;
@@ -406,8 +410,91 @@ public class MapTools {
     }
 
 
+
+    // create a tile set from a folder of tile images with a given tile name  and matching bit numbers
+    // in the format  of tileName.bitNumber.setNumber.extension ie water.10.0.png or sand.255.3.jpg setNumber is the number of random tiles  a given image has and it starts at 0
+    // supported image  formats png and jpg
+
+    public static  TileSet createTileSet(NamedTextureAtlas atlas, String path , String name){
+        int []  bitNumbers=bitMask.getEightBitMaskWangValues();
+        File [] files= new File(path).listFiles();
+        TileSet tileSet= new TileSet(name);
+
+        int size=files.length;
+        for(int count=0; count<size; count++){
+
+
+            File file=files[count];
+
+            String fileName=file.getName();
+            String []  parts = fileName.split("\\.");
+            if(isTileFile(name, bitNumbers, parts)){
+
+
+                // create texture region
+                Texture texture= new Texture(path+FileUtilities.getFileSeparator()+file.getName());
+                TextureRegion textureRegion=new TextureRegion(texture);
+                String textureName=parts[0]+"."+parts[1]+"."+parts[2];
+
+
+                // add region to atlas
+                atlas.addRegion(textureName, textureRegion);
+
+
+                // add region to tile set
+                int bitNumber=Integer.valueOf(parts[1]);
+
+                tileSet.addNumberedTile(bitNumber,new NumberedTile(bitNumber, textureName,atlas.getAtlasFileName()));
+
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+        return tileSet;
+
+    }
+
+
+    private static  boolean isTileFile( String name, int [] bitNumbers,  String []  parts){
+        if(!parts[0].equalsIgnoreCase(name)){
+            return  false;
+
+        }
+
+        // if name  does not contain  a valid bit number return false
+        for(int count=0; count<bitNumbers.length; count++) {
+            String stringBitNumber=String.valueOf(bitNumbers[count]);
+            if (!parts[1].equalsIgnoreCase(stringBitNumber)){
+                return  false;
+
+            }
+
+
+        }
+
+        // if the file is a png or jpg image file return true
+        if(parts[4].equalsIgnoreCase("png") || parts[4].equalsIgnoreCase("jpg")){
+            return true;
+        }
+         // is not supported image file return false
+
+        return  false;
+
+
+
+    }
+
+
     //  makes a tileMap from a bit mask map;
-public   static  void addRadomMaskedLayers(int minValue, int maxValue, int smoothness,  GameAssets assets,  GameMap map, Array<TileSet> tileSets, boolean addStatToTile, MaskMode maskMode) {
+public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoothness,  GameAssets assets,  GameMap map, Array<TileSet> tileSets, boolean addStatToTile, MaskMode maskMode) {
     int xSize=map.getXSize();
     int ySize=map.getYSize();
 
@@ -418,7 +505,7 @@ public   static  void addRadomMaskedLayers(int minValue, int maxValue, int smoot
 
     NumberMapGenerator numberMapGenerator= new NumberMapGenerator(xSize,ySize);
     int [] [] tileNumberMap=numberMapGenerator.makeNumberMap(maxValue, minValue , smoothness);
-    Array<Integer> tileNumbers= numberMapGenerator.getNumbers();
+    Array<Integer> tileNumbers= numberMapGenerator.getMapNumbers();
     tileNumbers.sort();
 
 
@@ -536,11 +623,11 @@ public   static  void addRadomMaskedLayers(int minValue, int maxValue, int smoot
 
     // returns a tile image for bit mask number and a set  number  from a tile set
     private static String getTileImage(TileSet tileSet, int bitMaskNumber, int setNumber) {
-        ObjectMap<Integer, Array< String>> regionNames=tileSet.getSetRegionNames();
+        ObjectMap<Integer, Array<NumberedTile>> regionNames=tileSet.getSetRegionNames();
         AtlasNamedAtlasRegion atlasNamedAtlasRegion=null;
-        Array<String>  bitRegions= regionNames.get(bitMaskNumber);
+        Array<NumberedTile>  bitRegions= regionNames.get(bitMaskNumber);
         int random= RandomNumbers.getRandomNumber(0, bitRegions.size);
-        return  bitRegions.get(random);
+        return  bitRegions.get(random).getRegionName();
 
 
 
@@ -576,6 +663,8 @@ public   static  void addRadomMaskedLayers(int minValue, int maxValue, int smoot
             cornerCheck(assetts, ySize, layers, tileSet,tileNumberMap, countx, county, count, number);
         }
     }
+
+
 
 }
 

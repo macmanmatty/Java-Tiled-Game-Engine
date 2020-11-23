@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind;
+package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;

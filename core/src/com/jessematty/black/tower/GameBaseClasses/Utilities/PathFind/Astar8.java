@@ -1,28 +1,35 @@
-package com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind;
+package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
+import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import java.util.ArrayList;
 /** @author Nathan Sweet */
-public class Astar4MapGenerator {
+public class Astar8 {
     private final int width, height;
     private final BinaryHeap<PathNode> open;
     private final PathNode[] nodes;
     int runID;
     private final IntArray path = new IntArray();
     private int targetX, targetY;
-  final private GameMap map;
-    ArrayList<BooleanStat> tileFlags= new ArrayList<BooleanStat>();
-    boolean occupied;
-    int pathWidth;
-    public Astar4MapGenerator(int width, int height , GameMap map ) {
+  final private GameMap map ;
+    public Astar8(int width, int height ,GameMap map , Movable movable) {
         this.width = width;
         this.height = height;
         open = new BinaryHeap(width * 4, false);
         nodes = new PathNode[width * height];
         this.map=map;
+    }
+    public Astar8(int width, int height, GameMap map) {
+        this.width = width;
+        this.height = height;
+        open = new BinaryHeap(width * 4, false);
+        nodes = new PathNode[width * height];
+        this.map = map;
     }
     /** Returns x,y pairs that are the path from the target to the start. */
     public IntArray getPath(int startX, int startY, int targetX, int targetY) {
@@ -33,7 +40,7 @@ public class Astar4MapGenerator {
         runID++;
         if (runID < 0) runID = 1;
         int index = startY * width + startX;
-       PathNode root = nodes[index];
+        PathNode root = nodes[index];
         if (root == null) {
             root = new PathNode(0);
             root.x = startX;
@@ -60,9 +67,14 @@ public class Astar4MapGenerator {
             int y = node.y;
             if (x < lastColumn) {
                 addNode(node, x + 1, y, 10);
+                if (y < lastRow)
+                    addNode(node, x + 1, y + 1, 14); // Diagonals cost more, roughly equivalent to sqrt(2).
+                if (y > 0) addNode(node, x + 1, y - 1, 14);
             }
             if (x > 0) {
                 addNode(node, x - 1, y, 10);
+                if (y < lastRow) addNode(node, x - 1, y + 1, 14);
+                if (y > 0) addNode(node, x - 1, y - 1, 14);
             }
             if (y < lastRow) addNode(node, x, y + 1, 10);
             if (y > 0) addNode(node, x, y - 1, 10);
@@ -84,7 +96,7 @@ public class Astar4MapGenerator {
                 node.pathCost = pathCost;
             }
         } else {
-            // Use node from the cache or createFromJson WoodWand new one.
+            // Use node from the cache or create a new one.
             if (node == null) {
                 node = new PathNode(0);
                 node.x = x;
@@ -98,11 +110,17 @@ public class Astar4MapGenerator {
         }
     }
     protected boolean isValid (int x, int y) {
-        LandSquareTile tile=map.getMapSquare(x,y);
-        return  flagCheck(tile);
-    }
-    boolean flagCheck(LandSquareTile location){
-        return true;
+        if(map.getMapSquare(x,y).isEnterable()) {
+            Array<Entity> entityList = map.getMapSquare(x, y).getEntities(SolidObject.class);
+
+            if (entityList.size> 0) {
+                return false;
+            }
+            return true;
+        }
+        else{
+            return  false;
+        }
     }
     public int getWidth () {
         return width;
@@ -116,23 +134,5 @@ public class Astar4MapGenerator {
         public PathNode (float value) {
             super(value);
         }
-    }
-    public boolean isOccupied() {
-        return occupied;
-    }
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
-    public int getPathWidth() {
-        return pathWidth;
-    }
-    public void setPathWidth(int pathWidth) {
-        this.pathWidth = pathWidth;
-    }
-    public ArrayList<BooleanStat> getTileFlags() {
-        return tileFlags;
-    }
-    public void setTileFlags(ArrayList<BooleanStat> tileFlags) {
-        this.tileFlags = tileFlags;
     }
 }

@@ -5,13 +5,14 @@ public class GameSettings {
     private   String mainWindowImageName;
     private  String mainWindowText;
     private  String atlasName;
-    private  int startTileLocationX;
-    private   int startTileLocationY;
+    private  int startMapLocationX;
+    private   int startMapLocationY;
     private String gameName;
     private float  screenWidth;
     private float screenHeight;
     private int totalNumberOfMaps;
     private String savePath;
+    private String textureAtlasPath;
 
     private GameInputKeys gameInputKeys= new GameInputKeys();
 
@@ -69,20 +70,20 @@ public class GameSettings {
 
 
 
-    public int getStartTileLocationX() {
-        return startTileLocationX;
+    public int getStartMapLocationX() {
+        return startMapLocationX;
     }
 
-    public void setStartTileLocationX(int startTileLocationX) {
-        this.startTileLocationX = startTileLocationX;
+    public void setStartMapLocationX(int startMapLocationX) {
+        this.startMapLocationX = startMapLocationX;
     }
 
-    public int getStartTileLocationY() {
-        return startTileLocationY;
+    public int getStartMapLocationY() {
+        return startMapLocationY;
     }
 
-    public void setStartTileLocationY(int startTileLocationY) {
-        this.startTileLocationY = startTileLocationY;
+    public void setStartMapLocationY(int startMapLocationY) {
+        this.startMapLocationY = startMapLocationY;
     }
 
     public int getTotalNumberOfMaps() {
@@ -109,5 +110,13 @@ public class GameSettings {
 
     public void setSavePath(String savePath) {
         this.savePath = savePath;
+    }
+
+    public String getTextureAtlasPath() {
+        return textureAtlasPath;
+    }
+
+    public void setTextureAtlasPath(String textureAtlasPath) {
+        this.textureAtlasPath = textureAtlasPath;
     }
 }

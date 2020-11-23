@@ -12,8 +12,10 @@ import com.jessematty.black.tower.Components.Grass;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
-import com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind.PathFind;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TerrainSet;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.PathFind;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
@@ -36,7 +38,6 @@ import java.util.List;
 
 public class LandMapGenerator extends MapGenerator {
    protected ArrayList<Shop> shops= new ArrayList<Shop>();
-
     protected  ArrayList<Building>  buildings = new ArrayList<Building>();
     ArrayList<Area> areas= new ArrayList<Area>();
     Area defaultArea;
@@ -46,9 +47,6 @@ public class LandMapGenerator extends MapGenerator {
     protected  ArrayList<EnterenceSquareTile> roadEnterenceTiles= new ArrayList<EnterenceSquareTile>();
     protected  ArrayList<EnterenceSquareTile> roadExitTiles= new ArrayList<EnterenceSquareTile>();
     BitMask mask= new BitMask();
-    boolean coldUp=true;
-    int  [] [] heightBitNumberMap;
-    int averageHeightNumber;
     protected Array<int [] []> numberMaps= new Array<int [] []>();
     protected Array<boolean [] []> maskMaps= new Array<boolean [] []>();
     protected ComponentMapper<NumericStats> numericStatComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
@@ -202,7 +200,7 @@ layer.setName("Road");
             }
         }
     }
-    private void makeBaseTiles(){ // fill the map up with empty landqaure tile objects
+    private void makeBaseTiles(){ // fill the map up with empty land sqaure tile objects
         for(int countx=0; countx<xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
                 LandSquareTile tile= new LandSquareTile(countx, county, ySize);
@@ -390,7 +388,7 @@ layer.setName("Road");
 
     protected  void makeTiledMaps() {
         NumberMapGenerator numberMapGenerator = new NumberMapGenerator(xSize, ySize);
-        Array<TileSet> tileSets = mapSpecs.tileSets;
+        Array<TerrainSet> tileSets = mapSpecs.tileSets;
 
 
         int numberOfSquares = xSize * ySize;
@@ -401,14 +399,13 @@ layer.setName("Road");
         int numberOfSets=tileSets.size;
 
         for (int count = 0; count < numberOfSets; count++) {
-            TileSet tileSet=tileSets.get(count);
-            NumericStat numericStat=tileSet.getTileSetStat();
+            TerrainSet tileSet=tileSets.get(count);
 
-
-
+           NumericStat numericStat=null;
+           // create height map
             int [] [] numberMap=numberMapGenerator.makeNumberMap(numericStat.getMaxIntValue(), numericStat.getMinIntValue(), numericStat.getIntValue());
             numberMaps.add(numberMap);
-            Array<Integer> numbers= numberMapGenerator.getNumbers();
+            Array<Integer> numbers= numberMapGenerator.getMapNumbers();
             numbers.sort();
             mapNumbers.add( numbers);
             makeTiledMapTiles( tileSet, numbers, numberMap);
@@ -422,9 +419,8 @@ layer.setName("Road");
     }
 
    //  makes a tileMap from a bit mask map;
-    public void makeTiledMapTiles(TileSet tileSet, Array<Integer> tileNumbers, int [] [] tileNumberMap) {
+    public void makeTiledMapTiles(TerrainSet terrainSet, Array<Integer> tileNumbers, int [] [] tileNumberMap) {
         int numberOfSoilLayers= tileNumbers.size;
-        MaskMode maskMode=tileSet.getMaskMode();
 
         for (int count = 0; count < numberOfSoilLayers; count++) {
 
@@ -437,16 +433,23 @@ layer.setName("Road");
 
         }
 // make bit mask map
+        MaskMode maskMode= terrainSet.getMaskMode();
+
         int [] [] bitNumberMap=mask.makeTrimmedHeightTileBitMap(tileNumbers, tileNumberMap, maskMode); // make trimmed bit map
-        String atlasName=tileSet.getAtlasName();
 
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
                 for (int count = 0; count < numberOfSoilLayers; count++) {
 
                     if (tileNumberMap[countx][county] == tileNumbers.get(count)) {
+
+
+                        TileSet tileSet= terrainSet.getTileSets().get(count);
+                        String atlasName=tileSet.getAtlasName();
+
+
                         Cell cell = new Cell();
-                        AtlasNamedAtlasRegion region = assetts.getAtlasRegionByName(getTileImage(tileSet, bitNumberMap[countx][county], count), atlasName);
+                        AtlasNamedAtlasRegion region = assetts.getAtlasRegionByName(getTileImageName(tileSet, bitNumberMap[countx][county], count), atlasName);
                         cell.setTile(  new AtlasStaticTiledMapTile(region));
                         TiledMapTileLayer  layer = (TiledMapTileLayer) tiledMap.getLayers().get(count );
                         layer.setCell(countx, ySize-county, cell);
@@ -454,14 +457,6 @@ layer.setName("Road");
                             cornerCheck( tileSet, tileNumberMap, countx, county, count, 1);
                         }
                     }
-                    LandSquareTile tile=landSquareTileMap[countx][county];
-
-                    NumericStats numericStats=numericStatComponentMapper.get(tile);
-                    NumericStat numericStat=tileSet.getNumericStatArray().get(count);
-                    numericStats.addStat(numericStat);
-
-
-
 
 
                 }
@@ -470,15 +465,11 @@ layer.setName("Road");
     }
 
     // returns a tile image for bit mask number and a set  number  from a tile set
-    private String getTileImage(TileSet tileSet, int bitMaskNumber, int setNumber) {
-            ObjectMap<Integer, Array< String>> regionNames=tileSet.getSetRegionNames();
-            AtlasNamedAtlasRegion atlasNamedAtlasRegion=null;
-            Array<String>  bitRegions= regionNames.get(bitMaskNumber);
+    private String getTileImageName(TileSet tileSet, int bitMaskNumber, int setNumber) {
+            ObjectMap<Integer, Array<NumberedTile>> regionNames=tileSet.getSetRegionNames();
+            Array<NumberedTile>  bitRegions= regionNames.get(bitMaskNumber);
             int random= RandomNumbers.getRandomNumber(0, bitRegions.size);
-            return  bitRegions.get(random);
-
-
-
+            return  bitRegions.get(random).getRegionName();
 
 
     }
@@ -490,18 +481,18 @@ layer.setName("Road");
         int bitValue= bitMask.eightSideBitMapCalculator(tileNumberMap[countx][county]-number, countx, county, tileNumberMap);
         AtlasNamedAtlasRegion region;
         if(number>=count){
-            region = assetts.getAtlasRegionByName(getTileImage(tileSet,bitValue, count ), atlasName);
+            region = assetts.getAtlasRegionByName(getTileImageName(tileSet,bitValue, count ), atlasName);
             cell.setTile(new AtlasStaticTiledMapTile(region));
             layer.setCell(countx, ySize - county, cell);
             return;
         }
         if (bitValue!=255 ) {
-            region = assetts.getAtlasRegionByName(getTileImage(tileSet,bitValue, count ), atlasName);
+            region = assetts.getAtlasRegionByName(getTileImageName(tileSet,bitValue, count ), atlasName);
             cell.setTile(new AtlasStaticTiledMapTile(region));
             layer.setCell(countx, ySize - county, cell);
         }
         else {
-            region = assetts.getAtlasRegionByName(getTileImage(tileSet,255, count ), atlasName);
+            region = assetts.getAtlasRegionByName(getTileImageName(tileSet,255, count ), atlasName);
             cell.setTile(new AtlasStaticTiledMapTile(region));
             layer.setCell(countx, ySize - county, cell);
             return;

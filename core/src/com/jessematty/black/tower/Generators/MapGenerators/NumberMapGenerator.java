@@ -1,36 +1,35 @@
 package com.jessematty.black.tower.Generators.MapGenerators;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
-import java.util.ArrayList;
+
+//  class for  making a 2d array of  ints that resemble geographical height landSquareTileMap
 public class NumberMapGenerator {
 	RandomNumbers value=new RandomNumbers();
 	int xSize;
 	int ySize;
-	Array<Integer> numbers = new Array<Integer>();
+	Array<Integer> mapNumbers = new Array<Integer>(); // the  unique numbers in the height map array.
 	public NumberMapGenerator(int xSize, int ySize) {
 		this.xSize = xSize;
 		this.ySize = ySize;
 	}
-	public void setMapSize(int xSize, int ySize){ // makes a 2d array of  ints that resemble geographical height landSquareTileMap
+	public void setMapSize(int xSize, int ySize){
 		this.xSize=xSize;
 		this.ySize=ySize;
 	}
 	
 	public int[][] makeNumberMap(int maxValue, int minValue, int smoothness){ // makes 2d array of ints that resembles WoodWand rain landSquareTileMap
-		int[][] soilMap= new int[xSize][ySize];
+		int[][] heightMap= new int[xSize][ySize]; // the numerical height map
 		int x;
 		int y;
 		int a;
 		int b;
+		// make random number map
 		for (int countx=0; countx<xSize;  countx++){
 			for (int county=0; county<ySize; county++){
-				soilMap[countx][county]=value.getRandomNumber(minValue, maxValue);
+				heightMap[countx][county]=value.getRandomNumber(minValue, maxValue);
 			}
 		}
-		for (int countx=0; countx<xSize;  countx++) {
-			for (int county = 0; county < ySize; county++) {
-				}
-			}
+		//average numbers to create  the height map
 		for(int smooth=0; smooth<smoothness; smooth++){
 			for (int countx=0; countx<xSize;  countx++){
 				for (int county=0; county<ySize; county++){
@@ -50,31 +49,40 @@ public class NumberMapGenerator {
 					if (b>=ySize){
 						b=ySize-1;
 					}
-					soilMap[countx][county]=((soilMap[a][county]+soilMap[x][county]+soilMap[a][b]+soilMap[a][y]+soilMap[countx][b]+soilMap[countx][y]+soilMap[x][y]+soilMap[x][b])/8);
+					heightMap[countx][county]=((heightMap[a][county]+heightMap[x][county]+heightMap[a][b]+heightMap[a][y]+heightMap[countx][b]+heightMap[countx][y]+heightMap[x][y]+heightMap[x][b])/8);
 				}
 			}
 		}
+
+		createMapNumbers(heightMap);
+
+		return heightMap;
+	}
+
+	// find the unique numbers in the soil map array
+	private void createMapNumbers(int [] [] soilMap){
+
 		for (int countx=0; countx<xSize;  countx++){
 			for (int county=0; county<ySize; county++){
 				boolean inMap= numberCheck(soilMap[countx][county]);
 				if(inMap==false){
-					numbers.add(soilMap[countx][county]);
+					mapNumbers.add(soilMap[countx][county]);
 				}
 			}
-			}
-		return soilMap;
+		}
+
 	}
 	private boolean numberCheck(int number){
-		int size= numbers.size;
+		int size= mapNumbers.size;
 		for (int count=0; count<size; count++){
-			if(numbers.get(count)==number){
+			if(mapNumbers.get(count)==number){
 				return true;
 			}
 		}
 		return false;
 	}
-	public Array<Integer> getNumbers() {
-		return numbers;
+	public Array<Integer> getMapNumbers() {
+		return mapNumbers;
 	}
 }
 	

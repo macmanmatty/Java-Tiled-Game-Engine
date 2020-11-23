@@ -1,8 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.GameSettings;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeys;
 
-public class GameInputKeys {
+public class GameInputKeys implements InputKeys {
     int moveUpKey= Keys.UP;
     int moveDownKey= Keys.DOWN;
     int moveLeftKey= Keys.LEFT;
@@ -31,6 +34,8 @@ public class GameInputKeys {
     int slashKey=Keys.SPACE;
     int thrustKey=Keys.ALT_RIGHT;
     int shootKey=Keys.ALT_LEFT;
+
+   private  ObjectMap<String, InputKeyCombo> keys= new ObjectMap<>();
 
 
 
@@ -276,5 +281,18 @@ public class GameInputKeys {
 
     public void setShootKey(int shootKey) {
         this.shootKey = shootKey;
+    }
+
+    @Override
+    public void addKey(String actionName, InputKeyCombo inputKeyCombo) {
+        this.keys.put(actionName, inputKeyCombo);
+
+
+    }
+
+    @Override
+    public ObjectMap<String, InputKeyCombo> getKeys() {
+        return keys;
+
     }
 }

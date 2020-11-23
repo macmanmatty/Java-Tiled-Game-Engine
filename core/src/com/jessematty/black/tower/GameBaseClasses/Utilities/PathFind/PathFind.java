@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Calculators.PathFind;
+package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
 import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -6,13 +6,13 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import java.util.ArrayList;
 public class PathFind {
     boolean eightDirections;
-    Astar8MapGenerator star8;
-    Astar4MapGenerator star4;
+    com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8MapGenerator star8;
+    com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4MapGenerator star4;
     GameMap map;
     public PathFind(GameMap map) {
         this.map = map;
-        star4 = new Astar4MapGenerator(map.getXSize(), map.getYSize(), map);
-        star8 = new Astar8MapGenerator(map.getXSize(), map.getYSize(), map);
+        star4 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4MapGenerator(map.getXSize(), map.getYSize(), map);
+        star8 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8MapGenerator(map.getXSize(), map.getYSize(), map);
     }
     public ArrayList<LandSquareTile> pathFind(LandSquareTile tileFrom, LandSquareTile tileTo, int width, ArrayList<BooleanStat> flags, boolean occupant, boolean eightDirections) { // calculates  the path finding method using the A* algorithm
         int fromX=tileFrom.getLocationX();
@@ -75,7 +75,7 @@ public class PathFind {
         int height=yMax-yStart;
         ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
         if (eightDirections==false){
-            Astar8MapGenerator star8= new Astar8MapGenerator(width, height, map);
+            com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8MapGenerator star8= new Astar8MapGenerator(width, height, map);
             star8.setOccupied(occupant);
             star8.setPathWidth(pathWidth);
             IntArray paths=star4.getPath(fromX, fromY, toX, toY);
@@ -85,7 +85,7 @@ public class PathFind {
             }
         }
         else {
-            Astar4MapGenerator star4= new Astar4MapGenerator(width, height, map);
+            com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4MapGenerator star4= new Astar4MapGenerator(width, height, map);
             star4.setOccupied(occupant);
             star4.setPathWidth(pathWidth);
             IntArray paths=star8.getPath(fromX, fromY, toX, toY);

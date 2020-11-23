@@ -8,9 +8,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Editor.EditMode.MapTools.Tools.BitMaskTiledMapCells;
 import com.jessematty.black.tower.Editor.EditMode.MapTools.Tools.BucketFill;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.Generators.MapGenerators.HeightMapGen;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
@@ -24,8 +26,6 @@ import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
-
-import java.util.ArrayList;
 
 public class TiledMapEdit {
    private  TiledMap currentTiledMap;
@@ -41,7 +41,6 @@ public class TiledMapEdit {
     private GameAssets gameAssets;
     private BitMask bitMask= new BitMask();
     private boolean fillDiagnols;
-    private TextureRegionPage textureRegionPage;
     public TiledMapEdit(GameAssets gameAssets, ClipBoard clipBoard) {
         this.clipBoard = clipBoard;
         this.gameAssets = gameAssets;
@@ -54,7 +53,30 @@ public class TiledMapEdit {
             TextureRegion regionToReplace = cell.getTile().getTextureRegion();
             BucketFill.fillCells(0, 0, xSize, ySize, currentLayer, locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
         }
-        
+
+    }
+
+    public void bitMask(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet set) {
+        Cell cell=currentLayer.getCell(locationX, locationY);
+        if(cell!=null) {
+            TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+            if(regionToReplace!=null) {
+                BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, currentLayer, locationX, locationY,gameAssets,  set, fillRegion);
+            }
+
+        }
+
+    }
+    public void bitMaskMouseOver(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet set) {
+        Cell cell=currentLayer.getCell(locationX, locationY);
+        if(cell!=null) {
+            TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+            if(regionToReplace!=null) {
+                BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY,gameAssets,  set, fillRegion);
+            }
+
+        }
+
     }
    
     public void fillMouseOver(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion) {
@@ -240,7 +262,7 @@ public class TiledMapEdit {
         MapLayer mapLayer=currentTiledMap.getLayers().get(name);
         mapLayer.setVisible(!mapLayer.isVisible());
     }
-    protected void loadTiledMap() { // loads a new tmx landSquareTileMap made with tiled landSquareTileMap program
+    protected void loadTiledMap() { // loads a new tmx TileMap made with tiled tileMap program
         TiledMap map=MapTools.loadTMXMapFromFile(gameAssets);
         if(map!=null) {
             currentTiledMap= map;
@@ -322,7 +344,7 @@ public class TiledMapEdit {
           for (int county = 0; county < ySize; county++) {
              int number= bitMask.eightSideBitMapCalculator(countx, county, region, currentLayer, xSize, ySize);
              Cell cell=currentLayer.getCell(countx, county);
-            String name =bitMaskableTileSet.getTiles().get(number);
+            String name =bitMaskableTileSet.getTileNumbers().get(number);
             if(name.isEmpty()){
                 throw new BitMaskException( "Incomplete  Tile Set No Tile  Exists for Bit Number "+number);
             }

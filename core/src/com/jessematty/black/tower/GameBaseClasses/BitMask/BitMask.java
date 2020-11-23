@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.utils.Array;
@@ -16,6 +17,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.TiledMapTileChangable;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -140,7 +142,7 @@ public class BitMask {
       int [] [] bitNumberMap = new int [xSize][ySize];
         boolean trimmed = true;
         while (trimmed == true) { // if  tile has been trimmed  keep masking.
-            boolean trimmedSomthing = false;
+            boolean trimmedSomething = false;// whether or not something was trimmed
             for (int countx = 0; countx < xSize; countx++) {
                 for (int county = 0; county < ySize; county++) {
                     int size2 = numbers.size;
@@ -150,8 +152,8 @@ public class BitMask {
                             boolean trimmedTile = trimTile(bit, maskMode); // if tiles bit value not in the list it was trimmed
                             if (trimmedTile == true) {
                                 map[countx][county]--; // make layer number lower  as tile has been cut out .
-                                if (trimmedSomthing == false) {
-                                    trimmedSomthing = trimmedTile;
+                                if (trimmedSomething == false) {
+                                    trimmedSomething = trimmedTile;
                                 }
                                 continue;
                             }
@@ -161,7 +163,7 @@ public class BitMask {
                     }
                 }
             }
-            trimmed = trimmedSomthing;
+            trimmed = trimmedSomething;
         }
         return bitNumberMap;
     }
@@ -759,23 +761,20 @@ public class BitMask {
         }
         return bitMapValue;
     }
-    public int eightSideBitMapCalculator(TiledMapTileChangable tile, TextureRegion region, TiledMap map ){ // does the smae as pervious function but for all eight sides
+    public int eightSideBitMapCalculator( int tileX, int tileY, TiledMapTile tile,  TextureRegion region, TiledMapTileLayer tiledMapTileLayer ){ // does the smae as pervious function but for all eight sides
         if (region==null){
             return 0;
         }
-        MapProperties prop = map.getProperties();
-        int layer=tile.getLayer();
-        int xSize = prop.get("weaponWidth", Integer.class);
-        int ySize = prop.get("height", Integer.class);
-        MapLayers layers=map.getLayers();
-        TiledMapTileLayer tileLayer= (TiledMapTileLayer) layers.get(layer);
+        int ySize=tiledMapTileLayer.getHeight();
+        int xSize=tiledMapTileLayer.getWidth();
+
         boolean [] [] bitMap = new boolean [3] [3];
         for (int countx = -1; countx < 2; countx++) {
             for (int county = -1; county < 2; county++) {
-                int x=countx+tile.getLocationX();
-                int y=county+tile.getLocationY();
+                int x=countx+tileX;
+                int y=county+tileY;
                 if (y>=0 && y<ySize && x>=0 && x<xSize) {
-                    Cell cell=tileLayer.getCell(x, y);
+                    Cell cell=tiledMapTileLayer.getCell(x, y);
                     TextureRegion region2 =cell.getTile().getTextureRegion();
                     if (region.equals(region2)) {
                         bitMap[countx+1][county+1]=true;
@@ -933,6 +932,15 @@ int ySize=map[0].length;
         return eightBitMaskPartialWangValues;
     }
 
+    public int[] getEightBitMaskPartialWangValuesNoDiagonals() {
+        return eightBitMaskPartialWangValuesNoDiagonals;
+    }
 
+    public int[] getEightBitMaskWangValues() {
+        return eightBitMaskWangValues;
+    }
 
+    public ArrayList<Integer> getBitmaskValues() {
+        return bitmaskValues;
+    }
 }

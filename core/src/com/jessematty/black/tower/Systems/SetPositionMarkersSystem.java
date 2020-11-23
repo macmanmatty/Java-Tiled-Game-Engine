@@ -9,7 +9,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
 import com.jessematty.black.tower.Components.Markers.VisibleOnScreen;
+import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.SolidObject;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -18,16 +21,15 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a flag component for visible onscreen  and on current map and adds or removes it based on the players position.
     ImmutableArray<Entity>  entities;
     private ComponentMapper<PositionComponent> positions;
-    private ComponentMapper<VisibleOnScreen> visibleOnScreenComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+
+    private ComponentMapper<PhysicalObjectComponent> physicalObjectComponentComponentMapper;
     public SetPositionMarkersSystem(MapDraw draw, int priority) {
         super( priority, draw);
     }
     @Override
     public void addedToEngine(Engine engine) {
         positions=getGameComponentMapper().getPositionComponentMapper();
-        visibleOnScreenComponentMapper=getGameComponentMapper().getVisibleOnScreenComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
+       physicalObjectComponentComponentMapper= GameComponentMapper.getPhysicalObjectComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
@@ -43,6 +45,15 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
         for(int count=0;  count<size; count++ ) {
             Entity entity=entities.get(count);
             PositionComponent position=positions.get(entity);
+            if(position.isHasBounds() && physicalObjectComponentComponentMapper.get(entity)!=null){
+
+                entity.add(new SolidObject());
+            }
+
+            else{
+
+                entity.remove(SolidObject.class);
+            }
 
 
 

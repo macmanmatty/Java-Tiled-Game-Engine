@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettableImage;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
@@ -43,8 +44,8 @@ public class BitMaskedTileSetCreationWindow extends MapEditWindow {
     protected  final HorizontalGroup singleTilesGroup= new HorizontalGroup();
     protected  final HorizontalGroup zeroTilesGroup= new HorizontalGroup();
     protected  final HorizontalGroup centerTilesGroup= new HorizontalGroup();
-    protected  List<BitMaskableTileSet> bitMaskableTileSetList;
-    protected   BitMaskableTileSet bitmaskableTileSet;
+    protected  List<TileSet> bitMaskableTileSetList;
+    protected  TileSet bitmaskableTileSet;
 
 
 
@@ -151,7 +152,7 @@ public class BitMaskedTileSetCreationWindow extends MapEditWindow {
         });
 
 
-      bitMaskableTileSetList= new List<BitMaskableTileSet>(skin);
+      bitMaskableTileSetList= new List<TileSet>(skin);
       bitMaskableTileSetList.addListener(new ChangeListener() {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
@@ -170,16 +171,16 @@ public class BitMaskedTileSetCreationWindow extends MapEditWindow {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                 String name=tileSetName.getText();
-                BitMaskableTileSet bitMaskableTileSet=null;
+                TileSet bitMaskableTileSet=null;
                 if( name==null ||name.isEmpty()) {
-                    bitMaskableTileSet = new BitMaskableTileSet("TileSet " + bitMaskableTileSetList.getItems().size);
+                    bitMaskableTileSet = new TileSet("TileSet " + bitMaskableTileSetList.getItems().size);
 
 
                 }
 
                 else{
 
-                    bitMaskableTileSet= new BitMaskableTileSet(name);
+                    bitMaskableTileSet= new TileSet(name);
 
                 }
                 setBitmaskableTileSet(bitMaskableTileSet);
@@ -233,11 +234,11 @@ public class BitMaskedTileSetCreationWindow extends MapEditWindow {
 
     }
 
-    public BitMaskableTileSet getBitmaskableTileSet() {
+    public TileSet getBitmaskableTileSet() {
         return bitmaskableTileSet;
     }
 
-    public void setBitmaskableTileSet(BitMaskableTileSet bitmaskableTileSet) {
+    public void setBitmaskableTileSet(TileSet bitmaskableTileSet) {
         this.bitmaskableTileSet = bitmaskableTileSet;
     }
 }

@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Generators.MapGenerators;
 
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.Maps.Area;
 
 import java.util.ArrayList;
@@ -10,16 +10,12 @@ import java.util.ArrayList;
 public class MapSpecs {
     int xSize;
     int ySize;
-    int maxNumberOfFighters;
-    int minNumberOfFighters;
-    boolean fightersRegenerate;
+    boolean enemiesRegenerate;
     ArrayList<String> preMadeTmxMapSectionPaths = new ArrayList<String>();
     Array<NumericStat> tileNumericStats= new Array<>();
     Array<TileSet> tileSets= new Array<>();
     String thingsToLoadJsonFilePath;
      String fightersToLoadJsonFilePath;
-     ArrayList<Area> areas= new ArrayList<Area>();
-    Area defaultArea;
 
 
 
@@ -31,22 +27,8 @@ public class MapSpecs {
 
                    xSize=1;
                    ySize=1;
-                   maxNumberOfFighters=1;
-                   minNumberOfFighters=1;
-                fightersRegenerate=true;
-                 defaultArea= new Area();
-                 areas.add(defaultArea);
 
-
-
-
-
-
-
-
-
-
-
+                enemiesRegenerate =true;
 
               }
 
@@ -68,28 +50,14 @@ public class MapSpecs {
         this.ySize = ySize;
     }
 
-    public int getMaxNumberOfFighters() {
-        return maxNumberOfFighters;
+
+
+    public boolean isEnemiesRegenerate() {
+        return enemiesRegenerate;
     }
 
-    public void setMaxNumberOfFighters(int maxNumberOfFighters) {
-        this.maxNumberOfFighters = maxNumberOfFighters;
-    }
-
-    public int getMinNumberOfFighters() {
-        return minNumberOfFighters;
-    }
-
-    public void setMinNumberOfFighters(int minNumberOfFighters) {
-        this.minNumberOfFighters = minNumberOfFighters;
-    }
-
-    public boolean isFightersRegenerate() {
-        return fightersRegenerate;
-    }
-
-    public void setFightersRegenerate(boolean fightersRegenerate) {
-        this.fightersRegenerate = fightersRegenerate;
+    public void setEnemiesRegenerate(boolean enemiesRegenerate) {
+        this.enemiesRegenerate = enemiesRegenerate;
     }
 
 
@@ -111,20 +79,5 @@ public class MapSpecs {
         this.fightersToLoadJsonFilePath = fightersToLoadJsonFilePath;
     }
 
-    public ArrayList<Area> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(ArrayList<Area> areas) {
-        this.areas = areas;
-    }
-
-    public Area getDefaultArea() {
-        return defaultArea;
-    }
-
-    public void setDefaultArea(Area defaultArea) {
-        this.defaultArea = defaultArea;
-    }
 
 }

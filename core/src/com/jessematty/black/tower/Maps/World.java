@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Markers.AddedToEngine;
 import com.jessematty.black.tower.Components.Markers.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameSettings;
@@ -29,8 +30,8 @@ public class World { // class that holds the array of maps  aka the world
         private int startMapY;
         private OrderedMap<String, Entity> entitiesInWorld= new OrderedMap<String, Entity>(); // all of the entities currently in the world
         private   transient CraftLookUpTable craftLookUpTable;
-        private  final  transient Engine engine=new PooledEngine(); // game engine
-        private transient final GameComponentMapper gameComponentMapper= new GameComponentMapper();
+        private  final  transient Engine engine=new PooledEngine(); //  ashley game engine
+        private transient final GameComponentMapper gameComponentMapper= new GameComponentMapper(); // game compenent mapper for engine components
         private String name;
         private boolean gameInProgress;
         private  boolean newWorld =true;
@@ -38,6 +39,10 @@ public class World { // class that holds the array of maps  aka the world
         private int currentMapY;
         private Entity player;
         private String playerID;
+        // the texture atlas the world uses
+        private NamedTextureAtlas worldTextureAtlas;
+        // the path to the above texture atlas
+        private String worldTextureAtlasPath;
 
         // used for  deserlization
         public World() {
@@ -287,7 +292,7 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    // adds the gam map tiles to the engine
+    // adds the game map tiles to the engine
     private  void addTilesToEngine(GameMap gameMap){
 
             LandSquareTile[] [] tileMap=gameMap.getMap();
@@ -298,6 +303,8 @@ public class World { // class that holds the array of maps  aka the world
             }
         }
     }
+    // removes the game map tiles from the engine
+
     private  void removeTilesFromEngine( GameMap gameMap){
         LandSquareTile[] [] tileMap=gameMap.getMap();
         for (int countx=0; countx<tileMap.length; countx++) {
@@ -382,5 +389,22 @@ public class World { // class that holds the array of maps  aka the world
     public void setPlayer(Entity player) {
         this.player = player;
         this.playerID=getGameComponentMapper().getIdComponentMapper().get(player).getId();
+    }
+
+    public NamedTextureAtlas getWorldTextureAtlas() {
+        return worldTextureAtlas;
+    }
+
+    public void setWorldTextureAtlas(NamedTextureAtlas worldTextureAtlas) {
+        this.worldTextureAtlas = worldTextureAtlas;
+        this.worldTextureAtlas=worldTextureAtlas;
+    }
+
+    public String getWorldTextureAtlasPath() {
+        return worldTextureAtlasPath;
+    }
+
+    public void setWorldTextureAtlasPath(String worldTextureAtlasPath) {
+        this.worldTextureAtlasPath = worldTextureAtlasPath;
     }
 }

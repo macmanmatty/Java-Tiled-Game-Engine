@@ -29,8 +29,6 @@ public class ItemSelectImageButton<T> extends Image {
         this.itemSettable = itemSettable;
 
         addListener(new ClickListener() {
-
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 setDebug(true);
@@ -39,7 +37,6 @@ public class ItemSelectImageButton<T> extends Image {
                     itemSettable.setItem(item);
 
                 }
-
 
                 return true;
             }

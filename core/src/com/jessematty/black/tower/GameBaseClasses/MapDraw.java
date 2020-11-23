@@ -82,7 +82,6 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
         this.assetts=assetts;
         engine=world.getEngine();
         this.world=world;
-        gameComponentMapper=world.getGameComponentMapper();
         if(world.getWorldMap()!=null) {
             this.currentMap = world.getStartMap();
             this.currentMap.setCurrentMap(true);
@@ -109,7 +108,7 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
         stageViewport= new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     uiStage = new Stage(stageViewport);
     input.addProcessor(uiStage);
-    //input.addProcessor(keyListener);
+    input.addProcessor(keyListener);
     shapeRenderer =new ShapeRenderer();
     boundingBoxRenderer= new BoundingBoxRenderer(shapeRenderer);
     EngineSetup.addBaseSystemsToEngine(engine, this, shapeRenderer, drawEntityDebugBounds, mapAndEntityBuffer, lightSourceBuffer);

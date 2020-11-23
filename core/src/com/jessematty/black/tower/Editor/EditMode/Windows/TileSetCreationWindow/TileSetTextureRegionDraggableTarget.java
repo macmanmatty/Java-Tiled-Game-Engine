@@ -10,15 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 
 public class TileSetTextureRegionDraggableTarget extends Target {
 
     private final int bitmaskNumber;
-    private final BitMaskableTileSet bitMaskableTileSet;
+    private final TileSet bitMaskableTileSet;
     private  AtlasRegion region;
     private ClipBoard clipBoard;
 
-    public TileSetTextureRegionDraggableTarget(final ClipBoard clipBoard, int bitmaskNumber, BitMaskableTileSet bitMaskableTileSet, final Image region) {
+    public TileSetTextureRegionDraggableTarget(final ClipBoard clipBoard, int bitmaskNumber, TileSet bitMaskableTileSet, final Image region) {
         super(region);
         this.bitmaskNumber=bitmaskNumber;
         this.bitMaskableTileSet =bitMaskableTileSet;

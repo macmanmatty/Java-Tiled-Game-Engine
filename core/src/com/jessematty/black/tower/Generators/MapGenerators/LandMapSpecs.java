@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Generators.MapGenerators;
 
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.TileSet;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TerrainSet;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class LandMapSpecs extends MapSpecs {
 
    ArrayList<String> preMadeTmxMapSectionPaths = new ArrayList<String>();
    Array<NumericStat> tileNumericStats= new Array<>();
-   Array<TileSet> tileSets= new Array<>();
+   Array<TerrainSet> tileSets= new Array<>();
 
 
 
@@ -23,7 +23,7 @@ public class LandMapSpecs extends MapSpecs {
         xSize=1;
         ySize=1;
 
-        fightersRegenerate=true;
+        enemiesRegenerate =true;
 
         tileNumericStats.add(new NumericStat(true, "Temperature", 0, -100, 200));
         tileNumericStats.add(new NumericStat(true, "Temperature", 0, -100, 200));
@@ -44,7 +44,7 @@ public class LandMapSpecs extends MapSpecs {
         return tileNumericStats;
     }
 
-    public Array<TileSet> getTileSets() {
+    public Array<TerrainSet> getTileSets() {
         return tileSets;
     }
 }

@@ -5,19 +5,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettableImage;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 
 public class InnerCornerTileSet {
 
     private Table table=new Table();
-    private BitMaskableTileSet bitMaskableTileSet;
+    private TileSet bitMaskableTileSet;
     private int tileWidth;
     private int tileHeight;
     private GameAssets gameAssets;
     private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
 
-    public InnerCornerTileSet(BitMaskableTileSet bitMaskableTileSet,  MapEditScreen mapEditScreen) {
+    public InnerCornerTileSet(TileSet bitMaskableTileSet,  MapEditScreen mapEditScreen) {
         this.bitMaskableTileSet = bitMaskableTileSet;
         this.tileWidth = mapEditScreen.getTileWidth();
         this.gameAssets = mapEditScreen.getGameAssets();
