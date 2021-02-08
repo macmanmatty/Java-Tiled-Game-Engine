@@ -15,7 +15,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPa
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPaneAction;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.MapTools;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 
 public class CreateWorldWindow extends EditWindow {
 

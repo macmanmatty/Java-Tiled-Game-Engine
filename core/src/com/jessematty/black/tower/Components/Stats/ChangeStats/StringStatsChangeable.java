@@ -3,33 +3,35 @@ package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
-public class BooleanStatsChangable implements Component {
+public class StringStatsChangable implements Component {
 
 
 
-   private  Array<ChangableBooleanStat> statsToChange = new Array<ChangableBooleanStat>();
+   private Array<ChangeableStringStat> statsToChange = new Array<ChangeableStringStat>();
 
 
-    public Array<ChangableBooleanStat> getStatsToChange() {
+    public Array<ChangeableStringStat> getStatsToChange() {
         return statsToChange;
     }
 
-    public void addStatToChange(ChangableBooleanStat changableBooleanStat ){
+    public void addStatToChange(ChangeableStringStat changableStringStat ){
 
         int size=statsToChange.size;
         boolean addStat=true;
         for(int count=0; count<size; count++){
-            if(statsToChange.get(count).getName().equals(changableBooleanStat.getName())){
+            if(statsToChange.get(count).getName().equals(changableStringStat.getName())){
                 addStat=false;
                 break;
             }
         }
 
         if(addStat==true) {
-            statsToChange.add(changableBooleanStat);
+            statsToChange.add(changableStringStat);
         }
 
     }
+
+
     public void removeStatToChange(String name){
 
         int size= statsToChange.size;
@@ -46,29 +48,30 @@ public class BooleanStatsChangable implements Component {
 
     }
 
-    public void addOrCombineStat(ChangableBooleanStat changableBooleanStat) {
+    public void addOrCombineStat(ChangeableStringStat changableStringStat) {
         int size=statsToChange.size;
         boolean addStat=true;
         for(int count=0; count<size; count++){
-            if(statsToChange.get(count).getName().equals(changableBooleanStat.getName())){
-                statsToChange.add(changableBooleanStat);
+            if(statsToChange.get(count).getName().equals(changableStringStat.getName())){
+                statsToChange.add(changableStringStat);
                 addStat=false;
                 break;
             }
         }
 
         if(addStat==true) {
-            statsToChange.add(changableBooleanStat);
+            statsToChange.add(changableStringStat);
         }
 
     }
 
-    public ChangableBooleanStat getStat(String name){
+
+    public ChangeableStringStat getStat(String name){
 
         int size= statsToChange.size;
         for(int count=0; count<size; count++){
 
-            ChangableBooleanStat numericStatChangeable= statsToChange.get(count);
+            ChangeableStringStat numericStatChangeable= statsToChange.get(count);
             if(numericStatChangeable.getName().equals(name)){
 
                 return numericStatChangeable;
@@ -80,7 +83,4 @@ public class BooleanStatsChangable implements Component {
 
 
     }
-
-
-
 }

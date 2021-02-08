@@ -6,13 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.SelectMode;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.Tools.BitMaskTiledMapCells;
+import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.PlaceMode;
+import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
 
 public class MapEditButtons extends MapEditWindow {
     private Array<ImageButton> topButtons= new Array<>();
@@ -29,8 +27,9 @@ public class MapEditButtons extends MapEditWindow {
     private ImageButton bitmask;
     private ImageButton erase;
     private ImageButton fill;
+    private ImageButton  back;
     private final GameAssets assets;
-    private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
+    private final MapEditScreen mapEditScreen;
     public MapEditButtons(MapEditScreen edit, Skin skin) {
         super(edit, "Top Buttons", skin, "default");
         this.assets=edit.getGameAssets();
@@ -160,7 +159,20 @@ public class MapEditButtons extends MapEditWindow {
 
             }
         });
-        add(backToWorldEdit).align(Align.center).size(32, 32);
+
+       back =new ImageButton(new TextureRegionDrawable( assets.getAtlasRegionByName("paintBucket", "editorAssets")));
+        back.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                mapEditScreen.backToWorldEdit();
+                mapEditScreen.getGameAssets().setScreen("worldEdit");
+                return true;
+
+            }}
+
+            );
+
         add(rotateLeft).align(Align.center).size(32, 32);
         add(rotateRight).align(Align.center).size(32, 32);
         add(placeEntity).align(Align.center).size(32, 32);
