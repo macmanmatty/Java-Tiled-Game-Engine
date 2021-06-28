@@ -12,6 +12,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SoundComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 
@@ -37,8 +38,8 @@ public  class PlaySoundSystem extends GameEntitySystem{
     @Override
     public void addedToEngine(Engine engine) {
 
-        soundComponentComponentMapper =getGameComponentMapper().getSoundComponentComponentMapper();
-        positionComponentMapper =getGameComponentMapper().getPositionComponentMapper();
+        soundComponentComponentMapper = GameComponentMapper.getSoundComponentComponentMapper();
+        positionComponentMapper =GameComponentMapper.getPositionComponentMapper();
 
 
 

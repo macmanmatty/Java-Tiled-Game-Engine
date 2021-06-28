@@ -5,18 +5,18 @@ import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;
 // create a basic  with all  of the  required components.
@@ -54,18 +54,18 @@ public class EntityGenerator {
         entity.add(booleanStats);
         StringStats stringStats=  new StringStats();
         entity.add(stringStats);
-        NumericStatsChangable numericStatsChangable = new NumericStatsChangable();
-        entity.add(numericStatsChangable);
-        BooleanStatsChangable booleanStatsChangable= new BooleanStatsChangable();
-        entity.add(booleanStatsChangable);
-        StringStatsChangable stringStatsChangable=  new StringStatsChangable();
-        entity.add(stringStatsChangable);
+        NumericStatsChangeable numericStatsChangeable = new NumericStatsChangeable();
+        entity.add(numericStatsChangeable);
+        BooleanStatsChangeable booleanStatsChangeable = new BooleanStatsChangeable();
+        entity.add(booleanStatsChangeable);
+        StringStatsChangeable stringStatsChangeable =  new StringStatsChangeable();
+        entity.add(stringStatsChangeable);
         Groups groups= new Groups();
         groups.getGroups().add("entity");
         entity.add(groups);
         NumericStatsSelfChangable numericStatsSelfChangable= new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
-        return  new BasicEntityContainer(entity,  id , name, groups,   numericStats, booleanStats, stringStats, stringStatsChangable, numericStatsSelfChangable,booleanStatsChangable, numericStatsChangable);
+        return  new BasicEntityContainer(entity,  id , name, groups,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
     }
 
 

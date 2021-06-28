@@ -22,12 +22,10 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGro
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 public class StatsGroup extends VerticalGroup {
     private Skin skin;
-    private GameComponentMapper gameComponentMapper;
     private MapDraw draw;
     private final String groupName;
     public StatsGroup(MapDraw draw, String groupName) {
         this.draw=draw;
-        this.gameComponentMapper=draw.getGameComponentMapper();
         this.skin=draw.getCurrentMap().getSkin();
         this.groupName=groupName;
         

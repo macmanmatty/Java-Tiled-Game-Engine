@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
@@ -124,7 +124,7 @@ import javax.swing.SwingUtilities;
                     String path= selectAssettsInputDir.getFile().getAbsolutePath();
                 }
             });
-            loadMap= new FileSelectPane(null,  "", "Brick", true);
+            loadMap= new FileSelectPane(null,  "", "Brick");
 
             loadMap.addListener( new ClickListener(){
 
@@ -196,7 +196,7 @@ import javax.swing.SwingUtilities;
             });
 
 
-            selectAssettsInputDir=new FileSelectPane(skin, "", "Brick", true);
+            selectAssettsInputDir=new FileSelectPane(skin, "", "Brick");
             selectAssettsInputDir.addListener( new ClickListener(){
 
                 @Override

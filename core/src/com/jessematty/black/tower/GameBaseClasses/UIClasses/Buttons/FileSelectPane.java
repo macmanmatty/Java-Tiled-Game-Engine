@@ -14,6 +14,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileSelectPane extends VerticalGroup  {
 
@@ -22,15 +23,14 @@ public class FileSelectPane extends VerticalGroup  {
     private  Label pathLabel;
     private  File file;
     private FileSelectButton fileSelectButton;
-    private boolean directories;
+    private FileNameExtensionFilter fileNameExtensionFilter;
     private boolean displayPath;
 
-    public FileSelectPane(FileAction fileAction, Skin skin, String style, String buttonText, boolean directories, boolean displayPath) {
+    public FileSelectPane(FileAction fileAction, Skin skin, String style, String buttonText,  boolean displayPath) {
         this.fileAction = fileAction;
         this.pathLabel = pathLabel;
         this.pathLabel= new Label("empty", skin);
         fileSelectButton= new FileSelectButton(buttonText, skin, style, fileAction);
-        this.directories=directories;
         addActor(fileSelectButton);
         if(displayPath==true) {
             addActor(pathLabel);
@@ -41,17 +41,17 @@ public class FileSelectPane extends VerticalGroup  {
     }
 
 
-    public FileSelectPane(FileAction fileAction, Skin skin, boolean directories) {
-       this(fileAction, skin, "default", "Select File", directories, true);
+    public FileSelectPane(FileAction fileAction, Skin skin) {
+       this(fileAction, skin, "default", "Select File", true);
 
     }
 
-    public FileSelectPane( Skin skin, String style, String buttonText, boolean directories) {
-       this(null, skin, style, buttonText, directories, true);
+    public FileSelectPane( Skin skin, String style, String buttonText) {
+       this(null, skin, style, buttonText,  true);
     }
 
-    public FileSelectPane( Skin skin, String buttonText, boolean directories) {
-      this( skin, "default", buttonText,  directories);
+    public FileSelectPane( Skin skin, String buttonText) {
+      this( skin, "default", buttonText);
     }
 
 
@@ -92,14 +92,11 @@ public class FileSelectPane extends VerticalGroup  {
 
                             };
                             chooser.setSize(500, 500);
-                            if(directories==true) {
-                                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                            }
-                            else{
-                                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-
+                            if(fileNameExtensionFilter!=null) {
+                                chooser.addChoosableFileFilter(fileNameExtensionFilter);
                             }
+
                             int option = chooser.showOpenDialog(null);
                             if (option == JFileChooser.APPROVE_OPTION) {
                                  file = chooser.getSelectedFile();
@@ -160,19 +157,20 @@ public class FileSelectPane extends VerticalGroup  {
         this.fileAction = fileAction;
     }
 
-    public boolean isDirectories() {
-        return directories;
-    }
 
-    public void setDirectories(boolean directories) {
-        this.directories = directories;
-    }
+
+
 
     public boolean isDisplayPath() {
         return displayPath;
     }
 
-    public void setDisplayPath(boolean displayPath) {
+    public void setFileTypes(String name, String ... fileTypes){
+
+        fileNameExtensionFilter= new FileNameExtensionFilter(name, fileTypes);
+    }
+
+    public void setDisplayFilePath(boolean displayPath) {
         this.displayPath = displayPath;
         pathLabel.addAction(Actions.removeActor());
     }

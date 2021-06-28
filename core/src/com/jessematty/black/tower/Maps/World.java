@@ -5,29 +5,27 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Markers.AddedToEngine;
-import com.jessematty.black.tower.Components.Markers.NotAddedToEngine;
+import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
+import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameSettings;
+import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
+import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class World { // class that holds the array of maps  aka the world
         private LandMap [] [] worldMap;
-        private GameSettings gameStartSettings;
+        private WorldSettings worldSettings= new WorldSettings();
         private  int xMaps;
         private int yMaps;
         private String loadPath; // load path for the world used to save the game during pauses.
         private String textureAtlasPath;
         private transient GameMap currentMap;
-        private  int startMapX;
-        private int startMapY;
         private OrderedMap<String, Entity> entitiesInWorld= new OrderedMap<String, Entity>(); // all of the entities currently in the world
         private   transient CraftLookUpTable craftLookUpTable;
         private  final  transient Engine engine=new PooledEngine(); //  ashley game engine
@@ -37,7 +35,7 @@ public class World { // class that holds the array of maps  aka the world
         private  boolean newWorld =true;
         private int currentMapX;
         private int currentMapY;
-        private Entity player;
+        private transient Entity player;
         private String playerID;
         // the texture atlas the world uses
         private NamedTextureAtlas worldTextureAtlas;
@@ -49,28 +47,56 @@ public class World { // class that holds the array of maps  aka the world
             craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
 
         }
+    /**
+     *
+     * @param xMaps number of maps that connect horozontally
+     * @param yMaps number of maps that connect vertically
+     */
         public World(int xMaps, int yMaps) {
            this(xMaps, yMaps, "world");
 
 
         }
+
+    /**
+     *
+     * @param xMaps number of maps that connect horozontally
+     * @param yMaps number of maps that connect vertically
+     * @param name the name of the map
+     */
     public World(int xMaps, int yMaps, String name) {
         createWorld(xMaps, yMaps);
         this.name = name;
-        gameStartSettings= new GameSettings();
         craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
 
     }
+
+    /**
+     *  // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
+     * @param tileX  the position of the tile
+     * @param tileY the y position of the tile
+     * @param mapX the x position of the map  in the world
+     * @param mapY the y position of the map  in the world
+     * @return vector2 containing the coordinates of the the tile
+     */
     public Vector2 getTileWorldCoordinates(int tileX, int tileY, int mapX, int mapY){
             // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
             for(int count=0;  count<mapX; count++) {
-                tileX = tileX + worldMap[count][mapY].getXSize();
+                tileX = tileX + worldMap[count][mapY].getXTiles();
             }
             for(int count=0;  count<mapY; count++) {
-                tileY = tileY + worldMap[mapX][count].getYSize();
+                tileY = tileY + worldMap[mapX][count].getYTiles();
             }
             return new Vector2(tileX, tileY);
         }
+    /**
+     *  // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
+     * @param screenX  the x  position of the tile
+     * @param screenY the y position of the tile
+     * @param mapX the x position of the map  in the world
+     * @param mapY the y position of the map  in the world
+     * @return vector2 containing the coordinates of the the tile
+     */
         public Vector2 getScreenWorldCoordinates(float screenX,  float screenY, int mapX,  int mapY){
             // returns  world coordinates for a screen based on the word coordinates  in realtionship to all maps in the world.
             for(int count=0;  count<mapX; count++) {
@@ -146,10 +172,7 @@ public class World { // class that holds the array of maps  aka the world
         public int getYMaps() {
             return yMaps;
         }
-    public GameSettings getGameStartSettings() {
-        return gameStartSettings;
-    }
-    public void deserialize(GameAssets assetts, GameSettings gameStartSettingsObject) {
+    public void deserialize(GameAssets assetts, GamePrefecences gameStartSettingsObject) {
     }
     public String getLoadPath() {
         return loadPath;
@@ -195,8 +218,8 @@ public class World { // class that holds the array of maps  aka the world
     
     public void setStartMap(int x, int y){
             //sets the start map
-            this.startMapX=x;
-            this.startMapY=y;
+            worldSettings.getSettings().put("startMapX", x);
+        worldSettings.getSettings().put("startMapY", y);
             if(currentMap==null) {
                 setCurrentMap(x, y);
             }
@@ -211,12 +234,7 @@ public class World { // class that holds the array of maps  aka the world
             currentMap=worldMap[0][0];
             return currentMap;
     }
-    public int getStartMapX() {
-        return startMapX;
-    }
-    public int getStartMapY() {
-        return startMapY;
-    }
+
     public Entity getEntity(String id ){
             if(id==null || id.isEmpty()){
                 return  null;
@@ -406,5 +424,9 @@ public class World { // class that holds the array of maps  aka the world
 
     public void setWorldTextureAtlasPath(String worldTextureAtlasPath) {
         this.worldTextureAtlasPath = worldTextureAtlasPath;
+    }
+
+    public WorldSettings getWorldSettings() {
+        return worldSettings;
     }
 }

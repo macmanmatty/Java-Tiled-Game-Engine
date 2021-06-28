@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Readers;
 
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class Reader {
     GameAssets assetts;

@@ -1,10 +1,8 @@
 package com.jessematty.black.tower.Systems;
 
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.ashley.core.Family;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -12,27 +10,26 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 public abstract class GameEntitySystem extends EntitySystem   {
      private final  MapDraw draw;
-     private final GameComponentMapper gameComponentMapper;
      private final World world;
      private final GameAssets asssets;
      private final KeyListener keyListener;
 
     public GameEntitySystem(MapDraw draw) {
         this.draw = draw;
-        this.gameComponentMapper=draw.getGameComponentMapper();
         this.world=draw.getWorld();
         this.asssets=draw.getAssetts();
-        this.keyListener=draw.getKeyListener();
+        this.keyListener=draw.getAssetts().getGameInput().getKeyListener();
+
 
     }
 
     public GameEntitySystem(int priority, MapDraw draw) {
         super(priority);
         this.draw = draw;
-        this.gameComponentMapper=draw.getGameComponentMapper();
         this.world=draw.getWorld();
         this.asssets=draw.getAssetts();
-        this.keyListener=draw.getKeyListener();
+        this.keyListener=draw.getAssetts().getGameInput().getKeyListener();
+
 
     }
 
@@ -41,9 +38,6 @@ public abstract class GameEntitySystem extends EntitySystem   {
     }
 
 
-    public final GameComponentMapper getGameComponentMapper() {
-        return gameComponentMapper;
-    }
 
     public final  GameMap getMap(int x , int y){
 

@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.World;
+package com.jessematty.black.tower.Editor.EditMode.World;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;

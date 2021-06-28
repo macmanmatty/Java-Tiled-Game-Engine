@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -20,7 +20,7 @@ import com.jessematty.black.tower.Maps.World;
 
 public class ZRPGPlayer implements Component {
 
-    private  Movable movable;
+    private MovableComponent movableComponent;
     private  PositionComponent position;
     private  NumericStats numericStats;
     private  BooleanStats booleanStats;
@@ -31,7 +31,7 @@ public class ZRPGPlayer implements Component {
     private  Eyes eyes;
     private String id;
     private  PhysicalObjectComponent physicalObject;
-    private  Drawable drawable;
+    private DrawableComponent drawableComponent;
     private  AnimatableComponent animatable;
     private  Thrower thrower;
     private  Entity rightHand;
@@ -63,13 +63,13 @@ public class ZRPGPlayer implements Component {
         this.playerEntity = playerEntity;
         this.world=world;
 
-        this.movable = playerEntity.getComponent(Movable.class);
+        this.movableComponent = playerEntity.getComponent(MovableComponent.class);
         this.position = playerEntity.getComponent(PositionComponent.class);
         this.numericStats = playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.NumericStats.class);
         this.booleanStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.BooleanStats.class);
         this.stringStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.StringStats.class);
         this.physicalObject = playerEntity.getComponent(PhysicalObjectComponent.class);
-        this.drawable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.Drawable.class);
+        this.drawableComponent = playerEntity.getComponent(DrawableComponent.class);
         this.animatable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.AnimatableComponent.class);
         this.action= playerEntity.getComponent(com.jessematty.black.tower.Components.Actions.Action.class);
         this.attachedComponent = playerEntity.getComponent(AttachedComponent.class);
@@ -105,8 +105,8 @@ public class ZRPGPlayer implements Component {
 
     }
 
-    public Movable getMovable() {
-        return movable;
+    public MovableComponent getMovableComponent() {
+        return movableComponent;
     }
 
 
@@ -124,8 +124,8 @@ public class ZRPGPlayer implements Component {
         return physicalObject;
     }
 
-    public Drawable getDrawable() {
-        return drawable;
+    public DrawableComponent getDrawableComponent() {
+        return drawableComponent;
     }
 
 

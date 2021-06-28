@@ -9,8 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Components.Position.BoundsChangeable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.AddOwnerSystem;
@@ -59,17 +58,18 @@ public class EngineSetup {
 
     private  static  boolean hasPackSystem=true;
 
-     static ComponentMapper<Drawable> drawableComponentMapper;
+     static ComponentMapper<DrawableComponent> drawableComponentMapper=ComponentMapper.getFor(DrawableComponent.class);
     private static Comparator<Entity> entityComparator= new Comparator<Entity>() {
         @Override
         public int compare(Entity entity1, Entity entity2) {
 
-            Drawable drawable1=drawableComponentMapper.get(entity1);
-            Drawable drawable2=drawableComponentMapper.get(entity2);
-            if(drawable1!=null && drawable2!=null) {
-                float layerNumber1 = drawable1.getLayerNumber();
 
-                float  layerNumber2 = drawable2.getLayerNumber();
+            DrawableComponent drawableComponent1 =drawableComponentMapper.get(entity1);
+            DrawableComponent drawableComponent2 =drawableComponentMapper.get(entity2);
+            if(drawableComponent1 !=null && drawableComponent2 !=null) {
+                float layerNumber1 = drawableComponent1.getLayerNumber();
+
+                float  layerNumber2 = drawableComponent2.getLayerNumber();
 
 
                 if (layerNumber1 != layerNumber2) {
@@ -81,7 +81,7 @@ public class EngineSetup {
 
 
 
-                    return Float.compare(drawable1.getSubLayerNumber() , drawable2.getSubLayerNumber());
+                    return Float.compare(drawableComponent1.getSubLayerNumber() , drawableComponent2.getSubLayerNumber());
 
 
                 }
@@ -97,10 +97,10 @@ public class EngineSetup {
 
     public  static void addBaseSystemsToEngine(Engine engine, MapDraw draw, ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer ){
 
-        drawableComponentMapper=draw.getGameComponentMapper().getDrawableComponentMapper();
-       Family drawableFamily= Family.all(PositionComponent.class, Drawable.class).get();
-       RenderSystem renderSystem=new RenderSystem (draw.getGameComponentMapper(),drawableFamily, entityComparator,  draw.getBatch(), mapBuffer ,2);
-       RenderSystem lightSystem=new RenderSystem(draw.getGameComponentMapper(), drawableFamily, entityComparator,  draw.getBatch(), lightBuffer, 3);
+        GameComponentMapper.getDrawableComponentMapper();
+       Family drawableFamily= Family.all(PositionComponent.class, DrawableComponent.class).get();
+       RenderSystem renderSystem=new RenderSystem (drawableFamily, entityComparator,  draw.getBatch(), mapBuffer ,2);
+       RenderSystem lightSystem=new RenderSystem( drawableFamily, entityComparator,  draw.getBatch(), lightBuffer, 3);
 
        engine.addSystem(renderSystem);
        //engine.addSystem(lightSystem);
@@ -152,15 +152,15 @@ public class EngineSetup {
        if(drawBounds){
            engine.addSystem(new BoundingBoxRenderer(shapes));
        }
-       draw.getInput().addProcessor(ZRPGPlayerSystem);
+       draw.getAssetts().getGameInput().addProcessor(ZRPGPlayerSystem);
    }
 
 
-   public static  void addRenderSystemsToEngine( GameComponentMapper gameComponentMapper, Engine engine, Batch batch,  ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer){
+   public static  void addRenderSystemsToEngine(  Engine engine, Batch batch,  ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer){
 
-       Family drawableFamily= Family.all(PositionComponent.class, Drawable.class).get();
-       RenderSystem renderSystem=new RenderSystem( gameComponentMapper, drawableFamily, entityComparator,  batch, mapBuffer ,2);
-       RenderSystem lightSystem=new RenderSystem( gameComponentMapper, drawableFamily, entityComparator,  batch, lightBuffer, 3);
+       Family drawableFamily= Family.all(PositionComponent.class, DrawableComponent.class).get();
+       RenderSystem renderSystem=new RenderSystem(  drawableFamily, entityComparator,  batch, mapBuffer ,2);
+       RenderSystem lightSystem=new RenderSystem( drawableFamily, entityComparator,  batch, lightBuffer, 3);
        engine.addSystem(renderSystem);
        //engine.addSystem(lightSystem);
        engine.addEntityListener(renderSystem);

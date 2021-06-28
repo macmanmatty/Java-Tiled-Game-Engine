@@ -3,15 +3,14 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
-import java.util.ArrayList;
-import java.util.List;
+
 public class NumericStats implements Component {
     protected OrderedMap<String, NumericStat> numericStats =  new OrderedMap<String, NumericStat>(); // list of number based stats
     protected Array<com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat> colorChangingStats= new Array<com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat>(); // stats that change the entities color
     protected Array<NumericStat> dieWhenZero= new Array<>(); // list of stats when  they reach zero destroty the entity
-    protected Array<SelfChangableNumericStat> selfChangableNumericStats= new Array<>();
+    protected Array<SelfChangableNumericStatChangeable> selfChangableNumericStats= new Array<>();
     private boolean statHasChanged; // flag for whether or not a stat was changed during the lst run of the loop
     public void addStat(NumericStat stat){ // adds a stat if doesn't  already exist
         if(numericStats.get(stat.getName())!=null){
@@ -21,8 +20,8 @@ public class NumericStats implements Component {
             if(stat instanceof ColorChangingStat){
                 colorChangingStats.add((com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat) stat);
             }
-        if (stat instanceof SelfChangableNumericStat) {
-            selfChangableNumericStats.add((SelfChangableNumericStat) stat);
+        if (stat instanceof SelfChangableNumericStatChangeable) {
+            selfChangableNumericStats.add((SelfChangableNumericStatChangeable) stat);
         }
             if(stat.isKillWhenZero()){
                 dieWhenZero.add(stat);
@@ -40,8 +39,8 @@ public class NumericStats implements Component {
             if (stat.isKillWhenZero()) {
                 dieWhenZero.add(stat);
             }
-            if (stat instanceof SelfChangableNumericStat) {
-                selfChangableNumericStats.add((SelfChangableNumericStat) stat);
+            if (stat instanceof SelfChangableNumericStatChangeable) {
+                selfChangableNumericStats.add((SelfChangableNumericStatChangeable) stat);
             }
         }
     }
@@ -58,8 +57,8 @@ public class NumericStats implements Component {
             colorChangingStats.removeValue((ColorChangingStat) stat, false);
         }
         dieWhenZero.removeValue( stat, false);
-        if(stat instanceof  SelfChangableNumericStat){
-            selfChangableNumericStats.removeValue((SelfChangableNumericStat) stat, true);
+        if(stat instanceof SelfChangableNumericStatChangeable){
+            selfChangableNumericStats.removeValue((SelfChangableNumericStatChangeable) stat, true);
         }
     }
     public Array<NumericStat> getStatsAsAnArray(){ // used for displaying of stats
@@ -88,7 +87,7 @@ public class NumericStats implements Component {
     public void setStatHasChanged(boolean statHasChanged) {
         this.statHasChanged = statHasChanged;
     }
-    public Array<SelfChangableNumericStat> getSelfChangableNumericStats() {
+    public Array<SelfChangableNumericStatChangeable> getSelfChangableNumericStats() {
         return selfChangableNumericStats;
     }
 }

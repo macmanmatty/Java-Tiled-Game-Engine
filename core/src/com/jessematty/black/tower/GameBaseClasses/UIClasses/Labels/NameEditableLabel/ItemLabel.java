@@ -14,6 +14,7 @@ public class ItemLabel<T extends Nameable>  extends Label {
     private boolean changed;
     private boolean textFieldAdded;
     private int clicks;
+    private int timeCounter;
     public ItemLabel(Skin skin, final T item) {
         super("", skin);
         textField= new TextField("", skin);
@@ -26,7 +27,7 @@ public class ItemLabel<T extends Nameable>  extends Label {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                clicks++;
-               if(clicks==2) {
+               if(clicks>2) {
                    displayTextField = true;
                    setVisible(false);
                    textField.setVisible(true);
@@ -69,6 +70,12 @@ public class ItemLabel<T extends Nameable>  extends Label {
             getParent().addActor(textField);
             textFieldAdded=true;
         }
+        timeCounter++;
+        if(timeCounter==100){
+            clicks=0;
+            timeCounter=0;
+        }
+
     }
     @Override
     public void setX(float x) {

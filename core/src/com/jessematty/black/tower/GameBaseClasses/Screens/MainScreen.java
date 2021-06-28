@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
@@ -28,18 +28,10 @@ import com.jessematty.black.tower.Maps.World;
 public class MainScreen implements Screen  {
 
 
-    Stage stage;
-    GameAssets assetts;
-    Settings gameSettings;
-    Skin skin;
-    Label errorLabel;
-    World world;
-    ZRPGPlayer player;
-
-
-
-
-    RandomNumbers value=new RandomNumbers();
+    private Stage stage;
+   private  GameAssets assetts;
+    private Skin skin;
+   private  Label errorLabel;
 
 
     public MainScreen(GameAssets assetts) {
@@ -167,11 +159,10 @@ public class MainScreen implements Screen  {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                try {
+
                     testMap();
-                } catch (MapLoadingExeception | LoadingException mapLoadingExeception) {
-                    mapLoadingExeception.printStackTrace();
-                }
+
+
 
 
             }
@@ -237,7 +228,7 @@ public class MainScreen implements Screen  {
 
 
 
-    public void testMap() throws MapLoadingExeception, LoadingException {
+    public void testMap() {
 
 
 

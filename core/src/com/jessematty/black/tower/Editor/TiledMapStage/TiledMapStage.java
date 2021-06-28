@@ -29,8 +29,8 @@ public class TiledMapStage extends Stage {
             this.tiledMap = map.getTiledMap();
             this.map=map;
             this.dragAndDrop=dragAndDrop;
-            tileSizeX= (int) map.getTileSizeX();
-            tileSizeY = map.getTileSizeY();
+            tileSizeX= (int) map.getTileWidth();
+            tileSizeY = map.getTileHeight();
 
             int count=0;
             for (MapLayer layer : tiledMap.getLayers()) {

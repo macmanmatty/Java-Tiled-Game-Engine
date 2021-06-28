@@ -14,6 +14,7 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -35,13 +36,13 @@ public class DropSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        attachableComponentMapper =getGameComponentMapper().getAttachableComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        itemComponentMapper=getGameComponentMapper().getItemComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
-        holderComponentMapper=getGameComponentMapper().getHolderComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
+        attachableComponentMapper = GameComponentMapper.getAttachableComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
+        itemComponentMapper=GameComponentMapper.getItemComponentMapper();
+        actionComponentMapper=GameComponentMapper.getActionComponentMapper();
+        holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
 
 
     }

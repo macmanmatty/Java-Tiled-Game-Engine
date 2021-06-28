@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.jessematty.black.tower.Components.AIComponent;
 import com.jessematty.black.tower.Components.Eyes;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 
@@ -27,9 +28,9 @@ public  class SightAISystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
-        eyesComponentMapper=getGameComponentMapper().getEyesComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        aiComponentComponentMapper=getGameComponentMapper().getAiComponentMapper();
+        eyesComponentMapper= GameComponentMapper.getEyesComponentMapper();
+        positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
+        aiComponentComponentMapper=GameComponentMapper.getAiComponentMapper();
 
 
 

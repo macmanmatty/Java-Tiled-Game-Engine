@@ -11,6 +11,7 @@ import com.jessematty.black.tower.Components.ID;
 
 
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class AddItemToContainerSystem extends GameEntitySystem {
@@ -29,10 +30,10 @@ public class AddItemToContainerSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        positionGameComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        containerComponentMapper=getGameComponentMapper().getContainerComponentMapper();
-        addItemToContainerComponentComponentMapper=getGameComponentMapper().getAddItemToContainerComponentComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
+        positionGameComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        containerComponentMapper=GameComponentMapper.getContainerComponentMapper();
+        addItemToContainerComponentComponentMapper=GameComponentMapper.getAddItemToContainerComponentComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
 
     }
 

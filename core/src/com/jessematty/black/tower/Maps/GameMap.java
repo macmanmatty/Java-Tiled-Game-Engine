@@ -2,85 +2,107 @@ package com.jessematty.black.tower.Maps;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import java.util.ArrayList;
 import java.util.List;
-public abstract class GameMap  implements Map { // baisc landSquareTileMap class all maps extend
+public abstract  class GameMap  implements Map { // baisc landSquareTileMap class all maps extend
 	protected    LandSquareTile map[][]; // the  landSquareTileMap
 	protected GameMapSettings gameMapSettings= new GameMapSettings();
 	protected  TiledMap tiledMap; //  tiled maps tiles Map
-	protected  transient GameTime gameTime;
+	protected  transient GameTime gameTime; // game time object
 	protected transient Skin skin; // UI skin  for landSquareTileMap
 	protected  transient Array<Entity> entities = new Array<Entity>();
 	protected transient ComponentMapper<PositionComponent> positionComponentMapper=ComponentMapper.getFor(PositionComponent.class);
-	protected transient  Array<EntitySystem> mapGameEntitySystems= new Array<>();
-	protected Array<String> mapGameEntitySystemsPaths= new Array(); // map game entity Systems and paths  ie systems unique to this map.
-	protected float maxXScreen;
-	protected  float maxYScreen;
-	protected  int  xSize;
-	protected int ySize;
-	protected  int tileSizeX=32;
-	protected int tileSizeY=32;
+	protected transient  Array<EntitySystem> mapGameEntitySystems= new Array<>();  // array of gam,e engine systems unique to this map  they are added and removed from the engine  when the map changes
+	protected Array<String> mapGameEntitySystemsPaths= new Array(); //  the paths to map game entity Systems and paths  ie systems unique to this map.
+	protected float maxXScreen;  // max x size in world units
+	protected  float maxYScreen; // max y size in world units
+	protected  int xTiles; // map  x Size in total tile units 1 tile unit = tileSizeX
+	protected int yTiles; // map  y Size in total tile units 1 tile unit = tileSizeY
+	protected  int tileWidth =32; // tiled map tile sizes for x and y  landsquare tiles hold  the dimensions 1 tiled map tile equals one land square tile.
+	protected int tileHeight =32;
+	protected  int worldX;
+	protected  int worldY;
 	protected  float dayLightAmount;
 	protected  float lightChangeAmount;
 	protected  boolean gettingBrighter;
-
-
-
+	protected  boolean lightChanges;
+	protected transient Texture mapImage; // the image of the  the map  including all  tiled map tiles  and  drawable map entities
 	protected GameMap() {
 	}
-
-	public GameMap(int xSize, int ySize) {
-		this.xSize = xSize;
-		this.ySize = ySize;
-		this.gameMapSettings.setxSize(xSize);
-		this.gameMapSettings.setySize(ySize);
+	public GameMap(int xTiles, int yTiles) {
+		this.xTiles = xTiles;
+		this.yTiles = yTiles;
+		this.gameMapSettings.setTiles(xTiles, yTiles);
 	}
 
+	/**
+	 * @overidable method  for having map do stuff called the the mapdraw classes game loop
+	 * @param deltaTime the game delta time @see libgdx docs
+	 * @param gameTime // the game time lapsed in ticks
+	 */
 	public void mapTurnActions(float deltaTime, GameTime gameTime) { // method for updating the map and the tiles on it each game loop call
 		this.gameTime = gameTime;
 		gameMapSettings= new GameMapSettings();
+		Boolean lightChanges=gameMapSettings.getSimpleSetting("lighChanges", Boolean.class);
 		
-		if (gameMapSettings.isLightChanges() == true) {
+		if (lightChanges!=null && lightChanges==true) {
 			setDayLightAmount(gameTime.getTotalGameTimeLaspedInSeconds());
 		}
 	}
 	public LandSquareTile[][] getMap() {
 		return map;
 	}
-	public int getXSize() {
-		return gameMapSettings.getxSize();
+	public int getXTiles() {
+		return xTiles;
 	}
-	public int getYSize() {
-		return gameMapSettings.getySize();
+	public int getYTiles() {
+		return yTiles;
 	}
-	public LandSquareTile getMapSquare(int xlocation, int ylocation) {
-		// return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
-		// if gievn tile is out of bounds returns the closest tile that is in bounds
 
-		if (xlocation < 0) {
-			xlocation = 0;
+	/**
+	 * // return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
+	 * 		// if given tile is out of bounds returns the closest tile that is in bounds
+	 * @param xLocation the tile x Loction on the map
+	 * @param yLocation the tile y  Loction on the map
+	 * @return LandSquare The given tile
+	 */
+	public LandSquareTile getMapSquare(int xLocation, int yLocation) {
+		// return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
+		// if given tile is out of bounds returns the closest tile that is in bounds
+
+		if (xLocation < 0) {
+			xLocation = 0;
 		}
-		if (ylocation < 0) {
-			ylocation = 0;
+		if (yLocation < 0) {
+			yLocation = 0;
 		}
-		if (ylocation > ySize - 1) {
-			ylocation = ySize - 1;
+		if (yLocation > yTiles - 1) {
+			yLocation = yTiles - 1;
 		}
-		if (xlocation > xSize - 1) {
-			xlocation = xSize - 1;
+		if (xLocation > xTiles - 1) {
+			xLocation = xTiles - 1;
 		}
-		return map[xlocation][ylocation];
+		return map[xLocation][yLocation];
 	}
+
+	/**
+	 * gets a land square tile  at given x, y point on the Map if no tile exists returns null
+	 * @param xLocation the tile x Loction on the map
+	 * @param yLocation the tile y  Loction on the map
+	 * @return LandSquare The given tile
+	 */
 	public LandSquareTile getMapSquareOrNull(int xLocation, int yLocation) { // returns a landSquareTileMap square
 		// if the square does exist returns  null
 		int ySize=map[0].length;
@@ -99,6 +121,12 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		}
 		return map[xLocation][yLocation];
 	}
+
+
+	/**
+	 *  add an entity to map and the maps tiles
+	 * @param entity the entity to add
+	 */
 	public void addEntity(  Entity entity) { // adds entity to the approiate landsquare tiles on the map based on its bounds
 		PositionComponent position=positionComponentMapper.get(entity);
 		if (position == null) {
@@ -108,10 +136,29 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 			Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
 			position.setTiles(tiles);
 		}
+	/**
+	 *  removes an entity from  a list of tiles
+	 * @param entity the entity to remove
+	 * @param tiles the tilers to remove from
+	 */
 	public void removeEntity(Array<LandSquareTile>  tiles, Entity entity){
 		int size=tiles.size;
 		for(int count=0; count<size; count++){
 			tiles.get(count).removeEntity(entity);
+		}
+	}
+
+	/**
+	 *  removes an entity from  the map and te tiles it's on
+	 * @param entity the entity to remove
+	 */
+
+	public void removeEntity( Entity entity) {
+		PositionComponent position=positionComponentMapper.get(entity);
+		entities.removeValue(entity, true);
+		if(position!=null){
+			// remove entity from tiles
+			removeEntity(position.getTiles(), entity);
 		}
 	}
 	public TiledMap getTiledMap() {
@@ -123,40 +170,46 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 	public Skin getSkin() {
 		return skin;
 	}
-	public void removeEntity( Entity entity) {
-		PositionComponent position=positionComponentMapper.get(entity);
-		entities.removeValue(entity, true);
-		if(position!=null){
-			// remove entity from tiles
-			removeEntity(position.getTiles(), entity);
-		}
-	}
+
+
 	public Vector2 getScreenCoordinatesFromTileCoordinates(int x, int y){
         float screenLocationX = (x + 1) * 32;
-        float screenLocationY = (ySize - y - 1) * 32;
+        float screenLocationY = (yTiles - y - 1) * 32;
         return new Vector2(screenLocationX, screenLocationY);
     }
 	public LandSquareTile screenToTile(float screenLocationX, float screenLocationY) { // 0,0 is top left for landsquare tile landSquareTileMap but 0,0 is bottom left for screen  stage  to y is y- yscreenloaction
-		return getMapSquareOrNull((int) Math.ceil(screenLocationX / tileSizeX) - 1, ySize - (int) Math.ceil(screenLocationY / tileSizeY));
+		return getMapSquareOrNull((int) Math.ceil(screenLocationX / tileWidth) - 1, yTiles - (int) Math.ceil(screenLocationY / tileHeight));
 	}
+
+	/**
+	 *
+	 * @param map the array of tiles to set as the map
+	 */
 	public void setMap(LandSquareTile[][] map) {
 		this.map = map;
-		this.xSize = map.length;
-		this.ySize = map[0].length;
-		maxXScreen = xSize * tileSizeX;
-		maxYScreen = ySize * tileSizeY;
-		gameMapSettings.setMaxXScreen(maxXScreen);
-		gameMapSettings.setMaxYScreen(maxYScreen);
-		gameMapSettings.setxSize(xSize);
-		gameMapSettings.setySize(ySize);
-		gameMapSettings.setNewMap(true);
+		this.xTiles = map.length;
+		this.yTiles = map[0].length;
+		maxXScreen = xTiles * tileWidth;
+		maxYScreen = yTiles * tileHeight;
+		gameMapSettings.setTiles(map.length, map[0].length);
+
+		gameMapSettings.getSettings().put("newMap", true);
+
 	}
 	
 	public double getGravity() {
-		return gameMapSettings.getGravity();
+		Double gravity  =gameMapSettings.getSimpleSetting("gravity", Double.class);
+		if(gravity!=null){
+
+			return  gravity;
+		}
+
+		return -9.8;
+
 	}
 	public void setGravity(double gravity) {
-		gameMapSettings.setGravity(gravity);
+		gameMapSettings.getSettings().put("gravity", gravity);
+
 	}
 	public float getMaxXScreen() {
 		return maxXScreen;
@@ -164,6 +217,12 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 	public float getMaxYScreen() {
 		return maxYScreen;
 	}
+
+	@Override
+	public boolean isCurrentMap() {
+		return false;
+	}
+
 	public List<LandSquareTile> getSurroundingTiles(LandSquareTile tile, int distance) { // returns all tiles surronding a given tile as an arraylist with the give tile in the list aswell
 		ArrayList<LandSquareTile> tiles = new ArrayList<LandSquareTile>();
 		int locationx = tile.getLocationX();
@@ -176,6 +235,13 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		}
 		return tiles;
 	}
+
+	/**
+	 *
+	 * @param rectangle
+	 * @param entity
+	 * @return
+	 */
 	public Array<LandSquareTile> getAllTilesAndAddEntity(Rectangle rectangle, Entity entity) {
 		return getAllTilesAndAddEntity(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y, entity);
 	}
@@ -185,8 +251,8 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		yMin=yMin-10;
 		yMax=yMax+10;
 		xMax=xMax+10;
-		for (float countx=xMin; countx<xMax; countx=countx+tileSizeX) {
-			for (float county = yMin; county < yMax; county = county + tileSizeY) {
+		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
+			for (float county = yMin; county < yMax; county = county + tileHeight) {
 				LandSquareTile tile=screenToTile(countx, county);
 				boolean  canAdd=tileCheck(tile, tiles);
 				if(canAdd==true){
@@ -202,8 +268,8 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 	}
 	public Array<LandSquareTile> getAllTiles(float xMin, float yMin, float xMax, float yMax){ // finds all tiles for a given  rectangle bounds  and adds them to a list and returns them .
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-		for (float countx=xMin-10; countx<xMax; countx=countx+tileSizeX) {
-			for (float county = yMin-10; county < yMax; county = county + tileSizeY) {
+		for (float countx=xMin-10; countx<xMax; countx=countx+ tileWidth) {
+			for (float county = yMin-10; county < yMax; county = county + tileHeight) {
 				LandSquareTile tile=screenToTile(countx, county);
 				boolean  canAdd=tileCheck(tile, tiles);
 				if(canAdd==true){
@@ -225,13 +291,11 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		}
 		return true;
 	}
-	public boolean isCurrentMap() {
-		return gameMapSettings.isCurrentMap();
-	}
+
 	public void setCurrentMap(boolean currentMap) {
-		this.gameMapSettings.setCurrentMap(true);
-		for (int  countx=0; countx<xSize; countx++) {
-			for (int county = 0; county <ySize ; county++) {
+		this.gameMapSettings.getSettings().put("newMap", true);
+		for (int countx = 0; countx< xTiles; countx++) {
+			for (int county = 0; county < yTiles; county++) {
 				if(currentMap==true) {
 					map[countx][county].add(new OnCurrentMap());
 				}
@@ -241,13 +305,20 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 			}
 		}
 		}
-	
+
+	@Override
 	public void setMapName(String mapName) {
-		gameMapSettings.setMapName(mapName);
+		gameMapSettings.getSimpleSetting("mapName", String.class);
+
 	}
+
+	@Override
 	public String getMapName() {
-		return gameMapSettings.getMapName();
+		return gameMapSettings.getSimpleSetting("name", String.class);
+
 	}
+
+
 	public float getDayLightAmount() {
 		return dayLightAmount;
 	}
@@ -282,38 +353,44 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 	}
 	@Override
 	public String toString() { // overridden for scene 2d ui list to display thing name rather than class name.
-		return gameMapSettings.getMapName();
+		return  getMapName();
 	}
-    public int getTileSizeX() {
-        return tileSizeX;
+    public int getTileWidth() {
+        return tileWidth;
     }
-	public int getTileSizeY() {
-		return tileSizeY;
+	public int getTileHeight() {
+		return tileHeight;
 	}
-	public void setTileSize(int sizeX, int sizeY) {
-		this.tileSizeX=sizeX;
-		this.tileSizeY=sizeY;
-	}
-	public void setTileSize(int size) {
-		this.tileSizeX=size;
-		this.tileSizeY=size;
-		this.gameMapSettings.setTileSizeX(tileSizeX);
-		this.gameMapSettings.setTileSizeY(tileSizeY);
-	}
-	public boolean isLightChanges() {
-		return gameMapSettings.isLightChanges();
-	}
-	public void setLightChanges(boolean lightChanges) {
-		this.gameMapSettings.setLightChanges(lightChanges);
-	}
+
+
+
+	@Override
 	public float getLightChangeAmount() {
-		return lightChangeAmount;
+		return dayLightAmount;
 	}
+
+	@Override
 	public void setLightChangeAmount(float lightChangeAmount) {
-		this.lightChangeAmount = lightChangeAmount;
+		this.dayLightAmount=dayLightAmount;
+		this.gameMapSettings.getSettings().put("dayLightAmount", lightChangeAmount);
+
 	}
-    public  void setMapSquare(int x,  int y, LandSquareTile tile){
-		if(x<0 || y<0 || x>xSize-1 || y>ySize-1){
+
+	@Override
+	public void setTileSize(int tileWidth, int tileHeight) {
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
+		gameMapSettings.getSettings().put("tileWidth", tileWidth);
+		gameMapSettings.getSettings().put("tileHeight", tileHeight);
+	}
+
+	@Override
+	public Settings getMapSettings() {
+		return gameMapSettings;
+	}
+
+	public  void setMapSquare(int x,  int y, LandSquareTile tile){
+		if(x<0 || y<0 || x> xTiles -1 || y> yTiles -1){
 			return;
 		}
 		map[x][y]=tile;
@@ -331,16 +408,18 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		this.entities = entities;
 	}
 	public int getWorldX() {
-		return gameMapSettings.getWorldX();
+		return worldX;
 	}
 	public int getWorldY() {
-		return gameMapSettings.getWorldY();
+		return worldY;
 	}
 	public void setWorldX(int worldX) {
-		gameMapSettings.setWorldX(worldX);
+		gameMapSettings.getSettings().put("worldX", worldX);
+		this.worldX=worldX;
 	}
 	public void setWorldY(int worldY) {
-		gameMapSettings.setWorldY(worldY);
+		gameMapSettings.getSettings().put("worldY", worldY);
+		this.worldY=worldY;
 	}
 	
 	public Array<EntitySystem> getMapGameEntitySystems() {
@@ -362,5 +441,13 @@ public abstract class GameMap  implements Map { // baisc landSquareTileMap class
 		this.gameMapSettings = gameMapSettings;
 	}
 
+	public Texture getMapImage() {
+		return mapImage;
+	}
 
+
+
+	public void setMapImage(Texture mapImage) {
+		this.mapImage = mapImage;
+	}
 }

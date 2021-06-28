@@ -1,16 +1,15 @@
 package com.jessematty.black.tower.Editor.EditMode.TopMenuBar;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.WindowOptionPane;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.CheckMenuItem;
+import javafx.stage.Window;
 
 public class TopMenu {
    private  MenuBar menuBar= new MenuBar();
@@ -20,9 +19,11 @@ public class TopMenu {
     private final Menu map = new Menu("Map");
     private final Menu windows= new Menu("Windows");
     ObjectMap<String, MenuItem> menuItems= new ObjectMap<>();
-    
+    private final WorldEditScreen worldEditScreen;
 
-    public TopMenu() {
+
+    public TopMenu(final WorldEditScreen worldEditScreen) {
+        this.worldEditScreen=worldEditScreen;
 
 
         MenuItem saveWorld = new MenuItem("Save World");
@@ -88,7 +89,7 @@ public class TopMenu {
         map.addItem(loadMap);
         menuItems.put( loadMap.getText().toString(), loadMap);
         
-        MenuItem saveMap = new MenuItem("Load Map");
+        MenuItem saveMap = new MenuItem("Save Map");
         saveMap.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -105,7 +106,21 @@ public class TopMenu {
         });
         map.addItem(loadTiledMap);
         menuItems.put( loadTiledMap.getText().toString(), loadTiledMap);
-        
+
+        menuItems.put( loadMap.getText().toString(), loadMap);
+
+        MenuItem newMap = new MenuItem("New Map");
+        newMap.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+
+
+
+            }
+        });
+        map.addItem(newMap);
+        menuItems.put("New Map", newMap);
 
 
 

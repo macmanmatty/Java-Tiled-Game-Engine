@@ -4,10 +4,11 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Copyable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.BasicLists.Listable;
 
 import java.util.Objects;
 
-public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
+public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
     protected    boolean displayable=true;
     protected     boolean checkForEquality;
     protected  boolean combinable=true; // whether or not the stat is combined during crafting
@@ -38,6 +39,10 @@ public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
         this.displayable = displayable;
         this.name = name;
     }
+
+    public abstract String getStatAsString();
+
+
 
 
 
@@ -134,4 +139,6 @@ public abstract class  Stat   implements Component , Copyable<Stat>, Nameable {
     public void setChangeable(boolean changeable) {
         this.changeable = changeable;
     }
+
+
 }

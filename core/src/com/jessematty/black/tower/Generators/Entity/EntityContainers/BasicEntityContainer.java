@@ -3,14 +3,14 @@ package com.jessematty.black.tower.Generators.Entity.EntityContainers;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 
 // entity container class containing all of the basic components required by the engine.
 // used for faster component access
@@ -21,22 +21,22 @@ public class BasicEntityContainer {
    private BooleanStats booleanStats;
    private StringStats stringStats;
    private NumericStatsSelfChangable numericStatsSelfChangable;
-   private StringStatsChangable stringStatsChangable;
-   private BooleanStatsChangable booleanStatsChangable;
-   private NumericStatsChangable numericStatsChangable;
+   private StringStatsChangeable stringStatsChangeable;
+   private BooleanStatsChangeable booleanStatsChangeable;
+   private NumericStatsChangeable numericStatsChangeable;
    private Groups groups;
    private Name name;
 
-    public BasicEntityContainer(Entity entity,  ID id, Name name, Groups groups,  NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangable stringStatsChangable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangable booleanStatsChangable, NumericStatsChangable numericStatsChangable) {
+    public BasicEntityContainer(Entity entity, ID id, Name name, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
         this.entity = entity;
         this.name=name;
         this.id = id;
         this.numericStats = numericStats;
         this.booleanStats = booleanStats;
         this.stringStats = stringStats;
-        this.stringStatsChangable = stringStatsChangable;
-        this.booleanStatsChangable = booleanStatsChangable;
-        this.numericStatsChangable = numericStatsChangable;
+        this.stringStatsChangeable = stringStatsChangeable;
+        this.booleanStatsChangeable = booleanStatsChangeable;
+        this.numericStatsChangeable = numericStatsChangeable;
         this.numericStatsSelfChangable=numericStatsSelfChangable;
         this.groups=groups;
     }
@@ -68,22 +68,22 @@ public class BasicEntityContainer {
     }
 
 
-    public StringStatsChangable getStringStatsChangable() {
-        return stringStatsChangable;
+    public StringStatsChangeable getStringStatsChangeable() {
+        return stringStatsChangeable;
     }
 
 
 
-    public BooleanStatsChangable getBooleanStatsChangable() {
-        return booleanStatsChangable;
+    public BooleanStatsChangeable getBooleanStatsChangeable() {
+        return booleanStatsChangeable;
     }
 
     public Name getName() {
         return name;
     }
 
-    public NumericStatsChangable getNumericStatsChangable() {
-        return numericStatsChangable;
+    public NumericStatsChangeable getNumericStatsChangeable() {
+        return numericStatsChangeable;
     }
 
     public Groups getGroups() {

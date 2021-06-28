@@ -1,7 +1,5 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-import com.jessematty.black.tower.Components.Markers.MarkerComponent;
-
 public class Dying extends ActionComponent { // this flag indicates that an entity is dying and will be dead soon
 
 

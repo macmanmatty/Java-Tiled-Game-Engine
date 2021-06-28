@@ -24,6 +24,8 @@ public class AtlasNamedAtlasRegion  extends AtlasRegion  {
 
     }
 
+
+
     public AtlasNamedAtlasRegion(Texture texture, int x, int y, int width, int height) {
         super(texture, x, y, width, height);
     }

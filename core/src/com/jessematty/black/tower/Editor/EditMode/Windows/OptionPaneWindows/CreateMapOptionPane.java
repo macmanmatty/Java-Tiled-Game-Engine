@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows;
+package com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -16,7 +16,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveI
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 
-public class CreateMapWindow extends EditWindow {
+public class CreateMapOptionPane extends EditWindow {
 
     private PositiveIntegerField xSize;
     private PositiveIntegerField ySize;
@@ -32,7 +32,8 @@ public class CreateMapWindow extends EditWindow {
 
 
 
-    public CreateMapWindow(MapEditScreen mapEditScreen, Skin skin) {
+
+    public CreateMapOptionPane(MapEditScreen mapEditScreen, Skin skin) {
         super( mapEditScreen, "Create World",  skin, "default");
 
 

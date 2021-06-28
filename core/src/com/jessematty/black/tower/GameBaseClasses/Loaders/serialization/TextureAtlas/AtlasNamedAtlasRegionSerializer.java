@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Texture
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class AtlasNamedAtlasRegionSerializer implements Json.Serializer<AtlasNamedAtlasRegion> { // serializer for the libgdx atlas region class
     GameAssets assetts;

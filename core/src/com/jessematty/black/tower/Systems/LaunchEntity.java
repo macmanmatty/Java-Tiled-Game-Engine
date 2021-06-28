@@ -9,11 +9,12 @@ import com.jessematty.black.tower.Components.Actions.Action;
 
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Launched;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Launchable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Target;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -29,10 +30,10 @@ public class LaunchEntity extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        throwComponentMapper=getGameComponentMapper().getThrowComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
-        targetComponentMapper=getGameComponentMapper().getTargetComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        throwComponentMapper=GameComponentMapper.getThrowComponentMapper();
+        actionComponentMapper=GameComponentMapper.getActionComponentMapper();
+        targetComponentMapper=GameComponentMapper.getTargetComponentMapper();
         
     }
     @Override
@@ -70,10 +71,10 @@ public class LaunchEntity extends GameEntitySystem {
                 Polygon bounds = entityPosition.getBounds();
                 bounds.setOrigin(bounds.getX() / 2, bounds.getY() / 2);
                 bounds.setRotation(Direction.getAngel(direction));
-                Movable movable = new Movable();
-                movable.setCurrentSpeed(speed);
-                movable.setMoveAngle(angle);
-                entity.add(movable);
+                MovableComponent movableComponent = new MovableComponent();
+                movableComponent.setCurrentSpeed(speed);
+                movableComponent.setMoveAngle(angle);
+                entity.add(movableComponent);
                 entity.add(new MovingOnGround());
                 action.setStat("move");
                 entity.remove(Target.class);

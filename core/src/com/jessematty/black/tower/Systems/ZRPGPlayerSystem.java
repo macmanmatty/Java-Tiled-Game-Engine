@@ -4,12 +4,9 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
@@ -26,17 +23,22 @@ import com.jessematty.black.tower.Components.Throwable;
 import com.jessematty.black.tower.Components.Thrustable;
 import com.jessematty.black.tower.Components.ZRPGPlayerButtonModes;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameInputKeys;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeys;
+import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
+import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GameInputKeys;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Actors.ZRPGActors;
 
 
-public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcessor {
+public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInputProcessor, InputKeys {
     private ZRPGPlayer player;
    private GameInputKeys gameInputKeys;
    private int handNumber=1;
    private Entity [] items= new Entity[2];
+   boolean mouseLocked;
+   boolean keyLocked;
    private ComponentMapper<Thrustable > thrustableComponentMapper;
    private ComponentMapper<Ingestable> ingestableComponentMapper;
    private ComponentMapper<Throwable> throwableComponentMapper;
@@ -55,6 +57,7 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
     public ZRPGPlayerSystem(MapDraw draw) {
         super(draw);
         this.gameInputKeys=draw.getAssetts().getSettings().getGameInputKeys();
+
         zrpgActors=new ZRPGActors(draw);
 
 
@@ -63,18 +66,17 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
     @Override
     public void addedToEngine(Engine engine) {
-        GameComponentMapper gameComponentMapper=getGameComponentMapper();
-        slashableComponentMapper=gameComponentMapper.getSlashableComponentMapper();
-        shootableComponentMapper=gameComponentMapper.getShootableComponentMapper();
-        thrustableComponentMapper=gameComponentMapper.getThrustableComponentMapper();
-        ingestableComponentMapper=gameComponentMapper.getIngestableComponentMapper();
-        readableComponentMapper=gameComponentMapper.getReadableComponentMapper();
-        spellCastableComponentMapper=gameComponentMapper.getSpellCastableComponentMapper();
-        itemComponentMapper=getGameComponentMapper().getItemComponentMapper();
-        holdableComponentMapper=getGameComponentMapper().getHoldableComponentMapper();
-        attachableComponentMapper=getGameComponentMapper().getAttachableComponentMapper();
-        throwableComponentMapper=getGameComponentMapper().getThrowableComponentMapper();
-        loadableComponentMapper=getGameComponentMapper().getLoadableComponentMapper();
+        slashableComponentMapper=GameComponentMapper.getSlashableComponentMapper();
+        shootableComponentMapper=GameComponentMapper.getShootableComponentMapper();
+        thrustableComponentMapper=GameComponentMapper.getThrustableComponentMapper();
+        ingestableComponentMapper=GameComponentMapper.getIngestableComponentMapper();
+        readableComponentMapper=GameComponentMapper.getReadableComponentMapper();
+        spellCastableComponentMapper=GameComponentMapper.getSpellCastableComponentMapper();
+        itemComponentMapper=GameComponentMapper.getItemComponentMapper();
+        holdableComponentMapper=GameComponentMapper.getHoldableComponentMapper();
+        attachableComponentMapper=GameComponentMapper.getAttachableComponentMapper();
+        throwableComponentMapper=GameComponentMapper.getThrowableComponentMapper();
+        loadableComponentMapper=GameComponentMapper.getLoadableComponentMapper();
     }
 
     @Override
@@ -211,12 +213,13 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
   
     @Override
     public boolean keyUp(int keycode) {
+
        if ( gameInputKeys.isAMoveKey(keycode)) {
             player.getPlayerEntity().remove(MovingOnGround.class);
            player.getPlayerEntity().remove(Moved.class);
 
            player.getAction().setStat("rest");
-            player.getMovable().setMoved(false);
+            player.getMovableComponent().setMoved(false);
             System.out.println("Key up!!");
 
 
@@ -231,12 +234,14 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
     @Override
     public boolean keyTyped(char c) {
+
         return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Vector3 unProjectedCoordinates = getDraw().getCamera().unproject(new Vector3(screenX, screenY, 0));
+
+        Vector3 unProjectedCoordinates = getDraw().getGameCamera().unproject(new Vector3(screenX, screenY, 0));
 
         if(button== Buttons.LEFT){
 
@@ -267,16 +272,20 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+
         return false;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+
         Image targetImage=zrpgActors.getTargetImage();
 
         if(player.getButtonMode()==ZRPGPlayerButtonModes.TARGET){
@@ -308,6 +317,35 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements InputProcesso
         this.player = player;
         playerFunctions= new ZRPGPlayerFunctions(player, getDraw());
 
+
+    }
+
+    @Override
+    public boolean isMouseInputLocked() {
+        return mouseLocked;
+    }
+
+    @Override
+    public void setMouseInputLocked(boolean locked) {
+
+        this.mouseLocked =locked;
+    }
+
+    @Override
+    public boolean isKeyInputLocked() {
+        return keyLocked;
+    }
+
+    @Override
+    public void setKeyInputLocked(boolean locked) {
+
+        this.keyLocked=locked;
+
+    }
+
+    @Override
+    public Array<InputKeyCombo> getKeys() {
+        return playerFunctions.getPlayerControlFunctions();
 
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Ingest;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Ingestable;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class IngestSystem extends GameEntitySystem {
@@ -25,8 +26,8 @@ public class IngestSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        ingestableComponentMapper=getGameComponentMapper().getIngestableComponentMapper();
-        ingestingComponentMapper=getGameComponentMapper().getIngestingComponentMapper();
+        ingestableComponentMapper=GameComponentMapper.getIngestableComponentMapper();
+        ingestingComponentMapper= GameComponentMapper.getIngestingComponentMapper();
 
 
     }

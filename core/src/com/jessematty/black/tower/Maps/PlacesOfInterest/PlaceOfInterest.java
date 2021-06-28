@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Maps.PlacesOfInterest;
 
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Generators.MapGenerators.NumberMapGen;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;

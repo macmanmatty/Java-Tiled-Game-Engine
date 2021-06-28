@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.jessematty.black.tower.Components.Light;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.Comparator;
@@ -35,8 +36,8 @@ public  class LightRenderSystem extends SortedIteratingSystem{
     public void addedToEngine(Engine engine) {
 
 
-        lights=mapDraw.getGameComponentMapper().getLightComponentMapper();
-        positions=mapDraw.getGameComponentMapper().getPositionComponentMapper();
+        lights= GameComponentMapper.getLightComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
 
 
 

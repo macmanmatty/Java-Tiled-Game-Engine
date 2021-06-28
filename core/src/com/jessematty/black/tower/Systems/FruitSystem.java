@@ -6,12 +6,12 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Fruit;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class FruitSystem extends GameEntitySystem {
 
-    private ComponentMapper<Movable> moveables= ComponentMapper.getFor(Movable.class);
+    private ComponentMapper<MovableComponent> moveables= ComponentMapper.getFor(MovableComponent.class);
     private ComponentMapper<Action> actions=ComponentMapper.getFor(Action.class);
     private ImmutableArray<Entity> entities;
 
@@ -29,10 +29,10 @@ public class FruitSystem extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Movable movable =moveables.get(entity);
+            MovableComponent movableComponent =moveables.get(entity);
             Action action= actions.get(entity);
             action.setStat("rest");
-            movable.setCurrentSpeed(0);
+            movableComponent.setCurrentSpeed(0);
 
 
 

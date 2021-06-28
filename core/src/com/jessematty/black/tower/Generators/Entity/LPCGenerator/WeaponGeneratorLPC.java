@@ -3,18 +3,18 @@ package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Info;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
@@ -29,7 +29,7 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
     }
 
 
-    public Entity generateMeeleWeapon(String bodyName, String atlasName, String name, String info, boolean hashSlashFrames, boolean hasThrustFrames, boolean hasWalkFrames, NamedColor color, float brightness, float condition, float volume, float mass, float length, float width, boolean upBehind, double damage, double speed, NumericStatsChangable numericStatsChangable, BooleanStatsChangable booleanStatsChangable) {
+    public Entity generateMeeleWeapon(String bodyName, String atlasName, String name, String info, boolean hashSlashFrames, boolean hasThrustFrames, boolean hasWalkFrames, NamedColor color, float brightness, float condition, float volume, float mass, float length, float width, boolean upBehind, double damage, double speed, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
         BasicEntityContainer container= EntityUtilities.makeBasicEntity();        Entity weapon=container.getEntity();
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
         container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
@@ -54,15 +54,15 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
         NumericStat healthStat= new NumericStat( true, "health", 100, 0, 100);
         healthStat.setKillWhenZero(true);
         numericStats.addStat(healthStat);
-        Drawable drawable= new Drawable();
-        drawable.setCurrentRegion(animatable.getCurrentTexture());
-        drawable.setDraw(true);
-        drawable.setLayerNumber(layerNumber);
-        drawable.setColor(color);
-        drawable.setBrightness(brightness);
-        Movable movable = new Movable();
-        weapon.add(drawable);
-        weapon.add(movable);
+        DrawableComponent drawableComponent = new DrawableComponent();
+        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
+        drawableComponent.setDraw(true);
+        drawableComponent.setLayerNumber(layerNumber);
+        drawableComponent.setColor(color);
+        drawableComponent.setBrightness(brightness);
+        MovableComponent movableComponent = new MovableComponent();
+        weapon.add(drawableComponent);
+        weapon.add(movableComponent);
         PositionComponent position= new PositionComponent();
         position.setBounds(width, length);
         position.setBoundsXOffset(32);
@@ -76,11 +76,11 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
         weapon.add(physicalObject);
         weapon.add(new Name(true, name));
         weapon.add(new Info(true, "info", info));
-        if(booleanStatsChangable !=null){
-            weapon.add(booleanStatsChangable);
+        if(booleanStatsChangeable !=null){
+            weapon.add(booleanStatsChangeable);
         }
-        if(numericStatsChangable !=null){
-            weapon.add(numericStatsChangable);
+        if(numericStatsChangeable !=null){
+            weapon.add(numericStatsChangeable);
         }
         generateItem(weapon, 100);
 

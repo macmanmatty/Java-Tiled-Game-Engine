@@ -7,8 +7,8 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
-import com.jessematty.black.tower.Components.Markers.VisibleOnScreen;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
+import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SolidObject;
@@ -28,7 +28,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
     }
     @Override
     public void addedToEngine(Engine engine) {
-        positions=getGameComponentMapper().getPositionComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
        physicalObjectComponentComponentMapper= GameComponentMapper.getPhysicalObjectComponentMapper();
     }
     @Override
@@ -36,7 +36,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
         entities=getEngine().getEntitiesFor(Family.all( Action.class, PositionComponent.class).get());
         int size=entities.size();
 
-        if(getDraw().getPlayer().getMovable().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLaspedInSeconds()>2){// player didn't move no need to calculate anything
+        if(getDraw().getPlayer().getMovableComponent().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLaspedInSeconds()>2){// player didn't move no need to calculate anything
             return;
 
         }
@@ -94,7 +94,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
         }
     }
     public boolean onScreen(Rectangle rectangle){ // checks if the bounds of a rectangle are on screen by checking each corner point
-        Camera camera=getDraw().getCamera();
+        Camera camera=getDraw().getGameCamera();
         float rectangleX=rectangle.x;
         float rectangleY=rectangle.y;
         float height=rectangle.height;

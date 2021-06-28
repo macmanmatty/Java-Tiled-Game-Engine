@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AIComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 
@@ -19,7 +20,7 @@ public abstract class AiSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        aiComponentMapper=getGameComponentMapper().getAiComponentMapper();
+        aiComponentMapper= GameComponentMapper.getAiComponentMapper();
 
     }
 

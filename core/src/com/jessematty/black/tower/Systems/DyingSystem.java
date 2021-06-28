@@ -12,6 +12,7 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Animation.Animation;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -27,10 +28,10 @@ public class DyingSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        positions=getGameComponentMapper().getPositionComponentMapper();
-        itemComponentMapper=getGameComponentMapper().getItemComponentMapper();
-        dyingComponentMapper=getGameComponentMapper().getDyingComponentMapper();
-        animatableComponentMapper=getGameComponentMapper().getAnimatableComponentMapper();
+        positions= GameComponentMapper.getPositionComponentMapper();
+        itemComponentMapper=GameComponentMapper.getItemComponentMapper();
+        dyingComponentMapper=GameComponentMapper.getDyingComponentMapper();
+        animatableComponentMapper=GameComponentMapper.getAnimatableComponentMapper();
     }
     @Override
     public void update(float deltaTime) {

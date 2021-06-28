@@ -10,9 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Position.BoundsChangeable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -26,7 +27,7 @@ public class ChangeBoundsSystem extends GameEntitySystem {
     ImmutableArray<Entity> entities;
 
 
-    Movable movable;
+    MovableComponent movableComponent;
     PhysicalObjectComponent object;
 
     public ChangeBoundsSystem(MapDraw draw, int priorty) {
@@ -36,9 +37,9 @@ public class ChangeBoundsSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        positions = getGameComponentMapper().getPositionComponentMapper();
-         actionComponentMapper = getGameComponentMapper().getActionComponentMapper();
-         boundsChangeableComponentMapper=getGameComponentMapper().getBoundsChangeableComponentMapper();
+        positions = GameComponentMapper.getPositionComponentMapper();
+         actionComponentMapper = GameComponentMapper.getActionComponentMapper();
+         boundsChangeableComponentMapper=GameComponentMapper.getBoundsChangeableComponentMapper();
     }
 
     @Override

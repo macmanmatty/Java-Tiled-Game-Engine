@@ -1,5 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.GameTimes;
 
+
+// class for the game time
 public class GameTime {
 
     private double   gameSeconds;
@@ -15,9 +17,14 @@ public class GameTime {
 
 
 
+
     boolean amTime;
 
 
+
+    // method that counts the game time
+    // 60 micro seconds = 1 second
+    // 60 seconds= 1 minute etc.
     public void countTime() {
         if(microSecondCounter==60) {
             gameSeconds++;
@@ -50,10 +57,13 @@ public class GameTime {
         }
 
         seasonSet();
+        setMonth();
         microSecondCounter++;
 
     }
 
+
+    // sets the season
     private void seasonSet() { // sets the squares season based on gameTime
         if (gameSeconds % 13140 == 0) {
             season = Season.SUMMER;
@@ -64,6 +74,11 @@ public class GameTime {
         } else if (gameSeconds % (3140 * 4) == 0) {
             season = Season.SPRING;
         }
+
+    }
+
+    public void setMonth(){
+
 
     }
 

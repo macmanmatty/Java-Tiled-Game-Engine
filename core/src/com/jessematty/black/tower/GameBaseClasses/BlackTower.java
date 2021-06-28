@@ -1,15 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
 public class BlackTower extends Game {
-GameAssets assetts;
- Settings gameSettings;
-Skin skin;
-Label errorLabel;
+private GameAssets assetts;
+
+
+
 public void BlackTower(){
 }
 	public void makeMainWindow(){
@@ -27,8 +23,10 @@ code();
 	super.dispose();
 	}
 	public void code(){
-	assetts=new GameAssets(this);
+
+	assetts=new GameAssets("game", this);
 	assetts.setup();
+
 		setScreen(new MainScreen(assetts));
 	}
 	public GameAssets getAssetts() {

@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.Container;
 
 
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -27,8 +28,8 @@ public class DropItemSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        positionGameComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        containerComponentMapper=getGameComponentMapper().getContainerComponentMapper();
+        positionGameComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        containerComponentMapper=GameComponentMapper.getContainerComponentMapper();
 
     }
 

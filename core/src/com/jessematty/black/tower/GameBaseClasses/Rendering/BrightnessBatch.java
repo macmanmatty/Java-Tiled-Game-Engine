@@ -2,6 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
@@ -43,6 +44,18 @@ public class BrightnessBatch  extends SpriteBatch {
 
 
     }
+
+
+
+    public void setTiledMapView (OrthographicCamera camera) {
+       setProjectionMatrix(camera.combined);
+        float width = camera.viewportWidth * camera.zoom;
+        float height = camera.viewportHeight * camera.zoom;
+        float w = width * Math.abs(camera.up.y) + height * Math.abs(camera.up.x);
+        float h = height * Math.abs(camera.up.y) + width * Math.abs(camera.up.x);
+
+    }
+
 
 
 

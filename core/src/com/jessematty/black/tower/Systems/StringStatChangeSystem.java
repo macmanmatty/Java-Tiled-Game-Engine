@@ -5,16 +5,17 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
-import com.jessematty.black.tower.Components.Markers.StatChanged;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringStat;
+import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -23,7 +24,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public class StringStatChangeSystem extends GameEntitySystem{
 
     private ComponentMapper<StringStats> stringStatsComponentMapper;
-    private ComponentMapper<StringStatsChangable> stringStatsChangableComponentMapper;
+    private ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper;
     private ComponentMapper<StringStatsChangeComponent> stringStatChangeComponentComponentMapper;
     ComponentMapper<TimeChangingStats> timeChangingStatsComponentMapper;
     public StringStatChangeSystem(MapDraw draw) {
@@ -32,10 +33,10 @@ public class StringStatChangeSystem extends GameEntitySystem{
     }
     @Override
     public void addedToEngine(Engine engine) {
-        stringStatsComponentMapper =getGameComponentMapper().getStringStatsComponentMapper();
-        stringStatsChangableComponentMapper =getGameComponentMapper().getStringStatsChangableComponentMapper();
-        stringStatChangeComponentComponentMapper=getGameComponentMapper().getStringStatChangeComponentComponentMapper();
-        timeChangingStatsComponentMapper=getGameComponentMapper().getTimeChangingNumericStatsComponentMapper();
+        stringStatsComponentMapper = GameComponentMapper.getStringStatsComponentMapper();
+        stringStatsChangableComponentMapper =GameComponentMapper.getStringStatsChangableComponentMapper();
+        stringStatChangeComponentComponentMapper=GameComponentMapper.getStringStatChangeComponentComponentMapper();
+        timeChangingStatsComponentMapper=GameComponentMapper.getTimeChangingNumericStatsComponentMapper();
     }
     @Override
     public void removedFromEngine(Engine engine) {
@@ -60,15 +61,15 @@ public class StringStatChangeSystem extends GameEntitySystem{
             String action= stringStatsChangeComponent.getChangeAction();
             boolean addStat= stringStatsChangeComponent.isAddStat();
             StringStats statsToChange=stringStatsComponentMapper.get(entityToChange);
-            StringStatsChangable stringStatsChangable=stringStatsChangableComponentMapper.get(enitityThatDoesTheChanging);
+            StringStatsChangeable stringStatsChangeable =stringStatsChangableComponentMapper.get(enitityThatDoesTheChanging);
 
 
 
 
 
 
-        if (statsToChange != null && stringStatsChangable != null) {
-            Array<ChangableStringStat> stringStatList = stringStatsChangable.getStatsToChange();
+        if (statsToChange != null && stringStatsChangeable != null) {
+            Array<StringStatChangeable> stringStatList = stringStatsChangeable.getStatsToChange();
             changeStringStats(action, addStat, statsToChange, entityToChange, stringStatList);
 
         }
@@ -78,18 +79,18 @@ public class StringStatChangeSystem extends GameEntitySystem{
     }
 
 
-    private void changeStringStats( String action, boolean addStat,  StringStats statsToChange,   Entity entityToChange, Array<ChangableStringStat> changableStringStats){
+    private void changeStringStats( String action, boolean addStat,  StringStats statsToChange,   Entity entityToChange, Array<StringStatChangeable> changableStringStats){
 
         int size = changableStringStats.size;
         for (int count = 0; count < size; count++) {
-            ChangableStringStat changeableStringStat = changableStringStats.get(count);
-            changeStat(entityToChange, statsToChange, statsToChange.getStringStat(changeableStringStat.getName()), changeableStringStat, action, addStat);
+            StringStatChangeable stringStatChangeable = changableStringStats.get(count);
+            changeStat(entityToChange, statsToChange, statsToChange.getStringStat(stringStatChangeable.getName()), stringStatChangeable, action, addStat);
 
         }
     }
 
 
-    public void changeStat(Entity entityToChange, StringStats entityToChangeStats, StringStat stat, ChangableStringStat changeStat, String action, boolean addStat){
+    public void changeStat(Entity entityToChange, StringStats entityToChangeStats, StringStat stat, StringStatChangeable changeStat, String action, boolean addStat){
 
 
         boolean change=false;

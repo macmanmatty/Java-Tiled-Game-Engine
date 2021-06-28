@@ -9,7 +9,6 @@ public abstract  class GameTimeIntervalSystem extends IntervalSystem  {
 
 
    private   final  MapDraw draw;
-    private   final GameComponentMapper gameComponentMapper;
     private final GameTime gameTime;
 
 
@@ -19,14 +18,12 @@ public abstract  class GameTimeIntervalSystem extends IntervalSystem  {
     public GameTimeIntervalSystem(float interval, MapDraw draw) {
         super(interval);
         this.draw = draw;
-        gameComponentMapper=draw.getGameComponentMapper();
         this.gameTime=draw.getGameTime();
     }
 
     public GameTimeIntervalSystem(float interval, int priority, MapDraw draw) {
         super(interval, priority);
         this.draw = draw;
-        gameComponentMapper=draw.getGameComponentMapper();
         this.gameTime=draw.getGameTime();
     }
 
@@ -34,9 +31,6 @@ public abstract  class GameTimeIntervalSystem extends IntervalSystem  {
         return draw;
     }
 
-    public GameComponentMapper getGameComponentMapper() {
-        return gameComponentMapper;
-    }
 
     public GameTime getGameTime() {
         return gameTime;

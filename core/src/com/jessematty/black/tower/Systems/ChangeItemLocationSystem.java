@@ -9,6 +9,7 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class ChangeItemLocationSystem extends GameEntitySystem {
@@ -27,7 +28,7 @@ public class ChangeItemLocationSystem extends GameEntitySystem {
         super(draw);
         this.pack = pack;
         this.entity = entity;
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
+        idComponentMapper= GameComponentMapper.getIdComponentMapper();
     }
 
     @Override

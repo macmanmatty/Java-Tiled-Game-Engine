@@ -18,7 +18,7 @@ import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TerrainSet;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.PathFind;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Generators.Sets.CliffSet;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;

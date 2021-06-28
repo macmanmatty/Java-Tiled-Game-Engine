@@ -156,7 +156,7 @@ public class ItemLabel<T >  extends Label {
             textFieldAdded=true;
         }
         clickResetCounter++;
-        if(clickResetCounter==120000){
+        if(clickResetCounter==120){
             clicks=0;
             clickResetCounter=0;
 

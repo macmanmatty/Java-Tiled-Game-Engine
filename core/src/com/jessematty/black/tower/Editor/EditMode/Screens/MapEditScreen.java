@@ -3,14 +3,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,75 +22,68 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.SelectMode;
+import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
+import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
+import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
+import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.PlaceMode;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.GameMapEdit;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.MapTools;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.TiledMapEdit;
-import com.jessematty.black.tower.Editor.EditMode.TopButtons.MapEditButtons;
+import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
+import com.jessematty.black.tower.Editor.Tools.MapTools.GameMapEdit;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
+import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
+import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.TiledMapStage.TiledMapStage;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
-import com.jessematty.black.tower.Editor.World.WorldObjects;
-
-import java.util.ArrayList;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 
 
-public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScreen {
+public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, EditScreen {
     private PlaceMode placeMode = PlaceMode.PLACE;
     private SelectMode selectMode=SelectMode.SELECT;
     private Skin skin; // the UI skin
-    private GameMapEdit gameMapEdit;
-    private GameMap currentMap;
-    private TiledMapEdit tiledMapEdit;
-    private Actor entityToPlaceImage;
-    private int ySize; // landSquareTileMap x size
-    private int xSize; // may y size
-    private float mapXPixils;
-    private float mapYPixils;
-    private Stage mapStage;
-    private boolean running;
-    private int tileWidth = 32;
-    private int tileHeight = 32;
-    private BrightnessBatch batch;
-    private OrthographicCamera camera;
+    private GameMapEdit gameMapEdit;// map editor class
+    private GameMap currentMap; // the currentMap to Edit
+    private TiledMapEdit tiledMapEdit;// the current tiled map to edit
+    private Stage mapStage; // the map stage
+    private BrightnessBatch batch; // the batch for rendering
+    private GameCamera camera; // the camera
     private Stage uiStage;
     private Engine engine;
     private ShapeRenderer shapeRenderer;
     private FrameBuffer mapFrameBuffer;
     private FrameBuffer lightFrameBuffer;
-    private ExtendViewport mapViewport;
+    private Viewport mapViewport;
     private final GameAssets gameAssets;
     private final GameComponentMapper gameComponentMapper;
     private TiledMapRenderer tiledMapRenderer;
-    private final World world;
+    private  World world;
     private final DragAndDrop dragAndDrop;
-    private final KeyListener keyListener;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private int currentLayerNumber;
     private Rectangle selectedArea = new Rectangle();
@@ -98,13 +91,16 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     private ClipBoard clipBoard;
     private final String name = "Map Edit Screen";
     private MapTools mapTools;
-    protected PlaceMode mode;
-    private InputMultiplexer inputMultiplexer = new InputMultiplexer();
-    protected float minWorldWidth = 960;
-    protected float minWorldWHeight = 960;
     private MapEditWindows mapEditWindows;
     private MapEditButtons mapEditButtons;
     private TopMenu topMenu;
+    private boolean renderToBuffer=true;
+    private MapEditKeys editInputKeys;
+    private boolean screenLocked;
+    private boolean keyLocked;
+    private final GameInput gameInput;
+
+
 
 
 
@@ -113,7 +109,6 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         this.gameAssets = assets;
         this.world = world;
         this.dragAndDrop = dragAndDrop;
-        this.keyListener = keyListener;
         batch = new BrightnessBatch();
         this.skin = skin;
         float w = Gdx.graphics.getWidth();
@@ -123,47 +118,75 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         this.worldObjects = worldObjects;
         this.topMenu = topMenu;
         this.clipBoard=clipBoard;
+        this.gameInput=gameAssets.getGameInput();
 
 
     }
 
     @Override
     public void show() {
-
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera();
-        camera.translate(420, 420);
+        camera = new GameCamera(960, 960);
         float viewPortWidth = 960;
         float viewPortHeight = 960;
         mapViewport = new ExtendViewport(viewPortWidth, viewPortHeight, camera);
-
-
         mapEditWindows= new MapEditWindows(this);
-
+       editInputKeys= new MapEditKeys(this, gameInput.getKeyListener());
+        editInputKeys.addKeys();
         mapStage = new Stage(mapViewport, batch);
         mapStage.getBatch().setProjectionMatrix(camera.combined);
         uiStage = new Stage();
-        inputMultiplexer.addProcessor(keyListener);
-        inputMultiplexer.addProcessor(uiStage);
-        inputMultiplexer.addProcessor(this);
-        inputMultiplexer.addProcessor(mapStage);
-        Gdx.input.setInputProcessor(inputMultiplexer);
+
+        gameInput.addProcessor(this);
+        camera.enableControlledMovement();
+        gameInput.addProcessor(uiStage);
+        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         tiledMapEdit= new TiledMapEdit( gameAssets, clipBoard);
         gameMapEdit= new GameMapEdit(gameAssets, clipBoard);
         mapTools = new MapTools(this);
         engine = world.getEngine();
         shapeRenderer = new ShapeRenderer();
-        EngineSetup.addRenderSystemsToEngine( gameComponentMapper,  engine, batch, shapeRenderer, true, mapFrameBuffer, lightFrameBuffer);
+        EngineSetup.addRenderSystemsToEngine(  engine, batch, shapeRenderer, true, mapFrameBuffer, lightFrameBuffer);
         makeWindows();
 
+    }
+    @Override
+    public void hide() {
+        renderToBuffer=true;
+        gameInput.removeProcessor(uiStage);
+        gameInput.removeProcessor(this);
+        gameInput.removeProcessor(mapStage);
+
+
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        uiStage.getViewport().setScreenSize(width, height);
+        mapStage.getViewport().setScreenSize(width, height);
+        camera.update();
+        mapFrameBuffer= new FrameBuffer(Format.RGBA8888, width, height, false);
+        lightFrameBuffer= new FrameBuffer(Format.RGBA8888, width, height, false);
+
+    }
+    @Override
+    public void pause() {
+    }
+    @Override
+    public void resume() {
+        renderToBuffer=false;
+    }
+
+
+    @Override
+    public void dispose() {
     }
 
     private void makeWindows() {
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
-
-
         Table menuTable = topMenu.getMenuBar().getTable();
         menuTable.setSize(Gdx.graphics.getWidth(), menuTable.getPrefHeight());
         height = height - menuTable.getPrefHeight();
@@ -184,8 +207,6 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         textureDisplayWindow.setPosition(width - 320, height);
         uiStage.addActor(textureDisplayWindow);
         MapEditWindow tiledMapLayerWindow=mapEditWindows.getTiledMapLayerWindow();
-
-
         Window tiledMapLayer2DWindow = tiledMapLayerWindow;
         tiledMapLayerWindow.setWindowSize(320, 200);
         height = height - tiledMapLayer2DWindow.getHeight();
@@ -198,9 +219,6 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     public void setWidowsToMap() {
     }
 
-    public void loadTextureNames(String path) {
-        ArrayList<TextureAtlasRegionNames> names = gameAssets.loadNames(path);
-    }
 
 
 
@@ -208,48 +226,44 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         clipBoard.getCurrentCell().getTile().getTextureRegion().setRegion(region);
     }
 
-
             public void runGame(World world, Entity player){
         world.setPlayer(player);
        gameAssets.getMapDraw().changeMap(currentMap);
         //gameAssets.showGame(world, player );
             }
-    public int getxSize() {
-        return xSize;
+
+
+    public int getXSize() {
+        return currentMap.getXTiles();
     }
-    public void setxSize(int xSize) {
-        this.xSize = xSize;
-        this.mapXPixils= tileWidth *xSize;
+
+    public int getYSize() {
+        return currentMap.getYTiles();
     }
-    public int getySize() {
-        return ySize;
-    }
-    public void setySize(int ySize) {
-        this.ySize = ySize;
-        this.mapYPixils= tileHeight *ySize;
-    }
+
+
+    // changes or set the current map to be edited to the given map
     public void changeMap(GameMap map) {
             this.currentMap = map;
             TiledMap tiledMap=map.getTiledMap();
             tiledMapEdit.setCurrentTiledMap(tiledMap);
             tiledMapEdit.setCurrentLayer((NamedTiledMapTileLayer) tiledMap.getLayers().get(0));
-            this.tileHeight =map.getTileSizeY();
-            this.tileWidth =map.getTileSizeY();
-            this.xSize=map.getXSize();
-            this.ySize=map.getYSize();
-        tiledMapEdit.setTileSizeX(tileWidth);
-        tiledMapEdit.setTileSizeY(tileHeight);
-        tiledMapEdit.setxSize(xSize);
-        tiledMapEdit.setySize(ySize);
+            this.mapFrameBuffer= new FrameBuffer(Format.RGBA8888,map.getXTiles()*map.getTileWidth(), map.getYTiles()*map.getYTiles(),  false );
 
-        gameMapEdit.setTileSizeX(tileWidth);
-        gameMapEdit.setTileSizeY(tileHeight);
-        gameMapEdit.setxSize(xSize);
-        gameMapEdit.setySize(ySize);
-        
-            this.xSize=map.getXSize();
-            this.ySize=map.getYSize();
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+            // set the tiled of the current map to the editor
+        tiledMapEdit.setTileSizeX(map.getTileWidth());
+        tiledMapEdit.setTileSizeY(map.getTileHeight());
+        tiledMapEdit.setxSize(map.getXTiles());
+        tiledMapEdit.setySize(map.getYTiles());
+
+
+        // set the game amp in the current editor
+        gameMapEdit.setTileSizeX(map.getTileWidth());
+        gameMapEdit.setTileSizeY(map.getTileHeight());
+        gameMapEdit.setxSize(map.getXTiles());
+        gameMapEdit.setySize(map.getYTiles());
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1f);
         mapStage= new TiledMapStage(batch, mapViewport, currentMap, dragAndDrop);
 
         setWindowsToCurrentMap();
@@ -265,12 +279,21 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
     @Override
     public void render(float delta) {
+
+        renderToBuffer=false;
         Gdx.gl.glClearColor(Color.FOREST.r, Color.FOREST.g, Color.FOREST.b, Color.FOREST.a );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
             camera.update();
             batch.setProjectionMatrix(camera.combined);
         shapeRenderer.setProjectionMatrix(camera.combined);
+
+
+
+
+        if(mapFrameBuffer!=null && renderToBuffer) {
+            mapFrameBuffer.begin();
+        }
 
         if(tiledMapRenderer!=null) {
             tiledMapRenderer.setView(camera);
@@ -279,32 +302,37 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
         mapStage.act();
         mapStage.draw();
-            uiStage.act();
-            uiStage.draw();
+
+        if(mapFrameBuffer!=null && renderToBuffer) {
+            mapFrameBuffer.end();
+        }
 
 
+        uiStage.act();
+        uiStage.draw();
+
+
+        if(currentMap!=null && mapFrameBuffer!=null && renderToBuffer) {
+
+            Texture mapTexture=mapFrameBuffer.getColorBufferTexture();
+            currentMap.setMapImage(mapTexture);
+          //  batch.setTiledMapView(camera);
+                batch.begin();
+            batch.draw(mapTexture, 0, 0 );
+            batch.end();
+
+        }
+
+
+        batch.setProjectionMatrix(camera.combined);
+             batch.begin();
             float  deltaTime=Gdx.graphics.getDeltaTime();
             engine.update(deltaTime);
+            batch.end();
         }
     private void updateScreen() {
     }
-    @Override
-    public void resize(int width, int height) {
-        uiStage.getViewport().setScreenSize(width, height);
-        mapStage.getViewport().setScreenSize(width, height);
-    }
-    @Override
-    public void pause() {
-    }
-    @Override
-    public void resume() {
-    }
-    @Override
-    public void hide() {
-    }
-    @Override
-    public void dispose() {
-    }
+
 
 
 
@@ -319,32 +347,11 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.LEFT) {
-            camera.translate(-tileWidth, 0);
-            System.out.println("left was pressed");
-        }
+        System.out.println("key down!!");
 
-        else  if(keycode == Input.Keys.RIGHT) {
-            camera.translate(tileWidth, 0);
-        }
 
-        else  if(keycode == Input.Keys.UP) {
-            camera.translate(0, -tileHeight);
-        }
 
-        else  if(keycode == Input.Keys.DOWN) {
-            camera.translate(0, tileHeight);
-        }
-
-        else  if(keycode == Keys.EQUALS) {
-            camera.zoom = camera.zoom + .01f;
-        }
-
-        else  if(keycode == Keys.MINUS) {
-            camera.zoom = camera.zoom - .01f;
-        }
-
-        return true;
+        return false;
     }
     @Override
     public boolean keyUp(int keycode) {
@@ -358,13 +365,13 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Object object=clipBoard.getCurrentObject();
         if(object==null){
-            return  true;
+            return  false;
 
         }
         
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
 
-            return true;
+            return false;
         }
 
         Vector3 unprojectedScreenCoordinates= camera.unproject(new Vector3(screenX,screenY,0));
@@ -378,45 +385,33 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
         if(placeMode == PlaceMode.FILL_BUCKET){
             if(currentMap!=null) {
-                int tiledMapX=(int)(x/ tileWidth);
-                int tiledMapY=(int)(((y/ tileHeight)));
+                int tiledMapX=(int)(x/ currentMap.getTileWidth());
+                int tiledMapY=(int)(((y/ currentMap.getTileHeight())));
               tiledMapEdit.bucketFill(tiledMapX, tiledMapY, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
             }
         }
-        return true;
+        return false;
     }
     
     
     void place(Object object, float x, float y ){
 
-
         if (object instanceof Entity) {
             Entity entityToPlace = (Entity) object;
+            EntityTools.placeEntity(currentMap, world, entityToPlace, x, y);
 
-            PositionComponent position = positionComponentMapper.get(entityToPlace);
-            position.setMapWorldLocationX(currentMap.getWorldX());
-            position.setMapWorldLocationY(currentMap.getWorldX());
-            position.setLocationX(x);
-            position.setLocationY(y);
-            world.addEntityToWorld(entityToPlace);
-            entityToPlaceImage.addAction(Actions.removeActor());
         }
 
         if (object instanceof LandSquareTile[][]) {
 
             LandSquareTile tile = currentMap.screenToTile(x, y);
-
                 gameMapEdit.placeTiles(tile.getLocationX(), tile.getLocationY(), (LandSquareTile[][]) object);
-
             }
 
-
-        
 
         if (object instanceof Cell [] [] [] ) {
             LandSquareTile tile = currentMap.screenToTile(x, y);
             tiledMapEdit.placeCells(tile.getLocationX(), tile.getLocationY(), (Cell[][][]) object);
-
         }
 
 
@@ -427,9 +422,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         }
         
         if (object instanceof  AtlasRegion) {
-           
             tiledMapEdit.createStaticTiledMapTile(x, y, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
-
 
         }
         
@@ -441,7 +434,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
+        if(gameInput.getKeyListener().anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
             if (screenX > mapViewport.getWorldWidth() || screenY > mapViewport.getWorldWidth()) {
 
                 return true;
@@ -463,12 +456,14 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
             }
         }
 
-        return true;
+        return false;
     }
 
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        uiStage.setKeyboardFocus(null);
+        mapStage.setKeyboardFocus(null);
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
 
             return true;
@@ -485,26 +480,29 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
            shapeRenderer.rect(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
             shapeRenderer.end();
         }
-        return true;
+        return false;
     }
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         Object object=clipBoard.getCurrentObject();
+
+        // no object exit
         if(object==null){
-            return true;
+            return false;
         }
+        // object out of screen exit and true mouse in not in  application bounds
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
 
             return true;
         }
-        Vector3 unprojectedScreenCoordinates=camera.unproject(new Vector3(screenX, screenY, 0));
-        clipBoard.setScreenLocations(screenX, Gdx.graphics.getHeight()-screenY);
-         float x=unprojectedScreenCoordinates.x;
-         float y=unprojectedScreenCoordinates.y;
 
 
+        //  actual  get game location coordinates
+        Vector3 unprotectedScreenCoordinates=camera.unproject(new Vector3(screenX, screenY, 0));
+        clipBoard.setScreenLocations(screenX, mapViewport.getTopGutterY()-screenY);
 
-
+        float x=unprotectedScreenCoordinates.x;
+         float y=unprotectedScreenCoordinates.y;
 
         if(placeMode == PlaceMode.PLACE) {
             placeObjectPreview(object, x , y);
@@ -514,24 +512,20 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         
         if(placeMode == PlaceMode.FILL_BUCKET){
             if(currentMap!=null) {
-                int tiledMapX=(int)(x/ tileWidth);
-                int tiledMapY=(int)(((y/ tileHeight)));
+                int tiledMapX=(int)(x/ currentMap.getTileWidth());
+                int tiledMapY=(int)(((y/ currentMap.getTileHeight())));
                 tiledMapEdit.clearMouseOver();
                 tiledMapEdit.fillMouseOver(tiledMapX, tiledMapY, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
             }
         }
-        return true;
+        return false;
     }
-    
-    
-    private void placeObjectPreview(Object object, float x, float y){
 
+    private void placeObjectPreview(Object object, float x, float y){
         if(object instanceof  Entity) {
             Entity entityToPlace = (Entity) clipBoard.getCurrentObject();
             if (currentMap != null && entityToPlace != null) {
-                if (entityToPlaceImage != null) {
-                    getUiStage().addActor(entityToPlaceImage);
-                }
+
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
                 position.setMapWorldLocationX(currentMap.getWorldX());
                 position.setMapWorldLocationY(currentMap.getWorldX());
@@ -540,12 +534,9 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
             }
         }
 
-
-
-
         if (object instanceof  Cell) {
-            int tiledMapX = (int) (x / tileWidth);
-            int tiledMapY = (int) (((y / tileHeight)));
+            int tiledMapX = (int) (x / currentMap.getTileWidth());
+            int tiledMapY = (int) (((y / currentMap.getTileHeight())));
             tiledMapEdit.clearMouseOver();
             tiledMapEdit.placeCellMouseOver(tiledMapX, tiledMapY, (Cell[][]) clipBoard.getCurrentObject());
         }
@@ -560,7 +551,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         
         
     }
-    // sets the screen to to a world position
+    // sets the screen to  a  x, y world position
     public void setCameraToMapCoordinates(float  mapX, float mapY ){
 
         Vector3 screenCoordinates= camera.project(new Vector3(mapX, mapY, 0));
@@ -571,10 +562,10 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
 
     private Vector2 setCoordinatesToTile(float screenX, float screenY){
-        int tilesX= (int) (screenX/ tileWidth);
-        int tilesY= (int) (screenY/ tileHeight);
-        float newScreenX=tilesX* tileWidth;
-        float newScreenY=tilesY* tileHeight;
+        int tilesX= (int) (screenX/ currentMap.getTileWidth());
+        int tilesY= (int) (screenY/ currentMap.getTileHeight());
+        float newScreenX=tilesX* currentMap.getTileWidth();
+        float newScreenY=tilesY* currentMap.getTileHeight();
        return  new Vector2(tilesX, tilesY);
     }
     @Override
@@ -587,6 +578,20 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     public World getWorld() {
         return world;
     }
+
+    @Override
+    public void changeWorld(World World) {
+        this.world=world;
+
+    }
+
+    @Override
+    public GameMap getMap() {
+        return currentMap;
+    }
+
+
+
     public PlaceMode getPlaceMode() {
         return placeMode;
     }
@@ -598,15 +603,21 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
         return currentLayerNumber;
     }
     public int getTileWidth() {
-        return tileWidth;
+        return currentMap.getTileWidth();
     }
     public int getTileHeight() {
-        return tileHeight;
+        return currentMap.getTileHeight();
     }
 
     public WorldObjects getWorldObjects() {
         return worldObjects;
     }
+
+    @Override
+    public void setWorldObjects(WorldObjects worldObjects) {
+
+    }
+
     public ClipBoard getClipBoard() {
         return clipBoard;
     }
@@ -637,9 +648,6 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     public DragAndDrop getDragAndDrop() {
         return dragAndDrop;
     }
-    public KeyListener getKeyListener() {
-        return keyListener;
-    }
 
     public TiledMapEdit getTiledMapEdit() {
         return tiledMapEdit;
@@ -667,13 +675,7 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
     }
 
 
-    public void setTileWidth(int tileWidth) {
-        this.tileWidth = tileWidth;
-    }
 
-    public void setTileHeight(int tileHeight) {
-        this.tileHeight = tileHeight;
-    }
 
     public SelectMode getSelectMode() {
         return selectMode;
@@ -685,5 +687,41 @@ public    class MapEditScreen   implements NamedScreen,  InputProcessor, EditScr
 
     public Skin getSkin() {
         return skin;
+    }
+
+    public boolean isRenderToBuffer() {
+        return renderToBuffer;
+    }
+
+    public void setRenderToBuffer(boolean renderToBuffer) {
+        this.renderToBuffer = renderToBuffer;
+    }
+
+    public void backToWorldEdit() {
+
+        // capture  map image
+        renderToBuffer=true;
+
+
+    }
+
+    @Override
+    public boolean isMouseInputLocked() {
+        return screenLocked;
+    }
+
+    @Override
+    public void setMouseInputLocked(boolean screenLocked) {
+        this.screenLocked = screenLocked;
+    }
+
+    @Override
+    public boolean isKeyInputLocked() {
+        return keyLocked;
+    }
+
+    @Override
+    public void setKeyInputLocked(boolean keyLocked) {
+        this.keyLocked = keyLocked;
     }
 }

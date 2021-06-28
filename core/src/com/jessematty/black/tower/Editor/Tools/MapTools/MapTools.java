@@ -1,9 +1,10 @@
-package com.jessematty.black.tower.Editor.EditMode.MapTools;
+package com.jessematty.black.tower.Editor.Tools.MapTools;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
@@ -30,7 +31,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.ColorUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Generators.MapGenerators.NumberMapGenerator;
@@ -42,6 +43,7 @@ import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.io.File;
+import java.util.UUID;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -62,8 +64,8 @@ public class MapTools {
     }
     public static void changeMapSize(GameMap map, int xSize, int ySize) { // used to increase or decrease map  size in the editor
         LandSquareTile[][] tiles = new LandSquareTile[xSize][ySize];
-        int currentXSize = map.getXSize();
-        int currentYSize = map.getYSize();
+        int currentXSize = map.getXTiles();
+        int currentYSize = map.getYTiles();
         // copy landsquare tile data
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
@@ -74,8 +76,8 @@ public class MapTools {
         }
         map.setMap(tiles);
         //copy tiled map data
-        int tileSizeX = map.getTileSizeX();
-        int tileSizeY = map.getTileSizeY();
+        int tileSizeX = map.getTileWidth();
+        int tileSizeY = map.getTileHeight();
         TiledMap currentTiledMap = map.getTiledMap();
         int layers = currentTiledMap.getLayers().size();
         TiledMap newTiledMap = new TiledMap();
@@ -170,8 +172,8 @@ public class MapTools {
         tiledMap.getLayers().add(previewLayer);
 
         map.setMap(tiles);
-        map.setMapName(name);
-        map.setGravity(gravity);
+        map.getGameMapSettings().getSettings().put("name", name);
+        map.getGameMapSettings().getSettings().put("gravity", gravity);
         map.setTiledMap(tiledMap);
         map.setTileSize(tileSizeX, tileSizeY);
         return map;
@@ -197,8 +199,8 @@ public class MapTools {
         }
         tiledMap.getLayers().add(tiledMapTileLayer);
         map.setMap(tiles);
-        map.setMapName(name);
-        map.setGravity(gravity);
+        map.getGameMapSettings().getSettings().put("name", name);
+        map.getGameMapSettings().getSettings().put("gravity", gravity);
         map.setTiledMap(tiledMap);
         return map;
     }
@@ -225,7 +227,8 @@ public class MapTools {
             for (int county = 0; county < ySize; county++) {
                 GameMap map=maps[countx][county];
                 if(map!=null) {
-                    String mapName=map.getMapName();
+                    String mapName=map.getGameMapSettings().getSimpleSetting("name", String.class);
+
                     if(mapName!=null && !mapName.isEmpty()) {
                         mapNames.add(mapName);
                     }
@@ -245,12 +248,12 @@ public class MapTools {
             int  height= mapProperties.get("height", Integer.class);
             int  tileSizeX=mapProperties.get("tilewidth",Integer.class);
             int tileSizeY=mapProperties.get("tileheight", Integer.class);
-            if(width==gameMap.getXSize() && height==gameMap.getYSize()){
+            if(width==gameMap.getXTiles() && height==gameMap.getYTiles()){
                 gameMap.setTiledMap(tiledMap);
                     return  tiledMap;
         }
-            int xSize=gameMap.getXSize();
-            int ySize=gameMap.getYSize();
+            int xSize=gameMap.getXTiles();
+            int ySize=gameMap.getYTiles();
             if(xSize<=width && ySize<=height){
                 changeGameMapSize(gameMap.getMap(),   width, height );
                 gameMap.setTiledMap(tiledMap);
@@ -258,13 +261,13 @@ public class MapTools {
             }
            if(clipMapToFit==true){
                
-                changeTiledMapSize(tiledMap,tileSizeX, tileSizeY, gameMap.getXSize() , gameMap.getYSize());
+                changeTiledMapSize(tiledMap,tileSizeX, tileSizeY, gameMap.getXTiles() , gameMap.getYTiles());
                 return  tiledMap;
             }
            // if tiled map is bigger than current mpa size increase the map size;
             if(expandMapToFit==true){
-                    int expendX=width-gameMap.getXSize();
-                   int expendY=width-gameMap.getXSize();
+                    int expendX=width-gameMap.getXTiles();
+                   int expendY=width-gameMap.getXTiles();
                     if(clipMapToFit==false) {
                         if (expendX < 0) {
                             expendX = 0;
@@ -279,6 +282,88 @@ public class MapTools {
                 }
             throw new MapLoadingExeception("Unable to TMX map to GameMap Check Size?");
     }
+
+    // creates  new  named  texture atlas  with a given  name texture atlas extracts  all the texture regions  from a tiled map and adds them
+    public static TextureAtlas getAtlasFromTiledMap(TiledMap map, String atlasName, String tileNamePrefix){
+
+        MapLayers mapLayers=map.getLayers();
+        int size=mapLayers.size();
+        NamedTextureAtlas tiledMapTextureAtlas=new NamedTextureAtlas(atlasName);
+        for(int count=0; count<size; count++) {
+            TiledMapTileLayer layer= (TiledMapTileLayer) mapLayers.get(count);
+            int width=layer.getWidth();
+            int height=layer.getHeight();
+            for(int countx=0; countx<width; countx++) {
+                for (int county = 0; county < height; county++) {
+                    Cell cell = layer.getCell(countx, county);
+                    if (cell != null) {
+
+                        TiledMapTile tile = cell.getTile();
+                        if (tile != null) {
+
+                            TextureRegion region = tile.getTextureRegion();
+                            if(!InList.isInList(tiledMapTextureAtlas, region)){
+                                String name=tileNamePrefix+UUID.randomUUID().toString();
+                                AtlasRegion atlasRegion= new AtlasRegion(region);
+                                atlasRegion.name=name;
+                                AtlasNamedAtlasRegion namedRegion = new AtlasNamedAtlasRegion(atlasRegion, atlasName);
+                                tiledMapTextureAtlas.addRegion( name, namedRegion);
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        return  tiledMapTextureAtlas;
+
+    }
+
+
+    // cadd the all of the texture regions from a tiled map to a named texture atlas
+    public static TextureAtlas addTiledMapRegionsToAtlas(TiledMap map, NamedTextureAtlas atlas,  String tileNamePrefix){
+
+        MapLayers mapLayers=map.getLayers();
+        int size=mapLayers.size();
+        for(int count=0; count<size; count++) {
+            TiledMapTileLayer layer= (TiledMapTileLayer) mapLayers.get(count);
+            int width=layer.getWidth();
+            int height=layer.getHeight();
+            for(int countx=0; countx<width; countx++) {
+                for (int county = 0; county < height; county++) {
+                    Cell cell = layer.getCell(countx, county);
+                    if (cell != null) {
+
+                        TiledMapTile tile = cell.getTile();
+                        if (tile != null) {
+
+                            TextureRegion region = tile.getTextureRegion();
+                            if(!InList.isInList(atlas, region)){
+                                String name=tileNamePrefix+UUID.randomUUID().toString();
+                                AtlasRegion atlasRegion= new AtlasRegion(region);
+                                atlasRegion.name=name;
+                                AtlasNamedAtlasRegion namedRegion = new AtlasNamedAtlasRegion(atlasRegion);
+                                atlas.addRegion( name, namedRegion);
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        return  atlas;
+
+    }
+
+
     private   LandSquareTile [] [] changeGameMapSize(LandSquareTile [] []  tilesToCopy, int width, int height ){
         LandSquareTile[ ] [] expandedMap= new LandSquareTile[width][height];
         newLandSquareTiles(expandedMap, 0, 0, width, height, height);
@@ -411,6 +496,9 @@ public class MapTools {
 
 
 
+
+
+
     // create a tile set from a folder of tile images with a given tile name  and matching bit numbers
     // in the format  of tileName.bitNumber.setNumber.extension ie water.10.0.png or sand.255.3.jpg setNumber is the number of random tiles  a given image has and it starts at 0
     // supported image  formats png and jpg
@@ -495,8 +583,8 @@ public class MapTools {
 
     //  makes a tileMap from a bit mask map;
 public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoothness,  GameAssets assets,  GameMap map, Array<TileSet> tileSets, boolean addStatToTile, MaskMode maskMode) {
-    int xSize=map.getXSize();
-    int ySize=map.getYSize();
+    int xSize=map.getXTiles();
+    int ySize=map.getYTiles();
 
     if(minValue>=maxValue){
         throw new IllegalArgumentException("Min Value is Greater  Than Max Value");

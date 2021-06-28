@@ -44,7 +44,7 @@ public class NamedTextureAtlas extends TextureAtlas {
 
 
     public AtlasNamedAtlasRegion addRegion(String name, AtlasNamedAtlasRegion atlasRegion) {
-         atlasRegion.setAtlasName(name);
+         atlasRegion.setAtlasName(atlasFileName);
         super.addRegion(name, atlasRegion);
         return  atlasRegion;
     }

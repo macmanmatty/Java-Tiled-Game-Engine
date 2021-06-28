@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.Editor.EditMode.Brushes;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -8,19 +9,18 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Clipboard;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.AnimatedTiledMapTileActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.CellActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.ClipBoardActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.StaticTiledMapTileActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.TextureRegionActor;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.MapTools;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
 import com.jessematty.black.tower.Maps.Buildings.Building;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 // contains the current object to be copied or placed.
 public class ClipBoard  extends Actor implements ItemSettable {
@@ -33,6 +33,8 @@ public class ClipBoard  extends Actor implements ItemSettable {
     private ClipBoardActor clipBoardActor; // the current actor to draw for the clipboard icon
     private TextureRegion pointer;
     private String pointerTextureRegionName;
+    private Clipboard systemClipboard= Gdx.app.getClipboard();
+
 
     public ClipBoard() {
 
@@ -106,7 +108,7 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public Array<ClipBoardChangeListener> getClipBoardChangeListeners() {
         return clipBoardChangeListeners;
     }
-    // retusn the object the clipboard currently holds
+    // returns the object the clipboard currently holds
     public Object getCurrentObject() {
         return currentObject;
     }

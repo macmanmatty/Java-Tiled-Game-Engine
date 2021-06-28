@@ -1,11 +1,11 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableBooleanStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
@@ -35,10 +35,10 @@ public class LPCGenerateSheet {
  private Array<StringStat> stringStats=new Array<>();
  private Array<BooleanStat> booleanStats=new Array<>();
  private Array<NumericStat> numericStats=new Array<>();
- private Array<ChangableStringStat> changeableStringStats = new Array<>();
- private Array<ChangableBooleanStat> changeableBooleanStats = new Array<>();
- private Array<ChangableNumericStat> changeableNumericStats = new Array<>();
- private Array<SelfChangableNumericStat> selfChangableNumericStats= new Array<>();
+ private Array<StringStatChangeable> changeableStringStats = new Array<>();
+ private Array<BooleanStatChangeable> changeableBooleanStats = new Array<>();
+ private Array<NumericStatChangeable> changeableNumericStats = new Array<>();
+ private Array<SelfChangableNumericStatChangeable> selfChangableNumericStats= new Array<>();
  private Array<ColorChangingStat> colorChangingStats= new Array<>();
 
     public String getAtlasName() {
@@ -217,35 +217,35 @@ public class LPCGenerateSheet {
         this.numericStats = numericStats;
     }
 
-    public Array<ChangableStringStat> getChangeableStringStats() {
+    public Array<StringStatChangeable> getChangeableStringStats() {
         return changeableStringStats;
     }
 
-    public void setChangeableStringStats(Array<ChangableStringStat> changeableStringStats) {
+    public void setChangeableStringStats(Array<StringStatChangeable> changeableStringStats) {
         this.changeableStringStats = changeableStringStats;
     }
 
-    public Array<ChangableBooleanStat> getChangeableBooleanStats() {
+    public Array<BooleanStatChangeable> getChangeableBooleanStats() {
         return changeableBooleanStats;
     }
 
-    public void setChangeableBooleanStats(Array<ChangableBooleanStat> changeableBooleanStats) {
+    public void setChangeableBooleanStats(Array<BooleanStatChangeable> changeableBooleanStats) {
         this.changeableBooleanStats = changeableBooleanStats;
     }
 
-    public Array<ChangableNumericStat> getChangeableNumericStats() {
+    public Array<NumericStatChangeable> getChangeableNumericStats() {
         return changeableNumericStats;
     }
 
-    public void setChangeableNumericStats(Array<ChangableNumericStat> changeableNumericStats) {
+    public void setChangeableNumericStats(Array<NumericStatChangeable> changeableNumericStats) {
         this.changeableNumericStats = changeableNumericStats;
     }
 
-    public Array<SelfChangableNumericStat> getSelfChangableNumericStats() {
+    public Array<SelfChangableNumericStatChangeable> getSelfChangableNumericStats() {
         return selfChangableNumericStats;
     }
 
-    public void setSelfChangableNumericStats(Array<SelfChangableNumericStat> selfChangableNumericStats) {
+    public void setSelfChangableNumericStats(Array<SelfChangableNumericStatChangeable> selfChangableNumericStats) {
         this.selfChangableNumericStats = selfChangableNumericStats;
     }
 

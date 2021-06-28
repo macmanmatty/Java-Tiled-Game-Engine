@@ -12,6 +12,7 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class PickUpItemSystem extends GameEntitySystem {
@@ -23,12 +24,12 @@ public class PickUpItemSystem extends GameEntitySystem {
             private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     public PickUpItemSystem(MapDraw draw) {
         super(draw);
-       idComponentMapper= getGameComponentMapper().getIdComponentMapper();
-        holderComponentMapper=getGameComponentMapper().getHolderComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        pickUpComponentMapper=getGameComponentMapper().getPickUpComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
+       idComponentMapper= GameComponentMapper.getIdComponentMapper();
+        holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
+        actionComponentMapper=GameComponentMapper.getActionComponentMapper();
+        positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
+        pickUpComponentMapper=GameComponentMapper.getPickUpComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
     }
     @Override
     public void update(float deltaTime) {

@@ -33,7 +33,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     private String titleName;
     private ItemListLabelStyle itemListLabelStyle;
     private ItemListTitleStyle itemListTitleStyle;
-     private boolean displayTitle;
+    private boolean displayTitle;
 
 
     private Comparator<T> itemComparator= new Comparator<T>() {

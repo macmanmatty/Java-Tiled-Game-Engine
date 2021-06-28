@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.AnimationUtilities;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
@@ -29,7 +29,7 @@ import java.io.IOException;
 public class SaveTextureAtlas {
     private TextureAtlas textureAtlas;
     private final  String fileSeparator =System.getProperty("file.separator");
-    private ComponentMapper<Drawable> drawableComponentMapper=ComponentMapper.getFor(Drawable.class);
+    private ComponentMapper<DrawableComponent> drawableComponentMapper=ComponentMapper.getFor(DrawableComponent.class);
     private ComponentMapper<AnimatableComponent> animatableComponentMapper=ComponentMapper.getFor(AnimatableComponent.class);
     public void createWorldTextureAtlas(World world){
         textureAtlas= new TextureAtlas();
@@ -42,9 +42,9 @@ public class SaveTextureAtlas {
                  addFrames(AnimationUtilities.getAnimationRegions(animatable));
              }
              else{
-                 Drawable drawable=drawableComponentMapper.get(entity);
-                 if(drawable!=null){
-                     AtlasRegion region=drawable.getTextureRegion();
+                 DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
+                 if(drawableComponent !=null){
+                     AtlasRegion region= drawableComponent.getTextureRegion();
                      addTextureRegion(region.name, region);
                  }
              }

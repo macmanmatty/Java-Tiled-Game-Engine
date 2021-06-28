@@ -18,14 +18,12 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ActionButton
 public class HandGroup extends HorizontalGroup {
 
     private Skin skin;
-    private GameComponentMapper gameComponentMapper;
     private MapDraw draw;
     private float fontScale =.6f;
 
 
     public HandGroup(MapDraw draw) {
         this.draw=draw;
-        this.gameComponentMapper=draw.getGameComponentMapper();
         this.skin=draw.getCurrentMap().getSkin();
 
     }
@@ -34,9 +32,9 @@ public class HandGroup extends HorizontalGroup {
       clear();
        this.skin = skin;
        if(heldItem!=null) {
-           ComponentMapper<Name> nameComponentMapper = gameComponentMapper.getNameComponentMapper();
-           ComponentMapper<ActionComponents> actionComponentsComponentMapper = gameComponentMapper.getActionComponentsComponentMapper();
-           ComponentMapper<ImageComponent> imageComponentComponentMapper = gameComponentMapper.getImageComponentMapper();
+           ComponentMapper<Name> nameComponentMapper = GameComponentMapper.getNameComponentMapper();
+           ComponentMapper<ActionComponents> actionComponentsComponentMapper = GameComponentMapper.getActionComponentsComponentMapper();
+           ComponentMapper<ImageComponent> imageComponentComponentMapper = GameComponentMapper.getImageComponentMapper();
            String itemName = nameComponentMapper.get(heldItem).getStat();
            Label nameLabel = new Label(" Hand: " + itemName, skin);
            nameLabel.setFontScale(fontScale);

@@ -73,6 +73,9 @@ public class ObservableList<T> extends List<T> {
 
 
     public void setItems(Array items) {
+        if(items==null){
+            return;
+        }
         super.setItems(items);
         this.items = items;
 

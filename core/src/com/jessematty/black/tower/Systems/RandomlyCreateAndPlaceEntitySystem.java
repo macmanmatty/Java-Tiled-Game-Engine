@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RandomlyCreateAndPlaceEntity;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -35,8 +36,8 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
     public void addedToEngine(Engine engine) {
 
 
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        randomlyCreateAndPlaceEntityComponentMapper =getGameComponentMapper().getRandomlyCreateAndPlaceEntityComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        randomlyCreateAndPlaceEntityComponentMapper =GameComponentMapper.getRandomlyCreateAndPlaceEntityComponentMapper();
         copyObject= new CopyObject(getAsssets());
     }
 

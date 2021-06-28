@@ -7,10 +7,10 @@ import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.ColorSettable;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-public class Drawable implements Component , ColorSettable , SerializableComponet{
+public class DrawableComponent implements Component , ColorSettable , SerializableComponet{
 
    private transient AtlasRegion currentRegion;
    private String currentRegionName;
@@ -31,11 +31,11 @@ public class Drawable implements Component , ColorSettable , SerializableCompone
     private boolean calculateBrightness=true;
 
 
-    public Drawable(String atlasName) {
+    public DrawableComponent(String atlasName) {
         this.atlasName = atlasName;
     }
 
-    public Drawable() {
+    public DrawableComponent() {
     }
 
     public AtlasRegion getTextureRegion() {

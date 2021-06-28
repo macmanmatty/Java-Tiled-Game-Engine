@@ -7,8 +7,7 @@ import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettableImage;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class DiagonalsTileSet {
 

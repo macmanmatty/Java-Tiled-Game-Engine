@@ -3,9 +3,6 @@ package com.jessematty.black.tower.GameBaseClasses.BitMask;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -17,8 +14,6 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.TiledMapTileChangable;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -452,7 +447,7 @@ public class BitMask {
                     bitMap[countx+1][county+1]=true;
                     continue;
                 }
-                if (x>map.getXSize()-1){
+                if (x>map.getXTiles()-1){
                     bitMap[countx+1][county+1]=true;
                     continue;
                 }
@@ -460,7 +455,7 @@ public class BitMask {
                     bitMap[countx+1][county+1]=true;
                     continue;
                 }
-                if (y>map.getYSize()-1){
+                if (y>map.getYTiles()-1){
                     bitMap[countx+1][county+1]=true;
                     continue;
                 }

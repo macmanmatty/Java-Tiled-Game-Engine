@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
 public class TextureTools {
 
@@ -70,6 +71,20 @@ public class TextureTools {
        
        return true;
        
+    }
+
+
+    public static  void addRegionsToTextureAtlas(TextureAtlas atlas, TextureAtlas atlasToAddTo){
+       Array<AtlasRegion>  regions=atlas.getRegions();
+       int size=regions.size;
+       for(int count=0; count<size; count++){
+           AtlasRegion atlasNamedAtlasRegion=regions.get(count);
+           atlasToAddTo.addRegion(atlasNamedAtlasRegion.name, atlasNamedAtlasRegion);
+
+
+       }
+
+
     }
     
 }

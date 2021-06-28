@@ -3,12 +3,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
 import com.jessematty.black.tower.Maps.Buildings.Rooms.Room;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -71,11 +68,11 @@ public  class Building extends GameMap  {
 		super.mapTurnActions(deltaTime, gameTime);
 		//castShadow(gameTime);
 	}
-	public int getXSize() {
-		return xSize;
+	public int getXTiles() {
+		return xTiles;
 	}
-	public int getYSize() {
-		return ySize;
+	public int getYTiles() {
+		return yTiles;
 	}
 
 

@@ -32,7 +32,6 @@ import com.jessematty.black.tower.Maps.World;
 
 public class FullInfoWindow extends GameWindow {
    private MapDraw mapDraw;
-   private GameComponentMapper gameComponentMapper;
    private Entity entity;
     private ComponentMapper<Name> nameComponentMapper;
    private  ComponentMapper<ImageComponent> imageComponentMapper;
@@ -50,16 +49,15 @@ public class FullInfoWindow extends GameWindow {
     }
 
     public FullInfoWindow(String title, Skin skin, String styleName, MapDraw mapDraw, Entity entity) {
-        super(title, skin, styleName);
+        super(title, skin, styleName, mapDraw.getAssetts());
         this.mapDraw = mapDraw;
         this.entity = entity;
-        this.gameComponentMapper=mapDraw.getGameComponentMapper();
-        nameComponentMapper=gameComponentMapper.getNameComponentMapper();
-        imageComponentMapper=gameComponentMapper.getImageComponentMapper();
-        ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
-        booleanStatsComponentMapper=gameComponentMapper.getBooleanStatsComponentMapper();
-        numericStatsComponentMapper=gameComponentMapper.getNumericStatsComponentMapper();
-        stringStatsComponentMapper=gameComponentMapper.getStringStatsComponentMapper();
+        nameComponentMapper=GameComponentMapper.getNameComponentMapper();
+        imageComponentMapper=GameComponentMapper.getImageComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
+        numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
+        stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
 
         setRemoveOnClose(true);
     }
@@ -186,7 +184,7 @@ public class FullInfoWindow extends GameWindow {
 
 
 
-        ownerComponentComponentMapper = gameComponentMapper.getOwnerComponentComponentMapper();
+        ownerComponentComponentMapper = GameComponentMapper.getOwnerComponentComponentMapper();
         String name=nameComponentMapper.get(entity).getStat();
 
 

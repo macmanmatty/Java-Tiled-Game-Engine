@@ -5,25 +5,26 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
-import com.jessematty.black.tower.Components.Markers.StatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class NumericStatChangeSystem extends GameEntitySystem{
     int numberOfStatsToChange;
     private ComponentMapper<NumericStats> stats;
-    private ComponentMapper<NumericStatsChangable>changeNumericStats;
+    private ComponentMapper<NumericStatsChangeable>changeNumericStats;
     private ComponentMapper<NumericStatsChangeComponent> numericStatChangeComponentComponentMapper;
     private ComponentMapper<TimeChangingStats> timeChangingNumericStatsComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
@@ -38,12 +39,12 @@ public class NumericStatChangeSystem extends GameEntitySystem{
     public void addedToEngine(Engine engine) {
 
         // get component mappers
-        stats=getGameComponentMapper().getNumericStatsComponentMapper();
-        changeNumericStats=getGameComponentMapper().getNumericStatsChangableComponentMapper();
-        owners=getGameComponentMapper().getAttachableComponentMapper();
-        numericStatChangeComponentComponentMapper=getGameComponentMapper().getNumericStatChangeComponentMapper();
-        timeChangingNumericStatsComponentMapper=getGameComponentMapper().getTimeChangingNumericStatsComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
+        stats= GameComponentMapper.getNumericStatsComponentMapper();
+        changeNumericStats=GameComponentMapper.getNumericStatsChangableComponentMapper();
+        owners=GameComponentMapper.getAttachableComponentMapper();
+        numericStatChangeComponentComponentMapper=GameComponentMapper.getNumericStatChangeComponentMapper();
+        timeChangingNumericStatsComponentMapper=GameComponentMapper.getTimeChangingNumericStatsComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
     }
     @Override
     public void removedFromEngine(Engine engine) {
@@ -60,14 +61,14 @@ public class NumericStatChangeSystem extends GameEntitySystem{
            Entity entityToChange=entities.get(count);
            NumericStatsChangeComponent numericStatChange=numericStatChangeComponentComponentMapper.get(entityToChange);
            Entity entityThatDoesTheChanging= numericStatChange.getChangerEntity();
-           NumericStatsChangable numericStatsChangeAmounts=changeNumericStats.get(entityThatDoesTheChanging);
+           NumericStatsChangeable numericStatsChangeAmounts=changeNumericStats.get(entityThatDoesTheChanging);
            String changeAction=numericStatChange.getChangeAction();
            boolean addStat=numericStatChange.isAddStat();
 
 
            if (numericStatsChangeAmounts != null) {
                // get stats to change
-              Array<ChangableNumericStat> numericStatsToChange = numericStatsChangeAmounts.getStatsToChange();
+              Array<NumericStatChangeable> numericStatsToChange = numericStatsChangeAmounts.getStatsToChange();
                if (numericStatsChangeAmounts != null) {
 
                    // change stats
@@ -80,7 +81,7 @@ public class NumericStatChangeSystem extends GameEntitySystem{
        }
 
     }
-    private void changeStats( String action, boolean addStat,  Array<ChangableNumericStat>  numericStatsToChange, NumericStatsChangable numericStatsChangeAmounts, Entity entityToChange){
+    private void changeStats(String action, boolean addStat, Array<NumericStatChangeable>  numericStatsToChange, NumericStatsChangeable numericStatsChangeAmounts, Entity entityToChange){
         NumericStats entityStatsToChange=stats.get(entityToChange);
         numberOfStatsToChange=numericStatsToChange.size;
         // see if entity has owner
@@ -91,15 +92,15 @@ public class NumericStatChangeSystem extends GameEntitySystem{
             // get owner   entity (owner of current entity aka attached entity)   in world  from entity id
             Entity entityOwner=getWorld().getEntity(ownedComponent.getOwnerEntityID());
             // get owner  entity stats
-            NumericStatsChangable numericStatsToLessen=changeNumericStats.get(entityOwner);
+            NumericStatsChangeable numericStatsToLessen=changeNumericStats.get(entityOwner);
 
 
             // if owner has stats
             if(numericStatsToLessen!=null) {
                 for (int count = 0; count < numberOfStatsToChange; count++) {
                     //  change amount  of stats changes transferred to owner
-                    ChangableNumericStat statToChange= numericStatsToChange.get(count);
-                    ChangableNumericStat statToLessen = numericStatsToLessen.getStat(statToChange.getName());
+                    NumericStatChangeable statToChange= numericStatsToChange.get(count);
+                    NumericStatChangeable statToLessen = numericStatsToLessen.getStat(statToChange.getName());
                     // if entity  has stat to change change it.
                     if(statToLessen!=null){
                         statToChange.addValues(statToLessen);
@@ -113,7 +114,7 @@ public class NumericStatChangeSystem extends GameEntitySystem{
         if (entityStatsToChange != null && numericStatsChangeAmounts != null) {
             for (int count = 0; count < numberOfStatsToChange; count++) {
                 // change stats for the entity
-                ChangableNumericStat changableNumericStat = numericStatsToChange.get(count);
+                NumericStatChangeable changableNumericStat = numericStatsToChange.get(count);
 
                 changeStat(entityToChange, entityStatsToChange, entityStatsToChange.getNumericStat(changableNumericStat.getName()), changableNumericStat,action,  addStat, 1);
 
@@ -123,7 +124,7 @@ public class NumericStatChangeSystem extends GameEntitySystem{
 
 
 
-    public void changeStat( Entity entityToChange, NumericStats entityToChangeStats,  NumericStat stat, ChangableNumericStat changeStat, String action,  boolean addStat , int changeInterval){
+    public void changeStat(Entity entityToChange, NumericStats entityToChangeStats, NumericStat stat, NumericStatChangeable changeStat, String action, boolean addStat , int changeInterval){
 
 
         boolean change=false;
@@ -181,10 +182,10 @@ public class NumericStatChangeSystem extends GameEntitySystem{
 
 
                 // change linked stats
-                Array<SelfChangableNumericStat> selfChangableNumericStats=stat.getLinkedStatsToChange();
+                Array<SelfChangableNumericStatChangeable> selfChangableNumericStats=stat.getLinkedStatsToChange();
                 int numberOfLinkedStats=selfChangableNumericStats.size;
                 for(int count3=0; count3<numberOfLinkedStats; count3++){
-                    SelfChangableNumericStat selfChangableNumericStat=selfChangableNumericStats.get(count3);
+                    SelfChangableNumericStatChangeable selfChangableNumericStat=selfChangableNumericStats.get(count3);
                     NumericStat selfChangingStat=entityToChangeStats.getNumericStat(selfChangableNumericStat.getName());
                     if(selfChangingStat!=null){
                         changeStat(  entityToChange, entityToChangeStats, selfChangingStat, selfChangableNumericStat, "self", true, changeInterval);

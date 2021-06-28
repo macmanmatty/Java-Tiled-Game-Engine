@@ -19,6 +19,7 @@ import com.jessematty.black.tower.Components.ErrorComponent;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 
@@ -41,13 +42,13 @@ public class HoldItemSystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
-        holdItemComponentMapper =getGameComponentMapper().getHoldItemComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        holdableComponentMapper =getGameComponentMapper().getHoldableComponentMapper();
-        groupsComponentMapper=getGameComponentMapper().getGroupsComponentMapper();
-        holderComponentMapper=getGameComponentMapper().getHolderComponentMapper();
+        holdItemComponentMapper = GameComponentMapper.getHoldItemComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        holdableComponentMapper =GameComponentMapper.getHoldableComponentMapper();
+        groupsComponentMapper=GameComponentMapper.getGroupsComponentMapper();
+        holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
 
     }
 

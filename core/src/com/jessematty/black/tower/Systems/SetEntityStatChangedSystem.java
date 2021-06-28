@@ -4,13 +4,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Markers.Moved;
+import com.jessematty.black.tower.Components.FlagComponents.Moved;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Markers.BooleanStatChanged;
-import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
-import com.jessematty.black.tower.Components.Markers.StringStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.BooleanStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public class SetEntityStatChangedSystem extends GameEntitySystem {
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
@@ -22,9 +23,9 @@ public class SetEntityStatChangedSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        stringStatsComponentMapper=getGameComponentMapper().getStringStatsComponentMapper();
-        booleanStatsComponentMapper=getGameComponentMapper().getBooleanStatsComponentMapper();
+        numericStatsComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
+        stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
+        booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
         
         
     }

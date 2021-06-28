@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -34,8 +35,8 @@ public class UIWindowSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        pack=getGameComponentMapper().getPackComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        pack= GameComponentMapper.getPackComponentMapper();
 
     }
 

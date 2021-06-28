@@ -6,15 +6,16 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Glow;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 @Transient
 public  class GlowSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
-    private ComponentMapper<Drawable> drawableComponentMapper;
+    private ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ComponentMapper<Glow> glowComponentMapper;
     private ComponentMapper<PositionComponent> positions;
     private RenderSystem renderSystem;
@@ -24,26 +25,26 @@ public  class GlowSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        drawableComponentMapper =getGameComponentMapper().getDrawableComponentMapper();
-        glowComponentMapper=getGameComponentMapper().getGlowComponentMapper();
-        positions=getGameComponentMapper().getPositionComponentMapper();
+        drawableComponentMapper = GameComponentMapper.getDrawableComponentMapper();
+        glowComponentMapper=GameComponentMapper.getGlowComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(AnimatableComponent.class, Drawable.class, PositionComponent.class, Action.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, Action.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
             PositionComponent position=positions.get(entity);
-            Drawable drawable = drawableComponentMapper.get(entity);
+            DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
             if(getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=getDraw().getCurrentMap()) {
-                drawable.setDraw(false);
+                drawableComponent.setDraw(false);
                 continue;
             }
-            drawable.setDraw(true);
-            drawable.setCalculateColor(true);
+            drawableComponent.setDraw(true);
+            drawableComponent.setCalculateColor(true);
             Glow glow= glowComponentMapper.get(entity);
-            float brightness=drawable.getBrightness();
+            float brightness= drawableComponent.getBrightness();
             if(!glow.isDecreaseBrightness()) {
                 brightness = brightness + glow.getIncrease();
                 double  maxValue=glow.getMaxValue();
@@ -51,7 +52,7 @@ public  class GlowSystem extends GameEntitySystem {
                     glow.setDecreaseBrightness(true);
                     brightness= (float) maxValue;
                 }
-                drawable.setBrightness(brightness);
+                drawableComponent.setBrightness(brightness);
                 glow.setValue(brightness);
             }
             
@@ -62,7 +63,7 @@ public  class GlowSystem extends GameEntitySystem {
                     glow.setDecreaseBrightness(true);
                     brightness= (float) minValue;
                 }
-                drawable.setBrightness(brightness);
+                drawableComponent.setBrightness(brightness);
                 glow.setValue(brightness);
                 
             }

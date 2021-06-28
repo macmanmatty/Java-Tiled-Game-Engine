@@ -6,8 +6,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.SoundComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -21,8 +22,8 @@ public  class SoundSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        soundComponentComponentMapper =getGameComponentMapper().getSoundComponentComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
+        soundComponentComponentMapper =GameComponentMapper.getSoundComponentComponentMapper();
+        actionComponentMapper= GameComponentMapper.getActionComponentMapper();
     }
     @Override
     public void update(float deltaTime) {

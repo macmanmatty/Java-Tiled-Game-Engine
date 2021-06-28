@@ -7,33 +7,33 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-import java.util.List;
 public class ColorChangeSystem extends GameEntitySystem {
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
-    private ComponentMapper<Drawable> drawableComponentMapper;
+    private ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ImmutableArray<Entity> entities;
     public ColorChangeSystem(MapDraw draw) {
         super(draw);
     }
     @Override
     public void addedToEngine(Engine engine) {
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        drawableComponentMapper=getGameComponentMapper().getDrawableComponentMapper();
+        numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
+        drawableComponentMapper= GameComponentMapper.getDrawableComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
-        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, Drawable.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, DrawableComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
             NumericStats stats=numericStatsComponentMapper.get(entity);
-            Drawable drawable=drawableComponentMapper.get(entity);
-            if(drawable.getColorChangeMode()!= ColorChangeMode.NumericStat){
+            DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
+            if(drawableComponent.getColorChangeMode()!= ColorChangeMode.NumericStat){
                 continue;
             }
             float brightness=1;
@@ -55,8 +55,8 @@ public class ColorChangeSystem extends GameEntitySystem {
                     color.a=color.a+stat.getAlphaValue();
                 }
 
-                drawable.setColor(color);
-                drawable.setBrightness(brightness);
+                drawableComponent.setColor(color);
+                drawableComponent.setBrightness(brightness);
             }
         }
         super.update(deltaTime);

@@ -24,7 +24,7 @@ import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.ArrayList;
@@ -43,9 +43,9 @@ public class MenOnTileSelect
 	 public Actor selectMan(final ZRPGPlayer player, final Skin skin, GameAssets gameAssets, String styleName) {
 		 this.skin = skin;
 		 this.gameAssets = gameAssets;
-		 GameComponentMapper gameComponentMapper = gameAssets.getMapDraw().getGameComponentMapper();
-		 gameComponentMapper.getImageComponentMapper();
-		 nameComponentMapper = gameComponentMapper.getNameComponentMapper();
+
+		 GameComponentMapper.getImageComponentMapper();
+		 nameComponentMapper = GameComponentMapper.getNameComponentMapper();
 		 manChecks = new ArrayList<CheckBox>();
 		 window = new Window("window", skin);
 		 Table windowTable = window.center();

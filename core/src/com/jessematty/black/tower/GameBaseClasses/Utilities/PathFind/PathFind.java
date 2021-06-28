@@ -11,8 +11,8 @@ public class PathFind {
     GameMap map;
     public PathFind(GameMap map) {
         this.map = map;
-        star4 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4MapGenerator(map.getXSize(), map.getYSize(), map);
-        star8 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8MapGenerator(map.getXSize(), map.getYSize(), map);
+        star4 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4MapGenerator(map.getXTiles(), map.getYTiles(), map);
+        star8 = new com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8MapGenerator(map.getXTiles(), map.getYTiles(), map);
     }
     public ArrayList<LandSquareTile> pathFind(LandSquareTile tileFrom, LandSquareTile tileTo, int width, ArrayList<BooleanStat> flags, boolean occupant, boolean eightDirections) { // calculates  the path finding method using the A* algorithm
         int fromX=tileFrom.getLocationX();

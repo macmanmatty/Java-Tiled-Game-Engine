@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.MapTools.Tools;
+package com.jessematty.black.tower.Editor.Tools.MapTools.Tools;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;

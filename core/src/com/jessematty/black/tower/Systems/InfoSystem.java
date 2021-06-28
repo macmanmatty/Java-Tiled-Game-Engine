@@ -8,6 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ShowInfo;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.InfoWindow;
 
@@ -26,8 +27,8 @@ public class InfoSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        nameComponentMapper= getGameComponentMapper().getNameComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
+        nameComponentMapper= GameComponentMapper.getNameComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
 
 
 

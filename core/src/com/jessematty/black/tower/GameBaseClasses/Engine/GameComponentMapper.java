@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Talk
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToContainerComponent;
-import com.jessematty.black.tower.Components.AddComponent;
+import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Armor;
@@ -42,8 +42,8 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.Markers.NotAddedToEngine;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
+import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.Position.BoundsChangeable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -56,10 +56,10 @@ import com.jessematty.black.tower.Components.SoundComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Breather;
 import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValueChanges;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Glow;
 import com.jessematty.black.tower.Components.Growable;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
@@ -69,20 +69,20 @@ import com.jessematty.black.tower.Components.ImageComponent;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.Ingestable;
 import com.jessematty.black.tower.Components.Light;
-import com.jessematty.black.tower.Components.Markers.AddedToEngine;
-import com.jessematty.black.tower.Components.Markers.BooleanStatChanged;
-import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
-import com.jessematty.black.tower.Components.Markers.StatChanged;
-import com.jessematty.black.tower.Components.Markers.StringStatChanged;
-import com.jessematty.black.tower.Components.Markers.VisibleOnScreen;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
+import com.jessematty.black.tower.Components.FlagComponents.BooleanStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Shootable;
@@ -90,7 +90,7 @@ import com.jessematty.black.tower.Components.Slashable;
 import com.jessematty.black.tower.Components.SpellCastable;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.TalkComponent;
 import com.jessematty.black.tower.Components.Launchable;
 import com.jessematty.black.tower.Components.Target;
@@ -109,12 +109,12 @@ import java.util.Map;
 //  class that contains all of the component mappers for all of the components in the game
 public class GameComponentMapper {
     private static ComponentMapper<AddedToEngine>  addedToEngineComponentMapper= ComponentMapper.getFor(AddedToEngine.class);
-    private static ComponentMapper<Drawable> drawableComponentMapper =ComponentMapper.getFor(Drawable.class);
+    private static ComponentMapper<DrawableComponent> drawableComponentMapper =ComponentMapper.getFor(DrawableComponent.class);
     private static ComponentMapper<AnimatableComponent> animatableComponentMapper =ComponentMapper.getFor(AnimatableComponent.class);
     private static ComponentMapper<Action> actionComponentMapper=ComponentMapper.getFor(Action.class);
     private static ComponentMapper<PositionComponent> positionComponentMapper=ComponentMapper.getFor(PositionComponent.class);
     private static ComponentMapper<BitMaskable> bitMaskableComponentMapper =ComponentMapper.getFor(BitMaskable.class);
-    private static ComponentMapper<Movable> movableComponentMapper=ComponentMapper.getFor(Movable .class);
+    private static ComponentMapper<MovableComponent> movableComponentMapper=ComponentMapper.getFor(MovableComponent.class);
     private static ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper=ComponentMapper.getFor(PhysicalObjectComponent.class);
     private static ComponentMapper<Light> lightComponentMapper= ComponentMapper.getFor(Light.class);
     private static ComponentMapper<Tile> tileComponentMapper= ComponentMapper.getFor(Tile.class);
@@ -124,9 +124,9 @@ public class GameComponentMapper {
     private static ComponentMapper<NumericStats> numericStatsComponentMapper =ComponentMapper.getFor(NumericStats.class);
     private static ComponentMapper<StringStats> stringStatsComponentMapper=ComponentMapper.getFor(StringStats.class);
     private static ComponentMapper<BooleanStats> booleanStatsComponentMapper=ComponentMapper.getFor(BooleanStats.class);
-    private static ComponentMapper<NumericStatsChangable> numericStatsChangableComponentMapper =ComponentMapper.getFor(NumericStatsChangable.class);
-    private static ComponentMapper<StringStatsChangable> stringStatsChangableComponentMapper =ComponentMapper.getFor(StringStatsChangable.class);
-    private static ComponentMapper<BooleanStatsChangable> booleanStatsChangableComponentMapper =ComponentMapper.getFor(BooleanStatsChangable.class);
+    private static ComponentMapper<NumericStatsChangeable> numericStatsChangableComponentMapper =ComponentMapper.getFor(NumericStatsChangeable.class);
+    private static ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper =ComponentMapper.getFor(StringStatsChangeable.class);
+    private static ComponentMapper<BooleanStatsChangeable> booleanStatsChangableComponentMapper =ComponentMapper.getFor(BooleanStatsChangeable.class);
     private static ComponentMapper<Slashable> slashComponentMapper=ComponentMapper.getFor(Slashable.class);
     private static ComponentMapper<Thrustable> thrustComponentMapper=ComponentMapper.getFor(Thrustable.class);
     private static ComponentMapper<Shootable> shootComponentMapper=ComponentMapper.getFor(Shootable.class);
@@ -212,9 +212,9 @@ public class GameComponentMapper {
 
     public GameComponentMapper() {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
-        componentComponentMapperMap.put(Drawable.class, drawableComponentMapper);
+        componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
         componentComponentMapperMap.put( AnimatableComponent.class, animatableComponentMapper);
-        componentComponentMapperMap.put(Movable.class, movableComponentMapper);
+        componentComponentMapperMap.put(MovableComponent.class, movableComponentMapper);
         componentComponentMapperMap.put(Action.class, actionComponentMapper);
         componentComponentMapperMap.put(PositionComponent.class, positionComponentMapper);
         componentComponentMapperMap.put( BitMaskable.class, bitMaskableComponentMapper);
@@ -225,9 +225,9 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NumericStats.class, numericStatsComponentMapper);
         componentComponentMapperMap.put(BooleanStats.class, booleanStatsComponentMapper);
         componentComponentMapperMap.put(StringStats.class, stringStatsComponentMapper);
-        componentComponentMapperMap.put(StringStatsChangable.class, stringStatsChangableComponentMapper);
-        componentComponentMapperMap.put(BooleanStatsChangable.class, booleanStatsChangableComponentMapper);
-        componentComponentMapperMap.put(NumericStatsChangable.class, numericStatsChangableComponentMapper);
+        componentComponentMapperMap.put(StringStatsChangeable.class, stringStatsChangableComponentMapper);
+        componentComponentMapperMap.put(BooleanStatsChangeable.class, booleanStatsChangableComponentMapper);
+        componentComponentMapperMap.put(NumericStatsChangeable.class, numericStatsChangableComponentMapper);
         componentComponentMapperMap.put(Slashable.class, slashComponentMapper);
         componentComponentMapperMap.put(Thrustable.class, thrustComponentMapper);
         componentComponentMapperMap.put(Shootable.class, shootComponentMapper);
@@ -308,13 +308,6 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NotAddedToEngine.class, notAddedToEngineComponentMapper);
         componentComponentMapperMap.put(RandomlyCreateAndPlaceEntity.class, randomlyCreateAndPlaceEntityComponentMapper);
         componentComponentMapperMap.put(OnCurrentMap.class, onCurrentMapComponentMapper);
-
-
-
-
-
-
-
 
 
     }
@@ -517,7 +510,7 @@ public class GameComponentMapper {
     public static ComponentMapper<AddedToEngine> getAddedToEngineComponentMapper() {
         return addedToEngineComponentMapper;
     }
-    public static ComponentMapper<Drawable> getDrawableComponentMapper() {
+    public static ComponentMapper<DrawableComponent> getDrawableComponentMapper() {
         return drawableComponentMapper;
     }
     public static ComponentMapper<AnimatableComponent> getAnimatableComponentMapper() {
@@ -532,7 +525,7 @@ public class GameComponentMapper {
     public static ComponentMapper<BitMaskable> getBitMaskableComponentMapper() {
         return bitMaskableComponentMapper;
     }
-    public static ComponentMapper<Movable> getMovableComponentMapper() {
+    public static ComponentMapper<MovableComponent> getMovableComponentMapper() {
         return movableComponentMapper;
     }
     public static ComponentMapper<PhysicalObjectComponent> getPhysicalObjectComponentMapper() {
@@ -564,13 +557,13 @@ public class GameComponentMapper {
     public static ComponentMapper<BooleanStats> getBooleanStatsComponentMapper() {
         return booleanStatsComponentMapper;
     }
-    public static ComponentMapper<NumericStatsChangable> getNumericStatsChangableComponentMapper() {
+    public static ComponentMapper<NumericStatsChangeable> getNumericStatsChangableComponentMapper() {
         return numericStatsChangableComponentMapper;
     }
-    public static ComponentMapper<StringStatsChangable> getStringStatsChangableComponentMapper() {
+    public static ComponentMapper<StringStatsChangeable> getStringStatsChangableComponentMapper() {
         return stringStatsChangableComponentMapper;
     }
-    public static ComponentMapper<BooleanStatsChangable> getBooleanStatsChangableComponentMapper() {
+    public static ComponentMapper<BooleanStatsChangeable> getBooleanStatsChangableComponentMapper() {
         return booleanStatsChangableComponentMapper;
     }
     public static ComponentMapper<ImageComponent> getImageComponentMapper() {

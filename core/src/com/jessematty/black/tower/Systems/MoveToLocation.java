@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.MoveToSingleTile;
 import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -21,15 +21,15 @@ public class MoveToLocation extends GameEntitySystem {
   private GameMap map;
    private  int xSize;
     private int ySize;
-   private  Movable movable;
+   private MovableComponent movableComponent;
    private Entity entity;
 
 
 
     public MoveToLocation( GameMap map , MapDraw draw, Entity entity) {
         super(draw);
-        this.xSize=map.getXSize();
-        this.ySize=map.getYSize();
+        this.xSize=map.getXTiles();
+        this.ySize=map.getYTiles();
         this.map=map;
         this.entity=entity;
 
@@ -47,7 +47,7 @@ public class MoveToLocation extends GameEntitySystem {
 
         if (placesToMove.size() <= 0) {// path is zero stop you are either done or can't get to the tile
             // stop movable is done moving
-                movable.stop();
+                movableComponent.stop();
 
 
 
@@ -59,13 +59,13 @@ public class MoveToLocation extends GameEntitySystem {
             placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
             if (placesToMove.size() > 0) {
                 entity.add(new MoveToSingleTile());
-                if (movable.getLocationToMoveTo().equals(placesToMove.get(0))) {
-                    placesToMove.remove(movable.getLocationToMoveTo());
+                if (movableComponent.getLocationToMoveTo().equals(placesToMove.get(0))) {
+                    placesToMove.remove(movableComponent.getLocationToMoveTo());
                 }
 
             }
             else{
-                movable.stop();
+                movableComponent.stop();
 
                 return;
 
@@ -78,7 +78,7 @@ public class MoveToLocation extends GameEntitySystem {
             if (placesToMove.size() <= 0) {
 
 
-                    movable.stop();
+                    movableComponent.stop();
                     return;
 
 
@@ -87,7 +87,7 @@ public class MoveToLocation extends GameEntitySystem {
 
 
             entity.add(new MoveToSingleTile());
-            LandSquareTile tileToMoveTo=movable.getLocationToMoveTo();
+            LandSquareTile tileToMoveTo= movableComponent.getLocationToMoveTo();
             if(tileToMoveTo.equals(placesToMove.get(0))) {
                 placesToMove.remove(tileToMoveTo);
             }
@@ -124,7 +124,7 @@ public class MoveToLocation extends GameEntitySystem {
         int height=yMax-yStart;
         ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
 
-        if (movable.isEightDirections()){
+        if (movableComponent.isEightDirections()){
             Astar4 star = new Astar4(width,height,  map);
             IntArray paths=star.getPath(fromX, fromY, toX, toY);
             int size=paths.size;

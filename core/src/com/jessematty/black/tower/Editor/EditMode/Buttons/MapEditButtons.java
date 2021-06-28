@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.TopButtons;
+package com.jessematty.black.tower.Editor.EditMode.Buttons;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
 
 public class MapEditButtons extends MapEditWindow {
@@ -172,6 +172,10 @@ public class MapEditButtons extends MapEditWindow {
             }}
 
             );
+
+
+
+
 
         add(rotateLeft).align(Align.center).size(32, 32);
         add(rotateRight).align(Align.center).size(32, 32);

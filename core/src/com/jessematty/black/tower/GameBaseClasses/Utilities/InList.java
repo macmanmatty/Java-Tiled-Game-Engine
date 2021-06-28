@@ -32,6 +32,17 @@ public class InList {
 		return false;
 	}
 
+
+	public  static boolean isInList(Object object, Array<? extends Object> names) {
+		int number = names.size;
+		for (int count = 0; count < number; count++) {
+			if (object.equals(names.get(count)) == true) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static boolean isInList(TextureAtlas atlas, TextureRegion region) {
 
 		Array<AtlasRegion> regions=atlas.getRegions();
@@ -61,7 +72,7 @@ public class InList {
 	public static  GameMap getMap(List<GameMap> maps, String Name) {
 		int size = maps.size();
 		for (int count = 0; count < size; count++) {
-			if (maps.get(count).getMapName().equals(Name)) {
+			if (maps.get(count).getGameMapSettings().getSimpleSetting("name", String.class).equals(Name)) {
 				return maps.get(count);
 			}
 		}

@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows;
+package com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows;
 
 public enum StatKinds {
     NUMERIC_STAT, STRING_STAT, BOOLEAN_STAT , NUMERIC_STAT_CHANGEABLE, STRING_STAT_CHANGEABLE,

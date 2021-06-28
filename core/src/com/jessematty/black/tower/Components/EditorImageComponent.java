@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Components;
 
 import com.badlogic.gdx.graphics.Color;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class EditorImageComponent implements SerializableComponet {
    private  transient AtlasNamedAtlasRegion atlasRegion;
@@ -11,6 +11,7 @@ public class EditorImageComponent implements SerializableComponet {
     private boolean draw=true;
     private String atlasName;
     private String imageName;
+
 
 
 
@@ -71,4 +72,6 @@ public class EditorImageComponent implements SerializableComponet {
     public void serialize() {
 
     }
+
+
 }

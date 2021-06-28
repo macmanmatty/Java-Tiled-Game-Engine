@@ -34,18 +34,16 @@ public class TalkBox extends ClosableWindow {
     private Array<Label> labels = new Array<>();
     private ComponentMapper<TalkComponent> talkComponentComponentMapper;
     private ComponentMapper<ImageComponent> imageComponentComponentMapper;
-    private GameComponentMapper gameComponentMapper;
     private ComponentMapper<Name> nameComponentMapper;
 
-    public TalkBox(String title, Skin skin, GameComponentMapper gameComponentMapper) {
-      this(title, skin, "default", gameComponentMapper);
+    public TalkBox(String title, Skin skin) {
+      this(title, skin, "default");
     }
 
-    public TalkBox(String title, Skin skin, String styleName, GameComponentMapper gameComponentMapper) {
+    public TalkBox(String title, Skin skin, String styleName) {
         super(title, skin, styleName);
-        this.gameComponentMapper = gameComponentMapper;
-        this.imageComponentComponentMapper=gameComponentMapper.getImageComponentMapper();
-        this.nameComponentMapper=gameComponentMapper.getNameComponentMapper();
+        this.imageComponentComponentMapper=GameComponentMapper.getImageComponentMapper();
+        this.nameComponentMapper=GameComponentMapper.getNameComponentMapper();
 
 
     }

@@ -7,48 +7,48 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 import java.util.Comparator;
 public  class RenderSystem extends SortedRenderingSystem {
-    private  ComponentMapper<Drawable> drawableComponentMapper;
+    private  ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper =ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<OnCurrentMap> onCurrentMapComponentMapper;
     private Batch batch;
     private FrameBuffer buffer;
 
 
-    public RenderSystem( GameComponentMapper gameComponentMapper, Family family , Comparator<Entity>  comparator, Batch batch, FrameBuffer buffer, int priority) {
-        super(  gameComponentMapper, family, comparator, batch ,buffer ,  priority);
+    public RenderSystem(  Family family , Comparator<Entity>  comparator, Batch batch, FrameBuffer buffer, int priority) {
+        super(  family, comparator, batch ,buffer ,  priority);
         this.batch = batch;
         this.buffer=buffer;
     }
     @Override
     public void addedToEngine(Engine engine) {
         super.addedToEngine(engine);
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        drawableComponentMapper =getGameComponentMapper().getDrawableComponentMapper();
-        onCurrentMapComponentMapper =getGameComponentMapper().getOnCurrentMapComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        drawableComponentMapper=GameComponentMapper.getDrawableComponentMapper();
+       onCurrentMapComponentMapper= GameComponentMapper.getOnCurrentMapComponentMapper();
 
     }
     @Override
     protected void processEntity(Entity entity, float delta) {
 
-         Drawable  drawable=drawableComponentMapper.get(entity);
+         DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
         OnCurrentMap onCurrentMap= onCurrentMapComponentMapper.get(entity);
-        if (drawable != null && onCurrentMap!=null) {
-            if (drawable.isDraw()) {
-                TextureRegion textureRegion = drawable.getTextureRegion();
+        if (drawableComponent != null && onCurrentMap!=null) {
+            if (drawableComponent.isDraw()) {
+                TextureRegion textureRegion = drawableComponent.getTextureRegion();
                 if (textureRegion != null) {
                 PositionComponent position = positionComponentMapper.get(entity);
 
-                    Color color=calculateColor(drawable.getColor(), drawable.getBrightness());
+                    Color color=calculateColor(drawableComponent.getColor(), drawableComponent.getBrightness());
                 batch.setColor(color);
-                float positionX = position.getLocationX() + drawable.getDrawOffsets().x;
-                float positionY = position.getLocationY() + drawable.getDrawOffsets().y;
+                float positionX = position.getLocationX() + drawableComponent.getDrawOffsets().x;
+                float positionY = position.getLocationY() + drawableComponent.getDrawOffsets().y;
                     batch.draw(textureRegion, positionX, positionY);
                 }
             }

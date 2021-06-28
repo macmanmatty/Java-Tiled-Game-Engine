@@ -22,7 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.ProgressListener;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
@@ -178,8 +178,8 @@ public class PackAssets implements NamedScreen  {
             }
         });
 
-        outputPathButton= new FileSelectPane(skin, "Select Assetts Output Directory", true);
-        inputPathButton= new FileSelectPane(skin, "Select Assetts Input Directory ", true);
+        outputPathButton= new FileSelectPane(skin, "Select Assetts Output Directory", "Select Output");
+        inputPathButton= new FileSelectPane(skin, "Select Assetts Input Directory ", "Select Input");
         verticalGroup.addActor(inputPathButton);
         verticalGroup.addActor(outputPathButton);
         verticalGroup.addActor(atlasName);

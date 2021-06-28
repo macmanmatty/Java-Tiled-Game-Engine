@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Generators.Animations;
 
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public  abstract class AnimationGenerator   {
 

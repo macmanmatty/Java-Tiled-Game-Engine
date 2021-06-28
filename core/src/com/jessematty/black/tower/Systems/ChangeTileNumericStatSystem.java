@@ -6,12 +6,13 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
@@ -23,7 +24,7 @@ public class ChangeTileNumericStatSystem extends GameTimeIntervalSystem {
 
 
     private ComponentMapper<Tile> tileComponentMapper;
-    private ComponentMapper<NumericStatsChangable> numericStatChangeableComponentMapper;
+    private ComponentMapper<NumericStatsChangeable> numericStatChangeableComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     ImmutableArray<Entity> entities;
     GameTime gameTime;
@@ -42,9 +43,9 @@ public class ChangeTileNumericStatSystem extends GameTimeIntervalSystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        tileComponentMapper =getGameComponentMapper().getTileComponentMapper();
-        numericStatChangeableComponentMapper=getGameComponentMapper().getNumericStatsChangableComponentMapper();
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
+        tileComponentMapper = GameComponentMapper.getTileComponentMapper();
+        numericStatChangeableComponentMapper=GameComponentMapper.getNumericStatsChangableComponentMapper();
+        numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
 
 
     }
@@ -56,19 +57,19 @@ public class ChangeTileNumericStatSystem extends GameTimeIntervalSystem {
 
     @Override
     protected void updateInterval() {
-        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, Tile.class, NumericStatsChangable.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, Tile.class, NumericStatsChangeable.class).get());
 
             int size=entities.size();
             for(int count=0; count<size; count++){
                 Entity entity=entities.get(count);
-                NumericStatsChangable numericStatsChangable = numericStatChangeableComponentMapper.get(entity);
-                Array<ChangableNumericStat> changableNumericStats = numericStatsChangable.getStatsToChange();
+                NumericStatsChangeable numericStatsChangeable = numericStatChangeableComponentMapper.get(entity);
+                Array<NumericStatChangeable> changableNumericStats = numericStatsChangeable.getStatsToChange();
                 NumericStats stats= numericStatsComponentMapper.get(entity);
                 int size2= changableNumericStats.size;
 
                 for(int count2=0; count2<size2; count2++){
 
-                    ChangableNumericStat changableNumericStat = changableNumericStats.get(count2);
+                    NumericStatChangeable changableNumericStat = changableNumericStats.get(count2);
                     NumericStat stat=stats.getNumericStat(changableNumericStat.getName());
                     if(stat==null){
                         continue;

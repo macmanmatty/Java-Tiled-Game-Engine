@@ -1,8 +1,8 @@
 package com.jessematty.black.tower.Components.Stats;
 
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
 
@@ -13,7 +13,7 @@ public   class NumericStat extends Stat {
     protected boolean killWhenZero;// if this true this  stat is watch ed along with anyother stats the entity has with this checked
     // and when they reach zero the entity is killed
     protected    boolean displayMinAndMax =true;
-    protected Array<SelfChangableNumericStat> linkedStatsToChange = new Array<>(); // stats that change when this stat chages
+    protected Array<SelfChangableNumericStatChangeable> linkedStatsToChange = new Array<>(); // stats that change when this stat chages
      transient protected  StatBar statBar ; // gui bar representation  of the stat
 
     public NumericStat(boolean displayable, String name, double value) {
@@ -46,6 +46,17 @@ public   class NumericStat extends Stat {
     public NumericStat() {
     }
 
+    @Override
+    public String getStatAsString() {
+
+        if(displayMinAndMax =true) {
+            return name + ": " + value + " Min: " + minValue + "Max: " + maxValue;
+        }
+        else{
+            return name + ": " + value;
+        }
+    }
+
     public NumericStat(NumericStat other) {
         super(other);
         this.value = other.value;
@@ -55,7 +66,7 @@ public   class NumericStat extends Stat {
         this.displayMinAndMax=other.displayMinAndMax;
         int size=linkedStatsToChange.size;
         for(int count=0; count<size; count++) {
-            linkedStatsToChange.add(new SelfChangableNumericStat(other.linkedStatsToChange.get(count)));
+            linkedStatsToChange.add(new SelfChangableNumericStatChangeable(other.linkedStatsToChange.get(count)));
         }
 
             this.statBar = new StatBar(other.statBar);
@@ -196,7 +207,7 @@ public   class NumericStat extends Stat {
        addValues(-value, -min, -max);
     }
 
-    public Array<SelfChangableNumericStat> getLinkedStatsToChange() {
+    public Array<SelfChangableNumericStatChangeable> getLinkedStatsToChange() {
         return linkedStatsToChange;
     }
 

@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows;
+package com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -17,11 +17,11 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatFiel
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 
 
-public class CreateStatWindow  extends MapEditWindow {
+public class CreateStatOptionPane extends MapEditWindow {
 
 
 
-        private SelectBox<com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows.StatKinds> statKindsList;
+        private SelectBox<com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.StatKinds> statKindsList;
         private FloatField globalMaxValue;
         private FloatField globalMinValue;
         private TextField statName;
@@ -29,7 +29,7 @@ public class CreateStatWindow  extends MapEditWindow {
 
 
 
-    public CreateStatWindow(MapEditScreen mapEditScreen, Skin skin) {
+    public CreateStatOptionPane(MapEditScreen mapEditScreen, Skin skin) {
         super(mapEditScreen, "Create Stat", skin, "default");
 
 
@@ -43,8 +43,8 @@ public class CreateStatWindow  extends MapEditWindow {
 
     @Override
     public void makeWindow() {
-        statKindsList= new SelectBox<com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows.StatKinds>(skin);
-        statKindsList.setItems(com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows.StatKinds.values());
+        statKindsList= new SelectBox<com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.StatKinds>(skin);
+        statKindsList.setItems(com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.StatKinds.values());
         globalMaxValue= new FloatField(String.valueOf(Double.MAX_VALUE), skin);
         globalMinValue= new FloatField(String.valueOf(Double.MIN_VALUE), skin);
         statName=new TextField("", skin);

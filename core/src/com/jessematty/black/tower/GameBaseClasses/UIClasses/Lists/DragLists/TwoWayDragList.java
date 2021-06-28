@@ -24,16 +24,24 @@ public class TwoWayDragList<T>  extends Table {
     }
     public TwoWayDragList(DragAndDrop dragAndDrop, Skin skin, Array<T> items1, Array<T> items2, String list1Title, String list2Title) {
         this.dragAndDrop=dragAndDrop;
-        this.items1 = items1;
-        this.items2 = items2;
-        int maxSize=items1.size;
-        if(maxSize<items2.size){
-            maxSize=items2.size;
-        }
         items1List= new ObservableList<T>(skin);
         items2List= new ObservableList<T>(skin);
-        items1List.setItems(items1);
-        items2List.setItems(items2);
+
+        if(items1!=null) {
+            this.items1 = items1;
+            items1List.setItems(items1);
+        }
+        if(items2!=null) {
+            this.items2 = items2;
+            items2List.setItems(items2);
+
+        }
+
+        int maxSize=this.items1.size;
+        if(maxSize<this.items2.size){
+            maxSize=this.items2.size;
+        }
+
 
        DragListSource<T> dragListSource1 =null;
         DragListSource<T> dragListSource2 =null;

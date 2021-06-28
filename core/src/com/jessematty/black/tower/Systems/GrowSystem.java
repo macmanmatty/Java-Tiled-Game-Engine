@@ -9,6 +9,7 @@ import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Growable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class GrowSystem extends GameTimeIntervalSystem {
@@ -30,10 +31,10 @@ public class GrowSystem extends GameTimeIntervalSystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        growables=getGameComponentMapper().getGrowableComponentMapper();
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        actions=getGameComponentMapper().getActionComponentMapper();
-        positions=getGameComponentMapper().getPositionComponentMapper();
+        growables= GameComponentMapper.getGrowableComponentMapper();
+        numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
+        actions=GameComponentMapper.getActionComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
 
 
 

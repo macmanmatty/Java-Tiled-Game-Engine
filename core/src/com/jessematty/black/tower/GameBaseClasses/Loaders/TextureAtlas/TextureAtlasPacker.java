@@ -24,34 +24,32 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.TextureTools;
 import java.io.IOException;
 import java.util.UUID;
 
-// class that saves  a texture atlas to png images  and a .atlas file;
+// class that saves  a  dynamicvalkltexture atlas to png images  and a .atlas file at runtime;
 
 
 public class TextureAtlasPacker  implements Disposable {
-    private Pixmap currentTexturePixmap;
-    private Texture currentTexture;
-    private NamedTextureAtlas textureAtlas= new NamedTextureAtlas();
-    private String atlasName;
-    private PixmapPacker pixmapPacker;
+    private Pixmap currentTexturePixmap; // the current pixMapTo Be PACKED
+    private Texture currentTexture; // the current texture
+    private NamedTextureAtlas textureAtlas= new NamedTextureAtlas(); // the atlas to pack to
+    private String atlasSaveName; // the name of teh atlas
+    private PixmapPacker pixmapPacker; // the libgdx Pixmap packer for saving the image file
     private Array<Page> pages=new Array<>();
-    private int pageWidth;
-    private int pageHeight;
-    private String saveDirectory;
+    private String atlasSaveDirectory;
     public TextureAtlasPacker() {
     }
 
     // packs an array of texture region pages to create a .png file and a .atlas file  for texture atlas
-    public void packPages(  String saveDirectory , String atlasName,  Array<TextureRegionPage> pages, int pageWidth, int pageHeight) throws IOException {
-        this.pageWidth=pageWidth;
-        this.pageHeight=pageHeight;
+    public void packPages(  String saveDirectory , String atlasName,  Array<TextureRegionPage> textureRegionPages, int pageWidth, int pageHeight) throws IOException {
         textureAtlas.setAtlasFileName(atlasName);
-        this.saveDirectory=saveDirectory;
-        this.atlasName=atlasName;
+        this.atlasSaveDirectory =saveDirectory;
+        this.atlasSaveName =atlasName;
+        this.pages=new Array<>();
+        textureAtlas= new NamedTextureAtlas(atlasName);
 
-        int size=pages.size;
+        int size=textureRegionPages.size;
 
         for(int count=0; count<size; count++){
-            TextureRegionPage page=pages.get(count);
+            TextureRegionPage page=textureRegionPages.get(count);
             Array<AtlasNamedAtlasRegion> pageRegions=page.getPageRegions();
             createPage(pageRegions,page.getPageWidth(), page.getPageHeight(), page.getPadding() );
         }
@@ -59,11 +57,10 @@ public class TextureAtlasPacker  implements Disposable {
     }
 
     public void packAtlas( String saveDirectory, String atlasName, TextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
-        this.pageWidth=pageWidth;
-        this.pageHeight=pageHeight;
-        this.saveDirectory=saveDirectory;
-        textureAtlas.setAtlasFileName(atlasName);
-        this.atlasName=atlasName;
+        this.atlasSaveDirectory =saveDirectory;
+        pages=new Array<>();
+        textureAtlas= new NamedTextureAtlas(atlasName);
+        this.atlasSaveName =atlasName;
         Array<TextureAtlas> atlases= new Array<>();
         atlases.add(atlas);
         packAtlases(saveDirectory, atlasName,atlases, pageWidth, pageHeight, padding);
@@ -73,13 +70,10 @@ public class TextureAtlasPacker  implements Disposable {
 
 
     public void packAtlases(  String saveDirectory, String atlasName,  Array<TextureAtlas> atlases, int pageWidth, int pageHeight, int padding) throws IOException {
-        this.pageWidth=pageWidth;
-        this.pageHeight=pageHeight;
-        this.pageWidth=pageWidth;
-        this.pageHeight=pageHeight;
-        this.saveDirectory=saveDirectory;
+        this.atlasSaveDirectory =saveDirectory;
         textureAtlas.setAtlasFileName(atlasName);
-        this.atlasName=atlasName;
+        pages=new Array<>();
+        textureAtlas= new NamedTextureAtlas(atlasName);
         int size=atlases.size;
         for(int count=0; count<size; count++){
             Array<AtlasRegion> pageRegions=atlases.get(count).getRegions();
@@ -89,9 +83,9 @@ public class TextureAtlasPacker  implements Disposable {
 
         getAndSaveTextureAtlas(pageWidth, pageHeight);
     }
-    public void packRegions(Array<AtlasNamedAtlasRegion> atlasNamedAtlasRegions, int pageWidth, int pageHeight, int padding) throws IOException {
-        this.pageWidth=pageWidth;
-        this.pageHeight=pageHeight;
+    public void packRegions(Array<AtlasNamedAtlasRegion> atlasNamedAtlasRegions, String atlasName, int pageWidth, int pageHeight, int padding) throws IOException {
+        pages=new Array<>();
+        textureAtlas= new NamedTextureAtlas(atlasName);
         ObjectMap< String, Array<AtlasNamedAtlasRegion>> pages= new ObjectMap<String, Array<AtlasNamedAtlasRegion>>();
         int size=atlasNamedAtlasRegions.size;
         Array<AtlasNamedAtlasRegion> nonDuplicateAtlasRegions= new Array<>();
@@ -187,13 +181,13 @@ public class TextureAtlasPacker  implements Disposable {
         PixmapPacker pixmapPacker= new PixmapPacker(width, height, Format.RGBA8888, 2, false);
         pixmapPacker.getPages().addAll(pages);
 
-      TextureAtlas atlas= pixmapPacker.generateTextureAtlas(TextureFilter.Linear, TextureFilter.Linear, false);
+    pixmapPacker.generateTextureAtlas(TextureFilter.Linear, TextureFilter.Linear, false);
 
       PixmapPackerIO pixmapPackerIO= new PixmapPackerIO();
 
-        String fullPath= saveDirectory+ FileUtilities.getFileSeparator()+atlasName+".atlas";
+        String fullPath= atlasSaveDirectory + FileUtilities.getFileSeparator()+ atlasSaveName +".atlas";
 
-        System.out.println(saveDirectory);
+        System.out.println(atlasSaveDirectory);
         SaveParameters saveParameters= new SaveParameters();
         saveParameters.useIndexes=true;
         saveParameters.format= ImageFormat.PNG;
@@ -201,10 +195,6 @@ public class TextureAtlasPacker  implements Disposable {
         pixmapPackerIO.save(Gdx.files.absolute(fullPath), pixmapPacker, saveParameters);
 
 
-        System.out.println("Saved!!!");
-        System.out.println("Saved!!!");
-
-        System.out.println("Saved!!!");
 
 
     }

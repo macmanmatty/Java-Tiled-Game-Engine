@@ -8,8 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Tiles.Tile;
-import com.jessematty.black.tower.Components.TileWeatherChangableNumericStat;
+import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -22,9 +23,9 @@ public class TileWeatherSeasonSystem extends GameTimeIntervalSystem {
     private float interval;
     @Override
     public void addedToEngine(Engine engine) {
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-            numericStatsChangableComponentMapper =getGameComponentMapper().getTileWeatherNumericStatsChangableComponentMapper();
-            tileComponentMapper=getGameComponentMapper().getTileComponentMapper();
+        numericStatsComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
+            numericStatsChangableComponentMapper =GameComponentMapper.getTileWeatherNumericStatsChangableComponentMapper();
+            tileComponentMapper=GameComponentMapper.getTileComponentMapper();
             gameTime=getGameTime();
     }
     public TileWeatherSeasonSystem(float interval, MapDraw draw) {
@@ -39,10 +40,10 @@ public class TileWeatherSeasonSystem extends GameTimeIntervalSystem {
             Entity entity = entities.get(count);
             NumericStats tileStats = numericStatsComponentMapper.get(entity);
             TileWeatherNumericStatsChangable tileWeatherNumericStatsChangable = numericStatsChangableComponentMapper.get(entity);
-           Array<TileWeatherChangableNumericStat> changableNumericStats= tileWeatherNumericStatsChangable.getStatsToChange();
+           Array<TileWeatherChangableNumericStatChangeable> changableNumericStats= tileWeatherNumericStatsChangable.getStatsToChange();
             int size2=changableNumericStats.size;
             for(int count2=0; count2<size2; count2++ ){
-                TileWeatherChangableNumericStat changableNumericStat=changableNumericStats.get(count2);
+                TileWeatherChangableNumericStatChangeable changableNumericStat=changableNumericStats.get(count2);
                 NumericStat stat=tileStats.getNumericStat(changableNumericStat.getName());
                 if(stat!=null){
                     if(gameTime.getCurrentNumberOfDaysLapsedInCurrentYear()>=changableNumericStat.getChangePoint()){

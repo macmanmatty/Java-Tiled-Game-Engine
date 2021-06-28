@@ -2,9 +2,8 @@ package com.jessematty.black.tower.Editor.EditMode.Windows;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public  abstract class MapEditScrollWindow extends EditWindow {
 

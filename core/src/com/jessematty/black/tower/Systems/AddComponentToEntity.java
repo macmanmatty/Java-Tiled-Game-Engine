@@ -5,7 +5,8 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.AddComponent;
+import com.jessematty.black.tower.Components.Components.AddComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 
@@ -20,7 +21,7 @@ public  class AddComponentToEntity extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        addComponentComponentMapper =getGameComponentMapper().getAddComponentComponentMapper();
+        addComponentComponentMapper = GameComponentMapper.getAddComponentComponentMapper();
 
     }
     @Override

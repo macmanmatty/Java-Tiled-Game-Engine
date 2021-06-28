@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Lights.LightSource;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
@@ -27,7 +27,6 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.Generators.ObjectGenerator;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.SquareTiles.BaseSquareTile;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.io.File;

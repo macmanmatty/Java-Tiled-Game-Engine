@@ -6,7 +6,7 @@ import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRe
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 

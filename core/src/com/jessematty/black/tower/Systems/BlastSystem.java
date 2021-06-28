@@ -12,6 +12,7 @@ import com.jessematty.black.tower.Components.Explodable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
@@ -30,9 +31,9 @@ public class BlastSystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
-        positionComponentMapper =getGameComponentMapper().getPositionComponentMapper();
-        explodableComponentMapper =getGameComponentMapper().getBlastableComponentMapper();
-        numericStatComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
+        positionComponentMapper =GameComponentMapper.getPositionComponentMapper();
+        explodableComponentMapper = GameComponentMapper.getBlastableComponentMapper();
+        numericStatComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
 
 
     }

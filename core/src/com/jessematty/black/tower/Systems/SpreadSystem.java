@@ -10,11 +10,12 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Spread;
-import com.jessematty.black.tower.Components.Markers.Moved;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.FlagComponents.Moved;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Spreadable;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -22,7 +23,7 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class SpreadSystem extends GameEntitySystem {
 
     private ImmutableArray<Entity> entities;
-    private ComponentMapper<Movable> moveables;
+    private ComponentMapper<MovableComponent> moveables;
     private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<Action> actions;
 
@@ -35,9 +36,9 @@ public class SpreadSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        moveables=getGameComponentMapper().getMovableComponentMapper();
-        positions=getGameComponentMapper().getPositionComponentMapper();
-        actions=getGameComponentMapper().getActionComponentMapper();
+        moveables= GameComponentMapper.getMovableComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
+        actions=GameComponentMapper.getActionComponentMapper();
 
     }
     @Override
@@ -48,11 +49,11 @@ public class SpreadSystem extends GameEntitySystem {
             Entity entity=entities.get(count);
             Action action= actions.get(entity);
                 PositionComponent position = positions.get(entity);
-                Movable movable = moveables.get(entity);
+                MovableComponent movableComponent = moveables.get(entity);
                 GameMap  map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
 
-                if (movable.getCurrentSpeed() > 0) {
-                    MoveOnGround.move(map,  movable, entity, position, deltaTime);
+                if (movableComponent.getCurrentSpeed() > 0) {
+                    MoveOnGround.move(map, movableComponent, entity, position, deltaTime);
                 }
                 else{
                     entity.remove(MovingOnGround.class);
@@ -67,10 +68,10 @@ public class SpreadSystem extends GameEntitySystem {
 
 
 
-    public void  move(Movable movable, Entity entity, PositionComponent position, float deltaTime) { // moves an entity at x speed with x move angle
+    public void  move(MovableComponent movableComponent, Entity entity, PositionComponent position, float deltaTime) { // moves an entity at x speed with x move angle
         entity.add(new Moved());
-        float moveAngle = movable.getMoveAngle();
-        float currentSpeed=movable.getCurrentSpeed();
+        float moveAngle = movableComponent.getMoveAngle();
+        float currentSpeed= movableComponent.getCurrentSpeed();
 
         float speedX = (float) Math.sin(moveAngle) * currentSpeed;
         float speedY = (float) Math.cos(moveAngle) * currentSpeed;
@@ -79,7 +80,7 @@ public class SpreadSystem extends GameEntitySystem {
         float distanceX = deltaTime * speedX;
         float distanceY = deltaTime * speedY;
 
-        movable.setDistanceMoved(distanceX, distanceY, 0);
+        movableComponent.setDistanceMoved(distanceX, distanceY, 0);
         float screenLocationX = position.getLocationX() + distanceX;
         float screenLocationY = position.getLocationY() + distanceY;
         GameMap map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
@@ -90,14 +91,14 @@ public class SpreadSystem extends GameEntitySystem {
         LandSquareTile newTile = map.screenToTile(screenLocationX, screenLocationY);
 
 
-        movable.setMoved(true);
+        movableComponent.setMoved(true);
         position.setLocationX(screenLocationX);
         position.setLocationY(screenLocationY);
 
         map.removeEntity(position.getTiles(), entity);
         Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
         position.setTiles(newTiles);
-        movable.setVelocity(speedX, speedY, 0);
+        movableComponent.setVelocity(speedX, speedY, 0);
 
 
 
