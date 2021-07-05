@@ -52,7 +52,6 @@ public class SettingsScreen implements NamedScreen {
     private void  makePreference(Stat stat){
 
         if(stat instanceof NumericStat){
-            NumericStatGroup numericStatGroup= new NumericStatGroup(skin, (NumericStat) stat);
 
 
         }

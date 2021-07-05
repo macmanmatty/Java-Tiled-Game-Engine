@@ -1,8 +1,9 @@
-package com.jessematty.black.tower.GameBaseClasses.AtlasRegions;
+package com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions;
 
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
+
 
 public class TextureAtlasRegionNames { // class for holding all of the numbered  region names assoicated with  a texture atlas  IE tile1 tile2 ect.
 

@@ -6,17 +6,20 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import java.util.Arrays;
 import java.util.Objects;
 
+
+/**
+ * class for saving a  libgdx tiled map cell
+ */
 public class CellSaver {
     boolean flipHorizontal;
-
     boolean flipVertical;
-    String [] regionNames;
+    String [] regionNames; // the names of the texture regions if the cell isn't animated  there is only one region
     boolean animated;
     boolean colored;
     float interval;
     float brightness;
     Color color;
-    Class <? extends TiledMapTile> tileClass;
+    Class <? extends TiledMapTile> tileClass; // the class to desearlize into
     int id;
     public CellSaver() {
     }

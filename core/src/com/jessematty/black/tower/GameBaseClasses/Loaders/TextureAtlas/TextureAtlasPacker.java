@@ -16,29 +16,38 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.TextureTools;
 
 import java.io.IOException;
 import java.util.UUID;
 
-// class that saves  a  dynamicvalkltexture atlas to png images  and a .atlas file at runtime;
+// class that saves  a  dynamiclly created texture atlas to png images  and a .atlas file at runtime;
 
 
 public class TextureAtlasPacker  implements Disposable {
     private Pixmap currentTexturePixmap; // the current pixMapTo Be PACKED
     private Texture currentTexture; // the current texture
     private NamedTextureAtlas textureAtlas= new NamedTextureAtlas(); // the atlas to pack to
-    private String atlasSaveName; // the name of teh atlas
+    private String atlasSaveName; // the name of the atlas
     private PixmapPacker pixmapPacker; // the libgdx Pixmap packer for saving the image file
     private Array<Page> pages=new Array<>();
     private String atlasSaveDirectory;
     public TextureAtlasPacker() {
     }
 
-    // packs an array of texture region pages to create a .png file and a .atlas file  for texture atlas
+
+    /**
+     *    packs an array of texture region pages to create a .png file and a .atlas
+     * @param saveDirectory the  full path to  the directory  to save to
+     * @param atlasName the name of the atlas file
+     * @param textureRegionPages the array of texture region pages to pack
+     * @param pageWidth the page max width
+     * @param pageHeight the page max height
+     * @throws IOException
+     */
     public void packPages(  String saveDirectory , String atlasName,  Array<TextureRegionPage> textureRegionPages, int pageWidth, int pageHeight) throws IOException {
         textureAtlas.setAtlasFileName(atlasName);
         this.atlasSaveDirectory =saveDirectory;
@@ -56,6 +65,16 @@ public class TextureAtlasPacker  implements Disposable {
         getAndSaveTextureAtlas(pageWidth, pageHeight);
     }
 
+
+    /**
+     *    packs an texture atlas  to create a .png file and a .atlas
+     * @param saveDirectory the full path  the directory  to save to
+     * @param atlasName the name of the atlas file
+     * @param atlas the texture atlas to pack
+     * @param pageWidth the page max width
+     * @param pageHeight the page max height
+     * @throws IOException
+     */
     public void packAtlas( String saveDirectory, String atlasName, TextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
         this.atlasSaveDirectory =saveDirectory;
         pages=new Array<>();
@@ -69,6 +88,16 @@ public class TextureAtlasPacker  implements Disposable {
     // packs an array of texture atlases to create a .png file and a .atlas file  for texture atlas
 
 
+
+    /**
+     *    packs an array  of  texture atlases  to create a .png file and a .atlas
+     * @param saveDirectory the full path  the directory  to save to
+     * @param atlasName the name of the atlas file
+     * @param atlases the texture atlases to pack
+     * @param pageWidth the page max width
+     * @param pageHeight the page max height
+     * @throws IOException
+     */
     public void packAtlases(  String saveDirectory, String atlasName,  Array<TextureAtlas> atlases, int pageWidth, int pageHeight, int padding) throws IOException {
         this.atlasSaveDirectory =saveDirectory;
         textureAtlas.setAtlasFileName(atlasName);
@@ -83,6 +112,8 @@ public class TextureAtlasPacker  implements Disposable {
 
         getAndSaveTextureAtlas(pageWidth, pageHeight);
     }
+
+
     public void packRegions(Array<AtlasNamedAtlasRegion> atlasNamedAtlasRegions, String atlasName, int pageWidth, int pageHeight, int padding) throws IOException {
         pages=new Array<>();
         textureAtlas= new NamedTextureAtlas(atlasName);
@@ -96,6 +127,7 @@ public class TextureAtlasPacker  implements Disposable {
             if(duplicateRegion==false){
                 nonDuplicateAtlasRegions.add(region);
             }
+
 
         }
 
@@ -118,6 +150,15 @@ public class TextureAtlasPacker  implements Disposable {
     }
     // creates a pixmap page  aka image  of texture regions
 
+
+    /**
+     *    creates a texture page to be later packed
+     * @param atlasNamedAtlasRegions the regions to pack
+     * @param pageWidth the page max width
+     * @param pageHeight the page max height
+     * @param padding the amount of padding between textures
+     * @throws IOException
+     */
     private void createPage(  Array< ? extends AtlasRegion> atlasNamedAtlasRegions, int pageWidth, int pageHeight, int padding)  {
          pixmapPacker= new PixmapPacker(pageWidth, pageHeight, Format.RGBA8888, padding, false);
          pixmapPacker.setPackToTexture(true);
@@ -157,18 +198,23 @@ public class TextureAtlasPacker  implements Disposable {
         return  map;
     }
 
-    // creates a  pixmap from a texture region
-    private Pixmap makeRegionPixmap( AtlasRegion atlasNamedAtlasRegion){
-        int regionWidth=atlasNamedAtlasRegion.getRegionWidth();
-        int regionHeight=atlasNamedAtlasRegion.getRegionHeight();
-        int regionX=atlasNamedAtlasRegion.getRegionX();
-        int regionY=atlasNamedAtlasRegion.getRegionY();
+
+    /**
+     *   creates a  pixmap from a atlas region
+     * @param atlasRegion
+     * @return
+     */
+    private Pixmap makeRegionPixmap( AtlasRegion atlasRegion){
+        int regionWidth=atlasRegion.getRegionWidth();
+        int regionHeight=atlasRegion.getRegionHeight();
+        int regionX=atlasRegion.getRegionX();
+        int regionY=atlasRegion.getRegionY();
         // create pixmap
         Pixmap regionPixmap= new Pixmap(regionWidth, regionHeight, Format.RGBA8888);
         // copy data to pixmap
         for (int x = 0; x < regionWidth; x++) {
             for (int y = 0; y < regionHeight; y++) {
-                int colorInt = currentTexturePixmap.getPixel(atlasNamedAtlasRegion.getRegionX() + x, atlasNamedAtlasRegion.getRegionY() + y);
+                int colorInt = currentTexturePixmap.getPixel(atlasRegion.getRegionX() + x, atlasRegion.getRegionY() + y);
             regionPixmap.drawPixel( x, y, colorInt);
             }
         }
@@ -176,7 +222,13 @@ public class TextureAtlasPacker  implements Disposable {
         return  regionPixmap;
     }
 
-    // saves a texture atlas  to  the .png page files  and a .atlas file  containing the data  for the texture regions;
+
+    /**
+     *   saves a texture atlas  to  the .png page files  and a .atlas file  containing the data and images   for the texture regions
+     * @param width the texture width
+     * @param height the texture height
+     * @throws IOException
+     */
     private void getAndSaveTextureAtlas( int width, int height) throws IOException {
         PixmapPacker pixmapPacker= new PixmapPacker(width, height, Format.RGBA8888, 2, false);
         pixmapPacker.getPages().addAll(pages);

@@ -46,13 +46,11 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -213,7 +211,7 @@ public class TiledMapEditWindow extends MapEditWindow implements LockableInputPr
 
     public void runGame(World world, Entity player){
         world.setPlayer(player);
-        getGameAssets().getMapDraw().changeMap(currentMap);
+        getGameAssets().getMapDraw().setMap(currentMap);
         //gameAssets.showGame(world, player );
     }
 

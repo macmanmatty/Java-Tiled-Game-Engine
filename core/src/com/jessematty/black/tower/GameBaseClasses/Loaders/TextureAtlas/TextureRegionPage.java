@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 
 public class TextureRegionPage  {
@@ -92,6 +92,22 @@ public class TextureRegionPage  {
 
     public boolean isFull() {
         return full;
+    }
+
+
+    public AtlasNamedAtlasRegion findRegion(String name){
+        int size=pageRegions.size;
+        for(int count=0; count<size; count++){
+            AtlasNamedAtlasRegion atlasNamedAtlasRegion=pageRegions.get(count);
+            if(atlasNamedAtlasRegion.name.equals(name)){
+                return atlasNamedAtlasRegion;
+            }
+
+        }
+
+
+        return null;
+
     }
 
 

@@ -143,11 +143,9 @@ import javax.swing.SwingUtilities;
                                     super.approveSelection();
 
                                     String path=getSelectedFile().getAbsolutePath();
-                                    try {
+
                                         maps= assetts.loadGame(path);
-                                    } catch (MapLoadingExeception | LoadingException mapLoadingExeception) {
-                                        mapLoadingExeception.printStackTrace();
-                                    }
+
 
 
                                 }

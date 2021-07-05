@@ -1,9 +1,12 @@
-package com.jessematty.black.tower.GameBaseClasses.AtlasRegions;
+package com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
 
+
+// class that has texture atlas referenced by a name
 public class NamedTextureAtlas extends TextureAtlas {
 
     private String atlasFileName="atlas";
@@ -57,4 +60,12 @@ public class NamedTextureAtlas extends TextureAtlas {
     public void setAtlasFileName(String atlasFileName) {
         this.atlasFileName = atlasFileName;
     }
+
+    public void addTextureRegionPage(TextureRegionPage textureRegionPage){
+
+
+
+
+    }
+
 }

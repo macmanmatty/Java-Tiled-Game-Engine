@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Grass;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TerrainSet;

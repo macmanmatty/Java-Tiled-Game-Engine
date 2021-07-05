@@ -20,7 +20,7 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.IntegerField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveFloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 
 public class ThingEdit  extends ObjectEdit {
   protected   TextField damage;

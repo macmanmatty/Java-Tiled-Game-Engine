@@ -34,6 +34,12 @@ public  class RenderSystem extends SortedRenderingSystem {
        onCurrentMapComponentMapper= GameComponentMapper.getOnCurrentMapComponentMapper();
 
     }
+
+    /**
+     *  Renders an entities current texture region  based on it's texture region and color
+     * @param entity the entity to process
+     * @param delta delta time
+     */
     @Override
     protected void processEntity(Entity entity, float delta) {
 
@@ -46,7 +52,9 @@ public  class RenderSystem extends SortedRenderingSystem {
                 PositionComponent position = positionComponentMapper.get(entity);
 
                     Color color=calculateColor(drawableComponent.getColor(), drawableComponent.getBrightness());
-                batch.setColor(color);
+                    if(color!=null) {
+                        batch.setColor(color);
+                    }
                 float positionX = position.getLocationX() + drawableComponent.getDrawOffsets().x;
                 float positionY = position.getLocationY() + drawableComponent.getDrawOffsets().y;
                     batch.draw(textureRegion, positionX, positionY);
@@ -55,6 +63,15 @@ public  class RenderSystem extends SortedRenderingSystem {
         }
 
     }
+
+    /**
+     *  // calculates an entities  brightness based on color
+     * @param entityColor the color of the entity
+     * @param brightness the brightness  multiplier
+     * @return COLOR  the new  color with calculated brightness
+     */
+
+
     private Color calculateColor(Color entityColor, float brightness) {
         Color color= new Color(entityColor.r, entityColor.g, entityColor.b, entityColor.a);
         color.r=color.r*brightness;

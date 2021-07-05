@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Components;
 
 import com.badlogic.ashley.core.Component;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
 import java.util.HashMap;
 import java.util.Map;

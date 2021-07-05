@@ -34,7 +34,7 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;

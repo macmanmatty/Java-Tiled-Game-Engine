@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,10 +23,6 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.DayAndNightTiledMapRenderer;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
@@ -64,23 +61,25 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     private final GameInput gameInput;
     private final String  name="Map Draw Screen";
 
-    public MapDraw(GameAssets assetts, World world, boolean drawEntityDebugBounds){
-        this.assetts=assetts;
+
+
+    public MapDraw(GameAssets gameAssets, World world, boolean drawEntityDebugBounds){
+        this.assetts=gameAssets;
         engine=world.getEngine();
         this.world=world;
         gameCamera = new GameCamera(960, 960);
-        this.gameInput=assetts.getGameInput();
+        this.gameInput=gameAssets.getGameInput();
 
         if(world.getWorldMap()!=null) {
             this.currentMap = world.getStartMap();
             this.currentMap.setCurrentMap(true);
 
-            changeMap(world.getMap(world.getWorldSettings().getSimpleSetting("startMapX", Integer.class), world.getWorldSettings().getSimpleSetting("startMapY", Integer.class)));
+            setMap(world.getMap(world.getWorldSettings().getSimpleSetting("startMapX", Integer.class), world.getWorldSettings().getSimpleSetting("startMapY", Integer.class)));
         }
         else {
             throw new IllegalArgumentException("World Must Have Maps!");
         }
-        float w = Gdx.graphics.getWidth();
+  float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
         mapViewport = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), gameCamera);
          float viewPortWidth=500*(w/h);
@@ -89,6 +88,9 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     gameCamera.setToOrtho(false,viewPortWidth,viewPortHeight);
     gameCamera.update();
     batch=new BrightnessBatch();
+
+
+
     //mapAndEntityBuffer= new FrameBuffer(Format.RGBA8888, 960, 960, false);
    // lightSourceBuffer= new FrameBuffer(Format.RGBA8888, 960, 960, false);
         stageViewport= new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -96,10 +98,15 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     gameInput.addProcessor(uiStage);
     shapeRenderer =new ShapeRenderer();
     boundingBoxRenderer= new BoundingBoxRenderer(shapeRenderer);
+
     EngineSetup.addBaseSystemsToEngine(engine, this, shapeRenderer, drawEntityDebugBounds, mapAndEntityBuffer, lightSourceBuffer);
         this.drawEntityDebugBounds =drawEntityDebugBounds;
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
     }
+
+    /**
+     * begin libGDX screen draw methods
+     */
     @Override
         public void show () {
         float w = Gdx.graphics.getWidth();
@@ -110,20 +117,15 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
         }
         @Override
         public void render (float time) {
-        LandSquareTile tile=player.getPosition().getTiles().get(0);
-            Print.printXY("posoition", tile.getPosition().getLocationX(), tile.getPosition().getLocationY());
-            Print.printXY("player position", player.getPosition().getLocationX(), player.getPosition().getLocationY());
-
-            Gdx.gl.glClearColor(1, 1, 1, 1); // clear the screen
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Gdx.gl.glClearColor(0, 0, 0, 0); // clear the screen
+           Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             // move camera to player position
-
             // draw game components  on   the screen
-            gameCamera.update();
             batch.setProjectionMatrix(gameCamera.combined);
             shapeRenderer.setProjectionMatrix(gameCamera.combined);
-                tiledMapRenderer.setView(gameCamera);
-                tiledMapRenderer.render();
+            gameCamera.update();
+            tiledMapRenderer.setView(gameCamera);
+            tiledMapRenderer.render();
             float  deltaTime=Gdx.graphics.getDeltaTime();
             currentMap.mapTurnActions(deltaTime, gameTime);
             gameTime.countTime();
@@ -132,31 +134,15 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
             uiStage.draw();
         }
 
-  public void   changeMap(GameMap newMap){
-        // sets/ changes  the current gameMap  This  MUST  be called BEFORE  this screen is displayed to set the map to  render
-      if(currentMap!=null) {
-          this.currentMap.setCurrentMap(false);
-      }
-        newMap.setCurrentMap(true);
-      EngineSetup.removeSystemsFromEngine(engine, currentMap.getMapGameEntitySystems());
-      EngineSetup.addSystemsToEngine(engine, newMap.getMapGameEntitySystems());
-       gameCamera.calculateScreenMaxes(newMap);
-      currentTiledMap = currentMap.getTiledMap();
-      tiledMapRenderer = new DayAndNightTiledMapRenderer(currentTiledMap, 1);
-      if(player!=null){
-          gameCamera.centerCameraToPosition(player.getPosition());
-          this.currentMap =newMap;
-      }
-    }
     @Override
     public void resize(int width, int height) {
         if(gameCamera !=null) {
             if(mapViewport!=null) {
-            mapViewport.update(width, height, false);
-        }
-        if(stageViewport!=null) {
-            stageViewport.update(width, height, false);
-        }
+                mapViewport.update(width, height, false);
+            }
+            if(stageViewport!=null) {
+                stageViewport.update(width, height, false);
+            }
             gameCamera.update();
         }
     }
@@ -167,17 +153,13 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     @Override
     public void resume() {
         if(false) {
-            try {
-                World world = null;
-                try {
-                    world = assetts.loadGame(assetts.getSettings().getPreferences().getString("savePath"));
-                } catch (LoadingException e) {
-                    e.printStackTrace();
-                }
-                currentMap = world.getCurrentMap();
-            } catch (MapLoadingExeception mapLoadingExeception) {
-                mapLoadingExeception.printStackTrace();
-            }
+
+            World world = null;
+
+            world = assetts.loadGame(assetts.getSettings().getPreferences().getString("savePath"));
+
+            currentMap = world.getCurrentMap();
+
             int graphicsWidth = Gdx.graphics.getWidth();
             int  graphicsHeight = Gdx.graphics.getHeight();
             gameCamera = new GameCamera(960, 960);
@@ -185,8 +167,8 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
             gameCamera.update();
             mapViewport = new ExtendViewport(960, 960, gameCamera);
             batch = new BrightnessBatch();
-           // mapAndEntityBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
-           // lightSourceBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
+            // mapAndEntityBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
+            // lightSourceBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
             batch.setProjectionMatrix(gameCamera.combined);
             stageViewport= new FitViewport(graphicsWidth, graphicsHeight);
             uiStage = new Stage(new FitViewport(graphicsWidth, graphicsHeight));
@@ -199,7 +181,7 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
 //        stage.addActor(bottomBar.getBottomBar());
             //bottomBarHeight=bottomBar.getBottomBar().getHeight();
             if (player != null) {
-               gameCamera.centerCameraToPosition(player.getPosition());
+                gameCamera.centerCameraToPosition(player.getPosition());
             }
             Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         }
@@ -219,9 +201,41 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
         lightSourceBuffer.dispose();
     }
 
+    /**
+     *
+     * end libGDX screen methods
+     */
+
+    /**
+     *   sets/ changes  the current gameMap
+     *   This  MUST  be called BEFORE  this screen is displayed to set the map to  render
+     * @param newMap the  map to change to
+     */
+
+    public void setMap(GameMap newMap){
+      if(currentMap!=null) {
+          this.currentMap.setCurrentMap(false);
+      }
+        newMap.setCurrentMap(true);
+      EngineSetup.removeSystemsFromEngine(engine, currentMap.getMapGameEntitySystems());
+      EngineSetup.addSystemsToEngine(engine, newMap.getMapGameEntitySystems());
+       gameCamera.calculateScreenMaxes(newMap);
+      currentTiledMap = currentMap.getTiledMap();
+      tiledMapRenderer = new OrthogonalTiledMapRenderer(currentTiledMap, 1);
+      if(player!=null){
+          gameCamera.centerCameraToPosition(player.getPosition());
+          this.currentMap =newMap;
+      }
+    }
+
     public ZRPGPlayer getPlayer() {
         return player;
     }
+
+    /**
+     *   sets the rpg player object and adds the players UI Bars
+     * @param player  the player to set to
+     */
     public void setPlayer(ZRPGPlayer player) {
         this.player = player;
         engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
@@ -232,10 +246,25 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
        gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPosition());
     }
+
+    /**
+     *  adds  a libGDX scene 2d UI component to the  screen to be displayed
+     * @param window
+     * @param positionX
+     * @param positionY
+     */
     public void addWindow(Actor window, float positionX, float positionY) {
         window.setPosition(positionX, positionY);
         uiStage.addActor(window);
     }
+
+
+    /**
+     *  adds  a libGDX scene 2d UI component  to the  screen to be displayed
+     * @param window
+     * @param screenPosition
+
+     */
     public void addWindow(Actor window, ScreenPosition screenPosition) {
         window.setPosition(screenPosition.getX(), screenPosition.getY());
         uiStage.addActor(window);
@@ -244,6 +273,16 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
         label.setPosition(positionX, positionY);
         uiStage.addActor(label);
     }
+
+    /**
+     *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y
+     *
+     *
+     * @param x the screen x location in pixels
+     * @param y the screen y location  in pixels
+     *
+     * @return LandSquareTile  the tile at given screen location
+     */
 
     public LandSquareTile screenToTile(float x, float y){
         Vector3 vec3= gameCamera.unproject(new Vector3(x,y,0));
@@ -280,6 +319,12 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     public boolean isDrawEntityDebugBounds() {
         return drawEntityDebugBounds;
     }
+
+    /**
+     *  set  whether or not show  the collision detection   bounding rectangles
+     *  for ALL the entities in the system and adds the system for donig so
+     * @param drawEntityDebugBounds whether or not show  the collision detection   bounding rectangles  for ALL the entities
+     */
     public void setDrawEntityDebugBounds(boolean drawEntityDebugBounds) {
         this.drawEntityDebugBounds = drawEntityDebugBounds;
         if(drawEntityDebugBounds ==true) {

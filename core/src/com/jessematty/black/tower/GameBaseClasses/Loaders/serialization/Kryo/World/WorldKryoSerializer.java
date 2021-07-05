@@ -58,12 +58,6 @@ public class WorldKryoSerializer extends Serializer<World> {
         world.setPlayer(player);
         gameAssets.finishLoading();
 
-
-
-
-
-
-
         return  world;
 
 

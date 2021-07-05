@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Loaders.EntityLoaders;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.EntitySerializer;

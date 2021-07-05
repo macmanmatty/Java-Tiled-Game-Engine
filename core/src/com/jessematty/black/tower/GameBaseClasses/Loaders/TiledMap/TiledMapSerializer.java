@@ -1,10 +1,12 @@
 package com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class TiledMapSerializer extends Serializer<TiledMap> {
@@ -24,6 +26,9 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
 
 
         TiledMapSaver tiledMapSaver=null;
+
+
+
         if(fast==true) {
 
         tiledMapSaver=new FastTiledMapSaver();

@@ -19,7 +19,7 @@ import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettab
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 
 public class BitMaskedTileSetCreationWindow extends MapEditWindow {
 

@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -36,14 +35,13 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
@@ -228,7 +226,7 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
 
             public void runGame(World world, Entity player){
         world.setPlayer(player);
-       gameAssets.getMapDraw().changeMap(currentMap);
+       gameAssets.getMapDraw().setMap(currentMap);
         //gameAssets.showGame(world, player );
             }
 

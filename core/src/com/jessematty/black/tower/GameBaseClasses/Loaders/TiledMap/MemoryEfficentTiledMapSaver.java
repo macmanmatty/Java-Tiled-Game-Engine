@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
@@ -27,8 +27,8 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
     public TiledMap loadMap( GameAssets assetts){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
-        int tileSizeX=mapProperties.get("tileWidth", Integer.class);
-        int tileSizeY=mapProperties.get("tileHeight", Integer.class);
+        int tileSizeX=mapProperties.get("tilewidth", Integer.class);
+        int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
 
 
@@ -58,7 +58,7 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
                             }
                         }
                         cell.setTile(new AtlasAnimatedTiledMapTile(saver.getInterval(), regions));
-                        layer.setCell(countx, ySize-county,cell );
+                        layer.setCell(countx, ySize-county-1,cell );
                     }
                     else{
                         String [] name= saver.getRegionNames();
@@ -66,7 +66,7 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
                         System.out.println("Region "+region);
                         if(region!=null){
                             cell.setTile(new AtlasStaticTiledMapTile(region));
-                            layer.setCell(countx, ySize-county,cell );
+                            layer.setCell(countx, ySize-county-1,cell );
                         }
                     }
                 }
@@ -116,7 +116,7 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
                         }
 
 
-                        cells[count][countx][ySize-county]=saver.hashCode();
+                        cells[count][countx][ySize-county-1]=saver.hashCode();
 
 
                     }

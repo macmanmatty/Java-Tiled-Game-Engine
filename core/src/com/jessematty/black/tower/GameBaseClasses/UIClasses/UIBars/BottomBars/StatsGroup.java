@@ -69,7 +69,7 @@ public class StatsGroup extends VerticalGroup {
             while (numericStatValues.hasNext()) {
                 NumericStat numericStat = numericStatValues.next();
                 if (numericStat.isDisplayable() && InList.isInList(numericStat.getDisplayGroups(), groupName)) {
-                    NumericStatGroup numericStatGroup= new NumericStatGroup(skin, numericStat);
+                    NumericStatGroup numericStatGroup= new NumericStatGroup(skin, numericStat, false);
                     addActor(numericStatGroup);
                 }
             }

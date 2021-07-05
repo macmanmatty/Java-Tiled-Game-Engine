@@ -37,10 +37,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
 
 
-        public SortedRenderingSystem( Family family, Comparator<Entity> comparator, Batch batch, FrameBuffer frameBuffer) {
-            this( family, comparator, batch, frameBuffer, 1);
-
-        }
 
         public SortedRenderingSystem(  Family family, Comparator<Entity> comparator, Batch batch,  FrameBuffer buffer, int priority) {
             super(priority);
@@ -70,7 +66,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
         public void addedToEngine(Engine engine) {
             ImmutableArray<Entity> newEntities = engine.getEntitiesFor(this.family);
-            System.out.println("Number of Entites to Render "+newEntities.size());
 
 
 
@@ -135,8 +130,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
                 }
 
-
-
             batch.getShader().setUniformf("bright", brightness);
 
             for(int i = 0; i < this.sortedEntities.size; ++i) {
@@ -145,8 +138,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
 
             }
-
-
             if(callBatchEnd) {
                 batch.end();
             }

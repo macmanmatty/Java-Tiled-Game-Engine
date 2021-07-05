@@ -6,10 +6,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
+
+import java.lang.reflect.Constructor;
+import java.util.Iterator;
 
 public class FastTiledMapSaver implements TiledMapSaver {
    protected  CellSaver[] [] [] cells; // the saved tiled map cells
@@ -21,14 +25,12 @@ public class FastTiledMapSaver implements TiledMapSaver {
 
     public FastTiledMapSaver() {
     }
-    public FastTiledMapSaver(GameAssets assetts) {
 
-    }
-    public TiledMap loadMap(GameAssets assetts){
+    public TiledMap loadMap(GameAssets assets){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
-        int tileSizeX=mapProperties.get("tileWidth", Integer.class);
-        int tileSizeY=mapProperties.get("tileHeight", Integer.class);
+        int tileSizeX=mapProperties.get("tilewidth", Integer.class);
+        int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
 
         TiledMap tiledMap= new TiledMap();
@@ -50,21 +52,20 @@ public class FastTiledMapSaver implements TiledMapSaver {
                      String [] regionNames=saver.getRegionNames();
                         Array<AtlasStaticTiledMapTile> regions= new Array<AtlasStaticTiledMapTile>();
                         for(int count2=0; count2<regionNames.length; count2++){
-                            AtlasNamedAtlasRegion region=assetts.getAtlasRegionByName(regionNames[count], atlasName);
+                            AtlasNamedAtlasRegion region=assets.getAtlasRegionByName(regionNames[count], atlasName);
                             if(region!=null){
                                 regions.add(new AtlasStaticTiledMapTile(region));
                             }
                         }
                         cell.setTile(new AtlasAnimatedTiledMapTile(saver.getInterval(), regions));
-                        layer.setCell(countx, ySize-county,cell );
+                        layer.setCell(countx, ySize-county-1,cell );
                     }
                     else{
                         String [] name= saver.getRegionNames();
-                        AtlasNamedAtlasRegion region=assetts.getAtlasRegionByName(name[0], atlasName);
-                        System.out.println("Region "+region);
+                        AtlasNamedAtlasRegion region=assets.getAtlasRegionByName(name[0], atlasName);
                         if(region!=null){
                             cell.setTile(new AtlasStaticTiledMapTile(region));
-                            layer.setCell(countx, ySize-county,cell );
+                            layer.setCell(countx, ySize-county-1,cell );
                         }
                     }
                 }
@@ -74,6 +75,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
     }
     public void saveMap(TiledMap tiledMap, String atlasName){
         this. mapProperties=tiledMap.getProperties();
+
         this.mapProperties.put("atlasName", atlasName);
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
@@ -108,7 +110,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
                         }
 
 
-                        cells[count][countx][ySize-county]=saver;
+                        cells[count][countx][ySize-county-1]=saver;
 
 
                     }
@@ -120,5 +122,9 @@ public class FastTiledMapSaver implements TiledMapSaver {
 
 
 
+    }
 
-}
+
+
+
+

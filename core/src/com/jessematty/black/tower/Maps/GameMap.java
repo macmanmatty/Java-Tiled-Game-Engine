@@ -39,6 +39,8 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	protected  boolean gettingBrighter;
 	protected  boolean lightChanges;
 	protected transient Texture mapImage; // the image of the  the map  including all  tiled map tiles  and  drawable map entities
+
+
 	protected GameMap() {
 	}
 	public GameMap(int xTiles, int yTiles) {

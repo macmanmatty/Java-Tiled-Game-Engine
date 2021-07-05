@@ -59,6 +59,12 @@ public class EngineSetup {
     private  static  boolean hasPackSystem=true;
 
      static ComponentMapper<DrawableComponent> drawableComponentMapper=ComponentMapper.getFor(DrawableComponent.class);
+
+    /**
+     *  used the for the render system  to determine the draw order of of entities on teh screen
+     *  layer number = y position of entity
+     *  sublayer=  number draw order of attached entities  that are bound to the same y position as parent entity
+     */
     private static Comparator<Entity> entityComparator= new Comparator<Entity>() {
         @Override
         public int compare(Entity entity1, Entity entity2) {
@@ -94,12 +100,21 @@ public class EngineSetup {
         }
     };
 
-
+    /**
+     *
+     * @param engine the games engine
+     * @param draw the map drawing class
+     * @param shapes // the libGDX shape drawing Batch class
+     * @param drawBounds // whether or not to draw bounding rectangles for the entity bounds
+     * @param mapBuffer the frame buffer for the map used for drawing lights
+     * @param lightBuffer the frame buffer for the light objects on the map  used for drawing lights
+     */
     public  static void addBaseSystemsToEngine(Engine engine, MapDraw draw, ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer ){
 
         GameComponentMapper.getDrawableComponentMapper();
        Family drawableFamily= Family.all(PositionComponent.class, DrawableComponent.class).get();
        RenderSystem renderSystem=new RenderSystem (drawableFamily, entityComparator,  draw.getBatch(), mapBuffer ,2);
+       renderSystem.setCallBatchEnd(true);
        RenderSystem lightSystem=new RenderSystem( drawableFamily, entityComparator,  draw.getBatch(), lightBuffer, 3);
 
        engine.addSystem(renderSystem);

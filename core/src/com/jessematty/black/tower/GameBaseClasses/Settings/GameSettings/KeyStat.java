@@ -7,4 +7,9 @@ public class KeyStat extends Stat {
     public Stat makeCopy() {
         return new KeyStat();
     }
+
+    @Override
+    public String getStatAsString() {
+        return null;
+    }
 }

@@ -4,12 +4,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
+
+// animated tiled map tile class that implements the ColoredTiledMapTile  interface
+// linked to a texture atlas for saving of the tile and the texture atlas
 public class AtlasAnimatedTiledMapTile implements  ColoredTiledMapTile {
     String  [] names;
     NamedColor color = NamedColor.WHITE;
@@ -35,18 +40,31 @@ public class AtlasAnimatedTiledMapTile implements  ColoredTiledMapTile {
             this.animationIntervals[i] = (int)(interval * 1000f);
         }
     }
-    public AtlasAnimatedTiledMapTile(IntArray intervals, Array<AtlasStaticTiledMapTile> frameTiles) {
-        this.frameTiles = new AtlasStaticTiledMapTile[frameTiles.size];
-        this.names= new String[frameTiles.size];
-        this.frameCount = frameTiles.size;
-        this.animationIntervals = intervals.toArray();
+    public AtlasAnimatedTiledMapTile( int []  intervals, AtlasStaticTiledMapTile [] frameTiles) {
+        this.frameTiles = new AtlasStaticTiledMapTile[frameTiles.length];
+        this.names= new String[frameTiles.length];
+        this.frameCount = frameTiles.length;
+        this.animationIntervals = intervals;
         this.loopDuration = 0;
-        for (int i = 0; i < intervals.size; ++i) {
-            this.frameTiles[i] = frameTiles.get(i);
-            this.names[i]=frameTiles.get(i).getNames()[0];
-            this.loopDuration += intervals.get(i);
+        for (int i = 0; i < intervals.length; ++i) {
+            this.frameTiles[i] = frameTiles[i];
+            this.names[i]=frameTiles[i].getNames()[0];
+            this.loopDuration += intervals[i];
         }
     }
+
+
+    public AtlasAnimatedTiledMapTile(AnimatedTiledMapTile other, String atlasName) {
+        this.id = other.getId();
+        this.blendMode = other.getBlendMode();
+        this.properties = other.getProperties();
+        this.objects = other.getObjects();
+        this.color = NamedColor.WHITE;
+        StaticTiledMapTile [] otherTiles=other.getFrameTiles();
+        this.frameTiles= new AtlasStaticTiledMapTile[otherTiles.length];
+
+    }
+
 
     public AtlasAnimatedTiledMapTile(AtlasAnimatedTiledMapTile other) {
         this.names = other.names;

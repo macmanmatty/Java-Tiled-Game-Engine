@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 public class TextureRegionSelectWindow extends MapEditWindow {
     protected com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureRegionSelect textureRegionSelect; // the region select window  that display the regions
     protected SelectBox<String> textureNames; // the selected texture names to choose from and display

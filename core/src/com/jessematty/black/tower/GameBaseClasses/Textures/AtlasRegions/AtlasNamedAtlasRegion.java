@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.AtlasRegions;
+package com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 // atlas region that stores the name of the atlas it is stored in
 public class AtlasNamedAtlasRegion  extends AtlasRegion  {
    private  String atlasName;
-   private String pageName;
+   private String pageName=" ";
 
 
     public AtlasNamedAtlasRegion(AtlasRegion region, String atlasName) {
@@ -16,6 +16,11 @@ public class AtlasNamedAtlasRegion  extends AtlasRegion  {
         this.atlasName = atlasName;
     }
 
+    public AtlasNamedAtlasRegion(AtlasRegion region, String regionName,  String atlasName) {
+        super(region);
+        this.atlasName = atlasName;
+        region.name=regionName;
+    }
     public AtlasNamedAtlasRegion(AtlasNamedAtlasRegion region) {
         super(region);
         this.atlasName=region.atlasName;

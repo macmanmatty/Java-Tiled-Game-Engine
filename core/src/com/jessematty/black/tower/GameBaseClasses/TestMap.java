@@ -1,13 +1,16 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.PageDimensions;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
@@ -25,13 +28,15 @@ public class TestMap {
     public void testMap(){
         
         assetts.loadInternalTextureAtlas("swordWalk");
+       TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
-        System.out.println(specs);
         Skin skin=assetts.getDefaultSkin();
         LandMapGenerator generator2= new LandMapGenerator(assetts, specs);
         generator2.makeTiledMap();
         LandMap map2= (LandMap) generator2.makeMap();
+        map2.setTileSize(32, 32);
+
         World world= new World(1, 1);
         world.placeMap(map2, 0, 0);
         world.setLoadPath("/world/");
@@ -66,6 +71,8 @@ public class TestMap {
         position2.setMapWorldLocationX(map2.getWorldX());
         position2.setMapWorldLocationY(map2.getWorldY());
         System.out.println("here3");
+
+
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
         //map2.addEntity(hood);
          Entity sword=lpcActorGenerator.generateMeeleWeapon("spearMale", "assets", "spear", "is a spear", false,  true, true, true, NamedColor.WHITE, 1, 100,100,100,80,10,true, 100,100,new NumericStatsChangeable(), new BooleanStatsChangeable());
@@ -73,6 +80,13 @@ public class TestMap {
         world.addEntityToWorld(entity1);
        // world.addEntity(wings);
          world.addEntityToWorld(sword);
+        try {
+         map=  new TiledMapTools(world.getWorldTextureAtlas()).addTiledMapRegionsToAtlas(map2.getTiledMap(), "tiledMap");
+        } catch (MapLoadingExeception mapLoadingExeception) {
+            mapLoadingExeception.printStackTrace();
+        }
+        map2.setTiledMap(map);
+
         Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
         for(int count = 0; count<map2.getXTiles(); count++){
             LandSquareTile landSquareTile= map2.getMapSquare(count, 10);
@@ -90,4 +104,9 @@ public class TestMap {
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }
+
+
+
+
+
 }

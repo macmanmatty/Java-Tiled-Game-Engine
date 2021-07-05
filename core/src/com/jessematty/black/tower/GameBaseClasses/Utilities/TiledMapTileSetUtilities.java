@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;

@@ -9,7 +9,7 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
@@ -38,7 +38,7 @@ public class World { // class that holds the array of maps  aka the world
         private transient Entity player;
         private String playerID;
         // the texture atlas the world uses
-        private NamedTextureAtlas worldTextureAtlas;
+        private NamedTextureAtlas worldTextureAtlas= new NamedTextureAtlas();
         // the path to the above texture atlas
         private String worldTextureAtlasPath;
 
@@ -422,9 +422,7 @@ public class World { // class that holds the array of maps  aka the world
         return worldTextureAtlasPath;
     }
 
-    public void setWorldTextureAtlasPath(String worldTextureAtlasPath) {
-        this.worldTextureAtlasPath = worldTextureAtlasPath;
-    }
+
 
     public WorldSettings getWorldSettings() {
         return worldSettings;
