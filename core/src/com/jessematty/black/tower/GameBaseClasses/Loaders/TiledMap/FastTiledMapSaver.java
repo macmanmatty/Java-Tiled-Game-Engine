@@ -5,12 +5,15 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
@@ -29,6 +32,8 @@ public class FastTiledMapSaver implements TiledMapSaver {
     public TiledMap loadMap(GameAssets assets){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
+
+
         int tileSizeX=mapProperties.get("tilewidth", Integer.class);
         int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
@@ -64,7 +69,10 @@ public class FastTiledMapSaver implements TiledMapSaver {
                         String [] name= saver.getRegionNames();
                         AtlasNamedAtlasRegion region=assets.getAtlasRegionByName(name[0], atlasName);
                         if(region!=null){
+                            AtlasStaticTiledMapTile tiledMapTile= new AtlasStaticTiledMapTile(region);
+                            tiledMapTile.setColor(saver.getColor());
                             cell.setTile(new AtlasStaticTiledMapTile(region));
+
                             layer.setCell(countx, ySize-county-1,cell );
                         }
                     }
@@ -73,7 +81,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap, String atlasName){
+    public void saveMap(TiledMap tiledMap, String atlasName) throws MapLoadingExeception {
         this. mapProperties=tiledMap.getProperties();
 
         this.mapProperties.put("atlasName", atlasName);
@@ -96,10 +104,10 @@ public class FastTiledMapSaver implements TiledMapSaver {
                         saver.setFlipVertical(cell.getFlipVertically());
                         Class tileClass = cell.getTile().getClass();
                         TiledMapTile tile = cell.getTile();
-                        if (tileClass.equals(AtlasStaticTiledMapTile.class)) {
-                            AtlasStaticTiledMapTile tile2 = (AtlasStaticTiledMapTile) tile;
-                            saver.setRegionNames(tile2.getNames());
-                            saver.setColor(tile2.getColor());
+                        if (tileClass.equals(AtlasStaticTiledMapTile.class )) {
+                            AtlasStaticTiledMapTile atlasStaticTiledMapTile = (AtlasStaticTiledMapTile) tile;
+                            saver.setRegionNames(atlasStaticTiledMapTile.getNames());
+                            saver.setColor(atlasStaticTiledMapTile.getColor());
                             saver.setTileClass(AtlasStaticTiledMapTile.class);
                         } else if (tileClass.equals(AtlasAnimatedTiledMapTile.class)) {
                             AtlasAnimatedTiledMapTile tile2 = (AtlasAnimatedTiledMapTile) tile;
@@ -107,6 +115,11 @@ public class FastTiledMapSaver implements TiledMapSaver {
                             saver.setRegionNames((tile2.getNames()));
                             saver.setColor(tile2.getColor());
                             saver.setTileClass(AtlasAnimatedTiledMapTile.class);
+                        }
+
+                        else{
+
+                            throw new MapLoadingExeception("Invalid Tile Class  at Square  X "+countx +",  Y "+county );
                         }
 
 

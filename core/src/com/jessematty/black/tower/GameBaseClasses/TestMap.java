@@ -40,7 +40,6 @@ public class TestMap {
         World world= new World(1, 1);
         world.placeMap(map2, 0, 0);
         world.setLoadPath("/world/");
-        world.setStartMap(0, 0);
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
         EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "assetts", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
@@ -55,7 +54,6 @@ public class TestMap {
         position.setBounds(32, 48);
         position.setBoundsXOffset(16);
         position.setHeight(10);
-        world.setPlayer( entityBag.getEntities().get(0));
         System.out.println("Position " +position);
         entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(1000);
         entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setValue(1000);
@@ -71,6 +69,7 @@ public class TestMap {
         position2.setMapWorldLocationX(map2.getWorldX());
         position2.setMapWorldLocationY(map2.getWorldY());
         System.out.println("here3");
+        world.setPlayer( entityBag.getEntities().get(0));
 
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
@@ -80,12 +79,14 @@ public class TestMap {
         world.addEntityToWorld(entity1);
        // world.addEntity(wings);
          world.addEntityToWorld(sword);
+        map2.setTiledMap(map);
+
         try {
          map=  new TiledMapTools(world.getWorldTextureAtlas()).addTiledMapRegionsToAtlas(map2.getTiledMap(), "tiledMap");
+         map2.setTiledMap(map);
         } catch (MapLoadingExeception mapLoadingExeception) {
             mapLoadingExeception.printStackTrace();
         }
-        map2.setTiledMap(map);
 
         Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
         for(int count = 0; count<map2.getXTiles(); count++){
@@ -96,11 +97,14 @@ public class TestMap {
             landSquareTile.add(physicalObjectComponent);
             landSquareTile.getComponent(PositionComponent.class).setBounds(32, 32);
         }
+        world.setStartMap(0, 0);
+
         assetts.saveGame(world, "/world/");
-        world.setLoadPath("/world/");
+       world.setLoadPath("/world/");
             World newWorld=assetts.loadGame("/world/game.bin");
             newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
-            assetts.setWorld(newWorld);
+          assetts.setWorld(newWorld);
+        //assetts.setWorld(world);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }

@@ -178,6 +178,23 @@ public class MapTools {
         map.setTileSize(tileSizeX, tileSizeY);
         return map;
     }
+    public  LandSquareTile [] [] newTileMap (int xSize, int ySize){
+        LandSquareTile [] [] landSquareTiles= new LandSquareTile[xSize][ySize];
+        for (int countx = 0; countx < xSize; countx++) {
+            for (int county = 0; county < ySize; county++) {
+
+                landSquareTiles[countx][county]= new LandSquareTile(countx, county, ySize);
+
+
+            }
+
+            }
+
+ return  landSquareTiles;
+    }
+
+
+
     public static Building newBuilding(Building map, double gravity, String name, int xSize, int ySize, int tileSize) {
         if (map == null) {
             map = new Building();

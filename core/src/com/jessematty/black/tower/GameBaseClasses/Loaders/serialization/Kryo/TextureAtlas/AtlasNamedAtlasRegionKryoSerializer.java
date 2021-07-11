@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.TextureAtlas;
+package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.TextureAtlas;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;

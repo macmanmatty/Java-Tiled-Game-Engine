@@ -38,6 +38,7 @@ public class PositionComponent implements Component { //  a  position  and bound
     private float heightFromGround; // height from the ground or z coordinate of the entity
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
+    private String mapId;
 
     public PositionComponent(NumericStats stats) {
     }
@@ -253,5 +254,14 @@ public class PositionComponent implements Component { //  a  position  and bound
 
     public void setDrawBounds(boolean drawBounds) {
         this.drawBounds = drawBounds;
+    }
+
+    public void setMapID(String id) {
+
+        this.mapId=id;
+    }
+
+    public String getMapId() {
+        return mapId;
     }
 }

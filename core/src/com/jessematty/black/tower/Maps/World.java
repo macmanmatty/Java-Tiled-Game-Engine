@@ -18,6 +18,12 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+import com.jessematty.black.tower.Systems.GameEntitySystem;
+
+/**
+ * The Game World Class the has a 2d  array of game  maps that make up the world as well as the world's  texture atlas  and  ashley ecs entities
+ */
+
 public class World { // class that holds the array of maps  aka the world
         private LandMap [] [] worldMap;
         private WorldSettings worldSettings= new WorldSettings();
@@ -41,6 +47,9 @@ public class World { // class that holds the array of maps  aka the world
         private NamedTextureAtlas worldTextureAtlas= new NamedTextureAtlas();
         // the path to the above texture atlas
         private String worldTextureAtlasPath;
+        private OrderedMap< Class<? extends GameEntitySystem>, GameEntitySystem> systemsInWorld = new OrderedMap<>(); // the ashley systems in the world
+
+
 
         // used for  deserlization
         public World() {
@@ -124,15 +133,28 @@ public class World { // class that holds the array of maps  aka the world
             }
             return worldMap[x][y];
         }
-        public  GameMap  getGameMapOrNull(int x, int y){
-            // returns a game map with given coordinates  if map  if coordinates are out of  bounds returns null
+
+    /**
+     *             // returns a game map with given coordinates  if map
+     *             if coordinates are out of  bounds returns null
+     * @param x
+     * @param y
+     * @return GameMap
+     */
+    public  GameMap  getGameMapOrNull(int x, int y){
             if(x<0 || y<0 || x>xMaps-1 || y>yMaps-1){
                 return null;
             }
             return worldMap[x][y];
         }
-        public void placeMap(LandMap mapToPlace, int x, int y){
-            // set a given array square to a landmap instance 
+
+    /**
+     *   // set a given array square to a LandMap instance
+     * @param mapToPlace
+     * @param x
+     * @param y
+     */
+    public void placeMap(LandMap mapToPlace, int x, int y){
             GameMap currentMapAtLocation=getGameMapOrNull(x, y);
             if(currentMapAtLocation==null) { // no map exists place the map
                 if (mapToPlace != null) {
@@ -149,14 +171,27 @@ public class World { // class that holds the array of maps  aka the world
             
             
         }
+
+    /**
+     *  adds a land map to the world position x, y  if a map exists a`t given location replaces it
+     * @param x the location of the  map
+     * @param y the y location of the map
+     * @param map the land  map to place
+     */
         private  void setMap( int x, int y, LandMap map){
             worldMap[x][y] = map;
-            map.setWorldX(x);
-            map.setWorldY(y);
+            map.setWorldLocation(x, y);
+
 
 
             
         }
+    /**
+     *  removes a land map to the world position x, y  by setting it to null
+     * @param x the location of the  map
+     * @param y the y location of the map
+     *
+     */
         
         private void removeMap(int x, int y){
              LandMap map =worldMap[x][y];
@@ -185,7 +220,10 @@ public class World { // class that holds the array of maps  aka the world
     }
 
 
-
+    /**
+     * adds a libGDX Array Of Entities to the map
+     * @param entities
+     */
     private void addEntitiesToEngine(Array<Entity> entities){
             int size=entities.size;
             for(int count=0; count<size; count++){
@@ -194,6 +232,10 @@ public class World { // class that holds the array of maps  aka the world
             }
 
     }
+    /**
+     * removes a libGDX Array Of Entities from the map
+     * @param entities
+     */
     private void removeEntitiesFromEngine(Array<Entity> entities){
         int size=entities.size;
         for(int count=0; count<size; count++){
@@ -202,10 +244,17 @@ public class World { // class that holds the array of maps  aka the world
         }
 
     }
+
+    /**
+     * sets a  given map at location x, y as the current map and add its entities  to the engine
+     * @param x
+     * @param y
+     */
     public void setCurrentMap(int x, int y) {
             if(currentMap!=null){
                 removeTilesFromEngine(currentMap);
                 removeEntitiesFromEngine(currentMap.getEntities());
+                removeSystemsFromEngine(currentMap.getMapGameEntitySystemsClasses());
 
             }
         this.currentMap = worldMap[x][y];
@@ -213,8 +262,48 @@ public class World { // class that holds the array of maps  aka the world
         this.currentMapY=currentMap.getWorldY();
         addTilesToEngine(currentMap);
         addEntitiesToEngine(currentMap.getEntities());
+        addSystemsToEngine(currentMap.getMapGameEntitySystemsClasses());
+
 
     }
+
+    /**
+     * adds the maps  ashley entity systems to the game  engine's entity   systems
+     * @param mapGameEntitySystemsClasses // array holding the classes of the systems to add
+     */
+
+    private void addSystemsToEngine(Array<Class<? extends GameEntitySystem>> mapGameEntitySystemsClasses) {
+        int size=mapGameEntitySystemsClasses.size;
+
+        for(int count=0; count<size; count++){
+            engine.addSystem(systemsInWorld.get(mapGameEntitySystemsClasses.get(count)));
+
+        }
+
+
+    }
+
+
+
+    /**
+     * removes the maps  ashley entity systems from the game  engine's entity   systems
+     * @param mapGameEntitySystemsClasses // array holding the classes of the systems to remove
+     */
+    private void removeSystemsFromEngine(Array<Class<? extends GameEntitySystem>> mapGameEntitySystemsClasses) {
+        int size=mapGameEntitySystemsClasses.size;
+
+        for(int count=0; count<size; count++){
+            engine.removeSystem(systemsInWorld.get(mapGameEntitySystemsClasses.get(count)));
+
+        }
+
+
+    }
+    /**
+     * sets a  given map at location x, y as the start map for the player
+     * @param x
+     * @param y
+     */
     
     public void setStartMap(int x, int y){
             //sets the start map
@@ -241,25 +330,52 @@ public class World { // class that holds the array of maps  aka the world
             }
             return entitiesInWorld.get(id);
     }
-    private void addEntityToEngine(Entity entity){ // adds entity to ashley engine
+
+    /**
+     * // adds entity to ashley engine
+     * @param entity entity to add
+     */
+    private void addEntityToEngine(Entity entity){
        NotAddedToEngine notAddedToEngine= gameComponentMapper.getNotAddedToEngineComponentMapper().get(entity);
 
+        AddedToEngine addedToEngine= gameComponentMapper.getAddedToEngineComponentMapper().get(entity);
 
-       // if entity doesn't have the not add to engine marker add it
-       if(notAddedToEngine==null) {
-           engine.addEntity(entity);
-           entity.add(new AddedToEngine());
+       // if entity has the not add to engine marker  so don't add it the engine return instead
+       if(notAddedToEngine!=null) {
+
+           return;
        }
 
+           // entity has been added to engine return no need to add
+           if(addedToEngine!=null) {
+               return;
+           }
+               engine.addEntity(entity);
+               entity.add(new AddedToEngine());
+
+
+
+
     }
-    public void addEntityToMap(Entity entity, PositionComponent position){ // adds an entity to a  gameMap
+
+    /**
+     * // adds an entity to a game map
+     * @param entity
+     * @param position
+     */
+    public void addEntityToMap(Entity entity, PositionComponent position){
            GameMap map= getGameMapOrNull(position.getMapWorldLocationX(), position.getMapWorldLocationY());
            if(map==null){
                return;
            }
            map.addEntity( entity);
     }
-       public void addEntityToWorld(Entity entity) { // adds entity to the world,  and the map stored in its position
+
+    /**
+     * // adds entity to the world, and if applicable the engine and   and the map  and tiles stored in its position
+     * @param entity the entity to add
+     */
+       public void addEntityToWorld(Entity entity) {
         PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
            ID id= gameComponentMapper.getIdComponentMapper().get(entity);
           // if entity has no id give it one
@@ -269,6 +385,7 @@ public class World { // class that holds the array of maps  aka the world
            }
            // add entity to entity map
            entitiesInWorld.put(id.getId(), entity);
+           addEntityToEngine(entity);
 
 
         if (position!=null) { // has  position add entity to map
@@ -278,7 +395,11 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    public void addEntityToWorld(EntityBag entityBag) { // adds a bag of entities  to the world, engine, and the map stored in its position
+    /**
+     *   adds a bag of entities  to the world, engine, and the map stored in its position
+     * @param entityBag the list on entities to add to the world
+     */
+    public void addEntityToWorld(EntityBag entityBag) {
         Array<Entity> entities=entityBag.getEntities();
         int size=entities.size;
         for(int count=0; count<size; count++) {
@@ -288,7 +409,13 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    // removes and entity from the engine
+
+
+    /**
+     *      // removes an entity from the engine
+     * @param entity the entity to remove
+     */
+
     private void removeEntityFromEngine(Entity entity){
         engine.removeEntity(entity);
     }
@@ -299,8 +426,10 @@ public class World { // class that holds the array of maps  aka the world
         }
         map.removeEntity(  entity);
     }
-    // removes entity from the world, engine, and map.
-    public void removeEntityFromWorld(Entity entity){
+    /**
+     *   adds an antity   to the world, engine, and the map stored in its position
+     * @param entity the entity to add to the world
+     */    public void removeEntityFromWorld(Entity entity){
         PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
         removeEntityFromEngine(entity);
         removeEntityFromMap(entity, position);
@@ -310,7 +439,12 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    // adds the game map tiles to the engine
+
+
+    /**
+     *    adds the game map tiles to the engine
+     * @param gameMap the game map with tiles to add
+     */
     private  void addTilesToEngine(GameMap gameMap){
 
             LandSquareTile[] [] tileMap=gameMap.getMap();
@@ -321,8 +455,10 @@ public class World { // class that holds the array of maps  aka the world
             }
         }
     }
-    // removes the game map tiles from the engine
-
+    /**
+     *    removes  the game map tiles from  the engine
+     * @param gameMap the game map with tiles to remove
+     */
     private  void removeTilesFromEngine( GameMap gameMap){
         LandSquareTile[] [] tileMap=gameMap.getMap();
         for (int countx=0; countx<tileMap.length; countx++) {
@@ -340,6 +476,12 @@ public class World { // class that holds the array of maps  aka the world
     public GameComponentMapper getGameComponentMapper() {
         return gameComponentMapper;
     }
+
+    /**
+     *  creates a new world 2d array ox x maps by y maps
+     * @param xMaps
+     * @param yMaps
+     */
     public void createWorld(int xMaps, int yMaps) {
             this.xMaps=xMaps;
             this.yMaps=yMaps;
@@ -407,6 +549,7 @@ public class World { // class that holds the array of maps  aka the world
     public void setPlayer(Entity player) {
         this.player = player;
         this.playerID=getGameComponentMapper().getIdComponentMapper().get(player).getId();
+
     }
 
     public NamedTextureAtlas getWorldTextureAtlas() {
@@ -426,5 +569,32 @@ public class World { // class that holds the array of maps  aka the world
 
     public WorldSettings getWorldSettings() {
         return worldSettings;
+    }
+
+    /**
+     *  adds a game entity  system  to the engine
+     * @param system
+     * @param addToEngine
+     */
+
+    public void addSystem(GameEntitySystem system, boolean addToEngine){
+        systemsInWorld.put( system.getClass(), system);
+        if(addToEngine){
+            engine.addSystem(system);
+        }
+
+
+
+    }
+
+    public void removeSystem(GameEntitySystem system, boolean addToEngine) {
+        systemsInWorld.remove(system.getClass());
+            engine.removeSystem(system);
+
+
+    }
+
+    public OrderedMap<Class<? extends GameEntitySystem>, GameEntitySystem> getSystemsInWorld() {
+        return systemsInWorld;
     }
 }

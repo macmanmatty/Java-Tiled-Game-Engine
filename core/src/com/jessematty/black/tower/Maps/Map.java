@@ -45,8 +45,7 @@ public interface Map {
     public void setEntities(Array<Entity> entities);
     public int getWorldX() ;
     public int getWorldY() ;
-    public void setWorldX(int worldX) ;
-    public void setWorldY(int worldY) ;
+    public void setWorldLocation (int worldX, int worldY) ;
     public void setTileSize(int sizeX, int sizeY) ;
     public Settings getMapSettings();
 

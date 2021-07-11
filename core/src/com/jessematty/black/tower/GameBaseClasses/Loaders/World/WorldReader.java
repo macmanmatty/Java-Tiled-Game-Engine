@@ -19,14 +19,13 @@ public class WorldReader {
     private final EntityLoader entityLoader;
     private final GameAssets gameAssets;
 
-    ComponentMapper<PositionComponent> positionComponentMapper = ComponentMapper.getFor(PositionComponent.class);
 
-    public WorldReader(GameAssets assetts) {
-        this.assetts = assetts;
+    public WorldReader(GameAssets assets) {
+        this.assetts = assets;
         fileSeperator = FileUtilities.getFileSeparator();
         world = new World();
-        entityLoader=new EntityLoader(assetts);
-        this.gameAssets=assetts;
+        entityLoader=new EntityLoader(assets);
+        this.gameAssets=assets;
 
 
     }

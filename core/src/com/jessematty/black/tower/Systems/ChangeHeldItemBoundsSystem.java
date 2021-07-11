@@ -31,11 +31,8 @@ public class ChangeHeldItemBoundsSystem extends GameEntitySystem {
     ImmutableArray<Entity> entities;
 
 
-    MovableComponent movableComponent;
-    PhysicalObjectComponent object;
-
-    public ChangeHeldItemBoundsSystem(MapDraw draw, int priorty) {
-        super(priorty, draw);
+    public ChangeHeldItemBoundsSystem(MapDraw draw, int priority) {
+        super(priority, draw);
     }
 
 

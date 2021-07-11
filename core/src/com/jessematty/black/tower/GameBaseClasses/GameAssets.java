@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
@@ -355,7 +356,7 @@ public class GameAssets { // class that holds  the assett assetManager and game 
     public void saveObject(Object object, String path, boolean append){
         jsonLoader.writeObjectToFile(object, path, append);
     }
-    public void saveTiledMap(TiledMap map, int xSize, int ySize , String path, String atlasName){
+    public void saveTiledMap(TiledMap map, int xSize, int ySize , String path, String atlasName) throws MapLoadingExeception {
         jsonLoader.saveTiledMap(map, xSize, ySize, path,  atlasName, this);
     }
     public TiledMap loadSavedTiledMap( String path){

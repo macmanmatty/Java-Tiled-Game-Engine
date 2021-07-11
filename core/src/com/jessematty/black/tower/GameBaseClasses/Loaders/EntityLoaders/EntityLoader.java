@@ -7,7 +7,7 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.EntitySerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.TextureAtlas.AtlasNamedAtlasRegionSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.TextureAtlas.AtlasNamedAtlasRegionSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Maps.World;

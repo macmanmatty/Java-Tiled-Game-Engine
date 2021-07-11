@@ -11,8 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WorldWriter {
-private String fileSeperator;
-private boolean packAssetts;
+private boolean packAssets;
 private int packWidth;
 private int packHeight;
     private final EntityLoader entityLoader;
@@ -39,12 +38,12 @@ private int packHeight;
 
     }
 
-    public boolean isPackAssetts() {
-        return packAssetts;
+    public boolean isPackAssets() {
+        return packAssets;
     }
 
-    public void setPackAssetts(boolean packAssetts) {
-        this.packAssetts = packAssetts;
+    public void setPackAssets(boolean packAssets) {
+        this.packAssets = packAssets;
     }
 
     public int getPackWidth() {

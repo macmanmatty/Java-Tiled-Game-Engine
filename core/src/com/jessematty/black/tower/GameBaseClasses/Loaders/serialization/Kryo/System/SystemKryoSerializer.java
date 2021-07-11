@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World;
+package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.System;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
@@ -17,13 +17,13 @@ import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
-public class MapKryoSerializer extends Serializer<LandMap> {
+public class SystemKryoSerializer extends Serializer<LandMap> {
 
     private final GameAssets gameAssets;
     private final TransientChecker transientChecker = new TransientChecker();
 
 
-    public MapKryoSerializer(GameAssets gameAssets) {
+    public SystemKryoSerializer(GameAssets gameAssets) {
         this.gameAssets = gameAssets;
     }
 

@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public interface TiledMapSaver {
-    TiledMap loadMap(GameAssets assetts);
-    void saveMap(TiledMap tiledMap, String atlasName);
+    TiledMap loadMap(GameAssets assets);
+    void saveMap(TiledMap tiledMap, String atlasName) throws MapLoadingExeception;
 
 }

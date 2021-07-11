@@ -17,6 +17,7 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
     public TiledMapSerializer( boolean fast , GameAssets gameAssets) {
         this.gameAssets = gameAssets;
         this.fast=fast;
+        this.fast=true;
 
 
     }
@@ -37,7 +38,11 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
            tiledMapSaver= new MemoryEfficentTiledMapSaver();
 
         }
-        tiledMapSaver.saveMap(tiledMap, "assetts");
+        try {
+            tiledMapSaver.saveMap(tiledMap, "assetts");
+        } catch (MapLoadingExeception mapLoadingExeception) {
+            mapLoadingExeception.printStackTrace();
+        }
         kryo.writeClassAndObject(output, tiledMapSaver);
 
 
@@ -65,7 +70,9 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
 
 
 
-       return  tiledMapSaver.loadMap(gameAssets);
+     TiledMap map = tiledMapSaver.loadMap(gameAssets);
+
+        return map;
 
 
 

@@ -14,6 +14,8 @@ import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+import com.jessematty.black.tower.Systems.GameEntitySystem;
+
 import java.util.ArrayList;
 import java.util.List;
 public abstract  class GameMap  implements Map { // baisc landSquareTileMap class all maps extend
@@ -24,8 +26,7 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	protected transient Skin skin; // UI skin  for landSquareTileMap
 	protected  transient Array<Entity> entities = new Array<Entity>();
 	protected transient ComponentMapper<PositionComponent> positionComponentMapper=ComponentMapper.getFor(PositionComponent.class);
-	protected transient  Array<EntitySystem> mapGameEntitySystems= new Array<>();  // array of gam,e engine systems unique to this map  they are added and removed from the engine  when the map changes
-	protected Array<String> mapGameEntitySystemsPaths= new Array(); //  the paths to map game entity Systems and paths  ie systems unique to this map.
+	protected transient  Array<Class <? extends GameEntitySystem>> mapGameEntitySystemsClasses = new Array<>();  // array of game engine systems unique to this map  they are added and removed from the engine  when the map changes
 	protected float maxXScreen;  // max x size in world units
 	protected  float maxYScreen; // max y size in world units
 	protected  int xTiles; // map  x Size in total tile units 1 tile unit = tileSizeX
@@ -39,6 +40,8 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	protected  boolean gettingBrighter;
 	protected  boolean lightChanges;
 	protected transient Texture mapImage; // the image of the  the map  including all  tiled map tiles  and  drawable map entities
+	protected String id;
+
 
 
 	protected GameMap() {
@@ -125,16 +128,26 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	}
 
 
+
+
 	/**
-	 *  add an entity to map and the maps tiles
+	 *  add an entity to map and the maps tiles and  adds entity to the appropriate  landsquare tiles on the map based on its bounds
 	 * @param entity the entity to add
 	 */
-	public void addEntity(  Entity entity) { // adds entity to the approiate landsquare tiles on the map based on its bounds
+	public void addEntity(  Entity entity) {
 		PositionComponent position=positionComponentMapper.get(entity);
 		if (position == null) {
 			return;
 		}
+
+		if(position.getMapId()!=id) {
 			entities.add(entity);
+			position.setMapWorldLocationY(worldY);
+			position.setMapWorldLocationX(worldX);
+			position.setMapID(id);
+
+
+		}
 			Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
 			position.setTiles(tiles);
 		}
@@ -168,11 +181,19 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	}
 	public void setTiledMap(TiledMap tiledMap) {
 		this.tiledMap = tiledMap;
+
 	}
 	public Skin getSkin() {
 		return skin;
 	}
 
+
+	/**
+	 *  gets the screen coordinates for a x, y tile location
+	 * @param x
+	 * @param y
+	 * @return Vector2 the screen coordinates of the tile
+	 */
 
 	public Vector2 getScreenCoordinatesFromTileCoordinates(int x, int y){
         float screenLocationX = (x + 1) * 32;
@@ -198,7 +219,9 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 		gameMapSettings.getSettings().put("newMap", true);
 
 	}
-	
+
+
+	// retusn the gravity for the map if no gravity is set returns -9.8
 	public double getGravity() {
 		Double gravity  =gameMapSettings.getSimpleSetting("gravity", Double.class);
 		if(gravity!=null){
@@ -415,27 +438,29 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	public int getWorldY() {
 		return worldY;
 	}
-	public void setWorldX(int worldX) {
+
+	/**
+	 * set the x, y of the map on the world
+	 * @param worldX
+	 * @param worldY
+	 */
+	public void setWorldLocation(int worldX, int worldY) {
 		gameMapSettings.getSettings().put("worldX", worldX);
 		this.worldX=worldX;
-	}
-	public void setWorldY(int worldY) {
 		gameMapSettings.getSettings().put("worldY", worldY);
 		this.worldY=worldY;
+		id="Id"+worldX+"x"+worldY+"Y"+hashCode();
+		gameMapSettings.getSettings().put("id", id);
 	}
+
 	
-	public Array<EntitySystem> getMapGameEntitySystems() {
-		return mapGameEntitySystems;
+	public Array<Class<? extends GameEntitySystem>> getMapGameEntitySystemsClasses() {
+		return mapGameEntitySystemsClasses;
 	}
-	public void setMapGameEntitySystems(Array<EntitySystem> mapGameEntitySystems) {
-		this.mapGameEntitySystems = mapGameEntitySystems;
+	public void setMapGameEntitySystemsClasses(Array<Class<? extends GameEntitySystem>> mapGameEntitySystemsClasses) {
+		this.mapGameEntitySystemsClasses = mapGameEntitySystemsClasses;
 	}
-	public Array<String> getMapGameEntitySystemsPaths() {
-		return mapGameEntitySystemsPaths;
-	}
-	public void setMapGameEntitySystemsPaths(Array<String> mapGameEntitySystemsPaths) {
-		this.mapGameEntitySystemsPaths = mapGameEntitySystemsPaths;
-	}
+
 	public GameMapSettings getGameMapSettings() {
 		return gameMapSettings;
 	}

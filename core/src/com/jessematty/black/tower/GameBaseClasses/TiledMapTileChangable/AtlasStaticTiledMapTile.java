@@ -8,6 +8,9 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 
 import javafx.scene.paint.Color;
 
+/** @brief Represents a non changing {@link com.badlogic.gdx.maps.tiled.TiledMapTile} (can be cached)
+   */
+
 public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class the saves the atlas region name of the tile
     // also has logic to change a  tiles color if used with the correct tiled map renderer
     private int id;

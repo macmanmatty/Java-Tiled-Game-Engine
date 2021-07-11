@@ -2,6 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class CellSaver {
     boolean colored;
     float interval;
     float brightness;
-    Color color;
+    NamedColor color;
     Class <? extends TiledMapTile> tileClass; // the class to desearlize into
     int id;
     public CellSaver() {
@@ -86,11 +87,11 @@ public class CellSaver {
         this.brightness = brightness;
     }
 
-    public Color getColor() {
+    public NamedColor getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(NamedColor color) {
         this.color = color;
     }
 

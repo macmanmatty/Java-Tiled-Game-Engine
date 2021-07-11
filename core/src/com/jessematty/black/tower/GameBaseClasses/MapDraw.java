@@ -29,7 +29,6 @@ import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Table.UITable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars.DefaultZRPGBottomWindow;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.Print;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -115,23 +114,33 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
                 gameCamera.centerCameraToPosition(player.getPosition());
             }
         }
-        @Override
+
+    /**
+     * // the main game loop
+     * @param time libGDX delta time
+     */
+    @Override
         public void render (float time) {
-            Gdx.gl.glClearColor(0, 0, 0, 0); // clear the screen
+            Gdx.gl.glClearColor(1, 1, 0, 0); // clear the screen
            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             // move camera to player position
             // draw game components  on   the screen
+        tiledMapRenderer.setView(gameCamera);
+       tiledMapRenderer.render();
             batch.setProjectionMatrix(gameCamera.combined);
             shapeRenderer.setProjectionMatrix(gameCamera.combined);
             gameCamera.update();
-            tiledMapRenderer.setView(gameCamera);
-            tiledMapRenderer.render();
+
             float  deltaTime=Gdx.graphics.getDeltaTime();
             currentMap.mapTurnActions(deltaTime, gameTime);
             gameTime.countTime();
             engine.update(deltaTime);
+
+
+
             uiStage.act();
-            uiStage.draw();
+          //  uiStage.draw();
+
         }
 
     @Override
@@ -217,8 +226,8 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
           this.currentMap.setCurrentMap(false);
       }
         newMap.setCurrentMap(true);
-      EngineSetup.removeSystemsFromEngine(engine, currentMap.getMapGameEntitySystems());
-      EngineSetup.addSystemsToEngine(engine, newMap.getMapGameEntitySystems());
+      EngineSetup.removeSystemsFromEngine(engine, currentMap.getMapGameEntitySystemsClasses());
+      EngineSetup.addSystemsToEngine(engine, newMap.getMapGameEntitySystemsClasses());
        gameCamera.calculateScreenMaxes(newMap);
       currentTiledMap = currentMap.getTiledMap();
       tiledMapRenderer = new OrthogonalTiledMapRenderer(currentTiledMap, 1);
