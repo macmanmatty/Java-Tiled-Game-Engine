@@ -6,9 +6,11 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.jessematty.black.tower.Components.NewComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.TransientChecker;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -29,8 +31,21 @@ public class LandSquareTileKryoSerializer extends Serializer<LandSquareTile> {
         Array<Component> components= new Array<>();
         for (Component component : entity.getComponents()) {
 
-            if (transientChecker.isTransient(component.getClass())) {
-                continue;
+
+            if(component.getClass().isAnnotationPresent(NewComponent.class)){
+                try {
+                    component=component.getClass().newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if(component.getClass().isAnnotationPresent(Transient.class)){
+                entity.remove(component.getClass());
+
+
             }
             if(component instanceof SerializableComponet){
                 ((SerializableComponet) component).serialize();

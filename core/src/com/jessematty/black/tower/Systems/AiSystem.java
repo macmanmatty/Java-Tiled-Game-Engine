@@ -36,7 +36,7 @@ public abstract class AiSystem extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++) {
          AIComponent aiComponent =  aiComponentMapper.get(entities.get(count));
-         aiComponent.getBrain().act(getDraw().getCurrentMap());
+         aiComponent.getBrain().act(getWorld().getCurrentMap());
 
         }
 

@@ -11,13 +11,13 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public abstract class GameEntitySystem extends EntitySystem   {
      private final  MapDraw draw;
      private final World world;
-     private final GameAssets asssets;
+     private final GameAssets assets;
      private final KeyListener keyListener;
 
     public GameEntitySystem(MapDraw draw) {
         this.draw = draw;
         this.world=draw.getWorld();
-        this.asssets=draw.getAssetts();
+        this.assets =draw.getAssetts();
         this.keyListener=draw.getAssetts().getGameInput().getKeyListener();
 
 
@@ -27,7 +27,7 @@ public abstract class GameEntitySystem extends EntitySystem   {
         super(priority);
         this.draw = draw;
         this.world=draw.getWorld();
-        this.asssets=draw.getAssetts();
+        this.assets =draw.getAssetts();
         this.keyListener=draw.getAssetts().getGameInput().getKeyListener();
 
 
@@ -62,8 +62,8 @@ public abstract class GameEntitySystem extends EntitySystem   {
         return world;
     }
 
-    public final  GameAssets getAsssets() {
-        return asssets;
+    public final  GameAssets getAssets() {
+        return assets;
     }
 
     public KeyListener getKeyListener() {

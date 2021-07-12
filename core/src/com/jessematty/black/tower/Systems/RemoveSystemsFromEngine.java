@@ -3,11 +3,12 @@ package com.jessematty.black.tower.Systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.RemoveSystemsComponent;
+import com.jessematty.black.tower.Components.Systems.RemoveSystemsComponent;
 import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -48,7 +49,7 @@ public class RemoveSystemsFromEngine extends GameEntitySystem { // checks  the d
             Array<Class<?extends GameEntitySystem>> systemsToRemove= RemoveSystemsComponent.getSystemComponentArray();
             int sizes=systemsToRemove.size;
             Engine engine=getEngine();
-           OrderedMap< Class<? extends GameEntitySystem>, GameEntitySystem> worldSystems=getWorld().getSystemsInWorld();
+           OrderedMap< Class<? extends EntitySystem>, EntitySystem> worldSystems=getWorld().getSystemsInWorld();
             for(int counts=0; counts<sizes; counts++){
 
                engine.removeSystem(worldSystems.get(systemsToRemove.get(count)));

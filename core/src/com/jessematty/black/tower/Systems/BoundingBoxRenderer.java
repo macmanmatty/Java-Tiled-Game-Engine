@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
+import com.jessematty.black.tower.Components.Transient;
 
 @Transient
 

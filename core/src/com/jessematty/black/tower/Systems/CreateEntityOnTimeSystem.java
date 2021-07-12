@@ -50,7 +50,7 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
                     if(position!=null) {
                         String entityToCreateID = createEntityOnTime.getEntityToCreateID();
                         Entity entityToCreate = getWorld().getEntity(entityToCreateID);
-                        Entity entityCopy = getDraw().getAssetts().getJsonLoader().copyObject(entityToCreate, Entity.class);
+                        Entity entityCopy = getAssets().getJsonLoader().copyObject(entityToCreate, Entity.class);
 
                         entityCopy.add(position);
                         getWorld().addEntityToWorld(entityCopy);

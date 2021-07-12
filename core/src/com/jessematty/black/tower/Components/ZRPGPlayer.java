@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -48,7 +49,7 @@ public class ZRPGPlayer implements Component {
     private   Name name;
     private  World world;
     private  NumericStat speed;
-    private   ImageComponent imageComponent;
+    private ImageComponent imageComponent;
     private boolean showBottomBar;
     private boolean autoPickUpFirstItem;
     private DominateHand dominateHand;
@@ -77,7 +78,7 @@ public class ZRPGPlayer implements Component {
         this.eyes= playerEntity.getComponent(Eyes.class);
         this.nose= playerEntity.getComponent(Nose.class);
         this.body=playerEntity.getComponent(Body.class);
-        this.imageComponent=playerEntity.getComponent(ImageComponent.class);
+        this.imageComponent=playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.ImageComponent.class);
         this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
         this.id=playerEntity.getComponent(ID.class).getId();
         this.rightHand=world.getEntity(body.getBodyParts().get("rightHand"));

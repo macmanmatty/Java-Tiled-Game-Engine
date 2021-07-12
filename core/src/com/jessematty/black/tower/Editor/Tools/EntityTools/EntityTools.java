@@ -11,7 +11,7 @@ import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;

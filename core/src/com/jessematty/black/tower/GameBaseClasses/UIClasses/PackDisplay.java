@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.ZRPGPlayer;

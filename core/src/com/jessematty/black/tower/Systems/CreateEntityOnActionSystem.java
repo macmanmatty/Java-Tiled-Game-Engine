@@ -54,7 +54,7 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
                      positionComponent.movePosition(startPositionOffset.x, startPositionOffset.y, startPositionOffset.z);
 
                  }
-                 EntityUtilities.copyEntity(getAsssets(), entityToCreate);
+                 EntityUtilities.copyEntity(getAssets(), entityToCreate);
 
                  setLocationAndAddToMap(entity);
              }

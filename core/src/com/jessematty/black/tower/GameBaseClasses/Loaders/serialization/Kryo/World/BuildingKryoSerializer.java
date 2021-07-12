@@ -14,7 +14,6 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class BuildingKryoSerializer extends Serializer<Building> {
 
     private final GameAssets gameAssets;
-    private final TransientChecker transientChecker = new TransientChecker();
 
 
     public BuildingKryoSerializer(GameAssets gameAssets) {

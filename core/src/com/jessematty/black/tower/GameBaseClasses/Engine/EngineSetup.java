@@ -101,7 +101,7 @@ public class EngineSetup {
     };
 
     /**
-     *
+     * addes the base game systems to the engine these do NOT get added to the world as they should not be removed  or modified once the game has started
      * @param engine the games engine
      * @param draw the map drawing class
      * @param shapes // the libGDX shape drawing Batch class

@@ -38,7 +38,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
 
         positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
         randomlyCreateAndPlaceEntityComponentMapper =GameComponentMapper.getRandomlyCreateAndPlaceEntityComponentMapper();
-        copyObject= new CopyObject(getAsssets());
+        copyObject= new CopyObject(getAssets());
     }
 
     @Override

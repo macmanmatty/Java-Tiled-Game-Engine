@@ -19,7 +19,6 @@ import com.jessematty.black.tower.Maps.World;
 public class WorldKryoSerializer extends Serializer<World> {
 
     private final GameAssets gameAssets;
-    private final TransientChecker transientChecker = new TransientChecker();
 
 
     public WorldKryoSerializer(GameAssets gameAssets) {
@@ -57,40 +56,13 @@ public class WorldKryoSerializer extends Serializer<World> {
     }
 
 
-    /**
-     *  removes  all non-serializable components  from the entities in the game before saving them
-     *  and copies the object map to avoid objects  that be serialized attempted to be serialized by kryo
-     * @param world the world to serialize the entities
-     * @return
-     */
+  
    public OrderedMap<String, Entity> removeUnserializableComponentsFromEntities(World world) throws IllegalAccessException, InstantiationException {
 
        OrderedMap<String, Entity> entityMap=world.getEntitiesInWorld();
        OrderedMap<String, Entity> newEntityMap= new OrderedMap<>();
 
-       Values<Entity> entities=entityMap.values();
-       while(entities.hasNext()){
-           Entity entity=entities.next();
-           ImmutableArray<Component> componentArray=entity.getComponents();
 
-
-
-           for(int count=0; count<componentArray.size(); count++){
-               Component component=componentArray.get(count);
-               if(component.getClass().isAnnotationPresent(NewComponent.class)){
-                   component=component.getClass().newInstance();
-
-               }
-               if(component.getClass().isAnnotationPresent(Transient.class)){
-                   entity.remove(component.getClass());
-                   count--;
-
-               }
-
-
-           }
-
-       }
        newEntityMap.putAll(entityMap);
        return newEntityMap;
 

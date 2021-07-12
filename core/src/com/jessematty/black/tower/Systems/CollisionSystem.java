@@ -64,7 +64,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
             if(rectangle.x==0 || rectangle.y==0){
                 continue;
             }
-            GameMap map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+            GameMap map=getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
 
             int tileSizeX=map.getTileWidth();
             int tileSizeY=map.getTileHeight();

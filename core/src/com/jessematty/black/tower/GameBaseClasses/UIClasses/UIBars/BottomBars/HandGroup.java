@@ -9,11 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ActionButton;
 
 public class HandGroup extends HorizontalGroup {
 

@@ -27,7 +27,6 @@ public  class AddComponentToEntity extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
         entities=getEngine().getEntitiesFor(Family.all(AddComponent.class).get());
-
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);

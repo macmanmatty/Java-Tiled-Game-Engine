@@ -20,7 +20,6 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class SystemKryoSerializer extends Serializer<LandMap> {
 
     private final GameAssets gameAssets;
-    private final TransientChecker transientChecker = new TransientChecker();
 
 
     public SystemKryoSerializer(GameAssets gameAssets) {

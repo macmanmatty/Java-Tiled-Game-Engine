@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Maps;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -47,7 +48,9 @@ public class World { // class that holds the array of maps  aka the world
         private NamedTextureAtlas worldTextureAtlas= new NamedTextureAtlas();
         // the path to the above texture atlas
         private String worldTextureAtlasPath;
-        private OrderedMap< Class<? extends GameEntitySystem>, GameEntitySystem> systemsInWorld = new OrderedMap<>(); // the ashley systems in the world
+    //  game  added the ashley systems in the world
+    //these do NOT include the game  base systems  such as render,  die, or animation  as they should not be removed  or modified once the game has started
+    private OrderedMap< Class<? extends EntitySystem>, EntitySystem> systemsInWorld = new OrderedMap<>();
 
 
 
@@ -116,9 +119,16 @@ public class World { // class that holds the array of maps  aka the world
             }
             return new Vector2(screenX, screenY);
         }
+
+    /**
+     *  // returns a valid game map with given coordinates  if map  if coordinates ar out bounds returns the closest in bound map
+     *             //if space is empty map can be null
+     * @param x the x map coordinate
+     * @param y the y map coordinate
+     * @return
+     */
         public LandMap getMap(int x, int y){ 
-            // returns a valid game map with given coordinates  if map  if coordinates ar out bounds returns the closest in bound map
-            //if space is empty map can be null
+
             if(x<0){
                 x=0;
             }
@@ -577,7 +587,7 @@ public class World { // class that holds the array of maps  aka the world
      * @param addToEngine
      */
 
-    public void addSystem(GameEntitySystem system, boolean addToEngine){
+    public void addSystem(EntitySystem system, boolean addToEngine){
         systemsInWorld.put( system.getClass(), system);
         if(addToEngine){
             engine.addSystem(system);
@@ -594,7 +604,7 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    public OrderedMap<Class<? extends GameEntitySystem>, GameEntitySystem> getSystemsInWorld() {
+    public OrderedMap<Class<? extends EntitySystem>, EntitySystem> getSystemsInWorld() {
         return systemsInWorld;
     }
 }

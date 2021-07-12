@@ -226,8 +226,6 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
           this.currentMap.setCurrentMap(false);
       }
         newMap.setCurrentMap(true);
-      EngineSetup.removeSystemsFromEngine(engine, currentMap.getMapGameEntitySystemsClasses());
-      EngineSetup.addSystemsToEngine(engine, newMap.getMapGameEntitySystemsClasses());
        gameCamera.calculateScreenMaxes(newMap);
       currentTiledMap = currentMap.getTiledMap();
       tiledMapRenderer = new OrthogonalTiledMapRenderer(currentTiledMap, 1);

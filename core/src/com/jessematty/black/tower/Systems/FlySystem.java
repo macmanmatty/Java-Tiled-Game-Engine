@@ -48,7 +48,7 @@ public class FlySystem extends GameEntitySystem {
             action.setStat("move");
                 PositionComponent position = positions.get(entity);
                 MovableComponent movableComponent = moveables.get(entity);
-                GameMap  map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+                GameMap  map=getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
 
                 if (movableComponent.getCurrentSpeed() > 0) {
                 }

@@ -40,8 +40,8 @@ public class SystemLoader {
             // Load in the class; MyClass.class should be located in
 
             Class clas = this.classLoader.loadClass(filePath);
-            Constructor<GameEntitySystem> constructior=clas.getConstructor(MapDraw.class);
-            GameEntitySystem gameEntitySystem= constructior.newInstance(mapDraw);
+            Constructor<GameEntitySystem> constructor=clas.getConstructor(MapDraw.class);
+            GameEntitySystem gameEntitySystem= constructor.newInstance(mapDraw);
             engine.addSystem(gameEntitySystem);
 
         } catch (

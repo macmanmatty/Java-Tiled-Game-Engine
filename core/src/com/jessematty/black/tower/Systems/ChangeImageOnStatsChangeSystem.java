@@ -65,7 +65,7 @@ public class ChangeImageOnStatsChangeSystem extends GameEntitySystem {
                 boolean hasStringStats=CheckStats.valuesAreEqual(stringStatsToChageOn, stringStats);
                 boolean changed=false;
                 if(hasBooleanStats==true&& hasNumericStats==true && hasStringStats==true){
-                        drawableComponent.setCurrentRegion(getAsssets().getAtlasRegionByName(changeImageOnStat.getImageName(), changeImageOnStat.getAtlasName()));
+                        drawableComponent.setCurrentRegion(getAssets().getAtlasRegionByName(changeImageOnStat.getImageName(), changeImageOnStat.getAtlasName()));
                         changed=true;
                 }
                 if(changed==false && incremental==true){
