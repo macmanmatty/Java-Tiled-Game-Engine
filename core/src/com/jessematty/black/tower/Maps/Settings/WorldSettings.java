@@ -20,6 +20,9 @@ public   class WorldSettings extends Settings {
         settings.put("yMaps", 10);
         settings.put("startMapX", 0);
         settings.put("startMapY", 0);
+        settings.put("assetsPath", "/world/assetts.atlas");
+
+
     }
 
 

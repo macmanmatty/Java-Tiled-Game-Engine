@@ -97,8 +97,8 @@ public class MainScreen implements Screen  {
 
 
         skin=assetts.getDefaultSkin();
-        assetts.loadInternalTextureAtlas("assetts" );
-        assetts.loadInternalTextureAtlas("assets" );
+        assetts.loadTextureAtlasFromExternalFile("textureAtlases/assetts.atlas" );
+       // assetts.loadTextureAtlasFromExternalFile("textureAtlases/assets.atlas" );
 
         assetts.finishLoading();
 

@@ -11,15 +11,8 @@ public class NamedTextureAtlas extends TextureAtlas {
 
     private String atlasFileName="atlas";
 
-
     public NamedTextureAtlas() {
     }
-
-
-
-
-
-
 
     public NamedTextureAtlas(String internalPackFile) {
         super(internalPackFile);
@@ -45,7 +38,6 @@ public class NamedTextureAtlas extends TextureAtlas {
         super(data);
     }
 
-
     public AtlasNamedAtlasRegion addRegion(String name, AtlasNamedAtlasRegion atlasRegion) {
          atlasRegion.setAtlasName(atlasFileName);
         super.addRegion(name, atlasRegion);
@@ -62,8 +54,6 @@ public class NamedTextureAtlas extends TextureAtlas {
     }
 
     public void addTextureRegionPage(TextureRegionPage textureRegionPage){
-
-
 
 
     }

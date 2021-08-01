@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.Objects;
+
 
 // atlas region that stores the name of the atlas it is stored in
 public class AtlasNamedAtlasRegion  extends AtlasRegion  {
@@ -93,4 +98,7 @@ public class AtlasNamedAtlasRegion  extends AtlasRegion  {
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }
+
+
+
 }

@@ -197,7 +197,7 @@ public class MapDraw implements NamedScreen {// class for drawing the currentGam
     }
     @Override
     public void hide() {
-        assetts.saveGame(world, assetts.getSettings().getPreferences().getString("savePath"));
+      //  assetts.saveGame(world, assetts.getSettings().getPreferences().getString("savePath"));
 
     }
     @Override

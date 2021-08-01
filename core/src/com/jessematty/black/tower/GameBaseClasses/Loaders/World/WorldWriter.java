@@ -26,8 +26,6 @@ private int packHeight;
     public void saveWorld(World world, String path) {
         try {
         File file=FileUtilities.createFile(path, "game.bin");
-
-
             Output output= new Output(new FileOutputStream(file));
             gameAssets.getKryo().writeClassAndObject(output, world);
             output.close();

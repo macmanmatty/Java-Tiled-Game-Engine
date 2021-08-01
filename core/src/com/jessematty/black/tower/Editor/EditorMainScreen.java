@@ -40,7 +40,7 @@ public class EditorMainScreen implements NamedScreen {
         }
         public void show() {
             this.skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
-            gameAssets.loadTextureAtlasByPath("/AssetsPacked/editorAssets.atlas");
+            gameAssets.loadTextureAtlasFromExternalFile("/AssetsPacked/editorAssets.atlas");
             if(!VisUI.isLoaded()) {
                 VisUI.load(skin);
             }

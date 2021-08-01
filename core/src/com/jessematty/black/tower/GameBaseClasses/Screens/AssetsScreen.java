@@ -102,7 +102,7 @@ public class AssetsScreen implements Screen  {
 
 
         skin=assetts.getDefaultSkin();
-        assetts.loadInternalTextureAtlas("assetts.atlas" );
+        assetts.loadTextureAtlasFromExternalFile("assetts.atlas" );
 
         assetts.finishLoading();
 

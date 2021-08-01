@@ -12,8 +12,11 @@ import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.NewComponent;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureAtlasPacker;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.TransientChecker;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.TextureTools;
 import com.jessematty.black.tower.Maps.LandMap;
+import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.Maps.World;
 
 public class WorldKryoSerializer extends Serializer<World> {
@@ -27,6 +30,9 @@ public class WorldKryoSerializer extends Serializer<World> {
 
     @Override
     public void write(Kryo kryo, Output output, World world) {
+
+
+        kryo.writeClassAndObject(output, world.getWorldSettings());
 
 
         OrderedMap<String, Entity>  entities= null;
@@ -73,8 +79,19 @@ public class WorldKryoSerializer extends Serializer<World> {
     public World read(Kryo kryo, Input input, Class<World> type) {
 
             World world = new World();
-      OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
+        WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
+        world.setWorldSettings(worldSettings);
+        String assetsPath=(String) worldSettings.getSettings().get("assetsPath");
+        if(!gameAssets.getAssetManager().isLoaded(assetsPath));
+        {
+           gameAssets.loadTextureAtlasFromExternalFile(assetsPath);
+           gameAssets.finishLoading();
+        }
+        OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
         LandMap [] [] maps= (LandMap[][]) kryo.readClassAndObject(input);
+
+
+
         world.setWorldMap(maps);
         int mapX=kryo.readObject(input, Integer.class);
         int mapY=kryo.readObject(input, Integer.class);
@@ -85,12 +102,10 @@ public class WorldKryoSerializer extends Serializer<World> {
         }
         world.setCurrentMap(mapX, mapY);
         world.setPlayer(player);
+
         gameAssets.finishLoading();
 
         return  world;
-
-
-
 
 
     }

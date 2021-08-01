@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.Editor.Tools.MapTools;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
@@ -19,6 +20,7 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTex
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.PageDimensions;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.TextureTools;
 
 import java.rmi.server.UID;
@@ -29,10 +31,12 @@ public class TiledMapTools {
 
 
     private ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
-    private final NamedTextureAtlas namedTextureAtlas;
+    private final TextureAtlas namedTextureAtlas;
+    private String filePath;
 
-    public TiledMapTools(NamedTextureAtlas namedTextureAtlas) {
+    public TiledMapTools(TextureAtlas namedTextureAtlas, String atlasName) {
         this.namedTextureAtlas = namedTextureAtlas;
+        this.filePath=atlasName;
     }
 
 
@@ -48,16 +52,16 @@ public class TiledMapTools {
 
         TiledMap newTiledMap= new TiledMap();
         MapProperties oldMapProperties = oldTiledMap.getProperties();
+        MapProperties newMapProperties=newTiledMap.getProperties();
 
         if(oldMapProperties!=null) {
-            MapProperties newMapProperties=newTiledMap.getProperties();
 
         newMapProperties.put("width", oldMapProperties.get("width", Integer.class));
             newMapProperties.put("height", oldMapProperties.get("height", Integer.class));
             newMapProperties.put("tilewidth", oldMapProperties.get("tilewidth", Integer.class));
             newMapProperties.put("tileheight", oldMapProperties.get("tileheight", Integer.class));
            }
-
+        newMapProperties.put("atlasName",  filePath);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
         if(oldMapLayers==null){
             throw new MapLoadingExeception("Tiled Map Has No Layers");
@@ -135,7 +139,7 @@ public class TiledMapTools {
         atlasNamedAtlasRegion.setPageName(mapName + "Tiles");
 
         String tileName = "";
-        if (namedTextureAtlas.findRegion(tileName)==null) {
+        if (!InList.isInList(namedTextureAtlas, region)) {
             // add the atlas and give it a name
             tileName = createTileName();
             namedTextureAtlas.addRegion(tileName, region);
@@ -195,7 +199,7 @@ public class TiledMapTools {
 
             String tileName = "";
             String [] names= new String [size];
-            if (namedTextureAtlas.findRegion(tileName)==null) {
+            if (!InList.isInList(namedTextureAtlas, region)) {
                 // add the atlas and give it a name
                 tileName = createTileName();
                 namedTextureAtlas.addRegion(tileName, region);
@@ -232,7 +236,7 @@ public class TiledMapTools {
         return regionNames;
     }
 
-    public NamedTextureAtlas getNamedTextureAtlas() {
+    public TextureAtlas getTextureAtlas() {
         return namedTextureAtlas;
     }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 /**
- * class for saving a  libgdx tiled map cell
+ * class for saving a  libGDX tiled map cell
  */
 public class CellSaver {
     boolean flipHorizontal;
@@ -75,9 +75,6 @@ public class CellSaver {
         return colored;
     }
 
-    public void setColored(boolean colored) {
-        this.colored = colored;
-    }
 
     public float getBrightness() {
         return brightness;
@@ -92,7 +89,16 @@ public class CellSaver {
     }
 
     public void setColor(NamedColor color) {
-        this.color = color;
+        if (color.r!=1 && color.g!=1 && color.b!=1 && color.a!=1) {
+            this.colored = true;
+            this.color = color;
+
+        }
+        else{
+
+            this.color=NamedColor.WHITE;
+        }
+
     }
 
     public boolean isFlipHorizontal() {

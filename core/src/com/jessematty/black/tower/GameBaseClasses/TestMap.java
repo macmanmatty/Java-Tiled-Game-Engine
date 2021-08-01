@@ -20,6 +20,9 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
+import java.io.IOException;
+
 public class TestMap {
     GameAssets assetts;
     public TestMap(GameAssets assets) {
@@ -27,7 +30,7 @@ public class TestMap {
     }
     public void testMap(){
         
-        assetts.loadInternalTextureAtlas("swordWalk");
+        //assetts.loadInternalTextureAtlas("swordWalk");
        TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
@@ -54,12 +57,9 @@ public class TestMap {
         position.setBounds(32, 48);
         position.setBoundsXOffset(16);
         position.setHeight(10);
-        System.out.println("Position " +position);
         entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(1000);
         entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setValue(1000);
         world.addEntityToWorld(entityBag);
-        System.out.println("here");
-        System.out.println("here2");
         Entity entity1= lpcActorGenerator.generateObject("assetts", "tree114", "tree");
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 500);
@@ -68,27 +68,27 @@ public class TestMap {
         position2.setLocationY(900);
         position2.setMapWorldLocationX(map2.getWorldX());
         position2.setMapWorldLocationY(map2.getWorldY());
-        System.out.println("here3");
         world.setPlayer( entityBag.getEntities().get(0));
+       world.setWorldTextureAtlas(assetts.getTextureAtlas("assetts"),"/world/worldAssetts.atlas");
 
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
         //map2.addEntity(hood);
-         Entity sword=lpcActorGenerator.generateMeeleWeapon("spearMale", "assets", "spear", "is a spear", false,  true, true, true, NamedColor.WHITE, 1, 100,100,100,80,10,true, 100,100,new NumericStatsChangeable(), new BooleanStatsChangeable());
+         //Entity sword=lpcActorGenerator.generateMeeleWeapon("spearMale", "assets", "spear", "is a spear", false,  true, true, true, NamedColor.WHITE, 1, 100,100,100,80,10,true, 100,100,new NumericStatsChangeable(), new BooleanStatsChangeable());
     //    Entity wings=lpcActorGenerator.makeWings("assetts" , "wingsLizardMale", entity, "wings", entity.getComponent(Body.class), new NamedColor(.1f, 1, 0, 1),  1.1f, 4, 12, 12);
         world.addEntityToWorld(entity1);
        // world.addEntity(wings);
-         world.addEntityToWorld(sword);
+         //world.addEntityToWorld(sword);
         map2.setTiledMap(map);
 
         try {
-         map=  new TiledMapTools(world.getWorldTextureAtlas()).addTiledMapRegionsToAtlas(map2.getTiledMap(), "tiledMap");
+         map=  new TiledMapTools(world.getWorldTextureAtlas(), "assetts").addTiledMapRegionsToAtlas(map2.getTiledMap(), "tiledMap");
          map2.setTiledMap(map);
         } catch (MapLoadingExeception mapLoadingExeception) {
             mapLoadingExeception.printStackTrace();
         }
 
-        Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
+        //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
         for(int count = 0; count<map2.getXTiles(); count++){
             LandSquareTile landSquareTile= map2.getMapSquare(count, 10);
             PhysicalObjectComponent physicalObjectComponent=new PhysicalObjectComponent();
@@ -98,9 +98,14 @@ public class TestMap {
             landSquareTile.getComponent(PositionComponent.class).setBounds(32, 32);
         }
         world.setStartMap(0, 0);
+        assetts.getTextureAtlas("assetts").dispose();
 
-        assetts.saveGame(world, "/world/");
-       world.setLoadPath("/world/");
+        try {
+            assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        world.setLoadPath("/world/");
             World newWorld=assetts.loadGame("/world/game.bin");
             newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
           assetts.setWorld(newWorld);

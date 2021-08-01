@@ -72,7 +72,6 @@ public class FastTiledMapSaver implements TiledMapSaver {
                             AtlasStaticTiledMapTile tiledMapTile= new AtlasStaticTiledMapTile(region);
                             tiledMapTile.setColor(saver.getColor());
                             cell.setTile(new AtlasStaticTiledMapTile(region));
-
                             layer.setCell(countx, ySize-county-1,cell );
                         }
                     }

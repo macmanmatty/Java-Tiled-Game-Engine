@@ -3,6 +3,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -45,7 +46,7 @@ public class World { // class that holds the array of maps  aka the world
         private transient Entity player;
         private String playerID;
         // the texture atlas the world uses
-        private NamedTextureAtlas worldTextureAtlas= new NamedTextureAtlas();
+        private TextureAtlas worldTextureAtlas= new NamedTextureAtlas();
         // the path to the above texture atlas
         private String worldTextureAtlasPath;
     //  game  added the ashley systems in the world
@@ -61,7 +62,7 @@ public class World { // class that holds the array of maps  aka the world
         }
     /**
      *
-     * @param xMaps number of maps that connect horozontally
+     * @param xMaps number of maps that connect horizontally
      * @param yMaps number of maps that connect vertically
      */
         public World(int xMaps, int yMaps) {
@@ -72,7 +73,7 @@ public class World { // class that holds the array of maps  aka the world
 
     /**
      *
-     * @param xMaps number of maps that connect horozontally
+     * @param xMaps number of maps that connect horizontally
      * @param yMaps number of maps that connect vertically
      * @param name the name of the map
      */
@@ -84,7 +85,7 @@ public class World { // class that holds the array of maps  aka the world
     }
 
     /**
-     *  // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
+     *  // returns world coordinates for a tile based on the word coordinates  in relationship to all maps in the world.
      * @param tileX  the position of the tile
      * @param tileY the y position of the tile
      * @param mapX the x position of the map  in the world
@@ -562,13 +563,14 @@ public class World { // class that holds the array of maps  aka the world
 
     }
 
-    public NamedTextureAtlas getWorldTextureAtlas() {
+    public TextureAtlas getWorldTextureAtlas() {
         return worldTextureAtlas;
     }
 
-    public void setWorldTextureAtlas(NamedTextureAtlas worldTextureAtlas) {
+    public void setWorldTextureAtlas(TextureAtlas worldTextureAtlas, String path) {
         this.worldTextureAtlas = worldTextureAtlas;
-        this.worldTextureAtlas=worldTextureAtlas;
+        worldSettings.getSettings().put("assetsPath", path);
+
     }
 
     public String getWorldTextureAtlasPath() {
@@ -606,5 +608,9 @@ public class World { // class that holds the array of maps  aka the world
 
     public OrderedMap<Class<? extends EntitySystem>, EntitySystem> getSystemsInWorld() {
         return systemsInWorld;
+    }
+
+    public void setWorldSettings(WorldSettings worldSettings) {
+        this.worldSettings = worldSettings;
     }
 }

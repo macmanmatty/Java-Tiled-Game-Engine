@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
@@ -34,6 +35,16 @@ public class InList {
 		return false;
 	}
 
+	public  static boolean isInList(Object object, Keys<? extends Object> keys) {
+
+		while (keys.hasNext()){
+			if (object.equals(keys.next())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public  static boolean isInList(Object object, Array<? extends Object> names) {
 		int number = names.size;
@@ -50,7 +61,7 @@ public class InList {
 		Array<AtlasRegion> regions=atlas.getRegions();
 		int number = regions.size;
 		for (int count = 0; count < number; count++) {
-			if (regions.get(count).equals(region)) {
+			if (TextureTools.regionsEquals(regions.get(count), region)) {
 				return true;
 			}
 		}

@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+
+import java.util.Objects;
+
 public class TextureTools {
 
 
@@ -83,6 +87,19 @@ public class TextureTools {
 
        }
 
+
+    }
+
+
+
+    public boolean equals(TextureRegion r1, TextureRegion r2) {
+
+        return
+                Objects.equals(r1.getRegionX(), r2.getRegionX()) &&
+                Objects.equals(r1.getRegionY(), r2.getRegionY()) &&
+                Objects.equals(r1.getRegionWidth(), r2.getRegionWidth()) &&
+                Objects.equals(r1.getRegionHeight(), r2.getRegionHeight()) &&
+                Objects.equals(r1.getTexture(), r2.getTexture());
 
     }
     
