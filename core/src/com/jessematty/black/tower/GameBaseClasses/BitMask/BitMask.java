@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.BitMask;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,25 +16,16 @@ import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 import java.util.ArrayList;
-
 public class BitMask {
     int [] [] bitValues = new int [3][3];
     int [] [] fourBitValues = new int [3][3];
     int  [] [] bitValuesTile2= new int [3][3];
-    int [] eightBitMaskPartialWangValues = new int [16];
+    int [] eightBitMaskPartialWangValues = new int [16]; // all 16  bit wang tile bit mask values
     int [] eightBitMaskPartialWangValuesNoDiagonals = new int [14];
-    int [] eightBitMaskWangValues = new int [32];
-
+    int [] eightBitMaskWangValues = new int [32]; // all 32 wang tile bit mask values
     ArrayList<Integer> bitmaskValues = new ArrayList <Integer>();
-
     public BitMask(){
-
-
-
-
-
         bitValues[0][0]=1;
         bitValues[1][0]=2;
         bitValues[2][0]=4;
@@ -77,7 +67,6 @@ public class BitMask {
         eightBitMaskPartialWangValues[13]=251;
         eightBitMaskPartialWangValues[14]=254;
         eightBitMaskPartialWangValues[15]=255;
-
         eightBitMaskPartialWangValuesNoDiagonals[0]=0;
         eightBitMaskPartialWangValuesNoDiagonals[1]=11;
         eightBitMaskPartialWangValuesNoDiagonals[2]=22;
@@ -92,9 +81,6 @@ public class BitMask {
         eightBitMaskPartialWangValuesNoDiagonals[11]=251;
         eightBitMaskPartialWangValuesNoDiagonals[12]=254;
         eightBitMaskPartialWangValuesNoDiagonals[13]=255;
-
-
-
         eightBitMaskWangValues[0]=0;
         eightBitMaskWangValues[1]=2;
         eightBitMaskWangValues[2]=8;
@@ -128,7 +114,6 @@ public class BitMask {
         eightBitMaskWangValues[30]=254;
         eightBitMaskWangValues[31]=255;
         
-
     }
     public int [] [] makeTrimmedHeightTileBitMap(Array<Integer> numbers , int [] [] map, MaskMode maskMode) { // makes a bit map  with tiles containing only the 16 bit
         // mask values listed in the eight bit values int array.
@@ -272,9 +257,7 @@ public class BitMask {
     }
     private boolean trimTile(int maskNumber, MaskMode maskMode) {
         // determines if a  tile should be trimmed based on  a bit number that corresponds to  one of the 16 various 8 bit  bitmasking values return
-
         switch(maskMode) {
-
             case FULL_WANG_SET:
                 for(int count=0; count<32; count++){
                     if(maskNumber== eightBitMaskPartialWangValues[count]){
@@ -307,12 +290,8 @@ public class BitMask {
         }
         
          
-
             return  true;
-
-
     }
-
     public int fourSideBitMapCalculator( LandSquareTile tile,  Entity entity, GameMap map ){ //calculates  the  bitmap value for tile based on wether or  the 4  compass directions are the same as it
         int bitMapValue = 0;                    // then returns the value
         int bitValues=0;
@@ -338,7 +317,6 @@ public class BitMask {
         }
         return bitMapValue;
     }
-
     public int eightSideBitMapCalculator( LandSquareTile tile, Entity entity,  GameMap map){  // does the same thing  as the previous function but for all eight directions
         boolean [] [] bitMap = new boolean [3] [3];
         for (int countx = -1; countx < 2; countx++) {
@@ -354,9 +332,6 @@ public class BitMask {
         int bitMapValue=eightBitConverter(bitMap);
         return bitMapValue;
     }
-
-
-
     private int eightSideBitMapCalculator( int number,  int[][] map, int startX, int startY ){  // does the same thing  as the previous function but for all eight directions
         int xSize=map.length;
         int ySize=map[0].length;
@@ -506,8 +481,6 @@ public class BitMask {
         int bitMapValue=eightBitConverter(bitMap);
         return bitMapValue;
     }
-
-
     public int eightSideBitMapCalculator(int cellX, int cellY ,  TextureRegion  textureRegion,  TiledMapTileLayer layer, int xSize, int ySize ){
         // calculates  an eight bit bit number for bit masking based on whether or not a tiled map cell  has tile with given texture region
         boolean [] [] bitMap = new boolean [3] [3];
@@ -575,49 +548,37 @@ public class BitMask {
                     double terrianNumber2 = stat2.getDoubleValue();
                     double terrianNumber = stat.getDoubleValue();
                     switch (compareMode) {
-
-
                         case GREATER_THAN: {
                             if (terrianNumber > terrianNumber2) {
                                 bitMap[countx + 1][county + 1] = true;
                             }
                             break;
                         }
-
                         case LESS_THAN: {
                             if (terrianNumber < terrianNumber2) {
                                 bitMap[countx + 1][county + 1] = true;
                             }
                             break;
                         }
-
                         case EQUALS: {
                             if (terrianNumber == terrianNumber2) {
                                 bitMap[countx + 1][county + 1] = true;
                             }
                             break;
                         }
-
                         case NOT_EQUAL_TO: {
                             if (terrianNumber != terrianNumber2) {
                                 bitMap[countx + 1][county + 1] = true;
                             }
                         }
-
                         break;
-
-
                     }
-
-
-
                 }
             }
         }
         int bitMapValue=eightBitConverter(bitMap);
         return bitMapValue;
     }
-
     public int eightSideBitMapCalculator(LandSquareTile tile, StringStat stat, LandSquareTile [] [] map ){ // does the same as pervious function but for all eight sides and with a string stat
         boolean [] [] bitMap = new boolean [3] [3];
         for (int countx = -1; countx < 2; countx++) {
@@ -762,7 +723,6 @@ public class BitMask {
         }
         int ySize=tiledMapTileLayer.getHeight();
         int xSize=tiledMapTileLayer.getWidth();
-
         boolean [] [] bitMap = new boolean [3] [3];
         for (int countx = -1; countx < 2; countx++) {
             for (int county = -1; county < 2; county++) {
@@ -926,15 +886,12 @@ int ySize=map[0].length;
     public int[] getEightBitMaskPartialWangValues() {
         return eightBitMaskPartialWangValues;
     }
-
     public int[] getEightBitMaskPartialWangValuesNoDiagonals() {
         return eightBitMaskPartialWangValuesNoDiagonals;
     }
-
     public int[] getEightBitMaskWangValues() {
         return eightBitMaskWangValues;
     }
-
     public ArrayList<Integer> getBitmaskValues() {
         return bitmaskValues;
     }

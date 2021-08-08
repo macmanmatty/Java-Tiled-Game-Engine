@@ -55,9 +55,13 @@ public class World { // class that holds the array of maps  aka the world
 
 
 
-        // used for  deserlization
+        // used for  deserialization
         public World() {
             craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
+            worldSettings.getSettings().put("currentMapX", 0);
+            worldSettings.getSettings().put("currentMapY", 0);
+            worldSettings.getSettings().put("playerId", "id");
+            worldSettings.getSettings().put("assetsPath", "/worldAssets.atlas");
 
         }
     /**

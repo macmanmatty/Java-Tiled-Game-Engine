@@ -288,7 +288,7 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         HorizontalGroup horizontalGroup = new HorizontalGroup();
         horizontalGroup.addActor(selectATexture);
         horizontalGroup.addActor(textures);
-        FileSelectPane fileSelectPane = new FileSelectPane(getSkin(), "Load New Texture");
+        FileSelectPane fileSelectPane = new FileSelectPane(getSkin(), "Load New Texture", 0);
         fileSelectPane.setDisplayFilePath(false);
         fileSelectPane.setFileAction(new FileAction() {
             @Override

@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
@@ -52,7 +53,7 @@ import java.util.UUID;
 
 /**
  * // class that holds  the libGDX assetManager and game instance for changing screens
- *      has Kryo instance  for  loading world  you should have anymore than one instance of this class.
+ *   has Kryo instance  for  loading world  you should have anymore than one instance of this class.
  */
 
 public class GameAssets {
@@ -130,10 +131,10 @@ public class GameAssets {
  }
 
     /**
-     * Loads a libgdx UI Skin Internally
+     * Loads a libGDX UI Skin Internally
      * @param skinName  the name of the skin
      * @param  atlasName the name of the atlas for the given skin
-     * @return Skin a libgdx UI  Skin
+     * @return Skin a libGDX UI  Skin
      */
     public Skin loadInternalSkin(String skinName, String atlasName) { // loads a skin  with given name and texture atlas internally from the app
      TextureAtlas atlas = new TextureAtlas("skins/"+atlasName+".atlas");
@@ -145,9 +146,9 @@ public class GameAssets {
    return skin;
  }
     /**
-     * Loads a libgdx UI Skin Internally
+     * Loads a libGDX UI Skin Internally
      * @param skinName  the name of the skin
-     * @return Skin a libgdx UI  Skin
+     * @return Skin a libGDX UI  Skin
      */
     public Skin loadInternalSkin(String skinName) { // loads a skin  with given name and texture atlas
         TextureAtlas atlas = new TextureAtlas("skins/"+skinName+".atlas");
@@ -159,11 +160,11 @@ public class GameAssets {
         return skin;
     }
     /**
-     * loads a LIBGX UI skin externally
+     * loads a libGGX UI skin externally
      * @param skinName  the name of the skin
      * @param  path the path to the skin
      * @param  atlasName the name of the atlas for the given skin
-     * @return Skin a libgdx UI  Skin
+     * @return Skin a libGDX UI  Skin
      */
     public Skin loadExternalSkin(String skinName, String atlasName, String path){ // loads an external  skin  with given name ,  texture atlas. file path
     String fullAtlasPath=path+ FileUtilities.getFileSeparator()+atlasName;
@@ -177,25 +178,47 @@ public class GameAssets {
   Skin skin= assetManager.get(name, Skin.class)  ;
      return skin;
  }
+    /**
+     * serializes  a game world instance  using kryo and packs it texture atlas using the TextureAtlasPackerClass
+     * @param world the world to save
+     * @param path the path to save it to
+     */
     public void saveGameWithAssets(World world, String path, String atlasName,  int pageWidth, int pageHeight) throws IOException { // serailizes  a game world instance  using binary serialaztion
         textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(),pageWidth  ,pageHeight, 2);
         new WorldWriter(this).saveWorld(world, path);
     }
-    public void saveGame(World world, String path){ // serailizes  a game world instance  using binary serialaztion
+
+    /**
+     * serializes  a game world instance  using kryo
+     * @param world the world to save
+     * @param path the path to save it to
+     */
+    public void saveGame(World world, String path){
         new WorldWriter(this).saveWorld(world, path);
     }
-    public AtlasRegion getBitMaskedAtlasRegion (String atlasName, String kind, int bitmaskNumber, float setNumber) { // returns WoodWand texture region based on  which set and bitmask numer is used and set number
-        String index= kind+ bitmaskNumber+","+setNumber;
+
+
+    /***
+     *  returns  a atlas  region from a  currently LOADED texture atlas  based on  which set and bitmask number is used and set number
+     * @param atlasName the name of the atlas to get the texture from
+     * @param baseRegionName the name fo the atlas region minus the mask number as the set number
+     * @param bitmaskNumber the bit mask number for the region
+     * @param setNumber the set number of the region
+     * @return AtlasRegion may be null if no region was found
+     */
+
+    public AtlasRegion getBitMaskedAtlasRegion (String atlasName, String baseRegionName, int bitmaskNumber, float setNumber) {
+        String atlasRegionName= baseRegionName+ bitmaskNumber+","+setNumber;
       TextureAtlas atlas = assetManager.get(atlasName,   TextureAtlas.class);
-      AtlasRegion region=atlas.findRegion(index);
+      AtlasRegion region=atlas.findRegion(atlasRegionName);
           return region;
     }
 
     /**
-     * / returns texture region based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
+     * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
      * @param atlasRegionName the name of the atlasRegion
-     * @param  atlasName the name of libgdx texture atlas the atlas the region is in
-     * @return AtlasNamedAtlasRegion
+     * @param  atlasName the name of libGDX texture atlas the atlas the region is in
+     * @return  AtlasNamedAtlasRegion may be null if no region exists
      */
     public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName,  String atlasName){
          TextureAtlas atlas= assetManager.get("textureAtlases/"+atlasName+".atlas", TextureAtlas.class);
@@ -208,9 +231,9 @@ public class GameAssets {
          }
     }
     /**
-     * / returns texture region based on a given name from the current  texture atlas  loaded into the asset manager if it exists else returns null
+     * / returns a AtlasNamedAtlasRegion based on a given name from the current  texture atlas  loaded into the asset manager if it exists else returns null
      * @param atlasRegionName the name of the atlasRegion
-     * @return AtlasNamedAtlasRegion
+     * @return AtlasNamedAtlasRegion may be null if no region exists
      */    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
         return   new AtlasNamedAtlasRegion(currentAtlas.findRegion(atlasRegionName));
     }
@@ -228,10 +251,22 @@ public class GameAssets {
         assetManager.load(path, TiledMap.class);
         return map;
     }
+
+    /**
+     *  retrieves a libGDX tiled map from the asset manager
+     * @param name the name of the map to retrieve
+     * @return
+     */
     public TiledMap getMap(String name) { // returns a tiled Map based on the name given
         TiledMap map = assetManager.get("maps/"+name, TiledMap.class);
         return map;
     }
+
+    /**
+     *  loads a texture internally from  the textureAtlases Folder
+     * @param name the name of the  texture to load
+     * @return
+     */
     public Texture loadTexture(String name) { // loads a texture based on name
         Texture  map = new Texture("textureAtlases/"+name);
         assetManager.load("textureAtlases/"+name, Texture.class);
@@ -247,18 +282,34 @@ public class GameAssets {
         TextureAtlas atlas= assetManager.get("textureAtlases/"+name+".atlas",  TextureAtlas.class);
         return atlas;
     }
+    public TextureAtlas getExternallyLoadedTextureAtlas( String path){ // returns a texture atlas based on name
+        TextureAtlas atlas= assetManager.get(path,  TextureAtlas.class);
+        return atlas;
+    }
     /**
      *  returns a libGDX texture atlas located  externally form the jar file
      * @param path  the  full path to the texture atlas to load
      * @return TextureAtlas the loaded texture atlas
      */
-    public TextureAtlas loadTextureAtlasFromExternalFile(String path) { // loads a texture atlas based on the give path.
-        NamedTextureAtlas atlas = new NamedTextureAtlas(path);
+    public TextureAtlas loadExternalTextureAtlas(String path) { // loads a texture atlas based on the give path.
+        NamedTextureAtlas atlas = new NamedTextureAtlas(Gdx.files.absolute(path));
         atlas.setAtlasFileName(path);
         assetManager.load(path, TextureAtlas.class);
         return atlas;
     }
+    /**
+     *  returns a libGDX texture atlas located  externally form the jar file
+     * @param name the  name of the texture atlas
+     * @return TextureAtlas the loaded texture atlas
+     */
 
+    public TextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
+       String internalPath="textureAtlases/"+name+".atlas";
+        NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
+        atlas.setAtlasFileName(internalPath);
+        assetManager.load(internalPath, TextureAtlas.class);
+        return atlas;
+    }
     public void finishLoading(){
          assetManager.finishLoading();
     }
@@ -297,7 +348,7 @@ public class GameAssets {
        return  atlas;
     }
 
-    /** sets the game screen to a new screen instance and add it to the map  of screens
+    /** sets the game screen to a new screen instance and adds it to the map  of screens
      *
      * @param screen the screen to change to
      */

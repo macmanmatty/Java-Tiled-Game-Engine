@@ -55,7 +55,7 @@ public class ImpotTMXMapOptionPane extends EditWindow {
 
     public void makeWindow() {
         Label label= new Label("Select TMX File To Import", skin);
-        fileSelectPane= new FileSelectPane(skin, "Import");
+        fileSelectPane= new FileSelectPane(skin, "Import", 0);
         fileSelectPane.setFileTypes("TMX Map", "tmx");
         fileSelectPane.setDisplayFilePath(true);
         clipToFit= new CheckBox("Clip Map To Fit Current Map", skin);

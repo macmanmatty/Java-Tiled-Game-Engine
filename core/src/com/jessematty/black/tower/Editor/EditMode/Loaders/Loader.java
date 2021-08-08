@@ -17,7 +17,7 @@ public class Loader {
     }
 
     private  void  loadAtlas( String path){
-        TextureAtlas textureAtlas=gameAssetts.loadTextureAtlasFromExternalFile(path);
+        TextureAtlas textureAtlas=gameAssetts.loadExternalTextureAtlas(path);
 
        Array<AtlasRegion>  regions= textureAtlas.getRegions();
        int size=regions.size;

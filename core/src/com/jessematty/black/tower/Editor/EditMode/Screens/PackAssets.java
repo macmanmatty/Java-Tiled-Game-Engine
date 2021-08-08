@@ -178,8 +178,8 @@ public class PackAssets implements NamedScreen  {
             }
         });
 
-        outputPathButton= new FileSelectPane(skin, "Select Assetts Output Directory", "Select Output");
-        inputPathButton= new FileSelectPane(skin, "Select Assetts Input Directory ", "Select Input");
+        outputPathButton= new FileSelectPane(skin, "Select Assetts Output Directory", "Select Output", 1);
+        inputPathButton= new FileSelectPane(skin, "Select Assetts Input Directory ", "Select Input", 1);
         verticalGroup.addActor(inputPathButton);
         verticalGroup.addActor(outputPathButton);
         verticalGroup.addActor(atlasName);

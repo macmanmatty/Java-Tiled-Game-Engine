@@ -4,19 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.LoadingException;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.PageDimensions;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -39,6 +34,7 @@ public class TestMap {
         generator2.makeTiledMap();
         LandMap map2= (LandMap) generator2.makeMap();
         map2.setTileSize(32, 32);
+
 
         World world= new World(1, 1);
         world.placeMap(map2, 0, 0);
@@ -70,7 +66,7 @@ public class TestMap {
         position2.setMapWorldLocationY(map2.getWorldY());
         world.setPlayer( entityBag.getEntities().get(0));
        world.setWorldTextureAtlas(assetts.getTextureAtlas("assetts"),"/world/worldAssetts.atlas");
-
+        assetts.setWorld(world);
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
         //map2.addEntity(hood);
@@ -82,7 +78,7 @@ public class TestMap {
         map2.setTiledMap(map);
 
         try {
-         map=  new TiledMapTools(world.getWorldTextureAtlas(), "assetts").addTiledMapRegionsToAtlas(map2.getTiledMap(), "tiledMap");
+         map=  new TiledMapTools(world.getWorldTextureAtlas(), "assetts").convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap");
          map2.setTiledMap(map);
         } catch (MapLoadingExeception mapLoadingExeception) {
             mapLoadingExeception.printStackTrace();
@@ -100,16 +96,16 @@ public class TestMap {
         world.setStartMap(0, 0);
         assetts.getTextureAtlas("assetts").dispose();
 
-        try {
-            assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        world.setLoadPath("/world/");
-            World newWorld=assetts.loadGame("/world/game.bin");
-            newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
-          assetts.setWorld(newWorld);
-        //assetts.setWorld(world);
+//        try {
+//            assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        world.setLoadPath("/world/");
+//            World newWorld=assetts.loadGame("/world/game.bin");
+//            newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
+//          assetts.setWorld(newWorld);
+        assetts.setWorld(world);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }

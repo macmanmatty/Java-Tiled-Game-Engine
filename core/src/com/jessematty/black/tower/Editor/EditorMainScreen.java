@@ -40,7 +40,7 @@ public class EditorMainScreen implements NamedScreen {
         }
         public void show() {
             this.skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
-            gameAssets.loadTextureAtlasFromExternalFile("/AssetsPacked/editorAssets.atlas");
+            gameAssets.loadInternalTextureAtlas("editorAssets");
             if(!VisUI.isLoaded()) {
                 VisUI.load(skin);
             }
@@ -53,7 +53,7 @@ public class EditorMainScreen implements NamedScreen {
                     setFile(file);
                 }
             };
-            loadWorld = new FileSelectPane(fileAction,  skin, "default",  "load map",   true);
+            loadWorld = new FileSelectPane(fileAction,  skin, "default",  "load map",   true, 1);
             tools = new TextButton("Tools", skin);
             worlds= new List<World>(skin);
             Label title = new Label("World Editor", skin);

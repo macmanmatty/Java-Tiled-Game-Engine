@@ -124,7 +124,7 @@ import javax.swing.SwingUtilities;
                     String path= selectAssettsInputDir.getFile().getAbsolutePath();
                 }
             });
-            loadMap= new FileSelectPane(null,  "", "Brick");
+            loadMap= new FileSelectPane(null,  "", "Brick", 1);
 
             loadMap.addListener( new ClickListener(){
 
@@ -194,7 +194,7 @@ import javax.swing.SwingUtilities;
             });
 
 
-            selectAssettsInputDir=new FileSelectPane(skin, "", "Brick");
+            selectAssettsInputDir=new FileSelectPane(skin, "default", "Brick", 1);
             selectAssettsInputDir.addListener( new ClickListener(){
 
                 @Override

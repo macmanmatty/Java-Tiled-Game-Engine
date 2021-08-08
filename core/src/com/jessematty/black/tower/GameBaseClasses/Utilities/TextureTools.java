@@ -1,15 +1,28 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class TextureTools {
+
+
+    final  static List<Texture> textures= Collections.synchronizedList(new ArrayList<Texture>());
+    final  static List<String> texturePaths= Collections.synchronizedList(new ArrayList<String>());
+
 
 
     private  TextureTools() {
@@ -77,16 +90,87 @@ public class TextureTools {
     }
 
 
-    public static  void addRegionsToTextureAtlas(TextureAtlas atlas, TextureAtlas atlasToAddTo){
+    public static  void addTexturesASRegionsToTextureAtlas(TextureAtlas atlas, TextureAtlas atlasToAddTo){
        Array<AtlasRegion>  regions=atlas.getRegions();
        int size=regions.size;
        for(int count=0; count<size; count++){
            AtlasRegion atlasNamedAtlasRegion=regions.get(count);
            atlasToAddTo.addRegion(atlasNamedAtlasRegion.name, atlasNamedAtlasRegion);
 
-
        }
 
+
+    }
+
+    public static  void addTexturesASRegionsToTextureAtlas(TextureAtlas atlas, String path) throws InterruptedException {
+
+       getTextures(path);
+       addTexturesASRegionsToTextureAtlas(texturePaths, textures, atlas);
+
+    }
+
+
+    /**
+     *  // adds an array list of textures to a libGDX TextureAtlas as texture regions
+     *  by creating new texture regions encompassing the whole texture
+     * @param paths the paths of the textures
+     * @param textures the texture to add to the atlas
+     * @param atlasToAddTo the  libGdX TextureAtlas  to add them to
+     */
+    private static  void addTexturesASRegionsToTextureAtlas(List<String> paths, List<Texture> textures, TextureAtlas atlasToAddTo){
+        int size=textures.size();
+        for(int count=0; count<size; count++){
+            atlasToAddTo.addRegion(FilenameUtils.getName(paths.get(count)), new TextureRegion(textures.get(count), 0,0));
+
+        }
+
+
+    }
+
+
+    /**
+     *gets all Image files from a directory  and turns them into libGDX Textures
+     * @param directory  the directory to scan
+     * @throws InterruptedException
+     */
+    public  static void getTextures(final String directory) throws InterruptedException {
+        final CountDownLatch countDownLatch= new CountDownLatch(1);
+        texturePaths.clear();
+        textures.clear();
+
+        Thread thread= new Thread( new Runnable() {
+            @Override
+            public void run()
+
+            {
+                FileUtilities.actOnFiles(directory, new
+
+                        FileAction() {
+                            @Override
+                            public void act(final File file) throws Exception {
+                                Gdx.app.postRunnable(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(FileUtilities.isImageFile(file)) {
+                                            String path=file.getAbsolutePath();
+                                            Texture texture = new Texture(new FileHandle(path));
+                                            textures.add(texture);
+                                            texturePaths.add(path);
+                                        }
+
+
+                                    }
+                                });
+
+                            }
+
+                        });
+                countDownLatch.countDown();
+            }
+
+        });
+        thread.start();
+        countDownLatch.await();
 
     }
 
