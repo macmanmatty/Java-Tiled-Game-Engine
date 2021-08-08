@@ -29,7 +29,6 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPa
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveFloatField;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-
 public class PackAssets implements NamedScreen  {
     private TexturePacker.Settings texturePackerSettings= new TexturePacker.Settings();
     private VerticalGroup verticalGroup = new VerticalGroup();
@@ -78,108 +77,68 @@ public class PackAssets implements NamedScreen  {
    private ProgressListener progressListener = new ProgressListener() {
        @Override
        public void progress(float progress) {
-
            progressBar.setValue(progress);
        }
    };
-
     private final String  name="Pack Assets Screen";
-
     public PackAssets(GameAssets assetts, Skin skin) {
         this.assetts = assetts;
         this.skin = skin;
     }
     private void packAssetts(){
         texturePackerSettings.format=formats.getSelected();
-
         texturePackerSettings.alphaThreshold=Integer.valueOf(alphaThreshHold.getField().getText());
-
         texturePackerSettings.jpegQuality=Float.valueOf(jpegQuality.getField().getText());
-
         texturePackerSettings.bleedIterations=Integer.valueOf(bleedIterations.getField().getText());
-
         texturePackerSettings.minHeight=Integer.valueOf(minHeight.getField().getText());
-
         texturePackerSettings.maxHeight=Integer.valueOf(maxHeight.getField().getText());
-
         texturePackerSettings.minWidth=Integer.valueOf(minWidth.getField().getText());
-
         texturePackerSettings.maxWidth=Integer.valueOf(maxWidth.getField().getText());
-
         texturePackerSettings.paddingY=Integer.valueOf(paddingY.getField().getText());
-
         texturePackerSettings.paddingX=Integer.valueOf(paddingX.getField().getText());
-
-
         if(inputPathButton.getFile()==null || outputPathButton.getFile()==null){
-
            OptionPane optionPane= new OptionPane(skin, "Check Paths", " You Must Enter a Input Directory and Output Directory  to pack", "ok");
-
            stage.addActor(optionPane);
-
             return;
-
         }
         if(atlasName.getField().getText().isEmpty() ){
-
-
-
             OptionPane optionPane= new OptionPane(skin, "Check Paths", "  Atlas Name Must Not Be Empty" , "ok");
-
             stage.addActor(optionPane);
-
             return;
-
         }
-        progress.setText("Packing Assetts!");
-
+        progress.setText("Packing Assets!");
         Runnable runnable= new Runnable() {
             @Override
             public void run() {
-
-
                 synchronized (lock) {
-
                     String packFilePath=inputPathButton.getFile().getAbsolutePath()+ FileUtilities.getFileSeparator() +"pack.json";
                     assetts.getJsonLoader().writeObjectToFile(texturePackerSettings, packFilePath, false);
                     TexturePacker.process(inputPathButton.getFile().getAbsolutePath(), outputPathButton.getFile().getAbsolutePath(), atlasName.getField().getText());
                 }
             }
-
             };
-
-
         packAssettsThread= new Thread(runnable);
         packAssettsThread.start();
-
     }
-
     public void stop(){
         progress.setText("Packing Stopped!");
-
         packAssettsThread.stop();
     }
-
-
-
     @Override
     public void show() {
-
-        Label label= new Label("Assett Packer", skin);
+        Label label= new Label(" Games Assets Packer", skin);
         label.setFontScale(2);
         verticalGroup.addActor(label);
         atlasName= new NamedField("Enter Atlas Name", skin, new TextField("", skin));
         exit= new TextButton("Exit", skin);
         exit.addListener(new ClickListener(){
-
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 assetts.setScreen("Editor Main Screen");
             }
         });
-
-        outputPathButton= new FileSelectPane(skin, "Select Assetts Output Directory", "Select Output", 1);
-        inputPathButton= new FileSelectPane(skin, "Select Assetts Input Directory ", "Select Input", 1);
+        outputPathButton= new FileSelectPane(skin, "Select Assets Output Directory", "Select Output", 1);
+        inputPathButton= new FileSelectPane(skin, "Select Assets Input Directory ", "Select Input", 1);
         verticalGroup.addActor(inputPathButton);
         verticalGroup.addActor(outputPathButton);
         verticalGroup.addActor(atlasName);
@@ -190,8 +149,6 @@ public class PackAssets implements NamedScreen  {
                 packAssetts();
             }
         });
-
-
       stop= new TextButton("Stop Packing", skin);
         stop.addListener(new ClickListener(){
             @Override
@@ -199,7 +156,7 @@ public class PackAssets implements NamedScreen  {
                 stop();
             }
         });
-         alais = new CheckBox("Use Alises For Duplicate Textures", skin);
+         alais = new CheckBox("Use Aliases For Duplicate Textures", skin);
          alais.setChecked(texturePackerSettings.alias);
          alais.addListener(new ChangeListener() {
              @Override
@@ -306,9 +263,7 @@ public class PackAssets implements NamedScreen  {
             }
         });
         verticalGroup.addActor(flattenPaths);
-         
-      
-         
+
          ignoreBlankImages= new CheckBox("Ignore Blank Images" , skin);
         ignoreBlankImages.setChecked(texturePackerSettings.ignoreBlankImages);
         ignoreBlankImages.addListener(new ChangeListener() {
@@ -379,7 +334,6 @@ public class PackAssets implements NamedScreen  {
         });
         verticalGroup.addActor(square);
          
-
          
          useIndexes= new CheckBox("Use Indexes" , skin);
          
@@ -529,9 +483,7 @@ public class PackAssets implements NamedScreen  {
         progress= new Label("", skin);
         verticalGroup.addActor(progress);
        verticalGroup.addActor(progressBar);
-
         stage.addActor(verticalGroup);
-
     }
     @Override
     public void render(float delta) {
@@ -539,15 +491,10 @@ public class PackAssets implements NamedScreen  {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
-
     }
-
-
-
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
-
     }
     @Override
     public void pause() {
@@ -562,7 +509,6 @@ public class PackAssets implements NamedScreen  {
     public void dispose() {
         stage.dispose();
     }
-
     public String getName() {
         return name;
     }
