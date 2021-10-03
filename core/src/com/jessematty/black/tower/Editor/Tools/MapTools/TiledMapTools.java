@@ -19,10 +19,10 @@ import java.rmi.server.UID;
 public class TiledMapTools {
     private ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
     private final TextureAtlas namedTextureAtlas;
-    private String filePath;
-    public TiledMapTools(TextureAtlas namedTextureAtlas, String atlasName) {
-        this.namedTextureAtlas = namedTextureAtlas;
-        this.filePath=atlasName;
+    private String atlasName;
+    public TiledMapTools(TextureAtlas textureAtlas, String atlasName) {
+        this.namedTextureAtlas = textureAtlas;
+        this.atlasName =atlasName;
     }
     /**
      * converts .tmx tiled tiled map to a texture atlas based  tiled map
@@ -41,8 +41,9 @@ public class TiledMapTools {
             newMapProperties.put("height", oldMapProperties.get("height", Integer.class));
             newMapProperties.put("tilewidth", oldMapProperties.get("tilewidth", Integer.class));
             newMapProperties.put("tileheight", oldMapProperties.get("tileheight", Integer.class));
+            newMapProperties.put("atlasName", atlasName);
            }
-        newMapProperties.put("atlasName",  filePath);
+        newMapProperties.put("atlasName", atlasName);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
         if(oldMapLayers==null){
             throw new MapLoadingExeception("Tiled Map Has No Layers");

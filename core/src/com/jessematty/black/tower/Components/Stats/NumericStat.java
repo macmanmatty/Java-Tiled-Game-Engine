@@ -29,12 +29,14 @@ public   class NumericStat extends Stat {
         this.maxValue = maxValue;
     }
 
+
+
     public NumericStat(GameAssets assets, boolean displayable, String name, double value, double minValue, double maxValue) {
         super(displayable, name);
         this.value = value;
         this.minValue = minValue;
         this.maxValue = maxValue;
-        createStatBar(assets);
+            createStatBar(assets);
     }
 
 

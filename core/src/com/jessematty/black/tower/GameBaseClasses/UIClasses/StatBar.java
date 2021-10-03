@@ -6,14 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import java.io.Serializable;
-public class StatBar extends Widget implements Serializable { 
-  private transient  AtlasRegion[] regions;
-  private  int [] numbers;
+public class StatBar extends Widget implements Serializable {
+    /** the texture regions for stat bar */
+    private transient  AtlasRegion[] regions;
+    /** the calculated numbers to teh change the texture region on */
+    private  int [] numbers;
     /** the stat to used fo the bar to generate the images */
   private NumericStat stat;
-  private   int parts=7;
+    /** number of texture  regions to the stat bar */
+    private   int parts=7;
     /** the games assets class used  to get the texture regions */
-
     private transient GameAssets assets;
     /** the current stat bar image */
     private TextureRegion currentTexture;
@@ -23,6 +25,10 @@ public class StatBar extends Widget implements Serializable {
   private double statMaxValue;
     /** whether or not to display the state bar */
     boolean display=true;
+    /** the name of The libGDX texture atlas the region is in */
+    String atlasName="assets.atlas";
+    /** the libGDX AtlasRegion Name  of the parts */
+    private String statBarPartsName="statBar";
     public StatBar(StatBar other) {
         this.regions = other.regions;
         this.numbers = other.numbers;
@@ -30,6 +36,11 @@ public class StatBar extends Widget implements Serializable {
         this.parts = other.parts;
         this.assets = other.assets;
         statValue=other.statValue;
+        this.display=other.display;
+        this.statBarPartsName=other.statBarPartsName;
+        this.atlasName=other.atlasName;
+        this.parts=other.parts;
+
     }
     public StatBar(NumericStat stat, GameAssets assets) {
     this.assets = assets;
@@ -39,14 +50,32 @@ public class StatBar extends Widget implements Serializable {
         this.statValue=stat.getDoubleValue();
         this.statMaxValue =stat.getMaxValue();
         this.statMinValue =stat.getMinValue();
-        calculateParts();
+        if(display=true) {
+            calculateParts();
+        }
+
         currentTexture=getRegion(statValue);
     }
+
+    public StatBar(NumericStat stat, GameAssets assets,  String atlasName, String statBarPartsName, int parts) {
+        this(stat,assets);
+        this.statBarPartsName = statBarPartsName;
+        this.parts=parts;
+        this.atlasName=atlasName;
+    }
+
+    /**
+     *  calculates the the array of numbers to change on based on the min and max values for the tracked numeric stat
+     */
     private void calculateParts(){
+        if(atlasName==null  || atlasName.isEmpty()){
+            display=false;
+            return;
+        }
         int numberOfParts=(int)(stat.getMaxValue()/parts);
         for(int count=1; count<=parts; count++)        {
             numbers[count-1]=parts*numberOfParts;
-            AtlasRegion region= assets.getAtlasRegionByName("statBar"+count, "assets");
+            AtlasRegion region= assets.getAtlasRegionByName(statBarPartsName+count, atlasName);
             if(region!=null) {
                 regions[count - 1] = region;
             }
@@ -77,13 +106,10 @@ public class StatBar extends Widget implements Serializable {
 }
 
     /**
-     *  return the approiate image based on teh value of the passed in stat
-     * @param stat the stat to check
+     *  returns the appropriate image based on the value of the passed in stat
+     * @param stat the stat value  to check
      * @return
      */
-
-
-
     public AtlasRegion getRegion(double stat){
         if (stat >=numbers[6]){
             return regions[6];
@@ -105,9 +131,17 @@ public class StatBar extends Widget implements Serializable {
         }
         return regions[0];
     }
+
+    /**
+     *  widget draw method
+     * @param batch the libGdX Sprite batch used to draw
+     * @param parentAlpha
+     */
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(currentTexture, getX(), getY());
+        if(display==true) {
+            batch.draw(currentTexture, getX(), getY());
+        }
     }
     public void setMax(int maxStat) {
         int numberOfParts=(int)(maxStat/parts);
@@ -130,5 +164,16 @@ public class StatBar extends Widget implements Serializable {
     }
     public void setParts(int parts) {
         this.parts = parts;
+    }
+
+    public boolean isDisplay() {
+        return display;
+    }
+
+    public void setDisplay(boolean display) {
+        this.display = display;
+        if(display=true){
+            calculateParts();
+        }
     }
 }

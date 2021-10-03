@@ -17,7 +17,7 @@ public void BlackTower(){
 	@Override
 	public void create () {
 	if(packAssets){
-		TexturePacker.process(new Settings(), "TestAssets", "android/assets/textureAtlases/testAssets", "testAssets");
+		TexturePacker.process(new Settings(), "TestAssets", "android/assets/textureAtlases", "testAssets");
 
 
 	}

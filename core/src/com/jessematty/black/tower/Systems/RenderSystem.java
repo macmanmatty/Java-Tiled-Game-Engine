@@ -13,11 +13,22 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 import java.util.Comparator;
+
+/**
+ * system for rendering  entities with  drawable and position components
+ * and the on current map marker component
+ */
 public  class RenderSystem extends SortedRenderingSystem {
     private  ComponentMapper<DrawableComponent> drawableComponentMapper;
-    private ComponentMapper<PositionComponent> positionComponentMapper =ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<OnCurrentMap> onCurrentMapComponentMapper;
+    /**
+     *  the libgdx Sprite batch to use for rendering of texture regions
+     */
     private Batch batch;
+    /**
+     * the entity frame buffer used for drawing entities
+     */
     private FrameBuffer buffer;
 
 

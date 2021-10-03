@@ -32,8 +32,6 @@ public class FastTiledMapSaver implements TiledMapSaver {
     public TiledMap loadMap(GameAssets assets){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
-
-
         int tileSizeX=mapProperties.get("tilewidth", Integer.class);
         int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
@@ -83,7 +81,6 @@ public class FastTiledMapSaver implements TiledMapSaver {
     public void saveMap(TiledMap tiledMap, String atlasName) throws MapLoadingExeception {
         this. mapProperties=tiledMap.getProperties();
 
-        this.mapProperties.put("atlasName", atlasName);
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
         MapLayers tileLayers=tiledMap.getLayers();
@@ -131,10 +128,13 @@ public class FastTiledMapSaver implements TiledMapSaver {
         }
     }
 
-
-
-
+    @Override
+    public MapProperties getMapProperties() {
+        return mapProperties;
     }
+
+
+}
 
 
 

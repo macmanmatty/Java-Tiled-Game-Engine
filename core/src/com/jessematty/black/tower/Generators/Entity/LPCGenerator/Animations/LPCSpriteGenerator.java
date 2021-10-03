@@ -1339,4 +1339,8 @@ public  int unlockFrameRate = 5;
     public void setHasTalkFrames(boolean hasTalkFrames) {
         this.hasTalkFrames = hasTalkFrames;
     }
+
+    public String getAtlasName() {
+        return atlasName;
+    }
 }

@@ -78,7 +78,6 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
     }
     public void saveMap(TiledMap tiledMap, String atlasName) throws MapLoadingExeception {
         this. mapProperties=tiledMap.getProperties();
-        this.mapProperties.put("atlasName", atlasName);
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
         MapLayers tileLayers=tiledMap.getLayers();
@@ -149,7 +148,12 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
     }
 
 
+    @Override
+    public MapProperties getMapProperties() {
+        return mapProperties;
+    }
 
-
-
+    public void setMapProperties(MapProperties mapProperties) {
+        this.mapProperties = mapProperties;
+    }
 }

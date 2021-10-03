@@ -119,14 +119,16 @@ public class AnimatableComponent implements SerializableComponet{
 
     }
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int layerNumber){
-        Animation animation= new Animation();
-        animation.setFrames(regions);
-        animation.setDirection(direction);
-        animation.setAction(action);
-        animation.setFrameRate(frameRate);
-        animation.setOffsets(offsets);
-        animation.setLayerNumber(layerNumber);
-        animations.get(direction.toString()).put(action,animation);
+            Animation animation = new Animation();
+            animation.setFrames(regions);
+            animation.setDirection(direction);
+            animation.setAction(action);
+            animation.setFrameRate(frameRate);
+            animation.setOffsets(offsets);
+            animation.setLayerNumber(layerNumber);
+            animations.get(direction.toString()).put(action, animation);
+
+
 
     }
     public boolean isEightDirections() {
@@ -299,6 +301,7 @@ public class AnimatableComponent implements SerializableComponet{
 
     @Override
     public void serialize() {
+
     }
 
 

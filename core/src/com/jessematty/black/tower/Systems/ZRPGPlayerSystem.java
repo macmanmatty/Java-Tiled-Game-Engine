@@ -286,18 +286,18 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
 
-        Image targetImage=zrpgActors.getTargetImage();
+        if(false) {
+            Image targetImage = zrpgActors.getTargetImage();
 
-        if(player.getButtonMode()==ZRPGPlayerButtonModes.TARGET){
-            targetImage.setPosition(screenX, screenY);
-            targetImage.setVisible(true);
+            if (player.getButtonMode() == ZRPGPlayerButtonModes.TARGET) {
+                targetImage.setPosition(screenX, screenY);
+                targetImage.setVisible(true);
 
+            } else {
+                targetImage.setVisible(false);
+
+            }
         }
-        else{
-            targetImage.setVisible(false);
-
-        }
-
 
 
 

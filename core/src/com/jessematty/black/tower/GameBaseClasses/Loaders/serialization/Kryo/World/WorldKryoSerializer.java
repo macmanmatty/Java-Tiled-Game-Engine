@@ -45,11 +45,8 @@ public class WorldKryoSerializer extends Serializer<World> {
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);
         String assetsPath=(String) worldSettings.getSettings().get("assetsPath");
-        if(!gameAssets.getAssetManager().isLoaded(assetsPath));
-        {
            gameAssets.loadExternalTextureAtlas(assetsPath);
-           gameAssets.finishLoading();
-        }
+
         OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
         LandMap [] [] maps= (LandMap[][]) kryo.readClassAndObject(input);
         world.setWorldMap(maps);

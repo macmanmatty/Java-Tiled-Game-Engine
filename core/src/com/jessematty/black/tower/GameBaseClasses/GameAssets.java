@@ -51,6 +51,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 /**
  * // class that holds  the libGDX assetManager and game instance for changing screens
  *   has Kryo instance  for  loading world  you should have anymore than one instance of this class.
@@ -71,6 +73,8 @@ public class GameAssets {
     private Screen previousScreen;
     private final static GameInput gameInput= new GameInput();
     private final Kryo kryo= new Kryo();
+    private ResourcePathMapper resourcePathMapper= new ResourcePathMapper();
+    /** map containing key value pairs  for asset manager resources key is resource  path value is name  **/
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -145,6 +149,8 @@ public class GameAssets {
    }
    return skin;
  }
+
+   
     /**
      * Loads a libGDX UI Skin Internally
      * @param skinName  the name of the skin
@@ -187,6 +193,7 @@ public class GameAssets {
         textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(),pageWidth  ,pageHeight, 2);
         new WorldWriter(this).saveWorld(world, path);
     }
+  
 
     /**
      * serializes  a game world instance  using kryo
@@ -220,11 +227,29 @@ public class GameAssets {
      * @param  atlasName the name of libGDX texture atlas the atlas the region is in
      * @return  AtlasNamedAtlasRegion may be null if no region exists
      */
-    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName,  String atlasName){
-         TextureAtlas atlas= assetManager.get("textureAtlases/"+atlasName+".atlas", TextureAtlas.class);
+    public AtlasNamedAtlasRegion getAtlasRegionByNameOrNull(String atlasRegionName,  String atlasName){
+        TextureAtlas atlas= assetManager.get("textureAtlases/"+atlasName+".atlas", TextureAtlas.class);
+        AtlasRegion region=atlas.findRegion(atlasRegionName);
+        if(region!=null) {
+            return new AtlasNamedAtlasRegion(region, atlasName);
+        }
+        else{
+            return  null;
+        }
+    }
+    /**
+
+    /**
+     * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
+     * @param atlasRegionName the name of the atlasRegion
+     * @param  atlasPath the name of libGDX texture atlas the atlas the region is in
+     * @return  AtlasNamedAtlasRegion may be null if no region exists
+     */
+    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName,  String atlasPath){
+         TextureAtlas atlas= assetManager.get(atlasPath, TextureAtlas.class);
          AtlasRegion region=atlas.findRegion(atlasRegionName);
          if(region!=null) {
-             return new AtlasNamedAtlasRegion(region, atlasName);
+             return new AtlasNamedAtlasRegion(region, atlasPath);
          }
          else{
              return  null;
@@ -273,13 +298,15 @@ public class GameAssets {
         return map;
     }
 
+
     /**
      *  returns a libGDX texture atlas located in textureAtlases
      * @param name the name of the atlas to load
      * @return TextureAtlas
      */
     public TextureAtlas getTextureAtlas( String name){ // returns a texture atlas based on name
-        TextureAtlas atlas= assetManager.get("textureAtlases/"+name+".atlas",  TextureAtlas.class);
+        TextureAtlas atlas= assetManager.get(name,  TextureAtlas.class);
+
         return atlas;
     }
     public TextureAtlas getExternallyLoadedTextureAtlas( String path){ // returns a texture atlas based on name
@@ -376,6 +403,8 @@ public class GameAssets {
 
         }
     }
+
+
           public <T> T  loadObject(String filePath, Class<T> thingClass){
         T object= jsonLoader.loadObject(thingClass, filePath);
         return  object;
