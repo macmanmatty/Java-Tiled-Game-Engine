@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -28,6 +29,8 @@ public class TestMap {
         //assetts.loadInternalTextureAtlas("swordWalk");
        TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
        assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
+      TextureAtlas atlas= assetts.loadInternalTextureAtlas("testAssets");
+      System.out.println();
 
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
@@ -36,10 +39,9 @@ public class TestMap {
         generator2.makeTiledMap();
         LandMap map2= (LandMap) generator2.makeMap();
         map2.setTileSize(32, 32);
-
-
         World world= new World(1, 1);
         world.placeMap(map2, 0, 0);
+        world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets.atlas");
         world.setLoadPath("/world/");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
         EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "/world/worldAssetts.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
@@ -68,7 +70,7 @@ public class TestMap {
         position2.setMapWorldLocationY(map2.getWorldY());
         world.setPlayer( entityBag.getEntities().get(0));
        world.setWorldTextureAtlas(assetts.getTextureAtlas("/world/worldAssetts.atlas"),"/world/worldAssetts.atlas");
-        assetts.setWorld(world);
+        //assetts.setWorld(world);
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
         //map2.addEntity(hood);
@@ -98,20 +100,16 @@ public class TestMap {
         world.setStartMap(0, 0);
 
       try {
-           assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
-        } catch (IOException e) {
-          e.printStackTrace();
+       assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
+       } catch (IOException e) {
+        e.printStackTrace();
         }
        world.setLoadPath("/world/");
-           World newWorld=assetts.loadGame("/world/game.bin");
-            newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
-          assetts.setWorld(newWorld);
+       World newWorld=assetts.loadGame("/world/game.bin");
+     newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
+       assetts.setWorld(world);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }
-
-
-
-
 
 }

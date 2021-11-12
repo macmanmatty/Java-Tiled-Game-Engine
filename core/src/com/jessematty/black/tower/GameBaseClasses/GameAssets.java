@@ -124,11 +124,11 @@ public class GameAssets {
        game.setScreen(previousScreen);
     }
     /**
-     * Loads a world Object
+     * Loads a world Object form a file
      * @param path  the path to the game file
      * @return World the game object
      */
-    public World loadGame(String path)  { // deserlalizies  the world game object
+    public World loadGame(String path)  {
        WorldReader worldReader= new WorldReader(this);
         world=worldReader.loadWorld(path);
         return world;
@@ -313,6 +313,9 @@ public class GameAssets {
         TextureAtlas atlas= assetManager.get(path,  TextureAtlas.class);
         return atlas;
     }
+
+
+
     /**
      *  returns a libGDX texture atlas located  externally form the jar file
      * @param path  the  full path to the texture atlas to load
@@ -340,6 +343,17 @@ public class GameAssets {
     public void finishLoading(){
          assetManager.finishLoading();
     }
+
+   public void  loadTextureAtlasAsync(final String path){
+        Runnable runnable= new Runnable() {
+            @Override
+            public void run() {
+                assetManager.load(path, TextureAtlas.class);
+                finishLoading();
+            }
+        };
+        Gdx.app.postRunnable(runnable);
+   }
 
     /**
      *

@@ -39,11 +39,6 @@ public  class LightRenderSystem extends SortedIteratingSystem{
         lights= GameComponentMapper.getLightComponentMapper();
         positions=GameComponentMapper.getPositionComponentMapper();
 
-
-
-
-
-
     }
 
     @Override
@@ -65,14 +60,7 @@ public  class LightRenderSystem extends SortedIteratingSystem{
                 float positionX = position.getLocationX() + light.getDrawOffsetX();
                 float positionY = position.getLocationY() + light.getDrawOffsetY();
 
-
-
-
-
-
         }
-
-
 
         batch.end();
 

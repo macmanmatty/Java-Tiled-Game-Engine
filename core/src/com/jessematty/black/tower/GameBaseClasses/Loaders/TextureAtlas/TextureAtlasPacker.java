@@ -38,6 +38,7 @@ public class TextureAtlasPacker  implements Disposable {
     private Array<Page> pages=new Array<>();
     private String atlasSaveDirectory;
     private Array<String> textureRegionNames= new Array<>();
+    private boolean disposeTextureAfterWrite;
 
     public TextureAtlasPacker() {
     }
@@ -188,8 +189,8 @@ public class TextureAtlasPacker  implements Disposable {
             textureRegionNames.add(name);
             Texture texture=atlasNamedAtlasRegion.getTexture();
             if(currentTexture!=texture){
-                if(currentTexture!=null) {
-                    currentTexture.dispose();
+                if(currentTexture!=null && disposeTextureAfterWrite) {
+                   currentTexture.dispose();
                 }
                 if(currentTexturePixmap!=null){
                     currentTexturePixmap.dispose();
@@ -279,5 +280,13 @@ public class TextureAtlasPacker  implements Disposable {
         pixmapPacker.dispose();
         currentTexture.dispose();
         currentTexturePixmap.dispose();
+    }
+
+    public boolean isDisposeTextureAfterWrite() {
+        return disposeTextureAfterWrite;
+    }
+
+    public void setDisposeTextureAfterWrite(boolean disposeTextureAfterWrite) {
+        this.disposeTextureAfterWrite = disposeTextureAfterWrite;
     }
 }

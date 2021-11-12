@@ -13,25 +13,15 @@ import java.io.FileNotFoundException;
 
 
 public class WorldReader {
-    private final GameAssets assetts;
-    private String fileSeperator;
-    private final World world;
-    private final EntityLoader entityLoader;
+
     private final GameAssets gameAssets;
 
 
     public WorldReader(GameAssets assets) {
-        this.assetts = assets;
-        fileSeperator = FileUtilities.getFileSeparator();
-        world = new World();
-        entityLoader=new EntityLoader(assets);
         this.gameAssets=assets;
-
-
     }
 
     public World loadWorld(String path) { // loads  game  from the maps json and tmx files ina given path
-
 
         Input input= null;
         try {
@@ -42,10 +32,6 @@ public class WorldReader {
         World world= (World) gameAssets.getKryo().readClassAndObject(input);
 
         return  world;
-
-
-
-
     }
 
 

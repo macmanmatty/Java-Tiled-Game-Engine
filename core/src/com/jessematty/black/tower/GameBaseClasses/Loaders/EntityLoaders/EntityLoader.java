@@ -32,7 +32,6 @@ public class EntityLoader {
         jsonLoader.getJson().setSerializer(AtlasNamedAtlasRegion.class, new AtlasNamedAtlasRegionSerializer(assetts));
 
     }
-
     public   void  loadEntities(String path){
 
         FileAction loadEntity= new FileAction() {

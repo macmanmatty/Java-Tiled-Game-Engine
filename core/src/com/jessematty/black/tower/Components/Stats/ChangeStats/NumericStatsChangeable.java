@@ -27,7 +27,6 @@ public class NumericStatsChangeable implements Component {
 
 
     }
-
     public NumericStatChangeable getStat(String name){
 
         int size= statsToChange.size;
@@ -60,7 +59,6 @@ public class NumericStatsChangeable implements Component {
 
 
     }
-
 
     public void addOrCombineStat(NumericStatChangeable changableNumericStat) {
         int size=statsToChange.size;

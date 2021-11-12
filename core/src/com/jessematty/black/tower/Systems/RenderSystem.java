@@ -69,6 +69,15 @@ public  class RenderSystem extends SortedRenderingSystem {
                 float positionX = position.getLocationX() + drawableComponent.getDrawOffsets().x;
                 float positionY = position.getLocationY() + drawableComponent.getDrawOffsets().y;
                     batch.draw(textureRegion, positionX, positionY);
+                    System.out.println( "region width" + textureRegion.getRegionWidth());                    System.out.println("region x" +textureRegion.getRegionX());
+                    System.out.println( "region y" + textureRegion.getRegionY());
+                    System.out.println("region height" +textureRegion.getRegionHeight());
+                    System.out.println( "region width" + textureRegion.getRegionWidth());
+                    System.out.println("region u" +textureRegion.getU());
+                    System.out.println( "region u2" + textureRegion.getU2());
+                    System.out.println("region v1" +textureRegion.getV());
+                    System.out.println( "region v2" + textureRegion.getV2());
+
                 }
             }
         }
@@ -81,15 +90,11 @@ public  class RenderSystem extends SortedRenderingSystem {
      * @param brightness the brightness  multiplier
      * @return COLOR  the new  color with calculated brightness
      */
-
-
     private Color calculateColor(Color entityColor, float brightness) {
         Color color= new Color(entityColor.r, entityColor.g, entityColor.b, entityColor.a);
         color.r=color.r*brightness;
         color.g=color.g*brightness;
         color.b=color.b*brightness;
-
-
         return  color;
     }
 }

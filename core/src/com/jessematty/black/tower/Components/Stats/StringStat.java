@@ -60,8 +60,6 @@ public class StringStat extends Stat {
         String string2=  this.stat.substring(0, place+1);
         this.stat=string1+text+string2;
 
-
-
     }
 
     public boolean containsText(String text){
