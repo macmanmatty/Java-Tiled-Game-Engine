@@ -6,10 +6,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Markers.BooleanStatChanged;
-import com.jessematty.black.tower.Components.Markers.NumericStatChanged;
-import com.jessematty.black.tower.Components.Markers.StatChanged;
-import com.jessematty.black.tower.Components.Markers.StringStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.BooleanStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
+import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
@@ -19,7 +19,8 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
+import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.Iterator;
@@ -40,10 +41,10 @@ public class TimeChangingStatSystem extends GameEntitySystem {
     public void addedToEngine(Engine engine) {
 
 
-        timeChangingNumericStatsComponentMapper=getGameComponentMapper().getTimeChangingNumericStatsComponentMapper();
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        booleanStatsComponentMapper=getGameComponentMapper().getBooleanStatsComponentMapper();
-        stringStatsComponentMapper=getGameComponentMapper().getStringStatsComponentMapper();
+        timeChangingNumericStatsComponentMapper= GameComponentMapper.getTimeChangingNumericStatsComponentMapper();
+        numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
+        booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
+        stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
     }
 
 

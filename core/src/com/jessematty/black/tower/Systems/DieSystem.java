@@ -9,13 +9,11 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 
-import com.jessematty.black.tower.Components.Markers.Killable;
+import com.jessematty.black.tower.Components.FlagComponents.Killable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-
-import java.util.List;
 
 public class DieSystem extends GameEntitySystem { // checks  the die when zero  stats  for all entities  if all stats are zero
     // marks the entities  as dying.
@@ -34,9 +32,9 @@ public class DieSystem extends GameEntitySystem { // checks  the die when zero  
 
     @Override
     public void addedToEngine(Engine engine) {
-        actions=getGameComponentMapper().getActionComponentMapper();
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        dyingComponentMapper=getGameComponentMapper().getDyingComponentMapper();
+        actions=GameComponentMapper.getActionComponentMapper();
+        numericStatsComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
+        dyingComponentMapper=GameComponentMapper.getDyingComponentMapper();
     }
 
     @Override

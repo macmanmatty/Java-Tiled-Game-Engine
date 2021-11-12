@@ -2,12 +2,9 @@ package com.jessematty.black.tower.Editor.EditMode.Loaders;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class Loader {
 
@@ -20,7 +17,7 @@ public class Loader {
     }
 
     private  void  loadAtlas( String path){
-        TextureAtlas textureAtlas=gameAssetts.loadTextureAtlasFromExternalFile(path);
+        TextureAtlas textureAtlas=gameAssetts.loadExternalTextureAtlas(path);
 
        Array<AtlasRegion>  regions= textureAtlas.getRegions();
        int size=regions.size;

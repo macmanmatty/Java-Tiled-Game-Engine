@@ -16,6 +16,7 @@ import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -39,14 +40,14 @@ public class EquipItemSystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
-        attachableComponentMapper =getGameComponentMapper().getAttachableComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        groupsComponentMapper=getGameComponentMapper().getGroupsComponentMapper();
-        attachedComponentComponentMapper=getGameComponentMapper().getAttachedComponentComponentMapper();
-        nameComponentMapper=getGameComponentMapper().getNameComponentMapper();
-        equipItemComponentMapper=getGameComponentMapper().getEquipItemComponentMapper();
+        attachableComponentMapper = GameComponentMapper.getAttachableComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        groupsComponentMapper=GameComponentMapper.getGroupsComponentMapper();
+        attachedComponentComponentMapper=GameComponentMapper.getAttachedComponentComponentMapper();
+        nameComponentMapper=GameComponentMapper.getNameComponentMapper();
+        equipItemComponentMapper=GameComponentMapper.getEquipItemComponentMapper();
 
     }
 

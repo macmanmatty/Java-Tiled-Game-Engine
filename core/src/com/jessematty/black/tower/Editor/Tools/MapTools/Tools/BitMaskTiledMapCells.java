@@ -1,15 +1,15 @@
-package com.jessematty.black.tower.Editor.EditMode.MapTools.Tools;
+package com.jessematty.black.tower.Editor.Tools.MapTools.Tools;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 import java.util.Stack;
 

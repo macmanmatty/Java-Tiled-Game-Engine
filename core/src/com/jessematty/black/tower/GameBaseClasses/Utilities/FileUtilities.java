@@ -271,25 +271,26 @@ public class FileUtilities {
 
     }
 
-    public static  File createFile(String path, String fileName){
-        // creates directories from a path  to a directory returns true if the directory was created or if it allready exists returns false if the
-        // directory was not created  or if the path  is not to a  directory.
+    public static  File createFile(String path, String fileName) throws IOException {
+        // creates directories from a path  to a directory returns the file or null if no file was created
+        if(fileName==null ||  path==null|| path.isEmpty()){
+
+            return null;
+
+        }
         File directory= new File(path);
 
         if( !directory.exists()) {
              directory.mkdirs();
         }
+
         String fullPath=path+getFileSeparator()+fileName;
 
         File file= new File(fullPath);
         if(!file.exists()){
-            try {
+
                 file.createNewFile();
-            } catch (FileExistsException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
         }
 

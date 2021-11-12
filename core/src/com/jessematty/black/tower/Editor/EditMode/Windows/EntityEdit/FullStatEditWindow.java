@@ -12,16 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStatCombine;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableBooleanStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.Components.TileWeatherChangableNumericStat;
+import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.DragLists.OneWayDragList;
@@ -68,14 +68,14 @@ public   class FullStatEditWindow extends MapEditWindow {
         if(stat instanceof  ColorChangingStat){
             makeColorChangingNumericStatWindow();
         }
-        if(stat instanceof  ChangableNumericStat){
+        if(stat instanceof NumericStatChangeable){
             makeChangeableNumericStat();
         }
-        if(stat instanceof SelfChangableNumericStat){
+        if(stat instanceof SelfChangableNumericStatChangeable){
             makeSelfChangeableNumericStat();
         }
 
-        if(stat instanceof TileWeatherChangableNumericStat){
+        if(stat instanceof TileWeatherChangableNumericStatChangeable){
 
             makeTileWeatherChangeableNumericStat();
         }
@@ -84,14 +84,14 @@ public   class FullStatEditWindow extends MapEditWindow {
             makeBooleanStatWindow();
         }
 
-        if(stat instanceof ChangableBooleanStat){
+        if(stat instanceof BooleanStatChangeable){
 
             makeChangableBooleanStat();
         }
         if(stat instanceof StringStat){
             makeStringStat();
         }
-        if(stat instanceof ChangableStringStat){
+        if(stat instanceof StringStatChangeable){
             makeChangableStringStat();
         }
     }
@@ -116,7 +116,7 @@ public   class FullStatEditWindow extends MapEditWindow {
         row();
     }
     public void makeChangableBooleanStat(){
-        final ChangableBooleanStat booleanStat= (ChangableBooleanStat) stat;
+        final BooleanStatChangeable booleanStat= (BooleanStatChangeable) stat;
 
         Array<String> gameActions = getMapEditScreen().getWorldObjects().getChangeActions();
         Array<String> itemChangeActions = booleanStat.getActionsToChangeOn();
@@ -151,7 +151,7 @@ public   class FullStatEditWindow extends MapEditWindow {
 
     }
     public void makeChangeableNumericStat(){
-        final ChangableNumericStat changableNumericStat= (ChangableNumericStat) stat;
+        final NumericStatChangeable changableNumericStat= (NumericStatChangeable) stat;
         Array<String> gameActions = getMapEditScreen().getWorldObjects().getChangeActions();
         Array<String> itemChangeActions = changableNumericStat.getActionsToChangeOn();
          OneWayDragList<String> actionsGroup = new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
@@ -160,15 +160,15 @@ public   class FullStatEditWindow extends MapEditWindow {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (selfChangeable.isChecked()) {
-                    if (stat instanceof NumericStat && !(stat instanceof SelfChangableNumericStat)) {
-                        stat = new SelfChangableNumericStat((ChangableNumericStat) stat);
-                        numericStats.getSelfChangableNumericStats().add((SelfChangableNumericStat) stat);
+                    if (stat instanceof NumericStat && !(stat instanceof SelfChangableNumericStatChangeable)) {
+                        stat = new SelfChangableNumericStatChangeable((NumericStatChangeable) stat);
+                        numericStats.getSelfChangableNumericStats().add((SelfChangableNumericStatChangeable) stat);
                         makeWindow(entity, stat);
                     }
                 } else {
                     if (stat instanceof NumericStat) {
                         stat = new NumericStat((NumericStat) stat);
-                        numericStats.getSelfChangableNumericStats().removeValue((SelfChangableNumericStat) stat, true);
+                        numericStats.getSelfChangableNumericStats().removeValue((SelfChangableNumericStatChangeable) stat, true);
                         makeWindow(entity, stat);
                     }
                 }
@@ -273,7 +273,7 @@ public   class FullStatEditWindow extends MapEditWindow {
         add(dieWhenZero);
         row();
          NumericStats stats= entity.getComponent(NumericStats.class);
-        OneWayDragList<SelfChangableNumericStat> oneWayDragList= new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), skin, stats.getSelfChangableNumericStats(), numericStat.getLinkedStatsToChange(), "Stats Attached To Entity", "Stats Linked To "+stat.getName());
+        OneWayDragList<SelfChangableNumericStatChangeable> oneWayDragList= new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), skin, stats.getSelfChangableNumericStats(), numericStat.getLinkedStatsToChange(), "Stats Attached To Entity", "Stats Linked To "+stat.getName());
         add(oneWayDragList);
         row();
     }

@@ -15,14 +15,12 @@ public class MultipleEntitySelectWindow implements GameWindow {
 
    private ClosableWindow window;
    private Array<Entity> entities;
-   private GameComponentMapper gameComponentMapper;
    private MapDraw mapDraw;
    private Skin skin;
 
     public MultipleEntitySelectWindow(Array<Entity> entities, MapDraw mapDraw) {
         this.entities = entities;
         this.mapDraw = mapDraw;
-        this.gameComponentMapper=mapDraw.getGameComponentMapper();
         this.skin=mapDraw.getCurrentMap().getSkin();
         this.window= new ClosableWindow("Entities", skin);
 

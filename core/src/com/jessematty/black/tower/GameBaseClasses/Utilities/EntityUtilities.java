@@ -11,7 +11,7 @@ import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -22,13 +22,13 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableBooleanStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
@@ -37,7 +37,7 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
 
 public class EntityUtilities {
@@ -244,7 +244,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        }
         return;
    }
-    public static  void  addComponentsAndStatsToAllConnectedEntities(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<ChangableNumericStat> changableNumericStats, Array<ChangableBooleanStat> changableBooleanStats, Array<ChangableStringStat> changableStringStats,  Component... components){
+    public static  void  addComponentsAndStatsToAllConnectedEntities(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> changableNumericStats, Array<BooleanStatChangeable> changableBooleanStats, Array<StringStatChangeable> changableStringStats, Component... components){
         entities.clear();
         entityIds.clear();
         ComponentMapper<ID> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
@@ -256,7 +256,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
      addComponentsAndStatsToAllConnectedEntitiesInternal(entity, world,numericStats, booleanStats,  stringStats, changableNumericStats, changableBooleanStats, changableStringStats,  components);
         return;
    }
-   private static  void addComponentsAndStatsToAllConnectedEntitiesInternal(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<ChangableNumericStat> changableNumericStats, Array<ChangableBooleanStat> changableBooleanStats, Array<ChangableStringStat> changableStringStats,  Component... components){
+   private static  void addComponentsAndStatsToAllConnectedEntitiesInternal(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> changableNumericStats, Array<BooleanStatChangeable> changableBooleanStats, Array<StringStatChangeable> changableStringStats, Component... components){
         ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
@@ -428,12 +428,12 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(booleanStats);
         StringStats stringStats = new StringStats();
         entity.add(stringStats);
-        NumericStatsChangable numericStatsChangable = new NumericStatsChangable();
-        entity.add(numericStatsChangable);
-        BooleanStatsChangable booleanStatsChangable = new BooleanStatsChangable();
-        entity.add(booleanStatsChangable);
-        StringStatsChangable stringStatsChangable = new StringStatsChangable();
-        entity.add(stringStatsChangable);
+        NumericStatsChangeable numericStatsChangeable = new NumericStatsChangeable();
+        entity.add(numericStatsChangeable);
+        BooleanStatsChangeable booleanStatsChangeable = new BooleanStatsChangeable();
+        entity.add(booleanStatsChangeable);
+        StringStatsChangeable stringStatsChangeable = new StringStatsChangeable();
+        entity.add(stringStatsChangeable);
         NumericStatsSelfChangable numericStatsSelfChangable = new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
         Groups groups = new Groups();
@@ -443,7 +443,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(ownerComponent);
         ImageComponent imageComponent= new ImageComponent();
         entity.add(imageComponent);
-     return new BasicEntityContainer(entity, id, name, groups,  numericStats, booleanStats, stringStats, stringStatsChangable, numericStatsSelfChangable, booleanStatsChangable, numericStatsChangable);
+     return new BasicEntityContainer(entity, id, name, groups,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
    }
   public static Entity combineEntities(World world, Entity entity1, Entity entity2) {
        Entity entity=new Entity();
@@ -561,19 +561,19 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
           entity.add(components[count]);
        }
   }
-    public static  void addStatsToEntity(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<ChangableNumericStat> numericStatsChangables, Array<ChangableBooleanStat> booleanStatsChangables, Array<ChangableStringStat> stringStatsChangables){
+    public static  void addStatsToEntity(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> numericStatsChangables, Array<BooleanStatChangeable> booleanStatsChangables, Array<StringStatChangeable> stringStatsChangables){
        ComponentMapper<NumericStats> numericStatsComponentMapper=world.getGameComponentMapper().getNumericStatsComponentMapper();
         ComponentMapper<BooleanStats> booleanStatsComponentMapper=world.getGameComponentMapper().getBooleanStatsComponentMapper();
         ComponentMapper<StringStats> stringStatsComponentMapper=world.getGameComponentMapper().getStringStatsComponentMapper();
         NumericStats numericStatsComponent=numericStatsComponentMapper.get(entity);
         BooleanStats booleanStatsComponent=booleanStatsComponentMapper.get(entity);
         StringStats stringStatsComponent=stringStatsComponentMapper.get(entity);
-        ComponentMapper<NumericStatsChangable> numericStatsChangableComponentMapper=world.getGameComponentMapper().getNumericStatsChangableComponentMapper();
-        ComponentMapper<BooleanStatsChangable> booleanStatsChangableComponentMapper=world.getGameComponentMapper().getBooleanStatsChangableComponentMapper();
-        ComponentMapper<StringStatsChangable> stringStatsChangableComponentMapper=world.getGameComponentMapper().getStringStatsChangableComponentMapper();
-        NumericStatsChangable numericStatsChangableComponent=numericStatsChangableComponentMapper.get(entity);
-        BooleanStatsChangable booleanStatsChangableComponent=booleanStatsChangableComponentMapper.get(entity);
-        StringStatsChangable stringStatsChangableComponent=stringStatsChangableComponentMapper.get(entity);
+        ComponentMapper<NumericStatsChangeable> numericStatsChangableComponentMapper=world.getGameComponentMapper().getNumericStatsChangableComponentMapper();
+        ComponentMapper<BooleanStatsChangeable> booleanStatsChangableComponentMapper=world.getGameComponentMapper().getBooleanStatsChangableComponentMapper();
+        ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper=world.getGameComponentMapper().getStringStatsChangableComponentMapper();
+        NumericStatsChangeable numericStatsChangeableComponent =numericStatsChangableComponentMapper.get(entity);
+        BooleanStatsChangeable booleanStatsChangeableComponent =booleanStatsChangableComponentMapper.get(entity);
+        StringStatsChangeable stringStatsChangeableComponent =stringStatsChangableComponentMapper.get(entity);
         
         if(numericStats!=null && !numericStats.isEmpty()){
             
@@ -598,19 +598,19 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
        if(numericStatsChangables!=null && !numericStatsChangables.isEmpty()){
            int size=numericStatsChangables.size;
             for ( int count=0; count<size; count++){
-               numericStatsChangableComponent.addOrCombineStat(numericStatsChangables.get(count));
+               numericStatsChangeableComponent.addOrCombineStat(numericStatsChangables.get(count));
             }
         }
         if(booleanStatsChangables!=null && !booleanStatsChangables.isEmpty()){
            int size=booleanStatsChangables.size;
             for ( int count=0; count<size; count++){
-               booleanStatsChangableComponent.addOrCombineStat(booleanStatsChangables.get(count));
+               booleanStatsChangeableComponent.addOrCombineStat(booleanStatsChangables.get(count));
             }
         }
         if(stringStatsChangables!=null && !stringStatsChangables.isEmpty()){
            int size=stringStatsChangables.size;
             for ( int count=0; count<size; count++){
-               stringStatsChangableComponent.addOrCombineStat(stringStatsChangables.get(count));
+               stringStatsChangeableComponent.addOrCombineStat(stringStatsChangables.get(count));
             }
         }
 }

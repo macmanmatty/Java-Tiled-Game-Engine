@@ -3,8 +3,9 @@ package com.jessematty.black.tower.Editor.EditMode.Windows;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
 
-public  abstract class EditWindow extends ClosableWindow {
+public   class EditWindow extends GameWindow {
 
     protected final Skin skin;
     protected final EditScreen editScreen;
@@ -13,7 +14,7 @@ public  abstract class EditWindow extends ClosableWindow {
 
 
     public EditWindow(EditScreen editScreen, String title , Skin skin, String style) {
-        super(title, skin, style);
+        super(title, skin, style,editScreen.getGameAssets());
 
 
         this.skin=skin;
@@ -27,6 +28,10 @@ public  abstract class EditWindow extends ClosableWindow {
     }
 
     public   void makeWindow(){}
+
+    public void clearWindow(){
+        clear();
+    }
 
 
 

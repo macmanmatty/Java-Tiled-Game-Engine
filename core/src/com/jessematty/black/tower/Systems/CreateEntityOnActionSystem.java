@@ -9,6 +9,7 @@ import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnAction;
 import com.jessematty.black.tower.Components.CreateEntity.ParticleEntity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -22,9 +23,9 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
-        entityCreateableComponentMapper =getGameComponentMapper().getEntityCreateableComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
+        actionComponentMapper= GameComponentMapper.getActionComponentMapper();
+        entityCreateableComponentMapper =GameComponentMapper.getEntityCreateableComponentMapper();
+        positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
 
 
         
@@ -53,7 +54,7 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
                      positionComponent.movePosition(startPositionOffset.x, startPositionOffset.y, startPositionOffset.z);
 
                  }
-                 EntityUtilities.copyEntity(getAsssets(), entityToCreate);
+                 EntityUtilities.copyEntity(getAssets(), entityToCreate);
 
                  setLocationAndAddToMap(entity);
              }

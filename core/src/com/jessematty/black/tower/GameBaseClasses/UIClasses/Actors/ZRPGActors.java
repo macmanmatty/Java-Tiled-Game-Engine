@@ -12,8 +12,8 @@ public class ZRPGActors {
 
     public ZRPGActors(MapDraw draw) {
 
-        TextureRegion region=draw.getAssetts().getAtlasRegionByName("target", "assets");
-        targetImage=new Image(region);
+       // TextureRegion region=draw.getAssetts().getAtlasRegionByName("target", "assetts");
+      //  targetImage=new Image(region);
         //draw.getUiStage().addActor(targetImage);
     }
 

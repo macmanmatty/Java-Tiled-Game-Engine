@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 
 public class TiledMapLayerWindow extends MapEditWindow {
@@ -60,8 +61,10 @@ public class TiledMapLayerWindow extends MapEditWindow {
 
         add(layerLabel).height(layerLabel.getPrefHeight());
         row();
+        ScrollPane scrollPane= new ScrollableItemList<>(mapLayers, skin).getScrollPane();
 
-        add(mapLayers).size(320,listHeight).maxHeight(listHeight);
+
+        add(scrollPane).size(300, listHeight);
         tiledMapLayersPane.setTransform(true);
         tiledMapLayersPane.setScrollbarsVisible(true);
 

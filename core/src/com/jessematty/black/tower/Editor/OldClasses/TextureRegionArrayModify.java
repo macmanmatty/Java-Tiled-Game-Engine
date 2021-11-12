@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 import java.util.ArrayList;
 public class TextureRegionArrayModify {

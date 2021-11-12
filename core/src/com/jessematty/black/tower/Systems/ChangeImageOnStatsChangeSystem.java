@@ -9,12 +9,13 @@ import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangeImageOnStat;
 import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValueChanges;
-import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Components.Markers.StatChanged;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
+import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.CheckStats;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ChangeImageOnStatsChangeSystem extends GameEntitySystem {
     private ComponentMapper<BooleanStats> booleanStatsComponentMapper;
     private ComponentMapper<StringStats> stringStatsComponentMapper;
     private ComponentMapper<ChangeImageOnStatsValueChanges> changeImageOnStatsValueChangesComponentMapper;
-    private ComponentMapper<Drawable> drawableComponentMapper;
+    private ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ComponentMapper<AnimatableComponent> animatableComponentMapper;
     private ImmutableArray<Entity> entities;
     public ChangeImageOnStatsChangeSystem(MapDraw draw) {
@@ -31,16 +32,16 @@ public class ChangeImageOnStatsChangeSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-        booleanStatsComponentMapper=getGameComponentMapper().getBooleanStatsComponentMapper();
-        stringStatsComponentMapper=getGameComponentMapper().getStringStatsComponentMapper();
-        changeImageOnStatsValueChangesComponentMapper=getGameComponentMapper().getChangeImageOnStatsValueChangesComponentMapper();
-        drawableComponentMapper=getGameComponentMapper().getDrawableComponentMapper();
-        animatableComponentMapper=getGameComponentMapper().getAnimatableComponentMapper();
+        numericStatsComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
+        booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
+        stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
+        changeImageOnStatsValueChangesComponentMapper=GameComponentMapper.getChangeImageOnStatsValueChangesComponentMapper();
+        drawableComponentMapper=GameComponentMapper.getDrawableComponentMapper();
+        animatableComponentMapper=GameComponentMapper.getAnimatableComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
-        entities= getEngine().getEntitiesFor(Family.all( Drawable.class, StatChanged.class, NumericStats.class, BooleanStats.class, StringStats.class, ChangeImageOnStatsValueChanges.class).get());
+        entities= getEngine().getEntitiesFor(Family.all( DrawableComponent.class, StatChanged.class, NumericStats.class, BooleanStats.class, StringStats.class, ChangeImageOnStatsValueChanges.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
@@ -49,7 +50,7 @@ public class ChangeImageOnStatsChangeSystem extends GameEntitySystem {
             StringStats stringStats=stringStatsComponentMapper.get(entity);
             ChangeImageOnStatsValueChanges changeImageOnStatsValueChanges=changeImageOnStatsValueChangesComponentMapper.get(entity);
             List<ChangeImageOnStat> changeImageOnStats= changeImageOnStatsValueChanges.getChangeImageOnNumericStats();
-            Drawable drawable=drawableComponentMapper.get(entity);
+            DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
             AnimatableComponent animatable=animatableComponentMapper.get(entity);
             boolean incremental=changeImageOnStatsValueChanges.isInChangeSteps();
             int size2=changeImageOnStats.size();
@@ -64,7 +65,7 @@ public class ChangeImageOnStatsChangeSystem extends GameEntitySystem {
                 boolean hasStringStats=CheckStats.valuesAreEqual(stringStatsToChageOn, stringStats);
                 boolean changed=false;
                 if(hasBooleanStats==true&& hasNumericStats==true && hasStringStats==true){
-                        drawable.setCurrentRegion(getAsssets().getAtlasRegionByName(changeImageOnStat.getImageName(), changeImageOnStat.getAtlasName()));
+                        drawableComponent.setCurrentRegion(getAssets().getAtlasRegionByName(changeImageOnStat.getImageName(), changeImageOnStat.getAtlasName()));
                         changed=true;
                 }
                 if(changed==false && incremental==true){

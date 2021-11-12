@@ -23,7 +23,7 @@ import com.jessematty.black.tower.Components.Thrustable;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.ZRPGPlayerButtonModes;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameSettings.GameInputKeys;
+import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GameInputKeys;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Actors.ZRPGActors;
@@ -52,6 +52,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
     public PlayerSystem(MapDraw draw) {
         super(draw);
         this.gameInputKeys=draw.getAssetts().getSettings().getGameInputKeys();
+
         zrpgActors=new ZRPGActors(draw);
 
 
@@ -60,18 +61,17 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
 
     @Override
     public void addedToEngine(Engine engine) {
-        GameComponentMapper gameComponentMapper=getGameComponentMapper();
-        slashableComponentMapper=gameComponentMapper.getSlashableComponentMapper();
-        shootableComponentMapper=gameComponentMapper.getShootableComponentMapper();
-        thrustableComponentMapper=gameComponentMapper.getThrustableComponentMapper();
-        ingestableComponentMapper=gameComponentMapper.getIngestableComponentMapper();
-        readableComponentMapper=gameComponentMapper.getReadableComponentMapper();
-        spellCastableComponentMapper=gameComponentMapper.getSpellCastableComponentMapper();
-        itemComponentMapper=getGameComponentMapper().getItemComponentMapper();
-        holdableComponentMapper=getGameComponentMapper().getHoldableComponentMapper();
-        attachableComponentMapper=getGameComponentMapper().getAttachableComponentMapper();
-        throwableComponentMapper=getGameComponentMapper().getThrowableComponentMapper();
-        loadableComponentMapper=getGameComponentMapper().getLoadableComponentMapper();
+        slashableComponentMapper=GameComponentMapper.getSlashableComponentMapper();
+        shootableComponentMapper=GameComponentMapper.getShootableComponentMapper();
+        thrustableComponentMapper=GameComponentMapper.getThrustableComponentMapper();
+        ingestableComponentMapper=GameComponentMapper.getIngestableComponentMapper();
+        readableComponentMapper=GameComponentMapper.getReadableComponentMapper();
+        spellCastableComponentMapper=GameComponentMapper.getSpellCastableComponentMapper();
+        itemComponentMapper=GameComponentMapper.getItemComponentMapper();
+        holdableComponentMapper=GameComponentMapper.getHoldableComponentMapper();
+        attachableComponentMapper=GameComponentMapper.getAttachableComponentMapper();
+        throwableComponentMapper=GameComponentMapper.getThrowableComponentMapper();
+        loadableComponentMapper=GameComponentMapper.getLoadableComponentMapper();
     }
 
     @Override
@@ -213,7 +213,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
            player.getPlayerEntity().remove(Moved.class);
 
            player.getAction().setStat("rest");
-            player.getMovable().setMoved(false);
+            player.getMovableComponent().setMoved(false);
             System.out.println("Key up!!");
 
 
@@ -233,7 +233,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Vector3 unProjectedCoordinates = getDraw().getCamera().unproject(new Vector3(screenX, screenY, 0));
+        Vector3 unProjectedCoordinates = getDraw().getGameCamera().unproject(new Vector3(screenX, screenY, 0));
 
         if(button== Buttons.LEFT){
 

@@ -38,10 +38,6 @@ public class AnimationLoader {
                 if (names[0] != fileName&&!(names[0].isEmpty())) {
                     String nameToKeep = names[0];
                     String fullPath=currentFile.getAbsolutePath();
-
-
-
-
                     LPCAnimations lpcAnimation = animations.get(nameToKeep);
                     if (lpcAnimation ==null) {
                         lpcAnimation =new LPCAnimations(nameToKeep);

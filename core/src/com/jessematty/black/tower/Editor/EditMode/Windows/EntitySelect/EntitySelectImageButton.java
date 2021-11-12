@@ -1,19 +1,15 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.EntitySelect;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.GameMapEdit;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSelectImageButton;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
 
 

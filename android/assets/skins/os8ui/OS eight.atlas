@@ -1,5 +1,5 @@
 
-OS eight2.png
+OS Eight.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -108,13 +108,6 @@ checkbox-pressed
   orig: 18, 13
   offset: 0, 0
   index: -1
-checked
-  rotate: false
-  xy: 575, 749
-  size: 6, 6
-  orig: 6, 6
-  offset: 0, 0
-  index: -1
 font-export
   rotate: false
   xy: 195, 293
@@ -154,7 +147,7 @@ logo
   index: -1
 menudisabled
   rotate: false
-  xy: 403, 585
+  xy: 272, 334
   size: 39, 34
   split: 4, 4, 4, 4
   pad: 0, 0, 0, 0
@@ -163,7 +156,7 @@ menudisabled
   index: -1
 menuovers
   rotate: false
-  xy: 272, 334
+  xy: 403, 585
   size: 39, 34
   split: 4, 4, 4, 4
   pad: 0, 0, 0, 0
@@ -172,7 +165,7 @@ menuovers
   index: -1
 menuover
   rotate: false
-  xy: 272, 334
+  xy: 403, 585
   size: 39, 34
   split: 4, 4, 4, 4
   pad: 0, 0, 0, 0
@@ -190,7 +183,7 @@ progress-bar-horizontal
   index: -1
 progress-bar-knob-horizontal
   rotate: false
-  xy: 509, 629
+  xy: 22, 57
   size: 1, 13
   orig: 1, 13
   offset: 0, 0
@@ -307,7 +300,7 @@ select-box-pressed
   index: -1
 selection
   rotate: false
-  xy: 22, 60
+  xy: 548, 710
   size: 5, 10
   split: 1, 1, 1, 1
   pad: 0, 0, 0, 0
@@ -380,7 +373,7 @@ slider-vertical
   index: -1
 submenu
   rotate: false
-  xy: 548, 709
+  xy: 575, 744
   size: 6, 11
   orig: 6, 11
   offset: 0, 0

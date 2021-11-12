@@ -16,7 +16,7 @@ import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.PlaceMode;
+import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
 
 public class MapDragTarget extends Target {
 
@@ -133,8 +133,8 @@ public class MapDragTarget extends Target {
         int yMax = cellsToPlace[0][0].length;
         int currentLayerNumber= mapEditScreen.getCurrentLayerNumber();
         TiledMap currentTiledMap= mapEditScreen.getTiledMapEdit().getCurrentTiledMap();
-        int xSize= mapEditScreen.getxSize();
-        int ySize= mapEditScreen.getySize();
+        int xSize= mapEditScreen.getXSize();
+        int ySize= mapEditScreen.getYSize();
        int tileSizeX= mapEditScreen.getTileWidth();
        int tileSizeY=mapEditScreen.getTileHeight();
 

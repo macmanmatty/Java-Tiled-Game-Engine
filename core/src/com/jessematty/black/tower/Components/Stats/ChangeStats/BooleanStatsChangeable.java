@@ -3,18 +3,18 @@ package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
-public class BooleanStatsChangable implements Component {
+public class BooleanStatsChangeable implements Component {
 
 
 
-   private  Array<ChangeableBooleanStat> statsToChange = new Array<ChangeableBooleanStat>();
+   private  Array<BooleanStatChangeable> statsToChange = new Array<BooleanStatChangeable>();
 
 
-    public Array<ChangeableBooleanStat> getStatsToChange() {
+    public Array<BooleanStatChangeable> getStatsToChange() {
         return statsToChange;
     }
 
-    public void addStatToChange(ChangeableBooleanStat changableBooleanStat ){
+    public void addStatToChange(BooleanStatChangeable changableBooleanStat ){
 
         int size=statsToChange.size;
         boolean addStat=true;
@@ -46,29 +46,29 @@ public class BooleanStatsChangable implements Component {
 
     }
 
-    public void addOrCombineStat(ChangeableBooleanStat changableBooleanStat) {
+    public void addOrCombineStat(BooleanStatChangeable booleanStatChangeable) {
         int size=statsToChange.size;
         boolean addStat=true;
         for(int count=0; count<size; count++){
-            if(statsToChange.get(count).getName().equals(changableBooleanStat.getName())){
-                statsToChange.add(changableBooleanStat);
+            if(statsToChange.get(count).getName().equals(booleanStatChangeable.getName())){
+                statsToChange.add(booleanStatChangeable);
                 addStat=false;
                 break;
             }
         }
 
         if(addStat==true) {
-            statsToChange.add(changableBooleanStat);
+            statsToChange.add(booleanStatChangeable);
         }
 
     }
 
-    public ChangeableBooleanStat getStat(String name){
+    public BooleanStatChangeable getStat(String name){
 
         int size= statsToChange.size;
         for(int count=0; count<size; count++){
 
-            ChangeableBooleanStat numericStatChangeable= statsToChange.get(count);
+            BooleanStatChangeable numericStatChangeable= statsToChange.get(count);
             if(numericStatChangeable.getName().equals(name)){
 
                 return numericStatChangeable;

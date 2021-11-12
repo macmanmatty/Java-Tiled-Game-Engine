@@ -1,7 +1,43 @@
 package com.jessematty.black.tower.GameBaseClasses.Direction;
 import com.badlogic.gdx.math.Vector2;
 public enum Direction {
-    UP, RIGHT, DOWN, LEFT, RIGHTUP, RIGHTDOWN, LEFTUP, LEFTDOWN, SAME;
+    UP("North", 0, 0),
+    RIGHT("East", 90, 1.5708f),
+    DOWN("South", 180, (float)Math.PI ),
+    LEFT("West", 270, 4.71239f),
+    RIGHTUP("NorthEast", 45.5f, 0.7941248f),
+    RIGHTDOWN("SouthEast", 135.5f, 2.3649211f ),
+    LEFTUP("NorthWest",351.5f, 5.5065138f),
+    LEFTDOWN("SouthWest", 225.5f, 3.9357175f),
+    SAME("Location", -1f, -1f);
+
+
+
+    String compassDirection;
+    float angleDegrees;
+    float angleRadians;
+
+
+    Direction(String compassDirection, float angleDegrees, float angleRadians) {
+        this.compassDirection = compassDirection;
+        this.angleDegrees = angleDegrees;
+        this.angleRadians = angleRadians;
+    }
+
+    public String getCompassDirection() {
+        return compassDirection;
+    }
+
+    public float getAngleDegrees() {
+        return angleDegrees;
+    }
+
+    public float getAngleRadians() {
+        return angleRadians;
+    }
+
+
+
     public static Direction getDirection(int x, int y, int x2, int y2) {
         if (x2 < x && y == y2) {
             return LEFT;
@@ -90,28 +126,29 @@ public enum Direction {
         }
         return SAME;
     }
-    public static  Direction getBaseDirection(Direction direction){
-        switch (direction) {
+    public  static Direction getBaseDirection(Direction direction) {
+        switch (direction){
+
+
             case UP:
+
                 return Direction.UP;
-            case DOWN:
-                return Direction.DOWN;
-            case LEFT:
-                return Direction.LEFT;
             case RIGHT:
-                return Direction.RIGHT;
-            case LEFTUP:
-                return Direction.LEFT;
-            case LEFTDOWN:
-                return Direction.LEFT;
             case RIGHTUP:
-                return Direction.RIGHT;
             case RIGHTDOWN:
                 return Direction.RIGHT;
+            case DOWN:
+                return Direction.DOWN;
+
+            case LEFT:
+            case LEFTUP:
+            case LEFTDOWN:
+                return Direction.LEFT;
             case SAME:
-                return SAME;
+                break;
         }
-        return SAME;
+
+        return  Direction.SAME;
     }
     public static float getAngel(Direction direction) { // get the clockwise degrees assuming that up is 0 or 360 degrees
       switch(direction)
@@ -165,6 +202,8 @@ public enum Direction {
         }
         return 0;
     }
+
+
 
 
 
@@ -423,6 +462,8 @@ public enum Direction {
         }
         return  Direction.SAME;
     }
+
+
     
     
     

@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.PackAssets;
 import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.World;
@@ -29,7 +29,6 @@ public class EditorMainScreen implements NamedScreen {
         private  Button tools;
         private  Button packAssetts;
         private Stage stage;
-        private World world;
         private  Button exit;
         private File file;
         private Skin skin;
@@ -54,7 +53,7 @@ public class EditorMainScreen implements NamedScreen {
                     setFile(file);
                 }
             };
-            loadWorld = new FileSelectPane(fileAction,  skin, "default",  "load map",  false, true);
+            loadWorld = new FileSelectPane(fileAction,  skin, "default",  "load map",   true, 1);
             tools = new TextButton("Tools", skin);
             worlds= new List<World>(skin);
             Label title = new Label("World Editor", skin);

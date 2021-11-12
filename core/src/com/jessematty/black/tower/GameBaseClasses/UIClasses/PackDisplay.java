@@ -19,12 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
 
 import java.util.ArrayList;
@@ -34,7 +34,6 @@ private Skin skin;
 private Pack pack;
 private Window window;
 private GameAssets gameAssets;
-private GameComponentMapper gameComponentMapper;
 private World world;
 private ArrayList<CheckBox> itemBoxes= new ArrayList<CheckBox>();
 private ArrayList<Entity> usableItems= new ArrayList<Entity>();
@@ -46,10 +45,10 @@ private ComponentMapper<Name> nameComponentMapper;
 	public PackDisplay(Skin skin, GameAssets gameAssets) {
 		this.skin = skin;
 		this.gameAssets = gameAssets;
-		this.gameComponentMapper=gameAssets.getMapDraw().getGameComponentMapper();
-		nameComponentMapper=gameComponentMapper.getNameComponentMapper();
-		itemImageComponentMapper=gameComponentMapper.getImageComponentMapper();
-		actionComponentsComponentMapper=gameComponentMapper.getActionComponentsComponentMapper();
+	
+		nameComponentMapper=GameComponentMapper.getNameComponentMapper();
+		itemImageComponentMapper=GameComponentMapper.getImageComponentMapper();
+		actionComponentsComponentMapper=GameComponentMapper.getActionComponentsComponentMapper();
 
 
 	}
@@ -63,7 +62,7 @@ private ComponentMapper<Name> nameComponentMapper;
 		Array<String>itemsInPack=pack.getEntitiesInContainerIds();
 
 
-		Array<Entity> matchingItems= gameAssets.getMapDraw().getGameComponentMapper().getEntitiesWithComponentsById(world, itemsInPack, components);
+		Array<Entity> matchingItems= GameComponentMapper.getEntitiesWithComponentsById(world, itemsInPack, components);
 		ArrayList<Entity>singleItems = new ArrayList<Entity>();
 		int size=matchingItems.size;
 		if (matchingItems.isEmpty()==false){

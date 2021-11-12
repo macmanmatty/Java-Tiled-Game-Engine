@@ -94,7 +94,7 @@ public class DefaultZRPGBottomWindow extends UITable {
         StringStat attackMode=zrpgPlayer.getAttackMode();
 
         NumericStats numericStats=zrpgPlayer.getNumericStats();
-        NumericStatGroup numericStatGroup= new NumericStatGroup(getSkin(), numericStats.getNumericStat("health"));
+        NumericStatGroup numericStatGroup= new NumericStatGroup(getSkin(), numericStats.getNumericStat("health"), false);
         add(stringStatGroup).pad(7.5f);
         row();
         add(numericStatGroup);

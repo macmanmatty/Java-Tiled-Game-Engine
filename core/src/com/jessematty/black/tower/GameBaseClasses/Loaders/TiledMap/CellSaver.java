@@ -2,21 +2,25 @@ package com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+
+/**
+ * class for saving a  libGDX tiled map cell
+ */
 public class CellSaver {
     boolean flipHorizontal;
-
     boolean flipVertical;
-    String [] regionNames;
+    String [] regionNames; // the names of the texture regions if the cell isn't animated  there is only one region
     boolean animated;
     boolean colored;
     float interval;
     float brightness;
-    Color color;
-    Class <? extends TiledMapTile> tileClass;
+    NamedColor color;
+    Class <? extends TiledMapTile> tileClass; // the class to desearlize into
     int id;
     public CellSaver() {
     }
@@ -71,9 +75,6 @@ public class CellSaver {
         return colored;
     }
 
-    public void setColored(boolean colored) {
-        this.colored = colored;
-    }
 
     public float getBrightness() {
         return brightness;
@@ -83,12 +84,21 @@ public class CellSaver {
         this.brightness = brightness;
     }
 
-    public Color getColor() {
+    public NamedColor getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColor(NamedColor color) {
+        if (color.r!=1 && color.g!=1 && color.b!=1 && color.a!=1) {
+            this.colored = true;
+            this.color = color;
+
+        }
+        else{
+
+            this.color=NamedColor.WHITE;
+        }
+
     }
 
     public boolean isFlipHorizontal() {

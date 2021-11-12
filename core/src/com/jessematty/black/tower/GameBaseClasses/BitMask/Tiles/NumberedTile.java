@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles;
 
 import com.badlogic.gdx.graphics.Color;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
 public class NumberedTile {
     private int bitNumber;

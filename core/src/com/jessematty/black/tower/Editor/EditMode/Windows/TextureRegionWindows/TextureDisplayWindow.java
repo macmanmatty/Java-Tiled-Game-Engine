@@ -23,12 +23,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.NamedTextureAtlas;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.ObservableSelectBox;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.SelectBox.ObservableSelectBox;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
@@ -206,6 +206,8 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         image.setDebug(true);
+                        KeyListener keyListener = getMapEditScreen().getGameAssets().getGameInput().getKeyListener();
+
                         if(button==0) {
 
                             AtlasNamedAtlasRegion atlasRegion = new AtlasNamedAtlasRegion(region);
@@ -217,7 +219,6 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
                                 textureAtlas.addRegion(atlasRegion.name, atlasRegion);
 
                             }
-                            KeyListener keyListener = getMapEditScreen().getKeyListener();
                             if (keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
                                 selectMap[finalCountx][finalCounty] = !selectMap[finalCountx][finalCounty];
                                 setSelectedCells();
@@ -238,7 +239,6 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
                                 textureAtlas.addRegion(atlasRegion.name, atlasRegion);
 
                             }
-                            KeyListener keyListener = getMapEditScreen().getKeyListener();
                             if (keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
                                 selectMap[finalCountx][finalCounty] = !selectMap[finalCountx][finalCounty];
                                 setSelectedCells();
@@ -269,7 +269,7 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         }
         imageTable.invalidateHierarchy();
         imageTable.setDebug(true);
-        saveTextures();
+        //saveTextures();
         invalidateHierarchy();
         //clear();
         //makeWindow();
@@ -288,8 +288,8 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         HorizontalGroup horizontalGroup = new HorizontalGroup();
         horizontalGroup.addActor(selectATexture);
         horizontalGroup.addActor(textures);
-        FileSelectPane fileSelectPane = new FileSelectPane(getSkin(), "Load New Texture", false);
-        fileSelectPane.setDisplayPath(false);
+        FileSelectPane fileSelectPane = new FileSelectPane(getSkin(), "Load New Texture", 0);
+        fileSelectPane.setDisplayFilePath(false);
         fileSelectPane.setFileAction(new FileAction() {
             @Override
             public void act(File file) {

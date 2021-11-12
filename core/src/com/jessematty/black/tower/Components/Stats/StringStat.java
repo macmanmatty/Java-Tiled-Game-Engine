@@ -19,6 +19,12 @@ public class StringStat extends Stat {
     public StringStat() {
     }
 
+    @Override
+    public String getStatAsString() {
+      return toString();
+
+    }
+
     public String getStat() {
 
 

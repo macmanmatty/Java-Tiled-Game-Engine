@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 
@@ -24,8 +25,8 @@ public class RemoveOwnerSystem extends GameEntitySystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-        attachableComponentMapper=getGameComponentMapper().getAttachableComponentMapper();
-        removeOwnerComponentComponentMapper=getGameComponentMapper().getRemoveOwnerComponentComponentMapper();
+        attachableComponentMapper=GameComponentMapper.getAttachableComponentMapper();
+        removeOwnerComponentComponentMapper= GameComponentMapper.getRemoveOwnerComponentComponentMapper();
 
     }
 

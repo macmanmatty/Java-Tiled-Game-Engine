@@ -20,6 +20,7 @@ import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class UnEquipItemSystem extends GameEntitySystem{
@@ -41,13 +42,13 @@ public class UnEquipItemSystem extends GameEntitySystem{
 
     @Override
     public void addedToEngine(Engine engine) {
-        attachableComponentMapper =getGameComponentMapper().getAttachableComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        unEquipItemComponentMapperquipItemComponentMapper=getGameComponentMapper().getUnEquipItemComponentMapperr();
-        attachedComponentComponentMapper=getGameComponentMapper().getAttachedComponentComponentMapper();
-        nameComponentMapper=getGameComponentMapper().getNameComponentMapper();
+        attachableComponentMapper = GameComponentMapper.getAttachableComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        unEquipItemComponentMapperquipItemComponentMapper=GameComponentMapper.getUnEquipItemComponentMapperr();
+        attachedComponentComponentMapper=GameComponentMapper.getAttachedComponentComponentMapper();
+        nameComponentMapper=GameComponentMapper.getNameComponentMapper();
 
     }
 

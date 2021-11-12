@@ -1,22 +1,21 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.SelfChangableNumericStat;
 
 public class NumericStatsSelfChangable implements Component {
-   private Array<SelfChangableNumericStat> statsToChange = new Array<>();
+   private Array<SelfChangableNumericStatChangeable> statsToChange = new Array<>();
 
-    public Array<SelfChangableNumericStat> getStatsToChange() {
+    public Array<SelfChangableNumericStatChangeable> getStatsToChange() {
         return statsToChange;
     }
 
-    public void addStatToChange(SelfChangableNumericStat amount ){
+    public void addStatToChange(SelfChangableNumericStatChangeable amount ){
         statsToChange.add(amount);
     }
-    public SelfChangableNumericStat getStat(String name){
+    public SelfChangableNumericStatChangeable getStat(String name){
         int size= statsToChange.size;
         for(int count=0; count<size; count++){
-            SelfChangableNumericStat numericStatChangeable= statsToChange.get(count);
+            SelfChangableNumericStatChangeable numericStatChangeable= statsToChange.get(count);
             if(numericStatChangeable.getName().equals(name)){
                 return numericStatChangeable;
             }

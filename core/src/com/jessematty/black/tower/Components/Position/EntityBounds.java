@@ -11,9 +11,10 @@ public class EntityBounds {
     private Vector2 boundsRectangle= new Vector2();
     private Polygon bounds= new Polygon( new float[] {0,0,0,0,0,0,0,0}); // the entity bounds
     private float [] boundsVerticies; // the points of the  shape that makes up bounds in x, y pairs
-    Vector2 boundsOffset= new Vector2();
+   private Vector2 boundsOffset= new Vector2();
 
     private boolean isBoundsRectangle=true;
+    private boolean drawBounds;
 
 
     public Rectangle getBoundingRectangle() {
@@ -61,5 +62,13 @@ public class EntityBounds {
     public void setBoundsOffset(int x, int y) {
         this.boundsOffset = new Vector2(x, y);
 
+    }
+
+    public boolean isDrawBounds() {
+        return drawBounds;
+    }
+
+    public void setDrawBounds(boolean drawBounds) {
+        this.drawBounds = drawBounds;
     }
 }

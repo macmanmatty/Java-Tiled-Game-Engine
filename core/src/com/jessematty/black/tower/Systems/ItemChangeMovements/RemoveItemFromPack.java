@@ -9,6 +9,7 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.ChangeItemLocationSystem;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -30,7 +31,7 @@ public class RemoveItemFromPack extends GameEntitySystem {
         super(draw);
         this.pack = pack;
         this.itemToGet = itemToGet;
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
+        idComponentMapper= GameComponentMapper.getIdComponentMapper();
     }
 
 

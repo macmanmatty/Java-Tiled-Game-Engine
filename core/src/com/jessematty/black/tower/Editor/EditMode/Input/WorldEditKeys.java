@@ -1,23 +1,18 @@
 package com.jessematty.black.tower.Editor.EditMode.Input;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 
-import java.util.List;
-
-public class MapEditKeys {
+public class WorldEditKeys {
 
     private  final MapEditScreen mapEditScreen;
     private  KeyListener keyListener;
 
 
-  
+
 
     private final  KeyAction up= new KeyAction() {
         @Override
@@ -150,42 +145,10 @@ public class MapEditKeys {
     };
 
 
-    public MapEditKeys(MapEditScreen mapEditScreen) {
+    public WorldEditKeys(MapEditScreen mapEditScreen) {
         this.mapEditScreen = mapEditScreen;
     }
     
-    public void addKeys(){
-        this.keyListener=keyListener;
-        keyListener.getInputKeyComboMap().put( "moveUp", new InputKeyCombo(up, "moveUp", Keys.UP));
-        keyListener.getInputKeyComboMap().put("moveDown",new InputKeyCombo(down, "moveDown", Keys.DOWN));
-        keyListener.getInputKeyComboMap().put("moveLeft",new InputKeyCombo(left, "moveLeft", Keys.LEFT));
-        keyListener.getInputKeyComboMap().put("moveRight",new InputKeyCombo(right, "moveRight", Keys.RIGHT));
-        keyListener.getInputKeyComboMap().put("zoomIn",new InputKeyCombo(zoomIn, "zoomIn", Keys.PLUS));
-        keyListener.getInputKeyComboMap().put("zoomIn",new InputKeyCombo(zoomIn, "zoomIn", Keys.EQUALS));
-
-
-        keyListener.getInputKeyComboMap().put("zoomOut",new InputKeyCombo(zoomOut, "zoomOut", Keys.MINUS));
-
-
-        
-    }
-
-
-    public void removeKeys(){
-        this.keyListener=keyListener;
-        keyListener.getInputKeyComboMap().remove( "moveUp");
-        keyListener.getInputKeyComboMap().remove("moveDown");
-        keyListener.getInputKeyComboMap().remove("moveLeft");
-        keyListener.getInputKeyComboMap().remove("moveRight");
-        keyListener.getInputKeyComboMap().remove("zoomIn");
-        keyListener.getInputKeyComboMap().remove("zoomIn");
-
-
-        keyListener.getInputKeyComboMap().remove("zoomOut");
-
-
-
-    }
 
     
     public MapEditScreen getMapEditScreen() {

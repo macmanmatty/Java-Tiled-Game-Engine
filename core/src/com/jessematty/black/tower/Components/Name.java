@@ -20,7 +20,9 @@ public class Name extends com.jessematty.black.tower.Components.Stats.StringStat
         super(displayable, "name", stat);
     }
 
-
+    public Name(String stat) {
+        super(true, "name", stat);
+    }
 
 
 }

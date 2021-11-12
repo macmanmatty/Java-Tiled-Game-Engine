@@ -2,19 +2,17 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.EntitySelect;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.Editor.World.WorldObjects;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSelectImageButton;
 
 public class EntitySelect extends Table {// finds all textureRegions that start with  a given name and makes a  UI table of  them

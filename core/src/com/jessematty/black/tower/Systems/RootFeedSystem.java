@@ -11,6 +11,7 @@ import com.jessematty.black.tower.Components.Root;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -26,11 +27,11 @@ public class RootFeedSystem extends GameTimeIntervalSystem {
     private float interval;
     @Override
     public void addedToEngine(Engine engine) {
-        numericStatsComponentMapper=getGameComponentMapper().getNumericStatsComponentMapper();
-            tileComponentMapper=getGameComponentMapper().getTileComponentMapper();
-            positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-            rootComponentMapper=getGameComponentMapper().getRootComponentMapper();
-            ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
+        numericStatsComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
+            tileComponentMapper=GameComponentMapper.getTileComponentMapper();
+            positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
+            rootComponentMapper=GameComponentMapper.getRootComponentMapper();
+            ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
             gameTime=getGameTime();
     }
     public RootFeedSystem(float interval, MapDraw draw) {

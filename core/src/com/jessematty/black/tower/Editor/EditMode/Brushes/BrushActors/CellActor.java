@@ -1,21 +1,8 @@
 package com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.jessematty.black.tower.Components.Animation.Drawable;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.ClipBoardActor;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.PlaceMode;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
-import com.jessematty.black.tower.Maps.Buildings.Building;
 
 public class CellActor extends ClipBoardActor {
    private float screenLocationX;

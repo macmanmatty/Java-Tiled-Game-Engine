@@ -1,16 +1,11 @@
 package com.jessematty.black.tower.Components.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.KryoSerializable;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.SerializableComponet;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 public class AnimatableComponent implements SerializableComponet{
@@ -124,14 +119,16 @@ public class AnimatableComponent implements SerializableComponet{
 
     }
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int layerNumber){
-        Animation animation= new Animation();
-        animation.setFrames(regions);
-        animation.setDirection(direction);
-        animation.setAction(action);
-        animation.setFrameRate(frameRate);
-        animation.setOffsets(offsets);
-        animation.setLayerNumber(layerNumber);
-        animations.get(direction.toString()).put(action,animation);
+            Animation animation = new Animation();
+            animation.setFrames(regions);
+            animation.setDirection(direction);
+            animation.setAction(action);
+            animation.setFrameRate(frameRate);
+            animation.setOffsets(offsets);
+            animation.setLayerNumber(layerNumber);
+            animations.get(direction.toString()).put(action, animation);
+
+
 
     }
     public boolean isEightDirections() {
@@ -304,6 +301,7 @@ public class AnimatableComponent implements SerializableComponet{
 
     @Override
     public void serialize() {
+
     }
 
 

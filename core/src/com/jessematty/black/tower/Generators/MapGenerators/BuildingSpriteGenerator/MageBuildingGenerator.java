@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Generators.MapGenerators.BuildingSpriteGenerator;
 
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 
 public class MageBuildingGenerator extends BuildingSpriteGenerator {

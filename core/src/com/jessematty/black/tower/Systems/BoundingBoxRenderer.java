@@ -8,10 +8,9 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.jessematty.black.tower.Components.Markers.OnCurrentMap;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
+import com.jessematty.black.tower.Components.Transient;
 
 @Transient
 

@@ -3,27 +3,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 public class FloatField extends ActionTextField { //a  text field that only decimal numbers
 
+
+
     public FloatField(String text, Skin skin) {
         super(text, skin);
-        setTextFilter();
+        setFloatFilter();
 
     }
 
     public FloatField(String text, Skin skin, String styleName) {
         super(text, skin, styleName);
-        setTextFilter();
+        setFloatFilter();
 
     }
 
 
     public FloatField(String text, TextFieldStyle style) {
         super(text, style);
-        setTextFilter();
+        setFloatFilter();
     }
 
 
 
-    public void setTextFilter(){
+    public void setFloatFilter(){
         setTextFieldFilter(new TextFieldFilter() {
             @Override
             public boolean acceptChar(TextField textField, char c) {
@@ -31,6 +33,34 @@ public class FloatField extends ActionTextField { //a  text field that only deci
             }
         });
     }
+
+    public void setPositiveFloatFilter(){
+        setTextFieldFilter(new TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '.';
+            }
+        });
+    }
+
+    public void setIntFilter(){
+        setTextFieldFilter(new TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '-';
+            }
+        });
+    }
+
+    public void setPositiveIntFilter(){
+        setTextFieldFilter(new TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' ;
+            }
+        });
+    }
+
 
     public float getFloat(){
         if( getText()==null|| getText().isEmpty()){
@@ -61,5 +91,6 @@ public class FloatField extends ActionTextField { //a  text field that only deci
     public void setText(int text){
         setText(Integer.toString(text));
     }
+
 
 }

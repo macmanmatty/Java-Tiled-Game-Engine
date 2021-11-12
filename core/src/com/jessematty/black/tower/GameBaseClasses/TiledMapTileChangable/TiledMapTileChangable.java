@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable;
 
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 
@@ -13,7 +14,7 @@ public class TiledMapTileChangable extends AtlasAnimatedTiledMapTile {
         super(interval, frameTiles);
     }
 
-    public TiledMapTileChangable(IntArray intervals, Array<AtlasStaticTiledMapTile> frameTiles) {
+    public TiledMapTileChangable(int [] intervals, AtlasStaticTiledMapTile [] frameTiles) {
         super(intervals, frameTiles);
     }
 

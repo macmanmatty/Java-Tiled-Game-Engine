@@ -33,8 +33,8 @@ public class LandSquareTileSelect  implements Screen , InputProcessor{
         this.map = map;
         landSquareTiles=map.getMap();
         tiledMap=map.getTiledMap();
-        mapMaxX=map.getXSize();
-        mapMaxY=map.getYSize();
+        mapMaxX=map.getXTiles();
+        mapMaxY=map.getYTiles();
         Gdx.input.setInputProcessor(this);
 
     }

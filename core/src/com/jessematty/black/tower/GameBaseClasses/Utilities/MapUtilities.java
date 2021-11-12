@@ -63,8 +63,8 @@ public class MapUtilities {
     // gets all
     public static  Array<Entity> getAllEntities (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
 
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
        Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
@@ -96,8 +96,8 @@ public class MapUtilities {
     }
     public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
 
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
@@ -134,8 +134,8 @@ public class MapUtilities {
 
 
 
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
@@ -169,8 +169,8 @@ public class MapUtilities {
 
     public  static Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Circle circle){
        float diameter=circle.radius*2f;
-       int tilesX=(int)(diameter/map.getTileSizeX())+1;
-       int tilesY=(int)(diameter/map.getTileSizeY())+1;
+       int tilesX=(int)(diameter/map.getTileWidth())+1;
+       int tilesY=(int)(diameter/map.getTileHeight())+1;
        Array<Entity> entitiesInCircle= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
 
@@ -198,8 +198,8 @@ public class MapUtilities {
     public  static  Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Rectangle rectangle){
         float width=rectangle.width;
         float height=rectangle.height;
-        int tilesX=(int)(width/map.getTileSizeX())+1;
-        int tilesY=(int)(height/map.getTileSizeY())+1;
+        int tilesX=(int)(width/map.getTileWidth())+1;
+        int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInRectangle= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
 
@@ -227,8 +227,8 @@ public class MapUtilities {
         Rectangle rectangle=polygon.getBoundingRectangle();
         float width=rectangle.width;
         float height=rectangle.height;
-        int tilesX=(int)(width/map.getTileSizeX())+1;
-        int tilesY=(int)(height/map.getTileSizeY())+1;
+        int tilesX=(int)(width/map.getTileWidth())+1;
+        int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInPolygon= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
@@ -283,8 +283,8 @@ public class MapUtilities {
         int locationy = tile.getLocationY();
         LandSquareTile newTile = null;
         int counter = 1;
-        int xSize=map.getXSize();
-        int ySize=map.getYSize();
+        int xSize=map.getXTiles();
+        int ySize=map.getYTiles();
         if (locationx == xSize) {
             locationx = xSize - 1;
         }
@@ -338,9 +338,9 @@ public class MapUtilities {
     
     public static Vector2 getScreenCoordinatesFromTileCoordinates( Map map,  int x, int y){
         
-        int ySize=map.getYSize();
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int ySize=map.getYTiles();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
         float screenLocationX = (x + 1) * tileSizeX;
         float screenLocationY = (ySize - y - 1) * tileSizeY;
         return new Vector2(screenLocationX, screenLocationY);
@@ -350,8 +350,8 @@ public class MapUtilities {
     // returns a random enterable tile  from a  map returns  null if no tiles are enterable
     public static LandSquareTile getRandomEnterableTile(Map map) {
         
-        int xSize=map.getXSize();
-        int ySize=map.getYSize();
+        int xSize=map.getXTiles();
+        int ySize=map.getYTiles();
         LandSquareTile tile = null;
         while (tile == null) {
             LandSquareTile tile2 = map.getMapSquare(value.getRandomNumber(3, xSize - 3), value.getRandomNumber(3, ySize - 3));
@@ -369,8 +369,8 @@ public class MapUtilities {
         float xMax = position.getLocationX() + position.getBoundsX();
         float yMax = position.getLocationY() + position.getBoundsY();
         ArrayList<LandSquareTile> tiles = new ArrayList<LandSquareTile>();
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
         int minTileX = (int) (xMin / tileSizeX);
         int minTileY = (int) (yMin / tileSizeY);
         int maxTileY = (int) (yMax / tileSizeY);
@@ -389,8 +389,8 @@ public class MapUtilities {
     }
     public static Array<LandSquareTile> getSurroundingTiles(Map map, PositionComponent position, float distance) {  //returns the surronding tiles for a given object based on the texture width and height.
 
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
     float xMin = position.getLocationX() - tileSizeX;
         float yMin = position.getLocationY() - tileSizeY;
         float xMax = position.getLocationX() + position.getBoundsX() + (distance) + tileSizeX;
@@ -530,8 +530,8 @@ public class MapUtilities {
     }
     public static List<LandSquareTile> getAllTilesAndAddEntity( Map map, float xMin, float yMin, float xMax, float yMax, Entity entity){ // finds all tiles for a given  rectangle bounds  and adds them to a list and returns them .
         ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
         for (float countx=xMin-10; countx<xMax; countx=countx+tileSizeX) {
             for (float county = yMin-10; county < yMax; county = county + tileSizeY) {
                 LandSquareTile tile=screenToTile( map, countx, county);
@@ -547,9 +547,9 @@ public class MapUtilities {
     
     
     public static LandSquareTile screenToTile( Map map, float  screenLocationX, float screenLocationY){
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
-        int mapYSize=map.getYSize();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
+        int mapYSize=map.getYTiles();
         return map.getMapSquare((int) Math.ceil(screenLocationX / tileSizeX) - 1, mapYSize - (int) Math.ceil(screenLocationY / tileSizeY));
 
 
@@ -561,8 +561,8 @@ public class MapUtilities {
         return getAllTiles(  map, rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y);
     }
     public static List<LandSquareTile> getAllTiles( Map map, float xMin, float yMin, float xMax, float yMax){ // finds all tiles for a given  rectangle bounds  and adds them to a list and returns them .
-        int tileSizeX=map.getTileSizeX();
-        int tileSizeY=map.getTileSizeY();
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
     ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
         for (float countx=xMin-10; countx<xMax; countx=countx+tileSizeX) {
             for (float county = yMin-10; county < yMax; county = county + tileSizeY) {

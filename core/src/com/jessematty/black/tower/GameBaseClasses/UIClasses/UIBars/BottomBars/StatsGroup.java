@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -14,7 +14,6 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
@@ -22,12 +21,10 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGro
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 public class StatsGroup extends VerticalGroup {
     private Skin skin;
-    private GameComponentMapper gameComponentMapper;
     private MapDraw draw;
     private final String groupName;
     public StatsGroup(MapDraw draw, String groupName) {
         this.draw=draw;
-        this.gameComponentMapper=draw.getGameComponentMapper();
         this.skin=draw.getCurrentMap().getSkin();
         this.groupName=groupName;
         
@@ -71,7 +68,7 @@ public class StatsGroup extends VerticalGroup {
             while (numericStatValues.hasNext()) {
                 NumericStat numericStat = numericStatValues.next();
                 if (numericStat.isDisplayable() && InList.isInList(numericStat.getDisplayGroups(), groupName)) {
-                    NumericStatGroup numericStatGroup= new NumericStatGroup(skin, numericStat);
+                    NumericStatGroup numericStatGroup= new NumericStatGroup(skin, numericStat, false);
                     addActor(numericStatGroup);
                 }
             }

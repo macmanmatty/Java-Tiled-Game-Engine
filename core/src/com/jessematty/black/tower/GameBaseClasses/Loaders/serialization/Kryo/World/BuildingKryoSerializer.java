@@ -5,7 +5,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.TransientChecker;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
@@ -14,7 +14,6 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class BuildingKryoSerializer extends Serializer<Building> {
 
     private final GameAssets gameAssets;
-    private final TransientChecker transientChecker = new TransientChecker();
 
 
     public BuildingKryoSerializer(GameAssets gameAssets) {
@@ -44,7 +43,7 @@ public class BuildingKryoSerializer extends Serializer<Building> {
         map.setMap(mapTiles);
         map.setTiledMap(tiledMap);
         map.setGameMapSettings(gameMapSettings);
-        map.setTileSize(gameMapSettings.getTileSizeX(), gameMapSettings.getTileSizeY());
+        map.setTileSize(gameMapSettings.getSimpleSetting("tileWidth", Integer.class), gameMapSettings.getSimpleSetting("tileHeight", Integer.class));
 
 
 

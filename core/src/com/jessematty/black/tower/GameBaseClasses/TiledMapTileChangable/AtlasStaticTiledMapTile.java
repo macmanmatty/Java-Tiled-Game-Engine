@@ -2,8 +2,14 @@ package com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
+
+import javafx.scene.paint.Color;
+
+/** @brief Represents a non changing {@link com.badlogic.gdx.maps.tiled.TiledMapTile} (can be cached)
+   */
 
 public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class the saves the atlas region name of the tile
     // also has logic to change a  tiles color if used with the correct tiled map renderer
@@ -18,9 +24,12 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
     private NamedColor color = NamedColor.WHITE;
     public AtlasStaticTiledMapTile() {
     }
+
+
     public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion atlasRegion) {
         this.textureRegion = atlasRegion;
         names[0] = atlasRegion.name;
+
     }
     public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, NamedColor color, float brightness) {
         this.textureRegion = textureRegion;
@@ -43,6 +52,22 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
         this.offsetY = other.offsetY;
         this.names = other.names;
         this.color = other.color;
+
+    }
+
+    public AtlasStaticTiledMapTile(StaticTiledMapTile other, String tileName) {
+        this.id = other.getId();
+        this.blendMode = other.getBlendMode();
+        this.properties = other.getProperties();
+        this.objects = other.getObjects();
+        this.offsetX = other.getOffsetX();
+        this.offsetY = other.getOffsetY();
+        this.color = NamedColor.WHITE;
+        this.textureRegion=other.getTextureRegion();
+        this.names= new String[1];
+        this.names[0]=tileName;
+
+
     }
     public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, String name) {
         this.textureRegion = textureRegion;

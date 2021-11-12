@@ -11,8 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionComponent;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
 
 public class ItemActionWindow extends GameWindow {
@@ -24,8 +25,8 @@ public class ItemActionWindow extends GameWindow {
 
 
 
-    public ItemActionWindow( String text, String title,  Array<Entity> entities, ItemActionComponent itemActionComponent, World world) {
-        super(title, world.getCurrentMap().getSkin());
+    public ItemActionWindow(String text, String title, Array<Entity> entities, ItemActionComponent itemActionComponent, MapDraw draw) {
+        super(title, draw.getCurrentMap().getSkin(), draw.getAssetts() );
         this.entities = entities;
         this.itemActionComponent = itemActionComponent;
         this.world = world;
@@ -33,7 +34,7 @@ public class ItemActionWindow extends GameWindow {
 
     }
 
-    private void makeWindow(){
+    public void makeWindow(){
         Skin skin=getSkin();
         Label label= new Label(text, skin);
         add(label);

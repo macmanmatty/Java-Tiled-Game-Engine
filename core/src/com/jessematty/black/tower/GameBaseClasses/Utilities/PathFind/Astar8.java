@@ -3,9 +3,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
-import com.jessematty.black.tower.Components.Movable;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Maps.GameMap;
 /** @author Nathan Sweet */
@@ -17,7 +15,7 @@ public class Astar8 {
     private final IntArray path = new IntArray();
     private int targetX, targetY;
   final private GameMap map ;
-    public Astar8(int width, int height ,GameMap map , Movable movable) {
+    public Astar8(int width, int height ,GameMap map , MovableComponent movableComponent) {
         this.width = width;
         this.height = height;
         open = new BinaryHeap(width * 4, false);

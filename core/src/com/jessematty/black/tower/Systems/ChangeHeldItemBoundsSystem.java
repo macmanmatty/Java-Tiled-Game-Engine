@@ -12,11 +12,12 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.HoldPosition;
 import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.Movable;
+import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Entity.Transient;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 @Transient
@@ -30,20 +31,17 @@ public class ChangeHeldItemBoundsSystem extends GameEntitySystem {
     ImmutableArray<Entity> entities;
 
 
-    Movable movable;
-    PhysicalObjectComponent object;
-
-    public ChangeHeldItemBoundsSystem(MapDraw draw, int priorty) {
-        super(priorty, draw);
+    public ChangeHeldItemBoundsSystem(MapDraw draw, int priority) {
+        super(priority, draw);
     }
 
 
     @Override
     public void addedToEngine(Engine engine) {
-        positionComponentComponentMapper = getGameComponentMapper().getPositionComponentMapper();
-         holderComponentMapper =getGameComponentMapper().getHolderComponentMapper();
-         itemComponentMapper=getGameComponentMapper().getItemComponentMapper();
-         ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
+        positionComponentComponentMapper = GameComponentMapper.getPositionComponentMapper();
+         holderComponentMapper =GameComponentMapper.getHolderComponentMapper();
+         itemComponentMapper=GameComponentMapper.getItemComponentMapper();
+         ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
 
     }
 

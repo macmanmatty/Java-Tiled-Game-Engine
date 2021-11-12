@@ -1,15 +1,11 @@
 package com.jessematty.black.tower.Editor.EditMode.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,30 +19,30 @@ import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Editor.EditMode.MapTools.MapTools;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
-import com.jessematty.black.tower.Editor.EditMode.Windows.CreateWindows.CreateWorldWindow;
-import com.jessematty.black.tower.Editor.World.WorldObjects;
+import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateWorldOptionPane;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 
 public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScreen {
-        private final  World world;
-        private final  GameAssets assetts;
+        private   World world;
+        private final  GameAssets gameAssets;
         private  GameComponentMapper gameComponentMapper;
-        private final WorldObjects worldObjects;
+        private WorldObjects worldObjects;
         private EntityGenerator entityGenerator;
-        private com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
+        private MapEditScreen mapEditScreen;
         private Stage uiStage;
         private Stage mapStage;
-        private Batch batch;
         private OrthographicCamera camera;
         private  InputMultiplexer inputMultiplexer;
-        private int tileSize=32;
+        private GameMap lastMapEdited;
         private Viewport viewPort;
-        private int mapSquareSize=160;
+        private int mapSquareSizeX=160;
+        private int mapSquareSizeY=160;
         private TopMenu topMenu;
         private final String  name="World Edit Screen";
         private final Skin skin;
@@ -55,26 +51,26 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         private  final DragAndDrop dragAndDrop = new DragAndDrop();
         private  final KeyListener keyListener= new KeyListener();
         private final  ClipBoard clipBoard= new ClipBoard();
-    public WorldEditScreen(Skin skin, GameAssets assetts, World world) {
-        this.assetts=assetts;
-        this.tileSize=tileSize;
+    public WorldEditScreen(Skin skin, GameAssets gameAssets, World world) {
+        this.gameAssets = gameAssets;
         if(world==null){
             world= new World();
         }
         this.world=world;
         this.skin=skin;
         worldObjects= new WorldObjects();
-        topMenu=new TopMenu();
-        mapEditScreen =new com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen( assetts, clipBoard, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
+
+
     }
     public void editMap(GameMap currentMap){
         mapEditScreen.changeMap(currentMap);
-        assetts.setScreen(mapEditScreen);
+        gameAssets.setScreen(mapEditScreen);
     }
     @Override
     public void show() {
         this.uiStage =new Stage();
-        batch= new SpriteBatch();
+        topMenu=new TopMenu(this);
+        mapEditScreen =new MapEditScreen(gameAssets, clipBoard, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
@@ -83,17 +79,17 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         viewPort=new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
         mapStage= new Stage( viewPort);
         mapStage.getBatch().setProjectionMatrix(camera.combined);
-        batch=new SpriteBatch();
         inputMultiplexer= new InputMultiplexer();
+        inputMultiplexer.addProcessor(keyListener);
         inputMultiplexer.addProcessor(this);
         inputMultiplexer.addProcessor(uiStage);
         inputMultiplexer.addProcessor(mapStage);
         Gdx.input.setInputProcessor(inputMultiplexer);
-        entityGenerator= new EntityGenerator(world, assetts);
+        entityGenerator= new EntityGenerator(world, gameAssets);
         if(world.isNewWorld()){
-            CreateWorldWindow createWorldWindow= new CreateWorldWindow(this, "Create World", skin, "default", world);
-            createWorldWindow.makeWindow();
-            Window window=createWorldWindow;
+            CreateWorldOptionPane createWorldOptionPane = new CreateWorldOptionPane(this, "Create World", skin, "default", world);
+            createWorldOptionPane.makeWindow();
+            Window window= createWorldOptionPane;
             window.setVisible(true);
             window.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
              uiStage.addActor(window);
@@ -109,7 +105,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     private void makeWindows() {
         Table topMenuTable=topMenu.getMenuBar().getTable();
         float height=Gdx.graphics.getHeight();
-
         topMenuTable.setSize(Gdx.graphics.getWidth(), topMenuTable.getPrefHeight());
         height=height-topMenuTable.getPrefHeight();
         topMenuTable.setPosition(0, height);
@@ -121,27 +116,10 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode== Keys.UP){
-            camera.translate(new Vector2(0, tileSize));
-        }
-        if(keycode== Keys.DOWN){
-            camera.translate(new Vector2(0, -tileSize));
-        }
-        if(keycode== Keys.LEFT){
-            camera.translate(new Vector2(-tileSize, 0));
-        }
-        if(keycode== Keys.RIGHT){
-            camera.translate(new Vector2(tileSize, 0));
-        }
-        if(keycode== Keys.ALT_LEFT ){
-        }
-        if(keycode== Keys.DOWN){
-        }
-        if(keycode== Keys.LEFT){
-        }
-        if(keycode== Keys.RIGHT){
-        }
+
+
         return false;
+
     }
     @Override
     public boolean keyUp(int keycode) {
@@ -214,19 +192,34 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         MapTools.changeWorldSize(world, xSize, ySize);
         createWorldMapsOverview(xSize, ySize);
     }
+
+
+    @Override
     public World getWorld() {
         return world;
     }
+
+    @Override
+    public void changeWorld(World world) {
+        this.world = world;
+    }
+
     @Override
     public String getName() {
         return name;
     }
-    public GameAssets getAssetts() {
-        return assetts;
+    public GameAssets getGameAssets() {
+        return gameAssets;
     }
+    @Override
     public WorldObjects getWorldObjects() {
         return worldObjects;
     }
+    @Override
+    public void setWorldObjects(WorldObjects worldObjects) {
+        this.worldObjects = worldObjects;
+    }
+
     public MapEditScreen getMapEditScreen() {
         return mapEditScreen;
     }
@@ -241,5 +234,23 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     }
     public KeyListener getKeyListener() {
         return keyListener;
+    }
+
+    @Override
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+    @Override
+    public GameMap getMap() {
+        return lastMapEdited;
+    }
+
+    @Override
+    public void changeMap(GameMap lastMapEdited) {
+        this.lastMapEdited = lastMapEdited;
+    }
+
+    public Skin getSkin() {
+        return skin;
     }
 }

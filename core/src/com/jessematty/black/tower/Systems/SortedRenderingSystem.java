@@ -10,7 +10,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Animation.Drawable;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -19,25 +19,26 @@ import java.util.Comparator;
 
 public  abstract class SortedRenderingSystem extends EntitySystem implements EntityListener  {
 
-        private Family family;
+        private Family family;  // the family of components to act on
         private Array<Entity> sortedEntities; // the sorted entities
         private final ImmutableArray<Entity> entities; // the list of entities to loop over
-        private boolean shouldSort;
+        private boolean shouldSort; // whether or not  to sort the array on entities
         private Comparator<Entity> comparator; // entity comparator
-        private  final  Batch batch;
-        private  final FrameBuffer  frameBuffer;
+        private  final  Batch batch; // the libGDX sprite batch object used for rendering
+        private  final FrameBuffer  frameBuffer; // the framebuffer used for rendering
         private float brightness=1; // sets the brightness for the fragment shader
-        private ComponentMapper<Drawable> drawableComponentMapper; // component mappers
+        private ComponentMapper<DrawableComponent> drawableComponentMapper; // component mappers
         private ComponentMapper<PositionComponent> positionComponentMapper;
-       private final GameComponentMapper gameComponentMapper;
+       private boolean callBatchEnd; // flag for call batch.end(); if true this system will call batch.end(); otherwise batch.end() MUST be called somewhere else
+        private boolean startFrameBuffer; // flag for call frameBuffer.begin();
+        private boolean endFrameBuffer; // flag for call frameBuffer.end(); if true this system will call frameBuffer.end(); otherwise if using a framebuffer  frameBuffer.end() MUST be called somewhere else
 
 
-        public SortedRenderingSystem(GameComponentMapper gameComponentMapper, Family family, Comparator<Entity> comparator, Batch batch, FrameBuffer frameBuffer) {
-            this(gameComponentMapper, family, comparator, batch, frameBuffer, 1);
 
-        }
 
-        public SortedRenderingSystem( GameComponentMapper gameComponentMapper, Family family, Comparator<Entity> comparator, Batch batch,  FrameBuffer buffer, int priority) {
+
+
+        public SortedRenderingSystem(  Family family, Comparator<Entity> comparator, Batch batch,  FrameBuffer buffer, int priority) {
             super(priority);
             this.family = family;
             this.sortedEntities = new Array(false, 160);
@@ -46,9 +47,8 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
             this.batch=batch;
             this.frameBuffer=buffer;
 
-            this.gameComponentMapper=gameComponentMapper;
-            this.drawableComponentMapper=gameComponentMapper.getDrawableComponentMapper();
-            this.positionComponentMapper=gameComponentMapper.getPositionComponentMapper();
+            this.drawableComponentMapper=GameComponentMapper.getDrawableComponentMapper();
+            this.positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         }
 
 
@@ -66,7 +66,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
         public void addedToEngine(Engine engine) {
             ImmutableArray<Entity> newEntities = engine.getEntitiesFor(this.family);
-            System.out.println("Number of Entites to Render "+newEntities.size());
 
 
 
@@ -97,9 +96,9 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
             //get entity  components
             PositionComponent position=positionComponentMapper.get(entity);
-            Drawable drawable=drawableComponentMapper.get(entity);
+            DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
             // if entity has components  both position and  drawable add it to the list
-            if(position!=null && drawable!=null) {
+            if(position!=null && drawableComponent !=null) {
                 this.sortedEntities.add(entity);
                 this.shouldSort = true;
             }
@@ -114,13 +113,23 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
         // loops over the array of entities and draws  them
 
-    // also calls batch.begin(); and batch.end() on the sprite batch
+    // also calls batch.begin(); if needed  and batch.end() on the sprite batch if the flag is for end batch is set
         public void update(float deltaTime) {
             this.sort();
             if(frameBuffer!=null){
                 frameBuffer.begin();
             }
-          batch.begin();
+
+
+            // if batch isn't already started start it
+            if( !batch.isDrawing()) {
+                batch.begin();
+            }
+                if(frameBuffer!=null && startFrameBuffer){
+                    frameBuffer.begin();
+
+                }
+
             batch.getShader().setUniformf("bright", brightness);
 
             for(int i = 0; i < this.sortedEntities.size; ++i) {
@@ -129,9 +138,13 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
 
             }
+            if(callBatchEnd) {
+                batch.end();
+            }
 
-            batch.end();
-            if(frameBuffer!=null){
+
+
+            if(frameBuffer!=null && endFrameBuffer){
                 frameBuffer.end();
             }
 
@@ -162,8 +175,32 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
 
 
 
-    public GameComponentMapper getGameComponentMapper() {
-        return gameComponentMapper;
+
+
+
+    public boolean isCallBatchEnd() {
+        return callBatchEnd;
+    }
+
+    public void setCallBatchEnd(boolean callBatchEnd) {
+        this.callBatchEnd = callBatchEnd;
+    }
+
+
+    public boolean isStartFrameBuffer() {
+        return startFrameBuffer;
+    }
+
+    public void setStartFrameBuffer(boolean startFrameBuffer) {
+        this.startFrameBuffer = startFrameBuffer;
+    }
+
+    public boolean isEndFrameBuffer() {
+        return endFrameBuffer;
+    }
+
+    public void setEndFrameBuffer(boolean endFrameBuffer) {
+        this.endFrameBuffer = endFrameBuffer;
     }
 }
 

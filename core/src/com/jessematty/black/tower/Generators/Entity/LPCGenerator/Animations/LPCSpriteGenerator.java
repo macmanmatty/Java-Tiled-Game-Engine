@@ -1,9 +1,9 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations;
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 public class LPCSpriteGenerator {
     private AnimatableComponent animatable;
   private  GameAssets gameAssets;
@@ -1338,5 +1338,9 @@ public  int unlockFrameRate = 5;
     }
     public void setHasTalkFrames(boolean hasTalkFrames) {
         this.hasTalkFrames = hasTalkFrames;
+    }
+
+    public String getAtlasName() {
+        return atlasName;
     }
 }

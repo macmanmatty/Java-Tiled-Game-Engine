@@ -1,6 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Screens;
 
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,17 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.jessematty.black.tower.Components.BodyParts.Body;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
-import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
-import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-import com.jessematty.black.tower.Maps.LandMap;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
 
 public class AssetsScreen implements Screen  {
@@ -112,8 +102,7 @@ public class AssetsScreen implements Screen  {
 
 
         skin=assetts.getDefaultSkin();
-        assetts.loadInternalTextureAtlas("assetts.atlas" );
-      assetts.loadNames("/Users/jessematty/AndroidStudioProjects/Black Tower/android/assets/textureAtlases/assettsregionNames.json");
+        assetts.loadExternalTextureAtlas("assetts.atlas" );
 
         assetts.finishLoading();
 

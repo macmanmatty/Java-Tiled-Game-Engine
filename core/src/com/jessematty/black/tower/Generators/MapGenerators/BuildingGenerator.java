@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Generators.MapGenerators;
 
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.Buildings.Rooms.Room;

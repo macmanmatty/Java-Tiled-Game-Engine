@@ -170,15 +170,13 @@ com.kotcrab.vis.ui.widget.Separator$SeparatorStyle: {
 }
 com.kotcrab.vis.ui.widget.MenuItem$MenuItemStyle: {
 	default: {
-		subMenu: submenu
-		down: scroll-bg-horizontal
+		subMenu: window-startup
 		up: window-startup
 		over: menuover
 		disabled: menudisabled
 		font: font
 		fontColor: black
 		disabledFontColor: white
-		checked: checked
 		downFontColor: black
 		overFontColor: black
 	}
@@ -314,6 +312,21 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: font
 		fontColor: black
 		background: menuover
+	}
+	menuLabel: {
+		font: font
+		fontColor: black
+		background: window-startup
+	}
+	menuLabelSelcted: {
+		font: font
+		fontColor: black
+		background: menuover
+	}
+	menuLabelDisabled: {
+		font: font
+		fontColor: black
+		background: menudisabled
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {

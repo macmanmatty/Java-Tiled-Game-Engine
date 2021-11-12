@@ -7,19 +7,18 @@ import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Tiles.Tile;
-import com.jessematty.black.tower.Components.TileWeatherChangableNumericStat;
+import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Maps.GameMap;
 
 
 public class  LandSquareTile extends Entity { // base class all other tile classes extend
@@ -33,10 +32,10 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		 NumericStats numericStats= new NumericStats();
 		BooleanStats booleanStats= new BooleanStats();
 		StringStats stringStats=new StringStats();
-		NumericStatsChangable numericStatsChangable = new NumericStatsChangable();
+		NumericStatsChangeable numericStatsChangeable = new NumericStatsChangeable();
 		TileWeatherNumericStatsChangable tileWeatherNumericStatsChangable= new TileWeatherNumericStatsChangable();
-		BooleanStatsChangable booleanStatsChangable = new BooleanStatsChangable();
-		StringStatsChangable stringStatsChangable = new StringStatsChangable();
+		BooleanStatsChangeable booleanStatsChangeable = new BooleanStatsChangeable();
+		StringStatsChangeable stringStatsChangeable = new StringStatsChangeable();
 		Groups groups= new Groups();
 		 Array<String> stringGroups=groups.getGroups();
 		 stringGroups.add("entity");
@@ -45,17 +44,17 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		add(numericStats);
 		add(booleanStats);
 		add(stringStats);
-		add(booleanStatsChangable);
-		add(numericStatsChangable);
-		add(stringStatsChangable);
+		add(booleanStatsChangeable);
+		add(numericStatsChangeable);
+		add(stringStatsChangeable);
 		add(tileWeatherNumericStatsChangable);
 		add(tileComponent);
 		add(groups);
 		add(new Action());
 
-		tileWeatherNumericStatsChangable.addStatToChange(new TileWeatherChangableNumericStat(true,"temperature", 70,-275, 20000));
+		tileWeatherNumericStatsChangable.addStatToChange(new TileWeatherChangableNumericStatChangeable(true,"temperature", 70,-275, 20000));
 		numericStats.addStat(new NumericStat(false,"COF" ,1,0,10));
-		numericStatsChangable.addStatToChange(new ChangableNumericStat(false,"temperature",  0,0,3, 0));
+		numericStatsChangeable.addStatToChange(new NumericStatChangeable(false,"temperature",  0,0,3, 0));
 		PositionComponent position= new PositionComponent();
 		position.getTiles().add(this);
 		position.removeBounds();

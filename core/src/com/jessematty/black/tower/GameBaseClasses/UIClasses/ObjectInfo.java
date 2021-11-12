@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.ImageComponent;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -23,7 +23,7 @@ import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.Iterator;
@@ -31,7 +31,6 @@ import java.util.Iterator;
 public class ObjectInfo {
 
     Window window;
-    GameComponentMapper gameComponentMapper;
     GameAssets assetts;
     ComponentMapper<Name> nameComponentMapper;
     ComponentMapper<NumericStats> numericStatsComponentMapper;
@@ -43,13 +42,13 @@ public class ObjectInfo {
 
     public ObjectInfo(GameAssets assetts) {
         this.assetts = assetts;
-        GameComponentMapper gameComponentMapper=assetts.getMapDraw().getGameComponentMapper();
-         nameComponentMapper= gameComponentMapper.getNameComponentMapper();
-        numericStatsComponentMapper =gameComponentMapper.getNumericStatsComponentMapper();
-        booleanStatsComponentMapper=gameComponentMapper.getBooleanStatsComponentMapper();
-        stringStatsComponentMapper =gameComponentMapper.getStringStatsComponentMapper();
-        objectComponentMapper=gameComponentMapper.getPhysicalObjectComponentMapper();
-        itemImageComponentMapper=gameComponentMapper.getImageComponentMapper();
+       
+         nameComponentMapper= GameComponentMapper.getNameComponentMapper();
+        numericStatsComponentMapper =GameComponentMapper.getNumericStatsComponentMapper();
+        booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
+        stringStatsComponentMapper =GameComponentMapper.getStringStatsComponentMapper();
+        objectComponentMapper=GameComponentMapper.getPhysicalObjectComponentMapper();
+        itemImageComponentMapper=GameComponentMapper.getImageComponentMapper();
 
 
 
@@ -79,7 +78,7 @@ public class ObjectInfo {
             style="default";
         }
 
-        nameComponentMapper = gameComponentMapper.getNameComponentMapper();
+        nameComponentMapper = GameComponentMapper.getNameComponentMapper();
         window = new Window("window", skin);
         String name = player.getName().getStat();
         Label label = new Label(name, skin, style);

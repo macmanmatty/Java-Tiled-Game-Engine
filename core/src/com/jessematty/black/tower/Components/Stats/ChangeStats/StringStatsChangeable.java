@@ -3,18 +3,18 @@ package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
-public class StringStatsChangable implements Component {
+public class StringStatsChangeable implements Component {
 
 
 
-   private Array<ChangeableStringStat> statsToChange = new Array<ChangeableStringStat>();
+   private Array<StringStatChangeable> statsToChange = new Array<StringStatChangeable>();
 
 
-    public Array<ChangeableStringStat> getStatsToChange() {
+    public Array<StringStatChangeable> getStatsToChange() {
         return statsToChange;
     }
 
-    public void addStatToChange(ChangeableStringStat changableStringStat ){
+    public void addStatToChange(StringStatChangeable changableStringStat ){
 
         int size=statsToChange.size;
         boolean addStat=true;
@@ -48,7 +48,7 @@ public class StringStatsChangable implements Component {
 
     }
 
-    public void addOrCombineStat(ChangeableStringStat changableStringStat) {
+    public void addOrCombineStat(StringStatChangeable changableStringStat) {
         int size=statsToChange.size;
         boolean addStat=true;
         for(int count=0; count<size; count++){
@@ -66,12 +66,12 @@ public class StringStatsChangable implements Component {
     }
 
 
-    public ChangeableStringStat getStat(String name){
+    public StringStatChangeable getStat(String name){
 
         int size= statsToChange.size;
         for(int count=0; count<size; count++){
 
-            ChangeableStringStat numericStatChangeable= statsToChange.get(count);
+            StringStatChangeable numericStatChangeable= statsToChange.get(count);
             if(numericStatChangeable.getName().equals(name)){
 
                 return numericStatChangeable;

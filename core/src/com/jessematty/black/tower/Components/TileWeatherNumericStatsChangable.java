@@ -1,24 +1,21 @@
 package com.jessematty.black.tower.Components;
 import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.ArrayList;
-import java.util.List;
 public class TileWeatherNumericStatsChangable implements Component {
-   private Array<TileWeatherChangableNumericStat> amountsToChange= new Array<TileWeatherChangableNumericStat>();
+   private Array<TileWeatherChangableNumericStatChangeable> amountsToChange= new Array<TileWeatherChangableNumericStatChangeable>();
    
-    public Array<TileWeatherChangableNumericStat> getStatsToChange() {
+    public Array<TileWeatherChangableNumericStatChangeable> getStatsToChange() {
         return amountsToChange;
     }
 
-    public void addStatToChange(TileWeatherChangableNumericStat amount ){
+    public void addStatToChange(TileWeatherChangableNumericStatChangeable amount ){
         amountsToChange.add(amount);
     }
-    public TileWeatherChangableNumericStat getStat(String name){
+    public TileWeatherChangableNumericStatChangeable getStat(String name){
         int size=amountsToChange.size;
         for(int count=0; count<size; count++){
-            TileWeatherChangableNumericStat numericStatChangeable=amountsToChange.get(count);
+            TileWeatherChangableNumericStatChangeable numericStatChangeable=amountsToChange.get(count);
             if(numericStatChangeable.getName().equals(name)){
                 return numericStatChangeable;
             }

@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Crea
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnTime;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class CreateEntityOnTimeSystem extends GameEntitySystem {
@@ -23,9 +24,9 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
     }
     @Override
     public void addedToEngine(Engine engine) {
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
-        createEntityComponentMapper=getGameComponentMapper().getCreateEntityComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
+        actionComponentMapper= GameComponentMapper.getActionComponentMapper();
+        createEntityComponentMapper=GameComponentMapper.getCreateEntityComponentMapper();
+        positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
 
 
         
@@ -49,7 +50,7 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
                     if(position!=null) {
                         String entityToCreateID = createEntityOnTime.getEntityToCreateID();
                         Entity entityToCreate = getWorld().getEntity(entityToCreateID);
-                        Entity entityCopy = getDraw().getAssetts().getJsonLoader().copyObject(entityToCreate, Entity.class);
+                        Entity entityCopy = getAssets().getJsonLoader().copyObject(entityToCreate, Entity.class);
 
                         entityCopy.add(position);
                         getWorld().addEntityToWorld(entityCopy);

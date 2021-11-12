@@ -5,17 +5,17 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableBooleanStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableNumericStat;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ChangableStringStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 public class CraftEntity {/// class for combining multiple entities  into one
@@ -23,9 +23,9 @@ public class CraftEntity {/// class for combining multiple entities  into one
    protected  ComponentMapper<NumericStats> numericStatsComponentMapper;
    protected ComponentMapper<BooleanStats> booleanStatsComponentMapper;
    protected  ComponentMapper<StringStats> stringStatsComponentMapper;
-   protected  ComponentMapper<NumericStatsChangable> numericStatsChangableComponentMapper;
-   protected ComponentMapper<BooleanStatsChangable> booleanStatsChangableComponentMapper;
-   protected  ComponentMapper<StringStatsChangable> stringStatsChangableComponentMapper;
+   protected  ComponentMapper<NumericStatsChangeable> numericStatsChangableComponentMapper;
+   protected ComponentMapper<BooleanStatsChangeable> booleanStatsChangableComponentMapper;
+   protected  ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper;
    protected GameComponentMapper gameComponentMapper;
    public CraftEntity(GameComponentMapper gameComponentMapper) {
       this.gameComponentMapper = gameComponentMapper;
@@ -39,20 +39,20 @@ public class CraftEntity {/// class for combining multiple entities  into one
    }
    public Entity craftEntities( Entity entityToMake, Entity... entitiesToCombine ){
       NumericStats combinedNumericStats= new NumericStats();  // the numeric stats to be created from the combined entities
-      NumericStatsChangable combinedNumericStatsChangable=new NumericStatsChangable(); // the numeric stats changeable to be combined
+      NumericStatsChangeable combinedNumericStatsChangeable =new NumericStatsChangeable(); // the numeric stats changeable to be combined
       BooleanStats combinedBooleanStats= new BooleanStats(); // boolean stats to be combined
       //changeable stats to be combined
-      BooleanStatsChangable combinedBooleanStatsChangable=new BooleanStatsChangable();
+      BooleanStatsChangeable combinedBooleanStatsChangeable =new BooleanStatsChangeable();
       StringStats combinedStringStats= new StringStats();
-      StringStatsChangable combinedStringStatsChangable=new StringStatsChangable();
+      StringStatsChangeable combinedStringStatsChangeable =new StringStatsChangeable();
 
       // stats the entity to  create has
       NumericStats entityToMakeNumericStats=numericStatsComponentMapper.get(entityToMake);
      BooleanStats entityToMakeBooleanStats=booleanStatsComponentMapper.get(entityToMake);
       StringStats entityToMakeStringStats=stringStatsComponentMapper.get(entityToMake);
-      NumericStatsChangable entityToMakeNumericStatsChangable=numericStatsChangableComponentMapper.get(entityToMake);
-      BooleanStatsChangable entityToMakeBooleanStatsChangable=booleanStatsChangableComponentMapper.get(entityToMake);
-      StringStatsChangable entityToMakeStringStatsChangable=stringStatsChangableComponentMapper.get(entityToMake);
+      NumericStatsChangeable entityToMakeNumericStatsChangeable =numericStatsChangableComponentMapper.get(entityToMake);
+      BooleanStatsChangeable entityToMakeBooleanStatsChangeable =booleanStatsChangableComponentMapper.get(entityToMake);
+      StringStatsChangeable entityToMakeStringStatsChangeable =stringStatsChangableComponentMapper.get(entityToMake);
       int size=entitiesToCombine.length;
       for(int count=0; count<size; count++){
          Entity entity=entitiesToCombine[count];
@@ -122,15 +122,15 @@ public class CraftEntity {/// class for combining multiple entities  into one
                }
             }
          }
-         Array<ChangableNumericStat> numericStatsChangable=numericStatsChangableComponentMapper.get(entity).getStatsToChange();
+         Array<NumericStatChangeable> numericStatsChangable=numericStatsChangableComponentMapper.get(entity).getStatsToChange();
          int numberOfChangeableNumericStats=numericStatsChangable.size;
          for(int count2=0; count2<numberOfChangeableNumericStats; count2++) {
-            ChangableNumericStat changableNumericStat = numericStatsChangable.get(count2);
+            NumericStatChangeable changableNumericStat = numericStatsChangable.get(count2);
             String changableNumericStatName=changableNumericStat.getName();
             if (changableNumericStat.isCombinable()) {
-               combinedNumericStatsChangable.addOrCombineStat(changableNumericStat);
+               combinedNumericStatsChangeable.addOrCombineStat(changableNumericStat);
             } else {
-               ChangableNumericStat entityToMakeNumericStat=entityToMakeNumericStatsChangable.getStat(changableNumericStatName);
+               NumericStatChangeable entityToMakeNumericStat= entityToMakeNumericStatsChangeable.getStat(changableNumericStatName);
                if (entityToMakeNumericStat != null) {
                   combinedNumericStats.addStat(entityToMakeNumericStat);
                } else {
@@ -144,15 +144,15 @@ public class CraftEntity {/// class for combining multiple entities  into one
          
          
          }
-         Array<ChangableStringStat> stringStatsChangable=stringStatsChangableComponentMapper.get(entity).getStatsToChange();
+         Array<StringStatChangeable> stringStatsChangable=stringStatsChangableComponentMapper.get(entity).getStatsToChange();
          int numberOfChangeableStringStats=stringStatsChangable.size;
          for(int count2=0; count2<numberOfChangeableStringStats; count2++) {
-            ChangableStringStat changableStringStat=stringStatsChangable.get(count2);
+            StringStatChangeable changableStringStat=stringStatsChangable.get(count2);
             String changableStringStatName=changableStringStat.getName();
             if (changableStringStat.isCombinable()) {
-               combinedStringStatsChangable.addOrCombineStat(changableStringStat);
+               combinedStringStatsChangeable.addOrCombineStat(changableStringStat);
             } else {
-               ChangableStringStat entityToMakeStringStat=entityToMakeStringStatsChangable.getStat(changableStringStatName);
+               StringStatChangeable entityToMakeStringStat= entityToMakeStringStatsChangeable.getStat(changableStringStatName);
                if (entityToMakeStringStat != null) {
                   combinedStringStats.addStat(entityToMakeStringStat);
                } else {
@@ -163,15 +163,15 @@ public class CraftEntity {/// class for combining multiple entities  into one
                }
             }
          }
-         Array<ChangableBooleanStat> booleanStatsChangable=booleanStatsChangableComponentMapper.get(entity).getStatsToChange();
+         Array<BooleanStatChangeable> booleanStatsChangable=booleanStatsChangableComponentMapper.get(entity).getStatsToChange();
          int numberOfChangeableBooleanStats=booleanStatsChangable.size;
          for(int count2=0; count2<numberOfChangeableBooleanStats; count2++) {
-            ChangableBooleanStat changableBooleanStat=booleanStatsChangable.get(count2);
+            BooleanStatChangeable changableBooleanStat=booleanStatsChangable.get(count2);
            String changableBooleanStatName=changableBooleanStat.getName();
             if (changableBooleanStat.isCombinable()) {
-               combinedBooleanStatsChangable.addOrCombineStat(changableBooleanStat);
+               combinedBooleanStatsChangeable.addOrCombineStat(changableBooleanStat);
             } else {
-               ChangableBooleanStat entityToMakeBooleanStat=entityToMakeBooleanStatsChangable.getStat(changableBooleanStatName);
+               BooleanStatChangeable entityToMakeBooleanStat= entityToMakeBooleanStatsChangeable.getStat(changableBooleanStatName);
                if (entityToMakeBooleanStat != null) {
                   combinedBooleanStats.addStat(entityToMakeBooleanStat);
                } else {

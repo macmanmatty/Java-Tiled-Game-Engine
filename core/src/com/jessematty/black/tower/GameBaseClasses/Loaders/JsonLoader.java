@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Json;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.FastTiledMapSaver;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MemoryEfficentTiledMapSaver;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.Map;
 
 public class JsonLoader {
    private  final  Json json;
-   private  boolean fastSaveTiledMaps;
+   private  boolean fastSaveTiledMaps=true;
     public JsonLoader() {
         this.json =new Json();
 
@@ -46,9 +48,9 @@ public class JsonLoader {
         HashMap<T , T2> object  = (HashMap<T, T2>) json.fromJson(HashMap.class,  type2Class,  object2);
         return object;
     }
-    public void saveTiledMap(  TiledMap map, int xSize, int ySize,  String path, String atlasName, GameAssets assetts ){ //saves tiled map using the map saver class
+    public void saveTiledMap(  TiledMap map, int xSize, int ySize,  String path, String atlasName, GameAssets assetts ) throws MapLoadingExeception { //saves tiled map using the map saver class
         if(fastSaveTiledMaps ==true) {
-            FastTiledMapSaver saver = new FastTiledMapSaver(assetts);
+            FastTiledMapSaver saver = new FastTiledMapSaver();
             saver.saveMap(map,  atlasName);
         }
         else{

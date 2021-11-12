@@ -3,7 +3,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.AtlasRegions.TextureAtlasRegionNames;
+import com.badlogic.gdx.utils.ObjectMap.Keys;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.Node;
 import java.util.List;
@@ -32,12 +35,10 @@ public class InList {
 		return false;
 	}
 
-	public static boolean isInList(TextureAtlas atlas, TextureRegion region) {
+	public  static boolean isInList(Object object, Keys<? extends Object> keys) {
 
-		Array<AtlasRegion> regions=atlas.getRegions();
-		int number = regions.size;
-		for (int count = 0; count < number; count++) {
-			if (regions.get(count).equals(region)) {
+		while (keys.hasNext()){
+			if (object.equals(keys.next())) {
 				return true;
 			}
 		}
@@ -45,6 +46,39 @@ public class InList {
 	}
 
 
+	public  static boolean isInList(Object object, Array<? extends Object> names) {
+		int number = names.size;
+		for (int count = 0; count < number; count++) {
+			if (object.equals(names.get(count)) == true) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isInList(TextureAtlas atlas, TextureRegion region) {
+
+		Array<AtlasRegion> regions=atlas.getRegions();
+		int number = regions.size;
+		for (int count = 0; count < number; count++) {
+			if (TextureTools.regionsEquals(regions.get(count), region)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isInList(TextureRegionPage textureRegionPage, String name) {
+
+		Array<AtlasNamedAtlasRegion> regions=textureRegionPage.getPageRegions();
+		int number = regions.size;
+		for (int count = 0; count < number; count++) {
+			if (regions.get(count).name.equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public static boolean isInList(List<? extends Object> names, Array<? extends Object> otherNames) {
 		int number = otherNames.size;
 		int number2 = names.size();
@@ -61,7 +95,7 @@ public class InList {
 	public static  GameMap getMap(List<GameMap> maps, String Name) {
 		int size = maps.size();
 		for (int count = 0; count < size; count++) {
-			if (maps.get(count).getMapName().equals(Name)) {
+			if (maps.get(count).getGameMapSettings().getSimpleSetting("name", String.class).equals(Name)) {
 				return maps.get(count);
 			}
 		}

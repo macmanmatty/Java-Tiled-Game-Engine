@@ -7,12 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
+import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 
 import java.util.List;
 public class OptionPane extends Dialog{
 	private int count;
+	private boolean lockInput;
 	
-	public OptionPane(Skin skin, String title,  String text, String buttonText) {
+	public OptionPane(Skin skin, String title, String text, String buttonText) {
 		super(title, skin);
 	
 		text(text);
@@ -124,7 +127,12 @@ public class OptionPane extends Dialog{
 			setSize(getPrefWidth(), getPrefHeight());
 
 		}
-		
-		
-		
+
+	public boolean isLockInput() {
+		return lockInput;
+	}
+
+	public void setLockInput(boolean lockInput) {
+		this.lockInput = lockInput;
+	}
 }

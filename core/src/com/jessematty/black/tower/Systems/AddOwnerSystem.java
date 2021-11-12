@@ -11,6 +11,7 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 
@@ -33,12 +34,12 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
 
     @Override
     public void addedToEngine(Engine engine) {
-        addOwnerComponentComponentMapper=getGameComponentMapper().getAddOwnerComponentComponentMapper();
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        attachableComponentMapper=getGameComponentMapper().getAttachableComponentMapper();
-        ownedComponentComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
-        ownerComponentComponentMapper=getGameComponentMapper().getOwnerComponentComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
+        addOwnerComponentComponentMapper=GameComponentMapper.getAddOwnerComponentComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        attachableComponentMapper=GameComponentMapper.getAttachableComponentMapper();
+        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
 
     }
 

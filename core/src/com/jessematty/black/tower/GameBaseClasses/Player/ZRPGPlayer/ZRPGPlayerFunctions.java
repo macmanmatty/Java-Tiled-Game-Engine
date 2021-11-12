@@ -22,7 +22,8 @@ import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.GameBaseClasses.Player.PlayerFunction.PlayerFunction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
@@ -39,6 +40,7 @@ public class ZRPGPlayerFunctions {
     private ComponentMapper<ID> idComponentMapper;
     private int holdPositionNumber;
     private World world;
+    private final  Array<InputKeyCombo> playerControlFunctions= new Array<>();
 
 
 
@@ -48,7 +50,7 @@ public class ZRPGPlayerFunctions {
     public ZRPGPlayerFunctions(ZRPGPlayer player, MapDraw mapDraw) {
         this.player = player;
         this.mapDraw = mapDraw;
-        idComponentMapper=mapDraw.getGameComponentMapper().getIdComponentMapper();
+        idComponentMapper= GameComponentMapper.getIdComponentMapper();
         this.world=mapDraw.getWorld();
     }
 
@@ -56,7 +58,7 @@ public class ZRPGPlayerFunctions {
         public void moveRight() {
         player.getPlayerEntity().add(new MovingOnGround());
         player.getAction().setStat("move");
-        player.getMovable().moveRight();
+        player.getMovableComponent().moveRight();
 
     }
     public void moveLeft() {
@@ -65,7 +67,7 @@ public class ZRPGPlayerFunctions {
         player.getAction().setStat("move");
 
 
-        player.getMovable().moveLeft();
+        player.getMovableComponent().moveLeft();
         System.out.println("moved left!!");
 
 
@@ -75,7 +77,7 @@ public class ZRPGPlayerFunctions {
         player.getAction().setStat("move");
 
 
-        player.getMovable().moveUp();
+        player.getMovableComponent().moveUp();
         System.out.println("moved up!!");
 
 
@@ -90,7 +92,7 @@ public class ZRPGPlayerFunctions {
 
 
 
-        player.getMovable().moveDown();
+        player.getMovableComponent().moveDown();
 
 
 
@@ -101,7 +103,7 @@ public class ZRPGPlayerFunctions {
         player.getPlayerEntity().add(new MovingOnGround());
         player.getAction().setStat("move");
 
-        player.getMovable().moveRightUp();
+        player.getMovableComponent().moveRightUp();
         System.out.println("moved right up!!");
 
 
@@ -116,7 +118,7 @@ public class ZRPGPlayerFunctions {
 
 
 
-        player.getMovable().moveLeftUp();
+        player.getMovableComponent().moveLeftUp();
 
 
 
@@ -127,7 +129,7 @@ public class ZRPGPlayerFunctions {
         player.getAction().setStat("move");
 
 
-        player.getMovable().moveLeftDown();
+        player.getMovableComponent().moveLeftDown();
         System.out.println("moved left down!!");
 
 
@@ -140,7 +142,7 @@ public class ZRPGPlayerFunctions {
         player.getAction().setStat("move");
 
 
-        player.getMovable().moveRightDown();
+        player.getMovableComponent().moveRightDown();
         System.out.println("moved Right down !!");
 
 
@@ -159,7 +161,7 @@ public class ZRPGPlayerFunctions {
             PositionComponent position = player.getPosition();
             GameMap map = mapDraw.getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationX());
 
-            Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileSizeX(), Item.class);
+            Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), Item.class);
             PickUp  pickUp= new PickUp();
             String handId="";
             DominateHand dominateHand=player.getDominateHand();
@@ -186,7 +188,7 @@ public class ZRPGPlayerFunctions {
                 }
                 else {
                     String text = "Select an Item to Pick Up";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw.getWorld()), ScreenPosition.CENTER);
+                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw), ScreenPosition.CENTER);
                 }
 
 
@@ -283,7 +285,7 @@ public class ZRPGPlayerFunctions {
             if (packs.size > 0) {
 
                 String text="Select A Pack To Add To";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw.getWorld()), ScreenPosition.CENTER);
+                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
 
             }
 
@@ -389,4 +391,7 @@ public class ZRPGPlayerFunctions {
 
     }
 
+    public Array<InputKeyCombo> getPlayerControlFunctions() {
+        return playerControlFunctions;
+    }
 }

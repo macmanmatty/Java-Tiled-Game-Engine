@@ -8,8 +8,8 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.Movable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 
@@ -29,10 +29,10 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
 
-        ownedComponentMapper=getGameComponentMapper().getOwnedComponentComponentMapper();
+        ownedComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
 
-        positionComponentMapper=getGameComponentMapper().getPositionComponentMapper();
-        actionComponentMapper=getGameComponentMapper().getActionComponentMapper();
+        positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
+        actionComponentMapper=GameComponentMapper.getActionComponentMapper();
     }
 
     @Override

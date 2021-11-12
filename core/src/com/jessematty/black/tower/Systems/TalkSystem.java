@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.Components.TalkComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.MessageBoxes.TalkBox;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -33,7 +34,7 @@ public class TalkSystem extends EventSystem { // talking fighter action that dis
         GameMap map=getWorld().getMap(mapX, mapY);
         float voiceDistance=player.getNumericStats().getNumericStats().get("voiceProjection").getFloatValue();
          Array<Entity> entities= MapUtilities.getClosestEntities(map, player.getPosition(),  voiceDistance, TalkComponent.class );
-        TalkBox talkBox= new TalkBox("Conversation", getDraw().getCurrentMap().getSkin(), getGameComponentMapper());
+        TalkBox talkBox= new TalkBox("Conversation", getDraw().getCurrentMap().getSkin());
         talkBox.setTalkers(entities);
          getDraw().addWindow(talkBox, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
@@ -45,7 +46,7 @@ public class TalkSystem extends EventSystem { // talking fighter action that dis
 
     @Override
     public void addedToEngine(Engine engine) {
-        talkComponentMapper=getGameComponentMapper().getTalkComponentComponentMapper();
+        talkComponentMapper= GameComponentMapper.getTalkComponentComponentMapper();
 
     }
 

@@ -6,6 +6,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class EquipItemInHand extends EventSystem {
@@ -22,10 +23,10 @@ public class EquipItemInHand extends EventSystem {
         super(draw);
         this.holder = holder;
         this.itemToHold = itemToHold;
-        hands=getGameComponentMapper().getHolderComponentMapper();
-        names=getGameComponentMapper().getNameComponentMapper();
-        idComponentMapper=getGameComponentMapper().getIdComponentMapper();
-        positions=getGameComponentMapper().getPositionComponentMapper();
+        hands= GameComponentMapper.getHolderComponentMapper();
+        names=GameComponentMapper.getNameComponentMapper();
+        idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        positions=GameComponentMapper.getPositionComponentMapper();
     }
 
 

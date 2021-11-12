@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.MapTools;
+package com.jessematty.black.tower.Editor.Tools.MapTools;
 
 public enum SelectMode {
      SELECT , WAND
