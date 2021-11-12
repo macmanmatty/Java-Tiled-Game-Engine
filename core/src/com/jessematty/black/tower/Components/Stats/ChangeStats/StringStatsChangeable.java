@@ -4,16 +4,10 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
 public class StringStatsChangeable implements Component {
-
-
-
    private Array<StringStatChangeable> statsToChange = new Array<StringStatChangeable>();
-
-
     public Array<StringStatChangeable> getStatsToChange() {
         return statsToChange;
     }
-
     public void addStatToChange(StringStatChangeable changableStringStat ){
 
         int size=statsToChange.size;
@@ -30,8 +24,6 @@ public class StringStatsChangeable implements Component {
         }
 
     }
-
-
     public void removeStatToChange(String name){
 
         int size= statsToChange.size;
@@ -47,7 +39,6 @@ public class StringStatsChangeable implements Component {
 
 
     }
-
     public void addOrCombineStat(StringStatChangeable changableStringStat) {
         int size=statsToChange.size;
         boolean addStat=true;
@@ -64,7 +55,6 @@ public class StringStatsChangeable implements Component {
         }
 
     }
-
 
     public StringStatChangeable getStat(String name){
 

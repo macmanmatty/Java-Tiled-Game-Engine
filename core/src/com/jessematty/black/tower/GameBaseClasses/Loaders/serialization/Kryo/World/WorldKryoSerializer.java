@@ -19,20 +19,15 @@ public class WorldKryoSerializer extends Serializer<World> {
     public void write(Kryo kryo, Output output, World world) {
         kryo.writeClassAndObject(output, world.getWorldSettings());
         OrderedMap<String, Entity>  entities= null;
-        try {
+
             entities = removeUnserializableComponentsFromEntities(world);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
         kryo.writeClassAndObject(output, entities);
         kryo.writeClassAndObject(output, world.getWorldMap());
         kryo.writeClassAndObject(output, world.getPlayer());
 
     }
   
-   public OrderedMap<String, Entity> removeUnserializableComponentsFromEntities(World world) throws IllegalAccessException, InstantiationException {
+   public OrderedMap<String, Entity> removeUnserializableComponentsFromEntities(World world)  {
        OrderedMap<String, Entity> entityMap=world.getEntitiesInWorld();
        OrderedMap<String, Entity> newEntityMap= new OrderedMap<>();
        newEntityMap.putAll(entityMap);
@@ -46,6 +41,8 @@ public class WorldKryoSerializer extends Serializer<World> {
         world.setWorldSettings(worldSettings);
         String assetsPath=(String) worldSettings.getSettings().get("assetsPath");
            gameAssets.loadExternalTextureAtlas(assetsPath);
+            gameAssets.finishLoading();
+
 
         OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
         LandMap [] [] maps= (LandMap[][]) kryo.readClassAndObject(input);
@@ -57,7 +54,6 @@ public class WorldKryoSerializer extends Serializer<World> {
         }
         world.setCurrentMap((Integer)worldSettings.getSettings().get("currentMapX") , (Integer)worldSettings.getSettings().get("currentMapY"));
         world.setPlayer(player);
-        gameAssets.finishLoading();
         return  world;
     }
 }

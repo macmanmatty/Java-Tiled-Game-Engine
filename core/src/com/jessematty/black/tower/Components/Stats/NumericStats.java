@@ -45,11 +45,6 @@ public class NumericStats implements Component {
         }
     }
 
-
-
-
-
-
     public  void removeStat(  String name){
         NumericStat stat=numericStats.get(name);
             numericStats.remove(name);

@@ -6,14 +6,14 @@ import com.jessematty.black.tower.Components.Stats.BooleanStat;
 
 public class BooleanStats implements Component {
 
-    protected OrderedMap <String, com.jessematty.black.tower.Components.Stats.BooleanStat>  booleanStats= new OrderedMap<String, com.jessematty.black.tower.Components.Stats.BooleanStat>();
+    protected OrderedMap <String, BooleanStat>  booleanStats= new OrderedMap<String, com.jessematty.black.tower.Components.Stats.BooleanStat>();
     private  boolean statHasChanged;
-    public void addStat(com.jessematty.black.tower.Components.Stats.BooleanStat stat){
+    public void addStat(BooleanStat stat){
         if(booleanStats.get(stat.getName())!=null){
             return;
 
         }
-            booleanStats.put((stat.getName()), (com.jessematty.black.tower.Components.Stats.BooleanStat)stat);
+            booleanStats.put((stat.getName()), (BooleanStat)stat);
 
     }
     public  void removeStat(  String name){
@@ -21,11 +21,11 @@ public class BooleanStats implements Component {
             booleanStats.remove(name);
 
     }
-    public com.jessematty.black.tower.Components.Stats.BooleanStat getBooleanStat(String statName){
+    public BooleanStat getBooleanStat(String statName){
         return booleanStats.get(statName);
     }
 
-    public OrderedMap<String, com.jessematty.black.tower.Components.Stats.BooleanStat> getBooleanStats() {
+    public OrderedMap<String, BooleanStat> getBooleanStats() {
         return booleanStats;
     }
 
@@ -37,9 +37,9 @@ public class BooleanStats implements Component {
         this.statHasChanged = statHasChanged;
     }
 
-    public void addOrCombineStat(com.jessematty.black.tower.Components.Stats.BooleanStat booleanStat) {
+    public void addOrCombineStat(BooleanStat booleanStat) {
         if(booleanStats.get(booleanStat.getName())!=null) {
-            com.jessematty.black.tower.Components.Stats.BooleanStat booleanStatInStats = booleanStats.get(booleanStat.getName());
+           BooleanStat booleanStatInStats = booleanStats.get(booleanStat.getName());
             booleanStat.setFlag(booleanStat.getFlag() && booleanStat.getFlag());
         }
 
