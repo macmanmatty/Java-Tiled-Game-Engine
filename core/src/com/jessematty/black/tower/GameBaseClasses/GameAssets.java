@@ -227,7 +227,7 @@ public class GameAssets {
      * @param  atlasName the name of libGDX texture atlas the atlas the region is in
      * @return  AtlasNamedAtlasRegion may be null if no region exists
      */
-    public AtlasNamedAtlasRegion getAtlasRegionByNameOrNull(String atlasRegionName,  String atlasName){
+    public AtlasNamedAtlasRegion getInternalAtlasRegionByName(String atlasRegionName,  String atlasName){
         TextureAtlas atlas= assetManager.get("textureAtlases/"+atlasName+".atlas", TextureAtlas.class);
         AtlasRegion region=atlas.findRegion(atlasRegionName);
         if(region!=null) {
@@ -485,5 +485,13 @@ public class GameAssets {
     }
     public static  GameInput getGameInput() {
         return gameInput;
+    }
+
+    public Skin getSkin() {
+        return skin;
+    }
+
+    public void setSkin(Skin skin) {
+        this.skin = skin;
     }
 }

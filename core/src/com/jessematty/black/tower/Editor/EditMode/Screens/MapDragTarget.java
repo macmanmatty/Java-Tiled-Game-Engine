@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
@@ -22,7 +24,7 @@ public class MapDragTarget extends Target {
 
   private   int locationX;
    private  int locationY;
-   private com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
+   private com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen mapEditScreen;
    private Rectangle selectedArea;
 
 
@@ -50,7 +52,7 @@ public class MapDragTarget extends Target {
         if(placeMode == PlaceMode.PLACE){
             Entity entityToPlace = (Entity) mapEditScreen.getClipBoard().getCurrentObject();
             World world= mapEditScreen.getWorld();
-            ComponentMapper<PositionComponent> positionComponentMapper= mapEditScreen.getGameComponentMapper().getPositionComponentMapper();
+            ComponentMapper<PositionComponent> positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
 
             if(currentMap!=null) {
                 EntityGenerator.copyEntity(entityToPlace);

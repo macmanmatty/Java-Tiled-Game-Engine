@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;

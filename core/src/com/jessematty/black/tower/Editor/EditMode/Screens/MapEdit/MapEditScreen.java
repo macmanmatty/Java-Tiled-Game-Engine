@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Screens;
+package com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -78,11 +78,9 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
     private FrameBuffer lightFrameBuffer;
     private Viewport mapViewport;
     private final GameAssets gameAssets;
-    private final GameComponentMapper gameComponentMapper;
     private TiledMapRenderer tiledMapRenderer;
     private  World world;
     private final DragAndDrop dragAndDrop;
-    private ComponentMapper<PositionComponent> positionComponentMapper;
     private int currentLayerNumber;
     private Rectangle selectedArea = new Rectangle();
     private final WorldObjects worldObjects;
@@ -98,11 +96,6 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
     private boolean keyLocked;
     private final GameInput gameInput;
 
-
-
-
-
-
     public MapEditScreen(GameAssets assets, ClipBoard clipBoard,  TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
         this.gameAssets = assets;
         this.world = world;
@@ -111,8 +104,6 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
         this.skin = skin;
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        this.gameComponentMapper = world.getGameComponentMapper();
-        positionComponentMapper = gameComponentMapper.getPositionComponentMapper();
         this.worldObjects = worldObjects;
         this.topMenu = topMenu;
         this.clipBoard=clipBoard;
@@ -523,7 +514,7 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
         if(object instanceof  Entity) {
             Entity entityToPlace = (Entity) clipBoard.getCurrentObject();
             if (currentMap != null && entityToPlace != null) {
-
+                ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
                 position.setMapWorldLocationX(currentMap.getWorldX());
                 position.setMapWorldLocationY(currentMap.getWorldX());
@@ -638,9 +629,6 @@ public    class MapEditScreen   implements NamedScreen, LockableInputProcessor, 
     }
     public OrthographicCamera getCamera() {
         return camera;
-    }
-    public GameComponentMapper getGameComponentMapper() {
-        return gameComponentMapper;
     }
 
     public DragAndDrop getDragAndDrop() {

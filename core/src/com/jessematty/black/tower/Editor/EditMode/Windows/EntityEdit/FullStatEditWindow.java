@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNume
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.DragLists.OneWayDragList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;

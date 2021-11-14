@@ -16,7 +16,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
@@ -50,8 +50,8 @@ import javax.swing.JFrame;
 
 public class MapTools {
     private final CopyObject copyObject;
-    private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
-    private final GameAssets gameAssets;
+    private static  MapEditScreen mapEditScreen;
+    private static GameAssets gameAssets;
     private  static final BitMask bitMask= new BitMask();
     private static AtlasNamedAtlasRegion emptyGridTile;
     private static AtlasNamedAtlasRegion emptyTile;
@@ -59,8 +59,8 @@ public class MapTools {
         this.mapEditScreen = edit;
         this.gameAssets = edit.getGameAssets();
         this.copyObject = new CopyObject(gameAssets);
-        emptyGridTile = gameAssets.getAtlasRegionByName("emptyGridTile", "editorAssets");
-        emptyTile = gameAssets.getAtlasRegionByName("empty", "editorAssets");
+        emptyGridTile = gameAssets.getInternalAtlasRegionByName("emptyGridTile", "editorAssets");
+        emptyTile = gameAssets.getInternalAtlasRegionByName("empty", "editorAssets");
     }
     public static void changeMapSize(GameMap map, int xSize, int ySize) { // used to increase or decrease map  size in the editor
         LandSquareTile[][] tiles = new LandSquareTile[xSize][ySize];
@@ -105,25 +105,6 @@ public class MapTools {
         }
     }
 
-    public  static TiledMap loadTMXMapFromFile(GameAssets assets) { // loads WoodWand tiled landSquareTileMap from WoodWand file
-        File image = null;
-        Texture texture = null;
-        JFrame frame = new JFrame();
-        JFileChooser chooser = new JFileChooser();
-        frame.add(chooser);
-        frame.toFront();
-        frame.setVisible(true);
-        File file = chooser.getSelectedFile();
-        String path = file.getPath();
-        String extension = FileUtilities.getExtensionOfFile(file);
-        if (extension.equalsIgnoreCase("tmx")) {
-            TiledMap map = new TmxMapLoader().load(path);
-            assets.getAssetManager().load(path, TiledMap.class);
-            assets.getAssetManager().finishLoading();
-            return map;
-        }
-        return null;
-    }
     public LandSquareTile[][] copyTiles(LandSquareTile[][] tiles) {
         LandSquareTile[][] copiedTiles = copyObject.copyObject(tiles, LandSquareTile[][].class);
         return copiedTiles;
@@ -257,9 +238,21 @@ public class MapTools {
         return InList.isInList(mapNames, name);
       
     }
-   // loads a  new tmx landSquareTileMap made with tiled TileMap program
-        public   TiledMap loadTmxMap( GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingExeception {
+
+    /**
+     *  loads a  new tmx landSquareTileMap made with tiled TileMap program
+     * @param worldAtlas  the atlas to save the texture regions to
+     * @param gameMap // the game map to save the tiled map to
+     * @param gameAssets // the gameassetts object
+     * @param path // the path of the tmx map file
+     * @param expandMapToFit // whether to expand the map to fit the new tiled maps size
+     * @param clipMapToFit // whether to shrink the map to fit the new tiled maps size
+     * @return the new tiled map object
+     * @throws MapLoadingExeception
+     */
+        public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingExeception {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(path);
+           tiledMap= TiledMapTools.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
             MapProperties mapProperties=tiledMap.getProperties();
             int width= mapProperties.get("width", java.lang.Integer.class);
             int  height= mapProperties.get("height", Integer.class);
@@ -276,16 +269,16 @@ public class MapTools {
                 gameMap.setTiledMap(tiledMap);
                 return  tiledMap;
             }
-           if(clipMapToFit==true){
+           if(clipMapToFit){
                
                 changeTiledMapSize(tiledMap,tileSizeX, tileSizeY, gameMap.getXTiles() , gameMap.getYTiles());
                 return  tiledMap;
             }
            // if tiled map is bigger than current mpa size increase the map size;
-            if(expandMapToFit==true){
+            if(expandMapToFit){
                     int expendX=width-gameMap.getXTiles();
                    int expendY=width-gameMap.getXTiles();
-                    if(clipMapToFit==false) {
+                    if(!clipMapToFit) {
                         if (expendX < 0) {
                             expendX = 0;
                         }
@@ -297,7 +290,7 @@ public class MapTools {
                     gameMap.setMap(tiles);
                     return  tiledMap;
                 }
-            throw new MapLoadingExeception("Unable to TMX map to GameMap Check Size?");
+            throw new MapLoadingExeception("Unable to Load TMX map to GameMap Check Size?");
     }
 
     // creates  new  named  texture atlas  with a given  name texture atlas extracts  all the texture regions  from a tiled map and adds them

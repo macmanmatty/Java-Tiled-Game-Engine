@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

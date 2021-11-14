@@ -26,7 +26,7 @@ public class ItemActionWindow extends GameWindow {
 
 
     public ItemActionWindow(String text, String title, Array<Entity> entities, ItemActionComponent itemActionComponent, MapDraw draw) {
-        super(title, draw.getCurrentMap().getSkin(), draw.getAssetts() );
+        super(title, draw.getCurrentMap().getSkin(), draw.getGameAssets() );
         this.entities = entities;
         this.itemActionComponent = itemActionComponent;
         this.world = world;

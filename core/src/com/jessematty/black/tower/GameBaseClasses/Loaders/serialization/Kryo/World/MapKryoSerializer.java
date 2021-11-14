@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.utils.ImmutableArray;
@@ -16,19 +15,13 @@ import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Json.Ent
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 public class MapKryoSerializer extends Serializer<LandMap> {
-
     private final GameAssets gameAssets;
-
-
     public MapKryoSerializer(GameAssets gameAssets) {
         this.gameAssets = gameAssets;
     }
-
     @Override
     public void write(Kryo kryo, Output output, LandMap map) {
-
         // write the game map settings
         kryo.writeClassAndObject(output, map.getGameMapSettings());
         // write the map of tiles
@@ -36,47 +29,24 @@ public class MapKryoSerializer extends Serializer<LandMap> {
         // uses a standard tiled tmx map file don't write tiled map
         if(!map.getGameMapSettings().getSimpleSetting("usesTMXMap", Boolean.class)) {
             kryo.writeClassAndObject(output, map.getTiledMap());
-
         }
-
-
-
-
-
     }
-
     @Override
     public LandMap read(Kryo kryo, Input input, Class<LandMap> type) {
-
         LandMap map= new LandMap();
         GameMapSettings gameMapSettings= (GameMapSettings) kryo.readClassAndObject(input);
-
         LandSquareTile [] [] mapTiles= (LandSquareTile[][]) kryo.readClassAndObject(input);
         if(!gameMapSettings.getSimpleSetting("usesTMXMap", Boolean.class)) {
             TiledMap tiledMap = (TiledMap) kryo.readClassAndObject(input);
             map.setTiledMap(tiledMap);
-
         }
         else{
-
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(gameMapSettings.getSimpleSetting("tiledMapPath", String.class));
-
             map.setTiledMap(tiledMap);
         }
         map.setMap(mapTiles);
         map.setGameMapSettings(gameMapSettings);
         map.setTileSize(gameMapSettings.getSimpleSetting("tileWidth", Integer.class), gameMapSettings.getSimpleSetting("tileHeight", Integer.class));
-
-
-
-
             return  map;
-
-
-
-
-
     }
-
-
 }

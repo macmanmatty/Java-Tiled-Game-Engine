@@ -2,14 +2,13 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
@@ -25,7 +24,7 @@ public class TiledMapLayerWindow extends MapEditWindow {
 
 
 
-    public TiledMapLayerWindow(final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen, Skin skin) {
+    public TiledMapLayerWindow(final MapEditScreen mapEditScreen, Skin skin) {
         this(mapEditScreen, "Map Layers", skin, "default");
 
 

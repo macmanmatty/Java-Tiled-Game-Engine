@@ -43,7 +43,7 @@ public class FullInfoWindow extends GameWindow {
         this("Info", mapDraw.getCurrentMap().getSkin(), "default", mapDraw, entity);
     }
     public FullInfoWindow(String title, Skin skin, String styleName, MapDraw mapDraw, Entity entity) {
-        super(title, skin, styleName, mapDraw.getAssetts());
+        super(title, skin, styleName, mapDraw.getGameAssets());
         this.mapDraw = mapDraw;
         this.entity = entity;
         nameComponentMapper=GameComponentMapper.getNameComponentMapper();

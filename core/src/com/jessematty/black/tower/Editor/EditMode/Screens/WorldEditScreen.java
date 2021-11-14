@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
@@ -34,7 +35,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         private  GameComponentMapper gameComponentMapper;
         private WorldObjects worldObjects;
         private EntityGenerator entityGenerator;
-        private MapEditScreen mapEditScreen;
+        private com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen mapEditScreen;
         private Stage uiStage;
         private Stage mapStage;
         private OrthographicCamera camera;
@@ -70,7 +71,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     public void show() {
         this.uiStage =new Stage();
         topMenu=new TopMenu(this);
-        mapEditScreen =new MapEditScreen(gameAssets, clipBoard, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
+        mapEditScreen =new com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen(gameAssets, clipBoard, topMenu,  dragAndDrop,  keyListener,  skin, world, worldObjects);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();

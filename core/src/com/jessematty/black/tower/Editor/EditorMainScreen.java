@@ -40,10 +40,11 @@ public class EditorMainScreen implements NamedScreen {
         }
         public void show() {
             this.skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
-            gameAssets.loadInternalTextureAtlas("editorAssets");
+           gameAssets.loadInternalTextureAtlas("editorAssets");
             if(!VisUI.isLoaded()) {
                 VisUI.load(skin);
             }
+            gameAssets.loadInternalTextureAtlas("editorAssets");
             gameAssets.finishLoading();
             stage=new Stage();
             Gdx.input.setInputProcessor(stage);

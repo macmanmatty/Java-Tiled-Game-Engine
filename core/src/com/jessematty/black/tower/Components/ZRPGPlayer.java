@@ -63,7 +63,6 @@ public class ZRPGPlayer implements Component {
     public ZRPGPlayer(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
         this.world=world;
-
         this.movableComponent = playerEntity.getComponent(MovableComponent.class);
         this.position = playerEntity.getComponent(PositionComponent.class);
         this.numericStats = playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.NumericStats.class);

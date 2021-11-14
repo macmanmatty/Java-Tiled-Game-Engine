@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BucketFill;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells;
+import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.Generators.MapGenerators.HeightMapGen;
@@ -44,8 +45,14 @@ public class TiledMapEdit {
         this.clipBoard = clipBoard;
         this.gameAssets = gameAssets;
     }
-    // fills a grid of tiles based on whether or not there textures regions  match
-    // like a paint bucket function ina drawing program
+
+    /**
+     *   fills a grid of tiles based on whether or not there textures regions  match
+     *     like a paint bucket function ina drawing program
+     * @param locationX the tiled map x tile location of the start tile
+     * @param locationY the tiled map y tile location of the start tile
+     * @param fillRegion the Atlas Region to file the map with
+     */
     public void bucketFill(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion) {
         Cell cell=currentLayer.getCell(locationX, locationY);
         if(cell!=null) {
@@ -54,24 +61,39 @@ public class TiledMapEdit {
         }
 
     }
-
-    public void bitMask(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet set) {
+    /**
+     *   bitmaskes  a grid of tiles based on whether the surrounding tiles
+     *
+     * @param locationX the tiled map x tile location of the start tile
+     * @param locationY the tiled map y tile location of the start tile
+     * @param fillRegion the Atlas Region to file the map with
+     * @param  tileSet the bit masking tile set to bitmask with
+     */
+    public void bitMask(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet tileSet) {
         Cell cell=currentLayer.getCell(locationX, locationY);
         if(cell!=null) {
             TextureRegion regionToReplace = cell.getTile().getTextureRegion();
             if(regionToReplace!=null) {
-                com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, currentLayer, locationX, locationY,gameAssets,  set, fillRegion);
+                com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, currentLayer, locationX, locationY,gameAssets,  tileSet, fillRegion);
             }
 
         }
 
     }
-    public void bitMaskMouseOver(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet set) {
+    /**
+     *   create on over lay preview of a bitmasked image   a grid of tiles based on whether the surrounding tiles
+     *
+     * @param locationX the tiled map x tile location of the start tile
+     * @param locationY the tiled map y tile location of the start tile
+     * @param fillRegion the Atlas Region to file the map with
+     * @param  tileSet the bit masking tile set to bitmask with
+     */
+    public void bitMaskMouseOver(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet tileSet) {
         Cell cell=currentLayer.getCell(locationX, locationY);
         if(cell!=null) {
             TextureRegion regionToReplace = cell.getTile().getTextureRegion();
             if(regionToReplace!=null) {
-                BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY,gameAssets,  set, fillRegion);
+                BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY,gameAssets,  tileSet, fillRegion);
             }
 
         }
@@ -267,19 +289,6 @@ public class TiledMapEdit {
     private void showOrHideLayer(String name){
         MapLayer mapLayer=currentTiledMap.getLayers().get(name);
         mapLayer.setVisible(!mapLayer.isVisible());
-    }
-    protected void loadTiledMap() { // loads a new tmx TileMap made with tiled tileMap program
-        TiledMap map= MapTools.loadTMXMapFromFile(gameAssets);
-        if(map!=null) {
-            currentTiledMap= map;
-            MapProperties properties= currentTiledMap.getProperties();
-            tileSizeX       = properties.get("tilewidth", Integer.class);
-            tileSizeY       = properties.get("tileheight", Integer.class);
-            xSize = properties.get("width", Integer.class);
-            ySize  = properties.get("height", Integer.class);
-            mapXPixels = xSize  * tileSizeX;
-            mapYPixels = ySize * tileSizeY;
-        }
     }
 
 

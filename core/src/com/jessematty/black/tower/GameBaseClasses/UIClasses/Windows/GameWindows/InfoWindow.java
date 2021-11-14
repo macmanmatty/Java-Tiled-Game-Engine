@@ -17,7 +17,7 @@ public class InfoWindow extends GameWindow {
     }
 
     public InfoWindow(String title, Skin skin,  String styleName, MapDraw mapDraw, Entity entity) {
-        super(title, skin, styleName, mapDraw.getAssetts());
+        super(title, skin, styleName, mapDraw.getGameAssets());
         this.mapDraw = mapDraw;
         this.entity = entity;
         setRemoveOnClose(true);

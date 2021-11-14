@@ -1,12 +1,9 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemLabel;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemList;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemListSource;
 
 public class TiledMapTileLayerList extends ItemList<NamedTiledMapTileLayer> { // list that tracks a tiled map and it's layers
 

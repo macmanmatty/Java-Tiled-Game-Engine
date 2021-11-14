@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateStatOptionPane;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit.EditEntityWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EntitySelect.EntitySelectWindow;

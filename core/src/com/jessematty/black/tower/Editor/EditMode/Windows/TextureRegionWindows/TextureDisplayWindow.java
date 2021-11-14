@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
@@ -68,7 +68,7 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
     private DragAndDrop dragAndDrop;
     private TextureAtlas textureAtlas;
 
-    public TextureDisplayWindow(com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen,  Skin skin) {
+    public TextureDisplayWindow(MapEditScreen mapEditScreen, Skin skin) {
         this(mapEditScreen, "Textures", skin, "default");
 
     }

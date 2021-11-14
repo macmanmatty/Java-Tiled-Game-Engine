@@ -56,7 +56,7 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
    private Vector3 target;
     public ZRPGPlayerSystem(MapDraw draw) {
         super(draw);
-        this.gameInputKeys=draw.getAssetts().getSettings().getGameInputKeys();
+        this.gameInputKeys=draw.getGameAssets().getSettings().getGameInputKeys();
 
         zrpgActors=new ZRPGActors(draw);
 

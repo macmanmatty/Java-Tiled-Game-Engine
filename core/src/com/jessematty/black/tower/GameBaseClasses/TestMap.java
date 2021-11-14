@@ -82,7 +82,7 @@ public class TestMap {
         map2.setTiledMap(map);
 
         try {
-         map=  new TiledMapTools(world.getWorldTextureAtlas(), "/world/worldAssetts.atlas").convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap");
+         map= TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "");
          map2.setTiledMap(map);
         } catch (MapLoadingExeception mapLoadingExeception) {
             mapLoadingExeception.printStackTrace();
@@ -107,7 +107,7 @@ public class TestMap {
        world.setLoadPath("/world/");
        World newWorld=assetts.loadGame("/world/game.bin");
      newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
-       assetts.setWorld(world);
+       assetts.setWorld(newWorld);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }

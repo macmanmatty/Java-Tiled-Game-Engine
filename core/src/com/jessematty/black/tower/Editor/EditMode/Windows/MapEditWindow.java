@@ -1,12 +1,12 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public  abstract class MapEditWindow extends EditWindow {
 
-    private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
+    private final MapEditScreen mapEditScreen;
     private final GameAssets gameAssets;
 
 

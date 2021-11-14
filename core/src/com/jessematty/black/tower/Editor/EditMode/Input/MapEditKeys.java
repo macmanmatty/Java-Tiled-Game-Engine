@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Editor.EditMode.Input;
 
 import com.badlogic.gdx.Input.Keys;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;

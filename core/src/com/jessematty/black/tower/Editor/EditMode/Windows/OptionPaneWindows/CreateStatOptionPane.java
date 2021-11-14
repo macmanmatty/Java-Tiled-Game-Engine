@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemLabel;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemListAdapter;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemListLabelStyle;
