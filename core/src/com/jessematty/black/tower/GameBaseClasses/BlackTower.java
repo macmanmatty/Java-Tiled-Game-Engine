@@ -7,9 +7,6 @@ public class BlackTower extends Game {
 private GameAssets assetts;
 private boolean packAssets=true;
 private String assetsPath="TestAssets";
-
-
-
 public void BlackTower(){
 }
 	public void makeMainWindow(){
@@ -18,13 +15,9 @@ public void BlackTower(){
 	public void create () {
 	if(packAssets){
 		TexturePacker.process(new Settings(), "TestAssets", "android/assets/textureAtlases", "testAssets");
-
-
 	}
-
 		assetts=new GameAssets("game", this);
 		assetts.setup();
-
 		setScreen(new MainScreen(assetts));
 	}
 	@Override
@@ -35,7 +28,6 @@ public void BlackTower(){
 	public void dispose () {
 	super.dispose();
 	}
-
 	public GameAssets getAssetts() {
 		return assetts;
 	}

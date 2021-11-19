@@ -48,7 +48,7 @@ public class BitMaskedTileSetCreationWindow extends MapEditWindow {
 
 
 
-    public BitMaskedTileSetCreationWindow(final MapEditScreen edit,  final Skin skin) {
+    public BitMaskedTileSetCreationWindow(final MapEditScreen edit, final Skin skin) {
         super(edit, "Create Tile Set", skin, "default");
 
         this.skin = skin;

@@ -25,7 +25,7 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
            tiledMapSaver= new MemoryEfficentTiledMapSaver();
         }
         try {
-            tiledMapSaver.saveMap(tiledMap, (String) tiledMapSaver.getMapProperties().get("atlasName"));
+            tiledMapSaver.saveMap(tiledMap);
         } catch (MapLoadingExeception mapLoadingExeception) {
             mapLoadingExeception.printStackTrace();
         }

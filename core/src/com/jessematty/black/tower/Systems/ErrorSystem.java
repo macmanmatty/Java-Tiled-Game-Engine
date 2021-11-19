@@ -51,7 +51,7 @@ public class ErrorSystem extends GameEntitySystem {
                     //create error option pane
                     OptionPane optionPane= new OptionPane(getDraw().getCurrentMap().getSkin(), errorComponent.getTitle(), errorComponent.getErrorMessage(), errorComponent.getButtonText());
                    // add window to stage
-                    getDraw().addWindow(optionPane, ScreenPosition.CENTER);
+                    getDraw().getUiStage().addWindow(optionPane, ScreenPosition.CENTER);
                     // remove error
                     entity.remove(ErrorComponent.class);
 

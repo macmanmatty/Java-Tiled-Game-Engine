@@ -22,7 +22,7 @@ public class LandMap extends GameMap implements Serializable {
 	public void mapTurnActions(float deltaTime, GameTime gameTime){ // method for updating the map and the tiles on it each game loop call
 		super.mapTurnActions(deltaTime, gameTime);
 		if(lightChanges) {
-			setDayLightAmount(gameTime.getTotalGameTimeLaspedInSeconds());
+			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 
 		}
 

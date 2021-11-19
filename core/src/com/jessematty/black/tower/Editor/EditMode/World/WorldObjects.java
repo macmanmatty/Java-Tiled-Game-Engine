@@ -133,10 +133,7 @@ public class WorldObjects {
     }
 
     public  void addComponent( String name , Component component){
-
         components.add(new NamedComponent(name, component));
-
-
     }
 
     public Array<GameEntitySystem> getEntitySystems() {

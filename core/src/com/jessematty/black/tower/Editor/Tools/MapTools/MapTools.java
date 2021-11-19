@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -45,12 +44,9 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import java.io.File;
 import java.util.UUID;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 public class MapTools {
     private final CopyObject copyObject;
-    private static  MapEditScreen mapEditScreen;
+    private static MapEditScreen mapEditScreen;
     private static GameAssets gameAssets;
     private  static final BitMask bitMask= new BitMask();
     private static AtlasNamedAtlasRegion emptyGridTile;

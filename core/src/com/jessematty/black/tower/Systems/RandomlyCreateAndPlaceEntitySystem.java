@@ -56,7 +56,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
             RandomlyCreateAndPlaceEntity randomlyCreateAndPlaceEntitySystem = randomlyCreateAndPlaceEntityComponentMapper.get(entity);
             GameTime gameTime=getDraw().getGameTime();
             float createInterval=randomlyCreateAndPlaceEntitySystem.getCreateInterval();
-            if(createInterval%gameTime.getTotalGameTimeLaspedInSeconds()!=0){
+            if(createInterval%gameTime.getTotalGameTimeLapsedInSeconds()!=0){
                 continue;
             }
             entityToPlace.remove(RandomlyCreateAndPlaceEntity.class);

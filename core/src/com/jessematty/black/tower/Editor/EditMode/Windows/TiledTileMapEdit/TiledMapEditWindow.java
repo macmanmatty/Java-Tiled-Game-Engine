@@ -98,7 +98,7 @@ public class TiledMapEditWindow extends MapEditWindow implements LockableInputPr
 
 
 
-    public TiledMapEditWindow(MapEditScreen mapEditScreen,  ClipBoard clipBoard, TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
+    public TiledMapEditWindow(MapEditScreen mapEditScreen, ClipBoard clipBoard, TopMenu topMenu, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
         super(mapEditScreen,  "Tiled Map",skin,  "default");
         this.world = world;
         this.mapEditScreen=mapEditScreen;

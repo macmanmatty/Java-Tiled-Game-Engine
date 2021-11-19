@@ -78,7 +78,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap, String atlasName) throws MapLoadingExeception {
+    public void saveMap(TiledMap tiledMap) throws MapLoadingExeception {
         this. mapProperties=tiledMap.getProperties();
 
         int xSize=mapProperties.get("width", Integer.class);

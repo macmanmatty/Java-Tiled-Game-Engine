@@ -20,7 +20,7 @@ public class SingleTilesTileSet {
     private final MapEditScreen mapEditScreen;
 
 
-    public SingleTilesTileSet(TileSet bitMaskableTileSet,MapEditScreen mapEditScreen) {
+    public SingleTilesTileSet(TileSet bitMaskableTileSet, MapEditScreen mapEditScreen) {
         this.bitMaskableTileSet = bitMaskableTileSet;
         this.tileWidth = mapEditScreen.getTileWidth();
         this.gameAssets = mapEditScreen.getGameAssets();

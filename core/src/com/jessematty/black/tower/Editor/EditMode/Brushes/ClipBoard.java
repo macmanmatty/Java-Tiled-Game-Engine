@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Clipboard;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.AnimatedTiledMapTileActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.CellActor;

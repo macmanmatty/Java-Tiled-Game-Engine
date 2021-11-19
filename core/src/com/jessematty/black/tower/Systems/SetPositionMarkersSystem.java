@@ -36,7 +36,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
         entities=getEngine().getEntitiesFor(Family.all( Action.class, PositionComponent.class).get());
         int size=entities.size();
 
-        if(getDraw().getPlayer().getMovableComponent().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLaspedInSeconds()>2){// player didn't move no need to calculate anything
+        if(getDraw().getPlayer().getMovableComponent().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLapsedInSeconds()>2){// player didn't move no need to calculate anything
             return;
 
         }

@@ -10,40 +10,49 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.Maps.World;
+/**
+ * class for serializing / de-serializing a world object using kryo
+ */
 public class WorldKryoSerializer extends Serializer<World> {
     private final GameAssets gameAssets;
     public WorldKryoSerializer(GameAssets gameAssets) {
         this.gameAssets = gameAssets;
     }
+    /*
+    writes the world object using kryo
+     */
     @Override
     public void write(Kryo kryo, Output output, World world) {
         kryo.writeClassAndObject(output, world.getWorldSettings());
         OrderedMap<String, Entity>  entities= null;
-
-            entities = removeUnserializableComponentsFromEntities(world);
+        entities = removeUnserializableComponentsFromEntities(world);
         kryo.writeClassAndObject(output, entities);
         kryo.writeClassAndObject(output, world.getWorldMap());
         kryo.writeClassAndObject(output, world.getPlayer());
-
     }
+    /**
+     * removes all non serializable components from an entity
+     * @param world the world object to get the entities from
+     * @return a new OrderedMap of entities  that no longer contain  non-serializable components
+     */
   
-   public OrderedMap<String, Entity> removeUnserializableComponentsFromEntities(World world)  {
+   private OrderedMap<String, Entity> removeUnserializableComponentsFromEntities(World world)  {
        OrderedMap<String, Entity> entityMap=world.getEntitiesInWorld();
        OrderedMap<String, Entity> newEntityMap= new OrderedMap<>();
        newEntityMap.putAll(entityMap);
        return newEntityMap;
     }
-    // reads World  Object using kryo
+    /**
+     *  reads World  Object using kryo
+      */
     @Override
     public World read(Kryo kryo, Input input, Class<World> type) {
             World world = new World();
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);
-        String assetsPath=(String) worldSettings.getSettings().get("assetsPath");
+        String assetsPath=(String) worldSettings.getSettings().get("textureAtlasPath");
            gameAssets.loadExternalTextureAtlas(assetsPath);
             gameAssets.finishLoading();
-
-
         OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
         LandMap [] [] maps= (LandMap[][]) kryo.readClassAndObject(input);
         world.setWorldMap(maps);

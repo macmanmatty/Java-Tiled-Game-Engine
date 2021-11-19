@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Maps;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
@@ -63,7 +62,7 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 		Boolean lightChanges=gameMapSettings.getSimpleSetting("lighChanges", Boolean.class);
 		
 		if (lightChanges!=null && lightChanges==true) {
-			setDayLightAmount(gameTime.getTotalGameTimeLaspedInSeconds());
+			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
 	public LandSquareTile[][] getMap() {

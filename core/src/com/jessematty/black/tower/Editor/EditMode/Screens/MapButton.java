@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 class MapButton extends com.badlogic.gdx.scenes.scene2d.ui.ImageButton{
@@ -33,15 +34,14 @@ class MapButton extends com.badlogic.gdx.scenes.scene2d.ui.ImageButton{
             public void clicked(InputEvent event, float x, float y) {
                 worldEditScreen.getGameAssets().setScreen(worldEditScreen.getMapEditScreen());
                 if(map!=null) {
-                    worldEditScreen.getMapEditScreen().changeMap(map);
+                    worldEditScreen.getMapEditScreen().setMap(map);
                 }
                 else{
                     CreateMapOptionPane createMapOptionPane = new CreateMapOptionPane(worldEditScreen.getMapEditScreen(),getSkin() );
                     createMapOptionPane.setLockableInputMultiplexer(worldEditScreen.getGameAssets().getGameInput().getLockableInputMultiplexer());
                     createMapOptionPane.setLockOtherInputOnStageFocus(true);
                     createMapOptionPane.makeWindow();
-                    createMapOptionPane.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-                    worldEditScreen.getMapEditScreen().getUiStage().addActor(createMapOptionPane);
+                    worldEditScreen.getMapEditScreen().getUiStage().addWindow(createMapOptionPane, ScreenPosition.CENTER);
                     createMapOptionPane.setLockOtherInput(true);
                     map= (LandMap) worldEditScreen.getMapEditScreen().getCurrentMap();
                 }

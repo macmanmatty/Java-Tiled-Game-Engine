@@ -46,10 +46,10 @@ public class TiledMapLayerList2 extends Table  implements ItemListAdapter<NamedT
    private MapEditScreen mapEditScreen;
    private float rowHeight=15;
 
-    public TiledMapLayerList2( MapEditScreen mapEditScreen, Skin skin, String titleName, String methodName, Class itemDataClass, boolean displayTitle) {
+    public TiledMapLayerList2(MapEditScreen mapEditScreen, Skin skin, String titleName, String methodName, Class itemDataClass, boolean displayTitle) {
        this(mapEditScreen,skin,"default", titleName, methodName, itemDataClass,  0, displayTitle);
     }
-    public TiledMapLayerList2( MapEditScreen mapEditScreen, Skin skin, String styleName, String titleName, String methodName, Class itemDataClass,  int tableColumnIndex, boolean displayTitle) {
+    public TiledMapLayerList2(MapEditScreen mapEditScreen, Skin skin, String styleName, String titleName, String methodName, Class itemDataClass, int tableColumnIndex, boolean displayTitle) {
         this.skin = skin;
         this.displayTitle=displayTitle;
         this.itemListLabelStyle=skin.get(styleName, ItemListLabelStyle.class);

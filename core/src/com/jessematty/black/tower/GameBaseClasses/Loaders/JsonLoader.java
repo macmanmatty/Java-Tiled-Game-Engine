@@ -48,14 +48,14 @@ public class JsonLoader {
         HashMap<T , T2> object  = (HashMap<T, T2>) json.fromJson(HashMap.class,  type2Class,  object2);
         return object;
     }
-    public void saveTiledMap(  TiledMap map, int xSize, int ySize,  String path, String atlasName, GameAssets assetts ) throws MapLoadingExeception { //saves tiled map using the map saver class
+    public void saveTiledMap(  TiledMap map, String path) throws MapLoadingExeception { //saves tiled map using the map saver class
         if(fastSaveTiledMaps ==true) {
             FastTiledMapSaver saver = new FastTiledMapSaver();
-            saver.saveMap(map,  atlasName);
+            saver.saveMap(map);
         }
         else{
             MemoryEfficentTiledMapSaver saver = new MemoryEfficentTiledMapSaver();
-            saver.saveMap(map,  atlasName);
+            saver.saveMap(map);
             writeObjectToFile(saver, path, false);
 
         }

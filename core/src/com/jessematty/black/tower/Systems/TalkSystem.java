@@ -36,7 +36,7 @@ public class TalkSystem extends EventSystem { // talking fighter action that dis
          Array<Entity> entities= MapUtilities.getClosestEntities(map, player.getPosition(),  voiceDistance, TalkComponent.class );
         TalkBox talkBox= new TalkBox("Conversation", getDraw().getCurrentMap().getSkin());
         talkBox.setTalkers(entities);
-         getDraw().addWindow(talkBox, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+         getDraw().getUiStage().addWindow(talkBox, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 
 

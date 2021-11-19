@@ -30,8 +30,6 @@ public class TestMap {
        TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
        assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
       TextureAtlas atlas= assetts.loadInternalTextureAtlas("testAssets");
-      System.out.println();
-
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
         Skin skin=assetts.getDefaultSkin();
@@ -98,9 +96,10 @@ public class TestMap {
             landSquareTile.getComponent(PositionComponent.class).setBounds(32, 32);
         }
         world.setStartMap(0, 0);
+        world.setName("game");
 
       try {
-       assetts.saveGameWithAssets(world, "/world","worldAssetts", 2048, 2048);
+       assetts.saveGameWithAssets(world, "/world", 2048, 2048);
        } catch (IOException e) {
         e.printStackTrace();
         }

@@ -14,13 +14,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
-import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
@@ -38,43 +37,67 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldReader;
 import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldWriter;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
-
-import javax.annotation.Resource;
-
 /**
  * // class that holds  the libGDX assetManager and game instance for changing screens
- *   has Kryo instance  for  loading world  you should have anymore than one instance of this class.
+ *   has Kryo instance  for  loading  and saving world  you should have anymore than one instance of this class.
  */
-
-public class GameAssets {
+public class GameAssets implements Disposable {
+    /**
+     *  the current game world
+     */
     private World world; // the game world
-    private TextureAtlas currentAtlas; // the  current loaded texture atlas
-    private Skin skin; // the current skin
+    /**
+     *  the current loaded skin
+     */
+    private Skin skin;
+    /**
+     * libGDX assetManager  @see AssetManager
+     */
     private final  AssetManager assetManager;
+    /**
+     * libGDX Game instance used for switching screens and openGL / openAL stuff
+     */
     private  final Game game; // the games instance
+    /**
+     * screen class that draws the / show the game
+     */
     private MapDraw mapDraw;
+    /**
+     * object for loading json based objects
+     */
     private static  final JsonLoader jsonLoader= new JsonLoader();
+    /**
+     * map of all screens currently loaded in the game
+     */
     private ObjectMap<String , NamedScreen> screens= new ObjectMap<>();
-    private TextureAtlasPacker textureAtlasPacker= new TextureAtlasPacker();
+    /**
+     *  the games settings
+     */
     private GamePrefecences settings;
+    /**
+     * the currently displayed libGDX screen
+     */
     private Screen currentScreen;
+    /**
+     * the previously displayed libGDX screen
+     */
     private Screen previousScreen;
+    /**
+     * the games input class
+     */
     private final static GameInput gameInput= new GameInput();
+    /**
+     * the Kryo object for saving and loading the game
+     */
     private final Kryo kryo= new Kryo();
-    private ResourcePathMapper resourcePathMapper= new ResourcePathMapper();
-    /** map containing key value pairs  for asset manager resources key is resource  path value is name  **/
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -109,8 +132,6 @@ public class GameAssets {
        kryo.register(LandMap.class, new MapKryoSerializer(this));
         kryo.register(Building.class, new BuildingKryoSerializer(this));
      }
-
-
      // loads a json file if doesn't exist creates it.
      public<T> T loadOrCreateJsonFile(String path, String name, Class<T> objectType) throws IOException {
          File file= new File(path);
@@ -119,7 +140,6 @@ public class GameAssets {
          }
          return jsonLoader.loadObject(objectType, path);
      }
-
     public void showPreviousScreen(){ // changes the screen back to the screen that was displayed before
        game.setScreen(previousScreen);
     }
@@ -133,7 +153,6 @@ public class GameAssets {
         world=worldReader.loadWorld(path);
         return world;
  }
-
     /**
      * Loads a libGDX UI Skin Internally
      * @param skinName  the name of the skin
@@ -149,7 +168,6 @@ public class GameAssets {
    }
    return skin;
  }
-
    
     /**
      * Loads a libGDX UI Skin Internally
@@ -184,27 +202,26 @@ public class GameAssets {
   Skin skin= assetManager.get(name, Skin.class)  ;
      return skin;
  }
-    /**
-     * serializes  a game world instance  using kryo and packs it texture atlas using the TextureAtlasPackerClass
-     * @param world the world to save
-     * @param path the path to save it to
-     */
-    public void saveGameWithAssets(World world, String path, String atlasName,  int pageWidth, int pageHeight) throws IOException { // serailizes  a game world instance  using binary serialaztion
-        textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(),pageWidth  ,pageHeight, 2);
-        new WorldWriter(this).saveWorld(world, path);
-    }
   
-
     /**
      * serializes  a game world instance  using kryo
      * @param world the world to save
      * @param path the path to save it to
      */
-    public void saveGame(World world, String path){
+    public void saveGame(World world, String path) throws IOException {
         new WorldWriter(this).saveWorld(world, path);
     }
-
-
+    /**
+     * serializes  a game world instance  using kryo and packs it texture atlas using the TextureAtlasPackerClass
+     * @param world the world to save
+     * @param path the path to save it to
+     * @param packWidth the max width  to use for the images with texture atlas should be  a power of two
+     * @param packHeight the max height  to use for the images with texture atlas should be  a power of two
+     */
+    public void saveGameWithAssets( World world, String path,   int packWidth, int packHeight) throws IOException {
+      WorldWriter worldWriter=  new WorldWriter(this);
+              worldWriter.saveWorldWithAssets( world , path, packWidth, packHeight);
+    }
     /***
      *  returns  a atlas  region from a  currently LOADED texture atlas  based on  which set and bitmask number is used and set number
      * @param atlasName the name of the atlas to get the texture from
@@ -213,14 +230,12 @@ public class GameAssets {
      * @param setNumber the set number of the region
      * @return AtlasRegion may be null if no region was found
      */
-
     public AtlasRegion getBitMaskedAtlasRegion (String atlasName, String baseRegionName, int bitmaskNumber, float setNumber) {
         String atlasRegionName= baseRegionName+ bitmaskNumber+","+setNumber;
       TextureAtlas atlas = assetManager.get(atlasName,   TextureAtlas.class);
       AtlasRegion region=atlas.findRegion(atlasRegionName);
           return region;
     }
-
     /**
      * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
      * @param atlasRegionName the name of the atlasRegion
@@ -238,7 +253,6 @@ public class GameAssets {
         }
     }
     /**
-
     /**
      * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
      * @param atlasRegionName the name of the atlasRegion
@@ -260,7 +274,7 @@ public class GameAssets {
      * @param atlasRegionName the name of the atlasRegion
      * @return AtlasNamedAtlasRegion may be null if no region exists
      */    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
-        return   new AtlasNamedAtlasRegion(currentAtlas.findRegion(atlasRegionName));
+        return   new AtlasNamedAtlasRegion(world.getWorldTextureAtlas().findRegion(atlasRegionName));
     }
     public AssetManager getAssetManager() {
         return assetManager;
@@ -276,7 +290,6 @@ public class GameAssets {
         assetManager.load(path, TiledMap.class);
         return map;
     }
-
     /**
      *  retrieves a libGDX tiled map from the asset manager
      * @param name the name of the map to retrieve
@@ -286,7 +299,6 @@ public class GameAssets {
         TiledMap map = assetManager.get("maps/"+name, TiledMap.class);
         return map;
     }
-
     /**
      *  loads a texture internally from  the textureAtlases Folder
      * @param name the name of the  texture to load
@@ -297,8 +309,6 @@ public class GameAssets {
         assetManager.load("textureAtlases/"+name, Texture.class);
         return map;
     }
-
-
     /**
      *  returns a libGDX texture atlas located in textureAtlases
      * @param name the name of the atlas to load
@@ -306,16 +316,12 @@ public class GameAssets {
      */
     public TextureAtlas getTextureAtlas( String name){ // returns a texture atlas based on name
         TextureAtlas atlas= assetManager.get(name,  TextureAtlas.class);
-
         return atlas;
     }
     public TextureAtlas getExternallyLoadedTextureAtlas( String path){ // returns a texture atlas based on name
         TextureAtlas atlas= assetManager.get(path,  TextureAtlas.class);
         return atlas;
     }
-
-
-
     /**
      *  returns a libGDX texture atlas located  externally form the jar file
      * @param path  the  full path to the texture atlas to load
@@ -332,7 +338,6 @@ public class GameAssets {
      * @param name the  name of the texture atlas
      * @return TextureAtlas the loaded texture atlas
      */
-
     public TextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
        String internalPath="textureAtlases/"+name+".atlas";
         NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
@@ -343,7 +348,6 @@ public class GameAssets {
     public void finishLoading(){
          assetManager.finishLoading();
     }
-
    public void  loadTextureAtlasAsync(final String path){
         Runnable runnable= new Runnable() {
             @Override
@@ -354,7 +358,6 @@ public class GameAssets {
         };
         Gdx.app.postRunnable(runnable);
    }
-
     /**
      *
      * @param region the region to add
@@ -388,7 +391,6 @@ public class GameAssets {
         }
        return  atlas;
     }
-
     /** sets the game screen to a new screen instance and adds it to the map  of screens
      *
      * @param screen the screen to change to
@@ -399,7 +401,6 @@ public class GameAssets {
         currentScreen=screen;
         game.setScreen(screen);
     }
-
     /**
      *
      * @param screenName sets the currenbt screen to a a screen with given name located in the map of game screens
@@ -414,11 +415,8 @@ public class GameAssets {
         }
         else{
             throw new IllegalArgumentException("No Screen With Name Found");
-
         }
     }
-
-
           public <T> T  loadObject(String filePath, Class<T> thingClass){
         T object= jsonLoader.loadObject(thingClass, filePath);
         return  object;
@@ -430,31 +428,33 @@ public class GameAssets {
      *  the libGDX dispose method called before closing the game to prevent memory leaks
      */
     public void dispose(){
-        assetManager.dispose();
-        previousScreen.dispose();
-        currentAtlas.dispose();
-        mapDraw.dispose();
+        world.dispose();
         Values<NamedScreen> namedScreens=screens.values();
         while(namedScreens.hasNext()){
             NamedScreen screen= (NamedScreen) namedScreens.next();
             screen.dispose();
         }
+        mapDraw.dispose();
+        assetManager.dispose();
         game.dispose();
+
     }
     public World getWorld() {
         return world;
     }
-    public void saveTextureAtlas( String path,  NamedTextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
-            textureAtlasPacker.packAtlas(path, atlas.getAtlasFileName(), atlas, pageWidth, pageHeight, padding);
-    }
 
+    public void saveTextureAtlas( String path,  NamedTextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
+            new TextureAtlasPacker().packAtlas(path, atlas.getAtlasFileName(), atlas, pageWidth, pageHeight, padding);
+    }
+    public void saveTextureAtlas( String path,  TextureAtlas atlas, String name,  int pageWidth, int pageHeight, int padding) throws IOException {
+        new TextureAtlasPacker().packAtlas(path, name, atlas, pageWidth, pageHeight, padding);
+    }
     /**
      * set the games world and the current textureAtlas to the world's texture atlas  and creates a new MapDraw class that renders the world
      * @param world the world to set to
      */
     public void setWorld(World world){
         this.world = world;
-        this.currentAtlas=world.getWorldTextureAtlas();
         this.mapDraw= new MapDraw( this,world, true);
         mapDraw.setPlayer(new ZRPGPlayer(world, world.getPlayer()));
     }
@@ -486,11 +486,9 @@ public class GameAssets {
     public static  GameInput getGameInput() {
         return gameInput;
     }
-
     public Skin getSkin() {
         return skin;
     }
-
     public void setSkin(Skin skin) {
         this.skin = skin;
     }

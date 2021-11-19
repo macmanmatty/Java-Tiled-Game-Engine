@@ -188,7 +188,7 @@ public class ZRPGPlayerFunctions {
                 }
                 else {
                     String text = "Select an Item to Pick Up";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw), ScreenPosition.CENTER);
+                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw), ScreenPosition.CENTER);
                 }
 
 
@@ -285,7 +285,7 @@ public class ZRPGPlayerFunctions {
             if (packs.size > 0) {
 
                 String text="Select A Pack To Add To";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
+                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
 
             }
 
