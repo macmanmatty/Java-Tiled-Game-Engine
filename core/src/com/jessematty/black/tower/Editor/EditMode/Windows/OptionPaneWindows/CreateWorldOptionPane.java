@@ -23,7 +23,7 @@ public class CreateWorldOptionPane extends EditWindow {
     private World world;
     private WorldEditScreen worldEditScreen;
     public CreateWorldOptionPane(WorldEditScreen worldEditScreen, String title, Skin skin, String style, World world) {
-        super( worldEditScreen, title,  skin, style);
+        super( worldEditScreen.getGameAssets(), title,  skin, style);
         this.world = world;
         this.worldEditScreen = worldEditScreen;
     }
@@ -38,14 +38,14 @@ public class CreateWorldOptionPane extends EditWindow {
                     setWorld();
                 }
             };
-            getEditScreen().getUiStage().addActor(new OptionPane( skin, "Error!", "Creating a New World Will Overwrite the Current One. Do You Wish To Continue?", "yes", "no", createMap));
+            worldEditScreen.getUiStage().addActor(new OptionPane( skin, "Error!", "Creating a New World Will Overwrite the Current One. Do You Wish To Continue?", "yes", "no", createMap));
         }
     }
     private void setWorld(){
         int xMaps=xSize.getInteger();
         int yMaps=ySize.getInteger();
         if(yMaps<=0 || xMaps<=0){
-            getEditScreen().getUiStage().addActor(new OptionPane(  skin, "Error!",   "Map Size Can't be Zero!!", "ok"));
+            worldEditScreen.getUiStage().addActor(new OptionPane(  skin, "Error!",   "Map Size Can't be Zero!!", "ok"));
         }
         else {
             MapTools.newWorld(name.getText(), xMaps, yMaps);

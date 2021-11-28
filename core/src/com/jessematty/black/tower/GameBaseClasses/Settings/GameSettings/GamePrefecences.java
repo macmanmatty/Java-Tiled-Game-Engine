@@ -2,17 +2,11 @@ package com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.utils.JsonWriter;
-import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Game.GameKind;
 import com.jessematty.black.tower.Game.TileKind;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
-import com.jessematty.black.tower.Maps.Map;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 
 public class GamePrefecences {
     private GameInputKeys gameInputKeys = new GameInputKeys();

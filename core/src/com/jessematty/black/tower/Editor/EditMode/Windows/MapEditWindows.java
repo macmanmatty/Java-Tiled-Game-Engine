@@ -1,76 +1,85 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
-
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateStatOptionPane;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit.EditEntityWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EntitySelect.EntitySelectWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureDisplayWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TileSetCreationWindow.BitMaskedTileSetCreationWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.AnimatedTileEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.TiledMapLayerWindow;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.MapSettable;
+import com.jessematty.black.tower.Maps.World;
+import com.jessematty.black.tower.Maps.WorldSettable;
 
-public class MapEditWindows{
-
-    private MapEditScreen mapEditScreen;
+/**
+ *
+ * class for holding all of the ui windows  to edit the 2d rpg
+ * Layers Window
+ * Texture Window
+ * Bit Mask Creation Window
+ *
+ */
+public class MapEditWindows implements MapSettable, WorldSettable {
     private Skin skin;
-    private TiledMapLayerWindow tiledMapLayerWindow;
-   private  TextureDisplayWindow textureDisplayWindow;
-   private  EditEntityWindow entityEditWindow;
-    private AnimatedTileEditWindow animatedTileEditWindow;
-    private CreateStatOptionPane createStatOptionPane;
-
-
-
-    private BitMaskedTileSetCreationWindow bitMaskedTileSetCreationWindow;
-    public MapEditWindows(MapEditScreen editScreen) {
-        this.skin=editScreen.getSkin();
-        this.mapEditScreen=editScreen;
-        tiledMapLayerWindow= new TiledMapLayerWindow(mapEditScreen, skin);
+    private final ObjectMap< String , EditWindow> editWindows = new ObjectMap<>();
+    private GameMap gameMap;
+    private  World world;
+    public MapEditWindows( MapEditScreen mapEditScreen) {
+        this.skin=skin;
+        TiledMapLayerWindow tiledMapLayerWindow= new TiledMapLayerWindow(mapEditScreen.getTiledMapEdit(), mapEditScreen.getGameAssets(), skin);
         tiledMapLayerWindow.makeWindow();
-      textureDisplayWindow=new TextureDisplayWindow(mapEditScreen, skin);
+        this.editWindows.put("Layers Window", tiledMapLayerWindow);
+     TextureDisplayWindow textureDisplayWindow=new TextureDisplayWindow( mapEditScreen.getClipBoard(), mapEditScreen.getGameAssets(), skin);
        textureDisplayWindow.makeWindow();
-        EntitySelectWindow entitySelectWindow= new EntitySelectWindow(mapEditScreen, skin);
-        entitySelectWindow.makeWindow();
-      entityEditWindow= new EditEntityWindow(mapEditScreen, skin);
-        entityEditWindow.makeWindow();
-         animatedTileEditWindow= new AnimatedTileEditWindow(mapEditScreen,  skin);
-        animatedTileEditWindow.makeWindow();
-        bitMaskedTileSetCreationWindow= new BitMaskedTileSetCreationWindow(editScreen, skin);
+        this.editWindows.put("Texture Window ", textureDisplayWindow);
+      BitMaskedTileSetCreationWindow  bitMaskedTileSetCreationWindow= new BitMaskedTileSetCreationWindow(mapEditScreen.getGameAssets(), skin);
         bitMaskedTileSetCreationWindow.makeWindow();
-         createStatOptionPane = new CreateStatOptionPane(mapEditScreen, skin);
-        createStatOptionPane.makeWindow();
+        this.editWindows.put("Bit Mask Creation Window", bitMaskedTileSetCreationWindow);
+    }
+    public ObjectMap<String, EditWindow> getEditWindows() {
+        return editWindows;
+    }
+    /**
+     * sets the game game for all of the map editable windows
+     * @param gameMap the map to set to the windows
+     */
+    @Override
+    public void setMap(GameMap gameMap) {
+        this.gameMap=gameMap;
+        Values<EditWindow> mapEditWindows=this.editWindows.values();
+        while(mapEditWindows.hasNext){
+            EditWindow mapEditWindow=mapEditWindows.next();
+            if(mapEditWindow instanceof  MapSettable) {
+                ((MapSettable) mapEditWindow).setMap(gameMap);
+            }
 
+        }
+    }
+    @Override
+    public GameMap getMap() {
+        return gameMap;
+    }
+    /**
+     * sets the game game for all of the map editable windows
+     * @param world the map to set to the windows
+     */
 
+    @Override
+    public void setWorld(World world) {
+        this.world=world;
+        Values<EditWindow> mapEditWindows=this.editWindows.values();
+        while(mapEditWindows.hasNext){
+            EditWindow mapEditWindow=mapEditWindows.next();
+            if(mapEditWindow instanceof  WorldSettable) {
+                ((WorldSettable) mapEditWindow).setWorld(world);
+            }
 
-
-
-
-
+        }
     }
 
-    public TiledMapLayerWindow getTiledMapLayerWindow() {
-        return tiledMapLayerWindow;
-    }
-
-    public TextureDisplayWindow getTextureDisplayWindow() {
-        return textureDisplayWindow;
-    }
-
-    public EditEntityWindow getEntityEditWindow() {
-        return entityEditWindow;
-    }
-
-    public AnimatedTileEditWindow getAnimatedTileEditWindow() {
-        return animatedTileEditWindow;
-    }
-
-    public CreateStatOptionPane getCreateStatOptionPane() {
-        return createStatOptionPane;
-    }
-
-    public BitMaskedTileSetCreationWindow getBitMaskedTileSetCreationWindow() {
-        return bitMaskedTileSetCreationWindow;
+    @Override
+    public World getWorld() {
+        return world;
     }
 
 

@@ -5,7 +5,7 @@ import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 public class GameWindow extends ClosableWindow {
     boolean created;
-     private GameAssets gameAssets;
+     private final  GameAssets gameAssets;
      private Array<InputKeyCombo> inputKeyComboList= new Array<InputKeyCombo>();
     public GameWindow(String title, Skin skin, GameAssets gameAssets) {
         super(title, skin);
@@ -27,5 +27,9 @@ public class GameWindow extends ClosableWindow {
                 gameAssets.getGameInput().getKeyListener().removeInputKeys(inputKeyComboList);
             }
         }
+    }
+
+    public GameAssets getGameAssets() {
+        return gameAssets;
     }
 }

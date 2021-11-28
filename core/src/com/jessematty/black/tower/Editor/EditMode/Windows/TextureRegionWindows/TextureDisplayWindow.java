@@ -22,7 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
@@ -36,11 +38,9 @@ import com.jessematty.black.tower.Editor.EditMode.Brushes.CellSettable;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Textures.TextureImage;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-
 import java.io.File;
 import java.io.IOException;
-
-public class TextureDisplayWindow extends MapEditWindow implements com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureRegionSettable {
+public class TextureDisplayWindow extends EditWindow implements TextureRegionSettable {
     private TextureImage currentTexture;
     private int regionHeight = 32;
     private int regionWidth = 32;
@@ -65,30 +65,25 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
     private Array<TextureImage> textureArray = new Array<>();
     private float imageTableWidth = 320;
     private float imageTableHeight = 320;
-    private DragAndDrop dragAndDrop;
     private TextureAtlas textureAtlas;
-
-    public TextureDisplayWindow(MapEditScreen mapEditScreen, Skin skin) {
-        this(mapEditScreen, "Textures", skin, "default");
-
+    private KeyListener keyListener;
+    public TextureDisplayWindow( ClipBoard clipBoard , GameAssets gameAssets , Skin skin) {
+        this(clipBoard, gameAssets, "Textures", skin, "default");
     }
-
-    public TextureDisplayWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
-        clipBoard = mapEditScreen.getClipBoard();
-        textures = new ObservableSelectBox<TextureImage>(getSkin(), textureArray);
+    public TextureDisplayWindow(ClipBoard clipBoard, GameAssets gameAssets,  String title, Skin skin, String style) {
+        super( gameAssets, title, skin, style);
+        this.clipBoard=clipBoard;
+        this.keyListener=GameAssets.getGameInput().getKeyListener();
+    textures = new ObservableSelectBox<TextureImage>(getSkin(), textureArray);
         textures.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 TextureImage textureImage=textures.getSelected();
-
                 setCurrentTexture(textureImage);
                 setTileSize(textureImage.getRegionWidth(), textureImage.getRegionHeight());
             }
         });
-        dragAndDrop = mapEditScreen.getDragAndDrop();
     }
-
     private void selectImages(Rectangle selectedArea) {
         int x = (int) (selectedArea.x / regionWidth);
         int y = (int) (selectedArea.y / regionHeight);
@@ -114,7 +109,6 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         }
         setSelectedCells();
     }
-
     private void setSelectedCells() {
         int maxX = 0;
         int maxY = 0;
@@ -159,28 +153,21 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
             }
         }
     }
-
     public TextureImage getCurrentTexture() {
         return currentTexture;
     }
-
     public void setCurrentTexture(String path) {
         Texture texture = new Texture(Gdx.files.absolute(path));
         TextureImage textureImage = new TextureImage(path, texture, regionWidth, regionHeight);
             textureArray.add(textureImage);
-
-
         setCurrentTexture(textureImage);
     }
-
     public void setCurrentTexture(TextureImage texture) {
-
         this.currentTexture = texture;
         this.textureWidth = texture.getTexture().getWidth();
         this.textureHeight = texture.getTexture().getHeight();
         makeImages();
     }
-
     private void makeImages() {
         imageTable.clear();
         String[] parts = currentTexture.getPath().split(FileUtilities.getFileSeparator());
@@ -200,69 +187,47 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
                 final int finalCounty = county;
                 final String name = imageName + "x" + countx + "y" + county;
                 image.addListener(new ClickListener() {
-
-
-
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         image.setDebug(true);
-                        KeyListener keyListener = getMapEditScreen().getGameAssets().getGameInput().getKeyListener();
-
                         if(button==0) {
-
                             AtlasNamedAtlasRegion atlasRegion = new AtlasNamedAtlasRegion(region);
                             atlasRegion.name = name;
-
                             clipBoard.setCurrentObject(atlasRegion);
-
                             if (textureAtlas != null) {
                                 textureAtlas.addRegion(atlasRegion.name, atlasRegion);
-
                             }
                             if (keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
                                 selectMap[finalCountx][finalCounty] = !selectMap[finalCountx][finalCounty];
                                 setSelectedCells();
                             }
                         }
-
                         if(button==1){
-
                             AtlasNamedAtlasRegion atlasRegion = new AtlasNamedAtlasRegion(region);
                             atlasRegion.name = name;
                             Cell cell= new Cell();
                             StaticTiledMapTile staticTiledMapTile= new StaticTiledMapTile(atlasRegion);
                             cell.setTile(staticTiledMapTile);
-
                             clipBoard.setCurrentObject(cell);
-
                             if (textureAtlas != null) {
                                 textureAtlas.addRegion(atlasRegion.name, atlasRegion);
-
                             }
                             if (keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
                                 selectMap[finalCountx][finalCounty] = !selectMap[finalCountx][finalCounty];
                                 setSelectedCells();
                             }
-
                         }
-
-
                         return  true;
                     }
-
-
-
                     @Override
                     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                         image.setColor(1, 1, 1, .5f);
                     }
-
                     @Override
                     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                         image.setColor(1, 1, 1, 1);
                     }
                 });
-
                 imageTable.add(image).size(regionWidth, regionHeight);
             }
             imageTable.row();
@@ -274,7 +239,6 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         //clear();
         //makeWindow();
     }
-
     public void setTileSize(int regionWidth, int regionHeight) {
         this.regionWidth = regionWidth;
         this.regionHeight = regionHeight;
@@ -282,7 +246,6 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         currentTexture.setRegionWidth(regionWidth);
         makeImages();
     }
-
     public void makeWindow() {
         Label selectATexture = new Label("Select a Texture", getSkin());
         HorizontalGroup horizontalGroup = new HorizontalGroup();
@@ -329,14 +292,12 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
             }
-
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
                 startX = x;
                 startY = y;
             }
-
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 Rectangle rectangle = new Rectangle(startX, startY, x - startX, y - startY);
@@ -346,81 +307,58 @@ public class TextureDisplayWindow extends MapEditWindow implements com.jessematt
         imagePane = new ScrollPane(imageTable);
         imagePane.setTransform(true);
         imagePane.setFadeScrollBars(false);
-
         row();
         add(imagePane).size(imageTableWidth, imageTableHeight);
-
         row();
         bottom().center().add(fileSelectPane);
         pack();
         validate();
         invalidateHierarchy();
     }
-
     public float getMinSplitWidth() {
         return minSplitWidth;
     }
-
     public void setMinSplitWidth(float minSplitWidth) {
         this.minSplitWidth = minSplitWidth;
     }
-
     public float getMinSplitHeight() {
         return minSplitHeight;
     }
-
     public void setMinSplitHeight(float minSplitHeight) {
         this.minSplitHeight = minSplitHeight;
     }
-
     public float getImageTableWidth() {
         return imageTableWidth;
     }
-
     public void setImageTableWidth(float imageTableWidth) {
         this.imageTableWidth = imageTableWidth;
     }
-
     public float getImageTableHeight() {
         return imageTableHeight;
     }
-
     public void setImageTableHeight(float imageTableHeight) {
         this.imageTableHeight = imageTableHeight;
     }
-
     public TextureAtlas getTextureAtlas() {
         return textureAtlas;
     }
-
     public void setTextureAtlas(TextureAtlas textureAtlas) {
         this.textureAtlas = textureAtlas;
     }
-
-
     public void saveTextures() {
-
         int xSize = textureRegions.length;
         int ySize = textureRegions[0].length;
         NamedTextureAtlas atlas= new NamedTextureAtlas();
         atlas.setAtlasFileName("atlas1");
-
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
-
                 atlas.addRegion("regionx"+countx+"y"+county, textureRegions[countx][county]);
-
-
             }
-
-
         }
-
         try {
             getGameAssets().saveTextureAtlas("/output", atlas,1024, 1024, 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

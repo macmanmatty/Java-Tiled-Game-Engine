@@ -10,7 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.Maps.LandMap;
@@ -22,8 +23,8 @@ public class ImpotTMXMapOptionPane extends EditWindow {
     private Button importMap;
     private LandMap map;
     private MapEditScreen mapEditScreen;
-    public ImpotTMXMapOptionPane(MapEditScreen mapEditScreen, Skin skin) {
-        super( mapEditScreen, "Import TMX (Tiled) Map File ",  skin, "default");
+    public ImpotTMXMapOptionPane(GameAssets gameAssets, Skin skin) {
+        super( gameAssets, "Import TMX (Tiled) Map File ",  skin, "default");
         this.mapEditScreen=mapEditScreen;
     }
         public void importMap(){

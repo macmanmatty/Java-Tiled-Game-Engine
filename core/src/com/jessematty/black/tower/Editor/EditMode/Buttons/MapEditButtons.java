@@ -11,6 +11,8 @@ import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
+import com.jessematty.black.tower.Maps.GameMap;
+
 public class MapEditButtons extends MapEditWindow {
     private Array<ImageButton> topButtons= new Array<>();
     private ImageButton rotateLeft;
@@ -27,17 +29,15 @@ public class MapEditButtons extends MapEditWindow {
     private ImageButton erase;
     private ImageButton fill;
     private ImageButton  back;
-    private final GameAssets assets;
     private final MapEditScreen mapEditScreen;
-    public MapEditButtons(MapEditScreen edit, Skin skin) {
-        super(edit, "Top Buttons", skin, "default");
-        this.assets=edit.getGameAssets();
+    public MapEditButtons( MapEditScreen edit, Skin skin) {
+        super(edit.getGameAssets(), "Top Buttons", skin, "default");
         this.mapEditScreen =edit;
        
     }
     @Override
     public void makeWindow() {
-        rotateLeft=new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("rotateLeft", "editorAssets")));
+        rotateLeft=new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("rotateLeft", "editorAssets")));
         rotateLeft.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -45,7 +45,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        rotateRight=new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("rotateRight", "editorAssets")));
+        rotateRight=new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("rotateRight", "editorAssets")));
         rotateRight.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -53,7 +53,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        backToWorldEdit=new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("world", "editorAssets")));
+        backToWorldEdit=new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("world", "editorAssets")));
         backToWorldEdit.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -61,7 +61,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        dragAndSelectTiledMapCells =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("paintBucket", "editorAssets")));
+        dragAndSelectTiledMapCells =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("paintBucket", "editorAssets")));
         dragAndSelectTiledMapCells.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -69,7 +69,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        placeEntity =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("placeEntity", "editorAssets")));
+        placeEntity =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("placeEntity", "editorAssets")));
         placeEntity.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -77,7 +77,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        dragAndSelectTiles =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("selectEntity", "editorAssets")));
+        dragAndSelectTiles =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("selectEntity", "editorAssets")));
         dragAndSelectTiles.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -85,7 +85,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        magicWand =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("wand", "editorAssets")));
+        magicWand =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("wand", "editorAssets")));
         magicWand.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -93,7 +93,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        placeBuilding =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("building", "editorAssets")));
+        placeBuilding =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("building", "editorAssets")));
         placeBuilding.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -101,7 +101,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        placeCells =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("placeTile", "editorAssets")));
+        placeCells =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("placeTile", "editorAssets")));
         placeCells.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -109,7 +109,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        placeTiles =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("placeLandSquareTile", "editorAssets")));
+        placeTiles =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("placeLandSquareTile", "editorAssets")));
         placeTiles.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -117,7 +117,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-        bitmask =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("bitMask", "editorAssets")));
+        bitmask =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("bitMask", "editorAssets")));
         bitmask.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -125,14 +125,14 @@ public class MapEditButtons extends MapEditWindow {
             return true;
             }
         });
-        erase =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("terrianSelect", "editorAssets")));
+        erase =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("terrianSelect", "editorAssets")));
         erase.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return  true;
             }
         });
-        fill =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("paintBucket", "editorAssets")));
+        fill =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("paintBucket", "editorAssets")));
         fill.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -140,7 +140,7 @@ public class MapEditButtons extends MapEditWindow {
                 return  true;
             }
         });
-       back =new ImageButton(new TextureRegionDrawable( assets.getInternalAtlasRegionByName("paintBucket", "editorAssets")));
+       back =new ImageButton(new TextureRegionDrawable( getGameAssets().getInternalAtlasRegionByName("paintBucket", "editorAssets")));
         back.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -166,5 +166,10 @@ public class MapEditButtons extends MapEditWindow {
         
         
         
+    }
+
+    @Override
+    public void setMap(GameMap gameMap) {
+
     }
 }

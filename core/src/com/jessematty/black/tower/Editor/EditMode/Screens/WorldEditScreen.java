@@ -68,7 +68,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     public void show() {
         this.uiStage =new Stage();
         topMenu=new TopMenuWorld(this);
-        mapEditScreen =new MapEditScreen(gameAssets, clipBoard,   dragAndDrop,  keyListener,  skin, world, worldObjects);
+        mapEditScreen =new MapEditScreen(gameAssets, clipBoard,   dragAndDrop,  skin, world, worldObjects);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();

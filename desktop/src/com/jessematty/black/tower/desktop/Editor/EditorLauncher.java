@@ -22,8 +22,6 @@ public class EditorLauncher {
 
 	public void start(){
 
-
-
 	}
 
 

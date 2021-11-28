@@ -22,20 +22,20 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.JsonLoader;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureAtlasPacker;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Components.AnimatableSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.TiledMapSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Entity.EntityKryoSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.Entity.LandSquareTileKryoSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.BuildingKryoSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.MapKryoSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.serialization.Kryo.World.WorldKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.TiledMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.LandSquareTileKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.BuildingKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.MapKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.WorldKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldReader;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.World.WorldWriter;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldReader;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldWriter;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.Buildings.Building;
@@ -102,21 +102,6 @@ public class GameAssets implements Disposable {
          assetManager = new AssetManager();
         this.game = game;
        settings = new GamePrefecences(gameName);
-        ;
-//        if(settings.getPreferences().getBoolean("loadAssetsOnStart")==true){
-//            String assetsPath=settings.getPreferences().getString("unpackedGameAssetsPath");
-//            TexturePacker.Settings settings= new TexturePacker.Settings();
-//            TexturePacker.process(settings, assetsPath, "/assets", "assets");
-//
-//
-//    }
-//        if(settings.getPreferences().getBoolean("loadEditorAssetsOnStart")==true){
-//
-//        String assetsPath=settings.getPreferences().getString("unpackedEditorGameAssetsPath");
-//        TexturePacker.Settings settings= new TexturePacker.Settings();
-//        TexturePacker.process(settings, assetsPath, "/editorAssets", "editorAssets");
-//
-//    }
 }
     /**
      * loads the default game  libGDX skin  and registers the default games saving classes with kryo
@@ -310,19 +295,6 @@ public class GameAssets implements Disposable {
         return map;
     }
     /**
-     *  returns a libGDX texture atlas located in textureAtlases
-     * @param name the name of the atlas to load
-     * @return TextureAtlas
-     */
-    public TextureAtlas getTextureAtlas( String name){ // returns a texture atlas based on name
-        TextureAtlas atlas= assetManager.get(name,  TextureAtlas.class);
-        return atlas;
-    }
-    public TextureAtlas getExternallyLoadedTextureAtlas( String path){ // returns a texture atlas based on name
-        TextureAtlas atlas= assetManager.get(path,  TextureAtlas.class);
-        return atlas;
-    }
-    /**
      *  returns a libGDX texture atlas located  externally form the jar file
      * @param path  the  full path to the texture atlas to load
      * @return TextureAtlas the loaded texture atlas
@@ -338,7 +310,7 @@ public class GameAssets implements Disposable {
      * @param name the  name of the texture atlas
      * @return TextureAtlas the loaded texture atlas
      */
-    public TextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
+    public NamedTextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
        String internalPath="textureAtlases/"+name+".atlas";
         NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
         atlas.setAtlasFileName(internalPath);
@@ -437,17 +409,15 @@ public class GameAssets implements Disposable {
         mapDraw.dispose();
         assetManager.dispose();
         game.dispose();
-
     }
     public World getWorld() {
         return world;
     }
-
-    public void saveTextureAtlas( String path,  NamedTextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
-            new TextureAtlasPacker().packAtlas(path, atlas.getAtlasFileName(), atlas, pageWidth, pageHeight, padding);
+    public void saveTextureAtlas( String saveDirectory,  NamedTextureAtlas atlas, int pageWidth, int pageHeight, int padding) throws IOException {
+            new TextureAtlasPacker().packAtlas(saveDirectory, atlas.getAtlasFileName(), atlas, pageWidth, pageHeight, padding);
     }
-    public void saveTextureAtlas( String path,  TextureAtlas atlas, String name,  int pageWidth, int pageHeight, int padding) throws IOException {
-        new TextureAtlasPacker().packAtlas(path, name, atlas, pageWidth, pageHeight, padding);
+    public void saveTextureAtlas( String saveDirectory,  TextureAtlas atlas, String name,  int pageWidth, int pageHeight, int padding) throws IOException {
+        new TextureAtlasPacker().packAtlas(saveDirectory, name, atlas, pageWidth, pageHeight, padding);
     }
     /**
      * set the games world and the current textureAtlas to the world's texture atlas  and creates a new MapDraw class that renders the world

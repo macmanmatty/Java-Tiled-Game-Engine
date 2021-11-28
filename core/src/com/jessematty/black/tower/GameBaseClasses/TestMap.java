@@ -8,7 +8,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
@@ -67,7 +67,7 @@ public class TestMap {
         position2.setMapWorldLocationX(map2.getWorldX());
         position2.setMapWorldLocationY(map2.getWorldY());
         world.setPlayer( entityBag.getEntities().get(0));
-       world.setWorldTextureAtlas(assetts.getTextureAtlas("/world/worldAssetts.atlas"),"/world/worldAssetts.atlas");
+       world.setWorldTextureAtlas(assetts.getAssetManager().get("/world/worldAssetts.atlas", TextureAtlas.class),"/world/worldAssetts.atlas");
         //assetts.setWorld(world);
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());

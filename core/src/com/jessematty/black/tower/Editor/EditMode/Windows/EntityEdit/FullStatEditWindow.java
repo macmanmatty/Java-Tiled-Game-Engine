@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStatCombine;
@@ -23,24 +24,30 @@ import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
+import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.DragLists.OneWayDragList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 
-public   class FullStatEditWindow extends MapEditWindow {
+public   class FullStatEditWindow extends EditWindow implements EntitySettable {
     private Stat stat;
     private NumericStats numericStats;
+    private WorldObjects worldObjects;
     private Entity entity;
-    public FullStatEditWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
+    public FullStatEditWindow(GameAssets gameAssets, WorldObjects worldObjects , String title, Skin skin, String style) {
+        super(gameAssets, title, skin, style);
+        this.worldObjects=worldObjects;
     }
     public void makeWindow(Entity entity, final Stat stat1) {
         this.stat = stat1;
         add(new Label(stat.getName(), getSkin()));
         row();
-        Array<String> gameGroups = getMapEditScreen().getWorldObjects().getGroups();
+        Array<String> gameGroups = worldObjects.getGroups();
         Array<String> itemChangeGroups = stat.getChangeGroups();
         final CheckBox displayable = new CheckBox("", getSkin());
         displayable.addListener(new ChangeListener() {
@@ -56,7 +63,7 @@ public   class FullStatEditWindow extends MapEditWindow {
                 stat.setDisplayable(combinable.isChecked());
             }
         });         
-        OneWayDragList<String> changeGroup = new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), getSkin(), gameGroups, itemChangeGroups, "Groups In Game", "Groups That Change Stat");
+        OneWayDragList<String> changeGroup = new OneWayDragList<>(new DragAndDrop(), getSkin(), gameGroups, itemChangeGroups, "Groups In Game", "Groups That Change Stat");
         add(displayable);
         row();
         add(combinable);
@@ -117,10 +124,9 @@ public   class FullStatEditWindow extends MapEditWindow {
     }
     public void makeChangableBooleanStat(){
         final BooleanStatChangeable booleanStat= (BooleanStatChangeable) stat;
-
-        Array<String> gameActions = getMapEditScreen().getWorldObjects().getChangeActions();
+        Array<String> gameActions = worldObjects.getChangeActions();
         Array<String> itemChangeActions = booleanStat.getActionsToChangeOn();
-        OneWayDragList<String> actionsGroup = new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
+        OneWayDragList<String> actionsGroup = new OneWayDragList<>(new DragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
         final SelectBox<BooleanStatCombine> booleanStatCombineSelectBox= new SelectBox<BooleanStatCombine>(skin);
         booleanStatCombineSelectBox.setItems(BooleanStatCombine.values());
         booleanStatCombineSelectBox.addListener(new ChangeListener() {
@@ -152,9 +158,9 @@ public   class FullStatEditWindow extends MapEditWindow {
     }
     public void makeChangeableNumericStat(){
         final NumericStatChangeable changableNumericStat= (NumericStatChangeable) stat;
-        Array<String> gameActions = getMapEditScreen().getWorldObjects().getChangeActions();
+        Array<String> gameActions = worldObjects.getChangeActions();
         Array<String> itemChangeActions = changableNumericStat.getActionsToChangeOn();
-         OneWayDragList<String> actionsGroup = new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
+         OneWayDragList<String> actionsGroup = new OneWayDragList<>(new DragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
         final CheckBox selfChangeable = new CheckBox("Stat Changes Entity's Color", skin);
         selfChangeable.addListener(new ChangeListener() {
             @Override
@@ -163,13 +169,13 @@ public   class FullStatEditWindow extends MapEditWindow {
                     if (stat instanceof NumericStat && !(stat instanceof SelfChangableNumericStatChangeable)) {
                         stat = new SelfChangableNumericStatChangeable((NumericStatChangeable) stat);
                         numericStats.getSelfChangableNumericStats().add((SelfChangableNumericStatChangeable) stat);
-                        makeWindow(entity, stat);
+                        makeWindow();
                     }
                 } else {
                     if (stat instanceof NumericStat) {
                         stat = new NumericStat((NumericStat) stat);
                         numericStats.getSelfChangableNumericStats().removeValue((SelfChangableNumericStatChangeable) stat, true);
-                        makeWindow(entity, stat);
+                        makeWindow();
                     }
                 }
             }
@@ -253,13 +259,13 @@ public   class FullStatEditWindow extends MapEditWindow {
                     if (stat instanceof NumericStat && !(stat instanceof ColorChangingStat)) {
                         stat = new ColorChangingStat((NumericStat) stat);
                         numericStats.getColorChangingStats().add((ColorChangingStat) stat);
-                        makeWindow(entity, stat);
+                        makeWindow();
                     }
                 } else {
                     if (stat instanceof NumericStat) {
                         stat = new NumericStat((NumericStat) stat);
                         numericStats.getColorChangingStats().removeValue((ColorChangingStat) stat, false);
-                        makeWindow(entity, stat);
+                        makeWindow();
                     }
                 }
             }
@@ -273,7 +279,7 @@ public   class FullStatEditWindow extends MapEditWindow {
         add(dieWhenZero);
         row();
          NumericStats stats= entity.getComponent(NumericStats.class);
-        OneWayDragList<SelfChangableNumericStatChangeable> oneWayDragList= new OneWayDragList<>(getMapEditScreen().getDragAndDrop(), skin, stats.getSelfChangableNumericStats(), numericStat.getLinkedStatsToChange(), "Stats Attached To Entity", "Stats Linked To "+stat.getName());
+        OneWayDragList<SelfChangableNumericStatChangeable> oneWayDragList= new OneWayDragList<>(new DragAndDrop(), skin, stats.getSelfChangableNumericStats(), numericStat.getLinkedStatsToChange(), "Stats Attached To Entity", "Stats Linked To "+stat.getName());
         add(oneWayDragList);
         row();
     }
@@ -331,6 +337,15 @@ public   class FullStatEditWindow extends MapEditWindow {
 
     @Override
     public void makeWindow() {
+    }
 
+    @Override
+    public void setEntity(Entity entity) {
+        this.entity=entity;
+    }
+
+    @Override
+    public Entity getEntity() {
+        return entity;
     }
 }

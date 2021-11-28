@@ -4,10 +4,10 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
 public class BlackTower extends Game {
-private GameAssets assetts;
+private GameAssets gameAssets;
 private boolean packAssets=true;
 private String assetsPath="TestAssets";
-public void BlackTower(){
+public void MainGame(){
 }
 	public void makeMainWindow(){
 	}
@@ -16,9 +16,9 @@ public void BlackTower(){
 	if(packAssets){
 		TexturePacker.process(new Settings(), "TestAssets", "android/assets/textureAtlases", "testAssets");
 	}
-		assetts=new GameAssets("game", this);
-		assetts.setup();
-		setScreen(new MainScreen(assetts));
+		gameAssets =new GameAssets("game", this);
+		gameAssets.setup();
+		setScreen(new MainScreen(gameAssets));
 	}
 	@Override
 	public void render () {
@@ -28,7 +28,7 @@ public void BlackTower(){
 	public void dispose () {
 	super.dispose();
 	}
-	public GameAssets getAssetts() {
-		return assetts;
+	public  GameAssets getGameAssets() {
+		return gameAssets;
 	}
 }

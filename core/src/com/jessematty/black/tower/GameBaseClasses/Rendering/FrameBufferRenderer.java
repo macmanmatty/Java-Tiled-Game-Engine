@@ -42,7 +42,6 @@ public class FrameBufferRenderer  implements Disposable {
         this.width=width;
         this.height=width;
         this.batch=batch;
-        this.batch= new BrightnessBatch();
        // mapFrameBuffer= new FrameBuffer(Format.RGBA8888, width, height, false);
        // lightFrameBuffer= new FrameBuffer(Format.RGBA8888, width, height, false);
     }

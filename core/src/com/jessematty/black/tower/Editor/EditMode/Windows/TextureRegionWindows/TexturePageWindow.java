@@ -6,28 +6,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 
-public class TexturePageWindow  extends MapEditWindow {
+public class TexturePageWindow   {
    private  NamedField texturePageHeight;
    private  NamedField texturePageWidth;
    private  NamedField texturePagePadding;
    private  NamedField texturePageName;
    private TextButton addTexturePage;
    private String atlasName;
+   private Skin skin;
 
 
     public TexturePageWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
+       // super(mapEditScreen, title, skin, style);
 
     }
 
 
 
-    @Override
+   // @Override
     public void makeWindow() {
         texturePageHeight= new NamedField(new PositiveIntegerField("1024", skin), new Label("Page Height", skin));
         texturePageWidth= new NamedField(new PositiveIntegerField("1024", skin), new Label("Page Width", skin));
@@ -60,7 +62,7 @@ public class TexturePageWindow  extends MapEditWindow {
         String pageName=texturePageName.getField().getText();
         if(pageName.isEmpty()){
 
-            pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
+           // pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
         }
 
         PositiveIntegerField widthField= (PositiveIntegerField) texturePageWidth.getField();
@@ -68,7 +70,7 @@ public class TexturePageWindow  extends MapEditWindow {
 
         if(pageName.isEmpty()){
 
-            pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
+          //  pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
         }
 
 
@@ -77,7 +79,7 @@ public class TexturePageWindow  extends MapEditWindow {
 
         if(pageName.isEmpty()){
 
-            pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
+          //  pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
         }
 
         PositiveIntegerField paddingField= (PositiveIntegerField) texturePageHeight.getField();
@@ -85,10 +87,10 @@ public class TexturePageWindow  extends MapEditWindow {
 
         if(pageName.isEmpty()){
 
-            pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
+          //  pageName="page"+getMapEditScreen().getWorldObjects().getTextureRegionGroups().size;
         }
         TextureRegionPage page= new TextureRegionPage(pageName, atlasName, pageWidth, pageHeight, pagePadding );
-        getMapEditScreen().getWorldObjects().getTextureRegionGroups().add(page);
+       // getMapEditScreen().getWorldObjects().getTextureRegionGroups().add(page);
 
     }
 

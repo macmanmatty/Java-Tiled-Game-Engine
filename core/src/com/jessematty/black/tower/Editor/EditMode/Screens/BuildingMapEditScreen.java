@@ -34,7 +34,7 @@ public  class BuildingMapEditScreen extends MapEditScreen {
     ArrayList<EnterenceSquareTile> buildingOutdoorEnterenceTiles= new ArrayList<EnterenceSquareTile>();
     TextButton addEnterence;
 
-    public BuildingMapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
-        super(assets, clipBoard,  dragAndDrop, keyListener, skin, world, worldObjects);
+    public BuildingMapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop,  Skin skin, World world, WorldObjects worldObjects) {
+        super(assets, clipBoard,  dragAndDrop, skin, world, worldObjects);
     }
 }

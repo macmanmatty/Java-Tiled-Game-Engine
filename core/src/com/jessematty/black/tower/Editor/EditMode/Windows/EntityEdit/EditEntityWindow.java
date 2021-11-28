@@ -10,11 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjectSettable;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
+import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.DragLists.TwoWayDragList;
-public class EditEntityWindow  extends MapEditWindow implements ClipBoardChangeListener {
+
+public class EditEntityWindow  extends EditWindow implements ClipBoardChangeListener, WorldObjectSettable, EntitySettable {
    private  Entity entity;
    private TwoWayDragList<NamedComponent> componentList;
    private Button editComponents;
@@ -23,11 +27,12 @@ public class EditEntityWindow  extends MapEditWindow implements ClipBoardChangeL
    private Image noEntityImage;
    private Label name;
    private Label position;
-    public EditEntityWindow(final MapEditScreen mapEditScreen, Skin skin) {
-        super(mapEditScreen, "Entity Edit", skin, "default");
-        componentList=new TwoWayDragList<>(skin, mapEditScreen.getWorldObjects().getComponents(), null, "Components", "Components in Entity");
-            makeWindow();
+   private WorldObjects worldObjects;
+    public EditEntityWindow(WorldObjects worldObjects, GameAssets gameAssets, Skin skin) {
+        super(gameAssets, "Entity Edit", skin, "default");
+        this.worldObjects=worldObjects;
     }
+
     public Entity getEntity() {
         return entity;
     }
@@ -41,13 +46,14 @@ public class EditEntityWindow  extends MapEditWindow implements ClipBoardChangeL
     }
     @Override
     public void makeWindow() {
-        noEntityImage=  new Image( new TextureRegionDrawable(getMapEditScreen().getGameAssets().getInternalAtlasRegionByName("questionMark", "editorAssets")));
+        componentList=new TwoWayDragList<>(skin, worldObjects.getComponents(), null, "Components", "Components in Entity");
+        noEntityImage=  new Image( new TextureRegionDrawable(getGameAssets().getInternalAtlasRegionByName("questionMark", "editorAssets")));
         entityImage= noEntityImage;
-        goToEntity=  new ImageButton( new TextureRegionDrawable(getMapEditScreen().getGameAssets().getInternalAtlasRegionByName("search", "editorAssets")));
+        goToEntity=  new ImageButton( new TextureRegionDrawable(getGameAssets().getInternalAtlasRegionByName("search", "editorAssets")));
         goToEntity.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                EntityTools.goToEntity(getMapEditScreen(), entity);
+               // EntityTools.goToEntity( entity);
                 return  true;
             }
         });
@@ -74,5 +80,15 @@ public class EditEntityWindow  extends MapEditWindow implements ClipBoardChangeL
         else{
             noInformation();
         }
+    }
+
+    @Override
+    public WorldObjects getWorldObjects() {
+        return worldObjects;
+    }
+
+    @Override
+    public void setWorldObjects(WorldObjects worldObjects) {
+        this.worldObjects = worldObjects;
     }
 }

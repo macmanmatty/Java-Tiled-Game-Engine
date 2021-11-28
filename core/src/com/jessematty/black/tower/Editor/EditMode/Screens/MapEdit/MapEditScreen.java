@@ -31,6 +31,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenuMap;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
@@ -92,12 +93,12 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private MapEditWindows mapEditWindows;
     private MapEditButtons mapEditButtons;
     private TopMenuMap topMenu;
-    private boolean renderToBuffer=true;
+    private boolean renderToBuffer=false;
     private MapEditKeys editInputKeys;
     private boolean screenLocked;
     private boolean keyLocked;
     private final GameInput gameInput;
-    public MapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop, KeyListener keyListener, Skin skin, World world, WorldObjects worldObjects) {
+    public MapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop,  Skin skin, World world, WorldObjects worldObjects) {
         this.gameAssets = assets;
         this.world = world;
         this.dragAndDrop = dragAndDrop;
@@ -171,13 +172,13 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         mapButtonsWindow.setPosition(0, height - 64);
         uiStage.addActor(mapButtonsWindow);
         mapStage= new Stage();
-        MapEditWindow textureDisplayWindow=mapEditWindows.getTextureDisplayWindow();
+        EditWindow textureDisplayWindow=mapEditWindows.getEditWindows().get("textures");
         Window textureDisplay2DWindow = textureDisplayWindow;
         textureDisplayWindow.setWindowSize(320, 500);
         height = height - textureDisplay2DWindow.getHeight();
         textureDisplayWindow.setPosition(width - 320, height);
         uiStage.addActor(textureDisplayWindow);
-        MapEditWindow tiledMapLayerWindow=mapEditWindows.getTiledMapLayerWindow();
+        EditWindow tiledMapLayerWindow=mapEditWindows.getEditWindows().get("Tile Layers");
         Window tiledMapLayer2DWindow = tiledMapLayerWindow;
         tiledMapLayerWindow.setWindowSize(320, 200);
         height = height - tiledMapLayer2DWindow.getHeight();
@@ -222,7 +223,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     }
     @Override
     public void render(float delta) {
-        renderToBuffer=false;
         Gdx.gl.glClearColor(Color.FOREST.r, Color.FOREST.g, Color.FOREST.b, Color.FOREST.a );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             camera.update();
@@ -250,10 +250,8 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             batch.draw(mapTexture, 0, 0 );
             batch.end();
         }
-        batch.setProjectionMatrix(camera.combined);
              batch.begin();
-            float  deltaTime=Gdx.graphics.getDeltaTime();
-            engine.update(deltaTime);
+            engine.update(delta);
             batch.end();
         }
     private void updateScreen() {

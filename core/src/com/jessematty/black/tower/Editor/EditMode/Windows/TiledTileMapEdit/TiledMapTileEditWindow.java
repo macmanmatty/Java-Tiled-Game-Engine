@@ -3,15 +3,17 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.TiledTileMapEdit;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 
-public class TiledMapTileEditWindow extends MapEditWindow implements ClipBoardChangeListener {
+public class TiledMapTileEditWindow extends EditWindow implements ClipBoardChangeListener {
 
     ColoredTiledMapTile tiledMapTile;
 
-    public TiledMapTileEditWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
+    public TiledMapTileEditWindow(GameAssets assets, String title, Skin skin, String style) {
+        super(assets, title, skin, style);
     }
 
     @Override
