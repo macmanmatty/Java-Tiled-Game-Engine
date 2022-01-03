@@ -23,13 +23,14 @@ public class TiledMapLayerWindow extends MapEditWindow {
     private Label layerLabel;
     private TiledMapEdit tiledMapEdit;
     public TiledMapLayerWindow(TiledMapEdit tiledMapEdit, GameAssets gameAssets, Skin skin) {
-        this(gameAssets, "Map Layers", skin, "default");
+        this(gameAssets,tiledMapEdit, "Map Layers", skin, "default");
     }
-    public TiledMapLayerWindow(final GameAssets assets, String title, Skin skin, String style) {
+    public TiledMapLayerWindow(final GameAssets assets, final TiledMapEdit tiledMapEdit, String title, Skin skin, String style) {
         super(assets,  title, skin, style);
         mapLayers= new TiledMapTileLayerList( tiledMapEdit,skin, "Map Layers", "DisplayName", String.class);
         mapLayers.setEditable(true);
         mapLayers.setSortable(false);
+        this.tiledMapEdit=tiledMapEdit;
         layerLabel = new Label("Current Layer Layer 0", skin);
         addLayerButton = new TextButton("Add New Layer", skin);
         addLayerButton.addListener(new ChangeListener() {

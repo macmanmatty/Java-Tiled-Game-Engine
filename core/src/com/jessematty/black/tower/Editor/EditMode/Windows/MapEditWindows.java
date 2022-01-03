@@ -25,13 +25,13 @@ public class MapEditWindows implements MapSettable, WorldSettable {
     private GameMap gameMap;
     private  World world;
     public MapEditWindows( MapEditScreen mapEditScreen) {
-        this.skin=skin;
+        this.skin=mapEditScreen.getSkin();
         TiledMapLayerWindow tiledMapLayerWindow= new TiledMapLayerWindow(mapEditScreen.getTiledMapEdit(), mapEditScreen.getGameAssets(), skin);
         tiledMapLayerWindow.makeWindow();
         this.editWindows.put("Layers Window", tiledMapLayerWindow);
      TextureDisplayWindow textureDisplayWindow=new TextureDisplayWindow( mapEditScreen.getClipBoard(), mapEditScreen.getGameAssets(), skin);
        textureDisplayWindow.makeWindow();
-        this.editWindows.put("Texture Window ", textureDisplayWindow);
+        this.editWindows.put("Texture Window", textureDisplayWindow);
       BitMaskedTileSetCreationWindow  bitMaskedTileSetCreationWindow= new BitMaskedTileSetCreationWindow(mapEditScreen.getGameAssets(), skin);
         bitMaskedTileSetCreationWindow.makeWindow();
         this.editWindows.put("Bit Mask Creation Window", bitMaskedTileSetCreationWindow);

@@ -32,6 +32,7 @@ import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenuMap;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
@@ -47,6 +48,7 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
 import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
@@ -107,6 +109,8 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         this.worldObjects = worldObjects;
         this.clipBoard=clipBoard;
         this.gameInput=gameAssets.getGameInput();
+        uiStage = new GameStage(960f, 960f);
+
     }
     @Override
     public void show() {
@@ -114,16 +118,15 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         topMenu= new TopMenuMap(this);
         float viewPortWidth = 960;
         float viewPortHeight = 960;
+        tiledMapEdit= new TiledMapEdit( gameAssets, clipBoard);
+        gameMapEdit= new GameMapEdit(gameAssets, clipBoard);
         mapEditWindows= new MapEditWindows(this);
        editInputKeys= new MapEditKeys(this, gameInput.getKeyListener());
         editInputKeys.addKeys();
-        uiStage = new GameStage(viewPortWidth, viewPortHeight);
         gameInput.addProcessor(this);
         camera.enableControlledMovement();
         gameInput.addProcessor(uiStage);
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
-        tiledMapEdit= new TiledMapEdit( gameAssets, clipBoard);
-        gameMapEdit= new GameMapEdit(gameAssets, clipBoard);
         mapTools = new MapTools(this);
         engine = world.getEngine();
         shapeRenderer = new ShapeRenderer();
@@ -172,13 +175,13 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         mapButtonsWindow.setPosition(0, height - 64);
         uiStage.addActor(mapButtonsWindow);
         mapStage= new Stage();
-        EditWindow textureDisplayWindow=mapEditWindows.getEditWindows().get("textures");
+        EditWindow textureDisplayWindow=mapEditWindows.getEditWindows().get("Texture Window");
         Window textureDisplay2DWindow = textureDisplayWindow;
         textureDisplayWindow.setWindowSize(320, 500);
         height = height - textureDisplay2DWindow.getHeight();
         textureDisplayWindow.setPosition(width - 320, height);
         uiStage.addActor(textureDisplayWindow);
-        EditWindow tiledMapLayerWindow=mapEditWindows.getEditWindows().get("Tile Layers");
+        EditWindow tiledMapLayerWindow=mapEditWindows.getEditWindows().get("Layers Window");
         Window tiledMapLayer2DWindow = tiledMapLayerWindow;
         tiledMapLayerWindow.setWindowSize(320, 200);
         height = height - tiledMapLayer2DWindow.getHeight();
@@ -201,6 +204,17 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
          */
     public void setMap(GameMap map) {
             this.currentMap = map;
+
+                if(map==null){
+                    CreateMapOptionPane createMapOptionPane = new CreateMapOptionPane(this, getGameAssets(),getSkin() );
+                    createMapOptionPane.setLockableInputMultiplexer(getGameAssets().getGameInput().getLockableInputMultiplexer());
+                    createMapOptionPane.setLockOtherInputOnStageFocus(true);
+                    createMapOptionPane.makeWindow();
+                   getUiStage().addWindow(createMapOptionPane, ScreenPosition.CENTER);
+                    createMapOptionPane.setLockOtherInput(true);
+                    return;
+                }
+
             TiledMap tiledMap=map.getTiledMap();
             tiledMapEdit.setCurrentTiledMap(tiledMap);
             tiledMapEdit.setCurrentLayer((NamedTiledMapTileLayer) tiledMap.getLayers().get(0));
@@ -219,6 +233,9 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         mapStage.getBatch().setProjectionMatrix(camera.combined);
         setWindowsToCurrentMap();
     }
+
+
+
     private void setWindowsToCurrentMap() {
     }
     @Override

@@ -25,7 +25,7 @@ public class CreateMapOptionPane extends EditWindow {
     private Button createWorld;
     private LandMap map;
     private MapEditScreen mapEditScreen;
-    public CreateMapOptionPane(GameAssets gameAssets, Skin skin) {
+    public CreateMapOptionPane( MapEditScreen mapEditScreen, GameAssets gameAssets, Skin skin) {
         super(gameAssets, "Create World",  skin, "default");
         this.mapEditScreen=mapEditScreen;
     }

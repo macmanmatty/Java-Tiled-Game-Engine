@@ -32,19 +32,9 @@ class MapButton extends com.badlogic.gdx.scenes.scene2d.ui.ImageButton{
         addListener( new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                worldEditScreen.getGameAssets().setScreen(worldEditScreen.getMapEditScreen());
-                if(map!=null) {
-                    worldEditScreen.getMapEditScreen().setMap(map);
-                }
-                else{
-                    CreateMapOptionPane createMapOptionPane = new CreateMapOptionPane(worldEditScreen.getGameAssets(),getSkin() );
-                    createMapOptionPane.setLockableInputMultiplexer(worldEditScreen.getGameAssets().getGameInput().getLockableInputMultiplexer());
-                    createMapOptionPane.setLockOtherInputOnStageFocus(true);
-                    createMapOptionPane.makeWindow();
-                    worldEditScreen.getMapEditScreen().getUiStage().addWindow(createMapOptionPane, ScreenPosition.CENTER);
-                    createMapOptionPane.setLockOtherInput(true);
-                    map= (LandMap) worldEditScreen.getMapEditScreen().getCurrentMap();
-                }
+
+                worldEditScreen.editMap(map);
+
             }
         });
     }

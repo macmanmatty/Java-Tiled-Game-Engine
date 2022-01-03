@@ -51,7 +51,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         private  final DragAndDrop dragAndDrop = new DragAndDrop();
         private  final KeyListener keyListener= new KeyListener();
         private final  ClipBoard clipBoard= new ClipBoard();
-    public WorldEditScreen(Skin skin, GameAssets gameAssets, World world) {
+        public WorldEditScreen(Skin skin, GameAssets gameAssets, World world) {
         this.gameAssets = gameAssets;
         if(world==null){
             world= new World();
@@ -59,7 +59,9 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         this.world=world;
         this.skin=skin;
         worldObjects= new WorldObjects();
-    }
+        mapEditScreen =new MapEditScreen(gameAssets, clipBoard,   dragAndDrop,  skin, world, worldObjects);
+
+        }
     public void editMap(GameMap currentMap){
         mapEditScreen.setMap(currentMap);
         gameAssets.setScreen(mapEditScreen);
@@ -68,7 +70,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     public void show() {
         this.uiStage =new Stage();
         topMenu=new TopMenuWorld(this);
-        mapEditScreen =new MapEditScreen(gameAssets, clipBoard,   dragAndDrop,  skin, world, worldObjects);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
