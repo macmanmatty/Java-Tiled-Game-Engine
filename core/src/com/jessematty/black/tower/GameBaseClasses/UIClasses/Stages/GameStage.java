@@ -16,7 +16,7 @@ public class GameStage extends Stage implements Disposable {
      * update stage  method  calls act and draw on the on the stage
      */
     public void update(float deltaTime, GameTime gameTime){
-       act();
+       act(deltaTime);
         draw();
     }
     /**

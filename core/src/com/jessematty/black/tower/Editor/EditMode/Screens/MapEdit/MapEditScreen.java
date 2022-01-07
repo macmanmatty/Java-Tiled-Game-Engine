@@ -75,10 +75,9 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private GameMapEdit gameMapEdit;// map editor class
     private GameMap currentMap; // the currentMap to Edit
     private TiledMapEdit tiledMapEdit;// the current tiled map to edit
-    private Stage mapStage; // the map stage
     private BrightnessBatch batch; // the batch for rendering
     private GameCamera camera; // the camera
-    private GameStage uiStage;
+    private Stage uiStage;
     private Engine engine;
     private ShapeRenderer shapeRenderer;
     private FrameBufferRenderer frameBufferRenderer;
@@ -109,7 +108,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         this.worldObjects = worldObjects;
         this.clipBoard=clipBoard;
         this.gameInput=gameAssets.getGameInput();
-        uiStage = new GameStage(960f, 960f);
+        uiStage = new Stage();
 
     }
     @Override
@@ -139,12 +138,10 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         renderToBuffer=true;
         gameInput.removeProcessor(uiStage);
         gameInput.removeProcessor(this);
-        gameInput.removeProcessor(mapStage);
     }
     @Override
     public void resize(int width, int height) {
         uiStage.getViewport().setScreenSize(width, height);
-        mapStage.getViewport().setScreenSize(width, height);
         camera.update();
     }
     @Override
@@ -158,7 +155,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public void dispose() {
     }
     /**
-     * creates the map editing UI windows
+     * creates the map editing UI windows and adds them to the UIStage
      */
     private void makeWindows() {
         float width = Gdx.graphics.getWidth();
@@ -174,7 +171,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         mapEditButtons.setWindowSize(width - 320, 64);
         mapButtonsWindow.setPosition(0, height - 64);
         uiStage.addActor(mapButtonsWindow);
-        mapStage= new Stage();
         EditWindow textureDisplayWindow=mapEditWindows.getEditWindows().get("Texture Window");
         Window textureDisplay2DWindow = textureDisplayWindow;
         textureDisplayWindow.setWindowSize(320, 500);
@@ -204,13 +200,12 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
          */
     public void setMap(GameMap map) {
             this.currentMap = map;
-
                 if(map==null){
                     CreateMapOptionPane createMapOptionPane = new CreateMapOptionPane(this, getGameAssets(),getSkin() );
                     createMapOptionPane.setLockableInputMultiplexer(getGameAssets().getGameInput().getLockableInputMultiplexer());
                     createMapOptionPane.setLockOtherInputOnStageFocus(true);
                     createMapOptionPane.makeWindow();
-                   getUiStage().addWindow(createMapOptionPane, ScreenPosition.CENTER);
+                   getUiStage().addActor(createMapOptionPane);
                     createMapOptionPane.setLockOtherInput(true);
                     return;
                 }
@@ -229,8 +224,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         gameMapEdit.setxSize(map.getXTiles());
         gameMapEdit.setySize(map.getYTiles());
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1f);
-        mapStage= new TiledMapStage(batch, new FillViewport(960, 960), currentMap, dragAndDrop);
-        mapStage.getBatch().setProjectionMatrix(camera.combined);
         setWindowsToCurrentMap();
     }
 
@@ -252,13 +245,12 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             tiledMapRenderer.setView(camera);
             tiledMapRenderer.render();
         }
-        mapStage.act();
-        mapStage.draw();
         if(frameBufferRenderer!=null && renderToBuffer) {
             frameBufferRenderer.getMapFrameBuffer().end();
         }
         uiStage.act();
         uiStage.draw();
+
         if(currentMap!=null && frameBufferRenderer!=null && renderToBuffer) {
             Texture mapTexture=frameBufferRenderer.getMapFrameBuffer().getColorBufferTexture();
             currentMap.setMapImage(mapTexture);
@@ -271,12 +263,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             engine.update(delta);
             batch.end();
         }
-    private void updateScreen() {
-    }
-   public LandMap createMap(){
-        LandMap map= null;
-     return map;
-   }
     @Override
     public boolean keyDown(int keycode) {
         System.out.println("key down!!");
@@ -297,10 +283,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             return  false;
         }
 
-        Viewport mapViewport=mapStage.getViewport();
-        if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
-            return false;
-        }
+
         Vector3 unprojectedScreenCoordinates= camera.unproject(new Vector3(screenX,screenY,0));
         float x=unprojectedScreenCoordinates.x;
         float y=unprojectedScreenCoordinates.y;
@@ -346,7 +329,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if(gameInput.getKeyListener().anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
-            Viewport viewport=mapStage.getViewport();
+            Viewport viewport=uiStage.getViewport();
             if (screenX > viewport.getWorldWidth() || screenY > viewport.getWorldWidth()) {
                 return true;
             }
@@ -371,8 +354,8 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         uiStage.setKeyboardFocus(null);
-        mapStage.setKeyboardFocus(null);
-        Viewport mapViewport=mapStage.getViewport();
+
+        Viewport mapViewport=uiStage.getViewport();
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
             return true;
         }
@@ -398,7 +381,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             return false;
         }
         // object out of screen exit and true mouse in not in  application bounds
-        Viewport mapViewport=mapStage.getViewport();
+        Viewport mapViewport=uiStage.getViewport();
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
             return true;
         }
@@ -505,7 +488,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         return mapTools;
     }
     @Override
-    public GameStage getUiStage() {
+    public Stage getUiStage() {
         return uiStage;
     }
     public GameAssets getGameAssets() {

@@ -46,8 +46,8 @@ public class CreateMapOptionPane extends EditWindow {
              return false;
          }
             else {
-             if (yMaps <= 10 || xMaps <= 10 || tileSizeNumberX < 8 || tileSizeNumberY < 8) {
-                 mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error!", "Map X or Y Size Can't be  less than 10!!", "OK"));
+             if (yMaps <= 10 || xMaps <= 8 || tileSizeNumberX < 8 || tileSizeNumberY < 8) {
+                 mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error!", "Map X or Y Size Can't be  less than 8!!", "OK"));
                  return false;
              } else {
                  map = MapTools.newLandMap(gravity.getDouble(), name.getText(), xMaps, yMaps, tileSizeNumberX, tileSizeNumberY);

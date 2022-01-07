@@ -102,6 +102,9 @@ public class TiledMapEdit {
         Cell cell=currentLayer.getCell(locationX, locationY);
         if(cell!=null) {
             TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+            if(regionToReplace==null){
+                return;
+            }
             BucketFill.fillCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
         }
     }
