@@ -173,7 +173,7 @@ public class World implements Disposable { // class that holds the array of maps
      * @param y the y location of the map
      * @param map the land  map to place
      */
-        private  void setMap( int x, int y, LandMap map){
+    protected void setMap(int x, int y, LandMap map){
             worldMap[x][y] = map;
             map.setWorldLocation(x, y);
             
@@ -184,8 +184,8 @@ public class World implements Disposable { // class that holds the array of maps
      * @param y the y location of the map
      *
      */
-        
-        private void removeMap(int x, int y){
+
+    protected void removeMap(int x, int y){
              LandMap map =worldMap[x][y];
             worldMap[x][y]=null;
         }
@@ -469,7 +469,6 @@ public class World implements Disposable { // class that holds the array of maps
     /**
      *  adds a game entity  system  to the engine
      * @param system
-     * @param addToEngine
      */
     public void addSystem(EntitySystem system, boolean addToEngine){
         systemsInWorld.put( system.getClass(), system);
@@ -477,7 +476,7 @@ public class World implements Disposable { // class that holds the array of maps
             engine.addSystem(system);
         }
     }
-    public void removeSystem(GameEntitySystem system, boolean addToEngine) {
+    public void removeSystem(GameEntitySystem system) {
         systemsInWorld.remove(system.getClass());
             engine.removeSystem(system);
     }

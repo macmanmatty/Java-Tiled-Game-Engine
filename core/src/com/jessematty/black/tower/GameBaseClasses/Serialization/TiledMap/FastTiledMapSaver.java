@@ -71,7 +71,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap) throws MapLoadingExeception {
+    public void saveMap(TiledMap tiledMap) throws MapLoadingException {
         this. mapProperties=tiledMap.getProperties();
 
         int xSize=mapProperties.get("width", Integer.class);
@@ -108,7 +108,7 @@ public class FastTiledMapSaver implements TiledMapSaver {
 
                         else{
 
-                            throw new MapLoadingExeception("Invalid Tile Class  at Square  X "+countx +",  Y "+county );
+                            throw new MapLoadingException("Invalid Tile Class  at Square  X "+countx +",  Y "+county );
                         }
 
 

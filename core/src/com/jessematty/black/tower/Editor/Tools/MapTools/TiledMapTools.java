@@ -10,7 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
@@ -31,7 +31,7 @@ public final  class TiledMapTools {
      * @return NamedTextureAtlas the texture atlas generated from the tiled map
      * @ throws MapLoadingException
      */
-    public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingExeception {
+    public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingException {
         TiledMap newTiledMap= new TiledMap();
         MapProperties oldMapProperties = oldTiledMap.getProperties();
         MapProperties newMapProperties=newTiledMap.getProperties();
@@ -44,7 +44,7 @@ public final  class TiledMapTools {
         newMapProperties.put("atlasName", atlasName);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
         if(oldMapLayers==null){
-            throw new MapLoadingExeception("Tiled Map Has No Layers");
+            throw new MapLoadingException("Tiled Map Has No Layers");
         }
         MapLayers newMapMapLayers = newTiledMap.getLayers();
         int layers = oldMapLayers.size();

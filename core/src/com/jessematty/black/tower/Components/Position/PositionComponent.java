@@ -195,6 +195,7 @@ public class PositionComponent implements Component { //  a  position  and bound
     }
     public void setMapWorldLocationX(int mapWorldLocationX) {
         this.mapWorldLocationX = mapWorldLocationX;
+
     }
     public int getMapWorldLocationY() {
         return mapWorldLocationY;
@@ -227,14 +228,13 @@ public class PositionComponent implements Component { //  a  position  and bound
 
     // set an entities position
     public void setPosition(float x, float y, float z){
-
-        this.height=z;
-        this.locationY=y;
-        this.locationX=x;
+        setHeightFromGround(z);
+        setLocationX(x);
+        setLocationY(y);
         bounds.setPosition(x+boundsXOffset, y+boundsYOffset);
-
         positionChanged=true;
     }
+
 
     // moves an entities position  by a given amount
     public  void movePosition(float x, float y, float z){

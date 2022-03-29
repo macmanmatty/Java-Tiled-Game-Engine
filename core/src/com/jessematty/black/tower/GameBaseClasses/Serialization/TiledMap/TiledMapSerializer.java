@@ -25,8 +25,8 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
         }
         try {
             tiledMapSaver.saveMap(tiledMap);
-        } catch (MapLoadingExeception mapLoadingExeception) {
-            mapLoadingExeception.printStackTrace();
+        } catch (MapLoadingException mapLoadingException) {
+            mapLoadingException.printStackTrace();
         }
         kryo.writeClassAndObject(output, tiledMapSaver);
     }

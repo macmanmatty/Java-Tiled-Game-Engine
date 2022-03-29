@@ -8,7 +8,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
@@ -82,8 +82,8 @@ public class TestMap {
         try {
          map= TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "");
          map2.setTiledMap(map);
-        } catch (MapLoadingExeception mapLoadingExeception) {
-            mapLoadingExeception.printStackTrace();
+        } catch (MapLoadingException mapLoadingException) {
+            mapLoadingException.printStackTrace();
         }
 
         //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);

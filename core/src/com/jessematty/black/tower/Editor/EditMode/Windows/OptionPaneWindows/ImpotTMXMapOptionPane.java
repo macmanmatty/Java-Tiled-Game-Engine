@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.Maps.LandMap;
@@ -31,8 +31,8 @@ public class ImpotTMXMapOptionPane extends EditWindow {
             try {
                 mapEditScreen.getMapTools().loadTmxMap( mapEditScreen.getWorld().getWorldTextureAtlas(), mapEditScreen.getCurrentMap(), mapEditScreen.getGameAssets(), fileSelectPane.getFile().getAbsolutePath(),expandToFit.isChecked(), clipToFit.isChecked());
                         setVisible(false);
-            } catch (MapLoadingExeception mapLoadingExeception) {
-                mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error Loading Map", mapLoadingExeception.getMessage(), "OK"));
+            } catch (MapLoadingException mapLoadingException) {
+                mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error Loading Map", mapLoadingException.getMessage(), "OK"));
                 setVisible(false);
             }
         }

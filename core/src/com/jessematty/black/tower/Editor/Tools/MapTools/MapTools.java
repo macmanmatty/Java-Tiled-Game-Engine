@@ -23,7 +23,7 @@ import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.ColorUtilities;
@@ -244,9 +244,9 @@ public class MapTools {
      * @param expandMapToFit // whether to expand the map to fit the new tiled maps size
      * @param clipMapToFit // whether to shrink the map to fit the new tiled maps size
      * @return the new tiled map object
-     * @throws MapLoadingExeception
+     * @throws MapLoadingException
      */
-        public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingExeception {
+        public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingException {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(path);
            tiledMap= TiledMapTools.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
             MapProperties mapProperties=tiledMap.getProperties();
@@ -286,7 +286,7 @@ public class MapTools {
                     gameMap.setMap(tiles);
                     return  tiledMap;
                 }
-            throw new MapLoadingExeception("Unable to Load TMX map to GameMap Check Size?");
+            throw new MapLoadingException("Unable to Load TMX map to GameMap Check Size?");
     }
 
     // creates  new  named  texture atlas  with a given  name texture atlas extracts  all the texture regions  from a tiled map and adds them

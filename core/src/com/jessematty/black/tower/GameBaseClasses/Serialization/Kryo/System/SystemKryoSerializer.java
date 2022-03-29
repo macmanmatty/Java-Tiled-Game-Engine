@@ -11,7 +11,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.NewComponent;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -55,8 +55,8 @@ public class SystemKryoSerializer extends Serializer<LandMap> {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();
-        } catch (MapLoadingExeception mapLoadingExeception) {
-            mapLoadingExeception.printStackTrace();
+        } catch (MapLoadingException mapLoadingException) {
+            mapLoadingException.printStackTrace();
         }
         LandSquareTile [] [] mapTiles= (LandSquareTile[][]) kryo.readClassAndObject(input);
         if(!gameMapSettings.getSimpleSetting("usesTMXMap", Boolean.class)) {
@@ -91,11 +91,11 @@ public class SystemKryoSerializer extends Serializer<LandMap> {
      * @param map the map  to serialize the entities
      * @return
      */
-    public void removeUnserializableComponentsFromEntities(LandMap map) throws IllegalAccessException, InstantiationException, MapLoadingExeception {
+    public void removeUnserializableComponentsFromEntities(LandMap map) throws IllegalAccessException, InstantiationException, MapLoadingException {
 
         LandSquareTile [] [] tiles=map.getMap();
         if(tiles==null){
-            throw new MapLoadingExeception("Map Must Not Be Null");
+            throw new MapLoadingException("Map Must Not Be Null");
 
         }
 

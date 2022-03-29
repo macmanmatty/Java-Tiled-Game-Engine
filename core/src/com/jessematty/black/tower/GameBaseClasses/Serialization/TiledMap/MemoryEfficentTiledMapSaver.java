@@ -74,7 +74,7 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap) throws MapLoadingExeception {
+    public void saveMap(TiledMap tiledMap) throws MapLoadingException {
         this. mapProperties=tiledMap.getProperties();
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
@@ -110,7 +110,7 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
 
                         }
                         else{
-                            throw new  MapLoadingExeception("Invalid Tile Class");
+                            throw new MapLoadingException("Invalid Tile Class");
 
                         }
 
