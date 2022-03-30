@@ -4,17 +4,35 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * class for UI table similar to a javafx table
+ * @param <T>
+ */
 public class ItemTable<T> extends Table {
-private  Array<T>  tableItems= new Array<>();
-private Array<ItemList<T>> tableColumns= new Array();
+    /**
+     * the array of items in the table
+     */
+    private  Array<T>  tableItems= new Array<>();
+    /**
+     * the array of items lists aka the table columns
+     */
+    private Array<ItemList<T>> tableColumns= new Array();
+
 private Skin skin;
 private boolean remakeTable;
 private boolean remakeColumns;
-private int size;
+private int numberOfColumns;
 private int selectedIndex;
 private boolean editable;
 private boolean sortable;
-private T selectedItem;
+    /**
+     * the selected item in the table
+     */
+    private T selectedItem;
+
+ /**
+  * libGDX drag and drop for moving for columns
+  */
 private DragAndDrop dragAndDrop;
 private boolean  dragToChangeOrder;
 private String styleName;
@@ -30,8 +48,10 @@ private String styleName;
         this.skin=skin;
     }
 
+    /**
+     * makes the table using the array of items to get teh data from
+     */
     private void makeTable(){
-
         int size=tableColumns.size;
         clear();
         for(int count=0; count<size; count++){
@@ -43,30 +63,38 @@ private String styleName;
             if (dragToChangeOrder == true && dragAndDrop != null) {
                 dragAndDrop.addTarget(new ItemTableTarget<T>(this, itemList));
                 dragAndDrop.addSource(new ItemTableSource<T>( itemList));
-
             }
 
         add(itemList).width(itemList.getColumnWidth());
     }
-
         validate();
         invalidateHierarchy();
 
 }
+    /**
+     * libGDX ui act method called by the stage object or parent UI object
+     * used  to check for new items and  remake the table  UI display them
+     * @param delta delta time
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
         int itemsSize=tableItems.size;
-        if(remakeTable==true || size!=itemsSize){
-            this.size=itemsSize;
+        if(remakeTable==true || numberOfColumns !=itemsSize){
+            this.numberOfColumns =itemsSize;
             remakeTable=false;
             makeTable();
         }
 
 
     }
+
+    /**
+     * sets the selected item to the passed in one
+     * @param item
+     */
     public void setSelected(T item){
-        for(int count=0; count<size; count++){
+        for(int count = 0; count< numberOfColumns; count++){
           if(item==  tableItems.get(count)){
               selectedIndex=count;
               setSelected(selectedIndex);
@@ -75,6 +103,10 @@ private String styleName;
           }
         }
     }
+    /**
+     * sets the selected item index to the passed in one
+     * @param index the items position in the array
+     */
     public  void setSelected(int index){
         int size=tableColumns.size;
         for(int count=0; count<size; count++ ){
@@ -82,6 +114,12 @@ private String styleName;
         }
     }
 
+    /**
+     * add a new Item List aka column  to the table used java reflection to retrieve column data
+     * @param title the title of the column
+     * @param methodName the method name used to retrieve  the data for the column
+     * @param dataClass the  class for the type of data String.class, Float.class, Double.class, Boolean.Class, Integer.class, Long.Class or Object.class
+     */
     public void addColumn( String title, String methodName, Class dataClass){
         ItemList<T> column= new ItemList(skin, styleName, title, methodName, dataClass, this, tableColumns.size, true );
         column.setItems(tableItems, true);
@@ -97,7 +135,7 @@ private String styleName;
     }
     public void setTableItems(Array<T> tableItems) {
         this.tableItems = tableItems;
-        for(int count=0; count<size; count++ ){
+        for(int count = 0; count< numberOfColumns; count++ ){
            ItemList column=tableColumns.get(count);
             column.setItems(tableItems, true);
 
