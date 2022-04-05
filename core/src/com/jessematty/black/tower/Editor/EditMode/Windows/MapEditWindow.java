@@ -10,7 +10,7 @@ public  abstract class MapEditWindow extends EditWindow  implements MapSettable 
     public MapEditWindow(GameAssets gameAssets, String title , Skin skin, String style) {
         super( gameAssets, title, skin, style);
     }
-    @Override
+
     public GameMap getMap() {
         return map;
     }

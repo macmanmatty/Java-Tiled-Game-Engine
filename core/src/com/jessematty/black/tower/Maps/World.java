@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -23,11 +25,15 @@ import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLoo
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
+
+import java.rmi.server.UID;
+import java.util.UUID;
+
 /**
  * The Game World Class the has a 2d  array of game  maps that make up the world as well as the world's  texture atlas  and  ashley ecs entities
  */
 public class World implements Disposable { // class that holds the array of maps  aka the world
-        private LandMap [] [] worldMap;
+        private ObjectMap <String, LandMap> worldMap = new ObjectMap<>();
         private WorldSettings worldSettings= new WorldSettings();
         private String loadPath; // load path for the world used to save the game during pauses.
         private transient GameMap currentMap;
@@ -56,147 +62,44 @@ public class World implements Disposable { // class that holds the array of maps
         }
     /**
      *
-     * @param xMaps number of maps that connect horizontally
-     * @param yMaps number of maps that connect vertically
+     * @param name the name of the world
      */
-        public World(int xMaps, int yMaps) {
-           this(xMaps, yMaps, "world");
-        }
-    /**
-     *
-     * @param xMaps number of maps that connect horizontally
-     * @param yMaps number of maps that connect vertically
-     * @param name the name of the map
-     */
-    public World(int xMaps, int yMaps, String name) {
-        createWorld(xMaps, yMaps);
+    public World( String name) {
+        createWorld();
         this.name = name;
         craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
     }
-    /**
-     *  // returns world coordinates for a tile based on the word coordinates  in relationship to all maps in the world.
-     * @param tileX  the position of the tile
-     * @param tileY the y position of the tile
-     * @param mapX the x position of the map  in the world
-     * @param mapY the y position of the map  in the world
-     * @return vector2 containing the coordinates of the the tile
-     */
-    public Vector2 getTileWorldCoordinates(int tileX, int tileY, int mapX, int mapY){
-            // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
-            for(int count=0;  count<mapX; count++) {
-                tileX = tileX + worldMap[count][mapY].getXTiles();
-            }
-            for(int count=0;  count<mapY; count++) {
-                tileY = tileY + worldMap[mapX][count].getYTiles();
-            }
-            return new Vector2(tileX, tileY);
-        }
-    /**
-     *  // returns world coordinates for a tile based on the word coordinates  in realtionship to all maps in the world.
-     * @param screenX  the x  position of the tile
-     * @param screenY the y position of the tile
-     * @param mapX the x position of the map  in the world
-     * @param mapY the y position of the map  in the world
-     * @return vector2 containing the coordinates of the the tile
-     */
-        public Vector2 getScreenWorldCoordinates(float screenX,  float screenY, int mapX,  int mapY){
-            // returns  world coordinates for a screen based on the word coordinates  in realtionship to all maps in the world.
-            for(int count=0;  count<mapX; count++) {
-                screenX = screenX + worldMap[count][mapY].getMaxXScreen();
-            }
-            for(int count=0;  count<mapY; count++) {
-                screenY = screenY + worldMap[mapX][count].getMaxYScreen();
-            }
-            return new Vector2(screenX, screenY);
-        }
+
     /**
      *  // returns a valid game map with given coordinates  if map  if coordinates ar out bounds returns the closest in bound map
      *             //if space is empty map can be null
-     * @param x the x map coordinate
-     * @param y the y map coordinate
+     * @param mapId the ID of the  map
+     e
      * @return
      */
-        public LandMap getMap(int x, int y){ 
-            if(x<0){
-                x=0;
-            }
-            if(y<0){
-                y=0;
-            }
-            if(y>worldMap[0].length-1){
-                y=worldMap[0].length-1;
-            }
-            if(x>worldMap.length-1){
-                x=worldMap.length-1;
-            }
-            return worldMap[x][y];
+        public LandMap getMap(String mapId){
+            return worldMap.get(mapId);
         }
     /**
-     *             // returns a game map with given coordinates  if map
-     *             if coordinates are out of  bounds returns null
-     * @param x
-     * @param y
-     * @return GameMap
-     */
-    public  GameMap  getGameMapOrNull(int x, int y){
-            if(x<0 || y<0 || x>worldMap.length-1 || y>worldMap[0].length-1){
-                return null;
-            }
-            return worldMap[x][y];
-        }
-    /**
-     *   // set a given array square to a LandMap instance
-     * @param mapToPlace
-     * @param x
-     * @param y
-     */
-    public void placeMap(LandMap mapToPlace, int x, int y){
-            GameMap currentMapAtLocation=getGameMapOrNull(x, y);
-            if(currentMapAtLocation==null) { // no map exists place the map
-                if (mapToPlace != null) {
-                   setMap(x, y, mapToPlace); 
-                }
-                
-                return; 
-            }
-            else{ // remove current map and place new one
-               removeMap(x, y); 
-               setMap(x, y, mapToPlace);
-                
-            }
-            
-            
-        }
-    /**
-     *  adds a land map to the world position x, y  if a map exists a`t given location replaces it
-     * @param x the location of the  map
-     * @param y the y location of the map
+     *  adds a land map to map of land maps  and gives it a unique id
      * @param map the land  map to place
      */
-    protected void setMap(int x, int y, LandMap map){
-            worldMap[x][y] = map;
-            map.setWorldLocation(x, y);
+    public void addMap(LandMap map){
+            worldMap.put(map.getId(), map);
             
         }
     /**
-     *  removes a land map to the world position x, y  by setting it to null
-     * @param x the location of the  map
-     * @param y the y location of the map
+     *  removes a land map from the world array of maps
+     * @param id the id of the map to remove
      *
      */
 
-    protected void removeMap(int x, int y){
-             LandMap map =worldMap[x][y];
-            worldMap[x][y]=null;
+    protected void removeMap(String id){
+        worldMap.remove(id);
+
         }
-        public LandMap[][] getWorldMap() {
+        public ObjectMap<String, LandMap> getWorldMap() {
             return worldMap;
-        }
-        public int getXMaps() {
-            return worldMap.length;
-        }
-        public int getYMaps() {
-            return worldMap[0].length;
         }
     public void deserialize(GameAssets assetts, GamePrefecences gameStartSettingsObject) {
     }
@@ -230,17 +133,15 @@ public class World implements Disposable { // class that holds the array of maps
         }
     }
     /**
-     * sets a  given map at location x, y as the current map and add its entities  to the engine
-     * @param x
-     * @param y
+     * sets a  given map  as the current map and add its entities  to the engine
      */
-    public void setCurrentMap(int x, int y) {
+    public void setCurrentMap(String mapId) {
             if(currentMap!=null){
                 removeTilesFromEngine(currentMap);
                 removeEntitiesFromEngine(currentMap.getEntities());
                 removeSystemsFromEngine(currentMap.getMapGameEntitySystemsClasses());
             }
-        this.currentMap = worldMap[x][y];
+        this.currentMap = worldMap.get(mapId);
         addTilesToEngine(currentMap);
         addEntitiesToEngine(currentMap.getEntities());
         addSystemsToEngine(currentMap.getMapGameEntitySystemsClasses());
@@ -266,17 +167,16 @@ public class World implements Disposable { // class that holds the array of maps
         }
     }
     /**
-     * sets a  given map at location x, y as the start map for the player
-     * @param x
-     * @param y
+     * sets a  given map at  as the start map for the player
+     * @param mapId
+
      */
     
-    public void setStartMap(int x, int y){
+    public void setStartMap(String mapId){
             //sets the start map
-            worldSettings.getSettings().put("startMapX", x);
-        worldSettings.getSettings().put("startMapY", y);
+            worldSettings.getSettings().put("startMapId", mapId);
             if(currentMap==null) {
-                setCurrentMap(x, y);
+                setCurrentMap(mapId);
             }
             
     }
@@ -285,8 +185,9 @@ public class World implements Disposable { // class that holds the array of maps
             if(currentMap!=null){
                 return  currentMap;
             }
-            
-            currentMap=worldMap[0][0];
+            if(worldMap.size!=0) {
+                currentMap = worldMap.values().next();
+            }
             return currentMap;
     }
     public Entity getEntity(String id ){
@@ -319,7 +220,7 @@ public class World implements Disposable { // class that holds the array of maps
      * @param position
      */
     public void addEntityToMap(Entity entity, PositionComponent position){
-           GameMap map= getGameMapOrNull(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+           GameMap map= getMap(position.getMapId());
            if(map==null){
                return;
            }
@@ -364,7 +265,7 @@ public class World implements Disposable { // class that holds the array of maps
         engine.removeEntity(entity);
     }
     public void removeEntityFromMap(Entity entity, PositionComponent position){
-        GameMap map= getGameMapOrNull(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+        GameMap map= getMap(position.getMapId());
         if(map==null){
             return;
         }
@@ -413,12 +314,10 @@ public class World implements Disposable { // class that holds the array of maps
         return gameComponentMapper;
     }
     /**
-     *  creates a new world 2d array ox x maps by y maps
-     * @param xMaps
-     * @param yMaps
+     *  creates a new world
+
      */
-    public void createWorld(int xMaps, int yMaps) {
-            worldMap= new LandMap[xMaps][yMaps];
+    public void createWorld() {
             newWorld =false;
     }
     public String getName() {
@@ -443,7 +342,7 @@ public class World implements Disposable { // class that holds the array of maps
     public Array<Entity> getEntityFromCraft(Craft craft){
             return craftLookUpTable.lookUpCraft(craft);
     }
-    public void setWorldMap(LandMap[][] worldMap) {
+    public void setWorldMap(ObjectMap<String, LandMap> worldMap) {
         this.worldMap = worldMap;
     }
     public Entity getPlayer() {

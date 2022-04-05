@@ -41,6 +41,11 @@ public class ClosableWindow extends Window {
     private Color moveButtonColor=Color.GREEN;
     private Color resizeButtonColor=Color.YELLOW;
     private LockableInputMultiplexer lockableInputMultiplexer;
+    public  Skin skin;
+    /**
+     * Functional interface for a method that is called when the window is closed
+     */
+    private OnCloseAction onCloseAction;
     
     public ClosableWindow(String title, Skin skin) {
         this(title, skin, false);
@@ -64,11 +69,13 @@ public class ClosableWindow extends Window {
         this.removeOnClose = removeOnClose;
         this.hasResize = hasResize;
         this.hasMove = hasMove;
+        this.skin=skin;
         remakeTitle();
         if(!styleName.isEmpty() && !styleName.equals("default")) {
             this.styleName = styleName;
         }
         addListeners();
+
     }
     public ClosableWindow(String title, Skin skin, String styleName) {
         this(title, skin, styleName, true, true, true);
@@ -93,6 +100,9 @@ public class ClosableWindow extends Window {
         close.addListener(new ClickListener() {
         @Override
         public void clicked (InputEvent event,float x, float y){
+            if(onCloseAction!=null){
+                onCloseAction.act();
+            }
             if(removeOnClose==false) {
                 setVisible(false);
             }
@@ -300,5 +310,13 @@ public class ClosableWindow extends Window {
         float mouseY=Gdx.input.getY();
        Vector2 stageMouseCoordinates= getStage().screenToStageCoordinates(new Vector2(mouseX, mouseY));
         return true;
+    }
+
+    public OnCloseAction getOnCloseAction() {
+        return onCloseAction;
+    }
+
+    public void setOnCloseAction(OnCloseAction onCloseAction) {
+        this.onCloseAction = onCloseAction;
     }
 }

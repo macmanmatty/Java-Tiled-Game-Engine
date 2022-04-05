@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
+import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
@@ -88,31 +88,13 @@ public class MapTools {
             }
         }
     }
-    public static void changeWorldSize(World world, int xMaps, int yMaps) {// used to increase or decrease world size in the editor
-        LandMap[][] worldMap = new LandMap[xMaps][yMaps];
-        int currentXMaps = world.getXMaps();
-        int currentYMaps = world.getYMaps();
-        for (int countx = 0; countx < xMaps; countx++) {
-            for (int county = 0; county < yMaps; county++) {
-                if (countx < currentXMaps && county < currentYMaps) {
-                    worldMap[countx][county] = world.getMap(countx, county);
-                }
-            }
-        }
-    }
 
     public LandSquareTile[][] copyTiles(LandSquareTile[][] tiles) {
         LandSquareTile[][] copiedTiles = copyObject.copyObject(tiles, LandSquareTile[][].class);
         return copiedTiles;
     }
-    public static World newWorld(String name, int xMaps, int yMaps) {
-        World world = new World(xMaps, yMaps, name);
-        LandMap[][] maps = new LandMap[xMaps][yMaps];
-        for (int countx = 0; countx < xMaps; countx++) {
-            for (int county = 0; county < yMaps; county++) {
-                maps[countx][county] = new LandMap();
-            }
-        }
+    public static World newWorld(String name) {
+        World world = new World( name);
         return world;
     }
     public static LandMap newLandMap(double gravity, String name, int xSize, int ySize, int tileSizeX, int tileSizeY) {
@@ -209,31 +191,7 @@ public class MapTools {
         }
         return  layer;
     }
-    // checks to see if map name already exists  in a given world  map names must be unique
-    public static boolean  mapNameCheck(String name , World world){
-        GameMap [] []  maps=world.getWorldMap();
-        
-       int  xSize=maps.length;
-       int ySize=maps[0].length;
-       
-       Array<String> mapNames= new Array<String>();
-        for (int countx = 0; countx < xSize; countx++) {
-            for (int county = 0; county < ySize; county++) {
-                GameMap map=maps[countx][county];
-                if(map!=null) {
-                    String mapName=map.getGameMapSettings().getSimpleSetting("name", String.class);
 
-                    if(mapName!=null && !mapName.isEmpty()) {
-                        mapNames.add(mapName);
-                    }
-                }
-            }
-        }
-        
-            
-        return InList.isInList(mapNames, name);
-      
-    }
 
     /**
      *  loads a  new tmx landSquareTileMap made with tiled TileMap program

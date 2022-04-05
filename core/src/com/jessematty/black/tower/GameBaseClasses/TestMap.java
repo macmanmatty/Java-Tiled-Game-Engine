@@ -37,8 +37,8 @@ public class TestMap {
         generator2.makeTiledMap();
         LandMap map2= (LandMap) generator2.makeMap();
         map2.setTileSize(32, 32);
-        World world= new World(1, 1);
-        world.placeMap(map2, 0, 0);
+        World world= new World();
+        world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets.atlas");
         world.setLoadPath("/world/");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
@@ -48,8 +48,7 @@ public class TestMap {
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);
         position.setLocationX(66);
         position.setLocationY(1000);
-        position.setMapWorldLocationX(0);
-        position.setMapWorldLocationY(0);
+        position.setMapID(map2.getId());
         position.setLocationX(66);
         position.setLocationY(600);
         position.setBounds(32, 48);
@@ -64,8 +63,7 @@ public class TestMap {
         position2.setHeight(10);
         position2.setLocationX(66);
         position2.setLocationY(900);
-        position2.setMapWorldLocationX(map2.getWorldX());
-        position2.setMapWorldLocationY(map2.getWorldY());
+        position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getEntities().get(0));
        world.setWorldTextureAtlas(assetts.getAssetManager().get("/world/worldAssetts.atlas", TextureAtlas.class),"/world/worldAssetts.atlas");
         //assetts.setWorld(world);
@@ -95,7 +93,7 @@ public class TestMap {
             landSquareTile.add(physicalObjectComponent);
             landSquareTile.getComponent(PositionComponent.class).setBounds(32, 32);
         }
-        world.setStartMap(0, 0);
+        world.setStartMap(map2.getId());
         world.setName("game");
 
       try {
@@ -105,7 +103,7 @@ public class TestMap {
         }
        world.setLoadPath("/world/");
        World newWorld=assetts.loadGame("/world/game.bin");
-     newWorld.getMap(0, 0).setSkin(assetts.getDefaultSkin());
+     newWorld.getMap(map2.getId()).setSkin(assetts.getDefaultSkin());
        assetts.setWorld(newWorld);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();

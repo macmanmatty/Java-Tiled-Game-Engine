@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BucketFill;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
+import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
@@ -21,11 +21,13 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 
-public class TiledMapEdit {
+public class TiledMapEdit implements MapSettable {
    private  TiledMap currentTiledMap;
     private NamedTiledMapTileLayer currentLayer;
     private  int xSize;
@@ -149,13 +151,14 @@ public class TiledMapEdit {
     }
     // a new layer to the tiled  map  with the default name layer + number of layers
     public void addLayer(){
-        MapLayers layers=currentTiledMap.getLayers();
-        NamedTiledMapTileLayer layer=  com.jessematty.black.tower.Editor.Tools.MapTools.MapTools.newMapLayer("newRegion", xSize, ySize, tileSizeX, tileSizeY);
-        if(currentTiledMap!=null && layers!=null) {
-            layers.add(layer);
-            int previousMapLayerNumber=layers.size()-2;
-           layers.get(previousMapLayerNumber).setName("layer "+previousMapLayerNumber);
-        }
+            MapLayers layers = currentTiledMap.getLayers();
+            NamedTiledMapTileLayer layer = com.jessematty.black.tower.Editor.Tools.MapTools.MapTools.newMapLayer("newRegion", xSize, ySize, tileSizeX, tileSizeY);
+            if (currentTiledMap != null && layers != null) {
+                layers.add(layer);
+                int previousMapLayerNumber = layers.size() - 2;
+                layers.get(previousMapLayerNumber).setName("layer " + previousMapLayerNumber);
+            }
+
     }
     // gets a given layer based on layer name
     public TiledMapTileLayer getLayer(String name){
@@ -399,4 +402,17 @@ public class TiledMapEdit {
     public void setFillDiagnols(boolean fillDiagnols) {
         this.fillDiagnols = fillDiagnols;
     }
+
+    @Override
+    public void setMap(GameMap gameMap) {
+        currentTiledMap=gameMap.getTiledMap();
+
+      setCurrentLayer((NamedTiledMapTileLayer) currentTiledMap.getLayers().get(0));
+        // set the tiled of the current map to the editor
+   setTileSizeX(gameMap.getTileWidth());
+   setTileSizeY(gameMap.getTileHeight());
+     setxSize(gameMap.getXTiles());
+      setySize(gameMap.getYTiles());
+         }
+
 }

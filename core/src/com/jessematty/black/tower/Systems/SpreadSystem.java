@@ -50,7 +50,7 @@ public class SpreadSystem extends GameEntitySystem {
             Action action= actions.get(entity);
                 PositionComponent position = positions.get(entity);
                 MovableComponent movableComponent = moveables.get(entity);
-                GameMap  map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+                GameMap  map=getDraw().getWorld().getMap(position.getMapId());
 
                 if (movableComponent.getCurrentSpeed() > 0) {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);
@@ -83,7 +83,7 @@ public class SpreadSystem extends GameEntitySystem {
         movableComponent.setDistanceMoved(distanceX, distanceY, 0);
         float screenLocationX = position.getLocationX() + distanceX;
         float screenLocationY = position.getLocationY() + distanceY;
-        GameMap map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+        GameMap map=getDraw().getWorld().getMap(position.getMapId());
         if (screenLocationX >= map.getMaxXScreen() - 32 || screenLocationY >= map.getMaxYScreen() - 32 || screenLocationY < 10 || screenLocationX < 10) {
             return; //  trying to  move out of map bounds bounds exit move function
         }

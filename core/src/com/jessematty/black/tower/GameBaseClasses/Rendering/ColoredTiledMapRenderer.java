@@ -42,10 +42,8 @@ public class ColoredTiledMapRenderer extends OrthogonalTiledMapRenderer {
         int mapHeight = prop.get("height", Integer.class);
         int tilePixelWidth = prop.get("tilewidth", Integer.class);
         int tilePixelHeight = prop.get("tileheight", Integer.class);
-
         int mapPixelWidth = mapWidth * tilePixelWidth;
         int mapPixelHeight = mapHeight * tilePixelHeight;
-
     }
 
 

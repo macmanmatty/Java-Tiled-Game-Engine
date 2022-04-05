@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPaneAction;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
@@ -21,11 +21,9 @@ public class CreateWorldOptionPane extends EditWindow {
     private com.badlogic.gdx.scenes.scene2d.ui.TextField name;
     private Button createWorld;
     private World world;
-    private WorldEditScreen worldEditScreen;
-    public CreateWorldOptionPane(WorldEditScreen worldEditScreen, String title, Skin skin, String style, World world) {
-        super( worldEditScreen.getGameAssets(), title,  skin, style);
+    public CreateWorldOptionPane(GameAssets gameAssets, String title, Skin skin, String style, World world) {
+        super( gameAssets, title,  skin, style);
         this.world = world;
-        this.worldEditScreen = worldEditScreen;
     }
     private   void createWorld(){
         if(world.isNewWorld()) {
@@ -38,18 +36,15 @@ public class CreateWorldOptionPane extends EditWindow {
                     setWorld();
                 }
             };
-            worldEditScreen.getUiStage().addActor(new OptionPane( skin, "Error!", "Creating a New World Will Overwrite the Current One. Do You Wish To Continue?", "yes", "no", createMap));
         }
     }
     private void setWorld(){
         int xMaps=xSize.getInteger();
         int yMaps=ySize.getInteger();
         if(yMaps<=0 || xMaps<=0){
-            worldEditScreen.getUiStage().addActor(new OptionPane(  skin, "Error!",   "Map Size Can't be Zero!!", "ok"));
         }
         else {
-            MapTools.newWorld(name.getText(), xMaps, yMaps);
-            worldEditScreen.createWorldMapsOverview(xSize.getInteger(), ySize.getInteger());
+            MapTools.newWorld(name.getText());
             addAction(Actions.removeActor());
         }
     }

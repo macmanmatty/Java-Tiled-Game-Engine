@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows;
+package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -7,14 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.Maps.GameMap;
-public class TiledMapLayerWindow extends MapEditWindow {
+import com.jessematty.black.tower.Maps.MapSettable;
+
+public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
     private TiledMapTileLayerList mapLayers;
     private TextButton addLayerButton;
     private NamedField enterName;
@@ -27,6 +28,13 @@ public class TiledMapLayerWindow extends MapEditWindow {
     }
     public TiledMapLayerWindow(final GameAssets assets, final TiledMapEdit tiledMapEdit, String title, Skin skin, String style) {
         super(assets,  title, skin, style);
+        this.tiledMapEdit=tiledMapEdit;
+       makeWindow();
+        
+    }
+    
+    public void makeWindow(){
+        clearWindow();
         mapLayers= new TiledMapTileLayerList( tiledMapEdit,skin, "Map Layers", "DisplayName", String.class);
         mapLayers.setEditable(true);
         mapLayers.setSortable(false);
@@ -65,13 +73,9 @@ public class TiledMapLayerWindow extends MapEditWindow {
         bottom().add(addLayer).size(320, addLayer.getPrefHeight());
         setMovable(false);
         setResizable(false);
-        
-    }
-    
-    public void makeWindow(){
     }
     @Override
     public void setMap(GameMap gameMap) {
-        
+
     }
 }

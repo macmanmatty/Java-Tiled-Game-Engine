@@ -15,6 +15,11 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveF
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
+import com.jessematty.black.tower.Maps.World;
+
+/**
+ * option pane to create a new map and add it to a world
+ */
 public class CreateMapOptionPane extends EditWindow {
     private PositiveIntegerField xSize;
     private PositiveIntegerField ySize;
@@ -24,37 +29,14 @@ public class CreateMapOptionPane extends EditWindow {
     private TextField name;
     private Button createWorld;
     private LandMap map;
-    private MapEditScreen mapEditScreen;
-    public CreateMapOptionPane( MapEditScreen mapEditScreen, GameAssets gameAssets, Skin skin) {
+    private World world;
+    public CreateMapOptionPane( GameAssets gameAssets, Skin skin,  World world) {
         super(gameAssets, "Create World",  skin, "default");
-        this.mapEditScreen=mapEditScreen;
+        this.world=world;
     }
     private   void createWorld(){
-        boolean mapSet=setMap();
-        if(mapSet==true) {
-            setVisible(false);
-        }
-    }
-    private boolean setMap(){
-        int xMaps=xSize.getInteger();
-        int yMaps=ySize.getInteger();
-        int tileSizeNumberX=tileSizeX.getInteger();
-        int tileSizeNumberY=tileSizeY.getInteger();
-         boolean nameInUse= MapTools.mapNameCheck(name.getText(), mapEditScreen.getWorld());
-         if(nameInUse==true){
-             mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error!", "Map Name is Already Used In Your World Please Use A  Different Name ", "OK"));
-             return false;
-         }
-            else {
-             if (yMaps <= 10 || xMaps <= 8 || tileSizeNumberX < 8 || tileSizeNumberY < 8) {
-                 mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error!", "Map X or Y Size Can't be  less than 8!!", "OK"));
-                 return false;
-             } else {
-                 map = MapTools.newLandMap(gravity.getDouble(), name.getText(), xMaps, yMaps, tileSizeNumberX, tileSizeNumberY);
-                 mapEditScreen.setMap(map);
-             }
-         }
-        return true;
+      LandMap map= MapTools.newLandMap(gravity.getDouble(), name.getText(), xSize.getInteger(), ySize.getInteger(), tileSizeX.getInteger(), tileSizeY.getInteger());
+        world.addMap(map);
     }
     public void makeWindow() {
         xSize=new PositiveIntegerField("2", skin);
@@ -92,6 +74,7 @@ public class CreateMapOptionPane extends EditWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 createWorld();
+                setVisible(false);
             }
         });
         add(nameBox);
@@ -109,6 +92,7 @@ public class CreateMapOptionPane extends EditWindow {
         add(createWorld);
         row();
         validate();
+        pack();
         setSize(getPrefWidth(), getPrefHeight());
         setMovable(true);
     }

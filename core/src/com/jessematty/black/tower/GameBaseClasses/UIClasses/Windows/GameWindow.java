@@ -5,7 +5,11 @@ import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 public class GameWindow extends ClosableWindow {
     boolean created;
+    /**
+     * optional GameAction interface that can be called and used  as a   callback method
+     */
      private final  GameAssets gameAssets;
+     private GameAction action;
      private Array<InputKeyCombo> inputKeyComboList= new Array<InputKeyCombo>();
     public GameWindow(String title, Skin skin, GameAssets gameAssets) {
         super(title, skin);
@@ -31,5 +35,13 @@ public class GameWindow extends ClosableWindow {
 
     public GameAssets getGameAssets() {
         return gameAssets;
+    }
+
+    public GameAction getAction() {
+        return action;
+    }
+
+    public void setAction(GameAction action) {
+        this.action = action;
     }
 }

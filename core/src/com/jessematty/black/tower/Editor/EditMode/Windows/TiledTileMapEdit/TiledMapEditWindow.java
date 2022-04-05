@@ -36,7 +36,7 @@ import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
+import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.Editor.TiledMapStage.TiledMapStage;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
@@ -387,8 +387,7 @@ public class TiledMapEditWindow implements LockableInputProcessor {
             Entity entityToPlace = (Entity) clipBoard.getCurrentObject();
             if (currentMap != null && entityToPlace != null) {
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapWorldLocationX(currentMap.getWorldX());
-                position.setMapWorldLocationY(currentMap.getWorldX());
+                position.setMapID(currentMap.getId());
                 position.setLocationX(x);
                 position.setLocationY(y);
             }

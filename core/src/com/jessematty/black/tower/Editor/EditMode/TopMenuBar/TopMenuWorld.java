@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Editor.EditMode.TopMenuBar;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
@@ -16,10 +16,10 @@ public class TopMenuWorld {
     private final Menu map = new Menu("Map");
     private final Menu windows= new Menu("Windows");
     ObjectMap<String, MenuItem> menuItems= new ObjectMap<>();
-    private final WorldEditScreen worldEditScreen;
+    private final MapEditScreen worldEditScreen;
 
 
-    public TopMenuWorld(final WorldEditScreen worldEditScreen) {
+    public TopMenuWorld(final MapEditScreen worldEditScreen) {
         this.worldEditScreen=worldEditScreen;
 
 

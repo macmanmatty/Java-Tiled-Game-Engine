@@ -37,7 +37,7 @@ public  class GlowSystem extends GameEntitySystem {
             Entity entity=entities.get(count);
             PositionComponent position=positions.get(entity);
             DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
-            if(getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=getDraw().getCurrentMap()) {
+            if(getWorld().getMap(position.getMapId())!=getDraw().getCurrentMap()) {
                 drawableComponent.setDraw(false);
                 continue;
             }

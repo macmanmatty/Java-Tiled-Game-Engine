@@ -42,6 +42,17 @@ public class LandMap extends GameMap implements Serializable {
 		}
 
 
+	@Override
+	public void setMapName(String mapName) {
+		gameMapSettings.getSimpleSetting("mapName", String.class);
+
+	}
+
+	@Override
+	public String getMapName() {
+		return gameMapSettings.getSimpleSetting("name", String.class);
+
+	}
 
 
 	public ObjectMap<String, Building> getBuildings() {

@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows;
+package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 

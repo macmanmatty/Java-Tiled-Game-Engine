@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
@@ -17,10 +16,10 @@ public class TopMenu {
     private final Menu map = new Menu("Map");
     private final Menu windows= new Menu("Windows");
     ObjectMap<String, MenuItem> menuItems= new ObjectMap<>();
-    private final WorldEditScreen worldEditScreen;
+    private final MapEditScreen worldEditScreen;
     private MapEditScreen mapEditScreen;
-    public TopMenu(final WorldEditScreen worldEditScreen) {
-        this.worldEditScreen=worldEditScreen;
+    public TopMenu(final MapEditScreen mapEditScreen) {
+        this.worldEditScreen=mapEditScreen;
 
         MenuItem saveWorld = new MenuItem("Save World");
         saveWorld.addListener(new ClickListener() {

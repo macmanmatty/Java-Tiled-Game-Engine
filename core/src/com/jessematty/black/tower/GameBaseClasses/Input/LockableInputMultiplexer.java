@@ -89,6 +89,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
         try {
             for (int i = 0, n = processors.size; i < n; i++) {
                 InputProcessor inputProcessor = (InputProcessor) items[i];
+
                 if (inputProcessor instanceof LockableInputProcessor && ((LockableInputProcessor) inputProcessor).isKeyInputLocked()) {
                     continue;
                 }
@@ -106,10 +107,11 @@ public class LockableInputMultiplexer implements  InputProcessor {
         try {
             for (int i = 0, n = processors.size; i < n; i++) {
                 InputProcessor inputProcessor = (InputProcessor) items[i];
+
                 if (inputProcessor instanceof LockableInputProcessor && ((LockableInputProcessor) inputProcessor).isKeyInputLocked()) {
                     continue;
                 }
-                if (inputProcessor.touchDown(screenX, screenY, pointer, button)) {
+                if (  inputProcessor.touchDown(screenX, screenY, pointer, button)) {
                     return true;
                 }
             }

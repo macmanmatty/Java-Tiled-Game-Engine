@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RandomlyCreateAndPlaceEntity;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -66,7 +67,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
             }
             else if(randomlyCreateAndPlaceEntitySystem.isRandomLocation()){
 
-            placed=randomPlacementOnSelectedMap(entityToPlace, randomlyCreateAndPlaceEntitySystem.getMapLocations(), entityPosition);
+            placed=randomPlacementOnSelectedMap(entityToPlace, randomlyCreateAndPlaceEntitySystem.getMapIds(), entityPosition);
             }
             else{
 
@@ -95,12 +96,9 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
 
     private boolean randomPlacement(Entity entity, PositionComponent positionComponent){
 
-        int yMax=getWorld().getYMaps();
-        int xMax=getWorld().getXMaps();
-        int mapY= RandomNumbers.getRandomNumber(0, yMax);
-        int mapX= RandomNumbers.getRandomNumber(0, xMax);
-
-        LandMap map= (LandMap) getMap(mapX, mapY);
+        Array< LandMap> maps=getWorld().getWorldMap().values().toArray();
+        int randomNumberMap=RandomNumbers.getRandomNumber(0, maps.size-1);
+         LandMap map=maps.get(randomNumberMap);
         int buildings=map.getBuildings().size;
         int buildingNumber=RandomNumbers.getRandomNumber(-3, buildings);
         if(buildingNumber<0){
@@ -130,19 +128,15 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
         return  true;
 
     }
-    // places a entity  at random tile selected from the list of allowed maps  in the random placement component
+    // places a entity  at random tile selected from the list of allowed map ids  in the random placement component
 
-    private boolean randomPlacementOnSelectedMap(Entity entity, Array<Vector3> maps, PositionComponent positionComponent){
+    private boolean randomPlacementOnSelectedMap(Entity entity, Array<String> mapIds, PositionComponent positionComponent){
 
-        int max=maps.size;
+        int max=mapIds.size;
         int random=RandomNumbers.getRandomNumber(0, max);
-        Vector3 mapLocation=maps.get(random);
-        LandMap map= (LandMap) getMap((int)(mapLocation.x), (int)(mapLocation.y));
-        if(map==null){
-            return  false;
+       String mapId=mapIds.get(random);
+        LandMap map= (LandMap) getMap(mapId);
 
-        }
-        else if (mapLocation.y<0){
 
 
             LandSquareTile landSquareTile=MapUtilities.getRandomEnterableTile(map);
@@ -154,27 +148,8 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
 
 
             return  true;
-        }
-        else {
-
-            Building building=map.getBuildings().values().toArray().get((int)mapLocation.z);
-            if(building==null){
-                return false;
-
-            }
 
 
-            LandSquareTile landSquareTile = MapUtilities.getRandomEnterableTile(building);
-            if (landSquareTile == null) {
-                return false;
-
-            }
-            MapUtilities.setPositionToTile(landSquareTile, positionComponent);
-
-
-            return true;
-
-        }
 
 
 
@@ -190,10 +165,6 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
             PositionComponent positionComponent1 = positionComponents.get(random);
             entity.remove(PositionComponent.class);
             entity.add(positionComponent);
-
-
-
-
 
         return true;
 

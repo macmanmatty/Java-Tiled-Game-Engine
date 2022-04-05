@@ -196,4 +196,11 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 	public void setTileComponent(Tile tileComponent) {
 		this.tileComponent = tileComponent;
 	}
+	public void setMapId(String mapId){
+		position.setMapID(mapId);
+	}
+	public String getMapId(){
+
+		return position.getMapId();
+	}
 }

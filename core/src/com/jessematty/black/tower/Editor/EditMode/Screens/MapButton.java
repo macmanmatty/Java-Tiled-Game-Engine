@@ -7,21 +7,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 class MapButton extends com.badlogic.gdx.scenes.scene2d.ui.ImageButton{
      private LandMap map;
-     private WorldEditScreen worldEditScreen;
+     private MapEditScreen worldEditScreen;
      private Label nullMap;
-    public MapButton(TextureRegion imageUp, final WorldEditScreen worldEditScreen, final LandMap map) {
+    public MapButton(TextureRegion imageUp, final MapEditScreen worldEditScreen, final LandMap map) {
         super(new TextureRegionDrawable(imageUp));
         this.map = map;
         this.worldEditScreen = worldEditScreen;
     nullMap= new Label("Map is Null", getSkin());
         addListener();
     }
-    public MapButton(Skin skin, LandMap map, WorldEditScreen worldEditScreen) {
+    public MapButton(Skin skin, LandMap map, MapEditScreen worldEditScreen) {
         super(skin);
         this.map = map;
         this.worldEditScreen = worldEditScreen;

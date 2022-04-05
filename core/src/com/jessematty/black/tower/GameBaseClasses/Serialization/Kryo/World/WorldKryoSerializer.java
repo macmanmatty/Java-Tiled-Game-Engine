@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.esotericsoftware.kryo.Kryo;
@@ -54,14 +55,14 @@ public class WorldKryoSerializer extends Serializer<World> {
            gameAssets.loadExternalTextureAtlas(assetsPath);
             gameAssets.finishLoading();
         OrderedMap<String, Entity> entityObjectMap= (OrderedMap<String, Entity>) kryo.readClassAndObject(input);
-        LandMap [] [] maps= (LandMap[][]) kryo.readClassAndObject(input);
+        ObjectMap<String, LandMap> maps= (ObjectMap<String, LandMap>) kryo.readClassAndObject(input);
         world.setWorldMap(maps);
         Entity player= (Entity) kryo.readClassAndObject(input);
         Values<Entity> entities=entityObjectMap.values();
         while (entities.hasNext){
             world.addEntityToWorld(entities.next());
         }
-        world.setCurrentMap((Integer)worldSettings.getSettings().get("currentMapX") , (Integer)worldSettings.getSettings().get("currentMapY"));
+        world.setCurrentMap((String)worldSettings.getSettings().get("currentMapId"));
         world.setPlayer(player);
         return  world;
     }

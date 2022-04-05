@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Editor;
 
-import javafx.stage.Stage;
+
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class WindowMaker {
     Stage stage = new Stage();

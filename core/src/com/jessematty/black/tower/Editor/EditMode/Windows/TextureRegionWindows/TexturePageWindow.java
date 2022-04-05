@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
@@ -31,10 +29,10 @@ public class TexturePageWindow   {
 
    // @Override
     public void makeWindow() {
-        texturePageHeight= new NamedField(new PositiveIntegerField("1024", skin), new Label("Page Height", skin));
-        texturePageWidth= new NamedField(new PositiveIntegerField("1024", skin), new Label("Page Width", skin));
-        texturePagePadding= new NamedField(new PositiveIntegerField("2", skin), new Label("Page Texture Region Padding ", skin));
-        texturePageName= new NamedField(new PositiveIntegerField("", skin), new Label("Page Name", skin));
+        texturePageHeight= new NamedField(new Label("Page Height", skin), new PositiveIntegerField("1024", skin));
+        texturePageWidth= new NamedField(new Label("Page Width", skin), new PositiveIntegerField("1024", skin));
+        texturePagePadding= new NamedField(new Label("Page Texture Region Padding ", skin), new PositiveIntegerField("2", skin));
+        texturePageName= new NamedField(new Label("Page Name", skin), new PositiveIntegerField("", skin));
 
 
         addTexturePage= new TextButton("Add New Page", skin);

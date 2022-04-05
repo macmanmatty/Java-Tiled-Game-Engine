@@ -324,8 +324,7 @@ public class TiledMapEditWindow  implements InputProcessor {
             if (currentMap != null && entityToPlace != null) {
 
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapWorldLocationX(currentMap.getWorldX());
-                position.setMapWorldLocationY(currentMap.getWorldX());
+                position.setMapID(currentMap.getId());
                 position.setLocationX(x);
                 position.setLocationY(y);
             }

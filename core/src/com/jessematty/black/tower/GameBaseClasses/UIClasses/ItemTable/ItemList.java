@@ -5,16 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Comparator;
-
 /**
  *  a  UI class for a modifiable list of items used as columns in item tables  or as a single list of items
  * @param <T> the Item Object Class
  */
-
 public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSettable<T> {
     /**
      *  the size of the current number of items in the array
@@ -70,6 +67,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     private boolean remakeTable;
     /**
      *  the name of the getter and setter methods used to displayed name of the item for the label minus get and set
+     *  if not set will use  the java object toString method
      *
      */
     private String  methodName="";
@@ -81,9 +79,13 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      * the title for the list of items
      */
     private ItemListTitle<T> itemListTitle;
+    /**
+     *  the width of the list or column width if used with a ItemTable
+     */
     private float columnWidth=100f;
     /**
      * if being used as a column  in  Item Table the linked ItemTable
+     * @see ItemTable
      */
     private ItemTable<T> itemTable;
     /**
@@ -103,8 +105,15 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      * whether fpr not to display  the title for the list of items
      */
     private boolean displayTitle;
+    /**
+     * if true the list will be non editable and the objects to string method result will be displayed for the list text
+     */
+    private boolean useToString;
 
-
+    /**
+     * functional interface method that called when an item is selected
+     */
+    private OnSelected<T>  onSelected;
     /**
      * the comparator  used for item sorting
      */
@@ -125,10 +134,26 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             return getItemValue(item2).compareTo(getItemValue(item1));
         }
     };
-
+    
+    public ItemList(Skin skin, String titleName,  Class itemDataClass, boolean displayTitle) {
+        this(skin,"default", titleName, "", itemDataClass, null, 0, displayTitle);
+        useToString=true;
+        editable=false;
+    }
     public ItemList(Skin skin, String titleName, String methodName, Class itemDataClass, boolean displayTitle) {
        this(skin,"default", titleName, methodName, itemDataClass, null, 0, displayTitle);
     }
+    /**
+     * 
+     * @param skin libGDX Skin object
+     * @param styleName the style name for the libGDX Skin object
+     * @param titleName the title for the list
+     * @param methodName the method name used retrieve the displayed data
+     * @param itemDataClass the item data class Boolean.class, Float.class, Long.class, Double.class, Integer.class or String.class
+     * @param itemTable the linked item table
+     * @param tableColumnIndex the index of the column in the table
+     * @param displayTitle whether on not display the list title
+     */
     public ItemList(Skin skin, String styleName,  String titleName, String methodName,  Class itemDataClass, ItemTable<T> itemTable, int tableColumnIndex, boolean displayTitle) {
         this.skin = skin;
         this.displayTitle=displayTitle;
@@ -136,18 +161,13 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         this.itemListTitleStyle=skin.get(styleName, ItemListTitleStyle.class);
         this.methodName=methodName;
         this.tableColumnIndex=tableColumnIndex;
-        
         this.itemDataClass=itemDataClass;
         if(displayTitle==true) {
             itemListTitle = new ItemListTitle<>(this, titleName, itemListTitleStyle);
         }
-
         this.itemTable=itemTable;
         this.titleName=titleName;
-
-
     }
-
     /**
      * libGDX ui act method called by the stage object or parent UI object
      * used  to check for new items and  remake the list UI display them
@@ -159,23 +179,18 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         if(items!=null){
         if((size!=items.size) || remakeTable==true) {
                 size = items.size;
-
-
             remakeTable=false;
             makeItems();
         }
     }
     }
-
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
     }
-
     /**
      * creates the UI list Of Items  fro the array of items
      */
-
     private void makeItems(){
         int size=items.size;
         itemLabels.clear();
@@ -183,7 +198,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         if(displayTitle==true) {
             add(itemListTitle).width(columnWidth);
         }
-
         row();
         for(int count=0; count<size; count++){
            ItemLabel<T> label= new ItemLabel<T>(this,  count,   itemListLabelStyle, items.get(count),editable, methodName, itemDataClass);
@@ -200,12 +214,10 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         invalidateHierarchy();
         setBounds(getX(), getY(), columnWidth, getPrefHeight());
-
     }
     public Array<T> getItems() {
         return items;
     }
-
     /**
      *  sets the list of items  if track items is false creates new array of items so the original array of items won't be modified
      * @param items
@@ -222,7 +234,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         remakeTable=true;
     }
-
     /**
      *  sets the currently selected item to the passed in item
      * @param item
@@ -241,15 +252,14 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
                 label.setSelected(false);
             }
         }
-
         if(itemTable!=null && changeTable==true){
             itemTable.setSelectedIndex(selectedIndex);
             itemTable.forceRemakeTable();
-
         }
-
+        if(onSelected!=null){
+            onSelected.onSelected(item);
+        }
         fire(new ChangeEvent());
-
     }
     public T getSelectedItem() {
         return selectedItem;
@@ -267,7 +277,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     public void setSelected(int index, boolean changeTable) {
         this.selectedIndex=index;
-
         for( int count=0; count<size; count++){
            ItemLabel label= itemLabels.get(count);
             if(label.getIndex()==index){
@@ -279,13 +288,14 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
                 label.setSelected(false);
             }
         }
-
         if(itemTable!=null && changeTable==true){
             itemTable.setSelectedIndex(selectedIndex);
             itemTable.forceRemakeTable();
         }
+        if(onSelected!=null){
+            onSelected.onSelected(selectedItem);
+        }
         fire(new ChangeEvent());
-
     }
     public void setEditableLabel(ItemLabel setLabel) {
         for (int count = 0; count < size; count++) {
@@ -298,6 +308,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
     }
     public void setEditable(boolean editable) {
+        if(useToString==true){
+            return;
+        }
         this.editable = editable;
         remakeTable=true;
     }
@@ -306,7 +319,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     }
     public void forceRemakeTable() {
         this.remakeTable = true;
-
     }
    public void  enableDragOrderChanging(DragAndDrop dragAndDrop){
         this.dragToChangeOrder=true;
@@ -328,7 +340,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             items.sort(reverseItemComparator);
         }
         remakeTable=true;
-
         if(itemTable!=null){
             itemTable.setTableItems(items);
             itemTable.forceRemakeTable();
@@ -348,7 +359,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public  String getSelectedData(){
         return String.valueOf(selectedLabel.getText());
     }
-
     /**
      * returns the value for the given item
      * @param item
@@ -360,7 +370,14 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             Class<T> cls= (Class<T>) item.getClass();
             Method method = null;
             try {
-                method = cls.getDeclaredMethod("get"+methodName);
+                if(useToString || methodName==null || methodName.isEmpty()){
+                    method = cls.getDeclaredMethod("toString");
+                    editable=false;
+                }
+                else {
+                    method = cls.getDeclaredMethod("get" + methodName);
+                }
+
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException("Method Not Found");
@@ -384,52 +401,63 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             itemTable.forceRemakeColumns();
             itemTable.forceRemakeTable();
         }
-
     }
     public void setTableColumnIndex(int tableColumnIndex) {
         this.tableColumnIndex = tableColumnIndex;
     }
-
     public int getTableColumnIndex() {
         return tableColumnIndex;
     }
-
-
     public String getMethodName() {
         return methodName;
     }
-
     public void setMethodName(String methodName) {
         this.methodName = methodName;
+        remakeTable=true;
+        if(itemTable!=null){
+            itemTable.forceRemakeColumns();
+            itemTable.forceRemakeTable();
+        }
     }
-
+    public boolean isUseToString() {
+        return useToString;
+    }
+    public void setUseToString(boolean useToString) {
+        this.useToString = useToString;
+        if(useToString){
+            editable=false;
+        }
+        remakeTable=true;
+    }
     public String getTitleName() {
         return titleName;
     }
-
     public Class getItemDataClass() {
         return itemDataClass;
     }
-
     @Override
     public Skin getSkin() {
         return skin;
     }
-
     public Array<ItemLabel<T>> getItemLabels() {
         return itemLabels;
     }
-
     public boolean isDisplayTitle() {
         return displayTitle;
     }
-
     public DragAndDrop getDragAndDrop() {
         return dragAndDrop;
     }
-
     @Override
     public void setItem(T item) {
         setSelected(item, false);
+    }
+
+    public OnSelected<T> getOnSelected() {
+        return onSelected;
+    }
+
+    public void setOnSelected(OnSelected<T> onSelected) {
+        this.onSelected = onSelected;
     }
 }

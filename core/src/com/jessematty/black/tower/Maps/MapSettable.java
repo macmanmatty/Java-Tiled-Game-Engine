@@ -6,6 +6,6 @@ package com.jessematty.black.tower.Maps;
  */
 public interface MapSettable <Map extends GameMap> {
      void setMap(Map gameMap);
-     Map getMap();
+
 
 }

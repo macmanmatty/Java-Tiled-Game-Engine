@@ -50,7 +50,7 @@ public class BlastSystem extends GameEntitySystem{
 
             PositionComponent position = positionComponentMapper.get(explosion);
             Explodable explodable = explodableComponentMapper.get(explosion);
-            GameMap map=getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+            GameMap map=getWorld().getMap(position.getMapId());
 
             Circle circle= new Circle();
             circle.radius= explodable.getRadius();

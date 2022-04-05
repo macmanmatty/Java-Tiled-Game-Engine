@@ -43,9 +43,7 @@ public class TileTeleportSystem extends GameEntitySystem {
                 Array<Entity> entities=tile.getEntities();
             int transportTileX= teleportComponent.getTileTransportLocationX();
             int transportTileY= teleportComponent.getTileTransportLocationY();
-            int transportMapX= teleportComponent.getMapTransportLocationX();
-            int transportMapY= teleportComponent.getMapTransportLocationY();
-            GameMap map=getDraw().getWorld().getMap(transportMapX, transportMapY);
+
 
 
 

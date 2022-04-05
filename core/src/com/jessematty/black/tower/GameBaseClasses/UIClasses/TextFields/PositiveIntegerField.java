@@ -1,32 +1,19 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-
 public class PositiveIntegerField extends ActionTextField { // a text field that only allows positive integer numbers
     public PositiveIntegerField(String text, Skin skin) {
         super(text, skin);
         setTextFilter();
-
-
-
-
-
-
-
-
     }
-
     public PositiveIntegerField(String text, Skin skin, String styleName) {
         super(text, skin, styleName);
         setTextFilter();
-
     }
-
     public PositiveIntegerField(String text, TextFieldStyle style) {
         super(text, style);
         setTextFilter();
     }
-
     public void setTextFilter(){
         setTextFieldFilter(new TextFieldFilter() {
             @Override
@@ -40,7 +27,6 @@ public class PositiveIntegerField extends ActionTextField { // a text field that
             return 0;
         }
         System.out.println("text: "+getText());
-
         return Integer.valueOf(getText());
     }
     public void setText(int text){

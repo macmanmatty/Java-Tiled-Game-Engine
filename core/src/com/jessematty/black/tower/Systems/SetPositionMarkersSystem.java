@@ -77,7 +77,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
 
             GameMap currentMap=getDraw().getCurrentMap();
-            if(getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=currentMap){
+            if(getDraw().getWorld().getMap(position.getMapId())!=currentMap){
                 continue;
             }
             Rectangle rectangle=position.getBoundsBoundingRectangle();

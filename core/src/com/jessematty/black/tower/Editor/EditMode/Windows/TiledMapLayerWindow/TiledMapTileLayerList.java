@@ -1,8 +1,7 @@
-package com.jessematty.black.tower.Editor.EditMode.Windows.MapListWindow;
+package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemList;
 

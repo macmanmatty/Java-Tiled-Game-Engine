@@ -59,7 +59,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         this.world=world;
         this.skin=skin;
         worldObjects= new WorldObjects();
-        mapEditScreen =new MapEditScreen(gameAssets, clipBoard,   dragAndDrop,  skin, world, worldObjects);
 
         }
     public void editMap(GameMap currentMap){
@@ -69,7 +68,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     @Override
     public void show() {
         this.uiStage =new Stage();
-        topMenu=new TopMenuWorld(this);
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
@@ -86,7 +84,7 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
         Gdx.input.setInputProcessor(inputMultiplexer);
         entityGenerator= new EntityGenerator(world, gameAssets);
         if(world.isNewWorld()){
-            CreateWorldOptionPane createWorldOptionPane = new CreateWorldOptionPane(this, "Create World", skin, "default", world);
+            CreateWorldOptionPane createWorldOptionPane = new CreateWorldOptionPane(getGameAssets(), "Create World", skin, "default", world);
             createWorldOptionPane.makeWindow();
             Window window= createWorldOptionPane;
             window.setVisible(true);
@@ -94,7 +92,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
              uiStage.addActor(window);
         }
         else {
-            createWorldMapsOverview(world.getXMaps(), world.getYMaps());
         }
 
      makeWindows();
@@ -175,22 +172,16 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     public void createWorldMapsOverview(int xSize, int ySize){
         mapButtonsTable.clear();
         mapButtons= new MapButton[xSize][ySize];
-        world.createWorld(xSize, ySize);
+        world.createWorld();
         for(int countx=0; countx<xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
-                MapButton mapButton=new MapButton(skin, world.getMap(countx, county), this);
-                mapButton.setSize(160, 160);
-                mapButtons[countx][county]=mapButton;
-                mapButtonsTable.add(mapButton);
+
             }
             mapButtonsTable.row();
         }
         mapStage.addActor(mapButtonsTable);
     }
-    public void changeWordSize(int xSize, int ySize){
-        MapTools.changeWorldSize(world, xSize, ySize);
-        createWorldMapsOverview(xSize, ySize);
-    }
+
 
 
     @Override

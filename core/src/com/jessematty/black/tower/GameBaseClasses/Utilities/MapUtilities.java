@@ -40,9 +40,8 @@ public class MapUtilities {
 
 
     public static GameMap getEntityMap(World world, PositionComponent position){
-        int mapX=position.getMapWorldLocationX();
-        int mapY=position.getMapWorldLocationY();
-        LandMap landMap=world.getMap(mapX, mapY);
+        String mapId=position.getMapId();
+        LandMap landMap=world.getMap(mapId);
         String buildingId=position.getBuildingID();
 
         if( buildingId==null || buildingId.isEmpty()){
@@ -752,8 +751,7 @@ public class MapUtilities {
         float locationY=tile.getScreenLocationy();
         positionComponent.setLocationX(loactionX);
         positionComponent.setLocationY(locationY);
-        positionComponent.setMapWorldLocationX(tile.getLocationX());
-        positionComponent.setMapWorldLocationY(tile.getLocationY());
+        positionComponent.setMapID(tile.getMapId());
         positionComponent.getTiles().clear();
         positionComponent.getTiles().add(tile);
     }

@@ -55,7 +55,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
 
                     entityPosition.setDirection(ownerPosition.getDirection());
                     entityPosition.setPosition(ownerPosition.getLocationX(), ownerPosition.getLocationY());
-                    GameMap map = getDraw().getWorld().getMap(ownerPosition.getMapWorldLocationX(), ownerPosition.getMapWorldLocationY());
+                    GameMap map = getDraw().getWorld().getMap(ownerPosition.getMapId());
                     map.removeEntity(entityPosition.getTiles(), entity);
                     // add entity to map  add the tiles
                     entityPosition.setTiles(map.getAllTilesAndAddEntity(entityPosition.getBoundsBoundingRectangle(), entity));
@@ -85,7 +85,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
 
                     ownerPosition.setDirection(entityPosition.getDirection());
                     ownerPosition.setPosition(entityPosition.getLocationX(), entityPosition.getLocationY());
-                    GameMap map = getDraw().getWorld().getMap(entityPosition.getMapWorldLocationX(), entityPosition.getMapWorldLocationY());
+                    GameMap map = getDraw().getWorld().getMap(entityPosition.getMapId());
                     map.removeEntity(ownerPosition.getTiles(), owner);
                     // add entity to map  add the tiles
                     ownerPosition.setTiles(map.getAllTilesAndAddEntity(ownerPosition.getBoundsBoundingRectangle(), owner));

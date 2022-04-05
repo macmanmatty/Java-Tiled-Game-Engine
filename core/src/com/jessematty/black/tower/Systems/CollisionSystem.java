@@ -57,14 +57,14 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         float screenLocationX=position.getLocationX();
         float screenLocationY=position.getLocationY();
         Vector3 speed= movableComponent.getVelocity();
-        int mapX=position.getMapWorldLocationX();
-        int mayY=position.getMapWorldLocationY();
+        String mapId=position.getMapId();
+
 
             Rectangle rectangle=position.getBoundsBoundingRectangle();
             if(rectangle.x==0 || rectangle.y==0){
                 continue;
             }
-            GameMap map=getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+            GameMap map=getWorld().getMap(mapId);
 
             int tileSizeX=map.getTileWidth();
             int tileSizeY=map.getTileHeight();

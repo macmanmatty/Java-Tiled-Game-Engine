@@ -45,8 +45,7 @@ public class MapDragTarget extends Target {
             if(currentMap!=null) {
                 EntityGenerator.copyEntity(entityToPlace);
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapWorldLocationX(currentMap.getWorldX());
-                position.setMapWorldLocationY(currentMap.getWorldX());
+                position.setMapID(currentMap.getId());
                 position.setLocationX(unprojectedScreenCoordinates.x);
                 position.setLocationY(unprojectedScreenCoordinates.y);
                 world.addEntityToWorld(entityToPlace);

@@ -247,8 +247,7 @@ public class EntityTools {
             Entity entityToPlace = (Entity) entity;
 
             PositionComponent position = GameComponentMapper.getPositionComponentMapper().get(entityToPlace);
-            position.setMapWorldLocationX(currentMap.getWorldX());
-            position.setMapWorldLocationY(currentMap.getWorldX());
+            position.setMapID(currentMap.getId());
             position.setLocationX(x);
             position.setLocationY(y);
             world.addEntityToWorld(entityToPlace);

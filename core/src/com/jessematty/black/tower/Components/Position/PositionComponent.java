@@ -31,8 +31,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     private float boundsXOffset; // the offset of the bounds from the screen locations where  the entities texture region (if it has one) will be drawn
     private float boundsYOffset;
     private boolean hasBounds=true; // does the entity currently have bounds
-    private int mapWorldLocationX; // the x and y numbers for the current map  the entity is on
-    private int mapWorldLocationY;
     private  String buildingID=""; // empty  = not in building  else number corresponds to the  to the building in the given land map array slot.
     private float height; // entities physical  height
     private float heightFromGround; // height from the ground or z coordinate of the entity
@@ -189,19 +187,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     }
     public boolean isHasBounds() {
         return hasBounds;
-    }
-    public int getMapWorldLocationX() {
-        return mapWorldLocationX;
-    }
-    public void setMapWorldLocationX(int mapWorldLocationX) {
-        this.mapWorldLocationX = mapWorldLocationX;
-
-    }
-    public int getMapWorldLocationY() {
-        return mapWorldLocationY;
-    }
-    public void setMapWorldLocationY(int mapWorldLocationY) {
-        this.mapWorldLocationY = mapWorldLocationY;
     }
 
     public float getHeightFromGround() {

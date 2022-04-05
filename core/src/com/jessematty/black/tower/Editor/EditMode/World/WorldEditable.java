@@ -34,56 +34,23 @@ public class WorldEditable extends World {
      * class that extends world to make it editable and save references to  common  objects
      */
 
+    /**
+     *  The List Of Objects In The  World
+     */
     private WorldObjects worldObjects= new WorldObjects();
 
-        /**
-         *
-         * @param xMaps number of maps that connect horizontally
-         * @param yMaps number of maps that connect vertically
-         */
-        public WorldEditable(int xMaps, int yMaps) {
-            super(xMaps, yMaps);
+
+        public WorldEditable() {
+            super();
         }
         /**
          *
-         * @param xMaps number of maps that connect horizontally
-         * @param yMaps number of maps that connect vertically
          * @param name the name of the map
          */
-        public WorldEditable(int xMaps, int yMaps, String name) {
-           super(xMaps, yMaps, name);
+        public WorldEditable( String name) {
+           super( name);
 
         }
-
-        /**
-         *   // set a given array square to a LandMap instance
-         *   // and add it's objects to the game objects
-         * @param mapToPlace
-         * @param x
-         * @param y
-         */
-        public void placeMap(LandMap mapToPlace, int x, int y){
-
-        GameMap currentMapAtLocation=getGameMapOrNull(x, y);
-        if(currentMapAtLocation==null && mapToPlace!=null) { // no map exists place the map
-            if (mapToPlace != null) {
-                setMap(x, y, mapToPlace);
-                getMapObjects(mapToPlace);
-            }
-
-            return;
-        }
-        else{ // remove current map and place new one
-            removeMap(x, y);
-            setMap(x, y, mapToPlace);
-            getMapObjects(mapToPlace);
-        }
-
-
-    }
-
-
-
 
     private void getMapObjects(LandMap mapToPlace) {
 
@@ -93,18 +60,7 @@ public class WorldEditable extends World {
 
     }
 
-
-        /**
-         * sets a  given map at location x, y as the start map for the player
-         * @param x
-         * @param y
-         */
-
-        public void setStartMap(int x, int y){
-            super.setStartMap(x, y);
-
-        }
-        /**
+    /**
          * // adds entity to ashley engine
          * @param entity entity to add
          */
@@ -113,15 +69,14 @@ public class WorldEditable extends World {
          * @param entity
          *
          */
-        public void addEntityToMap(Entity entity, int mapX, int mapY,  int x, int y, int z) {
+        public void addEntityToMap(Entity entity, String mapId,  int x, int y, int z) {
             PositionComponent positionComponent = GameComponentMapper.getPositionComponentMapper().get(entity);
 
             if (positionComponent == null) {
                 positionComponent = new PositionComponent();
                 entity.add(positionComponent);
             }
-            positionComponent.setMapWorldLocationX(mapX);
-            positionComponent.setMapWorldLocationY(mapY);
+            positionComponent.setMapID(mapId);
             positionComponent.setPosition(x, y, z);
             this.addEntityToWorld(entity);
 
@@ -153,7 +108,7 @@ public class WorldEditable extends World {
         }
 
         public void removeEntityFromMap(Entity entity, PositionComponent position){
-            GameMap map= getGameMapOrNull(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+            GameMap map= getMap(position.getMapId());
             if(map==null){
                 return;
             }

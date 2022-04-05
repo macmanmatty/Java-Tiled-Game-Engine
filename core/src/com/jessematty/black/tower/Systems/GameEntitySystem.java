@@ -39,14 +39,14 @@ public abstract class GameEntitySystem extends EntitySystem   {
 
 
 
-    public final  GameMap getMap(int x , int y){
+    public final  GameMap getMap(String mapId){
 
-        return draw.getWorld().getMap(x, y);
+        return draw.getWorld().getMap(mapId);
     }
 
-    public LandSquareTile getTile(int mapX, int mapY, int tileX, int tileY){
+    public LandSquareTile getTile(String mapId, int tileX, int tileY){
 
-        GameMap map=getMap(mapX, mapY);
+        GameMap map=getMap(mapId);
         if(map!=null) {
 
 

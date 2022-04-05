@@ -2,11 +2,11 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
 public class GameStage extends Stage implements Disposable {
     public GameStage(float width, float height) {
        Viewport stageViewPort=new FillViewport(width, height);

@@ -15,9 +15,14 @@ import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
-public abstract  class GameMap  implements Map { // baisc landSquareTileMap class all maps extend
+
+/**
+ * class with map of 2d tiles  the game map that all other maps extend from
+ */
+public abstract  class GameMap  implements Map {
 	protected    LandSquareTile map[][]; // the  landSquareTileMap
 	protected GameMapSettings gameMapSettings= new GameMapSettings();
 	protected  TiledMap tiledMap; //  tiled maps tiles Map
@@ -32,20 +37,23 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	protected int yTiles; // map  y Size in total tile units 1 tile unit = tileSizeY
 	protected  int tileWidth =32; // tiled map tile sizes for x and y  landsquare tiles hold  the dimensions 1 tiled map tile equals one land square tile.
 	protected int tileHeight =32;
-	protected  int worldX;
-	protected  int worldY;
 	protected  float dayLightAmount;
 	protected  float lightChangeAmount;
 	protected  boolean gettingBrighter;
 	protected  boolean lightChanges;
 	protected transient Texture mapImage; // the image of the  the map  including all  tiled map tiles  and  drawable map entities
-	protected String id;
+	protected final  String id;
 
 
-
+	/**
+	 * creates a uniqiue id for the map on construction
+	 */
 	protected GameMap() {
+		id=new UID().toString();
+		gameMapSettings.getSettings().put("id", id);
 	}
 	public GameMap(int xTiles, int yTiles) {
+		this();
 		this.xTiles = xTiles;
 		this.yTiles = yTiles;
 		this.gameMapSettings.setTiles(xTiles, yTiles);
@@ -59,7 +67,7 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	public void mapTurnActions(float deltaTime, GameTime gameTime) { // method for updating the map and the tiles on it each game loop call
 		this.gameTime = gameTime;
 		gameMapSettings= new GameMapSettings();
-		Boolean lightChanges=gameMapSettings.getSimpleSetting("lighChanges", Boolean.class);
+		Boolean lightChanges=gameMapSettings.getSimpleSetting("lightChanges", Boolean.class);
 		
 		if (lightChanges!=null && lightChanges==true) {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
@@ -141,8 +149,6 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 
 		if(position.getMapId()!=id) {
 			entities.add(entity);
-			position.setMapWorldLocationY(worldY);
-			position.setMapWorldLocationX(worldX);
 			position.setMapID(id);
 
 
@@ -431,28 +437,7 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 	public void setEntities(Array<Entity> entities) {
 		this.entities = entities;
 	}
-	public int getWorldX() {
-		return worldX;
-	}
-	public int getWorldY() {
-		return worldY;
-	}
 
-	/**
-	 * set the x, y of the map on the world
-	 * @param worldX
-	 * @param worldY
-	 */
-	public void setWorldLocation(int worldX, int worldY) {
-		gameMapSettings.getSettings().put("worldX", worldX);
-		this.worldX=worldX;
-		gameMapSettings.getSettings().put("worldY", worldY);
-		this.worldY=worldY;
-		id="Id"+worldX+"x"+worldY+"Y"+hashCode();
-		gameMapSettings.getSettings().put("id", id);
-	}
-
-	
 	public Array<Class<? extends GameEntitySystem>> getMapGameEntitySystemsClasses() {
 		return mapGameEntitySystemsClasses;
 	}
@@ -471,7 +456,9 @@ public abstract  class GameMap  implements Map { // baisc landSquareTileMap clas
 		return mapImage;
 	}
 
-
+	public String getId() {
+		return id;
+	}
 
 	public void setMapImage(Texture mapImage) {
 		this.mapImage = mapImage;

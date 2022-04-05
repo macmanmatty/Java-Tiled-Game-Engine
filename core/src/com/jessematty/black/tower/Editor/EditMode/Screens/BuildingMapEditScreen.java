@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 
 import java.util.ArrayList;
 
-public  class BuildingMapEditScreen extends MapEditScreen {
+public  class BuildingMapEditScreen {
 
 
 
@@ -34,7 +34,5 @@ public  class BuildingMapEditScreen extends MapEditScreen {
     ArrayList<EnterenceSquareTile> buildingOutdoorEnterenceTiles= new ArrayList<EnterenceSquareTile>();
     TextButton addEnterence;
 
-    public BuildingMapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop,  Skin skin, World world, WorldObjects worldObjects) {
-        super(assets, clipBoard,  dragAndDrop, skin, world, worldObjects);
-    }
+
 }

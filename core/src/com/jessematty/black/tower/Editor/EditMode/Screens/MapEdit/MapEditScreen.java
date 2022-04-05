@@ -24,36 +24,34 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
+import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
+import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenuMap;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
 import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
+import com.jessematty.black.tower.Maps.WorldSettable;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
@@ -61,12 +59,8 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.GameMapEdit;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
 import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
-import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapWindows.NamedTiledMapTileLayer;
-import com.jessematty.black.tower.Editor.TiledMapStage.TiledMapStage;
-import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
+import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
-
-import javax.swing.text.View;
 
 public    class MapEditScreen implements NamedScreen, LockableInputProcessor, EditScreen, MapSettable {
     private PlaceMode placeMode = PlaceMode.PLACE;
@@ -84,7 +78,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private final GameAssets gameAssets;
     private TiledMapRenderer tiledMapRenderer;
     private  World world;
-    private final DragAndDrop dragAndDrop;
     private int currentLayerNumber;
     private Rectangle selectedArea = new Rectangle();
     private final WorldObjects worldObjects;
@@ -93,28 +86,30 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private MapTools mapTools;
     private MapEditWindows mapEditWindows;
     private MapEditButtons mapEditButtons;
-    private TopMenuMap topMenu;
+    private TopMenu topMenu;
     private boolean renderToBuffer=false;
     private MapEditKeys editInputKeys;
     private boolean screenLocked;
     private boolean keyLocked;
     private final GameInput gameInput;
-    public MapEditScreen(GameAssets assets, ClipBoard clipBoard, DragAndDrop dragAndDrop,  Skin skin, World world, WorldObjects worldObjects) {
+    private final MapDraw mapDraw;
+
+    public MapEditScreen(GameAssets assets, Skin skin, World world) {
         this.gameAssets = assets;
         this.world = world;
-        this.dragAndDrop = dragAndDrop;
         batch = new BrightnessBatch();
         this.skin = skin;
-        this.worldObjects = worldObjects;
-        this.clipBoard=clipBoard;
+        this.worldObjects = new WorldObjects();
+        this.clipBoard=new ClipBoard();
         this.gameInput=gameAssets.getGameInput();
         uiStage = new Stage();
+        mapDraw= new MapDraw(getGameAssets(), world);
 
     }
     @Override
     public void show() {
         camera = new GameCamera(960, 960);
-        topMenu= new TopMenuMap(this);
+        topMenu= new TopMenu(this);
         float viewPortWidth = 960;
         float viewPortHeight = 960;
         tiledMapEdit= new TiledMapEdit( gameAssets, clipBoard);
@@ -182,7 +177,16 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         tiledMapLayerWindow.setWindowSize(320, 200);
         height = height - tiledMapLayer2DWindow.getHeight();
         tiledMapLayer2DWindow.setPosition(width - 320, height);
-        uiStage.addActor(tiledMapLayer2DWindow);
+        uiStage.addActor(tiledMapLayerWindow);
+        EditWindow landMapSelectorWindow=mapEditWindows.getEditWindows().get("Land Map Selector Window");
+        landMapSelectorWindow.setWindowSize(320, 200);
+        height = height - landMapSelectorWindow.getHeight();
+        landMapSelectorWindow.setPosition(width - 320, height);
+        landMapSelectorWindow.setEditor(this);
+        mapDraw.getChangeListeners().getWorldSettables().add((WorldSettable) landMapSelectorWindow);
+        mapDraw.getChangeListeners().getMapSettables().add(tiledMapEdit);
+        mapDraw.setWorld(world);
+        uiStage.addActor(landMapSelectorWindow);
         uiStage.addActor(clipBoard);
     }
    
@@ -200,37 +204,20 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
          */
     public void setMap(GameMap map) {
             this.currentMap = map;
-                if(map==null){
-                    CreateMapOptionPane createMapOptionPane = new CreateMapOptionPane(this, getGameAssets(),getSkin() );
-                    createMapOptionPane.setLockableInputMultiplexer(getGameAssets().getGameInput().getLockableInputMultiplexer());
-                    createMapOptionPane.setLockOtherInputOnStageFocus(true);
-                    createMapOptionPane.makeWindow();
-                   getUiStage().addActor(createMapOptionPane);
-                    createMapOptionPane.setLockOtherInput(true);
-                    return;
-                }
 
-            TiledMap tiledMap=map.getTiledMap();
-            tiledMapEdit.setCurrentTiledMap(tiledMap);
-            tiledMapEdit.setCurrentLayer((NamedTiledMapTileLayer) tiledMap.getLayers().get(0));
-            // set the tiled of the current map to the editor
-        tiledMapEdit.setTileSizeX(map.getTileWidth());
-        tiledMapEdit.setTileSizeY(map.getTileHeight());
-        tiledMapEdit.setxSize(map.getXTiles());
-        tiledMapEdit.setySize(map.getYTiles());
-        // set the game amp in the current editor
+
         gameMapEdit.setTileSizeX(map.getTileWidth());
         gameMapEdit.setTileSizeY(map.getTileHeight());
         gameMapEdit.setxSize(map.getXTiles());
         gameMapEdit.setySize(map.getYTiles());
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1f);
-        setWindowsToCurrentMap();
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map.getTiledMap(), 1f);
+        mapDraw.setMap(map, false);
+
     }
 
 
 
-    private void setWindowsToCurrentMap() {
-    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(Color.FOREST.r, Color.FOREST.g, Color.FOREST.b, Color.FOREST.a );
@@ -412,8 +399,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
             if (currentMap != null && entityToPlace != null) {
                 ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapWorldLocationX(currentMap.getWorldX());
-                position.setMapWorldLocationY(currentMap.getWorldX());
+                position.setMapID(currentMap.getId());
                 position.setLocationX(x);
                 position.setLocationY(y);
             }
@@ -497,9 +483,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public OrthographicCamera getCamera() {
         return camera;
     }
-    public DragAndDrop getDragAndDrop() {
-        return dragAndDrop;
-    }
     public TiledMapEdit getTiledMapEdit() {
         return tiledMapEdit;
     }
@@ -515,9 +498,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public GameMap getCurrentMap() {
         return currentMap;
     }
-    public void setCurrentMap(GameMap currentMap) {
-        this.currentMap = currentMap;
-    }
+
     public SelectMode getSelectMode() {
         return selectMode;
     }
@@ -552,5 +533,8 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     @Override
     public void setKeyInputLocked(boolean keyLocked) {
         this.keyLocked = keyLocked;
+    }
+
+    public void editMap(LandMap map) {
     }
 }
