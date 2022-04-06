@@ -1,16 +1,17 @@
 package com.jessematty.black.tower.GameBaseClasses.Input;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
 import java.util.Objects;
 /** class  that holds a combination of  input keys that when pressed will
 call the key action function they key listener class
+ @see com.jessematty.black.tower.GameBaseClasses.UIClasses.Input.KeyInput
  **/
 public class InputKeyCombo implements Nameable {
     /** 
-     * the integers  keyboard key code from libGDX  input keys (libgdx.Input.Keys);
+     * the integers  keyboard key code from libGDX  input keys (libGDX.Input.Keys);
      * **/
    private Array<Integer> keysPressed= new Array<>();
-    // -1 == no key
     /**
      * // the press mode for they key that correlates
      *     // to the libGDX key input method.
@@ -31,6 +32,14 @@ public class InputKeyCombo implements Nameable {
      *  if this is true the key action will never be executed in the key listener
      */
     private boolean disabled;
+    /**
+     * the actor a stage must be focused on for they key  action to fire
+     * may be null if no actor is required
+     * if you set this  the action will only fire if  the given actor
+     * is focused on any of the  stage(s) in the KeyInput class
+     *
+     */
+    private Actor focusActor;
 
     /**
      *
@@ -71,9 +80,8 @@ public class InputKeyCombo implements Nameable {
         this.keyAction = keyAction;
     }
 
-    /** if keys are equal and keymode are equal object is equal
-     *
-     *
+    /**
+     * keys are equal if keys  and keymode are equal  and the stage focused  actor is equal
      */
     @Override
     public boolean equals(Object o) {
@@ -81,12 +89,18 @@ public class InputKeyCombo implements Nameable {
         if (!(o instanceof InputKeyCombo)) return false;
         InputKeyCombo that = (InputKeyCombo) o;
         return keysPressed.equals(that.keysPressed) &&
-                keyAction.equals(that.keyAction);
+                keyPressMode == that.keyPressMode &&
+                keyAction.equals(that.keyAction) &&
+                Objects.equals(focusActor, that.focusActor);
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(keysPressed, keyAction);
+        return Objects.hash(keysPressed, keyPressMode, keyAction, focusActor);
     }
+
+
+
     public KeyPressMode getKeyPressMode() {
         return keyPressMode;
     }
@@ -107,5 +121,13 @@ public class InputKeyCombo implements Nameable {
     }
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public Actor getFocusActor() {
+        return focusActor;
+    }
+
+    public void setFocusActor(Actor focusActor) {
+        this.focusActor = focusActor;
     }
 }

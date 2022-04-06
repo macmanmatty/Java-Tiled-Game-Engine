@@ -1,15 +1,25 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
+import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.DeleteOptionPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Comparator;
 /**
- *  a  UI class for a modifiable list of items used as columns in item tables  or as a single list of items
+ *  a  UI class for a modifiable list of items
+ *  is also used as columns in  the ItemTable Class
+ * @linked ItemTable
+ * @see ItemTable
  * @param <T> the Item Object Class
  */
 public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSettable<T> {
@@ -46,7 +56,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     private boolean dragToChangeOrder;
     /**
-     *  is the list sortable?
+     *  is the list sortable? if true clicking
+     *  on the title will sort the contents of the list ascending  using a basic comparator or one you specify
+     *  and clicking again will sort  the list descending using a basic comparator or one you specify
      */
     private boolean sortable;
     /**
@@ -62,9 +74,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     private ItemLabel<T> selectedLabel;
     /**
-     * remake the table on column change
+     * remake the table on column change flag
      */
-    private boolean remakeTable;
+    private boolean remakeList;
     /**
      *  the name of the getter and setter methods used to displayed name of the item for the label minus get and set
      *  if not set will use  the java object toString method
@@ -73,6 +85,14 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     private String  methodName="";
     /**
      *  the class for that data type to be displayed  IE Integer String Double etc.
+     *  accepts
+     *  String.class
+     *  Long.class
+     *  Integer.class
+     *  Float.class
+     *  Double.class
+     *  Boolean.class
+     *
      */
     private Class itemDataClass=String.class;
     /**
@@ -80,7 +100,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     private ItemListTitle<T> itemListTitle;
     /**
-     *  the width of the list or column width if used with a ItemTable
+     *  the width of the list or column width if used with an ItemTable
      */
     private float columnWidth=100f;
     /**
@@ -93,7 +113,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     private int tableColumnIndex;
     /**
-     * the name of the title list
+     * the name of the title list if used with an ItemTable This will be the column header
      */
     private String titleName;
     /**
@@ -102,7 +122,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     private ItemListLabelStyle itemListLabelStyle;
     private ItemListTitleStyle itemListTitleStyle;
     /**
-     * whether fpr not to display  the title for the list of items
+     * whether for not to display  the title for the list of items
      */
     private boolean displayTitle;
     /**
@@ -111,11 +131,43 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     private boolean useToString;
 
     /**
+     * whether or not  an item can be deleted by pressing the delete key
+     * this  is linked to the  table as well so if table is set to delete on delete
+     * this cant be true
+     */
+
+    private boolean pressDeleteToDeleteItem;
+
+    /**
+     * whether or not  to display a dialog  box to confirm your delete
+     * if true a DeleteOptionPane box will be displayed at the center of the screen
+     * asking you to confirm your delete
+     * @see com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.DeleteOptionPane
+     *
+     */
+    private boolean confirmDelete;
+
+    /**
      * functional interface method that called when an item is selected
      */
     private OnSelected<T>  onSelected;
     /**
-     * the comparator  used for item sorting
+     * the comparator  used for ascending  item sorting can be  replaced with a custom comparator
+     * the default uses the items .compareTo() method
+     *
+     */
+
+    /**
+     *  they key input combo for deleting  a item from the list
+     *  if it is enabled. this will use the delete key to remove
+     *  the selected item from the list
+     */
+    private  final InputKeyCombo deleteCombo;
+
+    /**
+     * the comparator  used for ascending   item sorting can be  replaced with a custom comparator
+     * the default uses the items .compareTo() method with items swapped for descending sorting
+     *
      */
     private Comparator<T> itemComparator= new Comparator<T>() {
         boolean descend;
@@ -125,7 +177,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
     };
     /**
-     * the comparator  used for  reverse item sorting
+     * the comparator  used for descending  item sorting can be  replaced with a custom comparator
+     * the default uses the items .compareTo() method with items swapped in order  for descending sorting
+     *
      */
     private Comparator<T> reverseItemComparator= new Comparator<T>() {
         boolean descend;
@@ -167,6 +221,29 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         this.itemTable=itemTable;
         this.titleName=titleName;
+        // set up for delete key
+        KeyAction keyAction= new KeyAction() {
+            @Override
+            public void act() {
+                if(confirmDelete){
+                    if(selectedItem!=null && confirmDelete) {
+                        DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), items, selectedItem);
+                        deleteOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
+                        getStage().addActor(deleteOptionPane);
+                        remakeList =true;
+                    }
+                    else if(selectedItem!=null){
+                        items.removeValue(selectedItem, true);
+                        remakeList =true;
+                    }
+
+                }
+            }
+        };
+        deleteCombo= new InputKeyCombo(keyAction,"Delete Item "+this, Keys.DEL );
+        deleteCombo.setFocusActor(this);
+        GameAssets.getGameInput().getKeyListener().addInputKeyCombo(deleteCombo);
+
     }
     /**
      * libGDX ui act method called by the stage object or parent UI object
@@ -177,9 +254,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public void act(float delta) {
         super.act(delta);
         if(items!=null){
-        if((size!=items.size) || remakeTable==true) {
+        if((size!=items.size) || remakeList ==true) {
                 size = items.size;
-            remakeTable=false;
+            remakeList =false;
             makeItems();
         }
     }
@@ -232,12 +309,14 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             this.items.addAll(items);
             
         }
-        remakeTable=true;
+        remakeList =true;
     }
     /**
      *  sets the currently selected item to the passed in item
-     * @param item
-     * @param changeTable
+     * @param item the item to select
+     * @param changeTable whether or not to set the selected index
+     *   of the parent  ItemTable as well and then remake it.
+     *
      */
     public   void setSelected(T item, boolean changeTable){
         this.selectedItem=item;
@@ -261,12 +340,28 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         fire(new ChangeEvent());
     }
+
+    /**
+     *
+     * @return the currently selected item
+     */
     public T getSelectedItem() {
         return selectedItem;
     }
+
+    /**
+     *
+     * @return the ItemLabel of the selected Item
+     */
+
     public ItemLabel<T> getSelectedLabel() {
         return selectedLabel;
     }
+
+    /**
+     * returns
+     * @return the index in the array of the selected item
+     */
     public int getSelectedIndex() {
         return selectedIndex;
     }
@@ -312,13 +407,23 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             return;
         }
         this.editable = editable;
-        remakeTable=true;
+        remakeList =true;
     }
     public boolean isEditable() {
         return editable;
     }
-    public void forceRemakeTable() {
-        this.remakeTable = true;
+
+    /**
+     * set the force remake flag to rue to remake the  the list / column
+     * if there is linked table sets the parents ItemTable force remake flags too.
+     * @linked ItemTable
+     */
+    public void forceRemakeList() {
+        this.remakeList = true;
+        if(itemTable!=null){
+            itemTable.forceRemakeTable();
+            itemTable.forceRemakeColumns();
+        }
     }
    public void  enableDragOrderChanging(DragAndDrop dragAndDrop){
         this.dragToChangeOrder=true;
@@ -339,7 +444,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         else {
             items.sort(reverseItemComparator);
         }
-        remakeTable=true;
+        remakeList =true;
         if(itemTable!=null){
             itemTable.setTableItems(items);
             itemTable.forceRemakeTable();
@@ -360,7 +465,10 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         return String.valueOf(selectedLabel.getText());
     }
     /**
-     * returns the value for the given item
+     * returns the value for the given item using java reflection
+     * based on the passed getter method name
+     * if no method name specified will   use
+     * the java objects.toString() method and editing will be disabled
      * @param item
      * @return
      */
@@ -395,6 +503,13 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public float getColumnWidth() {
         return columnWidth;
     }
+
+    /**
+     * sets the width for the column  or if  a single list the width of the list
+     * forces remaking of the ItemTable and  columns if there is table associated with it
+     *
+     * @param columnWidth
+     */
     public void setColumnWidth(float columnWidth) {
         this.columnWidth = columnWidth;
         if(itemTable!=null){
@@ -413,7 +528,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     }
     public void setMethodName(String methodName) {
         this.methodName = methodName;
-        remakeTable=true;
+        remakeList =true;
         if(itemTable!=null){
             itemTable.forceRemakeColumns();
             itemTable.forceRemakeTable();
@@ -422,12 +537,18 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public boolean isUseToString() {
         return useToString;
     }
+
+    /**
+     * sets wether or not to use  the to string for the list data
+     * if true sets editable to false as to string cannot be set
+     * @param useToString
+     */
     public void setUseToString(boolean useToString) {
         this.useToString = useToString;
         if(useToString){
             editable=false;
         }
-        remakeTable=true;
+        remakeList =true;
     }
     public String getTitleName() {
         return titleName;
@@ -459,5 +580,41 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
 
     public void setOnSelected(OnSelected<T> onSelected) {
         this.onSelected = onSelected;
+    }
+
+
+
+    public Comparator<T> getItemComparator() {
+        return itemComparator;
+    }
+
+    public void setItemComparator(Comparator<T> itemComparator) {
+        this.itemComparator = itemComparator;
+    }
+
+    public Comparator<T> getReverseItemComparator() {
+        return reverseItemComparator;
+    }
+
+    public void setReverseItemComparator(Comparator<T> reverseItemComparator) {
+        this.reverseItemComparator = reverseItemComparator;
+    }
+
+
+    public boolean isPressDeleteToDeleteItem() {
+        return pressDeleteToDeleteItem;
+    }
+
+    public void setPressDeleteToDeleteItem(boolean pressDeleteToDeleteItem) {
+        this.pressDeleteToDeleteItem = pressDeleteToDeleteItem;
+        deleteCombo.setDisabled(!pressDeleteToDeleteItem);
+    }
+
+    public boolean isConfirmDelete() {
+        return confirmDelete;
+    }
+
+    public void setConfirmDelete(boolean confirmDelete) {
+        this.confirmDelete = confirmDelete;
     }
 }

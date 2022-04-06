@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ActorEntityUtilities;
 
 /**class that detects  input from multiple keys  at the same time
  *
@@ -136,7 +137,7 @@ public class KeyListener implements LockableInputProcessor {
     }
 
     /**
-     * checks to see if TextField is the primary  focus of the keyboard
+     * checks to see if  a TextField is the primary  focus of the keyboard
      * @return
      */
     private boolean isKeyboardFocusOnTextField(){
@@ -145,6 +146,24 @@ public class KeyListener implements LockableInputProcessor {
             Stage stage=stages.get(count);
             Actor actor=stage.getKeyboardFocus();
             if(actor instanceof TextField){
+                return true;
+            }
+        }
+        return  false;
+    }
+
+    /**
+     * checks to see if  a a passed actor  is the primary  focus of the keyboard
+     * for any of the games stages
+     * @param actor the actor to compare to.
+     * @return
+     */
+    private boolean isKeyboardFocusOnActor(Actor actor){
+        int size=stages.size;
+        for(int count=0;  count<size; count++){
+            Stage stage=stages.get(count);
+            Actor actor2=stage.getKeyboardFocus();
+            if(actor ==actor2){
                 return true;
             }
         }
@@ -160,6 +179,12 @@ public class KeyListener implements LockableInputProcessor {
           InputKeyCombo inputKeyCombo= inputKeyCombos.get(count);
           if(inputKeyCombo.isDisabled()){
               continue;
+          }
+          Actor actor=inputKeyCombo.getFocusActor();
+          if(actor!=null){
+              if(!isKeyboardFocusOnActor(actor)){
+                  continue;
+              }
           }
             Array<Integer> keysToBePressed=inputKeyCombo.getKeysPressed();
             if(keyPressMode!=inputKeyCombo.getKeyPressMode()){

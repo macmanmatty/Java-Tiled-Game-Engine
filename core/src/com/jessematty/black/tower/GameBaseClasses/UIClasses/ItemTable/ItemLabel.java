@@ -78,6 +78,8 @@ public class ItemLabel<T >  extends Label {
      */
     private ItemListLabelStyle itemListLabelStyle;
 
+
+
     /**
      *
      * @param itemList
@@ -395,6 +397,8 @@ public class ItemLabel<T >  extends Label {
            }
        }
    }
+
+
     /**
      * method for getting the value uses reflection
      */

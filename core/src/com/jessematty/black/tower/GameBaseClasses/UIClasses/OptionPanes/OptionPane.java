@@ -51,6 +51,7 @@ public class OptionPane extends Dialog{
 		setSize(getPrefWidth(), getPrefHeight());
 
 	}
+
 	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, Image image,  final OptionPaneAction optionPaneAction) {
 		super(title, skin);
 	text(text);
