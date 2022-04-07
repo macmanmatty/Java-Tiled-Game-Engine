@@ -9,6 +9,6 @@ public class ItemDisplayWindow  extends GameWindow {
     }
 
     public ItemDisplayWindow(String title, Skin skin, String styleName, MapDraw mapDraw) {
-        super(title, skin, styleName, mapDraw.getAssetts());
+        super(title, skin, styleName, mapDraw.getGameAssets());
     }
 }

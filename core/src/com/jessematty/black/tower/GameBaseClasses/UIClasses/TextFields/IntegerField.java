@@ -1,7 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-public class IntegerField extends ActionTextField { // a text field that only allows intger numbers to be entered
+
+/**
+ * //a  text field that accepts only integers
+ */
+public class IntegerField extends ActionTextField {
     public IntegerField(String text, Skin skin) {
         super(text, skin);
         setTextFilter();

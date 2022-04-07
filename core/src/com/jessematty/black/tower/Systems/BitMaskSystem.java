@@ -39,7 +39,7 @@ public  class BitMaskSystem extends GameEntitySystem {
             PositionComponent position=positions.get(entity);
             DrawableComponent drawableComponent =drawables.get(entity);
             BitMaskable bitMaskable=bitmaskables.get(entity);
-            int bitNumber=bitMask.eightSideBitMapCalculator(position.getTiles().get(0),entity,  getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()));
+            int bitNumber=bitMask.eightSideBitMapCalculator(position.getTiles().get(0),entity,  getWorld().getMap(position.getMapId()));
             if(bitNumber!=bitMaskable.getBitNumber()){
                 
                 bitMaskable.setBitNumber(bitNumber);
@@ -48,7 +48,7 @@ public  class BitMaskSystem extends GameEntitySystem {
             }
             
             
-            if(getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY())!=getDraw().getCurrentMap()) {
+            if(getWorld().getMap(position.getMapId())!=getDraw().getCurrentMap()) {
                 drawableComponent.setDraw(false);
                 continue;
             }

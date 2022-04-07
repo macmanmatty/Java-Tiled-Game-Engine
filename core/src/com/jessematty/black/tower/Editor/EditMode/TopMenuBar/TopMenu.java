@@ -3,13 +3,10 @@ package com.jessematty.black.tower.Editor.EditMode.TopMenuBar;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.WindowOptionPane;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
-
-import javafx.stage.Window;
 
 public class TopMenu {
    private  MenuBar menuBar= new MenuBar();
@@ -19,12 +16,10 @@ public class TopMenu {
     private final Menu map = new Menu("Map");
     private final Menu windows= new Menu("Windows");
     ObjectMap<String, MenuItem> menuItems= new ObjectMap<>();
-    private final WorldEditScreen worldEditScreen;
-
-
-    public TopMenu(final WorldEditScreen worldEditScreen) {
-        this.worldEditScreen=worldEditScreen;
-
+    private final MapEditScreen worldEditScreen;
+    private MapEditScreen mapEditScreen;
+    public TopMenu(final MapEditScreen mapEditScreen) {
+        this.worldEditScreen=mapEditScreen;
 
         MenuItem saveWorld = new MenuItem("Save World");
         saveWorld.addListener(new ClickListener() {
@@ -181,6 +176,14 @@ public class TopMenu {
 
 
 
+    }
+
+    public MapEditScreen getMapEditScreen() {
+        return mapEditScreen;
+    }
+
+    public void setMapEditScreen(MapEditScreen mapEditScreen) {
+        this.mapEditScreen = mapEditScreen;
     }
 
     public MenuBar getMenuBar() {

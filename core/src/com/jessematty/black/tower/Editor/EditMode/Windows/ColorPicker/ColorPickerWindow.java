@@ -1,22 +1,23 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.ColorPicker;
-import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.jessematty.black.tower.Components.ColorSettable;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
-public class ColorPickerWindow  extends MapEditWindow  implements ClipBoardChangeListener {
+public class ColorPickerWindow  extends EditWindow implements ClipBoardChangeListener {
     private ColorPicker colorPicker= new ColorPicker();
     private ColorSettable colorSettable;
     private TextField colorName;
-    public ColorPickerWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
+    public ColorPickerWindow(GameAssets assets, String title, Skin skin, String style) {
+        super(assets, title, skin, style);
         colorName= new TextField("Enter Color Nmae" , skin);
         makeWindow();
     }

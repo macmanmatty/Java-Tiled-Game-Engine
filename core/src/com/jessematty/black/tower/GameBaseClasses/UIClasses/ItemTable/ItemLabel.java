@@ -7,61 +7,110 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.IntegerField;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+/**
+ *  class for  label that runs into a TextField on double clicking to allow you to edit the contents the 
+ *  label returns after hotting enter in the text field.
+ *  uses reflection to call a method to get the and set the data to a linked item.
+ * @param <T>
+ */
 public class ItemLabel<T >  extends Label {
+    /**
+     * the linked item
+     */
     private T item;
+    /**
+     * the TextField
+     */
     private TextField textField;
+    /**
+     * whether for not to display the text field
+     */
     private boolean displayTextField;
+    
     private boolean changed;
+    
     private boolean textFieldAdded;
+    /**
+     * click counter on 2 clicks  the Label Becomes a TextField
+     */
     private int clicks;
+    /**
+     * is this the selected  label in the liked item list
+     */
     private boolean selected;
+    /**
+     *  the adapter for the linked ItemList
+     * @see ItemList
+     */
     private  ItemListAdapter<T> itemList;
+    /**
+     * the position of  the item in the linked ItemLists Array
+     */
     private  int index;
+    /**
+     * the counter in milliseconds  to reset the click counter after 2 seconds the click counter will reset to zero
+     */
     private int clickResetCounter;
+    /**
+     * is the label editable aka will the text appear on double clicking
+     */
     private boolean editable;
+    /**
+     * the method name to call to get the data
+     */
     private String methodName="";
+    /**
+     * the  java Class of the data type supported types are
+     * String.class
+     * Long.class
+     * Integer.class
+     * Double.class
+     * Float.class
+     * Boolean.class
+     * method is the format of get+MethodName and set+MethodName  
+     * you need ony the part of the  method  name after the get and set portions
+     */
     private Class itemDataClass=String.class;
+    /**
+     *  the custom libGDX Scene 2d style for this  UI class
+     */
     private ItemListLabelStyle itemListLabelStyle;
 
 
 
-
+    /**
+     *
+     * @param itemList
+     * @param index
+     * @param itemListLabelStyle
+     * @param item
+     * @param editable
+     * @param methodName
+     * @param itemDataClass
+     */
     public ItemLabel(final ItemListAdapter <T> itemList,   final int index, ItemListLabelStyle itemListLabelStyle, final T item, final boolean editable, String methodName, Class itemDataClass) {
         super("", itemListLabelStyle.labelStyle);
-
         this.itemList = itemList;
         this.index = index;
         this.editable = editable;
         this.methodName = methodName;
         this.itemDataClass = itemDataClass;
         this.itemListLabelStyle=itemListLabelStyle;
-
-
-
         if(itemDataClass==String.class) {
             textField = new TextField("", itemListLabelStyle.textFieldStyle);
         }
         else if(itemDataClass==Float.class || itemDataClass==Double.class){
-
             textField = new FloatField("", itemListLabelStyle.textFieldStyle);
-
         }
-
         else if(itemDataClass==Long.class || itemDataClass==Integer.class){
-
             textField = new IntegerField("",itemListLabelStyle.textFieldStyle);
-
         }
         textField.setVisible(false);
         textField.setLayoutEnabled(false);
         setLayoutEnabled(true);
         this.item=item;
-
-
         if(item!=null){
            setText(getItemValue());
         }
@@ -69,62 +118,48 @@ public class ItemLabel<T >  extends Label {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer,  int button ) {
                 clicks++;
-
-                System.out.println(getText()+" clicked  times " + clicks);
                if(clicks==1){
                    if(itemList!=null){
-                       System.out.println(getText()+" clicked  times " + clicks);
-
                        itemList.setSelected(index, true);
                    }
                }
                if(clicks==2 ) {
-
                    if(editable==true) {
                        displayTextField();
                    }
                    clicks=0;
-
-
-
                }
                return  true;
-
             }
-
-
         });
         textField.addListener(new InputListener(){
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 if(keycode== Keys.ENTER){
                         displayLabel();
-
                 }
                 return true;
             }
         });
         setBounds(getX(),getY() ,getPrefWidth() ,getPrefHeight() );
-
-
     }
+    /**
+     * method to display the label
+     */
     public void displayLabel() {
         if(item!=null) {
             setItemValue();
         }
-
         setText(textField.getText());
         displayTextField=false;
         setVisible(true);
-
         invalidate();
-
         textField.setVisible(false);
         changed=true;
-
-
     }
-
+    /**
+     * method to display the text field 
+     */
     public void displayTextField(){
         displayTextField = true;
         setVisible(false);
@@ -133,21 +168,32 @@ public class ItemLabel<T >  extends Label {
         textField.setPosition(getX(), getY());
         textField.setSize(getWidth(), getHeight());
         changed = true;
-
     }
-
     public void changeBackground(){
     }
+    /**
+     * 
+     * @return the linked item
+     */
     public T getItem() {
         return item;
     }
-    public void setItem(T item) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    /**
+     * 
+     * @param item sets the linked item
+     * @throws IllegalArgumentException if the item is null
+     */
+    public void setItem(T item) throws IllegalArgumentException {
         if(item==null){
             throw new IllegalArgumentException("Item Cannot Be Null");
         }
         this.item = item;
        getItemValue();
     }
+    /**
+     * overridden act method  used to swap TextField and Label actors  and count clicks
+     * @param delta
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -159,9 +205,14 @@ public class ItemLabel<T >  extends Label {
         if(clickResetCounter==120){
             clicks=0;
             clickResetCounter=0;
-
         }
     }
+    /**
+     * overidden methods to size the TextField the same as the label
+     *
+     */
+    
+    
     @Override
     public void setX(float x) {
         super.setX(x);
@@ -274,48 +325,42 @@ public class ItemLabel<T >  extends Label {
     public TextField getTextField() {
         return textField;
     }
-
     public boolean isSelected() {
         return selected;
     }
+    /**
+     * sets whether or not this Label is the selected one  in the list
+     * and if so sets it style to the style to the selected style.
+     * @param selected
+     */
     public void setSelected(boolean selected) {
         this.selected = selected;
         if(selected==true){
-
             setStyle(itemListLabelStyle.selectedLabelStyle);
         }
         else{
-
             setStyle(itemListLabelStyle.labelStyle);
-
         }
     }
-
     public int getIndex() {
         return index;
     }
-
     public void setIndex(int index) {
         this.index = index;
     }
-
    private  ItemLabel <T> getLabel(){
-
         return this;
     }
-
     public boolean isEditable() {
         return editable;
     }
-
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
-
-
-   public void  setItemValue()  {
-
-
+    /**
+     * method for setting the value uses reflection
+     */
+    public void  setItemValue()  {
        if(item!=null){
            Class<T> cls= (Class<T>) item.getClass();
            Method method = null;
@@ -331,37 +376,31 @@ public class ItemLabel<T >  extends Label {
                }
                else if(itemDataClass==Long.class){
                    method.invoke(item, Long.valueOf(textField.getText()));
-
                }
               else  if(itemDataClass==Integer.class){
                    method.invoke(item, Integer.valueOf(textField.getText()));
-
                }
                else if(itemDataClass==Float.class){
                    method.invoke(item, Float.valueOf(textField.getText()));
-
                }
                else  if(itemDataClass==Double.class){
                    method.invoke(item, Double.valueOf(textField.getText()));
-
                }
-
-
            } catch (IllegalAccessException e) {
                e.printStackTrace();
-
                throw new IllegalArgumentException("Method Not Found");
            } catch (InvocationTargetException e) {
                e.printStackTrace();
-
                throw new IllegalArgumentException("Method Not Found");
            }
        }
    }
 
+
+    /**
+     * method for getting the value uses reflection
+     */
     public String  getItemValue()  {
-
-
         String value="";
         if(item!=null){
             Class<T> cls= (Class<T>) item.getClass();
@@ -382,7 +421,4 @@ public class ItemLabel<T >  extends Label {
         }
         return value;
     }
-
-
-
 }

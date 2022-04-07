@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.TileSetCreationWindow
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettableImage;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
@@ -17,7 +17,7 @@ public class DiagonalsTileSet {
     private int tileHeight;
 
     private GameAssets gameAssets;
-    private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
+    private final MapEditScreen mapEditScreen;
 
 
     public DiagonalsTileSet(TileSet bitMaskableTileSet,  MapEditScreen mapEditScreen) {

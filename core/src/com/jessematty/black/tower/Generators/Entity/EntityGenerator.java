@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChang
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;

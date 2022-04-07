@@ -13,7 +13,7 @@ public class RandomlyCreateAndPlaceEntity  implements Component {
     private boolean randomLocation=true;
     private boolean randomMap=false; // whether of not place on random map  if not a random map will be selected to place entity in
     private Array<PositionComponent> positionsToCreateAt = new Array<>(); // the positions for the entity to be placed at if used
-    private Array<Vector3> mapLocations= new Array<>(); // the map locations for the entity to be placed at
+    private Array<String> mapIds= new Array<>(); // the map locations for the entity to be placed at
     private int entitiesPlaced;
     // x and y are the map locations and  z is the building number of z<0 the entity is not placed in a building
     public float getEntitiesToCreate() {
@@ -44,8 +44,8 @@ public class RandomlyCreateAndPlaceEntity  implements Component {
         return positionsToCreateAt;
     }
 
-    public Array<Vector3> getMapLocations() {
-        return mapLocations;
+    public Array<String> getMapIds() {
+        return mapIds;
     }
 
     public boolean isRandomMap() {

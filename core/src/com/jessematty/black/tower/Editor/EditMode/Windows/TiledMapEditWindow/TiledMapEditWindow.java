@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
@@ -42,7 +42,7 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
-public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor {
+public class TiledMapEditWindow  implements InputProcessor {
 
     private PlaceMode placeMode = PlaceMode.PLACE;
     private SelectMode selectMode=SelectMode.SELECT;
@@ -71,7 +71,7 @@ public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor
     private boolean renderToBuffer=true;
 
     public TiledMapEditWindow(MapEditScreen mapEditScreen, String title, Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
+       // super(mapEditScreen, title, skin, style);
         float h = Gdx.graphics.getHeight();
         camera = new GameCamera(960, 960);
         float viewPortWidth = 960;
@@ -84,13 +84,13 @@ public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor
         shapeRenderer = new ShapeRenderer();
     }
 
-    @Override
+   // @Override
     public void act(float delta) {
-        super.act(delta);
+        //super.act(delta);
     }
 
 
-    @Override
+  //  @Override
     public void draw(Batch batch, float parentAlpha) {
         renderToBuffer=false;
         camera.update();
@@ -226,7 +226,7 @@ public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        KeyListener keyListener=editScreen.getGameAssets().getGameInput().getKeyListener();
+        KeyListener keyListener=new KeyListener();
         if(keyListener.anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
             if (screenX > mapViewport.getWorldWidth() || screenY > mapViewport.getWorldWidth()) {
 
@@ -255,7 +255,7 @@ public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        getStage().setKeyboardFocus(null);
+      //  getStage().setKeyboardFocus(null);
         if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
 
             return true;
@@ -324,8 +324,7 @@ public class TiledMapEditWindow extends MapEditWindow  implements InputProcessor
             if (currentMap != null && entityToPlace != null) {
 
                 PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapWorldLocationX(currentMap.getWorldX());
-                position.setMapWorldLocationY(currentMap.getWorldX());
+                position.setMapID(currentMap.getId());
                 position.setLocationX(x);
                 position.setLocationY(y);
             }

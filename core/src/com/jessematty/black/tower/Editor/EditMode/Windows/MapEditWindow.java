@@ -1,29 +1,17 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
-
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.MapSettable;
 
-public  abstract class MapEditWindow extends EditWindow {
-
-    private final com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen mapEditScreen;
-    private final GameAssets gameAssets;
-
-
-    public MapEditWindow(MapEditScreen mapEditScreen, String title , Skin skin, String style) {
-        super(mapEditScreen, title, skin, style);
-        this.mapEditScreen = mapEditScreen;
-        this.gameAssets= mapEditScreen.getGameAssets();
-
-
+public  abstract class MapEditWindow extends EditWindow  implements MapSettable {
+    private GameMap map;
+    public MapEditWindow(GameAssets gameAssets, String title , Skin skin, String style) {
+        super( gameAssets, title, skin, style);
     }
 
-
-    public MapEditScreen getMapEditScreen() {
-        return mapEditScreen;
-    }
-
-    public GameAssets getGameAssets() {
-        return gameAssets;
+    public GameMap getMap() {
+        return map;
     }
 }

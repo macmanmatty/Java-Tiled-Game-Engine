@@ -53,7 +53,7 @@ public class InfoSystem extends GameEntitySystem {
                     entity.remove(ShowInfo.class);
                     String name= nameComponentMapper.get(entity).getStat();
                     PositionComponent position=positionComponentMapper.get(entity);
-                    getDraw().addWindow(new InfoWindow("Info For "+name, getDraw(), entity),position.getLocationX(), position.getLocationY()  );
+                    getDraw().getUiStage().addWindow(new InfoWindow("Info For "+name, getDraw(), entity),position.getLocationX(), position.getLocationY()  );
 
                 }
 

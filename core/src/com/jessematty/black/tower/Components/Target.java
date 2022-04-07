@@ -7,8 +7,8 @@ public class Target implements Component {
 
     private float screenLocationX;
     private float screenLocationY;
-    private int  mapTargetX;
-    private int mapTargetY;
+    private String mapId;
+
 
     public float getScreenLocationX() {
         return screenLocationX;
@@ -26,19 +26,11 @@ public class Target implements Component {
         this.screenLocationY = screenLocationY;
     }
 
-    public int getMapTargetX() {
-        return mapTargetX;
+    public String getMapId() {
+        return mapId;
     }
 
-    public void setMapTargetX(int mapTargetX) {
-        this.mapTargetX = mapTargetX;
-    }
-
-    public int getMapTargetY() {
-        return mapTargetY;
-    }
-
-    public void setMapTargetY(int mapTargetY) {
-        this.mapTargetY = mapTargetY;
+    public void setMapId(String mapId) {
+        this.mapId = mapId;
     }
 }

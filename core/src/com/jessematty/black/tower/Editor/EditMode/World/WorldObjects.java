@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit.NamedComponent;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -133,10 +133,7 @@ public class WorldObjects {
     }
 
     public  void addComponent( String name , Component component){
-
         components.add(new NamedComponent(name, component));
-
-
     }
 
     public Array<GameEntitySystem> getEntitySystems() {

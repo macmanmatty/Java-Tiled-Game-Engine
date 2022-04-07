@@ -164,7 +164,7 @@ private ComponentMapper<Name> nameComponentMapper;
 		HorizontalGroup bottomButtons= new HorizontalGroup();
 		bottomButtons.getChildren().add(exit);
 		window.add(bottomButtons);
-		gameAssets.getMapDraw().addWindow(window,player.getPosition().getLocationX()+100, player.getPosition().getLocationY()+100);
+		gameAssets.getMapDraw().getUiStage().addWindow(window,player.getPosition().getLocationX()+100, player.getPosition().getLocationY()+100);
 		return window;
 	}
 

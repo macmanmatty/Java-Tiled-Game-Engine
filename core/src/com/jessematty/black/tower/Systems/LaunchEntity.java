@@ -59,7 +59,7 @@ public class LaunchEntity extends GameEntitySystem {
                  float entityY=entityPosition.getLocationY();
 
                 float speed = launchableComponent.getLaunchSpeed();
-            GameMap map=getDraw().getWorld().getMap(target.getMapTargetX(), target.getMapTargetY());
+            GameMap map=getDraw().getWorld().getMap(target.getMapId());
                 double gravity = map.getGravity();
                 float launchAngle = launchableComponent.getLaunchAngle();
                 float maxDistance = MathUtilities.findDistance((float) speed, (float) gravity, launchAngle);

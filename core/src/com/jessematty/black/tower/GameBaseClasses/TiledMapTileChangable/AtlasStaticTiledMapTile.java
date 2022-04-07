@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-import javafx.scene.paint.Color;
 
 /** @brief Represents a non changing {@link com.badlogic.gdx.maps.tiled.TiledMapTile} (can be cached)
    */

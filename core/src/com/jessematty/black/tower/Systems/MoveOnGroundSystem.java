@@ -44,7 +44,7 @@ public class MoveOnGroundSystem extends GameEntitySystem {
             action.setStat("move");
                 PositionComponent position = positions.get(entity);
                 MovableComponent movableComponent = moveables.get(entity);
-                GameMap  map=getDraw().getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY());
+                GameMap  map=getDraw().getWorld().getMap(position.getMapId());
 
                 if (movableComponent.getCurrentSpeed() > 0) {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);

@@ -51,7 +51,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
    private Vector3 target;
     public PlayerSystem(MapDraw draw) {
         super(draw);
-        this.gameInputKeys=draw.getAssetts().getSettings().getGameInputKeys();
+        this.gameInputKeys=draw.getGameAssets().getSettings().getGameInputKeys();
 
         zrpgActors=new ZRPGActors(draw);
 

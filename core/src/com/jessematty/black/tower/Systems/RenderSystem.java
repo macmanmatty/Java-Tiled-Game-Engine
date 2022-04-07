@@ -29,13 +29,13 @@ public  class RenderSystem extends SortedRenderingSystem {
     /**
      * the entity frame buffer used for drawing entities
      */
-    private FrameBuffer buffer;
+    private FrameBuffer frameBuffer;
 
 
-    public RenderSystem(  Family family , Comparator<Entity>  comparator, Batch batch, FrameBuffer buffer, int priority) {
-        super(  family, comparator, batch ,buffer ,  priority);
+    public RenderSystem(Family family , Comparator<Entity>  comparator, Batch batch, FrameBuffer frameBuffer, int priority) {
+        super(  family, comparator, batch , frameBuffer,  priority);
         this.batch = batch;
-        this.buffer=buffer;
+        this.frameBuffer = frameBuffer;
     }
     @Override
     public void addedToEngine(Engine engine) {
@@ -82,6 +82,14 @@ public  class RenderSystem extends SortedRenderingSystem {
             }
         }
 
+    }
+
+    public FrameBuffer getFrameBuffer() {
+        return frameBuffer;
+    }
+
+    public void setFrameBuffer(FrameBuffer frameBuffer) {
+        this.frameBuffer = frameBuffer;
     }
 
     /**

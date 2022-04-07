@@ -14,11 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
-
 public class ClosableWindow extends Window {
+    /**
     // creates a window with button in the upper left corner that closes it and 
-    // if wanted resize and move buttons. Additionly you can add a lockable input processor to block
+    // if wanted resize and move buttons. Additionally you can add a lockable
+     // input processor to block
     //  any other input from being accepted  when the mose is over this  window.
+    **/
+
+    /**
+     *  the buttons on the top for close resize drag etc.
+     */
     private ImageButton close;
     private ImageButton resize;
     private ImageButton move;
@@ -35,47 +41,52 @@ public class ClosableWindow extends Window {
     private Color moveButtonColor=Color.GREEN;
     private Color resizeButtonColor=Color.YELLOW;
     private LockableInputMultiplexer lockableInputMultiplexer;
-
+    public  Skin skin;
+    /**
+     * Functional interface for a method that is called when the window is closed
+     */
+    private OnCloseAction onCloseAction;
+    
     public ClosableWindow(String title, Skin skin) {
         this(title, skin, false);
-
     }
     public ClosableWindow(String title, Skin skin, LockableInputMultiplexer lockableInputMultiplexer) {
         this(title, skin, false);
         this.lockableInputMultiplexer=lockableInputMultiplexer;
-
     }
     public ClosableWindow(String title, Skin skin, boolean removeOnClose) {
         this(title, skin, "default");
         this.removeOnClose = removeOnClose;
-
     }
     public ClosableWindow(String title, Skin skin, boolean removeOnClose, boolean hasResize, boolean hasMove) {
         this(title, skin,"default", removeOnClose, hasResize, hasMove);
         this.removeOnClose = removeOnClose;
         this.hasResize = hasResize;
         this.hasMove = hasMove;
-
     }
     public ClosableWindow(String title, Skin skin, String styleName, boolean removeOnClose, boolean hasResize, boolean hasMove) {
         super(title, skin, styleName);
         this.removeOnClose = removeOnClose;
         this.hasResize = hasResize;
         this.hasMove = hasMove;
+        this.skin=skin;
         remakeTitle();
         if(!styleName.isEmpty() && !styleName.equals("default")) {
             this.styleName = styleName;
         }
         addListeners();
+
     }
     public ClosableWindow(String title, Skin skin, String styleName) {
         this(title, skin, styleName, true, true, true);
-
     }
     public ClosableWindow(String title, Skin skin, ClosableWindowStyle closableWindowStyle) {
         this(title, skin);
         this.closableWindowStyle = closableWindowStyle;
     }
+    /**
+     *  remakes the title bar on window resize and re-adds the  top buttons close resize and lock
+     */
     private void remakeTitle() {
         getTitleTable().clear();
         getTitleTable().add(getTitleLabel()).expandX().fillX().minWidth(0);
@@ -89,6 +100,9 @@ public class ClosableWindow extends Window {
         close.addListener(new ClickListener() {
         @Override
         public void clicked (InputEvent event,float x, float y){
+            if(onCloseAction!=null){
+                onCloseAction.act();
+            }
             if(removeOnClose==false) {
                 setVisible(false);
             }
@@ -221,15 +235,12 @@ public class ClosableWindow extends Window {
         this.resizeButtonColor = resizeButtonColor;
         remakeTitle();
     }
-
     public boolean isLockOtherWindowsOnStageFocus() {
         return lockOtherWindowsOnStageFocus;
     }
-
     public void setLockOtherWindowsOnStageFocus(boolean lockOtherWindowsOnStageFocus) {
         this.lockOtherWindowsOnStageFocus = lockOtherWindowsOnStageFocus;
     }
-
     public class ClosableWindowStyle {
         ImageButtonStyle closeButtonStyle;
         ImageButtonStyle resizeButtonStyle;
@@ -264,13 +275,10 @@ public class ClosableWindow extends Window {
             }
         }
     }
-
     public void addListeners(){
-
         addListener(new ClickListener(){
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-
                         if (lockOtherInputOnStageFocus) {
                             stageFocused = true;
                             if (lockableInputMultiplexer != null) {
@@ -278,26 +286,19 @@ public class ClosableWindow extends Window {
                                 lockableInputMultiplexer.lockAllOtherProcessorKeyInput(getStage());
                             }
                         }
-
             }
-
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 if (lockOtherInputOnStageFocus==true && stageFocused==true ){
                     stageFocused=false;
                     lockableInputMultiplexer.unlockAllProcessors();
                 }
-
             }
         });
-
-
     }
-
     public  void releaseInputLock(){
         lockableInputMultiplexer.unlockAllProcessors();
     }
-
     public boolean isLockOtherInputOnStageFocus() {
         return lockOtherInputOnStageFocus;
     }
@@ -307,14 +308,15 @@ public class ClosableWindow extends Window {
     private boolean inBounds(){
         float mouseX = Gdx.input.getX();
         float mouseY=Gdx.input.getY();
-
        Vector2 stageMouseCoordinates= getStage().screenToStageCoordinates(new Vector2(mouseX, mouseY));
-
         return true;
-
-
     }
 
+    public OnCloseAction getOnCloseAction() {
+        return onCloseAction;
+    }
 
-
+    public void setOnCloseAction(OnCloseAction onCloseAction) {
+        this.onCloseAction = onCloseAction;
+    }
 }
