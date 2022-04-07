@@ -22,7 +22,7 @@ public   class WorldSettings extends Settings {
         settings.put("currentMapX", 0);
         settings.put("currentMapY", 0);
         settings.put("playerId", "id");
-        settings.put("assetsPath", "/worldAssets.atlas");
+        settings.put("textureAtlasPath", "/worldAssets.atlas");
     }
     public void setTiles(int tilesX, int tilesY){
         settings.put("xTiles", tilesX);

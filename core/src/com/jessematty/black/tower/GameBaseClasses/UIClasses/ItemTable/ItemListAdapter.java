@@ -7,7 +7,7 @@ public interface ItemListAdapter<T> {
     void setSelected( int index, boolean change);
     T getSelectedItem();
     Array<T> getItems();
-     void forceRemakeTable();
+     void forceRemakeList();
      int getSelectedIndex();
 
 

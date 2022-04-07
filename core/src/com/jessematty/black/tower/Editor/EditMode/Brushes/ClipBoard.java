@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Clipboard;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.AnimatedTiledMapTileActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.CellActor;
@@ -21,25 +22,46 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAni
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
 import com.jessematty.black.tower.Maps.Buildings.Building;
-
-// contains the current object to be copied or placed.
+/** contains the current object to be copied or placed.
+ *
+ */
 public class ClipBoard  extends Actor implements ItemSettable {
+    /**
+     * the locations of the current object on the screen
+     */
     private float  screenLocationX;
     private float  screenLocationY;
     private boolean snapToGrid;
+    /**
+     * the selected area fo the screen
+     */
     private Rectangle selectedArea;
+    /**
+     * objects that listen for in change in the current clipboard object
+     */
     private Array<ClipBoardChangeListener> clipBoardChangeListeners= new Array<>();
+    /**
+     * the current object on the clipboard
+     */
     private Object currentObject; // the current object the clip board holds
+    /**
+     *  the current actor for the clipboard object
+     */
     private ClipBoardActor clipBoardActor; // the current actor to draw for the clipboard icon
     private TextureRegion pointer;
     private String pointerTextureRegionName;
+    /**
+     * the link to the system clipboard
+     */
     private Clipboard systemClipboard= Gdx.app.getClipboard();
+    /**
+    
+    whether or not to draw the clipboard actor
+     **/
 
-
+    
     public ClipBoard() {
-
     }
-
     // return a copy of the current cell
     public Cell getCurrentCell() {
         return MapTools.copyCell((Cell) currentObject);
@@ -48,23 +70,24 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public void setCurrentCell(Cell currentCell) {
         this.currentObject = currentCell;
     }
-    //  if the clipboard contains a tiled cell rotates it  left
+    /**  if the clipboard contains a tiled cell rotates it  left
+     * 
+     */
     public  void rotateCellLeft(){
         if(currentObject instanceof  Cell) {
             Cell currentCell= (Cell) currentObject;
             currentCell.setRotation(currentCell.getRotation() - 90);
         }
-
     }
-    //  if the clipboard contains a tiled cell rotates it  right
-
+    /**
+     *     if the clipboard contains a tiled cell rotates it  right
+      */
     public void rotateCellRight(){
         if(currentObject instanceof  Cell) {
             Cell currentCell= (Cell) currentObject;
             currentCell.setRotation(currentCell.getRotation() + 90);
         }
     }
-
     // draws the currents actor
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -72,7 +95,6 @@ public class ClipBoard  extends Actor implements ItemSettable {
             clipBoardActor.setLocations(screenLocationX, screenLocationY);
             clipBoardActor.draw(batch, parentAlpha);
         }
-
         batch.setColor(1,1,1,1);
     }
     @Override
@@ -83,7 +105,6 @@ public class ClipBoard  extends Actor implements ItemSettable {
         this.screenLocationX=x;
         this.screenLocationY=y;
         clipBoardActor.setLocations(screenLocationX, screenLocationY);
-
     }
     public float getScreenLocationX() {
         return screenLocationX;
@@ -97,7 +118,6 @@ public class ClipBoard  extends Actor implements ItemSettable {
     public void setSnapToGrid(boolean snapToGrid) {
         this.snapToGrid = snapToGrid;
     }
-
     // returns the selected area  that mouse has selected
     public Rectangle getSelectedArea() {
         return selectedArea;
@@ -119,91 +139,49 @@ public class ClipBoard  extends Actor implements ItemSettable {
     }
     // sets the actor to be drawn for the clipboard icon
     private void setClipBoardActor() {
-        if(currentObject instanceof  Cell ){
-            TiledMapTile tiledMapTile=((Cell) currentObject).getTile();
-            if(tiledMapTile!=null){
-                if(tiledMapTile instanceof AtlasAnimatedTiledMapTile){
-                    
-                    clipBoardActor=new AnimatedTiledMapTileActor((AtlasAnimatedTiledMapTile) tiledMapTile);
-                    clipBoardActor.setColor(((AtlasAnimatedTiledMapTile) tiledMapTile).getColor());
-                    
-                    
-                    
+            if (currentObject instanceof Cell) {
+                TiledMapTile tiledMapTile = ((Cell) currentObject).getTile();
+                if (tiledMapTile != null) {
+                    if (tiledMapTile instanceof AtlasAnimatedTiledMapTile) {
+                        clipBoardActor = new AnimatedTiledMapTileActor((AtlasAnimatedTiledMapTile) tiledMapTile);
+                        clipBoardActor.setColor(((AtlasAnimatedTiledMapTile) tiledMapTile).getColor());
+                    } else {
+                        clipBoardActor = new StaticTiledMapTileActor((AtlasStaticTiledMapTile) tiledMapTile);
+                        clipBoardActor.setColor(((AtlasStaticTiledMapTile) tiledMapTile).getColor());
+                    }
                 }
-                
-                else{
-                    clipBoardActor=new StaticTiledMapTileActor((AtlasStaticTiledMapTile) tiledMapTile);
-                    clipBoardActor.setColor(((AtlasStaticTiledMapTile) tiledMapTile).getColor());
-                    
-                    
+            } else if (currentObject instanceof TextureRegion) {
+                clipBoardActor = new TextureRegionActor((TextureRegion) currentObject);
+            } else if (currentObject instanceof Entity) {
+                EditorImageComponent drawable = ((Entity) currentObject).getComponent(EditorImageComponent.class);
+                if (drawable != null) {
+                    clipBoardActor = new TextureRegionActor(drawable.getAtlasRegion());
                 }
-                
-            }
-            
-        }
-        
-       else  if(currentObject instanceof TextureRegion){
-            clipBoardActor= new TextureRegionActor((TextureRegion)currentObject);
-            
-        }
-        else  if(currentObject instanceof Entity){
-            EditorImageComponent drawable=((Entity) currentObject).getComponent(EditorImageComponent.class);
-            if(drawable!=null) {
-                clipBoardActor = new TextureRegionActor(drawable.getAtlasRegion());
-            }
-            clipBoardActor.setColor(drawable.getColor());
-            
-        }
-        
-        else if(currentObject instanceof Cell [] [] []){
-            
-            clipBoardActor= new CellActor((Cell[][][]) currentObject);
-            
-        }
-        else if(currentObject instanceof Building){
-            
-            
-        }
-
-        else{
-
-
-            setPointer();
-                if(pointer!=null) {
+                clipBoardActor.setColor(drawable.getColor());
+            } else if (currentObject instanceof Cell[][][]) {
+                clipBoardActor = new CellActor((Cell[][][]) currentObject);
+            } else if (currentObject instanceof Building) {
+            } else {
+                setPointer();
+                if (pointer != null) {
                     clipBoardActor = new TextureRegionActor(pointer);
                 }
+            }
 
 
-
-        }
-        
-        
-        
     }
-
-
     // sets the current pointer based of the current action
     private  void  setPointer(){
-
-
-
     }
-
-
-
-
-
     @Override
     public void setItem(Object item) {
-
         setCurrentObject(item);
     }
-
     public String getPointerTextureRegionName() {
         return pointerTextureRegionName;
     }
-
     public void setPointerTextureRegionName(String pointerTextureRegionName) {
         this.pointerTextureRegionName = pointerTextureRegionName;
     }
+
 }

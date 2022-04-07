@@ -16,6 +16,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TestMap;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectImageButton;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.FileSelect;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
+import com.jessematty.black.tower.Maps.World;
+
+import java.io.File;
+import java.io.IOException;
+
 public class MainScreen implements Screen  {
     private Stage stage;
    private  GameAssets assets;
@@ -100,7 +109,16 @@ public class MainScreen implements Screen  {
                 super.clicked(event, x, y);
             }
         });
-      TextButton newGame= new TextButton("Play Game", skin, "Brick");
+        FileAction loadGame= new FileAction() {
+            @Override
+            public void act(File file) throws Exception {
+                World newWorld=assets.loadGame(file.getPath());
+                assets.setWorld(newWorld);
+                assets.showGame();
+
+            }
+        };
+      FileSelectPane newGame= new FileSelectPane( loadGame, skin, "Brick","Load Game" , false, 0);
         newGame.addListener( new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

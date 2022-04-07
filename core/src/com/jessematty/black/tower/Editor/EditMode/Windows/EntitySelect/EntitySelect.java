@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.EditorImageComponent;
 import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
@@ -19,7 +19,6 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
     private GameAssets assets;
     private Skin skin;
     private WorldObjects objects;
-    private GameComponentMapper gameComponentMapper;
     private ComponentMapper<Name> nameComponentMapper;
     private ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper;
     private Array<Entity> entities;
@@ -33,9 +32,8 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
         this.assets = assets;
         this.skin=skin;
         this.objects=mapEditScreen.getWorldObjects();
-        this.gameComponentMapper=mapEditScreen.getGameComponentMapper();
-        this.nameComponentMapper=gameComponentMapper.getNameComponentMapper();
-        this.editorImageComponentComponentMapper=gameComponentMapper.getEditorImageComponentComponentMapper();
+        this.nameComponentMapper=GameComponentMapper.getNameComponentMapper();
+        this.editorImageComponentComponentMapper=GameComponentMapper.getEditorImageComponentComponentMapper();
         this.noImage=assets.getAtlasRegionByName("noImage", "assetts.atlas");
         entities= objects.getEntitiesInWorld();
         noImage=assets.getAtlasRegionByName("empty", "editorAssets");

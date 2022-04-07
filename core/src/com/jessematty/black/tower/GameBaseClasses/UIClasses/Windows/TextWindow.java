@@ -9,7 +9,7 @@ public class TextWindow extends GameWindow {
     }
 
     public TextWindow(String title, Skin skin, String styleName,  MapDraw mapDraw) {
-        super(title, skin, styleName, mapDraw.getAssetts());
+        super(title, skin, styleName, mapDraw.getGameAssets());
     }
 
 }

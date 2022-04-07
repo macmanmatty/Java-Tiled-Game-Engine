@@ -8,9 +8,6 @@ import com.kotcrab.vis.ui.VisUI;
 
 public class GameEditor extends Game {
  private GameAssets gameAssets;
-
-
-
 	public GameEditor() {
 
 
@@ -19,10 +16,7 @@ public class GameEditor extends Game {
 	@Override
 	public void create () {
 		gameAssets = new GameAssets("editor", this);
-
 		gameAssets.setScreen(new EditorMainScreen(gameAssets));
-
-
 		if(VisUI.isLoaded()==false) {
 			VisUI.load();
 		}

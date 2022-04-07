@@ -27,8 +27,7 @@ public class TileGenerator {
         position.removeBounds();
         position.setTileLocationX(locationX);
         position.setTileLocationY(locationY);
-        position.setMapWorldLocationX(map.getWorldX());
-        position.setMapWorldLocationY(map.getWorldY());
+        position.setMapID(map.getId());
 
         tile.add(position);
         position.setPosition(screenLocationX, screenLocationY);

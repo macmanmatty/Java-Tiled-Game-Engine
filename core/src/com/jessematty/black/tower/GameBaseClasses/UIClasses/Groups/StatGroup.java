@@ -34,7 +34,7 @@ public class StatGroup  extends UpdatableHorizontalGroup{
     protected void makeGroup() {
         if(editable==true){
             nameField= new ActionTextField(stat.getName(), skin);
-            NamedField namedField= new NamedField(nameField, new Label(" Stat Name: ", skin));
+            NamedField namedField= new NamedField(new Label(" Stat Name: ", skin), nameField);
             AddRemoveList changeGroupsList= new AddRemoveList(skin, "Change Groups " , stat.getChangeGroups());
             AddRemoveList displayGroupsList= new AddRemoveList(skin,"Display Groups" , stat.getDisplayGroups());
 

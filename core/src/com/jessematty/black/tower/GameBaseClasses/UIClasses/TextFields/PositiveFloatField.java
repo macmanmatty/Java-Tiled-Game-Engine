@@ -5,22 +5,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
             public PositiveFloatField(String text, Skin skin) {
                 super(text, skin);
                 setTextFilter();
-
             }
-
-
-
             public PositiveFloatField(String text, Skin skin, String styleName) {
                 super(text, skin, styleName);
                 setTextFilter();
-
             }
-
             public PositiveFloatField(String text, TextFieldStyle style) {
                 super(text, style);
                 setTextFilter();
             }
-
             public void setTextFilter(){
                 setTextFieldFilter(new TextFieldFilter() {
                     @Override

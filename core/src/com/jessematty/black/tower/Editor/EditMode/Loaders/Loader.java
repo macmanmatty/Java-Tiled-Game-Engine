@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Editor.EditMode.Loaders;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 public class Loader {

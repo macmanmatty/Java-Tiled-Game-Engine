@@ -119,7 +119,7 @@ public class PackButton extends TextButton {
 						PositionComponent position=player.getPosition();
 
 						Window window=new ObjectInfo(assetts).displayInfo( player,item, new Skin(), "");
-                        assetts.getMapDraw().addWindow(window, position.getLocationX(), position.getLocationY());
+                        assetts.getMapDraw().getUiStage().addWindow(window, position.getLocationX(), position.getLocationY());
 
 
 

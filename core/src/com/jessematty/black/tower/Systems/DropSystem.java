@@ -78,7 +78,7 @@ public class DropSystem extends GameEntitySystem {
         int locationx = location.get(0).getLocationX();
         int locationy = location.get(0).getLocationY();
         LandSquareTile tile;
-        tile = getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()).getMapSquare(locationx + randomx, locationy+randomy);
+        tile = getWorld().getMap(position.getMapId()).getMapSquare(locationx + randomx, locationy+randomy);
        tile.addEntity(item);
     }
 

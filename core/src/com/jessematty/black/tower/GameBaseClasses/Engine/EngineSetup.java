@@ -167,7 +167,7 @@ public class EngineSetup {
        if(drawBounds){
            engine.addSystem(new BoundingBoxRenderer(shapes));
        }
-       draw.getAssetts().getGameInput().addProcessor(ZRPGPlayerSystem);
+       draw.getGameAssets().getGameInput().addProcessor(ZRPGPlayerSystem);
    }
 
 

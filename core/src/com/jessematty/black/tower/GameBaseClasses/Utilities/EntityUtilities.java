@@ -36,7 +36,7 @@ import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.Copy.CopyObject;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
 
@@ -386,7 +386,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
                Array<Entity> ownedEntitiesIds=getAllOwnedEntities(entity, world);
                 massAndVolume=getTotalWeightAndVolume(massAndVolume, physicalObjectComponentMapper, entity);
            }
-            float weight= (float) (world.getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()).getGravity()*massAndVolume[0]);
+            float weight= (float) (world.getMap(position.getMapId()).getGravity()*massAndVolume[0]);
             return new double[]{massAndVolume[0], weight, massAndVolume[1]};
      }
        // no physical  object or position  = no mass or volume return empty vector 2
@@ -406,7 +406,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ComponentMapper<PositionComponent> positionComponentMapper = world.getGameComponentMapper().getPositionComponentMapper();
         PositionComponent position = positionComponentMapper.get(entity);
        double massNumber = physicalObject.getMass();
-        double gravity = world.getMap(position.getMapWorldLocationX(), position.getMapWorldLocationY()).getGravity();
+        double gravity = world.getMap(position.getMapId()).getGravity();
         double weightNumber = massNumber * gravity;
         double volumeNumber = physicalObject.getVolume();
        return new double[]{massNumber, weightNumber, volumeNumber};

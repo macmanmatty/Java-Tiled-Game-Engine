@@ -159,7 +159,7 @@ public class ZRPGPlayerFunctions {
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
 
             PositionComponent position = player.getPosition();
-            GameMap map = mapDraw.getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationX());
+            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
 
             Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), Item.class);
             PickUp  pickUp= new PickUp();
@@ -188,7 +188,7 @@ public class ZRPGPlayerFunctions {
                 }
                 else {
                     String text = "Select an Item to Pick Up";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw), ScreenPosition.CENTER);
+                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUp, mapDraw), ScreenPosition.CENTER);
                 }
 
 
@@ -274,7 +274,7 @@ public class ZRPGPlayerFunctions {
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
 
             PositionComponent position = player.getPosition();
-            GameMap map = mapDraw.getWorld().getMap(position.getMapWorldLocationX(), position.getMapWorldLocationX());
+            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
 
             Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), Pack.class);
             AddItemToPackComponent addItemToPackComponent= new AddItemToPackComponent();
@@ -285,7 +285,7 @@ public class ZRPGPlayerFunctions {
             if (packs.size > 0) {
 
                 String text="Select A Pack To Add To";
-                    mapDraw.addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
+                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
 
             }
 

@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Screens.PackAssets;
-import com.jessematty.black.tower.Editor.EditMode.Screens.WorldEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
@@ -40,10 +40,11 @@ public class EditorMainScreen implements NamedScreen {
         }
         public void show() {
             this.skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
-            gameAssets.loadInternalTextureAtlas("editorAssets");
+           gameAssets.loadInternalTextureAtlas("editorAssets");
             if(!VisUI.isLoaded()) {
                 VisUI.load(skin);
             }
+            gameAssets.loadInternalTextureAtlas("editorAssets");
             gameAssets.finishLoading();
             stage=new Stage();
             Gdx.input.setInputProcessor(stage);
@@ -69,7 +70,7 @@ public class EditorMainScreen implements NamedScreen {
             editWorld.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    gameAssets.setScreen(new WorldEditScreen(skin,  gameAssets, worlds.getSelected()));
+                    gameAssets.setScreen(new MapEditScreen(gameAssets, skin, new World()));
                 }
             });
             packAssetts= new TextButton("Pack Assetts", skin);

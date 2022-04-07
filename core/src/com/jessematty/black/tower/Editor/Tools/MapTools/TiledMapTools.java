@@ -10,20 +10,19 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TiledMap.MapLoadingExeception;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import java.rmi.server.UID;
-public class TiledMapTools {
-    private ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
-    private final TextureAtlas namedTextureAtlas;
-    private String atlasName;
-    public TiledMapTools(TextureAtlas textureAtlas, String atlasName) {
-        this.namedTextureAtlas = textureAtlas;
-        this.atlasName =atlasName;
+public final  class TiledMapTools {
+    private static  ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
+
+        private TiledMapTools() {
+
     }
+
     /**
      * converts .tmx tiled tiled map to a texture atlas based  tiled map
      *
@@ -32,7 +31,7 @@ public class TiledMapTools {
      * @return NamedTextureAtlas the texture atlas generated from the tiled map
      * @ throws MapLoadingException
      */
-    public TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName) throws MapLoadingExeception {
+    public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingException {
         TiledMap newTiledMap= new TiledMap();
         MapProperties oldMapProperties = oldTiledMap.getProperties();
         MapProperties newMapProperties=newTiledMap.getProperties();
@@ -41,12 +40,11 @@ public class TiledMapTools {
             newMapProperties.put("height", oldMapProperties.get("height", Integer.class));
             newMapProperties.put("tilewidth", oldMapProperties.get("tilewidth", Integer.class));
             newMapProperties.put("tileheight", oldMapProperties.get("tileheight", Integer.class));
-            newMapProperties.put("atlasName", atlasName);
            }
         newMapProperties.put("atlasName", atlasName);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
         if(oldMapLayers==null){
-            throw new MapLoadingExeception("Tiled Map Has No Layers");
+            throw new MapLoadingException("Tiled Map Has No Layers");
         }
         MapLayers newMapMapLayers = newTiledMap.getLayers();
         int layers = oldMapLayers.size();
@@ -72,9 +70,9 @@ public class TiledMapTools {
                     }
                     TiledMapTile newTile = null;
                     if (oldTile instanceof StaticTiledMapTile) {
-                        newTile = addStaticTileTextureToAtlas(oldCell, mapName);
+                        newTile = addStaticTileTextureToAtlas(worldAtlas, oldCell, mapName);
                     } else if (oldTile instanceof AnimatedTiledMapTile) {
-                        newTile = addAnimatedTileTextureToAtlas(oldCell, mapName);
+                        newTile = addAnimatedTileTextureToAtlas(worldAtlas, oldCell, mapName);
                     }
                     Cell newCell = new Cell();
                     newCell.setTile(newTile);
@@ -87,21 +85,24 @@ public class TiledMapTools {
         }
         return newTiledMap;
     }
+
+
+
     /**
      *  Creates a new Tiled Map Tiled with a  Static AtlasTiledMap tile From a Cell and add its to the texture atlas
      * @param oldCell the old tiled map cell
      * @param mapName the name of the map
      * @return TiledMapTile  the new  Tiled Map Tile
      */
-    private TiledMapTile addStaticTileTextureToAtlas(Cell oldCell, String mapName) {
+    private static  TiledMapTile addStaticTileTextureToAtlas( TextureAtlas worldAtlas, Cell oldCell, String mapName) {
         TextureRegion region = oldCell.getTile().getTextureRegion();
         AtlasNamedAtlasRegion atlasNamedAtlasRegion = new AtlasNamedAtlasRegion(region);
         atlasNamedAtlasRegion.setPageName(mapName + "Tiles");
         String tileName = "";
-        if (!InList.isInList(namedTextureAtlas, region)) {
+        if (!InList.isInList(worldAtlas, region)) {
             // add the atlas and give it a name
             tileName = createTileName(mapName);
-            namedTextureAtlas.addRegion(tileName, region);
+            worldAtlas.addRegion(tileName, region);
             regionNames.put(region, tileName);
         } else {
             tileName = regionNames.get(region, "empty");
@@ -116,7 +117,7 @@ public class TiledMapTools {
      *
      * @return creates  random name to use for a the atlas region name of tiled map tile.
      */
-    private String createTileName(String mapName) {
+    private static  String createTileName(String mapName) {
         String uuid = new UID().toString();
         return mapName+uuid;
     }
@@ -126,7 +127,7 @@ public class TiledMapTools {
      * @param mapName the name of the map
      * @return TiledMapTile  the new  Tiled Map Tile
      */
-    private TiledMapTile addAnimatedTileTextureToAtlas(Cell oldCell, String mapName) {
+    private  static TiledMapTile addAnimatedTileTextureToAtlas( TextureAtlas worldAtlas, Cell oldCell, String mapName) {
         AnimatedTiledMapTile animatedTiledMapTile = (AnimatedTiledMapTile) oldCell.getTile();
         StaticTiledMapTile[] tiles = animatedTiledMapTile.getFrameTiles();
         int size = tiles.length;
@@ -137,10 +138,10 @@ public class TiledMapTools {
             TextureRegion region = oldCell.getTile().getTextureRegion();
             String tileName = "";
             String [] names= new String [size];
-            if (!InList.isInList(namedTextureAtlas, region)) {
+            if (!InList.isInList(worldAtlas, region)) {
                 // add the atlas and give it a name
                 tileName = createTileName(mapName);
-                namedTextureAtlas.addRegion(tileName, region);
+                worldAtlas.addRegion(tileName, region);
                 regionNames.put(region, tileName);
             }
             TiledMapTile tile = oldCell.getTile();
@@ -157,8 +158,5 @@ public class TiledMapTools {
     }
     public ObjectMap<TextureRegion, String> getRegionNames() {
         return regionNames;
-    }
-    public TextureAtlas getTextureAtlas() {
-        return namedTextureAtlas;
     }
 }

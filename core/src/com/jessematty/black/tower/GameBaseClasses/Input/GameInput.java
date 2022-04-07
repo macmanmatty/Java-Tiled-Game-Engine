@@ -2,7 +2,9 @@ package com.jessematty.black.tower.GameBaseClasses.Input;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-// class the holds all of the input classes  for the game
+/**
+ * class the holds all of the input classes  for the game
+ * **/
 public class GameInput {
 
     private final  KeyListener keyListener= new KeyListener(); // the key listner

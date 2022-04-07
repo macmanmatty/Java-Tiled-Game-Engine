@@ -65,7 +65,7 @@ public class ItemListTitle<T> extends Label {
 
 
                 itemList.setColumnWidth(columnWidth);
-                itemList.forceRemakeTable();
+                itemList.forceRemakeList();
 
             }
         });

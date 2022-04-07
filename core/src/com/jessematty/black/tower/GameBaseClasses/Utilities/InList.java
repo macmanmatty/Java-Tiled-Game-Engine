@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.jessematty.black.tower.GameBaseClasses.Loaders.TextureAtlas.TextureRegionPage;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -61,7 +61,7 @@ public class InList {
 		Array<AtlasRegion> regions=atlas.getRegions();
 		int number = regions.size;
 		for (int count = 0; count < number; count++) {
-			if (TextureTools.regionsEquals(regions.get(count), region)) {
+			if (TextureTools.textureRegionsEquals(regions.get(count), region)) {
 				return true;
 			}
 		}

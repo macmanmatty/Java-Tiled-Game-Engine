@@ -28,12 +28,6 @@ public class AssetsScreen implements Screen  {
     Label errorLabel;
     World world;
     ZRPGPlayer player;
-
-
-
-
-
-
     public AssetsScreen(GameAssets assetts) {
         this.assetts = assetts;
 

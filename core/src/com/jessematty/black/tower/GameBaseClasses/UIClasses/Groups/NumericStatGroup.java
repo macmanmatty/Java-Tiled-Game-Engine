@@ -2,10 +2,8 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.ActionTextField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.TextFieldOnEnterAction;
@@ -65,9 +63,9 @@ public class NumericStatGroup extends StatGroup  {
             });
 
             setTextFieldInputParams();
-            NamedField maxField= new NamedField(maxStat, new Label("Max Value", skin));
-            NamedField minField= new NamedField(maxStat, new Label("Min Value", skin));
-            NamedField valueField= new NamedField(statValue, new Label("Value", skin));
+            NamedField maxField= new NamedField(new Label("Max Value", skin), maxStat);
+            NamedField minField= new NamedField(new Label("Min Value", skin), maxStat);
+            NamedField valueField= new NamedField(new Label("Value", skin), statValue);
 
 
             addActor(valueField);

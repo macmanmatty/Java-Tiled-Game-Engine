@@ -3,7 +3,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.ObservableList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 public class AddRemoveList extends VerticalGroup {
    private  Skin skin;
@@ -45,7 +43,7 @@ public class AddRemoveList extends VerticalGroup {
         remove= new TextButton("Remove", skin);
         nameField= new TextField("Enter Text", skin);
         removeAll= new TextButton("Clear", skin);
-        final NamedField namedField= new NamedField(nameField, new Label("Enter Text ", skin));
+        final NamedField namedField= new NamedField(new Label("Enter Text ", skin), nameField);
         add.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

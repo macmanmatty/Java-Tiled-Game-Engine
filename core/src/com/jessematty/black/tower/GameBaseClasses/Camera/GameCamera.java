@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Camera;
-
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
@@ -11,11 +10,8 @@ import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeys;
 import com.jessematty.black.tower.GameBaseClasses.Input.OrthographicCameraControls;
 import com.jessematty.black.tower.Maps.GameMap;
-
-
 // extended orthographic camera for additional game functions
 public class GameCamera  extends OrthographicCamera implements InputKeys {
-
     private float screenMaxX;
     private float screenMaxY;
     private float screenMinY;
@@ -25,24 +21,19 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
     private OrthographicCameraControls orthographicCameraControls;
     private boolean controllable;
     public GameCamera() {
-
-
     }
-
     public GameCamera(float viewportWidth, float viewportHeight) {
         super(viewportWidth, viewportHeight);
     }
-
     public void calculateScreenMaxes(GameMap gameMap){
         this.screenMaxX=gameMap.getXTiles()*gameMap.getTileWidth();
         this.screenMaxY=gameMap.getYTiles()*gameMap.getTileHeight();
-
-
     }
-
-    public void moveCameraWithFollowMovable(){ // translates the camera position  to  the player the camera   is following
-        // distance is how far the movable  moved
-
+    /**
+     * translates the camera position  to  the player the camera   is following
+     *   distance is how far the movable  moved
+     */
+    public void moveCameraWithFollowMovable(){ 
       translate(movableComponent.getDistanceMoved());
         cameraBoundsCheck();
     }
@@ -53,7 +44,6 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
         float cameraRight = position.x + cameraHalfWidth;
         float cameraBottom = position.y - cameraHalfHeight;
         float cameraTop = position.y + cameraHalfHeight;
-
         if(cameraLeft <= screenMinX)
         {
             position.x =screenMinX+cameraHalfWidth;
@@ -89,8 +79,6 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
             position.x=screenMaxX-cameraHalfWidth;
         }
     }
-
-
     private void centerCameraToPositionHeight(PositionComponent positionComponent){ // same as below but only  for height
         float positionY= positionComponent.getLocationY();
         float cameraHalfHeight=viewportHeight*.5f;
@@ -102,73 +90,53 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
             position.y=screenMaxY-cameraHalfHeight;
         }
     }
-
     public void setEntityToFollow(Entity entity){
-
        PositionComponent positionComponent= GameComponentMapper.getPositionComponentMapper().get(entity);
         MovableComponent movableComponent= GameComponentMapper.getMovableComponentMapper().get(entity);
         if(movableComponent==null || positionComponent==null){
             return;
         }
-
         this.positionComponent=positionComponent;
         this.movableComponent=movableComponent;
-
     }
     public void unFollowEntity(){
         this.positionComponent=null;
         this.movableComponent=null;
-
-
     }
-
     public float getScreenMaxX() {
         return screenMaxX;
     }
-
     public void setScreenMaxX(float screenMaxX) {
         this.screenMaxX = screenMaxX;
     }
-
     public float getScreenMaxY() {
         return screenMaxY;
     }
-
     public void setScreenMaxY(float screenMaxY) {
         this.screenMaxY = screenMaxY;
     }
-
     public float getScreenMinY() {
         return screenMinY;
     }
-
     public void setScreenMinY(float screenMinY) {
         this.screenMinY = screenMinY;
     }
-
     public float getScreenMinX() {
         return screenMinX;
     }
-
     public void setScreenMinX(float screenMinX) {
         this.screenMinX = screenMinX;
     }
-
     public void update() {
         super.update();
         if(movableComponent!=null && positionComponent!=null && movableComponent.isMoved()){
             moveCameraWithFollowMovable();
     }
-
-
     }
-
     public void centerCameraToPosition(PositionComponent positionComponent){
         centerCameraToPositionHeight(positionComponent);
         centerCameraToPositionWidth(positionComponent);
-
     }
-
     public void enableControlledMovement(){
         if(orthographicCameraControls==null){
             orthographicCameraControls= new OrthographicCameraControls(this);
@@ -181,12 +149,10 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
         orthographicCameraControls.disableControlledMovement();
         controllable=false;
     }
-
     @Override
     public Array<InputKeyCombo> getKeys() {
          return  orthographicCameraControls.getCameraControlKeyCombos();
     }
-
     public boolean isControllable() {
         return controllable;
     }
