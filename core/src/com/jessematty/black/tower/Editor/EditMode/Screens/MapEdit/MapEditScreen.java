@@ -91,7 +91,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private MapEditKeys editInputKeys;
     private boolean screenLocked;
     private boolean keyLocked;
-    private final GameInput gameInput;
     private final MapDraw mapDraw;
 
     public MapEditScreen(GameAssets assets, Skin skin, World world) {
@@ -101,13 +100,14 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         this.skin = skin;
         this.worldObjects = new WorldObjects();
         this.clipBoard=new ClipBoard();
-        this.gameInput=gameAssets.getGameInput();
         uiStage = new Stage();
         mapDraw= new MapDraw(getGameAssets(), world);
 
     }
     @Override
     public void show() {
+
+        GameInput gameInput=GameAssets.getGameInput();
         camera = new GameCamera(960, 960);
         topMenu= new TopMenu(this);
         float viewPortWidth = 960;
@@ -131,8 +131,8 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     @Override
     public void hide() {
         renderToBuffer=true;
-        gameInput.removeProcessor(uiStage);
-        gameInput.removeProcessor(this);
+        GameAssets.getGameInput().removeProcessor(uiStage);
+        GameAssets.getGameInput().removeProcessor(this);
     }
     @Override
     public void resize(int width, int height) {
@@ -315,7 +315,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     }
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(gameInput.getKeyListener().anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
+        if(GameAssets.getGameInput().getKeyListener().anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
             Viewport viewport=uiStage.getViewport();
             if (screenX > viewport.getWorldWidth() || screenY > viewport.getWorldWidth()) {
                 return true;

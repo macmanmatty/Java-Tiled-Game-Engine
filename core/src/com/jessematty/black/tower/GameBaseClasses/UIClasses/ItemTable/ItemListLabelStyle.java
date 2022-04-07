@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
  */
 public class ItemListLabelStyle {
 
-    LabelStyle labelStyle;
-    LabelStyle selectedLabelStyle;
-    LabelStyle hoverCellLabelStyle;
-    TextFieldStyle textFieldStyle;
+  public  LabelStyle labelStyle;
+   public  LabelStyle selectedLabelStyle;
+   public  LabelStyle hoverCellLabelStyle;
+   public  TextFieldStyle textFieldStyle;
 
 }

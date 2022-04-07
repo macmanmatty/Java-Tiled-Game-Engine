@@ -54,12 +54,13 @@ public class TiledMapEdit implements MapSettable {
      * @param fillRegion the Atlas Region to file the map with
      */
     public void bucketFill(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion) {
-        Cell cell=currentLayer.getCell(locationX, locationY);
-        if(cell!=null) {
-            TextureRegion regionToReplace = cell.getTile().getTextureRegion();
-            BucketFill.fillCells(0, 0, xSize, ySize, currentLayer, locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
+        if(currentLayer!=null) {
+            Cell cell = currentLayer.getCell(locationX, locationY);
+            if (cell != null) {
+                TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+                BucketFill.fillCells(0, 0, xSize, ySize, currentLayer, locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
+            }
         }
-
     }
     /**
      *   bitmaskes  a grid of tiles based on whether the surrounding tiles
@@ -70,15 +71,16 @@ public class TiledMapEdit implements MapSettable {
      * @param  tileSet the bit masking tile set to bitmask with
      */
     public void bitMask(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion, TileSet tileSet) {
-        Cell cell=currentLayer.getCell(locationX, locationY);
-        if(cell!=null) {
-            TextureRegion regionToReplace = cell.getTile().getTextureRegion();
-            if(regionToReplace!=null) {
-                com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, currentLayer, locationX, locationY,gameAssets,  tileSet, fillRegion);
+        if(currentLayer!=null) {
+            Cell cell = currentLayer.getCell(locationX, locationY);
+            if (cell != null) {
+                TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+                if (regionToReplace != null) {
+                    com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells.bitMaskCells(0, 0, xSize, ySize, currentLayer, locationX, locationY, gameAssets, tileSet, fillRegion);
+                }
+
             }
-
         }
-
     }
     /**
      *   create on over lay preview of a bitmasked image   a grid of tiles based on whether the surrounding tiles
@@ -101,28 +103,35 @@ public class TiledMapEdit implements MapSettable {
     }
    
     public void fillMouseOver(int locationX, int locationY, AtlasNamedAtlasRegion fillRegion) {
-        Cell cell=currentLayer.getCell(locationX, locationY);
-        if(cell!=null) {
-            TextureRegion regionToReplace = cell.getTile().getTextureRegion();
-            if(regionToReplace==null){
-                return;
+        if(currentLayer!=null) {
+            Cell cell = currentLayer.getCell(locationX, locationY);
+            if (cell != null) {
+                TextureRegion regionToReplace = cell.getTile().getTextureRegion();
+                if (regionToReplace == null) {
+                    return;
+                }
+                BucketFill.fillCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
             }
-            BucketFill.fillCells(0, 0, xSize, ySize, getPreviewLayer(), locationX, locationY, fillRegion, regionToReplace, fillDiagnols);
         }
+
     }
     public void clearMouseOver() {
         clearLayer("newRegion");
     }
     public void clearLayer( String name) {
-        MapLayers mapLayers=currentTiledMap.getLayers();
-        NamedTiledMapTileLayer layer= (NamedTiledMapTileLayer) mapLayers.get(name);
-        for (int countx =0; countx < ySize; countx++) {
-            for (int county = 0; county < xSize; county++) {
-                Cell cell=layer.getCell(countx, county);
-                if(cell!=null) {
-                    cell.setTile(null);
-                }
+        if(currentTiledMap!=null) {
+            if (currentTiledMap != null) {
+                MapLayers mapLayers = currentTiledMap.getLayers();
+                NamedTiledMapTileLayer layer = (NamedTiledMapTileLayer) mapLayers.get(name);
+                for (int countx = 0; countx < ySize; countx++) {
+                    for (int county = 0; county < xSize; county++) {
+                        Cell cell = layer.getCell(countx, county);
+                        if (cell != null) {
+                            cell.setTile(null);
+                        }
 
+                    }
+                }
             }
         }
     }
@@ -141,24 +150,27 @@ public class TiledMapEdit implements MapSettable {
     }
     // adds a new layer to the tiled map with given name
     public void addLayer(String name){
+        if(currentTiledMap!=null){
         MapLayers layers=currentTiledMap.getLayers();
         TiledMapTileLayer  layer= com.jessematty.black.tower.Editor.Tools.MapTools.MapTools.newMapLayer("newRegion", xSize, ySize, tileSizeX, tileSizeY);
         if(currentTiledMap!=null && layers!=null) {
             layers.add(layer);
-            int previousMapLayerNumber=layers.size()-2;
+            int previousMapLayerNumber = layers.size() - 2;
             layers.get(previousMapLayerNumber).setName(name);
+        }
         }
     }
     // a new layer to the tiled  map  with the default name layer + number of layers
     public void addLayer(){
-            MapLayers layers = currentTiledMap.getLayers();
-            NamedTiledMapTileLayer layer = com.jessematty.black.tower.Editor.Tools.MapTools.MapTools.newMapLayer("newRegion", xSize, ySize, tileSizeX, tileSizeY);
-            if (currentTiledMap != null && layers != null) {
-                layers.add(layer);
-                int previousMapLayerNumber = layers.size() - 2;
-                layers.get(previousMapLayerNumber).setName("layer " + previousMapLayerNumber);
-            }
-
+             if(currentTiledMap!=null) {
+                 MapLayers layers = currentTiledMap.getLayers();
+                 NamedTiledMapTileLayer layer = com.jessematty.black.tower.Editor.Tools.MapTools.MapTools.newMapLayer("newRegion", xSize, ySize, tileSizeX, tileSizeY);
+                 if (currentTiledMap != null && layers != null) {
+                     layers.add(layer);
+                     int previousMapLayerNumber = layers.size() - 2;
+                     layers.get(previousMapLayerNumber).setName("layer " + previousMapLayerNumber);
+                 }
+             }
     }
     // gets a given layer based on layer name
     public TiledMapTileLayer getLayer(String name){

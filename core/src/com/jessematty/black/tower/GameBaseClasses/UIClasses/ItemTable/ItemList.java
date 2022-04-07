@@ -91,7 +91,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      *  Integer.class
      *  Float.class
      *  Double.class
-     *  Boolean.class
      *
      */
     private Class itemDataClass=String.class;
@@ -164,6 +163,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      */
     private  final InputKeyCombo deleteCombo;
 
+
     /**
      * the comparator  used for ascending   item sorting can be  replaced with a custom comparator
      * the default uses the items .compareTo() method with items swapped for descending sorting
@@ -225,7 +225,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         KeyAction keyAction= new KeyAction() {
             @Override
             public void act() {
-                if(confirmDelete){
                     if(selectedItem!=null && confirmDelete) {
                         DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), items, selectedItem);
                         deleteOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
@@ -238,7 +237,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
                     }
 
                 }
-            }
+
         };
         deleteCombo= new InputKeyCombo(keyAction,"Delete Item "+this, Keys.DEL );
         deleteCombo.setFocusActor(this);

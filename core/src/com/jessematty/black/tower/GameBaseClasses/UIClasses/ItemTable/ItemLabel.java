@@ -118,10 +118,8 @@ public class ItemLabel<T >  extends Label {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer,  int button ) {
                 clicks++;
-                System.out.println(getText()+" clicked  times " + clicks);
                if(clicks==1){
                    if(itemList!=null){
-                       System.out.println(getText()+" clicked  times " + clicks);
                        itemList.setSelected(index, true);
                    }
                }

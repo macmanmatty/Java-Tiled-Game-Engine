@@ -84,7 +84,6 @@ public class ItemTable<T> extends Table {
         KeyAction keyAction = new KeyAction() {
             @Override
             public void act() {
-                if (confirmDelete) {
                     if (selectedItem != null && confirmDelete) {
                         DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), tableItems, selectedItem);
                         deleteOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
@@ -96,7 +95,7 @@ public class ItemTable<T> extends Table {
                     }
 
                 }
-            }
+
         };
         deleteCombo = new InputKeyCombo(keyAction, "Delete Item " + this, Keys.DEL);
         deleteCombo.setFocusActor(this);

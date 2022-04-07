@@ -36,6 +36,6 @@ public class ItemListTarget<T > extends Target {
             }
         items.getItems().removeValue((T) payload.getObject(), true);
         items.getItems().insert(index, (T) payload.getObject());
-            items.forceRemakeList();
+        items.forceRemakeList();
     }
 }

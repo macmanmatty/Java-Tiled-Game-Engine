@@ -45,7 +45,7 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 String name=enterName.getField().getText();
-                if(name!=null  && !(name.isEmpty())){
+                if(name!=null   && !(name.isEmpty())){
                     tiledMapEdit.addLayer(name);
                 }
                 else {
