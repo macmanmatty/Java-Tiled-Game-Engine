@@ -104,6 +104,10 @@ public class KeyListener implements LockableInputProcessor {
      */
     @Override
     public boolean keyTyped(char character) {
+        // set key pressed to false
+        boolean focusText= isKeyboardFocusOnTextField();
+        // if keyboard is focused  on  a text field  don't try call key functions
+        useKeyCombos=!focusText;
         if(useKeyCombos==true){
             checkForKeyAction(KeyPressMode.KEY_TYPED);
         }

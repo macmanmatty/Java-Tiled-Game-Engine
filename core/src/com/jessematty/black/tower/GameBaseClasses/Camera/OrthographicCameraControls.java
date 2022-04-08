@@ -121,6 +121,11 @@ public class OrthographicCameraControls {
             camera.translate(translateDistanceX, translateDistanceY);
         }
     };
+
+    /**
+     * getters and setters
+     *
+     */
     public OrthographicCamera getCamera() {
         return camera;
     }
