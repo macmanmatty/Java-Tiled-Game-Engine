@@ -5,7 +5,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableL
 import java.util.Objects;
 /** class  that holds a combination of  input keys that when pressed will
 call the key action function they key listener class
- @see com.jessematty.black.tower.GameBaseClasses.UIClasses.Input.KeyInput
+ @see KeyListener
  **/
 public class InputKeyCombo implements Nameable {
     /** 
@@ -19,7 +19,7 @@ public class InputKeyCombo implements Nameable {
      *     Key.KEY_DOWN
      *     Key.KEY_PRESSED
      */
-    private KeyPressMode keyPressMode=KeyPressMode.KEY_DOWN;
+    private KeyPressMode keyPressMode=KeyPressMode.KEY_TYPED;
     /**
      * // the action to be preformed when the keys are pressed
      */
@@ -33,19 +33,18 @@ public class InputKeyCombo implements Nameable {
      */
     private boolean disabled;
     /**
-     * the actor a stage must be focused on for they key  action to fire
+     * the actor a stage must be focused on for the key  action to fire
      * may be null if no actor is required
      * if you set this  the action will only fire if  the given actor
-     * is focused on any of the  stage(s) in the KeyInput class
+     * is keyboard focused on any of the  stage(s) in the KeyInput class
      *
      */
     private Actor focusActor;
-
     /**
      *
      * @param keysPressed the keys that need to pressed to preform the action
      * @param keyPressMode  the mode of when to action the key
-     * @param keyAction
+     * @param keyAction the action to be preformed when the keys are pressed
      */
     public InputKeyCombo(Array<Integer> keysPressed, KeyPressMode keyPressMode, KeyAction keyAction) {
         this(keysPressed, keyAction, "combo");

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
+import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector.LandMapSelectorWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureDisplayWindow;
@@ -30,7 +31,7 @@ import java.util.HashMap;
  * Bit Mask Creation Window
  *
  */
-public class MapEditWindows implements MapSettable, WorldSettable, InputProcessor {
+public class MapEditWindows implements MapSettable, WorldSettable {
     private Skin skin;
     private final ObjectMap< String , EditWindow> editWindows = new ObjectMap<>();
     private GameMap gameMap;
@@ -40,6 +41,8 @@ public class MapEditWindows implements MapSettable, WorldSettable, InputProcesso
     public MapEditWindows( MapEditScreen mapEditScreen) {
         this.mapEditScreen=mapEditScreen;
         this.skin=mapEditScreen.getSkin();
+        MapEditButtons mapEditButtons= new MapEditButtons(mapEditScreen, mapEditScreen.getSkin());
+        editWindows.put("Top Buttons", mapEditButtons);
         TiledMapLayerWindow tiledMapLayerWindow= new TiledMapLayerWindow(mapEditScreen.getTiledMapEdit(), mapEditScreen.getGameAssets(), skin);
         tiledMapLayerWindow.makeWindow();
         this.editWindows.put("Layers Window", tiledMapLayerWindow);
@@ -105,43 +108,5 @@ public class MapEditWindows implements MapSettable, WorldSettable, InputProcesso
     }
 
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }

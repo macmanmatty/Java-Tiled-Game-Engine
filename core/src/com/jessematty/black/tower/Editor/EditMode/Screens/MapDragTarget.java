@@ -36,7 +36,7 @@ public class MapDragTarget extends Target {
     @Override
     public void drop(Source source, Payload payload, float x, float y, int pointer) {
         Vector3 unprojectedScreenCoordinates= mapEditScreen.getCamera().unproject(new Vector3(x, y,0));
-        PlaceMode placeMode = mapEditScreen.getPlaceMode();
+        PlaceMode placeMode =PlaceMode.PLACE;
         GameMap currentMap= mapEditScreen.getCurrentMap();
         if(placeMode == PlaceMode.PLACE){
             Entity entityToPlace = (Entity) mapEditScreen.getClipBoard().getCurrentObject();
@@ -93,7 +93,7 @@ public class MapDragTarget extends Target {
         int layers=cellsToPlace.length;
         int xMax = cellsToPlace[0].length;
         int yMax = cellsToPlace[0][0].length;
-        int currentLayerNumber= mapEditScreen.getCurrentLayerNumber();
+        int currentLayerNumber= 0;
         TiledMap currentTiledMap= mapEditScreen.getTiledMapEdit().getCurrentTiledMap();
         int xSize= mapEditScreen.getXSize();
         int ySize= mapEditScreen.getYSize();

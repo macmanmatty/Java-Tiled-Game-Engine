@@ -8,21 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.EditorSettable;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
-import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.ContextMenu.ContextMenu;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.IntegerField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameAction;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
@@ -58,7 +52,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     /**
      * the  current item
      */
-    protected Label layerLabel;
+    protected Label itemLabel;
     /**
      * the  title for the list of items
      */
@@ -95,6 +89,11 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
      */
     protected String itemName="Object";
 
+    /**
+     *  the scroll pane for the itemList
+     */
+    ScrollPane itemListScrollPane;
+
 
     public LandMapSelectorWindow(final GameAssets assets,  Skin skin, String style ) {
         super(assets,  "World Maps", skin, style);
@@ -102,16 +101,17 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
         this.methodName="MapName";
         this.itemName="Map";
 
+
         makeWindow();
         
     }
     public void makeWindow(){
         clearWindow();
 
-        itemList = new ItemList<LandMap>(skin, listTitle, methodName, String.class, true);
+        itemList = new ItemList<LandMap>(skin, listTitle, methodName, String.class, false);
         itemList.setEditable(listNameEditable);
         itemList.setSortable(false);
-        layerLabel = new Label("Current "+itemName+"  :", skin);
+        itemLabel = new Label("Current "+itemName+"  :", skin);
         addButton = new TextButton("Add New "+itemName, skin);
 
         addButton.addListener(new ChangeListener() {
@@ -122,6 +122,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
                 createMapOptionPane.makeWindow();
                 createMapOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
                 getStage().addActor(createMapOptionPane);
+                itemListScrollPane.setScrollY(itemListScrollPane.getMaxY());
 
             }
         });
@@ -133,12 +134,14 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
             @Override
             public void onSelected(LandMap landMap) {
                 mapEditScreen.setMap(landMap);
+                itemLabel.setText("Current Map: "+itemList.getSelectedItem().getMapName());
+
             }
         });
-        add(layerLabel).height(layerLabel.getPrefHeight());
+        add(itemLabel).height(itemLabel.getPrefHeight());
         row();
-        ScrollPane scrollPane= new ScrollableItemList<>(itemList, skin).getScrollPane();
-        add(scrollPane).size(300, listHeight);
+        itemListScrollPane = new ScrollableItemList<>(itemList, skin).getScrollPane();
+        add(itemListScrollPane);
         tiledMapLayersPane.setTransform(true);
         tiledMapLayersPane.setScrollbarsVisible(true);
         row();

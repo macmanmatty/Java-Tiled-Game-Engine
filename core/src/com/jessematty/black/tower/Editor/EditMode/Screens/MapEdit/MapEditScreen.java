@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -26,12 +28,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors.MapEditInputProcessors;
+import com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors.MapEditProcessor;
 import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
 import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenuMap;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
@@ -62,9 +67,12 @@ import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 
-public    class MapEditScreen implements NamedScreen, LockableInputProcessor, EditScreen, MapSettable {
-    private PlaceMode placeMode = PlaceMode.PLACE;
-    private SelectMode selectMode=SelectMode.SELECT;
+/**
+ *  screen instance for editing the map
+ *  holds all of the ui tool windows
+ *
+ */
+public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
     private Skin skin; // the UI skin
     private GameMapEdit gameMapEdit;// map editor class
     private GameMap currentMap; // the currentMap to Edit
@@ -78,21 +86,16 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     private final GameAssets gameAssets;
     private TiledMapRenderer tiledMapRenderer;
     private  World world;
-    private int currentLayerNumber;
-    private Rectangle selectedArea = new Rectangle();
     private final WorldObjects worldObjects;
     private ClipBoard clipBoard;
     private final String name = "Map Edit Screen";
     private MapTools mapTools;
     private MapEditWindows mapEditWindows;
-    private MapEditButtons mapEditButtons;
     private TopMenu topMenu;
     private boolean renderToBuffer=false;
     private MapEditKeys editInputKeys;
-    private boolean screenLocked;
-    private boolean keyLocked;
     private final MapDraw mapDraw;
-
+    private MapEditInputProcessors mapEditProcessors;
     public MapEditScreen(GameAssets assets, Skin skin, World world) {
         this.gameAssets = assets;
         this.world = world;
@@ -102,11 +105,9 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         this.clipBoard=new ClipBoard();
         uiStage = new Stage();
         mapDraw= new MapDraw(getGameAssets(), world);
-
     }
     @Override
     public void show() {
-
         GameInput gameInput=GameAssets.getGameInput();
         camera = new GameCamera(960, 960);
         topMenu= new TopMenu(this);
@@ -115,12 +116,12 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         tiledMapEdit= new TiledMapEdit( gameAssets, clipBoard);
         gameMapEdit= new GameMapEdit(gameAssets, clipBoard);
         mapEditWindows= new MapEditWindows(this);
-       editInputKeys= new MapEditKeys(this, gameInput.getKeyListener());
-        editInputKeys.addKeys();
-        gameInput.addProcessor(this);
+       //editInputKeys= new MapEditKeys(this, gameInput.getKeyListener());
+        //editInputKeys.addKeys();
+        mapEditProcessors= new MapEditInputProcessors(this);
+        gameInput.addProcessor(mapEditProcessors.getInputProcessors().values().toArray());
         camera.enableControlledMovement();
         gameInput.addProcessor(uiStage);
-        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         mapTools = new MapTools(this);
         engine = world.getEngine();
         shapeRenderer = new ShapeRenderer();
@@ -132,7 +133,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public void hide() {
         renderToBuffer=true;
         GameAssets.getGameInput().removeProcessor(uiStage);
-        GameAssets.getGameInput().removeProcessor(this);
+        GameAssets.getGameInput().removeProcessor(mapEditProcessors.getInputProcessors().values().toArray());
     }
     @Override
     public void resize(int width, int height) {
@@ -160,7 +161,7 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         height = height - menuTable.getPrefHeight();
         menuTable.setPosition(0, height);
         uiStage.addActor(menuTable);
-        mapEditButtons = new MapEditButtons(this, skin);
+         EditWindow mapEditButtons = mapEditWindows.getEditWindows().get("Top Buttons");
         mapEditButtons.makeWindow();
         Window mapButtonsWindow = mapEditButtons;
         mapEditButtons.setWindowSize(width - 320, 64);
@@ -204,20 +205,13 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
          */
     public void setMap(GameMap map) {
             this.currentMap = map;
-
-
         gameMapEdit.setTileSizeX(map.getTileWidth());
         gameMapEdit.setTileSizeY(map.getTileHeight());
         gameMapEdit.setxSize(map.getXTiles());
         gameMapEdit.setySize(map.getYTiles());
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map.getTiledMap(), 1f);
         mapDraw.setMap(map, false);
-
     }
-
-
-
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(Color.FOREST.r, Color.FOREST.g, Color.FOREST.b, Color.FOREST.a );
@@ -237,219 +231,31 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         }
         uiStage.act();
         uiStage.draw();
-
         if(currentMap!=null && frameBufferRenderer!=null && renderToBuffer) {
             Texture mapTexture=frameBufferRenderer.getMapFrameBuffer().getColorBufferTexture();
             currentMap.setMapImage(mapTexture);
           //  batch.setTiledMapView(camera);
                 batch.begin();
             batch.draw(mapTexture, 0, 0 );
+            MapEditProcessor currentInputProcessor=mapEditProcessors.getCurrentInputProcessor();
+            if(currentInputProcessor.isDrawMousePointer()){
+                TextureRegion mousePointer=currentInputProcessor.getMousePointer();
+                if(mousePointer!=null){
+                    batch.draw( mousePointer, currentInputProcessor.getScreenX(), currentInputProcessor.getScreenY());
+                }
+            }
             batch.end();
         }
              batch.begin();
             engine.update(delta);
             batch.end();
         }
-    @Override
-    public boolean keyDown(int keycode) {
-        System.out.println("key down!!");
-        return false;
-    }
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Object object=clipBoard.getCurrentObject();
-        if(object==null){
-            return  false;
-        }
-
-
-        Vector3 unprojectedScreenCoordinates= camera.unproject(new Vector3(screenX,screenY,0));
-        float x=unprojectedScreenCoordinates.x;
-        float y=unprojectedScreenCoordinates.y;
-        
-            if (currentMap != null) {
-              place(object, x, y);
-            }
-        if(placeMode == PlaceMode.FILL_BUCKET){
-            if(currentMap!=null) {
-                int tiledMapX=(int)(x/ currentMap.getTileWidth());
-                int tiledMapY=(int)(((y/ currentMap.getTileHeight())));
-              tiledMapEdit.bucketFill(tiledMapX, tiledMapY, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
-            }
-        }
-        return false;
-    }
-    
-    
-    void place(Object object, float x, float y ){
-        if (object instanceof Entity) {
-            Entity entityToPlace = (Entity) object;
-            EntityTools.placeEntity(currentMap, world, entityToPlace, x, y);
-        }
-        if (object instanceof LandSquareTile[][]) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
-                gameMapEdit.placeTiles(tile.getLocationX(), tile.getLocationY(), (LandSquareTile[][]) object);
-            }
-        if (object instanceof Cell [] [] [] ) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
-            tiledMapEdit.placeCells(tile.getLocationX(), tile.getLocationY(), (Cell[][][]) object);
-        }
-        if (object instanceof Cell [] []  ) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
-            tiledMapEdit.placeCell(tile.getLocationX(), tile.getLocationY(), (Cell[][]) object);
-        }
-        
-        if (object instanceof  AtlasRegion) {
-            tiledMapEdit.createStaticTiledMapTile(x, y, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
-        }
-        
-        
-    }
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(GameAssets.getGameInput().getKeyListener().anyKeysPressed(Keys.SHIFT_LEFT, Keys.SHIFT_RIGHT)) {
-            Viewport viewport=uiStage.getViewport();
-            if (screenX > viewport.getWorldWidth() || screenY > viewport.getWorldWidth()) {
-                return true;
-            }
-            Vector3 unprojectedScreenCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
-            if (selectMode == SelectMode.SELECT) {
-                if (currentMap != null) {
-                    selectedArea.height = unprojectedScreenCoordinates.x - selectedArea.x;
-                    selectedArea.width = unprojectedScreenCoordinates.y - selectedArea.y;
-                }
-                gameMapEdit.selectTiles(selectedArea);
-            }
-            if (selectMode == SelectMode.SELECT) {
-                if (currentMap != null) {
-                    selectedArea.height = unprojectedScreenCoordinates.x - selectedArea.x;
-                    selectedArea.width = unprojectedScreenCoordinates.y - selectedArea.y;
-                }
-                tiledMapEdit.selectCells(selectedArea);
-            }
-        }
-        return false;
-    }
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        uiStage.setKeyboardFocus(null);
-
-        Viewport mapViewport=uiStage.getViewport();
-        if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
-            return true;
-        }
-        Vector3 unprojectedScreenCoordinates= camera.unproject(new Vector3(screenX,screenY,0));
-        if(pointer== Buttons.LEFT)
-        if(selectMode == SelectMode.SELECT){
-            if(currentMap!=null) {
-                selectedArea.height=unprojectedScreenCoordinates.x-selectedArea.x;
-                selectedArea.width=unprojectedScreenCoordinates.y-selectedArea.y;
-            }
-            shapeRenderer.begin(ShapeType.Line);
-            shapeRenderer.setColor(1, 0, 0, 1);
-           shapeRenderer.rect(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
-            shapeRenderer.end();
-        }
-        return false;
-    }
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        Object object=clipBoard.getCurrentObject();
-        // no object exit
-        if(object==null){
-            return false;
-        }
-        // object out of screen exit and true mouse in not in  application bounds
-        Viewport mapViewport=uiStage.getViewport();
-        if(screenX>mapViewport.getWorldWidth() || screenY>mapViewport.getWorldWidth()){
-            return true;
-        }
-        //  actual  get game location coordinates
-        Vector3 unprotectedScreenCoordinates=camera.unproject(new Vector3(screenX, screenY, 0));
-        clipBoard.setScreenLocations(screenX, mapViewport.getTopGutterY()-screenY);
-        float x=unprotectedScreenCoordinates.x;
-         float y=unprotectedScreenCoordinates.y;
-        if(placeMode == PlaceMode.PLACE) {
-            placeObjectPreview(object, x , y);
-            
-        }
-        
-        
-        if(placeMode == PlaceMode.FILL_BUCKET){
-            if(currentMap!=null) {
-                int tiledMapX=(int)(x/ currentMap.getTileWidth());
-                int tiledMapY=(int)(((y/ currentMap.getTileHeight())));
-                tiledMapEdit.clearMouseOver();
-                tiledMapEdit.fillMouseOver(tiledMapX, tiledMapY, (AtlasNamedAtlasRegion) clipBoard.getCurrentObject());
-            }
-        }
-        return false;
-    }
-    private void placeObjectPreview(Object object, float x, float y){
-        if(object instanceof  Entity) {
-            Entity entityToPlace = (Entity) clipBoard.getCurrentObject();
-            if (currentMap != null && entityToPlace != null) {
-                ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
-                PositionComponent position = positionComponentMapper.get(entityToPlace);
-                position.setMapID(currentMap.getId());
-                position.setLocationX(x);
-                position.setLocationY(y);
-            }
-        }
-        if (object instanceof  Cell) {
-            int tiledMapX = (int) (x / currentMap.getTileWidth());
-            int tiledMapY = (int) (((y / currentMap.getTileHeight())));
-            tiledMapEdit.clearMouseOver();
-            tiledMapEdit.placeCellMouseOver(tiledMapX, tiledMapY, (Cell[][]) clipBoard.getCurrentObject());
-        }
-        if (object instanceof Cell [] [] [] ) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
-            tiledMapEdit.clearMouseOver();
-            tiledMapEdit.placeCells(tile.getLocationX(), tile.getLocationY(), (Cell[][][]) clipBoard.getCurrentObject());
-        }
-        
-        
-    }
-    // sets the screen to  a  x, y world position
-    public void setCameraToMapCoordinates(float  mapX, float mapY ){
-        Vector3 screenCoordinates= camera.project(new Vector3(mapX, mapY, 0));
-        camera.translate(new Vector2(screenCoordinates.x, screenCoordinates.y));
-    }
-    private Vector2 setCoordinatesToTile(float screenX, float screenY){
-        int tilesX= (int) (screenX/ currentMap.getTileWidth());
-        int tilesY= (int) (screenY/ currentMap.getTileHeight());
-        float newScreenX=tilesX* currentMap.getTileWidth();
-        float newScreenY=tilesY* currentMap.getTileHeight();
-       return  new Vector2(tilesX, tilesY);
-    }
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
     public World getWorld() {
         return world;
     }
-
     @Override
     public GameMap getMap() {
         return currentMap;
-    }
-    public PlaceMode getPlaceMode() {
-        return placeMode;
-    }
-    public void setPlaceMode(PlaceMode placeMode) {
-        this.placeMode = placeMode;
-    }
-    public int getCurrentLayerNumber() {
-        return currentLayerNumber;
     }
     public int getTileWidth() {
         return currentMap.getTileWidth();
@@ -460,15 +266,11 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public WorldObjects getWorldObjects() {
         return worldObjects;
     }
-
     public ClipBoard getClipBoard() {
         return clipBoard;
     }
     public String getName() {
         return name;
-    }
-    public void setCurrentLayerNumber(int currentLayerNumber) {
-        this.currentLayerNumber = currentLayerNumber;
     }
     public MapTools getMapTools() {
         return mapTools;
@@ -498,13 +300,6 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
     public GameMap getCurrentMap() {
         return currentMap;
     }
-
-    public SelectMode getSelectMode() {
-        return selectMode;
-    }
-    public void setSelectMode(SelectMode selectMode) {
-        this.selectMode = selectMode;
-    }
     public Skin getSkin() {
         return skin;
     }
@@ -518,23 +313,9 @@ public    class MapEditScreen implements NamedScreen, LockableInputProcessor, Ed
         // capture  map image
         renderToBuffer=true;
     }
-    @Override
-    public boolean isMouseInputLocked() {
-        return screenLocked;
-    }
-    @Override
-    public void setMouseInputLocked(boolean screenLocked) {
-        this.screenLocked = screenLocked;
-    }
-    @Override
-    public boolean isKeyInputLocked() {
-        return keyLocked;
-    }
-    @Override
-    public void setKeyInputLocked(boolean keyLocked) {
-        this.keyLocked = keyLocked;
-    }
-
     public void editMap(LandMap map) {
+    }
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
     }
 }

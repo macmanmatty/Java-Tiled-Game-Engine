@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 public class ItemTableTarget<T > extends Target {
     private  final ItemTable<T> itemTable;
     private ItemList<T> tableColumn;
+    private OnOrderChanged<T> onOrderChanged;
     public ItemTableTarget(ItemTable<T> itemTable, ItemList<T> tableColumn ) {
         super(tableColumn);
         this.itemTable=itemTable;
@@ -38,5 +39,16 @@ public class ItemTableTarget<T > extends Target {
         itemTable.getTableColumns().insert(index, (ItemList<T>) payload.getObject());
             itemTable.forceRemakeTable();
             itemTable.forceRemakeColumns();
+            if(onOrderChanged!=null){
+                onOrderChanged.onOrderChanged((T) payload.getObject(), itemTable.getTableItems());
+            }
+    }
+
+    public OnOrderChanged<T> getOnOrderChanged() {
+        return onOrderChanged;
+    }
+
+    public void setOnOrderChanged(OnOrderChanged<T> onOrderChanged) {
+        this.onOrderChanged = onOrderChanged;
     }
 }

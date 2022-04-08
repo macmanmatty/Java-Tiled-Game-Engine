@@ -11,6 +11,7 @@ public class TiledMapTileLayerList extends ItemList<NamedTiledMapTileLayer>  { /
     public TiledMapTileLayerList(final TiledMapEdit tiledMapEdit, Skin skin, String titleName, String methodName, Class itemDataClass) {
         super(skin, titleName, methodName, itemDataClass, false);
         this.tiledMapEdit=tiledMapEdit;
+
        
     }
     @Override

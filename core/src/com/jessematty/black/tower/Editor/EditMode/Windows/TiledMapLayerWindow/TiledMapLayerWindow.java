@@ -7,9 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -19,10 +21,10 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
     private TiledMapTileLayerList mapLayers;
     private TextButton addLayerButton;
     private NamedField enterName;
-    private ScrollPane tiledMapLayersPane;
     private float listHeight=240;
     private Label layerLabel;
     private TiledMapEdit tiledMapEdit;
+    private ScrollPane scrollPane;
     public TiledMapLayerWindow(TiledMapEdit tiledMapEdit, GameAssets gameAssets, Skin skin) {
         this(gameAssets,tiledMapEdit, "Map Layers", skin, "default");
     }
@@ -51,15 +53,21 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
                 else {
                     tiledMapEdit.addLayer();
                 }
+                scrollPane.setScrollY(scrollPane.getMaxY());
+
             }
         });
-        tiledMapLayersPane= new ScrollPane(this.mapLayers);
+        mapLayers.setOnSelected(new OnSelected<NamedTiledMapTileLayer>() {
+            @Override
+            public void onSelected(NamedTiledMapTileLayer item) {
+                layerLabel.setText("Current Layer : "+mapLayers.getSelectedItem().getName());
+
+            }
+        });
         add(layerLabel).height(layerLabel.getPrefHeight());
         row();
-        ScrollPane scrollPane= new ScrollableItemList<>(mapLayers, skin).getScrollPane();
-        add(scrollPane).size(300, listHeight);
-        tiledMapLayersPane.setTransform(true);
-        tiledMapLayersPane.setScrollbarsVisible(true);
+        scrollPane= new ScrollableItemList<>(mapLayers, skin).getScrollPane();
+        add(scrollPane).setActorY(getMaxHeight());
         row();
         this.addLayerButton.getLabel().setFontScale(getFontScale());
         enterName= new NamedField("Enter Name", skin, new TextField("", skin));

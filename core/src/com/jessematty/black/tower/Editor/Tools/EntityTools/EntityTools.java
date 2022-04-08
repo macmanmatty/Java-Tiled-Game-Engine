@@ -49,7 +49,7 @@ public class EntityTools {
         else{
             float locationX=positionComponent.getLocationX();
             float locationY=positionComponent.getLocationY();
-            mapEditScreen.setCameraToMapCoordinates(locationX, locationY);
+           // mapEditScreen.setCameraToMapCoordinates(locationX, locationY);
         }
     }
 

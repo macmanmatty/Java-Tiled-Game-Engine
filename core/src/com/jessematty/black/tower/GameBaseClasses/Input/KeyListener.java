@@ -138,7 +138,7 @@ public class KeyListener implements LockableInputProcessor {
 
     /**
      * checks to see if  a TextField is the primary  focus of the keyboard
-     * @return
+     * @return true of the actor is  a  TextField false of not
      */
     private boolean isKeyboardFocusOnTextField(){
         int size=stages.size;
@@ -169,9 +169,10 @@ public class KeyListener implements LockableInputProcessor {
         }
         return  false;
     }
-    /** checks to see if the current pressed keys match  any of  key actions  in  input key combo object
-     if they do it calls  the  key actions act method.
-     returns true if key combo  was  acted on  false if no key was acted on
+    /** checks to see if the current pressed keys match  any of  key actions  in  the  input key combo array
+     if they do it calls  the  key actions act method provided  if the action is not currently locked
+     and the KeyPressMode  and if applicable  the stage focused actor  match
+     returns true if any  key combo  was  acted on  false if no key was acted on
      **/
     public  boolean  checkForKeyAction(KeyPressMode keyPressMode){
         int size=inputKeyCombos.size;
@@ -180,6 +181,7 @@ public class KeyListener implements LockableInputProcessor {
           if(inputKeyCombo.isDisabled()){
               continue;
           }
+          // check for stage focused actor
           Actor actor=inputKeyCombo.getFocusActor();
           if(actor!=null){
               if(!isKeyboardFocusOnActor(actor)){

@@ -65,7 +65,6 @@ public class MapEditButtons extends MapEditWindow {
         dragAndSelectTiledMapCells.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setSelectMode(SelectMode.SELECT);
                 return  true;
             }
         });
@@ -73,7 +72,6 @@ public class MapEditButtons extends MapEditWindow {
         placeEntity.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.PLACE);
                 return  true;
             }
         });
@@ -81,7 +79,6 @@ public class MapEditButtons extends MapEditWindow {
         dragAndSelectTiles.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setSelectMode(SelectMode.SELECT);
                 return  true;
             }
         });
@@ -89,7 +86,6 @@ public class MapEditButtons extends MapEditWindow {
         magicWand.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setSelectMode(SelectMode.WAND);
                 return  true;
             }
         });
@@ -97,7 +93,6 @@ public class MapEditButtons extends MapEditWindow {
         placeBuilding.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.PLACE);
                 return  true;
             }
         });
@@ -105,7 +100,6 @@ public class MapEditButtons extends MapEditWindow {
         placeCells.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.PLACE);
                 return  true;
             }
         });
@@ -113,7 +107,6 @@ public class MapEditButtons extends MapEditWindow {
         placeTiles.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.PLACE);
                 return  true;
             }
         });
@@ -121,7 +114,6 @@ public class MapEditButtons extends MapEditWindow {
         bitmask.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.BITMASK);
             return true;
             }
         });
@@ -136,7 +128,6 @@ public class MapEditButtons extends MapEditWindow {
         fill.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                mapEditScreen.setPlaceMode(PlaceMode.FILL_BUCKET);
                 return  true;
             }
         });

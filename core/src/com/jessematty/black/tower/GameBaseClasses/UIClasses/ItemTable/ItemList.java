@@ -277,7 +277,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         row();
         for(int count=0; count<size; count++){
            ItemLabel<T> label= new ItemLabel<T>(this,  count,   itemListLabelStyle, items.get(count),editable, methodName, itemDataClass);
-           label.setSize(getMaxWidth(), getMaxHeight());
+           label.setSize(getPrefWidth(), getPrefHeight());
             itemLabels.add(label);
             if(dragToChangeOrder==true && dragAndDrop!=null){
                 if(label!=null) {
@@ -288,8 +288,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             add(label).width(columnWidth);
             row();
         }
-        invalidateHierarchy();
         setBounds(getX(), getY(), columnWidth, getPrefHeight());
+        invalidateHierarchy();
+
     }
     public Array<T> getItems() {
         return items;
@@ -615,5 +616,9 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
 
     public void setConfirmDelete(boolean confirmDelete) {
         this.confirmDelete = confirmDelete;
+    }
+
+    public void setDisplayTitle(boolean displayTitle) {
+        this.displayTitle = displayTitle;
     }
 }
