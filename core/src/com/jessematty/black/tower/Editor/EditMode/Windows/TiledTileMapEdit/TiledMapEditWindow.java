@@ -56,7 +56,8 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-public class TiledMapEditWindow implements LockableInputProcessor {
+public class TiledMapEditWindow {
+    /*
     private PlaceMode placeMode = PlaceMode.PLACE;
     private SelectMode selectMode=SelectMode.SELECT;
     private Skin skin; // the UI skin
@@ -168,7 +169,6 @@ public class TiledMapEditWindow implements LockableInputProcessor {
         height = height - tiledMapLayer2DWindow.getHeight();
         tiledMapLayer2DWindow.setPosition(width - 320, height);
         uiStage.addActor(tiledMapLayer2DWindow);
-        uiStage.addActor(clipBoard);
     }
     public void setWidowsToMap() {
     }
@@ -529,4 +529,6 @@ public class TiledMapEditWindow implements LockableInputProcessor {
     public void setKeyInputLocked(boolean keyLocked) {
         this.keyLocked = keyLocked;
     }
+
+     */
 }

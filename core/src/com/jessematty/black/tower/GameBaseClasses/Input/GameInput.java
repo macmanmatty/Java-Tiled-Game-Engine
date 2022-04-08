@@ -10,6 +10,9 @@ import com.badlogic.gdx.utils.Array;
  * **/
 public class GameInput {
 
+    /**
+     * the key listener  object that listens for keys pressed
+     */
     private final  KeyListener keyListener= new KeyListener(); // the key listner
     private final LockableInputMultiplexer lockableInputMultiplexer= new LockableInputMultiplexer();
 

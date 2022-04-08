@@ -31,8 +31,8 @@ import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.Crea
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.Maps.WorldSettable;
 
-public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScreen, WorldSettable {
-        private   World world;
+public    class WorldEditScreen  {
+       /* private   World world;
         private final  GameAssets gameAssets;
         private WorldObjects worldObjects;
         private EntityGenerator entityGenerator;
@@ -241,4 +241,6 @@ public    class WorldEditScreen implements NamedScreen, InputProcessor, EditScre
     public Skin getSkin() {
         return skin;
     }
+
+        */
 }

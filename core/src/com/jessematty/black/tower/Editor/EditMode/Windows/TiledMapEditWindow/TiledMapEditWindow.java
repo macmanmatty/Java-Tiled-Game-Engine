@@ -42,8 +42,8 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
-public class TiledMapEditWindow  implements InputProcessor {
-
+public class TiledMapEditWindow   {
+/*
     private PlaceMode placeMode = PlaceMode.PLACE;
     private SelectMode selectMode=SelectMode.SELECT;
     private Skin skin; // the UI skin
@@ -355,5 +355,7 @@ public class TiledMapEditWindow  implements InputProcessor {
 
 
     }
+
+ */
 
 }

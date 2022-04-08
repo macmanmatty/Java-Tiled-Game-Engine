@@ -6,7 +6,14 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.ActorEntityUtilities;
 
-/**class that detects  input from multiple keys  at the same time
+/**
+ * class that detects  input from multiple keys  at the same time
+ * holds map of key codes to keys pressed
+ * holds a array of InputKeyCombos and acts on them when the correct
+ * conditions are met key input mode combination  of keys pressed etc.
+ * also holds an array  the games stages to check what the stage(s)
+ * keyboard focused actor is and locks all other key functions from being called
+ * if the any of the stages keyboard focused actors are TextFields
  *
  */
 public class KeyListener implements LockableInputProcessor {
@@ -259,18 +266,19 @@ public class KeyListener implements LockableInputProcessor {
     public Array<Stage> getStages() {
         return stages;
     }
-    public void addInputKeyCombo(InputKeyCombo inputKeyCombo){
+    public void addInputKeyCombo(
+            InputKeyCombo inputKeyCombo){
         inputKeyCombos.add(inputKeyCombo);
     }
     public void removeInputKeyCombo(InputKeyCombo inputKeyCombo){
         inputKeyCombos.removeValue(inputKeyCombo, true);
     }
     public void addInputKeys(Array<InputKeyCombo> inputKeyComboList) {
-        inputKeyComboList.addAll(inputKeyComboList);
+        this.inputKeyCombos.addAll(inputKeyComboList);
 
     }
     public void removeInputKeys(Array<InputKeyCombo> inputKeyComboList) {
-      inputKeyComboList.removeAll(inputKeyComboList, true);
+      this.inputKeyCombos.removeAll(inputKeyComboList, true);
 
     }
     // return false  no mouse input in this class.

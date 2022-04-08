@@ -122,6 +122,7 @@ public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
         gameInput.addProcessor(mapEditProcessors.getInputProcessors().values().toArray());
         camera.enableControlledMovement();
         gameInput.addProcessor(uiStage);
+        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         mapTools = new MapTools(this);
         engine = world.getEngine();
         shapeRenderer = new ShapeRenderer();
@@ -184,11 +185,10 @@ public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
         height = height - landMapSelectorWindow.getHeight();
         landMapSelectorWindow.setPosition(width - 320, height);
         landMapSelectorWindow.setEditor(this);
+        mapDraw.setWorld(world);
         mapDraw.getChangeListeners().getWorldSettables().add((WorldSettable) landMapSelectorWindow);
         mapDraw.getChangeListeners().getMapSettables().add(tiledMapEdit);
-        mapDraw.setWorld(world);
         uiStage.addActor(landMapSelectorWindow);
-        uiStage.addActor(clipBoard);
     }
    
     public int getXSize() {
@@ -234,7 +234,6 @@ public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
         if(currentMap!=null && frameBufferRenderer!=null && renderToBuffer) {
             Texture mapTexture=frameBufferRenderer.getMapFrameBuffer().getColorBufferTexture();
             currentMap.setMapImage(mapTexture);
-          //  batch.setTiledMapView(camera);
                 batch.begin();
             batch.draw(mapTexture, 0, 0 );
             MapEditProcessor currentInputProcessor=mapEditProcessors.getCurrentInputProcessor();

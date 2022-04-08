@@ -9,7 +9,15 @@ import com.badlogic.gdx.utils.SnapshotArray;
  * @author Nathan Sweet*/
 public class LockableInputMultiplexer implements  InputProcessor {
     private SnapshotArray<InputProcessor> processors = new SnapshotArray(4);
-    private InputProcessor currentUnlockedKeyProcessor; // the current keyprocessor that the game  is using
+    /**
+     * if all other processors are locked  the currently and only
+     * key processor being polled for input
+     */
+    private InputProcessor currentUnlockedKeyProcessor;
+    /**
+     * if all other processors are locked  the currently and only
+     * mouse  processor being polled for input
+     */
     private InputProcessor getCurrentUnlockedMouseProcessor; // the current mouse processor that the game is using
     public LockableInputMultiplexer() {
     }

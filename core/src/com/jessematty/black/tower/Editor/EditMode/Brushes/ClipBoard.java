@@ -25,7 +25,7 @@ import com.jessematty.black.tower.Maps.Buildings.Building;
 /** contains the current object to be copied or placed.
  *
  */
-public class ClipBoard  extends Actor implements ItemSettable {
+public class ClipBoard   implements ItemSettable {
     /**
      * the locations of the current object on the screen
      */
@@ -88,18 +88,7 @@ public class ClipBoard  extends Actor implements ItemSettable {
             currentCell.setRotation(currentCell.getRotation() + 90);
         }
     }
-    // draws the currents actor
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        if(clipBoardActor!=null) {
-            clipBoardActor.setLocations(screenLocationX, screenLocationY);
-            clipBoardActor.draw(batch, parentAlpha);
-        }
-        batch.setColor(1,1,1,1);
-    }
-    @Override
-    protected void drawDebugBounds(ShapeRenderer shapes) {
-    }
+
     //sets the screen locations for the clipboard object and actor
     public void setScreenLocations(float x , float y){
         this.screenLocationX=x;
@@ -135,41 +124,8 @@ public class ClipBoard  extends Actor implements ItemSettable {
     // sets the clip board object and the actor image  for the current object
     public void setCurrentObject(Object currentObject) {
         this.currentObject = currentObject;
-        setClipBoardActor();
     }
-    // sets the actor to be drawn for the clipboard icon
-    private void setClipBoardActor() {
-            if (currentObject instanceof Cell) {
-                TiledMapTile tiledMapTile = ((Cell) currentObject).getTile();
-                if (tiledMapTile != null) {
-                    if (tiledMapTile instanceof AtlasAnimatedTiledMapTile) {
-                        clipBoardActor = new AnimatedTiledMapTileActor((AtlasAnimatedTiledMapTile) tiledMapTile);
-                        clipBoardActor.setColor(((AtlasAnimatedTiledMapTile) tiledMapTile).getColor());
-                    } else {
-                        clipBoardActor = new StaticTiledMapTileActor((AtlasStaticTiledMapTile) tiledMapTile);
-                        clipBoardActor.setColor(((AtlasStaticTiledMapTile) tiledMapTile).getColor());
-                    }
-                }
-            } else if (currentObject instanceof TextureRegion) {
-                clipBoardActor = new TextureRegionActor((TextureRegion) currentObject);
-            } else if (currentObject instanceof Entity) {
-                EditorImageComponent drawable = ((Entity) currentObject).getComponent(EditorImageComponent.class);
-                if (drawable != null) {
-                    clipBoardActor = new TextureRegionActor(drawable.getAtlasRegion());
-                }
-                clipBoardActor.setColor(drawable.getColor());
-            } else if (currentObject instanceof Cell[][][]) {
-                clipBoardActor = new CellActor((Cell[][][]) currentObject);
-            } else if (currentObject instanceof Building) {
-            } else {
-                setPointer();
-                if (pointer != null) {
-                    clipBoardActor = new TextureRegionActor(pointer);
-                }
-            }
 
-
-    }
     // sets the current pointer based of the current action
     private  void  setPointer(){
     }

@@ -42,6 +42,7 @@ import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -453,7 +454,7 @@ public class GameAssets implements Disposable {
     public Kryo getKryo() {
         return kryo;
     }
-    public static  GameInput getGameInput() {
+    public  static GameInput getGameInput() {
         return gameInput;
     }
     public Skin getSkin() {
