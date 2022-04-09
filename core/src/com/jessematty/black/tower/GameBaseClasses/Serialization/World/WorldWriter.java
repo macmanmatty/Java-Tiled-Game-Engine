@@ -8,7 +8,6 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Maps.Buildings.Building;
-import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 
@@ -64,7 +63,7 @@ private com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.Te
      */
     private void packAssets(String path, String atlasName, String fullAtlasPath, World world, int packWidth, int packHeight) throws IOException {
         textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(), packWidth  ,packHeight, 2);
-        setMapAtlasName(fullAtlasPath,world.getWorldMap() );
+        setMapAtlasName(fullAtlasPath,world.getWorldMaps() );
     }
 
     /**

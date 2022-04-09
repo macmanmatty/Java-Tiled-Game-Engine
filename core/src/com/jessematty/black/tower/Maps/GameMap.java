@@ -14,23 +14,58 @@ import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
-
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * class with map of 2d tiles  the game map that all other maps extend from
  */
 public abstract  class GameMap  implements Map {
+	/**
+	 *                                 PLEASE READ!!! 
+	 * All fields in this class are serialized by a custom kyro Serializer 
+	 * @linked {WorldKryoSerializer} any fields NOT marked as Transient will be serialized by kryo
+	 * and then read upon deserialization  THE ORDER OF this classes  fields must the same as the order in
+	 * the WorldKryoSerializer classes  or the game will not save properly!!!
+	 */
+	/**
+	 * 2d array of  LandSquareTiles representing the  map
+	 */
 	protected    LandSquareTile map[][]; // the  landSquareTileMap
+	/**
+	 * the settings object for this map
+	 */
 	protected GameMapSettings gameMapSettings= new GameMapSettings();
+	/**
+	 * the  libGDX TiledMap for the map
+	 */
 	protected  TiledMap tiledMap; //  tiled maps tiles Map
+	/**
+	 * game time object
+	 */
 	protected  transient GameTime gameTime; // game time object
+	/**
+	 * the libGDX Skin the map will use for it's UI
+	 */
 	protected transient Skin skin; // UI skin  for landSquareTileMap
+	/**
+	 * the Entities currently on the map
+	 * note entities do not have to have  a x, y location to be present on the map
+	 */
 	protected  transient Array<Entity> entities = new Array<Entity>();
+	/**
+	 * position component mapper
+	 * use for performance
+	 */
 	protected transient ComponentMapper<PositionComponent> positionComponentMapper=ComponentMapper.getFor(PositionComponent.class);
-	protected transient  Array<Class <? extends GameEntitySystem>> mapGameEntitySystemsClasses = new Array<>();  // array of game engine systems unique to this map  they are added and removed from the engine  when the map changes
+	/**
+	 * array of game engine systems classes  unique to this map  they are added and removed from the engine  when the map changes
+	 * 
+	 */
+	protected transient  Array<Class <? extends GameEntitySystem>> mapGameEntitySystemsClasses = new Array<>();
+	/**
+	 * basic map info stored here for performance
+	 */
 	protected float maxXScreen;  // max x size in world units
 	protected  float maxYScreen; // max y size in world units
 	protected  int xTiles; // map  x Size in total tile units 1 tile unit = tileSizeX
@@ -41,16 +76,19 @@ public abstract  class GameMap  implements Map {
 	protected  float lightChangeAmount;
 	protected  boolean gettingBrighter;
 	protected  boolean lightChanges;
-	protected transient Texture mapImage; // the image of the  the map  including all  tiled map tiles  and  drawable map entities
+	/**
+	 * the image of the  the map  including all  tiled map tiles  and  drawable map entities
+	 */
+	protected transient Texture mapImage;
+	/**
+	 * the maps identifier
+	 */
 	protected final  String id;
-
-
 	/**
 	 * creates a uniqiue id for the map on construction
 	 */
 	protected GameMap() {
 		id=new UID().toString();
-		gameMapSettings.getSettings().put("id", id);
 	}
 	public GameMap(int xTiles, int yTiles) {
 		this();
@@ -58,7 +96,6 @@ public abstract  class GameMap  implements Map {
 		this.yTiles = yTiles;
 		this.gameMapSettings.setTiles(xTiles, yTiles);
 	}
-
 	/**
 	 * @overidable method  for having map do stuff called the the mapdraw classes game loop
 	 * @param deltaTime the game delta time @see libgdx docs
@@ -82,7 +119,6 @@ public abstract  class GameMap  implements Map {
 	public int getYTiles() {
 		return yTiles;
 	}
-
 	/**
 	 * // return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
 	 * 		// if given tile is out of bounds returns the closest tile that is in bounds
@@ -93,7 +129,6 @@ public abstract  class GameMap  implements Map {
 	public LandSquareTile getMapSquare(int xLocation, int yLocation) {
 		// return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
 		// if given tile is out of bounds returns the closest tile that is in bounds
-
 		if (xLocation < 0) {
 			xLocation = 0;
 		}
@@ -108,7 +143,6 @@ public abstract  class GameMap  implements Map {
 		}
 		return map[xLocation][yLocation];
 	}
-
 	/**
 	 * gets a land square tile  at given x, y point on the Map if no tile exists returns null
 	 * @param xLocation the tile x Loction on the map
@@ -133,10 +167,6 @@ public abstract  class GameMap  implements Map {
 		}
 		return map[xLocation][yLocation];
 	}
-
-
-
-
 	/**
 	 *  add an entity to map and the maps tiles and  adds entity to the appropriate  landsquare tiles on the map based on its bounds
 	 * @param entity the entity to add
@@ -146,12 +176,9 @@ public abstract  class GameMap  implements Map {
 		if (position == null) {
 			return;
 		}
-
 		if(position.getMapId()!=id) {
 			entities.add(entity);
 			position.setMapID(id);
-
-
 		}
 			Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
 			position.setTiles(tiles);
@@ -167,12 +194,10 @@ public abstract  class GameMap  implements Map {
 			tiles.get(count).removeEntity(entity);
 		}
 	}
-
 	/**
 	 *  removes an entity from  the map and te tiles it's on
 	 * @param entity the entity to remove
 	 */
-
 	public void removeEntity( Entity entity) {
 		PositionComponent position=positionComponentMapper.get(entity);
 		entities.removeValue(entity, true);
@@ -186,20 +211,16 @@ public abstract  class GameMap  implements Map {
 	}
 	public void setTiledMap(TiledMap tiledMap) {
 		this.tiledMap = tiledMap;
-
 	}
 	public Skin getSkin() {
 		return skin;
 	}
-
-
 	/**
 	 *  gets the screen coordinates for a x, y tile location
 	 * @param x
 	 * @param y
 	 * @return Vector2 the screen coordinates of the tile
 	 */
-
 	public Vector2 getScreenCoordinatesFromTileCoordinates(int x, int y){
         float screenLocationX = (x + 1) * 32;
         float screenLocationY = (yTiles - y - 1) * 32;
@@ -208,7 +229,6 @@ public abstract  class GameMap  implements Map {
 	public LandSquareTile screenToTile(float screenLocationX, float screenLocationY) { // 0,0 is top left for landsquare tile landSquareTileMap but 0,0 is bottom left for screen  stage  to y is y- yscreenloaction
 		return getMapSquareOrNull((int) Math.ceil(screenLocationX / tileWidth) - 1, yTiles - (int) Math.ceil(screenLocationY / tileHeight));
 	}
-
 	/**
 	 *
 	 * @param map the array of tiles to set as the map
@@ -220,26 +240,20 @@ public abstract  class GameMap  implements Map {
 		maxXScreen = xTiles * tileWidth;
 		maxYScreen = yTiles * tileHeight;
 		gameMapSettings.setTiles(map.length, map[0].length);
-
 		gameMapSettings.getSettings().put("newMap", true);
-
 	}
-
-
-	// retusn the gravity for the map if no gravity is set returns -9.8
+	/**
+	 returns the gravity for the map if no gravity is set returns -9.8
+	 */
 	public double getGravity() {
 		Double gravity  =gameMapSettings.getSimpleSetting("gravity", Double.class);
 		if(gravity!=null){
-
 			return  gravity;
 		}
-
 		return -9.8;
-
 	}
 	public void setGravity(double gravity) {
 		gameMapSettings.getSettings().put("gravity", gravity);
-
 	}
 	public float getMaxXScreen() {
 		return maxXScreen;
@@ -247,13 +261,20 @@ public abstract  class GameMap  implements Map {
 	public float getMaxYScreen() {
 		return maxYScreen;
 	}
-
 	@Override
 	public boolean isCurrentMap() {
 		return false;
 	}
 
-	public List<LandSquareTile> getSurroundingTiles(LandSquareTile tile, int distance) { // returns all tiles surronding a given tile as an arraylist with the give tile in the list aswell
+	/**
+	 *
+	 *  method that returns all tiles surrounding a given tile x distance away including diagonals as a list
+	 *  with the given tile in the list as well
+	 * @param tile the tile to check for
+	 * @param distance the distance away from the given tile
+	 * @return
+	 */
+	public List<LandSquareTile> getSurroundingTiles(LandSquareTile tile, int distance) {
 		ArrayList<LandSquareTile> tiles = new ArrayList<LandSquareTile>();
 		int locationx = tile.getLocationX();
 		int locationy = tile.getLocationY();
@@ -265,7 +286,6 @@ public abstract  class GameMap  implements Map {
 		}
 		return tiles;
 	}
-
 	/**
 	 *
 	 * @param rectangle
@@ -296,7 +316,16 @@ public abstract  class GameMap  implements Map {
 	public Array<LandSquareTile> getAllTiles(Rectangle rectangle) {
 		return getAllTiles(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y);
 	}
-	public Array<LandSquareTile> getAllTiles(float xMin, float yMin, float xMax, float yMax){ // finds all tiles for a given  rectangle bounds  and adds them to a list and returns them .
+
+	/**
+	 * finds all tiles for a given  rectangle bounds with given side points and adds them to a list and returns them .
+	 * @param xMin
+	 * @param yMin
+	 * @param xMax
+	 * @param yMax
+	 * @return
+	 */
+	public Array<LandSquareTile> getAllTiles(float xMin, float yMin, float xMax, float yMax){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
 		for (float countx=xMin-10; countx<xMax; countx=countx+ tileWidth) {
 			for (float county = yMin-10; county < yMax; county = county + tileHeight) {
@@ -321,7 +350,6 @@ public abstract  class GameMap  implements Map {
 		}
 		return true;
 	}
-
 	public void setCurrentMap(boolean currentMap) {
 		this.gameMapSettings.getSettings().put("newMap", true);
 		for (int countx = 0; countx< xTiles; countx++) {
@@ -336,23 +364,26 @@ public abstract  class GameMap  implements Map {
 		}
 		}
 
+	/**
+	 * setters getter for the map name @Overidden from the  Nameable interface
+	 *
+	 */
 	@Override
 	public void setMapName(String mapName) {
 		gameMapSettings.getSimpleSetting("mapName", String.class);
-
 	}
-
 	@Override
 	public String getMapName() {
 		return gameMapSettings.getSimpleSetting("name", String.class);
-
 	}
-
-
 	public float getDayLightAmount() {
 		return dayLightAmount;
 	}
-	public void setDayLightAmount(double gameTime) { // method thats sets the actionTurns of day for casting shadows.
+	/**
+	 * // method calculates  daylight based on game time
+	 * @param gameTime
+	 */
+	public void setDayLightAmount(double gameTime) { 
 		if(gettingBrighter ==true) {
 			if (gameTime % 60 == 0) {
 				dayLightAmount = dayLightAmount - lightChangeAmount;
@@ -391,21 +422,15 @@ public abstract  class GameMap  implements Map {
 	public int getTileHeight() {
 		return tileHeight;
 	}
-
-
-
 	@Override
 	public float getLightChangeAmount() {
 		return dayLightAmount;
 	}
-
 	@Override
 	public void setLightChangeAmount(float lightChangeAmount) {
 		this.dayLightAmount=dayLightAmount;
 		this.gameMapSettings.getSettings().put("dayLightAmount", lightChangeAmount);
-
 	}
-
 	@Override
 	public void setTileSize(int tileWidth, int tileHeight) {
 		this.tileWidth = tileWidth;
@@ -413,12 +438,10 @@ public abstract  class GameMap  implements Map {
 		gameMapSettings.getSettings().put("tileWidth", tileWidth);
 		gameMapSettings.getSettings().put("tileHeight", tileHeight);
 	}
-
 	@Override
 	public Settings getMapSettings() {
 		return gameMapSettings;
 	}
-
 	public  void setMapSquare(int x,  int y, LandSquareTile tile){
 		if(x<0 || y<0 || x> xTiles -1 || y> yTiles -1){
 			return;
@@ -428,8 +451,6 @@ public abstract  class GameMap  implements Map {
     public void setSkin(Skin skin) {
         this.skin = skin;
     }
-
-
 	
 	public Array<Entity> getEntities() {
 		return entities;
@@ -437,29 +458,24 @@ public abstract  class GameMap  implements Map {
 	public void setEntities(Array<Entity> entities) {
 		this.entities = entities;
 	}
-
 	public Array<Class<? extends GameEntitySystem>> getMapGameEntitySystemsClasses() {
 		return mapGameEntitySystemsClasses;
 	}
 	public void setMapGameEntitySystemsClasses(Array<Class<? extends GameEntitySystem>> mapGameEntitySystemsClasses) {
 		this.mapGameEntitySystemsClasses = mapGameEntitySystemsClasses;
 	}
-
 	public GameMapSettings getGameMapSettings() {
 		return gameMapSettings;
 	}
 	public void setGameMapSettings(GameMapSettings gameMapSettings) {
 		this.gameMapSettings = gameMapSettings;
 	}
-
 	public Texture getMapImage() {
 		return mapImage;
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setMapImage(Texture mapImage) {
 		this.mapImage = mapImage;
 	}

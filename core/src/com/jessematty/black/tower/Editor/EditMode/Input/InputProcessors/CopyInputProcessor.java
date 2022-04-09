@@ -1,17 +1,8 @@
 package com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.Tools.MapTools.GameMapEdit;
-import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.Maps.GameMap;
 
 /**
  *  processor that when clicked bucket fills a layer on TiledMap

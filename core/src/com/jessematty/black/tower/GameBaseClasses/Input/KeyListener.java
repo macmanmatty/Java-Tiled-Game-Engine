@@ -75,9 +75,9 @@ public class KeyListener implements LockableInputProcessor {
        boolean focusText= isKeyboardFocusOnTextField();
       // if keyboard is focused  on  a text field  don't try call key functions
        useKeyCombos=!focusText;
-        if(useKeyCombos==true){
+
             checkForKeyAction(KeyPressMode.KEY_DOWN);
-        }
+
         return false;
     }
 
@@ -94,9 +94,9 @@ public class KeyListener implements LockableInputProcessor {
         // if keyboard is focused  on  a text field  don't try call key functions
         useKeyCombos=!focusText;
         keysPressed.put(keycode, false);
-        if(useKeyCombos==true){
+
             checkForKeyAction(KeyPressMode.KEY_UP);
-        }
+
         return false;
         
     }

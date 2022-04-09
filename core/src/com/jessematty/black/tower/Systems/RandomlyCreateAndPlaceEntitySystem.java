@@ -5,9 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.RandomlyCreateAndPlaceEntity;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -96,7 +94,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
 
     private boolean randomPlacement(Entity entity, PositionComponent positionComponent){
 
-        Array< LandMap> maps=getWorld().getWorldMap().values().toArray();
+        Array< LandMap> maps=getWorld().getWorldMaps().values().toArray();
         int randomNumberMap=RandomNumbers.getRandomNumber(0, maps.size-1);
          LandMap map=maps.get(randomNumberMap);
         int buildings=map.getBuildings().size;

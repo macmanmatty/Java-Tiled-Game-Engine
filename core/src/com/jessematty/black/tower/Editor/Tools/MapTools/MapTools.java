@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;

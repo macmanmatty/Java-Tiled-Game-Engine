@@ -23,7 +23,6 @@ import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.BoundingBoxRenderer;
@@ -70,7 +69,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     }
     public void showCurrentWorld(){
         gameCamera = new GameCamera(960, 960);
-        if(world.getWorldMap().size==0) {
+        if(world.getWorldMaps().size==0) {
             this.currentMap = world.getStartMap();
             this.currentMap.setCurrentMap(true);
             setMap(world.getMap(world.getWorldSettings().getSimpleSetting("startMapId", String.class)), true);

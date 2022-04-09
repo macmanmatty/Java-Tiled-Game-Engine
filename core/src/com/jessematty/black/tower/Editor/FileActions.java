@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Editor;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapTools;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 
 import java.io.File;

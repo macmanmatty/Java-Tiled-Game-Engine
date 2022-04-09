@@ -1,7 +1,8 @@
-package com.jessematty.black.tower.Editor.Tools.MapTools;
+package com.jessematty.black.tower.Editor.GameMapEdit;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;

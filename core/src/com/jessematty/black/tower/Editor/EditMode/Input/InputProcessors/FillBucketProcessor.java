@@ -1,33 +1,9 @@
 package com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors;
 
-import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
-import com.jessematty.black.tower.Editor.Tools.MapTools.GameMapEdit;
-import com.jessematty.black.tower.Editor.Tools.MapTools.PlaceMode;
-import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
-import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 /**
  *  processor that when clicked bucket fills a layer on TiledMap

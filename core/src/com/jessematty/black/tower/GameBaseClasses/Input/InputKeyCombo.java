@@ -19,7 +19,7 @@ public class InputKeyCombo implements Nameable {
      *     Key.KEY_DOWN
      *     Key.KEY_PRESSED
      */
-    private KeyPressMode keyPressMode=KeyPressMode.KEY_TYPED;
+    private KeyPressMode keyPressMode=KeyPressMode.KEY_DOWN;
     /**
      * // the action to be preformed when the keys are pressed
      */

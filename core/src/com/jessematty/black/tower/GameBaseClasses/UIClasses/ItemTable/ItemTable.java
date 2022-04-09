@@ -85,7 +85,7 @@ public class ItemTable<T> extends Table {
             @Override
             public void act() {
                     if (selectedItem != null && confirmDelete) {
-                        DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), tableItems, selectedItem);
+                        DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), "",  tableItems, selectedItem);
                         deleteOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
                         getStage().addActor(deleteOptionPane);
                         remakeTable = true;

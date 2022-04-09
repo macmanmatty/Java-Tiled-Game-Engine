@@ -26,35 +26,74 @@ import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
+import org.omg.CORBA.Object;
+
 import java.rmi.server.UID;
 import java.util.UUID;
 
 /**
  * The Game World Class the has a 2d  array of game  maps that make up the world as well as the world's  texture atlas  and  ashley ecs entities
  */
-public class World implements Disposable { // class that holds the array of maps  aka the world
-        private ObjectMap <String, LandMap> worldMap = new ObjectMap<>();
-        private WorldSettings worldSettings= new WorldSettings();
-        private String loadPath; // load path for the world used to save the game during pauses.
-        private transient GameMap currentMap;
-        private OrderedMap<String, Entity> entitiesInWorld= new OrderedMap<String, Entity>(); // all of the entities currently in the world
-        private   transient CraftLookUpTable craftLookUpTable;
-        private  final  transient Engine engine=new PooledEngine(); //  ashley game engine
-        private transient final GameComponentMapper gameComponentMapper= new GameComponentMapper(); // game compenent mapper for engine components
-        private String name;
+public class World implements Disposable {
+
+    /**
+     *                                 PLEASE READ!!!
+     * All fields in this class are serialized by a custom Kryo Serializer
+     * @linked {WorldKryoSerializer} any fields NOT marked as Transient will be serialized by kryo
+     * and then read upon deserialization  THE ORDER OF this classes  fields must the same as the order in
+     * the WorldKryoSerializer classes  or the game will not save properly!!!
+     */
+
+    /**
+     * the object map of land maps aka the world the key LandMaps id the value is the land map
+     */
+    private ObjectMap <String, LandMap> worldMap = new ObjectMap<>();
+    /**
+     * class that holds all the setting for the world
+     */
+    private WorldSettings worldSettings= new WorldSettings();
+    /**
+     * the current map displayed on the screen usually the one the player is in
+     */
+    private transient GameMap currentMap;
+    /**
+     * the map entities in the world  teh key is the entity's id
+     */
+    private ObjectMap<String, Entity> entitiesInWorld= new ObjectMap<String, Entity>(); // all of the entities currently in the world
+    private   transient CraftLookUpTable craftLookUpTable;
+    /**
+     * the games engine
+     */
+    private  final  transient Engine engine=new PooledEngine(); //  ashley game engine
+    /**
+     *  the game component mapper class
+     */
+    private transient final GameComponentMapper gameComponentMapper= new GameComponentMapper();
+    /**
+     * the name of the world
+     */
+    private String name;
+    /**
+     * the game currently running
+     */
         private boolean gameInProgress;
         private  boolean newWorld =true;
-        private transient Entity player;
-        private String playerID;
+    /**
+     * the games player
+     */
+    private transient Entity player;
+    /**
+     * object for calculating who much time has  passed in the game
+     */
         private GameTime gameTime= new GameTime();
     /**
      *     the texture atlas the world uses
       */
-        private TextureAtlas worldTextureAtlas= new NamedTextureAtlas();
-        // the path to the above texture atlas
-        private String worldTextureAtlasPath;
-    //  game  added the ashley systems in the world
-    //these do NOT include the game  base systems  such as render,  die, or animation  as they should not be removed  or modified once the game has started
+    private transient TextureAtlas worldTextureAtlas= new NamedTextureAtlas();
+
+    /**  custom added the ashley systems in the world these do NOT include the game  base systems  such as render,
+     die, or animation  as tthose should not be removed  or modified once the game has started
+     */
     private OrderedMap< Class<? extends EntitySystem>, EntitySystem> systemsInWorld = new OrderedMap<>();
         // used for  deserialization
         public World() {
@@ -98,17 +137,12 @@ public class World implements Disposable { // class that holds the array of maps
         worldMap.remove(id);
 
         }
-        public ObjectMap<String, LandMap> getWorldMap() {
+        public ObjectMap<String, LandMap> getWorldMaps() {
             return worldMap;
         }
     public void deserialize(GameAssets assetts, GamePrefecences gameStartSettingsObject) {
     }
-    public String getLoadPath() {
-        return loadPath;
-    }
-    public void setLoadPath(String loadPath) {
-        this.loadPath = loadPath;
-    }
+
     public GameMap getCurrentMap() {
         return currentMap;
     }
@@ -307,7 +341,7 @@ public class World implements Disposable { // class that holds the array of maps
     public Engine getEngine() {
         return engine;
     }
-    public OrderedMap<String, Entity> getEntitiesInWorld() {
+    public ObjectMap<String, Entity> getEntitiesInWorld() {
         return entitiesInWorld;
     }
     public GameComponentMapper getGameComponentMapper() {
@@ -350,7 +384,6 @@ public class World implements Disposable { // class that holds the array of maps
     }
     public void setPlayer(Entity player) {
         this.player = player;
-        this.playerID=getGameComponentMapper().getIdComponentMapper().get(player).getId();
     }
     public TextureAtlas getWorldTextureAtlas() {
         return worldTextureAtlas;
@@ -358,9 +391,6 @@ public class World implements Disposable { // class that holds the array of maps
     public void setWorldTextureAtlas(TextureAtlas worldTextureAtlas, String path) {
         this.worldTextureAtlas = worldTextureAtlas;
         worldSettings.getSettings().put("assetsPath", path);
-    }
-    public String getWorldTextureAtlasPath() {
-        return worldTextureAtlasPath;
     }
     public WorldSettings getWorldSettings() {
         return worldSettings;

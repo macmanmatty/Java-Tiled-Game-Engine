@@ -226,7 +226,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
             @Override
             public void act() {
                     if(selectedItem!=null && confirmDelete) {
-                        DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), items, selectedItem);
+                        DeleteOptionPane deleteOptionPane = new DeleteOptionPane(getSkin(), "",   items, selectedItem);
                         deleteOptionPane.setPosition(ScreenPosition.CENTER.getX(), ScreenPosition.CENTER.getY());
                         getStage().addActor(deleteOptionPane);
                         remakeList =true;

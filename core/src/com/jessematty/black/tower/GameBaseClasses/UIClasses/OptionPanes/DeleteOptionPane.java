@@ -15,21 +15,25 @@ public class DeleteOptionPane extends Dialog {
      * @param skin the libGDX skin for the UI elements
      * @param items the array of items
      * @param item the item to delete
+     * @param itemKind the name od what the item is ie layer , name, object , widget
      */
-    public DeleteOptionPane(Skin skin, Array items, Object item) {
+    public DeleteOptionPane(Skin skin, String itemKind, Array items,  Object item) {
         super("Conform Delete", skin);
-        text("Delete "+item.toString()+" ?");
+        text("Delete "+ itemKind +": "+item.toString()+" ?");
         TextButton button = new TextButton("Delete Item", skin);
         TextButton button2 = new TextButton("Cancel", skin);
         button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(items!=null && item!=null) {
+                    items.removeValue(item, true);
+                }
+
                 hide();
-                items.removeValue(item, true);
                 return true;
             }
         });
-        button.addListener(new InputListener() {
+        button2.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 hide();

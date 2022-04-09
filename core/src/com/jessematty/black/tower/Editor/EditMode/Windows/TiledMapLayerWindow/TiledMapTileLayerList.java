@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.Tools.MapTools.TiledMapEdit;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemList;
 
 public class TiledMapTileLayerList extends ItemList<NamedTiledMapTileLayer>  { // list that tracks a tiled map and it's layers

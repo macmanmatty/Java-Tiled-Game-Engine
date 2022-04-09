@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.SquareTiles;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -19,14 +18,14 @@ import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-
-
 public class  LandSquareTile extends Entity { // base class all other tile classes extend
 	protected transient  boolean unchangeable=false;
 	protected  transient boolean checked;
 	protected  transient boolean inArea;
 	protected  transient PositionComponent position;
 	protected transient Tile tileComponent;
+	public  LandSquareTile() {
+	}
 	public LandSquareTile(int locationX, int locationY, int yTiles){ tileComponent= new Tile();
 		tileComponent.setAtlasName("assetts.atlas");
 		 NumericStats numericStats= new NumericStats();
@@ -40,7 +39,6 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		 Array<String> stringGroups=groups.getGroups();
 		 stringGroups.add("entity");
 		 stringGroups.add("tile");
-
 		add(numericStats);
 		add(booleanStats);
 		add(stringStats);
@@ -51,7 +49,6 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		add(tileComponent);
 		add(groups);
 		add(new Action());
-
 		tileWeatherNumericStatsChangable.addStatToChange(new TileWeatherChangableNumericStatChangeable(true,"temperature", 70,-275, 20000));
 		numericStats.addStat(new NumericStat(false,"COF" ,1,0,10));
 		numericStatsChangeable.addStatToChange(new NumericStatChangeable(false,"temperature",  0,0,3, 0));
@@ -66,16 +63,7 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		position.setPosition(screenLocationX, screenLocationY);
 		this.position=position;
 		add(new Name(true, toString()));
-
 	}
-	public  LandSquareTile() {
-
-	}
-
-
-
-
-
 
 	public void addEntity(Entity occupant) { // adds  a new Object to the square
 		if (occupant == null) {
@@ -83,21 +71,16 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		}
 		tileComponent.getEntities().add(occupant);
 		tileComponent.setEntered(true);
-
 	}
-
-
 	public void removeEntity(Entity entity){
 		tileComponent.getEntities().removeValue(entity, true);
 	}
-
 	public void setLocationX(int x){
 		position.setTileLocationX(x);
 	}
 	public void setLocationY(int y){
 		position.setTileLocationY(y);
 	}
-
 	public int getLocationX() {
 		return position.getTileLocationX();
 	}
@@ -113,30 +96,19 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 	public boolean isEnterable() {
 		return tileComponent.isEnterable();
 	}
-
 	public void setEnterable(boolean enterable) {
 		this.tileComponent.setEnterable(enterable);
 	}
-
-
 	public PositionComponent getPosition() {
 		return position;
 	}
-
-
 	public Tile getTileComponent() {
 		return tileComponent;
 	}
-
-
-
 	@Override
 	public String toString() { // overridden for scene 2d ui list to display thing name rather than class name.
 		return  "tile  x "+ position.getTileLocationX() +" y "+ position.getTileLocationY();
 	}
-
-
-
     public Array<Entity> getEntities() {
         return tileComponent.getEntities();
     }
@@ -144,20 +116,13 @@ public class  LandSquareTile extends Entity { // base class all other tile class
         tileComponent.setEntities(entities);
     }
 	public Array<Entity> getEntities( Class <?extends Component>... components){
-
 	    Array< Entity> entitiesToReturn= GameComponentMapper.getEntitiesWithComponents(tileComponent.getEntities(), components);
-
-
 		return entitiesToReturn;
 	}
-
 	public Array<Entity> getEntities(Array<String> numericStats, Array<String> stringStats, Array<String> booleanStats, Class<? extends Component>... components) {
 		Array< Entity> entitiesToReturn=GameComponentMapper.getEntitiesContainingStats(tileComponent.getEntities(), numericStats, stringStats, booleanStats,  components);
-
-
 		return  entitiesToReturn;
 	}
-
 	public boolean isInArea() {
 		return inArea;
 	}
@@ -176,7 +141,6 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-
 	public boolean hasEntity(Entity entity){
 		Array<Entity> entities=tileComponent.getEntities();
 		int size=entities.size;
@@ -187,12 +151,9 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		}
 		return false;
 	}
-
-
 	public void setPosition(PositionComponent position) {
 		this.position = position;
 	}
-
 	public void setTileComponent(Tile tileComponent) {
 		this.tileComponent = tileComponent;
 	}
@@ -200,7 +161,6 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		position.setMapID(mapId);
 	}
 	public String getMapId(){
-
 		return position.getMapId();
 	}
 }
