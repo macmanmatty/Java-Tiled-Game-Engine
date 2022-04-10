@@ -12,7 +12,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.ActorEntityUtilities
  * holds a array of InputKeyCombos and acts on them when the correct
  * conditions are met key input mode combination  of keys pressed etc.
  * also holds an array  the games stages to check what the stage(s)
- * keyboard focused actor is and locks all other key functions from being called
+ * keyboard focused actor is and locks all other key typed functions from being called
  * if the any of the stages keyboard focused actors are TextFields
  *
  */
@@ -43,7 +43,7 @@ public class KeyListener implements LockableInputProcessor {
     private boolean keyInputLocked=false;
 
     /**
-     * if true only key combo may be used per action
+     * if true only one  action my used per key combo
      */
     private  boolean onlyOneKeyComboPerAction;
 
@@ -72,10 +72,6 @@ public class KeyListener implements LockableInputProcessor {
     public boolean keyDown(int keycode) {
         // set key boolean to pressed to true
         keysPressed.put(keycode, true);
-       boolean focusText= isKeyboardFocusOnTextField();
-      // if keyboard is focused  on  a text field  don't try call key functions
-       useKeyCombos=!focusText;
-
             checkForKeyAction(KeyPressMode.KEY_DOWN);
 
         return false;
@@ -90,9 +86,6 @@ public class KeyListener implements LockableInputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         // set key pressed to false
-        boolean focusText= isKeyboardFocusOnTextField();
-        // if keyboard is focused  on  a text field  don't try call key functions
-        useKeyCombos=!focusText;
         keysPressed.put(keycode, false);
 
             checkForKeyAction(KeyPressMode.KEY_UP);

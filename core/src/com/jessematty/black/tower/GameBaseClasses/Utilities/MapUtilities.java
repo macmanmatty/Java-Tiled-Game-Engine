@@ -23,9 +23,6 @@ import java.util.List;
 public class MapUtilities {
 
     private final static  RandomNumbers value= new RandomNumbers();
-
-
-
     public static void addEntityToTile(GameMap map, LandSquareTile tile, Entity entity, PositionComponent position){
 
         float screenLocationX=tile.getScreenLocationx();
@@ -37,20 +34,16 @@ public class MapUtilities {
         Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
         position.setTiles(newTiles);
     }
-
-
     public static GameMap getEntityMap(World world, PositionComponent position){
         String mapId=position.getMapId();
         LandMap landMap=world.getMap(mapId);
         String buildingId=position.getBuildingID();
-
         if( buildingId==null || buildingId.isEmpty()){
 
             return  landMap;
 
         }
         else{
-
             return  landMap.getBuilding(buildingId);
         }
 

@@ -13,7 +13,9 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector.LandMapSelectorWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
@@ -22,6 +24,7 @@ import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePref
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
+import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -39,18 +42,21 @@ public class World implements Disposable {
     /**
      *                                 PLEASE READ!!!
      * All fields in this class are serialized by a custom Kryo Serializer
-     * @linked {WorldKryoSerializer} any fields NOT marked as Transient will be serialized by kryo
-     * and then read upon deserialization  THE ORDER OF this classes  fields must the same as the order in
-     * the WorldKryoSerializer classes  or the game will not save properly!!!
-     */
+     * @linked {WorldKryoSerializer}
+     * and then read upon deserialization
+     * any fields you want saved  in this class must add to the serializer and mark @KryoSerialized
+     *
+     * */
 
     /**
      * the object map of land maps aka the world the key LandMaps id the value is the land map
      */
-    private ObjectMap <String, LandMap> worldMap = new ObjectMap<>();
+    @KryoSerialized
+    private ObjectMap <String, GameMap> worldMap = new ObjectMap<>();
     /**
      * class that holds all the setting for the world
      */
+    @KryoSerialized
     private WorldSettings worldSettings= new WorldSettings();
     /**
      * the current map displayed on the screen usually the one the player is in
@@ -59,6 +65,7 @@ public class World implements Disposable {
     /**
      * the map entities in the world  teh key is the entity's id
      */
+    @KryoSerialized
     private ObjectMap<String, Entity> entitiesInWorld= new ObjectMap<String, Entity>(); // all of the entities currently in the world
     private   transient CraftLookUpTable craftLookUpTable;
     /**
@@ -85,7 +92,8 @@ public class World implements Disposable {
     /**
      * object for calculating who much time has  passed in the game
      */
-        private GameTime gameTime= new GameTime();
+    @KryoSerialized
+    private GameTime gameTime= new GameTime();
     /**
      *     the texture atlas the world uses
       */
@@ -116,7 +124,7 @@ public class World implements Disposable {
      e
      * @return
      */
-        public LandMap getMap(String mapId){
+        public GameMap getMap(String mapId){
             return worldMap.get(mapId);
         }
     /**
@@ -132,12 +140,11 @@ public class World implements Disposable {
      * @param id the id of the map to remove
      *
      */
-
     protected void removeMap(String id){
         worldMap.remove(id);
 
         }
-        public ObjectMap<String, LandMap> getWorldMaps() {
+        public ObjectMap<String, GameMap> getWorldMaps() {
             return worldMap;
         }
     public void deserialize(GameAssets assetts, GamePrefecences gameStartSettingsObject) {
@@ -158,6 +165,8 @@ public class World implements Disposable {
     }
     /**
      * removes a libGDX Array Of Entities from the map
+     * called when the map is changed on only the current maps entities
+     * will be processed by the libGDX Ashley ECS  engine
      * @param entities
      */
     private void removeEntitiesFromEngine(Array<Entity> entities){
@@ -168,6 +177,8 @@ public class World implements Disposable {
     }
     /**
      * sets a  given map  as the current map and add its entities  to the engine
+     * removes the entities from the old map in the libGDX Ashley ECS Engine
+     *
      */
     public void setCurrentMap(String mapId) {
             if(currentMap!=null){
@@ -176,6 +187,7 @@ public class World implements Disposable {
                 removeSystemsFromEngine(currentMap.getMapGameEntitySystemsClasses());
             }
         this.currentMap = worldMap.get(mapId);
+       this.worldSettings.getSettings().put("currentMapId", mapId);
         addTilesToEngine(currentMap);
         addEntitiesToEngine(currentMap.getEntities());
         addSystemsToEngine(currentMap.getMapGameEntitySystemsClasses());
@@ -376,7 +388,7 @@ public class World implements Disposable {
     public Array<Entity> getEntityFromCraft(Craft craft){
             return craftLookUpTable.lookUpCraft(craft);
     }
-    public void setWorldMap(ObjectMap<String, LandMap> worldMap) {
+    public void setWorldMap(ObjectMap<String, GameMap> worldMap) {
         this.worldMap = worldMap;
     }
     public Entity getPlayer() {
@@ -405,6 +417,21 @@ public class World implements Disposable {
             engine.addSystem(system);
         }
     }
+
+    /**
+     * adds a building to the array of maps and to the LandMap it is on
+     * @param building
+     * @param map
+     */
+    public void addBuilding(Building building, String mapId){
+        this.worldMap.put(building.getId(), building);
+    }
+
+    /**
+     *
+     *
+     * @param system
+     */
     public void removeSystem(GameEntitySystem system) {
         systemsInWorld.remove(system.getClass());
             engine.removeSystem(system);

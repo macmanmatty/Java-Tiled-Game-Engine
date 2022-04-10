@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Json;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficentTiledMapSaver;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficientTiledMapSaver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class JsonLoader {
             saver.saveMap(map);
         }
         else{
-            com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficentTiledMapSaver saver = new com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficentTiledMapSaver();
+            MemoryEfficientTiledMapSaver saver = new MemoryEfficientTiledMapSaver();
             saver.saveMap(map);
             writeObjectToFile(saver, path, false);
 
@@ -92,7 +92,7 @@ public class JsonLoader {
 
         else{
 
-            com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficentTiledMapSaver saver = loadObject(MemoryEfficentTiledMapSaver.class, path);
+            MemoryEfficientTiledMapSaver saver = loadObject(MemoryEfficientTiledMapSaver.class, path);
             map = saver.loadMap(assetts);
         }
 

@@ -18,6 +18,14 @@ import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+
+/**
+ * class that represents a game tile
+ * this extends libGDX Ashley Entity
+ * so that the Ashley Engine can process them
+ * for things collision detection  and other functions
+ */
+
 public class  LandSquareTile extends Entity { // base class all other tile classes extend
 	protected transient  boolean unchangeable=false;
 	protected  transient boolean checked;
@@ -25,10 +33,8 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 	protected  transient PositionComponent position;
 	protected transient Tile tileComponent;
 	public  LandSquareTile() {
-	}
-	public LandSquareTile(int locationX, int locationY, int yTiles){ tileComponent= new Tile();
-		tileComponent.setAtlasName("assetts.atlas");
-		 NumericStats numericStats= new NumericStats();
+		tileComponent= new Tile();
+		NumericStats numericStats= new NumericStats();
 		BooleanStats booleanStats= new BooleanStats();
 		StringStats stringStats=new StringStats();
 		NumericStatsChangeable numericStatsChangeable = new NumericStatsChangeable();
@@ -36,9 +42,9 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		BooleanStatsChangeable booleanStatsChangeable = new BooleanStatsChangeable();
 		StringStatsChangeable stringStatsChangeable = new StringStatsChangeable();
 		Groups groups= new Groups();
-		 Array<String> stringGroups=groups.getGroups();
-		 stringGroups.add("entity");
-		 stringGroups.add("tile");
+		Array<String> stringGroups=groups.getGroups();
+		stringGroups.add("entity");
+		stringGroups.add("tile");
 		add(numericStats);
 		add(booleanStats);
 		add(stringStats);
@@ -48,21 +54,24 @@ public class  LandSquareTile extends Entity { // base class all other tile class
 		add(tileWeatherNumericStatsChangable);
 		add(tileComponent);
 		add(groups);
-		add(new Action());
 		tileWeatherNumericStatsChangable.addStatToChange(new TileWeatherChangableNumericStatChangeable(true,"temperature", 70,-275, 20000));
 		numericStats.addStat(new NumericStat(false,"COF" ,1,0,10));
 		numericStatsChangeable.addStatToChange(new NumericStatChangeable(false,"temperature",  0,0,3, 0));
-		PositionComponent position= new PositionComponent();
+		position= new PositionComponent();
 		position.getTiles().add(this);
 		position.removeBounds();
+		add(position);
+		add(new Name(true, toString()));
+
+	}
+	public LandSquareTile(int locationX, int locationY, int yTiles){
+		this();
 		position.setTileLocationX(locationX);
 		position.setTileLocationY(locationY);
 		add(position);
 		float screenLocationX = (position.getTileLocationX() ) * 32;
 		float screenLocationY =  (yTiles - position.getTileLocationY()) * 32;
 		position.setPosition(screenLocationX, screenLocationY);
-		this.position=position;
-		add(new Name(true, toString()));
 	}
 
 	public void addEntity(Entity occupant) { // adds  a new Object to the square

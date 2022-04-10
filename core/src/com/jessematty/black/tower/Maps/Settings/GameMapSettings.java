@@ -1,10 +1,6 @@
 package com.jessematty.black.tower.Maps.Settings;
-
 import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
-
 public   class GameMapSettings extends Settings {
-
-
     public GameMapSettings() {
         settings.put("width", 320);
         settings.put("height", 320);
@@ -28,18 +24,11 @@ public   class GameMapSettings extends Settings {
         settings.put("xTiles", 10);
         settings.put("yTiles", 10);
     }
-
     public void setTiles(int tilesX, int tilesY){
-
         settings.put("xTiles", tilesX);
         settings.put("yTiles", tilesY);
         settings.put("width", tilesX* getSimpleSetting("tileWidth", Integer.class));
         settings.put("height", tilesY* getSimpleSetting("tileHeight", Integer.class));
-
     }
-
-
-
-
 
 }

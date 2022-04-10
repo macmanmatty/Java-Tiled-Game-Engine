@@ -5,9 +5,19 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChange
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class that represents a true false  boolean stat
+ */
 public class BooleanStat extends Stat {
+    /**
+     * the stat aka boolean flag
+     */
     protected   boolean flag;
+    /**
+     * list of linked  stats to change  when this stat changes
+     */
     protected List<BooleanStatChangeable> linkedBooleanStats= new ArrayList<>();
+
     public BooleanStat(boolean displayable, String name, boolean flag) {
         super(displayable, name);
         this.flag = flag;

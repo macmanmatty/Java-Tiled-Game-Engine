@@ -32,7 +32,6 @@ public class TileGenerator {
         tile.add(position);
         position.setPosition(screenLocationX, screenLocationY);
         Tile tileComponent = new Tile();
-        tileComponent.setAtlasName("assetts.atlas");
         NumericStats numericStats = new NumericStats();
         BooleanStats booleanStats = new BooleanStats();
         StringStats stringStats = new StringStats();

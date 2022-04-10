@@ -118,8 +118,6 @@ public class BooleanStatChangeSystem extends GameEntitySystem{
                 groupsMatch = InList.isInList(changeStatChangeGroups, statChangeGroups);
                 actionChange = InList.isInList(changeStat.getActionsToChangeOn(), action);
             }
-
-
             if (groupsMatch == true && actionChange == true) { //  if stat can be changed change stat
                 if(changeStat.getAmountOfTimeToChangeFor()<=0) {
                     // if stat is randomly changed randomly change between min max values

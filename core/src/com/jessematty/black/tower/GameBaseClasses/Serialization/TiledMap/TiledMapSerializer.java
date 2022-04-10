@@ -5,7 +5,9 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-
+/**
+custom kryo serializer for  a tiled  map
+ */
 public class TiledMapSerializer extends Serializer<TiledMap> {
     private final GameAssets gameAssets;
     private boolean fast;
@@ -21,7 +23,7 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
         tiledMapSaver=new com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver();
         }
         else{
-           tiledMapSaver= new com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficentTiledMapSaver();
+           tiledMapSaver= new MemoryEfficientTiledMapSaver();
         }
         try {
             tiledMapSaver.saveMap(tiledMap);
@@ -37,7 +39,7 @@ public class TiledMapSerializer extends Serializer<TiledMap> {
             tiledMapSaver= (FastTiledMapSaver) kryo.readClassAndObject(input);
         }
         else {
-            tiledMapSaver = (MemoryEfficentTiledMapSaver) kryo.readClassAndObject(input);
+            tiledMapSaver = (MemoryEfficientTiledMapSaver) kryo.readClassAndObject(input);
         }
      TiledMap map = tiledMapSaver.loadMap(gameAssets);
         return map;

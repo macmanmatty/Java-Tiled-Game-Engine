@@ -11,27 +11,39 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
-
-public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
-   protected  int [] [] [] cells; // the saved tiled map cells
-    protected int layers; // number of map layers
-   protected String [] layerNames; // the names of the layers
+/**
+ * class for saving a tiled map that does so to save memory
+ * by only saving the cells that are unique
+ */
+public class MemoryEfficientTiledMapSaver implements  TiledMapSaver {
+    /**
+     * // the saved tiled map cells
+     */
+   protected  int [] [] [] cells;
+    /**
+     * // number of map layers
+     */
+    protected int layers;
+    /**
+     * // the names of the layers
+     */
+   protected String [] layerNames;
+    /**
+     * the tiled map proprieties
+     */
     protected MapProperties mapProperties = new  MapProperties();
+    /**
+     * the cells that are not equal to each other
+     */
     protected  Array<CellSaver> uniqueCells= new Array<>();
-
-
-
-    public MemoryEfficentTiledMapSaver() {
+    public MemoryEfficientTiledMapSaver() {
     }
-
     public TiledMap loadMap( GameAssets assets){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
         int tileSizeX=mapProperties.get("tilewidth", Integer.class);
         int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
-
-
         TiledMap tiledMap= new TiledMap();
         for(int count=0; count<layers; count++){
             TiledMapTileLayer layer= new TiledMapTileLayer(xSize, ySize, tileSizeX, tileSizeY);
@@ -39,7 +51,6 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
             tiledMap.getLayers().add(layer);
             for(int countx=0; countx<xSize; countx++) {
                 for (int county = 0; county < ySize; county++) {
-
                     CellSaver saver= getCellSaver( uniqueCells, cells[count][countx][county]);
                     if(saver==null){ // if cell is null do nothing
                         continue;
@@ -106,51 +117,33 @@ public class MemoryEfficentTiledMapSaver implements  TiledMapSaver {
                             saver.setRegionNames((tile2.getNames()));
                             saver.setColor(tile2.getColor());
                             saver.setTileClass(AtlasAnimatedTiledMapTile.class);
-
-
                         }
                         else{
                             throw new MapLoadingException("Invalid Tile Class");
-
                         }
-
                         if(!InList.isInList(uniqueCells, saver)){
                             uniqueCells.add(saver);
                         }
-
-
                         cells[count][countx][ySize-county-1]=saver.hashCode();
-
-
                     }
                 }
             }
         }
     }
-
    CellSaver getCellSaver( Array<CellSaver> cellSaverArray, int hashCode){
-
         int size=cellSaverArray.size;
         for(int count=0; count<size; count++){
             CellSaver cellSaver1=cellSaverArray.get(count);
             if(cellSaver1.hashCode()==hashCode){
-
                 return  cellSaver1;
             }
-
         }
-
        return null;
-
-
     }
-
-
     @Override
     public MapProperties getMapProperties() {
         return mapProperties;
     }
-
     public void setMapProperties(MapProperties mapProperties) {
         this.mapProperties = mapProperties;
     }

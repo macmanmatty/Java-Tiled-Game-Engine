@@ -7,10 +7,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
 import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
+import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -22,23 +25,27 @@ import java.util.List;
  */
 public abstract  class GameMap  implements Map {
 	/**
-	 *                                 PLEASE READ!!! 
-	 * All fields in this class are serialized by a custom kyro Serializer 
-	 * @linked {WorldKryoSerializer} any fields NOT marked as Transient will be serialized by kryo
-	 * and then read upon deserialization  THE ORDER OF this classes  fields must the same as the order in
-	 * the WorldKryoSerializer classes  or the game will not save properly!!!
-	 */
+	 *                                 PLEASE READ!!!
+	 * All fields in this class are serialized by a custom Kryo Serializer
+	 * @linked {GameMapKryoSerializer}
+	 * and then read upon deserialization
+	 * any fields you want saved  in this class must add to the serializer and mark @KryoSerialized
+	 *
+	 * */
 	/**
 	 * 2d array of  LandSquareTiles representing the  map
 	 */
+	@KryoSerialized
 	protected    LandSquareTile map[][]; // the  landSquareTileMap
 	/**
 	 * the settings object for this map
 	 */
+	@KryoSerialized
 	protected GameMapSettings gameMapSettings= new GameMapSettings();
 	/**
 	 * the  libGDX TiledMap for the map
 	 */
+	@KryoSerialized
 	protected  TiledMap tiledMap; //  tiled maps tiles Map
 	/**
 	 * game time object
@@ -49,13 +56,18 @@ public abstract  class GameMap  implements Map {
 	 */
 	protected transient Skin skin; // UI skin  for landSquareTileMap
 	/**
-	 * the Entities currently on the map
+	 * the Entities currently on the map NOT including the map of tiles
 	 * note entities do not have to have  a x, y location to be present on the map
 	 */
 	protected  transient Array<Entity> entities = new Array<Entity>();
 	/**
+	 *  linked maps to the map
+	 *  */
+	private transient Array<GameMap> buildings = new Array<>();
+
+	/**
 	 * position component mapper
-	 * use for performance
+	 * used for performance
 	 */
 	protected transient ComponentMapper<PositionComponent> positionComponentMapper=ComponentMapper.getFor(PositionComponent.class);
 	/**
@@ -83,7 +95,8 @@ public abstract  class GameMap  implements Map {
 	/**
 	 * the maps identifier
 	 */
-	protected final  String id;
+	@KryoSerialized
+	protected   String id;
 	/**
 	 * creates a uniqiue id for the map on construction
 	 */

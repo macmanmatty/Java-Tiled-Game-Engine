@@ -38,9 +38,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     private boolean drawBounds;
     private String mapId;
 
-    public PositionComponent(NumericStats stats) {
-    }
-
     public PositionComponent() {
     }
 

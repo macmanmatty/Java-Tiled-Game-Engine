@@ -41,11 +41,10 @@ public class OnTileEnterSystem extends GameEntitySystem {
         for(int count=0; count<size; count++){
             Entity tile=entities.get(count);
                 Tile tileComponent = tileComponentMapper.get(tile);
-                if(tileComponent.isEntered()){
                     OnEnterTileComponent onEnterTileComponent=onEnterTileComponentComponentMapper.get(tile);
                     onEnterTileComponent.getOnEnterTile().onEnterTile(tile, tileComponent.getLastEntity(), getDraw());
 
-                }
+
 
 
 

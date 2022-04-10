@@ -42,11 +42,10 @@ public class OnTileExitSystem extends GameEntitySystem {
         for(int count=0; count<size; count++){
             Entity tile=entities.get(count);
             Tile tileComponent = tileComponentMapper.get(tile);
-            if(tileComponent.isEntered()){
                 OnExitTileComponent onExitTileComponent= onExitTileComponentComponentMapper.get(tile);
                 onExitTileComponent.getOnExitTile().onExitTile(tile, tileComponent.getLastEntity(), getDraw());
 
-            }
+
 
 
 

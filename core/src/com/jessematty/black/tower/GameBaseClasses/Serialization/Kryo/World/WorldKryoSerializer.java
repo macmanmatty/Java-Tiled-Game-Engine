@@ -23,25 +23,14 @@ public class WorldKryoSerializer extends Serializer<World> {
      */
     @Override
     public void write(Kryo kryo, Output output, World world) {
-        kryo.writeClassAndObject(output, world.getWorldMaps());
+      kryo.writeClassAndObject(output, world.getWorldMaps());
         kryo.writeClassAndObject(output, world.getWorldSettings());
-       ObjectMap<String, Entity>  entities= null;
-        entities = removeUnserializableComponentsFromEntities(world);
+       ObjectMap<String, Entity>  entities= world.getEntitiesInWorld();
         kryo.writeClassAndObject(output, entities);
         kryo.writeClassAndObject(output, world.getPlayer());
     }
-    /**
-     * removes all non serializable components from an entity
-     * @param world the world object to get the entities from
-     * @return a new ObjectMap of entities  that no longer contain  non-serializable components
-     */
-  
-   private ObjectMap<String, Entity> removeUnserializableComponentsFromEntities(World world)  {
-       ObjectMap<String, Entity> entityMap=world.getEntitiesInWorld();
-       ObjectMap<String, Entity> newEntityMap= new ObjectMap<>();
-       newEntityMap.putAll(entityMap);
-       return newEntityMap;
-    }
+
+
     /**
      *  reads World  Object using kryo
       */
@@ -49,7 +38,7 @@ public class WorldKryoSerializer extends Serializer<World> {
     public World read(Kryo kryo, Input input, Class<World> type) {
             World world = new World();
        ObjectMap<String, LandMap> maps= (ObjectMap<String, LandMap>) kryo.readClassAndObject(input);
-        world.setWorldMap(maps);
+       world.setWorldMap(maps);
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);
         String assetsPath=(String) worldSettings.getSettings().get("textureAtlasPath");

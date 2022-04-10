@@ -1,36 +1,55 @@
 package com.jessematty.black.tower.Components.Stats;
-
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
-
+/**
+ * class that represents a number stat in the game
+ */
 public   class NumericStat extends Stat {
+    /**
+     * the current value of the stat
+     */
     protected   double value; // the current stat value
+    /**
+     * the minimum value for the stat
+     */
     protected    double minValue;
+    /**
+     * the maximum value for the stat
+     */
     protected   double maxValue;
-    protected boolean killWhenZero;// if this true this  stat is watch ed along with anyother stats the entity has with this checked
-    // and when they reach zero the entity is killed
+    /**
+     *  if this true this  stat is watched along with any other stats on the entity
+     *  that has with this set to true
+     *     and when they reach zero the entity  Die flag Component is added
+     */
+    protected boolean killWhenZero;
+    /**
+     * whether or not to display the min max values in the UI
+     * for NumericStat based Horizontal Groups
+     */
     protected    boolean displayMinAndMax =true;
-    protected Array<SelfChangableNumericStatChangeable> linkedStatsToChange = new Array<>(); // stats that change when this stat chages
-     transient protected  StatBar statBar ; // gui bar representation  of the stat
-
+    /**
+     * linked stats to change
+     * these will change when this stat has changed
+     */
+    protected Array<SelfChangableNumericStatChangeable> linkedStatsToChange = new Array<>();
+    /**
+     * GUI bar to show the stat a bar in the UI
+     */
+     transient protected  StatBar statBar ;
     public NumericStat(boolean displayable, String name, double value) {
         super(displayable, name);
         this.value = value;
     }
-
     public NumericStat(boolean displayable, String name, double value, double minValue, double maxValue) {
         super(displayable, name);
         this.value = value;
         this.minValue = minValue;
-
         this.maxValue = maxValue;
     }
-
-
-
     public NumericStat(GameAssets assets, boolean displayable, String name, double value, double minValue, double maxValue) {
         super(displayable, name);
         this.value = value;
@@ -38,19 +57,13 @@ public   class NumericStat extends Stat {
         this.maxValue = maxValue;
             createStatBar(assets);
     }
-
-
-
     public NumericStat(String name) {
         super(name);
     }
-
     public NumericStat() {
     }
-
     @Override
     public String getStatAsString() {
-
         if(displayMinAndMax =true) {
             return name + ": " + value + " Min: " + minValue + "Max: " + maxValue;
         }
@@ -58,7 +71,10 @@ public   class NumericStat extends Stat {
             return name + ": " + value;
         }
     }
-
+    /**
+     * copy constructor
+     * @param other
+     */
     public NumericStat(NumericStat other) {
         super(other);
         this.value = other.value;
@@ -70,10 +86,9 @@ public   class NumericStat extends Stat {
         for(int count=0; count<size; count++) {
             linkedStatsToChange.add(new SelfChangableNumericStatChangeable(other.linkedStatsToChange.get(count)));
         }
-
             this.statBar = new StatBar(other.statBar);
-
     }
+
 
     public double getDoubleValue() {
         return value;
@@ -124,45 +139,32 @@ public   class NumericStat extends Stat {
         this.value=this.value+value;
         minValue=minValue+min;
         maxValue=maxValue+max;
-        
+
         if(statBar!=null){
-            
+
             statBar.update();
         }
-        
-        
+
+
     }
-
     public void addValue(double value){
-
         addValues(value, 0, 0);
     }
-
     public void subtractValue(double value){
-
         addValues(-value, 0, 0);
-
-
     }
     public void addValues( NumericStat stat){
        addValues(stat.getDoubleValue(), stat.getMinValue(), stat.getMaxValue());
     }
-
-
-
     // randomly adds
     public  void addValuesRandom(NumericStat numericStat, float multiplier){
-
         double value = RandomNumbers.getRandomNumber(getMinIntValue(),getMaxIntValue() )*multiplier;
         numericStat.addValues(value, 0, 0);
     }
     public  void subtractValuesRandom(NumericStat numericStat, float multiplier){
-
         double value =RandomNumbers.getRandomNumber(getMinIntValue(),getMaxIntValue() )*multiplier;
         numericStat.addValues(-value, 0, 0);
-
     }
-   
 
     @Override
     public String toString() {
@@ -183,37 +185,25 @@ public   class NumericStat extends Stat {
     public void createStatBar(GameAssets assets) {
         statBar =new StatBar(this, assets);
     }
-
     public boolean isDisplayMinAndMax() {
         return displayMinAndMax;
     }
-
     public void setDisplayMinAndMax(boolean displayMinAndMax) {
         this.displayMinAndMax = displayMinAndMax;
     }
-
     public boolean isKillWhenZero() {
         return killWhenZero;
     }
-
     public void setKillWhenZero(boolean killWhenZero) {
         this.killWhenZero = killWhenZero;
     }
-
     public void subtractValues(NumericStat stat) {
         subtractValues(stat.getDoubleValue(), stat.getMinValue(), stat.getMaxValue());
     }
-
-
     public void subtractValues(double value, double min, double max) {
        addValues(-value, -min, -max);
     }
-
     public Array<SelfChangableNumericStatChangeable> getLinkedStatsToChange() {
         return linkedStatsToChange;
     }
-
-
-
-
 }

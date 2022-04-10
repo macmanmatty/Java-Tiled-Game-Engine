@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- *  marker annotation for components that should not be serialized on game saving
+ *  marker annotation for libGDX Ashley ECS components that should not be serialized on game saving
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Transient {

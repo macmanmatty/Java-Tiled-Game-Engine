@@ -40,6 +40,7 @@ public class MapKryoSerializer extends Serializer<LandMap> {
         map.setMap(mapTiles);
         map.setGameMapSettings(gameMapSettings);
         map.setTileSize(gameMapSettings.getSimpleSetting("tileWidth", Integer.class), gameMapSettings.getSimpleSetting("tileHeight", Integer.class));
+        System.out.println("map sucussfully serialized");
             return  map;
     }
 }

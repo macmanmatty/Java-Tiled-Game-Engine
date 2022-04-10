@@ -1,12 +1,23 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor;
 import com.badlogic.gdx.graphics.Color;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
-// libGDX color class with name variable to be used for select boxes and list with libgdx UI classes
+/** 
+ * class that extends  libGDX color class with name variable to be used for select boxes 
+ * and list with libGDX UI classes
+ */
 public class NamedColor extends Color implements Nameable {
+    /**
+     * the name of the color
+     */
    private  String name;
+    /**
+     *  100% white RGBA  color
+     */
    public static final  NamedColor WHITE= new NamedColor(1,1,1,1 , "White");
+    /**
+     * 100% black RGBA color
+     */
     public static final  NamedColor BLACK= new NamedColor(0,0,0 , 1, "Black");
-
     public NamedColor(String name) {
         this.name = name;
     }
@@ -18,10 +29,8 @@ public class NamedColor extends Color implements Nameable {
         super(rgba8888);
         this.name = getName();
     }
-
     public NamedColor() {
     }
-
     public NamedColor(float r, float g, float b, float a, String name) {
         super(r, g, b, a);
         this.name = name;
@@ -43,9 +52,6 @@ public class NamedColor extends Color implements Nameable {
         super(color);
          name= makeName(color);
     }
-
-
-
     @Override
     public String getName() {
         return name;
@@ -59,7 +65,11 @@ public class NamedColor extends Color implements Nameable {
         return name;
     }
 
-    // creates a name for the color based on it's R,G, B and A values;
+    /**
+     * creates a name for the color based on it's R,G, B and A values
+     * @param color
+     * @return
+     */
     public  static String makeName(Color color){
         String name="color R "+String.valueOf(color.r)+" G "+String.valueOf(color.g)+" B "+String.valueOf(color.b)+" A "+String.valueOf(color.a);
         return name;
