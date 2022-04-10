@@ -43,7 +43,7 @@ public class KeyListener implements LockableInputProcessor {
     private boolean keyInputLocked=false;
 
     /**
-     * if true only one  action my used per key combo
+     * if true only one  action be used per key combo
      */
     private  boolean onlyOneKeyComboPerAction;
 
@@ -72,7 +72,7 @@ public class KeyListener implements LockableInputProcessor {
     public boolean keyDown(int keycode) {
         // set key boolean to pressed to true
         keysPressed.put(keycode, true);
-            checkForKeyAction(KeyPressMode.KEY_DOWN);
+        checkForKeyAction(KeyPressMode.KEY_DOWN);
 
         return false;
     }
@@ -87,14 +87,13 @@ public class KeyListener implements LockableInputProcessor {
     public boolean keyUp(int keycode) {
         // set key pressed to false
         keysPressed.put(keycode, false);
-
             checkForKeyAction(KeyPressMode.KEY_UP);
 
         return false;
         
     }
     /**
-     * sets the key pressed to false in the boolean array
+     *
      * then checks for key actions  and acts on them
      *  unlike other listeners ignoring if
      * TextField  or other typing input Actor
@@ -104,11 +103,10 @@ public class KeyListener implements LockableInputProcessor {
      */
     @Override
     public boolean keyTyped(char character) {
-        // set key pressed to false
         boolean focusText= isKeyboardFocusOnTextField();
         // if keyboard is focused  on  a text field  don't try call key functions
         useKeyCombos=!focusText;
-        if(useKeyCombos==true){
+        if(useKeyCombos){
             checkForKeyAction(KeyPressMode.KEY_TYPED);
         }
         return false;

@@ -61,9 +61,9 @@ public abstract  class GameMap  implements Map {
 	 */
 	protected  transient Array<Entity> entities = new Array<Entity>();
 	/**
-	 *  linked maps to the map
+	 *  maps that are linked to this one
 	 *  */
-	private transient Array<GameMap> buildings = new Array<>();
+	private transient Array<GameMap> linkedMaps = new Array<>();
 
 	/**
 	 * position component mapper
@@ -98,7 +98,7 @@ public abstract  class GameMap  implements Map {
 	@KryoSerialized
 	protected   String id;
 	/**
-	 * creates a uniqiue id for the map on construction
+	 * creates a unique id for the map on construction
 	 */
 	protected GameMap() {
 		id=new UID().toString();
@@ -123,15 +123,7 @@ public abstract  class GameMap  implements Map {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
-	public LandSquareTile[][] getMap() {
-		return map;
-	}
-	public int getXTiles() {
-		return xTiles;
-	}
-	public int getYTiles() {
-		return yTiles;
-	}
+
 	/**
 	 * // return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
 	 * 		// if given tile is out of bounds returns the closest tile that is in bounds
@@ -140,7 +132,7 @@ public abstract  class GameMap  implements Map {
 	 * @return LandSquare The given tile
 	 */
 	public LandSquareTile getMapSquare(int xLocation, int yLocation) {
-		// return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
+		// return a landSquareTileMap square checking first that the square exists based on the given numbers and returns a map tile
 		// if given tile is out of bounds returns the closest tile that is in bounds
 		if (xLocation < 0) {
 			xLocation = 0;
@@ -422,6 +414,15 @@ public abstract  class GameMap  implements Map {
 			}
 		}
 	}
+	public LandSquareTile[][] getMap() {
+		return map;
+	}
+	public int getXTiles() {
+		return xTiles;
+	}
+	public int getYTiles() {
+		return yTiles;
+	}
 	public void setDayLight(float dayLight){
 		this.dayLightAmount=dayLight;
 	}
@@ -467,9 +468,6 @@ public abstract  class GameMap  implements Map {
 	
 	public Array<Entity> getEntities() {
 		return entities;
-	}
-	public void setEntities(Array<Entity> entities) {
-		this.entities = entities;
 	}
 	public Array<Class<? extends GameEntitySystem>> getMapGameEntitySystemsClasses() {
 		return mapGameEntitySystemsClasses;

@@ -57,7 +57,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
 
 
-            if(MapUtilities.getEntityMap(getWorld(), position).equals(getDraw().getCurrentMap())){
+            if(getWorld().getMap(position.getMapId()).equals(getDraw().getCurrentMap())){
                 entity.add(new OnCurrentMap());
             }
             else{

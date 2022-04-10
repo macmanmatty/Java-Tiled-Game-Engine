@@ -7,6 +7,7 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Maps.Buildings.Building;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import java.io.File;
@@ -61,10 +62,10 @@ private com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.Te
      * @param atlasName the name of the texture atlas
      * @param maps the name of the map
      */
-    private  void setMapAtlasName(String atlasName,  ObjectMap< String , LandMap> maps){
-        Values<LandMap> mapValues =maps.values();
+    private  void setMapAtlasName(String atlasName,  ObjectMap< String , GameMap> maps){
+        Values<GameMap> mapValues =maps.values();
             while(mapValues.hasNext){
-                LandMap map=mapValues.next();
+                GameMap map=mapValues.next();
                 map.getTiledMap().getProperties().put("atlasName", atlasName);
             }
     }

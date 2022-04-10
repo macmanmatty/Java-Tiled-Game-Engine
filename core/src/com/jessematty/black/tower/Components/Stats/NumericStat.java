@@ -88,11 +88,17 @@ public   class NumericStat extends Stat {
         }
             this.statBar = new StatBar(other.statBar);
     }
-
-
     public double getDoubleValue() {
         return value;
     }
+    /**
+     * set the value fo the stat
+     * if the value is greater than the max value for the stat
+     * sets it to the max value
+     * likewise for the min value
+     * 
+     * @param value the numeric  value to set the stat to
+     */
     public void setValue(double value) {
         if(value>maxValue && maxValue>0){
             value=maxValue;
@@ -117,6 +123,11 @@ public   class NumericStat extends Stat {
     public int  getMinIntValue() {
         return (int)minValue;
     }
+    /**
+     * sets the min value for the stat
+     * if it is greater than max value sets it to the max value
+     * @param minValue
+     */
     public void setMinValue(double minValue) {
         if(minValue>maxValue){
             minValue=maxValue;
@@ -129,23 +140,30 @@ public   class NumericStat extends Stat {
     public int  getMaxIntValue() {
         return (int)maxValue;
     }
+    /**
+     * sets the max value for the stat
+     * if it is  less than min value sets it to the min value
+     * @param maxValue
+     */
     public void setMaxValue(double maxValue) {
         if(maxValue<minValue){
             maxValue=minValue;
         }
         this.maxValue = maxValue;
     }
+    /**
+     * adds the specified values to the stat min, max,, and current value
+     * @param value 
+     * @param min
+     * @param max
+     */
     public void addValues( double value, double min, double max){
         this.value=this.value+value;
         minValue=minValue+min;
         maxValue=maxValue+max;
-
         if(statBar!=null){
-
             statBar.update();
         }
-
-
     }
     public void addValue(double value){
         addValues(value, 0, 0);
@@ -165,7 +183,6 @@ public   class NumericStat extends Stat {
         double value =RandomNumbers.getRandomNumber(getMinIntValue(),getMaxIntValue() )*multiplier;
         numericStat.addValues(-value, 0, 0);
     }
-
     @Override
     public String toString() {
         if(displayMinAndMax =true) {

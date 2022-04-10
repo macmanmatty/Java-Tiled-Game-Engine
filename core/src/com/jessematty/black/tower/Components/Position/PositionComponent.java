@@ -3,14 +3,9 @@ package com.jessematty.black.tower.Components.Position;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.Print;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
-import java.util.HashMap;
 
 public class PositionComponent implements Component { //  a  position  and bounds component for entities. This is REQUIRED to bed added to entities
     // the engine will throw an illegal operation exeception  if an entity is added  with  out this component attached.
@@ -26,17 +21,16 @@ public class PositionComponent implements Component { //  a  position  and bound
     private Polygon oldBounds=null; // the entities old bounds
     private float boundsX; // width of the bounds as if they were a rectangle
     private float boundsY; // height of the bounds  as if they were a rectangle
-    private float [] boundsVerticies; // the points of the  shape that makes up bounds in x, y pairs
+    private float [] boundsVertices; // the points of the  shape that makes up bounds in x, y pairs
     private boolean boundsIsRectangle;
     private float boundsXOffset; // the offset of the bounds from the screen locations where  the entities texture region (if it has one) will be drawn
     private float boundsYOffset;
     private boolean hasBounds=true; // does the entity currently have bounds
-    private  String buildingID=""; // empty  = not in building  else number corresponds to the  to the building in the given land map array slot.
     private float height; // entities physical  height
     private float heightFromGround; // height from the ground or z coordinate of the entity
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
-    private String mapId;
+    private String mapId="";
 
     public PositionComponent() {
     }
@@ -75,8 +69,8 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
         this.boundsX=x;
         this.boundsY=y;
-        boundsVerticies = new float[]{  0 , 0 ,  0 ,  0  + boundsY,  0   + boundsX,  0   + boundsY,  0   + boundsX,  0 };
-        bounds = new Polygon(boundsVerticies);
+        boundsVertices = new float[]{  0 , 0 ,  0 ,  0  + boundsY,  0   + boundsX,  0   + boundsY,  0   + boundsX,  0 };
+        bounds = new Polygon(boundsVertices);
         bounds.setPosition(locationX, locationY);
         boundsIsRectangle=true;
         hasBounds=true;
@@ -193,14 +187,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setHeightFromGround(float heightFromGround) {
         this.heightFromGround = heightFromGround;
         positionChanged=true;
-    }
-
-    public String getBuildingID() {
-        return buildingID;
-    }
-
-    public void setBuildingID(String buildingID) {
-        this.buildingID = buildingID;
     }
 
     public boolean isDirectionChanged() {

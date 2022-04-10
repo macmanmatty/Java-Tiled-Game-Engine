@@ -6,6 +6,10 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
 
+/**
+ * class that holds all numeric stats for a given class
+ *
+ */
 public class NumericStats implements Component {
     protected OrderedMap<String, NumericStat> numericStats =  new OrderedMap<String, NumericStat>(); // list of number based stats
     protected Array<com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat> colorChangingStats= new Array<com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat>(); // stats that change the entities color

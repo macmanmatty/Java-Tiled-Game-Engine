@@ -28,7 +28,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
      * the games world object
      */
     protected  World world;
-    protected ItemList<LandMap> itemList;
+    protected ItemList<GameMap> itemList;
     /**
      * button to add items
      */
@@ -56,7 +56,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     /**
      * the  context menu that appears when clicking on an item
      */
-    protected ContextMenu<LandMap> itemContextMenu;
+    protected ContextMenu<GameMap> itemContextMenu;
     /**
      * the  name of the method to get the displayedName minus the word get  used format is "get"+methodName
      */
@@ -91,7 +91,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     }
     public void makeWindow(){
         clearWindow();
-        itemList = new ItemList<LandMap>(skin, listTitle, methodName, String.class, false);
+        itemList = new ItemList<GameMap>(skin, listTitle, methodName, String.class, false);
         itemList.setEditable(listNameEditable);
         itemList.setSortable(false);
         itemLabel = new Label("Current "+itemName+"  :", skin);
@@ -122,9 +122,9 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
             itemList.setItems(world.getWorldMaps().values().toArray(), true);
         }
         tiledMapLayersPane= new ScrollPane(this.itemList);
-        itemList.setOnSelected(new OnSelected<LandMap>() {
+        itemList.setOnSelected(new OnSelected<GameMap>() {
             @Override
-            public void onSelected(LandMap landMap) {
+            public void onSelected(GameMap landMap) {
                 mapEditScreen.setMap(landMap);
                 itemLabel.setText("Current Map: "+itemList.getSelectedItem().getMapName());
             }
@@ -149,7 +149,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     }
     @Override
     public void act(float delta){
-        Array<LandMap> maps=getItems();
+        Array<GameMap> maps=getItems();
         if( maps!=null && maps.size!=world.getWorldMaps().size){
             setItems(world.getWorldMaps().values().toArray());
         }
@@ -160,16 +160,16 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     public void setMap(GameMap gameMap) {
         
     }
-    public ContextMenu<LandMap> getItemContextMenu() {
+    public ContextMenu<GameMap> getItemContextMenu() {
         return itemContextMenu;
     }
-    public void setItemContextMenu(ContextMenu<LandMap> itemContextMenu) {
+    public void setItemContextMenu(ContextMenu<GameMap> itemContextMenu) {
         this.itemContextMenu = itemContextMenu;
     }
-    public ItemList<LandMap> getItemList() {
+    public ItemList<GameMap> getItemList() {
         return itemList;
     }
-    public void setItemList(ItemList<LandMap> itemList) {
+    public void setItemList(ItemList<GameMap> itemList) {
         this.itemList = itemList;
     }
     public boolean isShowAddButton() {
@@ -214,10 +214,10 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
         this.listTitle = listTitle;
         makeWindow();
     }
-    public Array<LandMap> getItems() {
+    public Array<GameMap> getItems() {
         return this.itemList.getItems();
     }
-    public void setItems(Array<LandMap> items) {
+    public void setItems(Array<GameMap> items) {
         this.itemList.setItems(items, true);
         makeWindow();
     }

@@ -10,7 +10,6 @@ import java.io.Serializable;
  * with additional buildings on it
  */
 public class LandMap extends GameMap implements Serializable {
-	private transient ObjectMap<String, Building> buildings = new ObjectMap<>();
 	public  LandMap() {
 		gameMapSettings.getSettings().put("lightChanges", true);
 		this.lightChanges=true;
@@ -26,12 +25,6 @@ public class LandMap extends GameMap implements Serializable {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
-	public void addBuilding(Building building){
-		this.buildings.put(building.getBuildingID(), building);
-	}
-		public Building getBuilding(String id){
-		return buildings.get(id);
-		}
 	@Override
 	public void setMapName(String mapName) {
 		gameMapSettings.getSimpleSetting("mapName", String.class);
@@ -39,8 +32,5 @@ public class LandMap extends GameMap implements Serializable {
 	@Override
 	public String getMapName() {
 		return gameMapSettings.getSimpleSetting("name", String.class);
-	}
-	public ObjectMap<String, Building> getBuildings() {
-		return buildings;
 	}
 }

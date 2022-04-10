@@ -15,6 +15,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Maps.Buildings.Building;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -94,12 +95,9 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
 
     private boolean randomPlacement(Entity entity, PositionComponent positionComponent){
 
-        Array< LandMap> maps=getWorld().getWorldMaps().values().toArray();
+        Array<GameMap> maps=getWorld().getWorldMaps().values().toArray();
         int randomNumberMap=RandomNumbers.getRandomNumber(0, maps.size-1);
-         LandMap map=maps.get(randomNumberMap);
-        int buildings=map.getBuildings().size;
-        int buildingNumber=RandomNumbers.getRandomNumber(-3, buildings);
-        if(buildingNumber<0){
+         GameMap map=maps.get(randomNumberMap);
 
             LandSquareTile landSquareTile=MapUtilities.getRandomEnterableTile(map);
             if(landSquareTile==null){
@@ -107,21 +105,6 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
             }
             MapUtilities.setPositionToTile(landSquareTile, positionComponent);
 
-
-
-        }
-
-        else{
-
-            Building building=map.getBuildings().values().toArray().get(buildingNumber);
-            LandSquareTile landSquareTile=MapUtilities.getRandomEnterableTile(building);
-            if(landSquareTile==null){
-                return  false;
-            }
-            MapUtilities.setPositionToTile(landSquareTile, positionComponent);
-
-
-        }
 
         return  true;
 

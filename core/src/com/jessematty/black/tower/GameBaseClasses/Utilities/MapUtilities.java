@@ -34,24 +34,7 @@ public class MapUtilities {
         Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
         position.setTiles(newTiles);
     }
-    public static GameMap getEntityMap(World world, PositionComponent position){
-        String mapId=position.getMapId();
-        LandMap landMap=world.getMap(mapId);
-        String buildingId=position.getBuildingID();
-        if( buildingId==null || buildingId.isEmpty()){
 
-            return  landMap;
-
-        }
-        else{
-            return  landMap.getBuilding(buildingId);
-        }
-
-
-
-
-
-    }
     // gets all
     public static  Array<Entity> getAllEntities (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
 
@@ -419,7 +402,7 @@ public class MapUtilities {
 
     public static LandSquareTile getNextTile( World world, PositionComponent position){
 
-       GameMap map =getEntityMap(world, position);
+       GameMap map =world.getMap(position.getMapId());
        return getNextTile(map, position.getTiles().get(0), position.getDirection());
 
 

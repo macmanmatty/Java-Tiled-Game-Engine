@@ -42,9 +42,9 @@ public interface Map {
     public void setSkin(Skin skin) ;
     public Skin getSkin();
     public Array<Entity> getEntities() ;
-    public void setEntities(Array<Entity> entities);
     public void setTileSize(int sizeX, int sizeY) ;
     public Settings getMapSettings();
+    public String getId();
 
 
     

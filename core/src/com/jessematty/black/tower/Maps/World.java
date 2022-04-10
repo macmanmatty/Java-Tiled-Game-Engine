@@ -421,9 +421,9 @@ public class World implements Disposable {
     /**
      * adds a building to the array of maps and to the LandMap it is on
      * @param building
-     * @param map
+     * @param mapId the id of the land map to add it to
      */
-    public void addBuilding(Building building, String mapId){
+    public void addMap(Building building, String mapId){
         this.worldMap.put(building.getId(), building);
     }
 

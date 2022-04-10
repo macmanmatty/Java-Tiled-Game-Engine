@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.Maps.World;
@@ -37,7 +38,7 @@ public class WorldKryoSerializer extends Serializer<World> {
     @Override
     public World read(Kryo kryo, Input input, Class<World> type) {
             World world = new World();
-       ObjectMap<String, LandMap> maps= (ObjectMap<String, LandMap>) kryo.readClassAndObject(input);
+       ObjectMap<String, GameMap> maps= (ObjectMap<String, GameMap>) kryo.readClassAndObject(input);
        world.setWorldMap(maps);
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);

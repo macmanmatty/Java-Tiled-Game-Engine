@@ -2,6 +2,10 @@ package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
+
+/**
+ * replace with better system
+ */
 public   class ColorChangingStat extends NumericStat {
    private float colorMultiplier;
    private boolean affectsRed;
