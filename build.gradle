@@ -46,12 +46,20 @@ project(":desktop") {
     apply plugin: "java-library"
 
 
+
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+
+        testImplementation "junit:junit:$junitVersion"
+       testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+       testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
+
+
     }
 }
 
