@@ -8,6 +8,9 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
+import java.rmi.server.UID;
+
 public class MapKryoSerializer extends Serializer<LandMap> {
     private final GameAssets gameAssets;
     public MapKryoSerializer(GameAssets gameAssets) {
@@ -26,6 +29,7 @@ public class MapKryoSerializer extends Serializer<LandMap> {
     }
     @Override
     public LandMap read(Kryo kryo, Input input, Class<LandMap> type) {
+
         LandMap map= new LandMap();
         GameMapSettings gameMapSettings= (GameMapSettings) kryo.readClassAndObject(input);
         LandSquareTile [] [] mapTiles= (LandSquareTile[][]) kryo.readClassAndObject(input);
@@ -37,6 +41,7 @@ public class MapKryoSerializer extends Serializer<LandMap> {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(gameMapSettings.getSimpleSetting("tiledMapPath", String.class));
             map.setTiledMap(tiledMap);
         }
+
         map.setMap(mapTiles);
         map.setGameMapSettings(gameMapSettings);
         map.setTileSize(gameMapSettings.getSimpleSetting("tileWidth", Integer.class), gameMapSettings.getSimpleSetting("tileHeight", Integer.class));

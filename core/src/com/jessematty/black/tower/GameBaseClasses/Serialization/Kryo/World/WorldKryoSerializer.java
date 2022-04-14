@@ -39,6 +39,7 @@ public class WorldKryoSerializer extends Serializer<World> {
     public World read(Kryo kryo, Input input, Class<World> type) {
             World world = new World();
        ObjectMap<String, GameMap> maps= (ObjectMap<String, GameMap>) kryo.readClassAndObject(input);
+       System.out.println("maps read");
        world.setWorldMap(maps);
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);

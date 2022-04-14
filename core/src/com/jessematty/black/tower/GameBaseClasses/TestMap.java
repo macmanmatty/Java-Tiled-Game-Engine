@@ -7,6 +7,7 @@ import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
@@ -106,6 +107,8 @@ public class TestMap {
         }
         world.setStartMap(map2.getId());
         world.setName("game");
+        LandMap map3= MapTools.newLandMap(9.8, "map", 20, 20, 32, 32);
+        world.addMap(map3);
 
       try {
        assetts.saveGameWithAssets(world, "/world", 2048, 2048);

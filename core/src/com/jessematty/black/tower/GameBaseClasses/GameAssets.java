@@ -26,7 +26,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.TiledMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.TiledMapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.LandSquareTileKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.BuildingKryoSerializer;
@@ -110,7 +110,7 @@ public class GameAssets implements Disposable {
     public void setup(){
         // register serializing classes
          this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
-         kryo.register(TiledMap.class, new TiledMapSerializer(true, this));
+         kryo.register(TiledMap.class, new TiledMapKryoSerializer(true, this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
          kryo.register(AnimatableComponent.class, new AnimatableSerializer(this));

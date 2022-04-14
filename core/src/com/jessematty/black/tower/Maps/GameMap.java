@@ -29,7 +29,7 @@ public abstract  class GameMap  implements Map {
 	 * All fields in this class are serialized by a custom Kryo Serializer
 	 * @linked {GameMapKryoSerializer}
 	 * and then read upon deserialization
-	 * any fields you want saved  in this class must add to the serializer and mark @KryoSerialized
+	 * any fields you want saved  in this class you  must add to the serializer and mark @KryoSerialized
 	 *
 	 * */
 	/**
@@ -96,12 +96,12 @@ public abstract  class GameMap  implements Map {
 	 * the maps identifier
 	 */
 	@KryoSerialized
-	protected   String id;
+	protected   final String id=new UID().toString();
 	/**
 	 * creates a unique id for the map on construction
 	 */
 	protected GameMap() {
-		id=new UID().toString();
+
 	}
 	public GameMap(int xTiles, int yTiles) {
 		this();
@@ -127,8 +127,8 @@ public abstract  class GameMap  implements Map {
 	/**
 	 * // return a landSquareTileMap square checking first that the squre exists based on the given numbers and returns a map tile
 	 * 		// if given tile is out of bounds returns the closest tile that is in bounds
-	 * @param xLocation the tile x Loction on the map
-	 * @param yLocation the tile y  Loction on the map
+	 * @param xLocation the tile x Location on the map
+	 * @param yLocation the tile y  Location on the map
 	 * @return LandSquare The given tile
 	 */
 	public LandSquareTile getMapSquare(int xLocation, int yLocation) {

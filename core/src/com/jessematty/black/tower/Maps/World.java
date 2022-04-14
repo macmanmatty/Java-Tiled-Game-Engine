@@ -131,7 +131,7 @@ public class World implements Disposable {
      *  adds a land map to map of land maps  and gives it a unique id
      * @param map the land  map to place
      */
-    public void addMap(LandMap map){
+    public void addMap(GameMap map){
             worldMap.put(map.getId(), map);
             
         }
@@ -416,15 +416,6 @@ public class World implements Disposable {
         if(addToEngine){
             engine.addSystem(system);
         }
-    }
-
-    /**
-     * adds a building to the array of maps and to the LandMap it is on
-     * @param building
-     * @param mapId the id of the land map to add it to
-     */
-    public void addMap(Building building, String mapId){
-        this.worldMap.put(building.getId(), building);
     }
 
     /**

@@ -27,7 +27,10 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
 
     public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion atlasRegion) {
         this.textureRegion = atlasRegion;
-        names[0] = atlasRegion.name;
+        if(atlasRegion!=null) {
+            names[0] = atlasRegion.name;
+        }
+
 
     }
     public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, NamedColor color, float brightness) {

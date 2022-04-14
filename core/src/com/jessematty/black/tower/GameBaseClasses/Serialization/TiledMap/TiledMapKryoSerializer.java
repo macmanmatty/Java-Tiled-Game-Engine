@@ -8,10 +8,10 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 /**
 custom kryo serializer for  a tiled  map
  */
-public class TiledMapSerializer extends Serializer<TiledMap> {
+public class TiledMapKryoSerializer extends Serializer<TiledMap> {
     private final GameAssets gameAssets;
     private boolean fast;
-    public TiledMapSerializer( boolean fast , GameAssets gameAssets) {
+    public TiledMapKryoSerializer(boolean fast , GameAssets gameAssets) {
         this.gameAssets = gameAssets;
         this.fast=fast;
         this.fast=true;

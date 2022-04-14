@@ -41,10 +41,8 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 import java.io.File;
 import java.util.UUID;
-
 public class MapTools {
     private final CopyObject copyObject;
     private static MapEditScreen mapEditScreen;
@@ -89,7 +87,6 @@ public class MapTools {
             }
         }
     }
-
     public LandSquareTile[][] copyTiles(LandSquareTile[][] tiles) {
         LandSquareTile[][] copiedTiles = copyObject.copyObject(tiles, LandSquareTile[][].class);
         return copiedTiles;
@@ -107,8 +104,10 @@ public class MapTools {
             }
         }
         TiledMap tiledMap = new TiledMap();
-        tiledMap.getProperties().put("width", (float) xSize);
-        tiledMap.getProperties().put("height", (float) ySize);
+        tiledMap.getProperties().put("width",  xSize);
+        tiledMap.getProperties().put("height",  ySize);
+        tiledMap.getProperties().put("tilewidth",  tileSizeX);
+        tiledMap.getProperties().put("tileheight",  tileSizeY);
       NamedTiledMapTileLayer tiledMapTileLayer = new NamedTiledMapTileLayer(xSize, ySize, tileSizeX, tileSizeY);
         tiledMapTileLayer.setDisplayName("layer 0");
         for (int countx = 0; countx < xSize; countx++) {
@@ -130,7 +129,6 @@ public class MapTools {
             }
         }
         tiledMap.getLayers().add(previewLayer);
-
         map.setMap(tiles);
         map.getGameMapSettings().getSettings().put("name", name);
         map.getGameMapSettings().getSettings().put("gravity", gravity);
@@ -142,19 +140,11 @@ public class MapTools {
         LandSquareTile [] [] landSquareTiles= new LandSquareTile[xSize][ySize];
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
-
                 landSquareTiles[countx][county]= new LandSquareTile(countx, county, ySize);
-
-
             }
-
             }
-
  return  landSquareTiles;
     }
-
-
-
     public static Building newBuilding(Building map, double gravity, String name, int xSize, int ySize, int tileSize) {
         if (map == null) {
             map = new Building();
@@ -192,8 +182,6 @@ public class MapTools {
         }
         return  layer;
     }
-
-
     /**
      *  loads a  new tmx landSquareTileMap made with tiled TileMap program
      * @param worldAtlas  the atlas to save the texture regions to
@@ -247,10 +235,8 @@ public class MapTools {
                 }
             throw new MapLoadingException("Unable to Load TMX map to GameMap Check Size?");
     }
-
     // creates  new  named  texture atlas  with a given  name texture atlas extracts  all the texture regions  from a tiled map and adds them
     public static TextureAtlas getAtlasFromTiledMap(TiledMap map, String atlasName, String tileNamePrefix){
-
         MapLayers mapLayers=map.getLayers();
         int size=mapLayers.size();
         NamedTextureAtlas tiledMapTextureAtlas=new NamedTextureAtlas(atlasName);
@@ -262,10 +248,8 @@ public class MapTools {
                 for (int county = 0; county < height; county++) {
                     Cell cell = layer.getCell(countx, county);
                     if (cell != null) {
-
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
-
                             TextureRegion region = tile.getTextureRegion();
                             if(!InList.isInList(tiledMapTextureAtlas, region)){
                                 String name=tileNamePrefix+UUID.randomUUID().toString();
@@ -273,25 +257,16 @@ public class MapTools {
                                 atlasRegion.name=name;
                                 AtlasNamedAtlasRegion namedRegion = new AtlasNamedAtlasRegion(atlasRegion, atlasName);
                                 tiledMapTextureAtlas.addRegion( name, namedRegion);
-
                             }
-
                         }
                     }
-
                 }
             }
-
         }
-
         return  tiledMapTextureAtlas;
-
     }
-
-
     // cadd the all of the texture regions from a tiled map to a named texture atlas
     public static TextureAtlas addTiledMapRegionsToAtlas(TiledMap map, NamedTextureAtlas atlas,  String tileNamePrefix){
-
         MapLayers mapLayers=map.getLayers();
         int size=mapLayers.size();
         for(int count=0; count<size; count++) {
@@ -302,10 +277,8 @@ public class MapTools {
                 for (int county = 0; county < height; county++) {
                     Cell cell = layer.getCell(countx, county);
                     if (cell != null) {
-
                         TiledMapTile tile = cell.getTile();
                         if (tile != null) {
-
                             TextureRegion region = tile.getTextureRegion();
                             if(!InList.isInList(atlas, region)){
                                 String name=tileNamePrefix+UUID.randomUUID().toString();
@@ -313,22 +286,14 @@ public class MapTools {
                                 atlasRegion.name=name;
                                 AtlasNamedAtlasRegion namedRegion = new AtlasNamedAtlasRegion(atlasRegion);
                                 atlas.addRegion( name, namedRegion);
-
                             }
-
                         }
                     }
-
                 }
             }
-
         }
-
         return  atlas;
-
     }
-
-
     private   LandSquareTile [] [] changeGameMapSize(LandSquareTile [] []  tilesToCopy, int width, int height ){
         LandSquareTile[ ] [] expandedMap= new LandSquareTile[width][height];
         newLandSquareTiles(expandedMap, 0, 0, width, height, height);
@@ -445,151 +410,86 @@ public class MapTools {
         }
         return copiedCells;
     }
-
-
     public void addEntity(Entity entity, World world){
-
-
        world.addEntityToWorld(entity);
-
     }
-
     public static void addMaskedLayers(GameAssets assets, GameMap map,  Array<TileSet> tileSets, boolean addStat){
-
-
     }
-
-
-
-
-
-
     // create a tile set from a folder of tile images with a given tile name  and matching bit numbers
     // in the format  of tileName.bitNumber.setNumber.extension ie water.10.0.png or sand.255.3.jpg setNumber is the number of random tiles  a given image has and it starts at 0
     // supported image  formats png and jpg
-
     public static  TileSet createTileSet(NamedTextureAtlas atlas, String path , String name){
         int []  bitNumbers=bitMask.getEightBitMaskWangValues();
         File [] files= new File(path).listFiles();
         TileSet tileSet= new TileSet(name);
-
         int size=files.length;
         for(int count=0; count<size; count++){
-
-
             File file=files[count];
-
             String fileName=file.getName();
             String []  parts = fileName.split("\\.");
             if(isTileFile(name, bitNumbers, parts)){
-
-
                 // create texture region
                 Texture texture= new Texture(path+FileUtilities.getFileSeparator()+file.getName());
                 TextureRegion textureRegion=new TextureRegion(texture);
                 String textureName=parts[0]+"."+parts[1]+"."+parts[2];
-
-
                 // add region to atlas
                 atlas.addRegion(textureName, textureRegion);
-
-
                 // add region to tile set
                 int bitNumber=Integer.valueOf(parts[1]);
-
                 tileSet.addNumberedTile(bitNumber,new NumberedTile(bitNumber, textureName,atlas.getAtlasFileName()));
-
-
-
             }
-
-
-
         }
-
-
-
-
-
         return tileSet;
-
     }
-
-
     private static  boolean isTileFile( String name, int [] bitNumbers,  String []  parts){
         if(!parts[0].equalsIgnoreCase(name)){
             return  false;
-
         }
-
         // if name  does not contain  a valid bit number return false
         for(int count=0; count<bitNumbers.length; count++) {
             String stringBitNumber=String.valueOf(bitNumbers[count]);
             if (!parts[1].equalsIgnoreCase(stringBitNumber)){
                 return  false;
-
             }
-
-
         }
-
         // if the file is a png or jpg image file return true
         if(parts[4].equalsIgnoreCase("png") || parts[4].equalsIgnoreCase("jpg")){
             return true;
         }
          // is not supported image file return false
-
         return  false;
-
-
-
     }
-
-
     //  makes a tileMap from a bit mask map;
 public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoothness,  GameAssets assets,  GameMap map, Array<TileSet> tileSets, boolean addStatToTile, MaskMode maskMode) {
     int xSize=map.getXTiles();
     int ySize=map.getYTiles();
-
     if(minValue>=maxValue){
         throw new IllegalArgumentException("Min Value is Greater  Than Max Value");
-
     }
-
     NumberMapGenerator numberMapGenerator= new NumberMapGenerator(xSize,ySize);
     int [] [] tileNumberMap=numberMapGenerator.makeNumberMap(maxValue, minValue , smoothness);
     Array<Integer> tileNumbers= numberMapGenerator.getMapNumbers();
     tileNumbers.sort();
-
-
         int numberOfSoilLayers= tileNumbers.size;
-
         TiledMap tiledMap=map.getTiledMap();
         MapLayers mapLayers=tiledMap.getLayers();
         LandSquareTile [] [] landSquareTileMap=map.getMap();
         ComponentMapper<NumericStats> numericStatComponentMapper= GameComponentMapper.getNumericStatsComponentMapper();
-
-
         for (int count = 0; count < numberOfSoilLayers; count++) {
-
             TiledMapTileLayer layer2 = new TiledMapTileLayer(xSize, ySize, 32, 32);
             layer2.setName("layer" + mapLayers.size());
             mapLayers.add(layer2);
             TiledMapTileLayer layer = new TiledMapTileLayer(xSize, ySize, 32, 32);
             layer.setName("layer" + mapLayers.size());
             mapLayers.add(layer);
-
         }
 // make bit mask map
         int [] [] bitNumberMap=bitMask.makeTrimmedHeightTileBitMap(tileNumbers, tileNumberMap, maskMode); // make trimmed bit map
-
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
                 for (int count = 0; count < numberOfSoilLayers; count++) {
                     TileSet tileSet=tileSets.get(count);
                     String atlasName=tileSet.getAtlasName();
-
-
                     if (tileNumberMap[countx][county] == tileNumbers.get(count)) {
                         Cell cell = new Cell();
                         AtlasNamedAtlasRegion region = assets.getAtlasRegionByName(getTileImage(tileSet, bitNumberMap[countx][county], count), atlasName);
@@ -600,34 +500,19 @@ public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoo
                             cornerCheck( assets, ySize, mapLayers, tileSet, tileNumberMap, countx, county, count, 1);
                         }
                     }
-
-
-
-
-
-
                 }
             }
         }
     }
-
-
-
-
     private static Array<TileSet> makeTileSets( int numberOfNeededTileSets, boolean canReColor,  Array<TileSet> tileSets, MaskMode maskMode){
         if(numberOfNeededTileSets<tileSets.size){
             return  tileSets;
         }
-
         int numberOriginalTileSets=tileSets.size;
         Array<TileSet> usedTileSets= new Array<>();
         if((canReColor==false && tileSets.size<2) || tileSets.size<1){
-
             throw new IllegalArgumentException(" Not Enough Tile  Sets to Mask");
         }
-
-
-
         while(tileSets.size<numberOfNeededTileSets) {
             if (canReColor) {
                 Color tileColor = ColorUtilities.randomColor(1, 1, 1, 1, true, true, true, true);
@@ -637,45 +522,22 @@ public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoo
                     TileSet newTileSet = new TileSet(tileSet);
                     tileSet.setColor(new NamedColor(tileColor));
                     tileSets.add(newTileSet);
-
                 }
-
             }
             else{
-
                 TileSet tileSet=tileSets.get(RandomNumbers.getRandomNumber(0, numberOriginalTileSets));
                 usedTileSets.add(tileSet);
                 if(!InList.isInList(usedTileSets, tileSet)) {
                     TileSet newTileSet = new TileSet(tileSet);
                     tileSets.add(newTileSet);
-
                 }
-
-
             }
-
-
-
-
         }
-
-
-
         return  tileSets;
-
-
-
     }
-
-
     private static  boolean checkMask(TileSet tileSet){
-
-
-
         return  true;
-
     }
-
     // returns a tile image for bit mask number and a set  number  from a tile set
     private static String getTileImage(TileSet tileSet, int bitMaskNumber, int setNumber) {
         ObjectMap<Integer, Array<NumberedTile>> regionNames=tileSet.getSetRegionNames();
@@ -683,13 +545,7 @@ public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoo
         Array<NumberedTile>  bitRegions= regionNames.get(bitMaskNumber);
         int random= RandomNumbers.getRandomNumber(0, bitRegions.size);
         return  bitRegions.get(random).getRegionName();
-
-
-
-
-
     }
-
     private static void cornerCheck( GameAssets assetts,  int ySize, MapLayers layers, TileSet tileSet, int[][] tileNumberMap, int countx, int county, int count, int number){
         TiledMapTileLayer  layer = (TiledMapTileLayer) layers.get(count - number);
         String atlasName=tileSet.getAtlasName();
@@ -718,12 +574,7 @@ public   static  void addRandomMaskedLayers(int minValue, int maxValue, int smoo
             cornerCheck(assetts, ySize, layers, tileSet,tileNumberMap, countx, county, count, number);
         }
     }
-
-
-
 }
-
     
     
     
-

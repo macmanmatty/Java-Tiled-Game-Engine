@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 public class LandMap extends GameMap implements Serializable {
 	public  LandMap() {
+		super();
 		gameMapSettings.getSettings().put("lightChanges", true);
 		this.lightChanges=true;
 	}

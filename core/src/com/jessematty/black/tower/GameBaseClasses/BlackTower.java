@@ -5,7 +5,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
 public class BlackTower extends Game {
 private GameAssets gameAssets;
-private boolean packAssets=true;
+private boolean packAssets=false;
 private String assetsPath="TestAssets";
 public void MainGame(){
 }

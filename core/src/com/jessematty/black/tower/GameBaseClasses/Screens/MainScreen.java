@@ -16,22 +16,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TestMap;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectImageButton;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.FileSelect;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.Maps.World;
+import com.kotcrab.vis.ui.VisUI;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MainScreen implements Screen  {
     private Stage stage;
-   private  GameAssets assets;
+   private  GameAssets gameAssets;
     private Skin skin;
    private  Label errorLabel;
-    public MainScreen(GameAssets assets) {
-        this.assets = assets;
+    public MainScreen(GameAssets gameAssets) {
+        this.gameAssets = gameAssets;
     }
     public void makeMainWindow(){
     }
@@ -65,10 +63,13 @@ public class MainScreen implements Screen  {
     public void code(boolean pack){
         if(pack==true) {
         }
-        skin= assets.getDefaultSkin();
-        assets.loadExternalTextureAtlas("/world/worldAssetts.atlas" );
+        skin= gameAssets.getDefaultSkin();
+        gameAssets.loadExternalTextureAtlas("/world/worldAssetts.atlas" );
+        gameAssets.loadInternalTextureAtlas("editorAssets");
+        gameAssets.loadInternalTextureAtlas("editorAssets");
+        gameAssets.finishLoading();
        // assetts.loadTextureAtlasFromExternalFile("textureAtlases/assets.atlas" );
-        assets.finishLoading();
+        gameAssets.finishLoading();
         stage= new Stage(new ScreenViewport());
         errorLabel= new Label("", skin);
         stage.addActor(new Image(new TextureRegionDrawable(new TextureRegion(new Texture("mainScreen.png")))));
@@ -90,7 +91,7 @@ public class MainScreen implements Screen  {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 dispose();
-                assets.dispose();
+                gameAssets.dispose();
                 System.exit(0);
             }
         });
@@ -112,9 +113,9 @@ public class MainScreen implements Screen  {
         FileAction loadGame= new FileAction() {
             @Override
             public void act(File file) throws Exception {
-                World newWorld=assets.loadGame(file.getPath());
-                assets.setWorld(newWorld);
-                assets.showGame();
+                World newWorld= gameAssets.loadGame(file.getPath());
+                gameAssets.setWorld(newWorld);
+                gameAssets.showGame();
 
             }
         };
@@ -140,6 +141,6 @@ public class MainScreen implements Screen  {
         Gdx.input.setInputProcessor(stage);
     }
     public void testMap() {
-        new TestMap(assets).testMap();
+        new TestMap(gameAssets).testMap();
     }
 }
