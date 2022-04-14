@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Copy;
 
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Entity.EntitySerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity.EntitySerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.TextureAtlas.AtlasNamedAtlasRegionSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

@@ -26,6 +26,8 @@ public class MapKryoSerializer extends Serializer<LandMap> {
         if(!map.getGameMapSettings().getSimpleSetting("usesTMXMap", Boolean.class)) {
             kryo.writeClassAndObject(output, map.getTiledMap());
         }
+
+
     }
     @Override
     public LandMap read(Kryo kryo, Input input, Class<LandMap> type) {
@@ -45,7 +47,7 @@ public class MapKryoSerializer extends Serializer<LandMap> {
         map.setMap(mapTiles);
         map.setGameMapSettings(gameMapSettings);
         map.setTileSize(gameMapSettings.getSimpleSetting("tileWidth", Integer.class), gameMapSettings.getSimpleSetting("tileHeight", Integer.class));
-        System.out.println("map sucussfully serialized");
+        map.setId(gameMapSettings.getSimpleSetting("id", String.class));
             return  map;
     }
 }

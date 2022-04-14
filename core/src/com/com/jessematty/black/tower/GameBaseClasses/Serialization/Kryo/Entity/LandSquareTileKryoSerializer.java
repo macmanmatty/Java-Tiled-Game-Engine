@@ -11,7 +11,7 @@ import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Entity.TransientChecker;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity.TransientChecker;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class LandSquareTileKryoSerializer extends Serializer<LandSquareTile> {
     private final GameAssets gameAssets;

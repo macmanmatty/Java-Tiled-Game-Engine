@@ -80,19 +80,20 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
     public void setName(String name) {
         this.name = name;
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (!(this.getClass().equals(o.getClass())) ) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Stat)) return false;
         Stat stat = (Stat) o;
-        return name.equals(stat.name);
+        return Objects.equals(name, stat.name);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
+
     public Array<String> getChangeGroups() {
         return changeGroups;
     }

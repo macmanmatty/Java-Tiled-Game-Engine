@@ -76,7 +76,8 @@ public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
         this.worldObjects = new WorldObjects();
         this.clipBoard=new ClipBoard();
         uiStage = new Stage();
-        mapDraw= new MapDraw(getGameAssets(), world);
+        mapDraw= new MapDraw(getGameAssets());
+        mapDraw.setWorld(world);
     }
     @Override
     public void show() {
