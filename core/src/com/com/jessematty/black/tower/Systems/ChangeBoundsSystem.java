@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -21,7 +21,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class ChangeBoundsSystem extends GameEntitySystem {
     private ComponentMapper<PositionComponent> positions;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<BoundsChangeable> boundsChangeableComponentMapper;
 
     ImmutableArray<Entity> entities;
@@ -50,7 +50,7 @@ public class ChangeBoundsSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
 
-        entities = getEngine().getEntitiesFor(Family.all(BoundsChangeable.class, PositionComponent.class, Action.class).get());
+        entities = getEngine().getEntitiesFor(Family.all(BoundsChangeable.class, PositionComponent.class, ActionComponent.class).get());
 
 
         int size = entities.size();
@@ -58,9 +58,9 @@ public class ChangeBoundsSystem extends GameEntitySystem {
             Entity entity = entities.get(count);
             BoundsChangeable boundsChangeable =boundsChangeableComponentMapper.get(entity);
             PositionComponent position = positions.get(entity);
-            Action action=actionComponentMapper.get(entity);
+            ActionComponent actionComponent =actionComponentMapper.get(entity);
             Direction direction=position.getDirection();
-            String actionValue=action.getStat();
+            String actionValue= actionComponent.getStat();
             Polygon bounds =boundsChangeable.getBounds(direction, actionValue);
             if(bounds!=null){
                 position.setBounds(bounds);

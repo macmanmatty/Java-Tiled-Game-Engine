@@ -7,8 +7,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Spread;
 import com.jessematty.black.tower.Components.FlagComponents.Moved;
 import com.jessematty.black.tower.Components.MovableComponent;
@@ -19,13 +19,14 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+import com.jessematty.black.tower.Systems.Move.MoveOnGround;
 
 public class SpreadSystem extends GameEntitySystem {
 
     private ImmutableArray<Entity> entities;
     private ComponentMapper<MovableComponent> moveables;
     private ComponentMapper<PositionComponent> positions;
-    private ComponentMapper<Action> actions;
+    private ComponentMapper<ActionComponent> actions;
 
     protected  boolean eightDirections=true;
     int counter=0;
@@ -43,11 +44,11 @@ public class SpreadSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(Spreadable.class, PositionComponent.class, Action.class, Spread.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(Spreadable.class, PositionComponent.class, ActionComponent.class, Spread.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            Action action= actions.get(entity);
+            ActionComponent actionComponent = actions.get(entity);
                 PositionComponent position = positions.get(entity);
                 MovableComponent movableComponent = moveables.get(entity);
                 GameMap  map=getDraw().getWorld().getMap(position.getMapId());
@@ -56,7 +57,7 @@ public class SpreadSystem extends GameEntitySystem {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);
                 }
                 else{
-                    entity.remove(MovingOnGround.class);
+                    entity.remove(MovingOnGroundComponent.class);
                 }
             }
 

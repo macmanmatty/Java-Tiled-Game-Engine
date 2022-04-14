@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.SoundComponent;
 import com.jessematty.black.tower.Components.Transient;
@@ -16,7 +16,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public  class SoundSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<SoundComponent> soundComponentComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     public SoundSystem(MapDraw draw,  int priority) {
         super(priority, draw );
     }
@@ -27,21 +27,21 @@ public  class SoundSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  SoundComponent.class,  Action.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  SoundComponent.class,  ActionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
 
             SoundComponent soundComponent=soundComponentComponentMapper.get(entity);
-            Action action=actionComponentMapper.get(entity);
-            String newAction=action.getStat();
+            ActionComponent actionComponent =actionComponentMapper.get(entity);
+            String newAction= actionComponent.getStat();
             String currentAction=soundComponent.getCurrentAction();
             // action changed play Sound;
             if(!currentAction.equalsIgnoreCase(newAction)){
 
                 soundComponent.setPlaySound(true);
             }
-            soundComponent.setCurrentAction(action.getStat());
+            soundComponent.setCurrentAction(actionComponent.getStat());
 
 
             int timesToPlay = soundComponent.getCurrentSoundTimesToPlay();

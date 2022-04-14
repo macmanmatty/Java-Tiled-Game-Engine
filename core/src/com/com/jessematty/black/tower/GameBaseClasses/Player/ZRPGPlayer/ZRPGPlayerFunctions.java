@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToPackComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PickUp;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Read;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
@@ -56,15 +56,15 @@ public class ZRPGPlayerFunctions {
 
 
         public void moveRight() {
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
         player.getMovableComponent().moveRight();
 
     }
     public void moveLeft() {
 
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
 
 
         player.getMovableComponent().moveLeft();
@@ -73,8 +73,8 @@ public class ZRPGPlayerFunctions {
 
     }
     public void moveUp() {
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
 
 
         player.getMovableComponent().moveUp();
@@ -86,8 +86,8 @@ public class ZRPGPlayerFunctions {
 
     }
     public void moveDown() {
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
         System.out.println("moved down!!");
 
 
@@ -100,8 +100,8 @@ public class ZRPGPlayerFunctions {
     }
     public void moveRightUp() {
 
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
 
         player.getMovableComponent().moveRightUp();
         System.out.println("moved right up!!");
@@ -112,8 +112,8 @@ public class ZRPGPlayerFunctions {
 
     }
     public void moveLeftUp() {
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
         System.out.println("moved left up !!");
 
 
@@ -125,8 +125,8 @@ public class ZRPGPlayerFunctions {
     }
     public void moveLeftDown() {
 
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
 
 
         player.getMovableComponent().moveLeftDown();
@@ -138,8 +138,8 @@ public class ZRPGPlayerFunctions {
     }
     public void moveRightDown() {
 
-        player.getPlayerEntity().add(new MovingOnGround());
-        player.getAction().setStat("move");
+        player.getPlayerEntity().add(new MovingOnGroundComponent());
+        player.getActionComponent().setStat("move");
 
 
         player.getMovableComponent().moveRightDown();
@@ -219,7 +219,7 @@ public class ZRPGPlayerFunctions {
             if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
                 Entity heldItem = world.getEntity(holder.getItemToHoldId());
                     heldItem.add(slash);
-                player.getAction().setStat("slash");
+                player.getActionComponent().setStat("slash");
             }
 
     }
@@ -231,7 +231,7 @@ public class ZRPGPlayerFunctions {
         if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
             Entity heldItem = world.getEntity(holder.getItemToHoldId());
             heldItem.add(thrust);
-            player.getAction().setStat("thrust");
+            player.getActionComponent().setStat("thrust");
         }
 
 

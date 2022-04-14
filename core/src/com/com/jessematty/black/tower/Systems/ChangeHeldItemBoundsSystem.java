@@ -7,13 +7,11 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.HoldPosition;
 import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
@@ -53,7 +51,7 @@ public class ChangeHeldItemBoundsSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
 
-        entities = getEngine().getEntitiesFor(Family.all(Item.class, OwnedComponent.class, PositionComponent.class, Action.class).get());
+        entities = getEngine().getEntitiesFor(Family.all(Item.class, OwnedComponent.class, PositionComponent.class, ActionComponent.class).get());
 
 
         int size = entities.size();

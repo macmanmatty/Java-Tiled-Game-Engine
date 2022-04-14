@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnAction;
 import com.jessematty.black.tower.Components.CreateEntity.ParticleEntity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -14,7 +14,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class CreateEntityOnActionSystem extends GameEntitySystem {
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ImmutableArray<Entity> entities;

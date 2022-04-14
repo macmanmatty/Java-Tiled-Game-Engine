@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
@@ -26,7 +26,7 @@ public class ThrustSystem extends GameEntitySystem {
     private ComponentMapper<Thrustable> thrustableComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<MovableComponent> movableComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<AnimatableComponent> animatableComponentComponentMapper;
 
@@ -58,7 +58,7 @@ public class ThrustSystem extends GameEntitySystem {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        entities = getEngine().getEntitiesFor(Family.all( Thrust.class, Action.class,   PositionComponent.class, MovableComponent.class, Thrustable.class).get());
+        entities = getEngine().getEntitiesFor(Family.all( Thrust.class, ActionComponent.class,   PositionComponent.class, MovableComponent.class, Thrustable.class).get());
 
         int size = entities.size();
         for (int count = 0; count < size; count++) {
@@ -66,7 +66,7 @@ public class ThrustSystem extends GameEntitySystem {
             PositionComponent position = positionComponentMapper.get(entity);
             MovableComponent movableComponent = movableComponentMapper.get(entity);
             Thrustable thrustable = thrustableComponentMapper.get(entity);
-            Action action = entity.getComponent(Action.class);
+            ActionComponent actionComponent = entity.getComponent(ActionComponent.class);
             Polygon weaponBounds = position.getBounds();
             if (!thrustable.isThrusting()) {
 
@@ -74,9 +74,9 @@ public class ThrustSystem extends GameEntitySystem {
                 float distanceX=weaponBounds.getBoundingRectangle().width/2f;
                 float maxDistance=Math.max(distanceY, distanceX);
                 thrustable.setMaxDistance(maxDistance);
-                action.setActing(true);
+                actionComponent.setActing(true);
                 String thrust="thrust";
-                action.setStat(thrust);
+                actionComponent.setStat(thrust);
                 thrustable.setStartPosition(new Vector2(weaponBounds.getX(), weaponBounds.getY()));
                 thrustable.setThrusting(true);
                 float thrustSpeedNumber=thrustable.getThrustSpeed();
@@ -124,10 +124,10 @@ public class ThrustSystem extends GameEntitySystem {
 
                     if (currentDistance >= thrustable.getMaxDistance()) {
                        thrustable.setThrusting(false);
-                       action.setActing(false);
+                       actionComponent.setActing(false);
                         EntityUtilities.setActionToAllConnectedEntities(entity, getWorld(), "rest");
                         entity.remove(Thrust.class);
-                        action.setActing(false);
+                        actionComponent.setActing(false);
                         movableComponent.setCurrentSpeed(0);
                         thrustable.setDistanceMoved(0);
                         movableComponent.setDistanceMoved(0, 0, 0);

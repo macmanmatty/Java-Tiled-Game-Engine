@@ -6,7 +6,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.audio.Sound;
-import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PlaySound;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SoundComponent;

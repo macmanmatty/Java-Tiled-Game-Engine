@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Generators.Entity;
 
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
@@ -41,8 +41,8 @@ public class EntityGenerator {
         entity.add(name);
         PositionComponent position= new PositionComponent();
         entity.add(position);
-        Action action= new Action();
-        entity.add(action);
+        ActionComponent actionComponent = new ActionComponent();
+        entity.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(1);
         physicalObject.setVolume(1);

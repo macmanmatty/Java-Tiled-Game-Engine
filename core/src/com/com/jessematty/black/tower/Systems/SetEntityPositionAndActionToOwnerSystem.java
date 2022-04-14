@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -17,7 +17,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
 
     private ComponentMapper<OwnedComponent> ownedComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ImmutableArray<Entity> entities;
 
 
@@ -38,7 +38,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
 
-        entities= getEngine().getEntitiesFor(Family.all( OwnedComponent.class, Action.class, PositionComponent.class).get());
+        entities= getEngine().getEntitiesFor(Family.all( OwnedComponent.class, ActionComponent.class, PositionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
             Entity entity = entities.get(count);
@@ -66,10 +66,10 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
 
                 if (ownedComponent.isSetEntityActionToOwner()) {
 
-                    Action ownerAction = actionComponentMapper.get(owner);
-                    Action entityAction = actionComponentMapper.get(entity);
-                    if (ownerAction != null && entityAction != null) {
-                        entityAction.setStat(ownerAction.getStat());
+                    ActionComponent ownerActionComponent = actionComponentMapper.get(owner);
+                    ActionComponent entityActionComponent = actionComponentMapper.get(entity);
+                    if (ownerActionComponent != null && entityActionComponent != null) {
+                        entityActionComponent.setStat(ownerActionComponent.getStat());
                     }
 
 
@@ -96,10 +96,10 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
 
                 if (ownedComponent.isSetOwnerActionToEntity()) {
 
-                    Action ownerAction = actionComponentMapper.get(owner);
-                    Action entityAction = actionComponentMapper.get(entity);
-                    if (ownerAction != null && entityAction != null) {
-                        ownerAction.setStat(entityAction.getStat());
+                    ActionComponent ownerActionComponent = actionComponentMapper.get(owner);
+                    ActionComponent entityActionComponent = actionComponentMapper.get(entity);
+                    if (ownerActionComponent != null && entityActionComponent != null) {
+                        ownerActionComponent.setStat(entityActionComponent.getStat());
                     }
 
 

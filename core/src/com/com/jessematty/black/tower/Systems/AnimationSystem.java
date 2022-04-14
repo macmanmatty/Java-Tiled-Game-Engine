@@ -10,7 +10,7 @@ import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Glow;
@@ -24,7 +24,7 @@ public  class AnimationSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ComponentMapper<AnimatableComponent> animatableComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private  ComponentMapper<Glow> glowComponentMapper;
     private RenderSystem renderSystem;
@@ -42,7 +42,7 @@ public  class AnimationSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, Action.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, ActionComponent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
@@ -62,11 +62,11 @@ public  class AnimationSystem extends GameEntitySystem {
                     animatable.setCurrentDirection(Direction.getBaseDirection(direction));
                 }
 
-                Action action = actionComponentMapper.get(entity);
-                String currentAction=action.getStat();
-                action.setAnimationFrames(animatable.getFrames(currentAction, direction));
-                action.setCurrentFrame(animatable.getCurrentFrameNumber());
-                action.setFrameRate(animatable.getFrameRate(direction,currentAction ));
+                ActionComponent actionComponent = actionComponentMapper.get(entity);
+                String currentAction= actionComponent.getStat();
+                actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
+                actionComponent.setCurrentFrame(animatable.getCurrentFrameNumber());
+                actionComponent.setFrameRate(animatable.getFrameRate(direction,currentAction ));
                 //set actions
                 if ((!animatable.getCurrentAction().equals(currentAction))) {
                     animatable.setCurrentAction(currentAction);

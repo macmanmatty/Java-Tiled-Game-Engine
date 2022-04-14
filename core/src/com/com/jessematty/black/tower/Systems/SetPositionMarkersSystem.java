@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Rectangle;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -16,7 +16,6 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 
 public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a flag component for visible onscreen  and on current map and adds or removes it based on the players position.
     ImmutableArray<Entity>  entities;
@@ -33,7 +32,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Action.class, PositionComponent.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( ActionComponent.class, PositionComponent.class).get());
         int size=entities.size();
 
         if(getDraw().getPlayer().getMovableComponent().isMoved()==false && getDraw().getGameTime().getTotalGameTimeLapsedInSeconds()>2){// player didn't move no need to calculate anything

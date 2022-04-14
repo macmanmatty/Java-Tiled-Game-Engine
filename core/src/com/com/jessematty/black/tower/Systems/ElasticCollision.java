@@ -6,6 +6,7 @@ import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Systems.Move.MoveOnGround;
 
 /**
  * event system for an elastic collision
