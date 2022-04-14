@@ -9,7 +9,7 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Entity.TransientChecker;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity.TransientChecker;
 
 public class AtlasNamedAtlasRegionKryoSerializer extends Serializer<Entity> {
 

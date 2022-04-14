@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Serialization.Entity;
+package com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.reflect.ClassReflection;

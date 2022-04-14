@@ -114,7 +114,10 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                            Action entityAction=actionComponentMapper.get(entity);
                          Action occupantAction=actionComponentMapper.get(occupant);
                          entityAction.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
-                         occupantAction.setStat("collide with "+nameComponentMapper.get(entity).getStat());
+                         if(occupantAction!=null) {
+                             occupantAction.setStat("collide with " + nameComponentMapper.get(entity).getStat());
+                         }
+
                          return;
                         }
                     }

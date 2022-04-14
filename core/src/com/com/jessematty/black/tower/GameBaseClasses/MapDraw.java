@@ -52,14 +52,14 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     private final String  name="Map Draw Screen";
     private GameTime gameTime;
     private final ChangeListeners changeListeners;
-    public MapDraw(GameAssets gameAssets, World world){
-        this(gameAssets, world, false);
+    public MapDraw(GameAssets gameAssets){
+        this(gameAssets,false);
     }
-    public MapDraw(GameAssets gameAssets, World world, boolean drawEntityDebugBounds){
+    public MapDraw(GameAssets gameAssets, boolean drawEntityDebugBounds){
         changeListeners=new ChangeListeners();
         this.gameAssets =gameAssets;
         batch=new BrightnessBatch();
-        Gdx.input.setInputProcessor(GameAssets.getGameInput().getLockableInputMultiplexer());
+        this.drawEntityDebugBounds =drawEntityDebugBounds;
     }
     
     public void setWorld(World world){
@@ -68,8 +68,9 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         changeListeners.setWorld(world);
     }
     public void showCurrentWorld(){
+        Gdx.input.setInputProcessor(GameAssets.getGameInput().getLockableInputMultiplexer());
         gameCamera = new GameCamera(960, 960);
-        if(world.getWorldMaps().size==0) {
+        if(world.getWorldMaps().size>0) {
             this.currentMap = world.getStartMap();
             this.currentMap.setCurrentMap(true);
             setMap(world.getMap(world.getWorldSettings().getSimpleSetting("startMapId", String.class)), true);
@@ -92,7 +93,6 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         shapeRenderer =new ShapeRenderer();
         boundingBoxRenderer= new BoundingBoxRenderer(shapeRenderer);
         EngineSetup.addBaseSystemsToEngine(engine, this, shapeRenderer, drawEntityDebugBounds, frameBufferRenderer.getMapFrameBuffer(), frameBufferRenderer.getLightFrameBuffer());
-        this.drawEntityDebugBounds =drawEntityDebugBounds;
     }
     /**
      * begin libGDX screen draw methods

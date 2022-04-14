@@ -26,6 +26,7 @@ public class LandMap extends GameMap implements Serializable {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
+
 	@Override
 	public void setMapName(String mapName) {
 		gameMapSettings.getSimpleSetting("mapName", String.class);

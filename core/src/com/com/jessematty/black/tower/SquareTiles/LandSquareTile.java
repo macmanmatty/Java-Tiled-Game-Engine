@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.Action;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
@@ -26,7 +27,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
  * for things collision detection  and other functions
  */
 
-public class  LandSquareTile extends Entity { // base class all other tile classes extend
+public class  LandSquareTile extends Entity  { // base class all other tile classes extend
 	protected transient  boolean unchangeable=false;
 	protected  transient boolean checked;
 	protected  transient boolean inArea;

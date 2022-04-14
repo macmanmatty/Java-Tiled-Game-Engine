@@ -17,9 +17,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.ObjectMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.OrderedMapSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
@@ -103,7 +106,9 @@ public class GameAssets implements Disposable {
          assetManager = new AssetManager();
         this.game = game;
        settings = new GamePrefecences(gameName);
-}
+        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
+
+    }
     /**
      * loads the default game  libGDX skin  and registers the default games saving classes with kryo
      */
@@ -117,7 +122,10 @@ public class GameAssets implements Disposable {
         kryo.register(World.class, new WorldKryoSerializer(this));
        kryo.register(LandMap.class, new MapKryoSerializer(this));
         kryo.register(Building.class, new BuildingKryoSerializer(this));
-     }
+        kryo.register(ObjectMap.class, new ObjectMapSerializer());
+        kryo.register(OrderedMap.class, new OrderedMapSerializer());
+
+    }
      // loads a json file if doesn't exist creates it.
      public<T> T loadOrCreateJsonFile(String path, String name, Class<T> objectType) throws IOException {
          File file= new File(path);
@@ -426,7 +434,9 @@ public class GameAssets implements Disposable {
      */
     public void setWorld(World world){
         this.world = world;
-        this.mapDraw= new MapDraw( this,world, true);
+        this.mapDraw= new MapDraw( this, true);
+        mapDraw.setWorld(world);
+        mapDraw.showCurrentWorld();
         mapDraw.setPlayer(new ZRPGPlayer(world, world.getPlayer()));
     }
     public void showGame(){
