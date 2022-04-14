@@ -95,12 +95,13 @@ public abstract  class GameMap  implements Map {
 	/**
 	 * the maps identifier
 	 */
-	@KryoSerialized
-	protected   final String id=new UID().toString();
+	protected   String id=new UID().toString();
 	/**
 	 * creates a unique id for the map on construction
 	 */
 	protected GameMap() {
+		gameMapSettings.getSettings().put("id", id);
+
 
 	}
 	public GameMap(int xTiles, int yTiles) {
@@ -489,5 +490,10 @@ public abstract  class GameMap  implements Map {
 	}
 	public void setMapImage(Texture mapImage) {
 		this.mapImage = mapImage;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+		gameMapSettings.getSettings().put("id", id);
 	}
 }

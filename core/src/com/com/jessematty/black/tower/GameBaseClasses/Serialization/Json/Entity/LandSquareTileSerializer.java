@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Serialization.Entity;
+package com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Json;

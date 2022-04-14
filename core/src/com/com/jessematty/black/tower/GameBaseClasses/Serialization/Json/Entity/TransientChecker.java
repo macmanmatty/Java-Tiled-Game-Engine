@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Serialization.Entity;
+package com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.Annotation;

@@ -6,15 +6,10 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.NewComponent;
 import com.jessematty.black.tower.Components.SerializableComponet;
 import com.jessematty.black.tower.Components.Transient;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit.NamedComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Entity.TransientChecker;
-
-import org.omg.CosNaming.NameComponent;
 
 /**
  * serializer  for libGDX Ashley Entities and there Components
