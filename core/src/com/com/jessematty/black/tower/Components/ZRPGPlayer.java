@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
@@ -42,7 +42,7 @@ public class ZRPGPlayer implements Component {
     private  Entity rightFoot;
     private  Pack pack;
     private  Entity playerEntity;
-    private  Action action;
+    private ActionComponent actionComponent;
     private  AttackMode attackMode= new AttackMode("slash");
     private  AttachedComponent attachedComponent;
     private  Body body;
@@ -71,7 +71,7 @@ public class ZRPGPlayer implements Component {
         this.physicalObject = playerEntity.getComponent(PhysicalObjectComponent.class);
         this.drawableComponent = playerEntity.getComponent(DrawableComponent.class);
         this.animatable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.AnimatableComponent.class);
-        this.action= playerEntity.getComponent(com.jessematty.black.tower.Components.Actions.Action.class);
+        this.actionComponent = playerEntity.getComponent(ActionComponent.class);
         this.attachedComponent = playerEntity.getComponent(AttachedComponent.class);
         this.ears= playerEntity.getComponent(Ears.class);
         this.eyes= playerEntity.getComponent(Eyes.class);
@@ -177,8 +177,8 @@ public class ZRPGPlayer implements Component {
     }
 
 
-    public Action getAction() {
-        return action;
+    public ActionComponent getActionComponent() {
+        return actionComponent;
     }
 
 

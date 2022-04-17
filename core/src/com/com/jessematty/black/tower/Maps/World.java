@@ -400,6 +400,12 @@ public class World implements Disposable {
     public TextureAtlas getWorldTextureAtlas() {
         return worldTextureAtlas;
     }
+
+    /**
+     * set the texture atlas the game uses
+     * @param worldTextureAtlas the texture atlas for the game
+     * @param path the path to the directory the atlas file and the images are in
+     */
     public void setWorldTextureAtlas(TextureAtlas worldTextureAtlas, String path) {
         this.worldTextureAtlas = worldTextureAtlas;
         worldSettings.getSettings().put("assetsPath", path);

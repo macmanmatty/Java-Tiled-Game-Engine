@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Tiles.OnEnterTileComponent;
@@ -36,7 +36,7 @@ public class OnTileExitSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Tile.class, MovableComponent.class, PositionComponent.class, Action.class, OnEnterTileComponent.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( Tile.class, MovableComponent.class, PositionComponent.class, ActionComponent.class, OnEnterTileComponent.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){

@@ -41,7 +41,7 @@ import com.jessematty.black.tower.Systems.CollisionSystem;
 import com.jessematty.black.tower.Systems.DieSystem;
 import com.jessematty.black.tower.Systems.GrowSystem;
 import com.jessematty.black.tower.Systems.HungerSystem;
-import com.jessematty.black.tower.Systems.MoveOnGroundSystem;
+import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 import com.jessematty.black.tower.Systems.ZRPGPlayerSystem;
 import com.jessematty.black.tower.Systems.RemoveEntityFromEngineSystem;
 import com.jessematty.black.tower.Systems.RenderSystem;

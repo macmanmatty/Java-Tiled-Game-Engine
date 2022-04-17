@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.ID;
 
 import com.jessematty.black.tower.Components.MovableComponent;
@@ -29,7 +29,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
     private ComponentMapper<PhysicalObjectComponent> objects;
     private ComponentMapper<Name> nameComponentMapper;
     private ComponentMapper<ID> idComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     public CollisionSystem(MapDraw draw) {
         super(draw);
     }
@@ -111,11 +111,11 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                          }
 
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
-                           Action entityAction=actionComponentMapper.get(entity);
-                         Action occupantAction=actionComponentMapper.get(occupant);
-                         entityAction.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
-                         if(occupantAction!=null) {
-                             occupantAction.setStat("collide with " + nameComponentMapper.get(entity).getStat());
+                           ActionComponent entityActionComponent =actionComponentMapper.get(entity);
+                         ActionComponent occupantActionComponent =actionComponentMapper.get(occupant);
+                         entityActionComponent.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
+                         if(occupantActionComponent !=null) {
+                             occupantActionComponent.setStat("collide with " + nameComponentMapper.get(entity).getStat());
                          }
 
                          return;

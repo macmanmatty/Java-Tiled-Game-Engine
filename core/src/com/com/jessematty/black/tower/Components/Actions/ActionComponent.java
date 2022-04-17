@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Components.Actions;
 
 import com.jessematty.black.tower.Components.Stats.StringStat;
 
-public class Action extends StringStat {
+public class ActionComponent extends StringStat {
     private boolean acting;
     private int animationFrames=1;
     private int currentFrame=0;
@@ -10,7 +10,7 @@ public class Action extends StringStat {
 
 
 
-    public Action() {
+    public ActionComponent() {
         setStat("rest");
 
     }

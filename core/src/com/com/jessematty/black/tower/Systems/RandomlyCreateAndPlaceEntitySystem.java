@@ -116,7 +116,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
         int max=mapIds.size;
         int random=RandomNumbers.getRandomNumber(0, max);
        String mapId=mapIds.get(random);
-        LandMap map= (LandMap) getMap(mapId);
+        LandMap map= (LandMap) getWorld().getMap(mapId);
 
 
 

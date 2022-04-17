@@ -14,7 +14,7 @@ public class TiledMapKryoSerializer extends Serializer<TiledMap> {
     public TiledMapKryoSerializer(boolean fast , GameAssets gameAssets) {
         this.gameAssets = gameAssets;
         this.fast=fast;
-        this.fast=true;
+        this.fast=false;
     }
     @Override
     public void write(Kryo kryo, Output output, TiledMap tiledMap) {

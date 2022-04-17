@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
@@ -190,7 +190,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        ComponentMapper<ID> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
        entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
-        Action actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
+        ActionComponent actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
         actionComponent.setStat(action);
        setActionToAllConnectedEntitiesInternal(entity, world, action);
         return;
@@ -200,7 +200,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
-        Action actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
+        ActionComponent actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
         actionComponent.setStat(action);
         if(entityOwnerComponent==null && ownedComponent==null ){
             return;
@@ -420,8 +420,8 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(id);
         Name name = new Name();
         entity.add(name);
-        Action action = new Action();
-        entity.add(action);
+        ActionComponent actionComponent = new ActionComponent();
+        entity.add(actionComponent);
         NumericStats numericStats = new NumericStats();
         entity.add(numericStats);
         BooleanStats booleanStats = new BooleanStats();

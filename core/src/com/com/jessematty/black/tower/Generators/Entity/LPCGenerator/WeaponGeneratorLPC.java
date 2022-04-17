@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Info;
@@ -67,9 +67,9 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
         position.setBounds(width, length);
         position.setBoundsXOffset(32);
         position.setBoundsYOffset(10);
-        Action action= new Action();
+        ActionComponent actionComponent = new ActionComponent();
         weapon.add(position);
-        weapon.add(action);
+        weapon.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);

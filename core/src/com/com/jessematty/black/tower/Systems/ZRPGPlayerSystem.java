@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.Ingestable;
@@ -92,12 +92,12 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
     public boolean keyDown(int keycode) {
 
 
-        if (keycode == gameInputKeys.getMoveRightKey()&& player.getAction().isActing()==false   ) {
+        if (keycode == gameInputKeys.getMoveRightKey()&& player.getActionComponent().isActing()==false   ) {
           playerFunctions.moveRight();
 
 
 
-        } else if (keycode == gameInputKeys.getMoveLeftKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveLeftKey() && player.getActionComponent().isActing()==false) {
 
             playerFunctions.moveLeft();
 
@@ -105,56 +105,56 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
 
 
 
-        } else if (keycode == gameInputKeys.getMoveUpKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveUpKey() && player.getActionComponent().isActing()==false) {
           playerFunctions.moveUp();
 
 
 
 
-        } else if (keycode == gameInputKeys.getMoveDownKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveDownKey() && player.getActionComponent().isActing()==false) {
           playerFunctions.moveDown();
 
 
-        } else if (keycode == gameInputKeys.getMoveRightUpKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveRightUpKey() && player.getActionComponent().isActing()==false) {
           playerFunctions.moveRightUp();
 
 
-        } else if (keycode == gameInputKeys.getMoveLeftUpKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveLeftUpKey() && player.getActionComponent().isActing()==false) {
             playerFunctions.moveLeftUp();
 
 
-        } else if (keycode == gameInputKeys.getMoveLeftDownKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveLeftDownKey() && player.getActionComponent().isActing()==false) {
             playerFunctions.moveLeftDown();
 
 
 
-        } else if (keycode == gameInputKeys.getMoveRightDownKey() && player.getAction().isActing()==false) {
+        } else if (keycode == gameInputKeys.getMoveRightDownKey() && player.getActionComponent().isActing()==false) {
            playerFunctions.moveRightDown();
 
 
 
         }
-        else if (keycode == gameInputKeys.getEatKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getEatKey() && player.getActionComponent().isActing()==false) {
 
 
            playerFunctions.eatItem(player.getHandToUse());
 
         }
-        else if (keycode == gameInputKeys.getThrowKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getThrowKey() && player.getActionComponent().isActing()==false) {
            playerFunctions.throwItem(player.getHandToUse());
 
         }
-        else if (keycode == gameInputKeys.getSlashKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getSlashKey() && player.getActionComponent().isActing()==false) {
             playerFunctions.slashItem(handNumber);
             System.out.println("slashed");
 
         }
 
-        else if (keycode == gameInputKeys.getThrustKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getThrustKey() && player.getActionComponent().isActing()==false) {
             playerFunctions.thrustItem(handNumber);
 
         }
-        else if (keycode == gameInputKeys.getShootKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getShootKey() && player.getActionComponent().isActing()==false) {
             playerFunctions.shootItem(handNumber);
 
         }
@@ -163,13 +163,13 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
 
 
 
-        else if (keycode == gameInputKeys.getPickUpItemKey() && player.getAction().isActing()==false ) {
+        else if (keycode == gameInputKeys.getPickUpItemKey() && player.getActionComponent().isActing()==false ) {
             playerFunctions.pickupItem();
 
 
 
         }
-        else if (keycode == gameInputKeys.getChangeHoldPositionKey() && player.getAction().isActing()==false ) {
+        else if (keycode == gameInputKeys.getChangeHoldPositionKey() && player.getActionComponent().isActing()==false ) {
             playerFunctions.changeHoldPosition(handNumber);
             System.out.println("Hold Position Changed");
 
@@ -178,7 +178,7 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
         }
 
 
-        else if (keycode == gameInputKeys.getChangeHandNumberKey() && player.getAction().isActing()==false) {
+        else if (keycode == gameInputKeys.getChangeHandNumberKey() && player.getActionComponent().isActing()==false) {
 
             if(handNumber==1) {
                 handNumber = 0;
@@ -215,10 +215,10 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
     public boolean keyUp(int keycode) {
 
        if ( gameInputKeys.isAMoveKey(keycode)) {
-            player.getPlayerEntity().remove(MovingOnGround.class);
+            player.getPlayerEntity().remove(MovingOnGroundComponent.class);
            player.getPlayerEntity().remove(Moved.class);
 
-           player.getAction().setStat("rest");
+           player.getActionComponent().setStat("rest");
             player.getMovableComponent().setMoved(false);
             System.out.println("Key up!!");
 

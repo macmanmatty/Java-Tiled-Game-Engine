@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 
 import com.jessematty.black.tower.Components.FlagComponents.Killable;
@@ -18,7 +18,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public class DieSystem extends GameEntitySystem { // checks  the die when zero  stats  for all entities  if all stats are zero
     // marks the entities  as dying.
 
-    private ComponentMapper<Action> actions;
+    private ComponentMapper<ActionComponent> actions;
     private ImmutableArray<Entity> entities;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<Dying> dyingComponentMapper;
@@ -44,7 +44,7 @@ public class DieSystem extends GameEntitySystem { // checks  the die when zero  
 
     @Override
     public void update(float deltaTime) {
-        entities= getEngine().getEntitiesFor(Family.all(Action.class, NumericStats.class, Killable.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(ActionComponent.class, NumericStats.class, Killable.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){

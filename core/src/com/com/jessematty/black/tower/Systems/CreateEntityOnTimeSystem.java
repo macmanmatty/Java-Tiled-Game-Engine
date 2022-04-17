@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnTime;
@@ -14,7 +14,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 public class CreateEntityOnTimeSystem extends GameEntitySystem {
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper;
     private  ComponentMapper<CreateEntity> createEntityComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;

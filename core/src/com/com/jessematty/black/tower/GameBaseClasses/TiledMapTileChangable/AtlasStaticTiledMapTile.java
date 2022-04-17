@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
@@ -8,6 +9,9 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 
 
 /** @brief Represents a non changing {@link com.badlogic.gdx.maps.tiled.TiledMapTile} (can be cached)
+ * this implementation has the addition of the color  a color parameter that allows a tile to be colored
+ * using a ColoredTiledMapRenderer
+ * @see com.jessematty.black.tower.GameBaseClasses.Rendering.ColoredTiledMapRenderer
    */
 
 public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class the saves the atlas region name of the tile
@@ -16,7 +20,7 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
     private BlendMode blendMode = BlendMode.ALPHA;
     private MapProperties properties;
     private MapObjects objects;
-    private TextureRegion textureRegion;
+    private transient  TextureRegion textureRegion;
     private float offsetX;
     private float offsetY;
     private String[] names = new String[1]; // the tile name
@@ -33,16 +37,10 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
 
 
     }
-    public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, NamedColor color, float brightness) {
-        this.textureRegion = textureRegion;
+    public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, NamedColor color) {
+        this(textureRegion);
         this.color = color;
-        names[0] = textureRegion.name;
-    }
-    public AtlasStaticTiledMapTile(AtlasNamedAtlasRegion textureRegion, String name, NamedColor color, float brightness) {
-        this.textureRegion = textureRegion;
-        this.names = new String[1];
-        names[0] = name;
-        this.color = color;
+
     }
     public AtlasStaticTiledMapTile(AtlasStaticTiledMapTile other) {
         this.id = other.id;
@@ -56,6 +54,7 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
         this.color = other.color;
 
     }
+
 
     public AtlasStaticTiledMapTile(StaticTiledMapTile other, String tileName) {
         this.id = other.getId();
@@ -113,6 +112,10 @@ public class AtlasStaticTiledMapTile implements  ColoredTiledMapTile {// class t
     @Override
     public void setTextureRegion(TextureRegion textureRegion) {
         this.textureRegion = textureRegion;
+        if(this.textureRegion instanceof AtlasRegion){
+
+            names[0]= ((AtlasRegion)textureRegion).name;
+        }
     }
     @Override
     public float getOffsetX() {

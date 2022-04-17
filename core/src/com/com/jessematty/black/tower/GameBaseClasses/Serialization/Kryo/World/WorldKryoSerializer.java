@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.esotericsoftware.kryo.Kryo;
@@ -24,8 +25,8 @@ public class WorldKryoSerializer extends Serializer<World> {
      */
     @Override
     public void write(Kryo kryo, Output output, World world) {
-      kryo.writeClassAndObject(output, world.getWorldMaps());
         kryo.writeClassAndObject(output, world.getWorldSettings());
+        kryo.writeClassAndObject(output, world.getWorldMaps());
        ObjectMap<String, Entity>  entities= world.getEntitiesInWorld();
         kryo.writeClassAndObject(output, entities);
         kryo.writeClassAndObject(output, world.getPlayer());
@@ -38,14 +39,14 @@ public class WorldKryoSerializer extends Serializer<World> {
     @Override
     public World read(Kryo kryo, Input input, Class<World> type) {
             World world = new World();
-       ObjectMap<String, GameMap> maps= (ObjectMap<String, GameMap>) kryo.readClassAndObject(input);
-       System.out.println("maps read");
-       world.setWorldMap(maps);
         WorldSettings worldSettings= (WorldSettings) kryo.readClassAndObject(input);
         world.setWorldSettings(worldSettings);
         String assetsPath=(String) worldSettings.getSettings().get("textureAtlasPath");
-           gameAssets.loadExternalTextureAtlas(assetsPath);
-           gameAssets.finishLoading();
+        TextureAtlas  atlas=gameAssets.loadExternalTextureAtlas(assetsPath);
+        gameAssets.setCurrentTextureAtlas(atlas);
+        gameAssets.finishLoading();
+        ObjectMap<String, GameMap> maps= (ObjectMap<String, GameMap>) kryo.readClassAndObject(input);
+        world.setWorldMap(maps);
         ObjectMap<String, Entity> entityObjectMap= (ObjectMap<String, Entity>) kryo.readClassAndObject(input);
         Entity player= (Entity) kryo.readClassAndObject(input);
         Values<Entity> entities=entityObjectMap.values();

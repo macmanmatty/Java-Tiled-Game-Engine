@@ -28,7 +28,6 @@ public class FastTiledMapSaver implements TiledMapSaver {
         int tileSizeX=mapProperties.get("tilewidth", Integer.class);
         int tileSizeY=mapProperties.get("tileheight", Integer.class);
         String atlasName=mapProperties.get("atlasName", String.class);
-
         TiledMap tiledMap= new TiledMap();
         for(int count=0; count<layers; count++){
             TiledMapTileLayer layer= new TiledMapTileLayer(xSize, ySize, tileSizeX, tileSizeY);
