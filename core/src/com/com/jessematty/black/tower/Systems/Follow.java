@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Systems;
 
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 
 public class Follow extends MoveOnGroundSystem {
 int distance;

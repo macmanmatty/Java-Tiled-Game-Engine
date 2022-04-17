@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -17,7 +17,7 @@ public class LaunchProjectileSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<MovableComponent> movableComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<Target> targetComponentMapper;
 
     protected  boolean eightDirections=true;
@@ -37,12 +37,12 @@ public class LaunchProjectileSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Target.class, MovableComponent.class, PositionComponent.class, Action.class, Shoot.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( Target.class, MovableComponent.class, PositionComponent.class, ActionComponent.class, Shoot.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
-            Action action= actionComponentMapper.get(entity);
+            ActionComponent actionComponent = actionComponentMapper.get(entity);
                 PositionComponent position = positionComponentMapper.get(entity);
                 Target target=targetComponentMapper.get(entity);
 

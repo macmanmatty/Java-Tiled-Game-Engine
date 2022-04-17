@@ -3,8 +3,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Hold;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
@@ -167,9 +166,9 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         armor.add(movableComponent);
         PositionComponent position= new PositionComponent();
         position.setBounds(width, length);
-        Action action= new Action();
+        ActionComponent actionComponent = new ActionComponent();
         armor.add(position);
-        armor.add(action);
+        armor.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
@@ -184,7 +183,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         }
         return armor;
     }
-    public Entity generateItem(Entity entity, int price,  ActionComponent... components){
+    public Entity generateItem(Entity entity, int price,  com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent... components){
         Item item= new Item();
         item.setPrice(price);
         entity.add(item);
@@ -248,9 +247,9 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         position.setBoundsYOffset(28);
         Rectangle boundingRectangle=position.getBoundsBoundingRectangle();
         position.getBounds().setOrigin(boundingRectangle.width/2f,boundingRectangle.height/50f );
-        Action action= new Action();
+        ActionComponent actionComponent = new ActionComponent();
         weapon.add(position);
-        weapon.add(action);
+        weapon.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
@@ -295,9 +294,9 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         pack.add(movableComponent);
         PositionComponent position= new PositionComponent();
         position.setBounds(width, length);
-        Action action= new Action();
+        ActionComponent actionComponent = new ActionComponent();
         pack.add(position);
-        pack.add(action);
+        pack.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
@@ -327,9 +326,9 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         drawableComponent.setLayerNumber(objectlayernumber);
         lpcActor.add(drawableComponent);
         PositionComponent position= new PositionComponent();
-        Action action= new Action();
+        ActionComponent actionComponent = new ActionComponent();
         lpcActor.add(position);
-        lpcActor.add(action);
+        lpcActor.add(actionComponent);
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(1000);
         physicalObject.setVolume(1500);
@@ -371,7 +370,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         wings.add(new Attachable( wings, owner));
         wings.add(new BodyPart());
         wings.add (new Name(true, "wings of "+name));
-        wings.add(new Action());
+        wings.add(new ActionComponent());
         NumericStats numericStats=container.getNumericStats();
         NumericStat healthStat= new NumericStat( true, "health", 100, 0, 100);
         healthStat.setKillWhenZero(true);
@@ -422,7 +421,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         horns.add(new Attachable( horns, owner));
         horns.add(new BodyPart());
         horns.add (new Name(true, "horns of "+name));
-        horns.add(new Action());
+        horns.add(new ActionComponent());
         parts.getBodyParts().put(name+"Hand",horns.getComponent(ID.class).getId());
         horns.add(new BodyPartSize(true,  "wingSize", size));
         DrawableComponent drawableComponent = new DrawableComponent();

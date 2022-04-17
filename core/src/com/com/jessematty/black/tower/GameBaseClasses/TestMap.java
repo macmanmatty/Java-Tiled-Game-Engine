@@ -73,9 +73,6 @@ public class TestMap {
         position2.setLocationY(900);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
-
-
-
         world.setPlayer( entityBag.getEntities().get(0));
        world.setWorldTextureAtlas(assetts.getAssetManager().get("/world/worldAssetts.atlas", TextureAtlas.class),"/world/worldAssetts.atlas");
         //assetts.setWorld(world);
@@ -88,10 +85,10 @@ public class TestMap {
        // world.addEntity(wings);
          //world.addEntityToWorld(sword);
         map2.setTiledMap(map);
-
+        TiledMap  tiledMap=null;
         try {
-         map= TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "");
-         map2.setTiledMap(map);
+       tiledMap =TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "/world/worldAssetts.atlas");
+         map2.setTiledMap(tiledMap);
         } catch (MapLoadingException mapLoadingException) {
             mapLoadingException.printStackTrace();
         }
@@ -107,8 +104,9 @@ public class TestMap {
         }
         world.setStartMap(map2.getId());
         world.setName("game");
-        LandMap map3= MapTools.newLandMap(9.8, "map", 20, 20, 32, 32);
-        world.addMap(map3);
+        LandMap map4= MapTools.newLandMap(9.8, "map", 20, 20, 32, 32);
+        world.addMap(map4);
+        map4.setTiledMap(tiledMap);
 
       try {
        assetts.saveGameWithAssets(world, "/world", 2048, 2048);

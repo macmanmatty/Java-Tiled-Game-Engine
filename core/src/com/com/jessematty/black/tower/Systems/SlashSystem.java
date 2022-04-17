@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Polygon;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
@@ -23,7 +23,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 public class SlashSystem extends GameEntitySystem {
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<MovableComponent> movableComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<Slashable> slashableComponentMapper;
     private ComponentMapper<AnimatableComponent> animatableComponentComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
@@ -61,7 +61,7 @@ public class SlashSystem extends GameEntitySystem {
     public void update(float deltaTime) {
 
 
-        entities = getEngine().getEntitiesFor(Family.all( Slashable.class, Slash.class, PositionComponent.class,  Action.class).get());
+        entities = getEngine().getEntitiesFor(Family.all( Slashable.class, Slash.class, PositionComponent.class,  ActionComponent.class).get());
 
         int size = entities.size();
         for (int count = 0; count < size; count++) {
@@ -71,14 +71,14 @@ public class SlashSystem extends GameEntitySystem {
             Slashable slashable=slashableComponentMapper.get(entity);
             Polygon weaponBounds1 = position.getBounds();
 
-            Action action = actionComponentMapper.get(entity);
+            ActionComponent actionComponent = actionComponentMapper.get(entity);
 
                 if(!slashable.isSlashing()) {
                     slashable.setStartDegrees(weaponBounds1.getRotation());
 
                     String slash="slash";
-                    action.setStat(slash);
-                    action.setActing(true);
+                    actionComponent.setStat(slash);
+                    actionComponent.setActing(true);
                     slashable.setSlashing(true);
                     AnimatableComponent animatableComponent=animatableComponentComponentMapper.get(entity);
                     float totalAmountToRotate=slashable.getMinRotationDegrees()+slashable.getMaxRotationDegrees();
@@ -125,7 +125,7 @@ public class SlashSystem extends GameEntitySystem {
 
                 entity.remove(Slash.class);
                 EntityUtilities.setActionToAllConnectedEntities(entity, getWorld(), "rest");
-                action.setActing(false);
+                actionComponent.setActing(false);
                 slashable.setSlashing(false);
                 movableComponent.setCurrentSpeed(0);
                 movableComponent.setDistanceMoved(0, 0, 0);

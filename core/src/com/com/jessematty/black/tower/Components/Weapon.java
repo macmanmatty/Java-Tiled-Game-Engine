@@ -1,18 +1,18 @@
 package com.jessematty.black.tower.Components;
 
 import com.badlogic.ashley.core.Component;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Weapon implements Component {
 
-  private  List<com.jessematty.black.tower.Components.Actions.Action> attackModes= new ArrayList<com.jessematty.black.tower.Components.Actions.Action>();
-  private com.jessematty.black.tower.Components.Actions.Action currentAttackMode;
+  private  List<ActionComponent> attackModes= new ArrayList<ActionComponent>();
+  private ActionComponent currentAttackMode;
   private int actionCounter;
 
-    public List<com.jessematty.black.tower.Components.Actions.Action> getAttackModes() {
+    public List<ActionComponent> getAttackModes() {
         return attackModes;
     }
 
@@ -34,7 +34,7 @@ public class Weapon implements Component {
 
 
 
-    public Action getCurrentAttackMode() {
+    public ActionComponent getCurrentAttackMode() {
         return currentAttackMode;
     }
 

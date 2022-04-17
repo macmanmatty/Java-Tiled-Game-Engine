@@ -5,10 +5,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Polygon;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Launched;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.Launchable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Maps.GameMap;
 public class LaunchEntity extends GameEntitySystem {
   private ComponentMapper<PositionComponent> positionComponentMapper;
    private ComponentMapper<Launchable> throwComponentMapper;
-   private ComponentMapper<Action> actionComponentMapper;
+   private ComponentMapper<ActionComponent> actionComponentMapper;
    private ComponentMapper<Target> targetComponentMapper;
     public LaunchEntity(MapDraw draw) {
         super(draw);
@@ -49,7 +49,7 @@ public class LaunchEntity extends GameEntitySystem {
             Entity entity=entities.get(count);
             
             Launchable launchableComponent =throwComponentMapper.get(entity);
-            Action action=actionComponentMapper.get(entity);
+            ActionComponent actionComponent =actionComponentMapper.get(entity);
             Target target=targetComponentMapper.get(entity);
 
             PositionComponent entityPosition=positionComponentMapper.get(entity);
@@ -75,8 +75,8 @@ public class LaunchEntity extends GameEntitySystem {
                 movableComponent.setCurrentSpeed(speed);
                 movableComponent.setMoveAngle(angle);
                 entity.add(movableComponent);
-                entity.add(new MovingOnGround());
-                action.setStat("move");
+                entity.add(new MovingOnGroundComponent());
+                actionComponent.setStat("move");
                 entity.remove(Target.class);
 
         }

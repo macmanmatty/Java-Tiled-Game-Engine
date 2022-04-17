@@ -64,7 +64,6 @@ public class MainScreen implements Screen  {
         if(pack==true) {
         }
         skin= gameAssets.getDefaultSkin();
-        gameAssets.loadExternalTextureAtlas("/world/worldAssetts.atlas" );
         gameAssets.loadInternalTextureAtlas("editorAssets");
         gameAssets.loadInternalTextureAtlas("editorAssets");
         gameAssets.finishLoading();

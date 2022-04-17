@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AIComponent;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Ingest;
@@ -113,7 +113,7 @@ public class GameComponentMapper {
     private static ComponentMapper<AddedToEngine> addedToEngineComponentMapper = ComponentMapper.getFor(AddedToEngine.class);
     private static ComponentMapper<DrawableComponent> drawableComponentMapper = ComponentMapper.getFor(DrawableComponent.class);
     private static ComponentMapper<AnimatableComponent> animatableComponentMapper = ComponentMapper.getFor(AnimatableComponent.class);
-    private static ComponentMapper<Action> actionComponentMapper = ComponentMapper.getFor(Action.class);
+    private static ComponentMapper<ActionComponent> actionComponentMapper = ComponentMapper.getFor(ActionComponent.class);
     private static ComponentMapper<PositionComponent> positionComponentMapper = ComponentMapper.getFor(PositionComponent.class);
     private static ComponentMapper<BitMaskable> bitMaskableComponentMapper = ComponentMapper.getFor(BitMaskable.class);
     private static ComponentMapper<MovableComponent> movableComponentMapper = ComponentMapper.getFor(MovableComponent.class);
@@ -218,7 +218,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
         componentComponentMapperMap.put(AnimatableComponent.class, animatableComponentMapper);
         componentComponentMapperMap.put(MovableComponent.class, movableComponentMapper);
-        componentComponentMapperMap.put(Action.class, actionComponentMapper);
+        componentComponentMapperMap.put(ActionComponent.class, actionComponentMapper);
         componentComponentMapperMap.put(PositionComponent.class, positionComponentMapper);
         componentComponentMapperMap.put(BitMaskable.class, bitMaskableComponentMapper);
         componentComponentMapperMap.put(PhysicalObjectComponent.class, physicalObjectComponentMapper);
@@ -522,7 +522,7 @@ public class GameComponentMapper {
         return animatableComponentMapper;
     }
 
-    public static ComponentMapper<Action> getActionComponentMapper() {
+    public static ComponentMapper<ActionComponent> getActionComponentMapper() {
         return actionComponentMapper;
     }
 

@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
@@ -31,7 +31,7 @@ public class DropSystem extends GameEntitySystem {
     ComponentMapper<Holder> holderComponentMapper;
     ComponentMapper<PositionComponent> positionComponentMapper;
     ComponentMapper<Item> itemComponentMapper;
-    ComponentMapper<Action> actionComponentMapper;
+    ComponentMapper<ActionComponent> actionComponentMapper;
 
 
     @Override
@@ -52,15 +52,15 @@ public class DropSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( Action.class, Attachable.class, PositionComponent.class, OwnedComponent.class, Drop.class).get());
+        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( ActionComponent.class, Attachable.class, PositionComponent.class, OwnedComponent.class, Drop.class).get());
         int size = entities.size();
         for (int count = 0; count < size; count++) {
             Entity itemToDrop= entities.get(count);
             itemToDrop.remove(Drop.class);
                 Item item=itemComponentMapper.get(itemToDrop);
-                Action action=actionComponentMapper.get(itemToDrop);
-                action.setActing(false);
-                action.setStat("rest");
+                ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
+                actionComponent.setActing(false);
+                actionComponent.setStat("rest");
                 item.setInPack(false);
                 item.setOnGround(true);
 

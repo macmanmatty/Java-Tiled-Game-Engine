@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.Action;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.CompareMode;
 import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
@@ -25,7 +25,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public class SelfChangeNumericStatsSystem extends GameTimeIntervalSystem {
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<NumericStatsSelfChangable> numericStatsChangableComponentMapper;
-    private ComponentMapper<Action> actionComponentMapper;
+    private ComponentMapper<ActionComponent> actionComponentMapper;
     private ImmutableArray<Entity> entities;
     private ComponentMapper<TimeChangingStats> timeChangingStatsComponentMapper;
     private GameTime gameTime;

@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.Action;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGround;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.MoveToSingleTile;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -17,7 +17,7 @@ public class MoveToSingleTileSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<MovableComponent> moveables= ComponentMapper.getFor(MovableComponent.class);
     private ComponentMapper<PositionComponent> positions=ComponentMapper.getFor(PositionComponent.class);
-    private ComponentMapper<Action> actions =ComponentMapper.getFor(Action.class);
+    private ComponentMapper<ActionComponent> actions =ComponentMapper.getFor(ActionComponent.class);
 
 
     public MoveToSingleTileSystem(MapDraw draw) {
@@ -36,7 +36,7 @@ public class MoveToSingleTileSystem extends GameEntitySystem {
 
             MovableComponent movableComponent =moveables.get(entity);
             PositionComponent position=positions.get(entity);
-            Action action =actions.get(entity);
+            ActionComponent actionComponent =actions.get(entity);
             LandSquareTile targetTile= movableComponent.getLocationToMoveTo();
 
 
@@ -51,47 +51,47 @@ public class MoveToSingleTileSystem extends GameEntitySystem {
             if (locationyDifference > 0 && locationXDifference == 0) {
                 position.setDirection(Direction.UP);
                 movableComponent.moveUp();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
 
 
             } else if (locationyDifference < 0 && locationXDifference == 0) {
                  position.setDirection(Direction.DOWN);
                 movableComponent.moveDown();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
 
             } else if (locationXDifference < 0 && locationyDifference == 0) {
                 movableComponent.moveRight();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.RIGHT);
 
 
             } else if (locationXDifference > 0 && locationyDifference == 0) {
                 movableComponent.moveLeft();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.LEFT);
 
 
             } else if (locationyDifference < 0 && locationXDifference > 0) {
                 movableComponent.moveLeftDown();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.LEFTDOWN);
 
 
             } else if (locationyDifference > 0 && locationXDifference > 0) {
                 movableComponent.moveLeftUp();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.LEFTUP);
 
 
             } else if (locationyDifference < 0 && locationXDifference < 0) {
                 movableComponent.moveRightDown();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.RIGHTDOWN);
 
 
             } else if (locationyDifference > 0 && locationXDifference < 0) {
                 movableComponent.moveRightUp();
-                entity.add(new MovingOnGround());
+                entity.add(new MovingOnGroundComponent());
                 position.setDirection(Direction.RIGHTUP);
 
 
@@ -99,7 +99,7 @@ public class MoveToSingleTileSystem extends GameEntitySystem {
 
             else{
 
-                entity.remove(MovingOnGround.class);
+                entity.remove(MovingOnGroundComponent.class);
 
             }
 

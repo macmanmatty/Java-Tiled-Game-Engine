@@ -9,7 +9,7 @@ public class ActionAnimation  implements ColorSettable {
 
     private ObjectMap< String, DirectionalAnimation> directionalAnimations= new ObjectMap<>(8);
     private NamedColor color;
-    private Action action;
+    private ActionComponent actionComponent;
 
     public void addAnimation(DirectionalAnimation directionalAnimation){
         this.directionalAnimations.put(directionalAnimation.getDirection().toString(), directionalAnimation);
@@ -31,11 +31,11 @@ public class ActionAnimation  implements ColorSettable {
         this.color = color;
     }
 
-    public Action getAction() {
-        return action;
+    public ActionComponent getActionComponent() {
+        return actionComponent;
     }
 
-    public void setAction(Action action) {
-        this.action = action;
+    public void setActionComponent(ActionComponent actionComponent) {
+        this.actionComponent = actionComponent;
     }
 }
