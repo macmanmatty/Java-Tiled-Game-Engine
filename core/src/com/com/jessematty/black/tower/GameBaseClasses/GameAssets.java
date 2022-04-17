@@ -23,6 +23,7 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.ObjectMapSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.OrderedMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.AtlasStaticTileMapTileKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
@@ -35,6 +36,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.Land
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.BuildingKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.MapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.WorldKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldReader;
@@ -99,6 +101,10 @@ public class GameAssets implements Disposable {
      */
     private final static GameInput gameInput= new GameInput();
     /**
+     * the games input class
+     */
+    private TextureAtlas currentTextureAtlas= new TextureAtlas();
+    /**
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
@@ -115,7 +121,7 @@ public class GameAssets implements Disposable {
     public void setup(){
         // register serializing classes
          this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
-         kryo.register(TiledMap.class, new TiledMapKryoSerializer(true, this));
+       kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
          kryo.register(AnimatableComponent.class, new AnimatableSerializer(this));
@@ -124,6 +130,7 @@ public class GameAssets implements Disposable {
         kryo.register(Building.class, new BuildingKryoSerializer(this));
         kryo.register(ObjectMap.class, new ObjectMapSerializer());
         kryo.register(OrderedMap.class, new OrderedMapSerializer());
+
 
     }
      // loads a json file if doesn't exist creates it.
@@ -268,7 +275,7 @@ public class GameAssets implements Disposable {
      * @param atlasRegionName the name of the atlasRegion
      * @return AtlasNamedAtlasRegion may be null if no region exists
      */    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
-        return   new AtlasNamedAtlasRegion(world.getWorldTextureAtlas().findRegion(atlasRegionName));
+        return   new AtlasNamedAtlasRegion(currentTextureAtlas.findRegion(atlasRegionName));
     }
     public AssetManager getAssetManager() {
         return assetManager;
@@ -472,5 +479,13 @@ public class GameAssets implements Disposable {
     }
     public void setSkin(Skin skin) {
         this.skin = skin;
+    }
+
+    public TextureAtlas getCurrentTextureAtlas() {
+        return currentTextureAtlas;
+    }
+
+    public void setCurrentTextureAtlas(TextureAtlas currentTextureAtlas) {
+        this.currentTextureAtlas = currentTextureAtlas;
     }
 }

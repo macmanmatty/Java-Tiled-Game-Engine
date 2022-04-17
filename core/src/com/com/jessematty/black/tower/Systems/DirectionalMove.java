@@ -15,15 +15,6 @@ public class DirectionalMove extends MoveOnGroundSystem {
     }
 
 
-    @Override
-    public boolean move() { // moves the owner to new tile area
-
-        return true;
-
-
-
-
-        }
 
 
 
