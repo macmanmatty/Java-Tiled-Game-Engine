@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Systems;
+package com.jessematty.black.tower.Systems.Collision;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.MovableComponent;
@@ -6,6 +6,7 @@ import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Systems.EventSystem;
 import com.jessematty.black.tower.Systems.Move.MoveOnGround;
 
 /**
@@ -40,17 +41,17 @@ public class ElasticCollision extends EventSystem {
             if(physicalObject2!=null){
                 double mass1=physicalObject1.getMass();
                 double mass2=physicalObject2.getMass();
-
                 double finalVelocity1=((mass2-mass1)*currentSpeed)/(mass1+mass2);
                 double finalVelocity2=(2*mass1*currentSpeed)/(mass1+mass2);
+                //set move angle   opposite direction
                 movableComponent1.setMoveAngle((float) (movableComponent1.getMoveAngle()+Math.PI));
                 movableComponent1.setCurrentSpeed((float) finalVelocity1);
-                MoveOnGround.move( map, movableComponent1, entity1, position1, deltaTime);
-
+                // move back opposite direction
+                MoveOnGround.move( map, movableComponent1, entity1, position1, deltaTime*2);
                 if(movableComponent2 !=null) {
                     movableComponent2.setMoveAngle((float) (movableComponent2.getMoveAngle()+Math.PI));
                     movableComponent2.setCurrentSpeed((float) finalVelocity2);
-                    MoveOnGround.move(map, movableComponent2, entity2, position2, deltaTime);
+                    MoveOnGround.move(map, movableComponent2, entity2, position2, deltaTime*2);
                 }
             }
     }

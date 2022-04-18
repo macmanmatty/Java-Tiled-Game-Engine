@@ -68,7 +68,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
        BooleanStat invisible= new BooleanStat("invisible");
        BooleanStats booleanStats=container.getBooleanStats();
        booleanStats.addStat(invisible);
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
+        container.getNumericStats().addStat(new NumericStat(true, "speed", 1, 0, 40));
         Entity lpcActor=container.getEntity();
         Body body= new Body();
         lpcActor.add(body);

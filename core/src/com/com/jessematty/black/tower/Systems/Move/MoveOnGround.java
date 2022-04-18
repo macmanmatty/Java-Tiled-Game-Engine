@@ -40,6 +40,5 @@ public class MoveOnGround {
             Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
             position.setTiles(newTiles);
             movableComponent.setVelocity(speedX, speedY, 0);
-            movableComponent.getTotalDistanceMoved().add(movableComponent.getDistanceMoved());
         }
 }

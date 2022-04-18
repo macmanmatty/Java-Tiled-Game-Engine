@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.Components;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
@@ -17,10 +16,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Maps.World;
-
-
 public class ZRPGPlayer implements Component {
-
     private MovableComponent movableComponent;
     private  PositionComponent position;
     private  NumericStats numericStats;
@@ -56,10 +52,6 @@ public class ZRPGPlayer implements Component {
     private boolean autoAddToFirstPack;
     private ZRPGPlayerButtonModes buttonMode;
     private int handToUse;
-
-
-
-
     public ZRPGPlayer(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
         this.world=world;
@@ -97,216 +89,139 @@ public class ZRPGPlayer implements Component {
             playerEntity.add(playable);
         }
         playable.setCurrentPlayer(true);
-
-
-
-
-
-
     }
-
     public MovableComponent getMovableComponent() {
         return movableComponent;
     }
-
-
     public PositionComponent getPosition() {
         return position;
     }
-
-
     public NumericStats getNumericStats() {
         return numericStats;
     }
-
-
     public PhysicalObjectComponent getPhysicalObject() {
         return physicalObject;
     }
-
     public DrawableComponent getDrawableComponent() {
         return drawableComponent;
     }
-
-
     public AnimatableComponent getAnimatable() {
         return animatable;
     }
-
-
     public Thrower getThrower() {
         return thrower;
     }
-
-
-
     public Pack getPack() {
         return pack;
     }
-
-
-
-
     public Entity getHand( int number ) {
         if(number==0) {
             return rightHand;
-
         }
-
         else{
             return  leftHand;
         }
     }
-
-
-
-
-
     public com.jessematty.black.tower.Components.AttachEntity.Holder[] getHolders() {
         return handHolders;
-
-
-
     }
-
-
-
-
     public Entity getPlayerEntity() {
         return playerEntity;
     }
-
-
     public ActionComponent getActionComponent() {
         return actionComponent;
     }
-
-
     public AttackMode getAttackMode() {
         return attackMode;
     }
-
-
     public BooleanStats getBooleanStats() {
         return booleanStats;
     }
-
     public StringStats getStringStats() {
         return stringStats;
     }
-
     public Holder[] getHandHolders() {
         return handHolders;
     }
-
     public Entity getLeftFoot() {
         return leftFoot;
     }
-
     public Entity getRightFoot() {
         return rightFoot;
     }
-
     public AttachedComponent getAttachedComponent() {
         return attachedComponent;
     }
-
     public StringStat getName() {
-
         return name;
-
     }
-
     public Ears getEars() {
         return ears;
     }
-
     public Nose getNose() {
         return nose;
     }
-
     public Eyes getEyes() {
         return eyes;
     }
-
     public NumericStat getSpeed() {
         return speed;
     }
-
     public com.jessematty.black.tower.Components.AttachEntity.OwnerComponent getOwnerComponent() {
         return ownerComponent;
     }
-
     public void setOwnerComponent(OwnerComponent ownerComponent) {
         this.ownerComponent = ownerComponent;
     }
-
     public boolean isShowBottomBar() {
         return showBottomBar;
     }
-
     public void setShowBottomBar(boolean showBottomBar) {
         this.showBottomBar = showBottomBar;
     }
-
     public boolean isAutoPickUpFirstItem() {
         return autoPickUpFirstItem;
     }
-
     public void setAutoPickUpFirstItem(boolean autoPickUpFirstItem) {
         this.autoPickUpFirstItem = autoPickUpFirstItem;
     }
-
     public DominateHand getDominateHand() {
         return dominateHand;
     }
-
     public void setDominateHand(DominateHand dominateHand) {
         this.dominateHand = dominateHand;
     }
-
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public boolean isAutoAddToFirstPack() {
         return autoAddToFirstPack;
     }
-
     public void setAutoAddToFirstPack(boolean autoAddToFirstPack) {
         this.autoAddToFirstPack = autoAddToFirstPack;
     }
-
     public ZRPGPlayerButtonModes getButtonMode() {
         return buttonMode;
     }
-
     public void setButtonMode(ZRPGPlayerButtonModes buttonMode) {
         this.buttonMode = buttonMode;
     }
-
     public int getHandToUse() {
         return handToUse;
     }
-
     public void setHandToUse(int handToUse) {
         this.handToUse = handToUse;
     }
-
     public ImageComponent getImageComponent() {
         return imageComponent;
     }
-
     public World getWorld() {
         return world;
     }
-
     public void setWorld(World world) {
         this.world = world;
     }
 }
-

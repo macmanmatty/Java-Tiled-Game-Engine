@@ -1,5 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.Direction;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
+
+/**
+ *  enum that represents a direction
+ */
 public enum Direction {
     UP("North", 0, 0),
     RIGHT("East", 90, 1.5708f),
@@ -10,34 +16,32 @@ public enum Direction {
     LEFTUP("NorthWest",351.5f, 5.5065138f),
     LEFTDOWN("SouthWest", 225.5f, 3.9357175f),
     SAME("Location", -1f, -1f);
-
-
-
     String compassDirection;
     float angleDegrees;
     float angleRadians;
-
-
     Direction(String compassDirection, float angleDegrees, float angleRadians) {
         this.compassDirection = compassDirection;
         this.angleDegrees = angleDegrees;
         this.angleRadians = angleRadians;
     }
-
     public String getCompassDirection() {
         return compassDirection;
     }
-
     public float getAngleDegrees() {
         return angleDegrees;
     }
-
     public float getAngleRadians() {
         return angleRadians;
     }
 
-
-
+    /**
+     *  returns the direction of point 2 from point 1
+     * @param x the x value of point one
+     * @param y the y value of point one
+     * @param x2 the x value of point 2
+     * @param y2 the y value of point 2
+     * @return the directional point 2 is from point one
+     */
     public static Direction getDirection(int x, int y, int x2, int y2) {
         if (x2 < x && y == y2) {
             return LEFT;
@@ -60,6 +64,14 @@ public enum Direction {
         }
         return SAME;
     }
+    /**
+     *  returns the direction of point 2 from point 1
+     * @param x the x value of point one
+     * @param y the y value of point one
+     * @param x2 the x value of point 2
+     * @param y2 the y value of point 2
+     * @return the directional point 2 is from point one
+     */
     public static Direction getDirection(float x, float y, float x2, float y2) {
         if (x2 < x && y2 > y) {
             return LEFTDOWN;
@@ -126,12 +138,15 @@ public enum Direction {
         }
         return SAME;
     }
+
+    /**
+     * returns the base direction  IE UP , DOWN LEFT OR RIGHT for a passed in direction
+     * @param direction the direction to check
+     * @return the  base Direction
+     */
     public  static Direction getBaseDirection(Direction direction) {
         switch (direction){
-
-
             case UP:
-
                 return Direction.UP;
             case RIGHT:
             case RIGHTUP:
@@ -139,7 +154,6 @@ public enum Direction {
                 return Direction.RIGHT;
             case DOWN:
                 return Direction.DOWN;
-
             case LEFT:
             case LEFTUP:
             case LEFTDOWN:
@@ -147,9 +161,15 @@ public enum Direction {
             case SAME:
                 break;
         }
-
         return  Direction.SAME;
     }
+
+    /**
+     * returns  an angle in degrees for given direction
+     * assuming that North or up is zero
+     * @param direction
+     * @return the angle of the direction
+     */
     public static float getAngel(Direction direction) { // get the clockwise degrees assuming that up is 0 or 360 degrees
       switch(direction)
     {
@@ -174,23 +194,25 @@ public enum Direction {
     }
             return -1;
 }
-
-
+    /**
+     * returns  an angle  in radians  for  a given direction
+     * assuming that North or up is zero
+     * @param direction
+     * @return the angle of the direction
+     */
     public static float getAngelInRadians(Direction direction) { // get the clockwise degrees assuming that up is 0 or 360 degrees
         switch(direction)
         {
             case UP:
-                return 0;
+                return 0f;
             case DOWN:
                 return (float) Math.PI;
             case LEFT:
                 return (float) 4.71239;
-
             case RIGHT:
                return  (float) 1.5708;
             case LEFTUP:
                 return (float) 5.5065138;
-
             case LEFTDOWN:
                 return (float) 3.9357175;
             case RIGHTUP:
@@ -202,12 +224,6 @@ public enum Direction {
         }
         return 0;
     }
-
-
-
-
-
-
     public static float getSwingAngle(Direction directionTo, Direction directionFrom) { // returns the angle between two directions
         switch (directionTo) {
             case UP:
@@ -391,22 +407,8 @@ public enum Direction {
         }
         return 0;
     }
-    public static  Direction getMajorDirection(Direction direction) {
-        switch (direction) {
-            case LEFTUP:
-            case LEFTDOWN: {
-                return Direction.LEFT;
-            }
-            case RIGHTUP:
-            case RIGHTDOWN: {
-                return Direction.RIGHT;
-            }
-            default:
-                return SAME;
-        }
-    }
     public static  Direction getDirection( double angle){
-        angle=Math.toDegrees(angle);
+       angle= MathUtilities.radiansToDegrees(angle);
         if (angle>337  || angle<22){
             return Direction.UP;
         }
@@ -436,34 +438,32 @@ public enum Direction {
         }
     }
     public static Direction getDirection(String direction){
-        if(direction.equals("left")){
+        if(direction.equalsIgnoreCase("left")){
             return Direction.LEFT;
         }
-        else if(direction.equals("right")){
+        else if(direction.equalsIgnoreCase("right")){
             return Direction.RIGHT;
         }
-         else if(direction.equals("down")){
+         else if(direction.equalsIgnoreCase("down")){
             return Direction.DOWN;
         }
-        else if(direction.equals("up")){
+        else if(direction.equalsIgnoreCase("up")){
             return Direction.UP;
         }
-        else if(direction.equals("rightdown")){
+        else if(direction.equalsIgnoreCase("rightdown")){
             return Direction.RIGHTDOWN;
         }
-        else if(direction.equals("leftdown")){
+        else if(direction.equalsIgnoreCase("leftdown")){
             return Direction.LEFTDOWN;
         }
-        else if(direction.equals("leftup")){
+        else if(direction.equalsIgnoreCase("leftup")){
             return Direction.LEFTUP;
         }
-        else if(direction.equals("rightup")){
+        else if(direction.equalsIgnoreCase("rightup")){
             return Direction.RIGHTUP;
         }
         return  Direction.SAME;
     }
-
-
     
     
     

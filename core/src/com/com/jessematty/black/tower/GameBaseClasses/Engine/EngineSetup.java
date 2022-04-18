@@ -37,7 +37,7 @@ import com.jessematty.black.tower.Systems.AnimationSystem;
 import com.jessematty.black.tower.Systems.BoundingBoxRenderer;
 import com.jessematty.black.tower.Systems.BreathSystem;
 import com.jessematty.black.tower.Systems.ChangeTileNumericStatSystem;
-import com.jessematty.black.tower.Systems.CollisionSystem;
+import com.jessematty.black.tower.Systems.Collision.CollisionSystem;
 import com.jessematty.black.tower.Systems.DieSystem;
 import com.jessematty.black.tower.Systems.GrowSystem;
 import com.jessematty.black.tower.Systems.HungerSystem;

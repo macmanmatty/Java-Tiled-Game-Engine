@@ -8,6 +8,7 @@ import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.EventSystem;
 
 public class EquipItemInHand extends EventSystem {
 

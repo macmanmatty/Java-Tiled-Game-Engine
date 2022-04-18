@@ -2,15 +2,38 @@ package com.jessematty.black.tower.Components;
 import com.badlogic.gdx.math.Vector3;
 import com.jessematty.black.tower.Components.Actions.ActionableComponent;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-public class MovableComponent implements ActionableComponent {
-    private float currentSpeed=1; // the current speed in world units per second
-    private float moveAngle;// the angle of movement in radians
-    private Vector3 velocity= new Vector3(); // the x and y  speeds
-    private boolean moved; // whether or not the entity moved
-    private  Vector3 distanceMoved= new Vector3();
-    private Vector3 totalDistanceMoved= new Vector3();
 
+/**
+ * component for objects that move
+ */
+public class MovableComponent implements ActionableComponent {
+    /**
+     * // the current speed in world units per second
+     */
+    private float currentSpeed=1;
+    /**
+     * / the angle of movement in radians
+     */
+    private float moveAngle;
+    /**
+     * the x, y, and z velocities of the object
+     */
+    private Vector3 velocity= new Vector3(); // the x and y  speeds
+    /**
+     * // whether or not the entity moved
+     */
+    private boolean moved;
+    /**
+     * the x, y, and z distances of the object moved
+     */
+    private  Vector3 distanceMoved= new Vector3();
+    /**
+     * the tile to move to for path finding
+     */
     private  transient LandSquareTile locationToMoveTo;
+    /**
+     * whether or not movement in 8 directions is possible
+     */
     private boolean eightDirections;
     public float getCurrentSpeed() {
         return currentSpeed;
@@ -45,7 +68,7 @@ public class MovableComponent implements ActionableComponent {
     public void moveRightUp() { //
         moveAngle = (float) 0.7941248;
     }
-    public void moveRightDown() { //
+    public void moveRightDown() {
         moveAngle = (float) 2.3649211;
     }
     public void stop(){
@@ -89,7 +112,4 @@ public class MovableComponent implements ActionableComponent {
         this.eightDirections = eightDirections;
     }
 
-    public Vector3 getTotalDistanceMoved() {
-        return totalDistanceMoved;
-    }
 }
