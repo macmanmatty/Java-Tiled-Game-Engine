@@ -1,16 +1,22 @@
 package com.jessematty.black.tower.Components;
-
 import com.badlogic.ashley.core.Component;
 
+/**
+ * Component class for Entities that are Physical  aka take up space ona map
+ */
 public class PhysicalObjectComponent implements Component { // component for objects that have a  mass and  a volume
-
-    private  float mass = 1f; // the entities mass
-    private float  volume = 1f;// the entities  volume
-    private float entitySolidity=1f; // 0=gas .5=fluid 1=solid
-    private float coefficientOfFriction=1f; // the objects cofficent of friction
-
-
-
+    /**
+     * entities mass in world mass units
+     */
+    private float mass = 1f; // the entities mass
+    /**
+     * entities volume in world volume units
+     */
+    private float volume = 1f;// the entities  volume
+    /**
+     * entity solidity  0=gas .5=fluid 1=solid used for collision Detection
+     */
+    private float entitySolidity = 1f;
 
     public float getMass() {
         return mass;
@@ -27,8 +33,9 @@ public class PhysicalObjectComponent implements Component { // component for obj
     public void setVolume(float volume) {
         this.volume = volume;
     }
+
     public float getDensity() {
-        return mass/volume;
+        return mass / volume;
     }
 
     public float getEntitySolidity() {
@@ -37,13 +44,5 @@ public class PhysicalObjectComponent implements Component { // component for obj
 
     public void setEntitySolidity(float entitySolidity) {
         this.entitySolidity = entitySolidity;
-    }
-
-    public float getCoefficientOfFriction() {
-        return coefficientOfFriction;
-    }
-
-    public void setCoefficientOfFriction(float coefficientOfFriction) {
-        this.coefficientOfFriction = coefficientOfFriction;
     }
 }

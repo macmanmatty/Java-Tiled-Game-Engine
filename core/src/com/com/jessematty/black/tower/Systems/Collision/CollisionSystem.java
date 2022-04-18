@@ -23,13 +23,18 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Systems.ChangeStats;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
+
+/**
+ * system that detects for collision of   entities that have Movable PositionComponent and a   PhysicalObjectComponent
+ */
 public class CollisionSystem extends GameEntitySystem { // system that detects for collision
+    /**
+     * the array fo entities that  have  a Movable PositionComponent and a   PhysicalObjectComponent
+     */
     private ImmutableArray<Entity> entities;
     private ComponentMapper<MovableComponent> movables;
     private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<PhysicalObjectComponent> objects;
-    private ComponentMapper<Name> nameComponentMapper;
-    private ComponentMapper<ID> idComponentMapper;
     private ComponentMapper<ActionComponent> actionComponentMapper;
     public CollisionSystem(MapDraw draw) {
         super(draw);
@@ -39,10 +44,14 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         movables= GameComponentMapper.getMovableComponentMapper();
         positions=GameComponentMapper.getPositionComponentMapper();
         objects=GameComponentMapper.getPhysicalObjectComponentMapper();
-        idComponentMapper=GameComponentMapper.getIdComponentMapper();
         actionComponentMapper=GameComponentMapper.getActionComponentMapper();
-        nameComponentMapper=GameComponentMapper.getNameComponentMapper();
     }
+
+    /**
+     * checks for collision by checking teh rectangle bounds in the Entities Position Component overlap with any other
+     * entities on the surrounding tiles
+     * @param deltaTime
+     */
     public void update(float deltaTime) { // collision detection  for a move object
         entities=getEngine().getEntitiesFor(Family.all(MovableComponent.class,   PositionComponent.class, PhysicalObjectComponent.class).get());
         int size=entities.size();
@@ -56,17 +65,17 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         PhysicalObjectComponent physicalObject= objects.get(entity);
         float screenLocationX=position.getLocationX();
         float screenLocationY=position.getLocationY();
-        Vector3 speed= movableComponent.getVelocity();
+        Vector3 entitySpeed= movableComponent.getVelocity();
         String mapId=position.getMapId();
-            Rectangle rectangle=position.getBoundsBoundingRectangle();
-            if(rectangle.x==0 || rectangle.y==0){
+            Rectangle entityBounds=position.getBoundsBoundingRectangle();
+            if(entityBounds.height==0 && entityBounds.width==0){
                 continue;
             }
             GameMap map=getWorld().getMap(mapId);
             int tileSizeX=map.getTileWidth();
             int tileSizeY=map.getTileHeight();
-            int checkDistanceX = (int)((Math.abs(speed.x)+rectangle.width)/tileSizeX)+1; // how far to check in the xAxis;
-             int checkDistanceY = (int)(( Math.abs(speed.y)+rectangle.height)/tileSizeY)+1; // how far to check in the yAxis;
+            int checkDistanceX = (int)((Math.abs(entitySpeed.x)+entityBounds.width)/tileSizeX)+1; // how far to check in the xAxis;
+             int checkDistanceY = (int)(( Math.abs(entitySpeed.y)+entityBounds.height)/tileSizeY)+1; // how far to check in the yAxis;
             // get all owned entities of the movable
         Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
                 int size2 = occupants.size;
@@ -99,9 +108,11 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
                            ActionComponent entityActionComponent =actionComponentMapper.get(entity);
                          ActionComponent occupantActionComponent =actionComponentMapper.get(occupant);
-                         entityActionComponent.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
+                         if(actionComponentMapper!=null) {
+                             entityActionComponent.setStat("collide");
+                         }
                          if(occupantActionComponent !=null) {
-                             occupantActionComponent.setStat("collide with " + nameComponentMapper.get(entity).getStat());
+                             occupantActionComponent.setStat("collide");
                          }
                          return;
                         }

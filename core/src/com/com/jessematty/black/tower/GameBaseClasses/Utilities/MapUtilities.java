@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -12,32 +11,34 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Map;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class MapUtilities {
-
     private final static  RandomNumbers value= new RandomNumbers();
     public static void addEntityToTile(GameMap map, LandSquareTile tile, Entity entity, PositionComponent position){
-
         float screenLocationX=tile.getScreenLocationx();
        float screenLocationY= tile.getScreenLocationy();
-
         position.setLocationX(screenLocationX);
         position.setLocationY(screenLocationY);
         map.removeEntity(position.getTiles(), entity);
         Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
         position.setTiles(newTiles);
     }
-
-    // gets all
+    /**
+     *  returns an array of all entities  NOT including the tiles themselves
+     *  for given square of tiles  in the  x and y axis on a given map
+     *  by adding all of the Entities from the tile components
+     * @param map the map to search on
+     * @param screenLocationX the x  location of the center tile
+     * @param screenLocationY the y location of the center tile
+     * @param xTiles the x distance  to search from the center tile
+     * @param yTiles the y distance  to search from the center tile
+     * @return an Array of Entities  an array of all entities including the tiles themselves Tiles are Entities
+     */
     public static  Array<Entity> getAllEntities (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
-
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
        Array<Entity> entities= new Array<>();
@@ -46,31 +47,33 @@ public class MapUtilities {
                 LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
-
                     Array<Entity> occupants = tile.getEntities();
                     int size = occupants.size;
                     for (int count = 0; count < size; count++) {
                         Entity entity = occupants.get(count);
+                        // don't add duplicate entities as entities may be on more than one tile
                         if (!InList.isInList(entities, entity)) {
                             entities.add(entity);
                         }
-
                     }
-
-
                 }
-
             }
-
         }
-
-
         return  entities;
-
-
     }
+
+    /**
+     *  returns an array of all entities including the tiles themselves Tiles are Entities
+     *  for given square of tiles  in the  x and y axis on a given map
+     *  by adding all of the Entities from the tile components
+     * @param map the map to search on
+     * @param screenLocationX the x  location of the center tile
+     * @param screenLocationY the y location of the center tile
+     * @param xTiles the x distance  to search from the center tile
+     * @param yTiles the y distance  to search from the center tile
+     * @return an Array of Entities  an array of all entities including the tiles themselves Tiles are Entities
+     */
     public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
-
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
         Array<Entity> entities= new Array<>();
@@ -79,36 +82,23 @@ public class MapUtilities {
                 LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
+                    // add the tile entity
                     entities.add(tile);
-
                     Array<Entity> occupants = tile.getEntities();
                     int size = occupants.size;
                     for (int count = 0; count < size; count++) {
                         Entity entity = occupants.get(count);
+                        // don't add duplicate entities as entities may be on more than one tile
                         if (!InList.isInList(entities, entity)) {
                             entities.add(entity);
                         }
-
                     }
-
-
                 }
-
             }
-
         }
-
-
         return  entities;
-
-
     }
-
     public static  Array<Entity> getAllEntities(GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles, Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
-
-
-
-
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
         Array<Entity> entities= new Array<>();
@@ -117,7 +107,6 @@ public class MapUtilities {
                 LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
-
                     Array<Entity> occupants = tile.getEntities(numericStats, stringStats, booleanStats, components);
                     int size = occupants.size;
                     for (int count = 0; count < size; count++) {
@@ -125,51 +114,29 @@ public class MapUtilities {
                         if (!InList.isInList(entities, entity)) {
                             entities.add(entity);
                         }
-
                     }
-
-
                 }
-
             }
-
         }
-
-
         return  entities;
-
-
     }
-
-
     public  static Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Circle circle){
        float diameter=circle.radius*2f;
        int tilesX=(int)(diameter/map.getTileWidth())+1;
        int tilesY=(int)(diameter/map.getTileHeight())+1;
        Array<Entity> entitiesInCircle= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
-
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
-
        int size=entities.size;
        for(int count=0; count<size; count++){
-
            Entity entity=entities.get(count);
            PositionComponent position=positionComponentMapper.get(entity);
-
            if(Intersector.overlaps(circle, position.getBoundsBoundingRectangle())){
                entitiesInCircle.add(entity);
            }
        }
-
-
-
-
         return  entitiesInCircle;
-
     }
-
-
     public  static  Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Rectangle rectangle){
         float width=rectangle.width;
         float height=rectangle.height;
@@ -177,27 +144,17 @@ public class MapUtilities {
         int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInRectangle= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
-
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
-
         int size=entities.size;
         for(int count=0; count<size; count++){
-
             Entity entity=entities.get(count);
             PositionComponent position=positionComponentMapper.get(entity);
-
             if(Intersector.overlaps(rectangle, position.getBoundsBoundingRectangle())){
                 entitiesInRectangle.add(entity);
             }
         }
-
-
-
-
         return  entitiesInRectangle;
-
     }
-
     public static   Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Polygon polygon){
         Rectangle rectangle=polygon.getBoundingRectangle();
         float width=rectangle.width;
@@ -207,30 +164,16 @@ public class MapUtilities {
         Array<Entity> entitiesInPolygon= new Array<>();
         ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
-
         int size=entities.size;
         for(int count=0; count<size; count++){
-
             Entity entity=entities.get(count);
             PositionComponent position=positionComponentMapper.get(entity);
-
             if(Intersector.overlapConvexPolygons(polygon, position.getBounds())){
                 entitiesInPolygon.add(entity);
             }
         }
-
-
-
-
         return  entitiesInPolygon;
-
     }
-
-
-
-
-
-
     public static ArrayList<LandSquareTile> getFourDirectionsAdjoiningTiles(Map map, LandSquareTile tile) {
         int x = tile.getLocationX();
         int y = tile.getLocationY();
@@ -287,8 +230,6 @@ public class MapUtilities {
         }
         return null;
     }
-
-
     public static Array<Entity> getClosestEntities (Map map, LandSquareTile location, Direction direction, int tileDistance, Class<? extends Component>... components) {
         Array<Entity> occupants = new Array<Entity>();
         if (direction != null) {
@@ -320,8 +261,6 @@ public class MapUtilities {
         float screenLocationY = (ySize - y - 1) * tileSizeY;
         return new Vector2(screenLocationX, screenLocationY);
     }
-
-
     // returns a random enterable tile  from a  map returns  null if no tiles are enterable
     public static LandSquareTile getRandomEnterableTile(Map map) {
         
@@ -363,7 +302,6 @@ public class MapUtilities {
         return tiles;
     }
     public static Array<LandSquareTile> getSurroundingTiles(Map map, PositionComponent position, float distance) {  //returns the surronding tiles for a given object based on the texture width and height.
-
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
     float xMin = position.getLocationX() - tileSizeX;
@@ -399,14 +337,9 @@ public class MapUtilities {
         }
         return tiles;
     }
-
     public static LandSquareTile getNextTile( World world, PositionComponent position){
-
        GameMap map =world.getMap(position.getMapId());
        return getNextTile(map, position.getTiles().get(0), position.getDirection());
-
-
-
     }
     public static LandSquareTile getNextTile( Map map , LandSquareTile tile, Direction direction) { // returns  the next tile in the squence based on the direction you are headed
         int xLocation = tile.getLocationX();
@@ -526,8 +459,6 @@ public class MapUtilities {
         int tileSizeY=map.getTileHeight();
         int mapYSize=map.getYTiles();
         return map.getMapSquare((int) Math.ceil(screenLocationX / tileSizeX) - 1, mapYSize - (int) Math.ceil(screenLocationY / tileSizeY));
-
-
     }
    
     
@@ -719,10 +650,7 @@ public class MapUtilities {
         float yVector=thing1.getLocationY()-thing2.getLocationY();
         return new Vector2(xVector, yVector);
     }
-
-
     public static void setPositionToTile(LandSquareTile tile , PositionComponent positionComponent){
-
         float loactionX=tile.getScreenLocationx();
         float locationY=tile.getScreenLocationy();
         positionComponent.setLocationX(loactionX);
@@ -731,7 +659,4 @@ public class MapUtilities {
         positionComponent.getTiles().clear();
         positionComponent.getTiles().add(tile);
     }
-
-
-
 }
