@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,12 +7,10 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficientTiledMapSaver;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class JsonLoader {
     /**
      * class for saving objects to json format
@@ -22,10 +19,7 @@ public class JsonLoader {
    private  boolean fastSaveTiledMaps=true;
     public JsonLoader() {
         this.json =new Json();
-
-
     }
-
     /**
      * writes an object to a file in json format
      * @param object the object to write
@@ -48,7 +42,6 @@ public class JsonLoader {
         T  object  = (T) json.fromJson(thingClass, object2);
         return object;
     }
-
     /**
      * reads a json  array of objects  from a file
      * @param typeClass
@@ -62,7 +55,6 @@ public class JsonLoader {
         ArrayList<T > object  = (ArrayList<T>) json.fromJson(ArrayList.class,  typeClass, object2);
         return object;
     }
-
     public <T, T2> Map<T, T2> loadMapFromFile(Class<T2> type2Class, String path){
         FileHandle file = Gdx.files.absolute(path);
         String object2= file.readString();
@@ -78,10 +70,7 @@ public class JsonLoader {
             MemoryEfficientTiledMapSaver saver = new MemoryEfficientTiledMapSaver();
             saver.saveMap(map);
             writeObjectToFile(saver, path, false);
-
         }
-
-
     }
     public TiledMap loadTiledMap(  String path, GameAssets assetts ){
         TiledMap map=null;
@@ -89,36 +78,23 @@ public class JsonLoader {
             com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver saver = loadObject(FastTiledMapSaver.class, path);
             map = saver.loadMap(assetts);
         }
-
         else{
-
             MemoryEfficientTiledMapSaver saver = loadObject(MemoryEfficientTiledMapSaver.class, path);
             map = saver.loadMap(assetts);
         }
-
        return map;
     }
-
        public <T>  T copyObject(Object object,  Class<T> objectClass){
         writeObjectToFile(object,"/temp.json" ,false );
         T objectCopy= loadObject(objectClass, "/temp.json");
         return  objectCopy;
-
-
-
-
     }
-
-
-
     public Json getJson() {
         return json;
     }
-
     public boolean isFastSaveTiledMaps() {
         return fastSaveTiledMaps;
     }
-
     public void setFastSaveTiledMaps(boolean fastSaveTiledMaps) {
         this.fastSaveTiledMaps = fastSaveTiledMaps;
     }

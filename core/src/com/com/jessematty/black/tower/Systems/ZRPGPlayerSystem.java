@@ -124,9 +124,9 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
             System.out.println("Current Hand Number: "+handNumber);
         }
         else if (keycode == gameInputKeys.getIncreaseSpeedKey()) {
-            player.getSpeed().addValues(1, 0, 0);
+            player.getSpeed().addValues(10, 0, 0);
         } else if (keycode ==gameInputKeys.getDecreaseSpeedKey() ){
-            player.getSpeed().addValues(-1, 0, 0);
+            player.getSpeed().addValues(-10, 0, 0);
         }
         return true;
     }

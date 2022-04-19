@@ -11,8 +11,8 @@ import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnTime;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-
 public class CreateEntityOnTimeSystem extends GameEntitySystem {
     private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper;
@@ -27,8 +27,6 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
         actionComponentMapper= GameComponentMapper.getActionComponentMapper();
         createEntityComponentMapper=GameComponentMapper.getCreateEntityComponentMapper();
         positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
-
-
         
         
     }
@@ -45,36 +43,21 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
             for(int count2=0; count2<entitiesToCreate; count2++){
                 CreateEntityOnTime createEntityOnTime=createEntityOnTimes.get(count2);
                 if(gameSeconds%createEntityOnTime.getInterval()==0){
-
                     PositionComponent position=createEntityOnTime.getPosition();
                     if(position!=null) {
                         String entityToCreateID = createEntityOnTime.getEntityToCreateID();
                         Entity entityToCreate = getWorld().getEntity(entityToCreateID);
-                        Entity entityCopy = getAssets().getJsonLoader().copyObject(entityToCreate, Entity.class);
-
+                        Entity entityCopy = GameAssets.getJsonLoader().copyObject(entityToCreate, Entity.class);
                         entityCopy.add(position);
                         getWorld().addEntityToWorld(entityCopy);
                     }
-
                 }
-
-
             }
-
-
-
-
         }
         super.update(deltaTime);
     }
-
     private void setLocationAndAddToMap(Entity entityToCreate) {
-
         getWorld().addEntityToWorld(entityToCreate);
         PositionComponent position=positionComponentMapper.get(entityToCreate);
-
-
-
-
     }
 }

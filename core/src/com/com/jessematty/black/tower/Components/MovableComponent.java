@@ -35,6 +35,14 @@ public class MovableComponent implements ActionableComponent {
      * whether or not movement in 8 directions is possible
      */
     private boolean eightDirections;
+
+    /**
+     *
+     * whether or not the movable has already collided with  something
+     * during  the current tick of the game movement
+     * reset to false on next move.
+     */
+    boolean collided;
     public float getCurrentSpeed() {
         return currentSpeed;
     }
@@ -112,4 +120,11 @@ public class MovableComponent implements ActionableComponent {
         this.eightDirections = eightDirections;
     }
 
+    public boolean isCollided() {
+        return collided;
+    }
+
+    public void setCollided(boolean collided) {
+        this.collided = collided;
+    }
 }

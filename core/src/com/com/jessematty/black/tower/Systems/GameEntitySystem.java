@@ -20,14 +20,14 @@ public abstract class GameEntitySystem extends EntitySystem   {
         this.draw = draw;
         this.world=draw.getWorld();
         this.assets =draw.getGameAssets();
-        this.keyListener=draw.getGameAssets().getGameInput().getKeyListener();
+        this.keyListener=GameAssets.getGameInput().getKeyListener();
     }
     public GameEntitySystem(int priority, MapDraw draw) {
         super(priority);
         this.draw = draw;
         this.world=draw.getWorld();
         this.assets =draw.getGameAssets();
-        this.keyListener=draw.getGameAssets().getGameInput().getKeyListener();
+        this.keyListener=GameAssets.getGameInput().getKeyListener();
     }
     public final  MapDraw getDraw() {
         return draw;

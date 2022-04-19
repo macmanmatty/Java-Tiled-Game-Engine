@@ -52,20 +52,23 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
      * entities on the surrounding tiles
      * @param deltaTime
      */
+    // TO DO check for moving collision duplicate events
     public void update(float deltaTime) { // collision detection  for a move object
         entities=getEngine().getEntitiesFor(Family.all(MovableComponent.class,   PositionComponent.class, PhysicalObjectComponent.class).get());
         int size=entities.size();
         for(int counter=0; counter<size; counter++){
         Entity entity=entities.get(counter);
-        MovableComponent movableComponent = movables.get(entity);
-        if(movableComponent.isMoved()==false){ // didn't move nothing to check
+        MovableComponent entityMovableComponent = movables.get(entity);
+        if(entityMovableComponent.isMoved()==false || entityMovableComponent.isCollided()){
+            // didn't move nothing to check or has already been collided into don't  preform collision check
+            entityMovableComponent.setCollided(false);
             continue;
         }
             PositionComponent position=positions.get(entity);
         PhysicalObjectComponent physicalObject= objects.get(entity);
         float screenLocationX=position.getLocationX();
         float screenLocationY=position.getLocationY();
-        Vector3 entitySpeed= movableComponent.getVelocity();
+        Vector3 entitySpeed= entityMovableComponent.getVelocity();
         String mapId=position.getMapId();
             Rectangle entityBounds=position.getBoundsBoundingRectangle();
             if(entityBounds.height==0 && entityBounds.width==0){
@@ -94,16 +97,22 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                     if ( occupantPosition != null  && physicalObject!=null ) { // collide with a object
                         Polygon occupantBounds1 = occupantPosition.getBounds();
                         Polygon occupantBounds2 = position.getBounds();
-                       boolean collide=heightCheck( position,  occupantPosition); // check if the two entities  will collide in the z axis
+                       boolean collide=heightCheck( position,  occupantPosition);
+                       // check if the two entities  will collide in the z axis
                         if(collide==true) {
+                            // check x and y collision
                             collide = Intersector.overlapConvexPolygons(occupantBounds1, occupantBounds2);
-                    }
+                        }
                      if (collide == true) {
                          if(occupantBody.getEntitySolidity()==1) {
-                             getEngine().addSystem(new ElasticCollision(getDraw(), map, entity, movableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
+                             entityMovableComponent.setCollided(true);
+                             if(occupantMovableComponent!=null) {
+                                 occupantMovableComponent.setCollided(true);
+                             }
+                             getEngine().addSystem(new ElasticCollision(getDraw(), map, entity, entityMovableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
                          }
                          else{
-                             getEngine().addSystem(new InelasticCollision(getDraw(), map, entity, movableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
+                             getEngine().addSystem(new InelasticCollision(getDraw(), map, entity, entityMovableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
                          }
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
                            ActionComponent entityActionComponent =actionComponentMapper.get(entity);
