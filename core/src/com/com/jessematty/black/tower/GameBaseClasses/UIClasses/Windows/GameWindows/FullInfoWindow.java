@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
@@ -31,7 +31,7 @@ import com.jessematty.black.tower.Maps.World;
 public class FullInfoWindow extends GameWindow {
    private MapDraw mapDraw;
    private Entity entity;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
    private  ComponentMapper<ImageComponent> imageComponentMapper;
    private  ComponentMapper<OwnerComponent>  ownerComponentComponentMapper;
    private ComponentMapper<StringStats> stringStatsComponentMapper;

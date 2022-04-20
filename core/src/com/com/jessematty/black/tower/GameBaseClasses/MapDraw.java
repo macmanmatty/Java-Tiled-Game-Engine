@@ -58,7 +58,6 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     public MapDraw(GameAssets gameAssets, boolean drawEntityDebugBounds){
         changeListeners=new ChangeListeners();
         this.gameAssets =gameAssets;
-        batch=new BrightnessBatch();
         this.drawEntityDebugBounds =drawEntityDebugBounds;
     }
     
@@ -68,6 +67,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         changeListeners.setWorld(world);
     }
     public void showCurrentWorld(){
+        batch=new BrightnessBatch();
         Gdx.input.setInputProcessor(GameAssets.getGameInput().getLockableInputMultiplexer());
         gameCamera = new GameCamera(960, 960);
         if(world.getWorldMaps().size>0) {
@@ -147,33 +147,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     }
     @Override
     public void resume() {
-        if(false) {
-            World world = null;
-            world = gameAssets.loadGame(gameAssets.getSettings().getPreferences().getString("savePath"));
-            currentMap = world.getCurrentMap();
-            int graphicsWidth = Gdx.graphics.getWidth();
-            int  graphicsHeight = Gdx.graphics.getHeight();
-            gameCamera = new GameCamera(960, 960);
-            gameCamera.setToOrtho(false, 500 * (graphicsWidth / graphicsHeight), 500);
-            gameCamera.update();
-            mapViewport = new ExtendViewport(960, 960, gameCamera);
-            batch = new BrightnessBatch();
-            // mapAndEntityBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
-            // lightSourceBuffer = new FrameBuffer(Format.RGBA8888, graphicsWidth, graphicsHeight, false);
-            batch.setProjectionMatrix(gameCamera.combined);
-            uiStage = new GameStage(graphicsWidth, graphicsHeight);
-           GameAssets.getGameInput().addProcessor(uiStage);
-            shapeRenderer = new ShapeRenderer();
-            EngineSetup.addBaseSystemsToEngine(engine, this, shapeRenderer, drawEntityDebugBounds, frameBufferRenderer.getMapFrameBuffer(), frameBufferRenderer.getLightFrameBuffer());
-            currentMap = world.getCurrentMap();
-            tiledMapRenderer = new DayAndNightTiledMapRenderer(currentMap.getTiledMap(), 1);
-//        stage.addActor(bottomBar.getBottomBar());
-            //bottomBarHeight=bottomBar.getBottomBar().getHeight();
-            if (player != null) {
-                gameCamera.centerCameraToPosition(player.getPosition());
-            }
-            Gdx.input.setInputProcessor(GameAssets.getGameInput().getLockableInputMultiplexer());
-        }
+         showCurrentWorld();
     }
     @Override
     public void hide() {
@@ -210,12 +184,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         if(showMap==true){
             showMap(currentMap);
         }
-
-
-
     }
-
-
     public void showMap(GameMap newMap){
        gameCamera.calculateScreenMaxes(newMap);
       tiledMapRenderer = new OrthogonalTiledMapRenderer(currentMap.getTiledMap(), 1);
@@ -224,7 +193,6 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
             gameAssets.setSkin(skin);
         }
     }
-
     public GameMap getMap() {
         return currentMap;
     }

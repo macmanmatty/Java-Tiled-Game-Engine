@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -29,7 +29,7 @@ public class EquipItemSystem extends GameEntitySystem{
     private  ComponentMapper<EquipItem> equipItemComponentMapper;
     private ComponentMapper<Groups> groupsComponentMapper;
     private ComponentMapper<AttachedComponent> attachedComponentComponentMapper;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
 
 
 
@@ -129,8 +129,8 @@ public class EquipItemSystem extends GameEntitySystem{
 
                 ownedEntityIDs.add(itemToEquipID);
                 itemToEquip.add(new OwnedComponent(equipperId, true, true));
-        Name name=nameComponentMapper.get(itemToEquip);
-                attachedComponent.getAttachedEntities().put(name.getStat(), equipperId);
+        NameComponent nameComponent =nameComponentMapper.get(itemToEquip);
+                attachedComponent.getAttachedEntities().put(nameComponent.getStat(), equipperId);
 
         return  null;
 

@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Components.ErrorComponent;
 import com.jessematty.black.tower.Components.ID;
 
 
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -31,7 +31,7 @@ public class UnEquipItemSystem extends GameEntitySystem{
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<ID> idComponentMapper;
     private ComponentMapper<UnEquipItem> unEquipItemComponentMapperquipItemComponentMapper;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
 
 
 

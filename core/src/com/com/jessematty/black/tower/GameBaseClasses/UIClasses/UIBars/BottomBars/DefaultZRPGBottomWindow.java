@@ -1,10 +1,8 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Scaling;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.AttackMode;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
@@ -89,7 +87,7 @@ public class DefaultZRPGBottomWindow extends UITable {
 
     public void setZrpgPlayer(ZRPGPlayer zrpgPlayer) {
         this.zrpgPlayer = zrpgPlayer;
-        StringStat name=zrpgPlayer.getName();
+        StringStat name=zrpgPlayer.getNameComponent();
         StringStatGroup stringStatGroup= new StringStatGroup(getSkin(), name);
         StringStat attackMode=zrpgPlayer.getAttackMode();
 

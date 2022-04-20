@@ -458,7 +458,7 @@ public class GameAssets implements Disposable {
     }
     public void exit() {
         dispose();
-        System.exit(0);
+
     }
     public GamePrefecences getSettings() {
         return settings;

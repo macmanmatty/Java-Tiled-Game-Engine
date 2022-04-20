@@ -42,7 +42,7 @@ public class ZRPGPlayer implements Component {
     private  AttackMode attackMode= new AttackMode("slash");
     private  AttachedComponent attachedComponent;
     private  Body body;
-    private   Name name;
+    private NameComponent nameComponent;
     private  World world;
     private  NumericStat speed;
     private ImageComponent imageComponent;
@@ -81,7 +81,7 @@ public class ZRPGPlayer implements Component {
         this.leftFoot=world.getEntity(body.getBodyParts().get("leftFoot"));
         this.pack= playerEntity.getComponent(Pack.class);
         this.thrower= playerEntity.getComponent(Thrower.class);
-        this.name= playerEntity.getComponent(Name.class);
+        this.nameComponent = playerEntity.getComponent(NameComponent.class);
         this.speed=numericStats.getNumericStat("speed");
         Playable playable= playerEntity.getComponent(Playable.class);
         if(playable==null){
@@ -152,8 +152,8 @@ public class ZRPGPlayer implements Component {
     public AttachedComponent getAttachedComponent() {
         return attachedComponent;
     }
-    public StringStat getName() {
-        return name;
+    public StringStat getNameComponent() {
+        return nameComponent;
     }
     public Ears getEars() {
         return ears;

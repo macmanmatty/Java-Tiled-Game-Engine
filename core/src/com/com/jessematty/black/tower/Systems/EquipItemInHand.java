@@ -4,17 +4,16 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Systems.EventSystem;
 
 public class EquipItemInHand extends EventSystem {
 
     private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<Holder> hands;
-    private ComponentMapper<Name> names;
+    private ComponentMapper<NameComponent> names;
     private ComponentMapper<ID> idComponentMapper;
 
 
@@ -38,9 +37,9 @@ public class EquipItemInHand extends EventSystem {
         Entity currentItemHoldingItem=getWorld().getEntity(itemHolder.getItemToHoldId());
         if(currentItemHoldingItem==null) {
             itemHolder.setItemToHoldId(idComponentMapper.get(itemToHold).getId());
-            Name holderName = names.get(holder);
-            Name itemToHoldName = names.get(itemToHold);
-            holderName.setStat(holderName.getStat() + "Holding " + itemToHoldName);
+            NameComponent holderNameComponent = names.get(holder);
+            NameComponent itemToHoldNameComponent = names.get(itemToHold);
+            holderNameComponent.setStat(holderNameComponent.getStat() + "Holding " + itemToHoldNameComponent);
 
         }
 

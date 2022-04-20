@@ -13,46 +13,76 @@ import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import java.util.Comparator;
-
 /**
  * class for systems  that renders  entities  TextureRegions based on their layer numbers in the  DrawableComponent
  * every time a new entity is added the array is resorted
  */
 public  abstract class SortedRenderingSystem extends EntitySystem implements EntityListener  {
-        private Family family;  // the family of components to act on
-        private Array<Entity> sortedEntities; // the sorted entities
-        private final ImmutableArray<Entity> entities; // the list of entities to loop over
-        private boolean shouldSort; // whether or not  to sort the array on entities
-        private Comparator<Entity> comparator; // entity comparator
-        private  final  Batch batch; // the libGDX sprite batch object used for rendering
-        private  final FrameBuffer  frameBuffer; // the framebuffer used for rendering
+    /**
+     *  // the family of components to act on
+     *  in this case PositionComponent.class and DrawableComponent.class
+     */
+    private Family family;  // the family of components to act on
+    /**
+     * the array of sorted Entities
+     */
+    private Array<Entity> sortedEntities; // the sorted entities
+    /**
+     * // whether or not  to sort the array on entities
+     */
+    private boolean shouldSort;
+    private Comparator<Entity> comparator; // entity comparator
+    /**
+     * // the libGDX sprite batch object used for rendering
+     *
+     */
+    private  final  Batch batch;
+    /**
+     * // the framebuffer used for rendering the entity layer
+     * if used with framer buffer layers
+     */
+    private  final FrameBuffer  frameBuffer; // the framebuffer used for rendering
+    /**
+     * the brightness level for the openGL shader
+     *  0= total dark 1=normal 2=total white
+     *
+     */
         private float brightness=1; // sets the brightness for the fragment shader
-        private ComponentMapper<DrawableComponent> drawableComponentMapper; // component mappers
-        private ComponentMapper<PositionComponent> positionComponentMapper;
-       private boolean callBatchEnd; // flag for call batch.end(); if true this system will call batch.end(); otherwise batch.end() MUST be called somewhere else
-        private boolean startFrameBuffer; // flag for call frameBuffer.begin();
-        private boolean endFrameBuffer; // flag for call frameBuffer.end(); if true this system will call frameBuffer.end(); otherwise if using a framebuffer  frameBuffer.end() MUST be called somewhere else
+    /**
+     * Entity ComponentMappers
+     */
+    private ComponentMapper<DrawableComponent> drawableComponentMapper; // component mappers
+    private ComponentMapper<PositionComponent> positionComponentMapper;
+    /**
+     *  flag for call batch.end(); if true this system will call batch.end(); otherwise batch.end() MUST be called somewhere else
+     */
+    private boolean callBatchEnd;
+    /**
+     * // flag for call frameBuffer.begin();
+     */
+    private boolean startFrameBuffer;
+    /**
+     * // flag for call frameBuffer.end(); if true this system will call frameBuffer.end(); otherwise if using a framebuffer  frameBuffer.end() MUST be called somewhere else
+     */
+    private boolean endFrameBuffer;
         public SortedRenderingSystem(  Family family, Comparator<Entity> comparator, Batch batch,  FrameBuffer buffer, int priority) {
             super(priority);
             this.family = family;
             this.sortedEntities = new Array(false, 160);
-            this.entities = new ImmutableArray(this.sortedEntities);
             this.comparator = comparator;
             this.batch=batch;
             this.frameBuffer=buffer;
             this.drawableComponentMapper=GameComponentMapper.getDrawableComponentMapper();
             this.positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         }
-
     /**
-     * set the sorting flag to true
+     * sets the sorting flag to true
      * so next time the update function is called
      * the Array of Entities will be sorted
      */
     public void forceSort() {
             this.shouldSort = true;
         }
-
     /**
      * sorts the Array ofEntities and then sets the shouldSort flag to false
      */
@@ -62,7 +92,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
                 this.shouldSort = false;
             }
         }
-
     /**
      * called when this System is added to the Engine
      * @param engine the Ashley Engine
@@ -79,20 +108,17 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
             this.shouldSort = false;
             engine.addEntityListener(this.family, this);
         }
-
     /**
      *
      * called when this system is removed from the Engine
      * @param engine the Ashley Engine
      *  clears the Array and removes the entity listener from the engine
      */
-
     public void removedFromEngine(Engine engine) {
             engine.removeEntityListener(this);
             this.sortedEntities.clear();
             this.shouldSort = false;
         }
-
     /** called when a new Entity is added to the engine
      * this will   add the Entity   to the array of Entities  to render
      * if they have  a position  and drawable component
@@ -109,7 +135,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
                 this.shouldSort = true;
             }
         }
-
     /** called when an   Entity  is removed  from the engine and if it
      * exists in the array   of Renderable Entities removes it.
      *
@@ -148,14 +173,13 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
                 frameBuffer.end();
             }
         }
-
     /**  sorts then returns  the list on entities
      *
      * @return the sorted Array of Entities
      */
-    public ImmutableArray<Entity> getEntities() {
+    public Array<Entity> getEntities() {
             this.sort();
-            return this.entities;
+            return this.sortedEntities;
         }
         public Family getFamily() {
             return this.family;
@@ -164,7 +188,6 @@ public  abstract class SortedRenderingSystem extends EntitySystem implements Ent
     public float getBrightness() {
         return brightness;
     }
-
     /** sets the brightness for the openGL shader
      * @param brightness the brightness level from 0=2
      * 0= total dark 1=normal 2=total white

@@ -44,6 +44,12 @@ public class MathUtilities {
         return false;
     }
 
+    /**
+     * converts a double in radians to degrees
+     * if degrees>360 subtracts 360 from the number to get the compass circle degrees
+     * @param radians
+     * @return
+     */
     public static  double radiansToDegrees( double radians){
        double   degrees=Math.toDegrees(radians);
        if(degrees>360){

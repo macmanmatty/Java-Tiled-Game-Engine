@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
@@ -39,7 +39,7 @@ public class MenOnTileSelect
 	Window window;
 	Skin skin;
 	ComponentMapper<ImageComponent> imageComponentComponentMapper;
-	 ComponentMapper<Name> nameComponentMapper;
+	 ComponentMapper<NameComponent> nameComponentMapper;
 	 public Actor selectMan(final ZRPGPlayer player, final Skin skin, GameAssets gameAssets, String styleName) {
 		 this.skin = skin;
 		 this.gameAssets = gameAssets;
@@ -49,7 +49,7 @@ public class MenOnTileSelect
 		 manChecks = new ArrayList<CheckBox>();
 		 window = new Window("window", skin);
 		 Table windowTable = window.center();
-		 String name = player.getName().getStat();
+		 String name = player.getNameComponent().getStat();
 		 Label label = new Label(name, skin, styleName);
 		 window.add(name);
 
@@ -103,7 +103,7 @@ public class MenOnTileSelect
 			for(int count=0; count<2; count++) {
 				Entity item = gameAssets.getMapDraw().getWorld().getEntity(heldItems[count].getItemToHoldId());
 				if (item != null) {
-					Name nameComponent = nameComponentMapper.get(item);
+					NameComponent nameComponent = nameComponentMapper.get(item);
 					String itemName="";
 					
 					if (nameComponent != null) {

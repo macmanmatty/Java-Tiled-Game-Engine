@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -37,7 +37,7 @@ private GameAssets gameAssets;
 private World world;
 private ArrayList<CheckBox> itemBoxes= new ArrayList<CheckBox>();
 private ArrayList<Entity> usableItems= new ArrayList<Entity>();
-private ComponentMapper<Name> nameComponentMapper;
+private ComponentMapper<NameComponent> nameComponentMapper;
 	private ComponentMapper<ImageComponent> itemImageComponentMapper;
 	private ComponentMapper<ActionComponents> actionComponentsComponentMapper;
 
