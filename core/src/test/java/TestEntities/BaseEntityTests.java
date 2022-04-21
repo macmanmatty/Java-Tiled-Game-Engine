@@ -22,6 +22,8 @@ public class BaseEntityTests {
       mapDraw=TestMap.mapDraw;
     PositionComponent positionComponent=  movable1.getComponent(PositionComponent.class);
     positionComponent.setMapID(mapDraw.getCurrentMap().getId());
+    positionComponent.setLocationX(128);
+    positionComponent.setLocationY(128);
     }
     @Test
     public void basicFunctions(){
