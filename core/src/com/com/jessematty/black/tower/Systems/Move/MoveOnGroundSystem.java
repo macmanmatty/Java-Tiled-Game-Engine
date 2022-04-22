@@ -37,7 +37,8 @@ public class MoveOnGroundSystem extends GameEntitySystem {
      */
     private ComponentMapper<ActionComponent> actions;
     /**
-     the  ActionComponents mapper
+     the Numeric Stats Component  mapper
+     used to get speed
      */
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     protected  boolean eightDirections=true;
@@ -58,7 +59,7 @@ public class MoveOnGroundSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(MovableComponent.class, PositionComponent.class, ActionComponent.class, MovingOnGroundComponent.class).get());
+        entities=getEngine().getEntitiesFor(Family.all(MovableComponent.class, PositionComponent.class, ActionComponent.class, MovingOnGroundComponent.class, NumericStats.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
