@@ -12,7 +12,6 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-
 public class CreateEntityOnActionSystem extends GameEntitySystem {
     private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper;
@@ -26,8 +25,6 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
         actionComponentMapper= GameComponentMapper.getActionComponentMapper();
         entityCreateableComponentMapper =GameComponentMapper.getEntityCreateableComponentMapper();
         positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
-
-
         
         
     }
@@ -44,34 +41,21 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
                  continue;
              }
              String entityToCreateID=particleEntity.getEntityId();
-
-
              if(entityToCreateID!=null){
                  Entity entityToCreate=getWorld().getEntity(entityToCreateID);
                  PositionComponent positionComponent=positionComponentMapper.get(entityToCreate);
                  if(positionComponent!=null){
                      Vector3 startPositionOffset=particleEntity.getCreateOffsets();
                      positionComponent.movePosition(startPositionOffset.x, startPositionOffset.y, startPositionOffset.z);
-
                  }
                  EntityUtilities.copyEntity(getAssets(), entityToCreate);
-
                  setLocationAndAddToMap(entity);
              }
-
-
-
         }
         super.update(deltaTime);
     }
-
     private void setLocationAndAddToMap(Entity entityToCreate) {
-
         getWorld().addEntityToWorld(entityToCreate);
         PositionComponent position=positionComponentMapper.get(entityToCreate);
-
-
-
-
     }
 }

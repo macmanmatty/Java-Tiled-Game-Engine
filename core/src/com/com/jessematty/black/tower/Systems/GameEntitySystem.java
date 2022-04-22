@@ -15,19 +15,16 @@ public abstract class GameEntitySystem extends EntitySystem   {
      private final  MapDraw draw;
      private final World world;
      private final GameAssets assets;
-     private final KeyListener keyListener;
     public GameEntitySystem(MapDraw draw) {
         this.draw = draw;
         this.world=draw.getWorld();
         this.assets =draw.getGameAssets();
-        this.keyListener=draw.getGameAssets().getGameInput().getKeyListener();
     }
     public GameEntitySystem(int priority, MapDraw draw) {
         super(priority);
         this.draw = draw;
         this.world=draw.getWorld();
         this.assets =draw.getGameAssets();
-        this.keyListener=draw.getGameAssets().getGameInput().getKeyListener();
     }
     public final  MapDraw getDraw() {
         return draw;
@@ -37,8 +34,5 @@ public abstract class GameEntitySystem extends EntitySystem   {
     }
     public final  GameAssets getAssets() {
         return assets;
-    }
-    public KeyListener getKeyListener() {
-        return keyListener;
     }
 }

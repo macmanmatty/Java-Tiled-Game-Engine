@@ -5,11 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToContainerComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToPackComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.AttachEntity.DetachItemMode;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -18,8 +14,7 @@ import com.jessematty.black.tower.Components.AttachEntity.UnHoldItem;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.ErrorComponent;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Name;
-import com.jessematty.black.tower.Components.RemoveFromEngine;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -31,7 +26,7 @@ public class UnHoldItemSystem extends GameEntitySystem{
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<ID> idComponentMapper;
     private ComponentMapper<UnHoldItem> unEquipItemComponentMapperquipItemComponentMapper;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
 
 
 

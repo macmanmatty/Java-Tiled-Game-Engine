@@ -25,7 +25,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
@@ -68,7 +68,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
        BooleanStat invisible= new BooleanStat("invisible");
        BooleanStats booleanStats=container.getBooleanStats();
        booleanStats.addStat(invisible);
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
+        container.getNumericStats().addStat(new NumericStat(true, "speed", 1, 0, 40));
         Entity lpcActor=container.getEntity();
         Body body= new Body();
         lpcActor.add(body);
@@ -76,11 +76,11 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
          lpcActor=   generateAnimatedLPCActor(lpcActor, atlasName, bodyName, color, brightness);
         MovableComponent movableComponent = new MovableComponent();
         lpcActor.add(movableComponent);
-        Name name1=new Name(true,  name);
-        lpcActor.add(name1);
+        NameComponent nameComponent1 =new NameComponent(true,  name);
+        lpcActor.add(nameComponent1);
        lpcActor.add(new Info(true, "info", info));
        StringStats stringStats=container.getStringStats();
-       stringStats.addStat(name1);
+       stringStats.addStat(nameComponent1);
         Thrower thrower=  new Thrower();
         lpcActor.add(thrower);
         Entity leftHand= makeBodyPart(lpcActor, "leftHand",  5);
@@ -173,7 +173,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
         armor.add(physicalObject);
-        armor.add(new Name(true,  name));
+        armor.add(new NameComponent(true,  name));
         armor.add(new Info(true, "info", info));
         if(booleanStatsChangeable !=null){
             armor.add(booleanStatsChangeable);
@@ -254,7 +254,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
         weapon.add(physicalObject);
-        weapon.add(new Name(true, name));
+        weapon.add(new NameComponent(true, name));
         weapon.add(new Info(true, "info", info));
         if(booleanStatsChangeable !=null){
             weapon.add(booleanStatsChangeable);
@@ -302,7 +302,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         physicalObject.setVolume(volume);
         pack.add(physicalObject);
         pack.add(new Pack());
-        pack.add(new Name(true, name));
+        pack.add(new NameComponent(true, name));
         pack.add(new Info(true, "info", info));
         if(booleanStatsChangeable !=null){
             pack.add(booleanStatsChangeable);
@@ -315,7 +315,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
     public  Entity generateObject (String atlasName, String bodyName, String name) {
         com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();
         Entity lpcActor=container.getEntity();
-        container.getName().setStat(name);
+        container.getNameComponent().setStat(name);
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
         container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
         DrawableComponent drawableComponent = new DrawableComponent();
@@ -349,7 +349,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
          attachable.setDrawAttachedItem(false);
             bodyPart.add(new Attachable( bodyPart, ownerBody));
         bodyPart.add(new BodyPart());
-        bodyPart.add (new Name(true, name));
+        bodyPart.add (new NameComponent(true, name));
         OwnedComponent ownedComponent= new OwnedComponent();
         ownedComponent.setAttached(true);
         ownedComponent.setOwnerEntityID(ownerBody.getComponent(ID.class).getId());
@@ -369,7 +369,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         wings.add(new PositionComponent());
         wings.add(new Attachable( wings, owner));
         wings.add(new BodyPart());
-        wings.add (new Name(true, "wings of "+name));
+        wings.add (new NameComponent(true, "wings of "+name));
         wings.add(new ActionComponent());
         NumericStats numericStats=container.getNumericStats();
         NumericStat healthStat= new NumericStat( true, "health", 100, 0, 100);
@@ -420,7 +420,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         horns.add(new PositionComponent());
         horns.add(new Attachable( horns, owner));
         horns.add(new BodyPart());
-        horns.add (new Name(true, "horns of "+name));
+        horns.add (new NameComponent(true, "horns of "+name));
         horns.add(new ActionComponent());
         parts.getBodyParts().put(name+"Hand",horns.getComponent(ID.class).getId());
         horns.add(new BodyPartSize(true,  "wingSize", size));

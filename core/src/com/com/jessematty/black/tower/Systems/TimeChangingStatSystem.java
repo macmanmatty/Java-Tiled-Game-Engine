@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.Systems;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -22,13 +21,9 @@ import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-
 import java.util.Iterator;
-
 @Transient
-
 public class TimeChangingStatSystem extends GameEntitySystem {
-
     private ComponentMapper<TimeChangingStats> timeChangingNumericStatsComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<BooleanStats> booleanStatsComponentMapper;
@@ -36,19 +31,13 @@ public class TimeChangingStatSystem extends GameEntitySystem {
     public TimeChangingStatSystem(MapDraw draw) {
         super(draw);
     }
-
     @Override
     public void addedToEngine(Engine engine) {
-
-
         timeChangingNumericStatsComponentMapper= GameComponentMapper.getTimeChangingNumericStatsComponentMapper();
         numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
         booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
         stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
     }
-
-
-
     @Override
     public void update(float deltaTime) {
         ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(TimeChangingStats.class, NumericStats.class).get());
@@ -56,27 +45,18 @@ public class TimeChangingStatSystem extends GameEntitySystem {
         for(int count=0;  count<size; count++ ) {
             Entity entity=entities.get(count);
             TimeChangingStats timeChangingStats =timeChangingNumericStatsComponentMapper.get(entity);
-
             changeStats(timeChangingStats, entity);
-
-
         }
-
     }
-
     private void changeStats(TimeChangingStats timeChangingStats, Entity  entity) {
         NumericStats numericStats=numericStatsComponentMapper.get(entity);
         BooleanStats booleanStats=booleanStatsComponentMapper.get(entity);
         StringStats stringStats=stringStatsComponentMapper.get(entity);
         Array<TimeChangeStat> timeChangeNumericStats= timeChangingStats.getTimeChangeNumericStats();
         Iterator<TimeChangeStat> timeChangeNumericStatArrayIterator=timeChangeNumericStats.iterator();
-
         int size=timeChangeNumericStats.size;
-
-
         // loop over time changing stats
         while(timeChangeNumericStatArrayIterator.hasNext()){
-
             TimeChangeStat timeChangeStat =timeChangeNumericStatArrayIterator.next();
             timeChangeStat.tick();// tick stat counter
             if(timeChangeStat.getCounter()== timeChangeStat.getTimeToChange()){
@@ -89,28 +69,16 @@ public class TimeChangingStatSystem extends GameEntitySystem {
                 }
                else  if(statToChangeBackTo instanceof BooleanStat) {
                     booleanStats.getBooleanStats().put(statToChangeBackTo.getName(), (BooleanStat) statToChangeBackTo);
-
                     entity.add(new BooleanStatChanged());
                     entity.add(new StatChanged());
-
                 }
                 else  if(statToChangeBackTo instanceof StringStat) {
                     stringStats.getStringStats().put(statToChangeBackTo.getName(), (StringStat) statToChangeBackTo);
-
                     entity.add(new StringStatChanged());
                     entity.add(new StatChanged());
-
                 }
-
                 timeChangeNumericStatArrayIterator.remove();
-
             }
-
-
-
         }
-
     }
-
-
 }

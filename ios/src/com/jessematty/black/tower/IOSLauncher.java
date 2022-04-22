@@ -5,7 +5,7 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.jessematty.black.tower.BlackTower;
+import com.jessematty.black.tower.GameBaseClasses.BlackTower;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override

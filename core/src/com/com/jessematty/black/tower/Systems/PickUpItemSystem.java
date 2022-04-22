@@ -14,6 +14,7 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class PickUpItemSystem extends GameEntitySystem {
             private ComponentMapper<ID> idComponentMapper;

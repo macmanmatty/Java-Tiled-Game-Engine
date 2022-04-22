@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Systems;
+package com.jessematty.black.tower.Systems.Collision;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -10,10 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.ID;
-
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.Name;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -21,14 +18,21 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
+import com.jessematty.black.tower.Systems.ChangeStats;
+import com.jessematty.black.tower.Systems.GameEntitySystem;
 
+
+/**
+ * system that detects for collision of   entities that have Movable PositionComponent and a   PhysicalObjectComponent
+ */
 public class CollisionSystem extends GameEntitySystem { // system that detects for collision
+    /**
+     * the array fo entities that  have  a Movable PositionComponent and a   PhysicalObjectComponent
+     */
     private ImmutableArray<Entity> entities;
     private ComponentMapper<MovableComponent> movables;
     private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<PhysicalObjectComponent> objects;
-    private ComponentMapper<Name> nameComponentMapper;
-    private ComponentMapper<ID> idComponentMapper;
     private ComponentMapper<ActionComponent> actionComponentMapper;
     public CollisionSystem(MapDraw draw) {
         super(draw);
@@ -38,47 +42,46 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
         movables= GameComponentMapper.getMovableComponentMapper();
         positions=GameComponentMapper.getPositionComponentMapper();
         objects=GameComponentMapper.getPhysicalObjectComponentMapper();
-        idComponentMapper=GameComponentMapper.getIdComponentMapper();
         actionComponentMapper=GameComponentMapper.getActionComponentMapper();
-        nameComponentMapper=GameComponentMapper.getNameComponentMapper();
-
     }
+
+    /**
+     * checks for collision by checking teh rectangle bounds in the Entities Position Component overlap with any other
+     * entities on the surrounding tiles
+     * @param deltaTime
+     */
+    // TO DO check for moving collision duplicate events
     public void update(float deltaTime) { // collision detection  for a move object
         entities=getEngine().getEntitiesFor(Family.all(MovableComponent.class,   PositionComponent.class, PhysicalObjectComponent.class).get());
         int size=entities.size();
         for(int counter=0; counter<size; counter++){
         Entity entity=entities.get(counter);
-        MovableComponent movableComponent = movables.get(entity);
-        if(movableComponent.isMoved()==false){ // didn't move nothing to check
+        MovableComponent entityMovableComponent = movables.get(entity);
+        if(entityMovableComponent.isMoved()==false || entityMovableComponent.isCollided()){
+            // didn't move nothing to check or has already been collided into don't  preform collision check
+            entityMovableComponent.setCollided(false);
             continue;
         }
             PositionComponent position=positions.get(entity);
         PhysicalObjectComponent physicalObject= objects.get(entity);
         float screenLocationX=position.getLocationX();
         float screenLocationY=position.getLocationY();
-        Vector3 speed= movableComponent.getVelocity();
+        Vector3 entitySpeed= entityMovableComponent.getVelocity();
         String mapId=position.getMapId();
-
-
-            Rectangle rectangle=position.getBoundsBoundingRectangle();
-            if(rectangle.x==0 || rectangle.y==0){
+            Rectangle entityBounds=position.getBoundsBoundingRectangle();
+            if(entityBounds.height==0 && entityBounds.width==0){
                 continue;
             }
             GameMap map=getWorld().getMap(mapId);
-
             int tileSizeX=map.getTileWidth();
             int tileSizeY=map.getTileHeight();
-
-            int checkDistanceX = (int)((Math.abs(speed.x)+rectangle.width)/tileSizeX)+1; // how far to check in the xAxis;
-             int checkDistanceY = (int)(( Math.abs(speed.y)+rectangle.height)/tileSizeY)+1; // how far to check in the yAxis;
-
+            int checkDistanceX = (int)((Math.abs(entitySpeed.x)+entityBounds.width)/tileSizeX)+1; // how far to check in the xAxis;
+             int checkDistanceY = (int)(( Math.abs(entitySpeed.y)+entityBounds.height)/tileSizeY)+1; // how far to check in the yAxis;
             // get all owned entities of the movable
         Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
                 int size2 = occupants.size;
                 for (int count = 0; count < size2; count++) {
                     Entity occupant = occupants.get(count);
-
-
                     MovableComponent occupantMovableComponent = movables.get(occupant);
                     PositionComponent occupantPosition = positions.get(occupant);
                     if(occupantPosition.isHasBounds()==false){
@@ -86,43 +89,41 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                     }
                     PhysicalObjectComponent occupantBody = objects.get(occupant);
                    boolean connected= EntityUtilities.isEntityConnected(entity, occupant, getWorld());
-
                     if (connected==true) { // check to make sure the object isn't colliding into itself
-
                         continue;
-
-
                     }
                     if ( occupantPosition != null  && physicalObject!=null ) { // collide with a object
                         Polygon occupantBounds1 = occupantPosition.getBounds();
                         Polygon occupantBounds2 = position.getBounds();
-                       boolean collide=heightCheck( position,  occupantPosition); // check if the two entities  will collide in the z axis
+                       boolean collide=heightCheck( position,  occupantPosition);
+                       // check if the two entities  will collide in the z axis
                         if(collide==true) {
+                            // check x and y collision
                             collide = Intersector.overlapConvexPolygons(occupantBounds1, occupantBounds2);
-                    }
+                        }
                      if (collide == true) {
                          if(occupantBody.getEntitySolidity()==1) {
-                             getEngine().addSystem(new ElasticCollision(getDraw(), map, entity, movableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
+                             entityMovableComponent.setCollided(true);
+                             if(occupantMovableComponent!=null) {
+                                 occupantMovableComponent.setCollided(true);
+                             }
+                             getEngine().addSystem(new ElasticCollision(getDraw(), map, entity, entityMovableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
                          }
                          else{
-
-                             getEngine().addSystem(new InelasticCollision(getDraw(), map, entity, movableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
-
+                             getEngine().addSystem(new InelasticCollision(getDraw(), map, entity, entityMovableComponent, physicalObject, position, occupant, occupantMovableComponent, occupantBody, occupantPosition));
                          }
-
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
                            ActionComponent entityActionComponent =actionComponentMapper.get(entity);
                          ActionComponent occupantActionComponent =actionComponentMapper.get(occupant);
-                         entityActionComponent.setStat("collide into "+nameComponentMapper.get(occupant).getStat());
-                         if(occupantActionComponent !=null) {
-                             occupantActionComponent.setStat("collide with " + nameComponentMapper.get(entity).getStat());
+                         if(actionComponentMapper!=null) {
+                             entityActionComponent.setStat("collide");
                          }
-
+                         if(occupantActionComponent !=null) {
+                             occupantActionComponent.setStat("collide");
+                         }
                          return;
                         }
                     }
-
-
         }
         }
         return;

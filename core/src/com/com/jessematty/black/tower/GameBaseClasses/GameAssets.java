@@ -130,8 +130,6 @@ public class GameAssets implements Disposable {
         kryo.register(Building.class, new BuildingKryoSerializer(this));
         kryo.register(ObjectMap.class, new ObjectMapSerializer());
         kryo.register(OrderedMap.class, new OrderedMapSerializer());
-
-
     }
      // loads a json file if doesn't exist creates it.
      public<T> T loadOrCreateJsonFile(String path, String name, Class<T> objectType) throws IOException {
@@ -460,7 +458,7 @@ public class GameAssets implements Disposable {
     }
     public void exit() {
         dispose();
-        System.exit(0);
+
     }
     public GamePrefecences getSettings() {
         return settings;

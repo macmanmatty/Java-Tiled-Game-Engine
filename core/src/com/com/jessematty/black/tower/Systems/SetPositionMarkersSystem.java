@@ -39,8 +39,6 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
             return;
 
         }
-
-
         for(int count=0;  count<size; count++ ) {
             Entity entity=entities.get(count);
             PositionComponent position=positions.get(entity);
@@ -48,13 +46,9 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
                 entity.add(new SolidObject());
             }
-
             else{
-
                 entity.remove(SolidObject.class);
             }
-
-
 
             if(position.getMapId().equals(getDraw().getCurrentMap().getId())){
                 entity.add(new OnCurrentMap());
@@ -64,17 +58,12 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
 
             }
-
             PositionComponent playerPosition=getDraw().getPlayer().getPosition();
             double distance= MathUtilities.calculateMinScreenDistance(playerPosition, position);
             float maxScreenSize=Math.max(getDraw().getViewPortWidth(), getDraw().getViewPortHeight())+32;
-
-
             if(distance>maxScreenSize){
                 continue;
             }
-
-
             GameMap currentMap=getDraw().getCurrentMap();
             if(!position.getMapId().equals(currentMap.getId())){
                 continue;
@@ -85,7 +74,6 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
                     entity.add(new VisibleOnScreen());
                 
             }
-            
             else{
                 
                 entity.remove(VisibleOnScreen.class);

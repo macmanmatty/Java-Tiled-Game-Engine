@@ -7,7 +7,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -37,8 +37,8 @@ public class EntityGenerator {
         Entity entity=new Entity();
         ID id= new ID();
         entity.add(id);
-        Name name= new Name();
-        entity.add(name);
+        NameComponent nameComponent = new NameComponent();
+        entity.add(nameComponent);
         PositionComponent position= new PositionComponent();
         entity.add(position);
         ActionComponent actionComponent = new ActionComponent();
@@ -65,7 +65,7 @@ public class EntityGenerator {
         entity.add(groups);
         NumericStatsSelfChangable numericStatsSelfChangable= new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
-        return  new BasicEntityContainer(entity,  id , name, groups,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+        return  new BasicEntityContainer(entity,  id , nameComponent, groups,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
     }
 
 

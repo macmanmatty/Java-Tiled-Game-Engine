@@ -1,15 +1,12 @@
 package com.jessematty.black.tower.Components.Position;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 public class PositionComponent implements Component { //  a  position  and bounds component for entities. This is REQUIRED to bed added to entities
     // the engine will throw an illegal operation exeception  if an entity is added  with  out this component attached.
-
     private  float locationX = 0f; // the location the entity  on the current map in world units
     private float locationY = 0f;
     private int tileLocationX; // the current location of the entity in tiles units  where is x and y are the lower left tile aka tiles.get(0);
@@ -31,10 +28,8 @@ public class PositionComponent implements Component { //  a  position  and bound
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
     private String mapId="";
-
     public PositionComponent() {
     }
-
     public Polygon getBounds() {
         return bounds;
     }
@@ -47,24 +42,20 @@ public class PositionComponent implements Component { //  a  position  and bound
     public Rectangle getBoundsBoundingRectangle(){
         return bounds.getBoundingRectangle();
     }
-
     public void setPosition(float x, float y){
         bounds.setPosition(x+boundsXOffset, y+boundsYOffset);
         locationX =x;
         locationY =y;
         positionChanged=true;
-
     }
     public void setLocationX(float locationX) {
         this.locationX = locationX;
         bounds.setPosition(this.locationX +boundsXOffset, bounds.getY());
-
     }
     public void setLocationY(float locationY) {
         this.locationY = locationY;
         bounds.setPosition(bounds.getX(), this.locationY +boundsYOffset);
         System.out.println("Position Y Was Set");
-
     }
     public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
         this.boundsX=x;
@@ -74,8 +65,6 @@ public class PositionComponent implements Component { //  a  position  and bound
         bounds.setPosition(locationX, locationY);
         boundsIsRectangle=true;
         hasBounds=true;
-
-
     }
     public float getBoundsX() { // returns the x size of the bounds rectangle if the bounds is a rectangle else  returns the width of the bounding rectangle
         if (boundsIsRectangle=true){
@@ -85,7 +74,6 @@ public class PositionComponent implements Component { //  a  position  and bound
             return bounds.getBoundingRectangle().getWidth();
         }
     }
-
         public float getBoundsY() { // returns the y size of the bounds rectangle if the bounds is a rectangle else  returns the height of the bounding rectangle
         if (boundsIsRectangle=true){
             return  boundsY;
@@ -100,7 +88,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setBoundsXOffset(float boundsXOffset) {
         this.boundsXOffset = boundsXOffset;
         bounds.setPosition(locationX +boundsXOffset, bounds.getY());
-
     }
     public float getBoundsYOffset() {
         return boundsYOffset;
@@ -146,13 +133,10 @@ public class PositionComponent implements Component { //  a  position  and bound
         if(direction!=this.direction) {
             this.direction = direction;
             directionChanged=true;
-
         }
         else {
             directionChanged = false;
         }
-
-
     }
     public boolean isPositionChanged() {
         return positionChanged;
@@ -160,7 +144,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setPositionChanged(boolean positionChanged) {
         this.positionChanged = positionChanged;
     }
-
     public void removeBounds(){ // set the bounds to a new sqaure of all zeros effectivly removing the entities bounds
         oldBounds=bounds;
        bounds= new Polygon( new float[] {0,0,0,0,0,0,0,0});
@@ -170,7 +153,6 @@ public class PositionComponent implements Component { //  a  position  and bound
         if(oldBounds!=null) {
             bounds = oldBounds;
         }
-
         hasBounds=true;
     }
     public boolean isBoundsIsRectangle() {
@@ -179,21 +161,16 @@ public class PositionComponent implements Component { //  a  position  and bound
     public boolean isHasBounds() {
         return hasBounds;
     }
-
     public float getHeightFromGround() {
         return heightFromGround;
     }
-
     public void setHeightFromGround(float heightFromGround) {
         this.heightFromGround = heightFromGround;
         positionChanged=true;
     }
-
     public boolean isDirectionChanged() {
         return directionChanged;
     }
-
-
     // set an entities position
     public void setPosition(float x, float y, float z){
         setHeightFromGround(z);
@@ -202,33 +179,23 @@ public class PositionComponent implements Component { //  a  position  and bound
         bounds.setPosition(x+boundsXOffset, y+boundsYOffset);
         positionChanged=true;
     }
-
-
     // moves an entities position  by a given amount
     public  void movePosition(float x, float y, float z){
-
         this.height=this.height+z;
         this.locationY=this.locationY+y;
         this.locationX=this.locationX+x;
         bounds.setPosition(x+bounds.getX(), y+bounds.getY());
-
         positionChanged=true;
-
     }
-
     public boolean isDrawBounds() {
         return drawBounds;
     }
-
     public void setDrawBounds(boolean drawBounds) {
         this.drawBounds = drawBounds;
     }
-
     public void setMapID(String id) {
-
         this.mapId=id;
     }
-
     public String getMapId() {
         return mapId;
     }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
@@ -31,7 +31,7 @@ public class HandGroup extends HorizontalGroup {
       clear();
        this.skin = skin;
        if(heldItem!=null) {
-           ComponentMapper<Name> nameComponentMapper = GameComponentMapper.getNameComponentMapper();
+           ComponentMapper<NameComponent> nameComponentMapper = GameComponentMapper.getNameComponentMapper();
            ComponentMapper<ActionComponents> actionComponentsComponentMapper = GameComponentMapper.getActionComponentsComponentMapper();
            ComponentMapper<ImageComponent> imageComponentComponentMapper = GameComponentMapper.getImageComponentMapper();
            String itemName = nameComponentMapper.get(heldItem).getStat();

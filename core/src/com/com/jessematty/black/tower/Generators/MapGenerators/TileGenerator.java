@@ -4,7 +4,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
@@ -51,7 +51,7 @@ public class TileGenerator {
         numericStats.addStat(new NumericStat(false,"COF", 1, 0, 10));
         numericStatsChangeable.addStatToChange(new NumericStatChangeable(false, "temperature", 0, 0, 3, 0));
 
-        tile.add(new Name(true,  toString()));
+        tile.add(new NameComponent(true,  toString()));
 
         return  tile;
 

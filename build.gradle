@@ -53,11 +53,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 
-        testImplementation "junit:junit:$junitVersion"
-       testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
-        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
-       testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
+
 
 
     }
@@ -106,6 +102,7 @@ project(":ios") {
         api "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
+
         
     }
 }
@@ -126,7 +123,10 @@ project(":html") {
         api "com.badlogicgames.ashley:ashley:$ashleyVersion:sources"
         api "com.kotcrab.vis:vis-ui:1.3.0:sources"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
-        
+        api group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+        api group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+        api group: 'com.cyphercove.gdx', name: 'gdxtokryo', version: '1.1.1'
+
     }
 }
 
@@ -146,6 +146,12 @@ project(":core") {
         api group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
         api group: 'com.cyphercove.gdx', name: 'gdxtokryo', version: '1.1.1'
         testImplementation"junit:junit:$junitVersion"
+        testImplementation "junit:junit:$junitVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+        testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 
 
     }

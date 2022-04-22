@@ -33,7 +33,7 @@ public class GameInputKeys implements InputKeys {
     int increaseSpeedKey = Keys.CONTROL_RIGHT;
     int decreaseSpeedKey = Keys.ALT_RIGHT;
     int slashKey=Keys.SPACE;
-    int thrustKey=Keys.ALT_RIGHT;
+    int thrustKey=Keys.T;
     int shootKey=Keys.ALT_LEFT;
 
    private  Array<InputKeyCombo> keys= new Array<>();

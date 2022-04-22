@@ -3,7 +3,7 @@ package com.jessematty.black.tower.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.jessematty.black.tower.BlackTower;
+import com.jessematty.black.tower.GameBaseClasses.BlackTower;
 
 public class HtmlLauncher extends GwtApplication {
 

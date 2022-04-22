@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ShowInfo;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -16,7 +16,7 @@ public class InfoSystem extends GameEntitySystem {
 
 
     private ImmutableArray<Entity> entities;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
 
 

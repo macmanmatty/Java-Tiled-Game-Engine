@@ -5,7 +5,7 @@ import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.ID;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
@@ -25,11 +25,11 @@ public class BasicEntityContainer {
    private BooleanStatsChangeable booleanStatsChangeable;
    private NumericStatsChangeable numericStatsChangeable;
    private Groups groups;
-   private Name name;
+   private NameComponent nameComponent;
 
-    public BasicEntityContainer(Entity entity, ID id, Name name, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
+    public BasicEntityContainer(Entity entity, ID id, NameComponent nameComponent, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
         this.entity = entity;
-        this.name=name;
+        this.nameComponent = nameComponent;
         this.id = id;
         this.numericStats = numericStats;
         this.booleanStats = booleanStats;
@@ -78,8 +78,8 @@ public class BasicEntityContainer {
         return booleanStatsChangeable;
     }
 
-    public Name getName() {
-        return name;
+    public NameComponent getNameComponent() {
+        return nameComponent;
     }
 
     public NumericStatsChangeable getNumericStatsChangeable() {
