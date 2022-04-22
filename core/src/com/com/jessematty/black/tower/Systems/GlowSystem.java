@@ -12,13 +12,15 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Glow;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
+
 @Transient
 public  class GlowSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<DrawableComponent> drawableComponentMapper;
     private ComponentMapper<Glow> glowComponentMapper;
     private ComponentMapper<PositionComponent> positions;
-    private RenderSystem renderSystem;
+    private com.jessematty.black.tower.Systems.Drawing.RenderSystem renderSystem;
     public GlowSystem(MapDraw draw, RenderSystem system, int priority) {
         super(priority, draw );
         this.renderSystem=system;

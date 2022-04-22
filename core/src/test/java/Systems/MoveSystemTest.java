@@ -204,4 +204,5 @@ public final class MoveSystemTest {
     assertEquals(actionComponent.getStat(), "move");
 
   }
+
 }
