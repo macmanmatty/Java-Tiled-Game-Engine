@@ -50,11 +50,11 @@ public class ElasticCollision extends EventSystem {
             movableComponent1.setMoveAngle((float) (movableComponent1.getMoveAngle() + Math.PI));
             movableComponent1.setCurrentSpeed((float) finalVelocity1);
             // move back opposite direction
-            MoveOnGround.move(map, movableComponent1, entity1, position1, deltaTime * 2);
+            MoveOnGround.move(map, movableComponent1, entity1, position1, deltaTime );
             if (movableComponent2 != null) {
                 movableComponent2.setMoveAngle((float) (movableComponent2.getMoveAngle() + Math.PI));
                 movableComponent2.setCurrentSpeed((float) finalVelocity2);
-                MoveOnGround.move(map, movableComponent2, entity2, position2, deltaTime * 2);
+                MoveOnGround.move(map, movableComponent2, entity2, position2, deltaTime );
             }
         }
     }

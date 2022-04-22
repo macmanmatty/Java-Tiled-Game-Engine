@@ -147,7 +147,7 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
     }
     @Override
     public boolean keyTyped(char c) {
-        return false;
+        return keyDown(c);
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
