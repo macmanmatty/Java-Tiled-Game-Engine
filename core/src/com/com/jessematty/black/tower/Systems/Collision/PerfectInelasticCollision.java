@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Systems;
+package com.jessematty.black.tower.Systems.Collision;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
@@ -10,6 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Systems.EventSystem;
 
 public class PerfectInelasticCollision extends EventSystem {
     private MovableComponent movableComponent1;

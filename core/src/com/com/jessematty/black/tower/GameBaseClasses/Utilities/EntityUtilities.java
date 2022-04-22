@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Item;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -411,6 +411,13 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         double volumeNumber = physicalObject.getVolume();
        return new double[]{massNumber, weightNumber, volumeNumber};
   }
+
+    /**
+     * deep clones an entity and all of its components
+     * @param assets
+     * @param entity the Entity to Copy
+     * @return the deep Copied Entity
+     */
    public static  Entity copyEntity(GameAssets assets, Entity entity){
        return new CopyObject(assets).copyObject(entity, Entity.class);
    }
@@ -418,8 +425,8 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         Entity entity = new Entity();
        ID id = new ID();
         entity.add(id);
-        Name name = new Name();
-        entity.add(name);
+        NameComponent nameComponent = new NameComponent();
+        entity.add(nameComponent);
         ActionComponent actionComponent = new ActionComponent();
         entity.add(actionComponent);
         NumericStats numericStats = new NumericStats();
@@ -443,7 +450,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(ownerComponent);
         ImageComponent imageComponent= new ImageComponent();
         entity.add(imageComponent);
-     return new BasicEntityContainer(entity, id, name, groups,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+     return new BasicEntityContainer(entity, id, nameComponent, groups,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
    }
   public static Entity combineEntities(World world, Entity entity1, Entity entity2) {
        Entity entity=new Entity();
@@ -468,11 +475,11 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
             return false;
         }
 
-    Name name=entityToAttach.getComponent(Name.class);
+    NameComponent nameComponent =entityToAttach.getComponent(NameComponent.class);
         ObjectMap<String , String> attachedEntityIds=attachedComponent.getAttachedEntities();
         String entityKey="entity"+attachedEntityIds.size;
-      if(name!=null){
-            entityKey=name.getStat();
+      if(nameComponent !=null){
+            entityKey= nameComponent.getStat();
        }
        boolean attached=attachedComponent.addEntity(entityKey, entityToAttachID.getId());
        attached=ownerComponent.addEntity(entityToAttachID.getId());
@@ -535,8 +542,8 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
             return;
         }
       ID entityTodetachID=idComponentMapper.get(entityToDetach);
-      Name name=entityToDetach.getComponent(Name.class);
-        String entityName=name.getStat();
+      NameComponent nameComponent =entityToDetach.getComponent(NameComponent.class);
+        String entityName= nameComponent.getStat();
         ObjectMap<String , String> attachedEntityIds=attachedComponent.getAttachedEntities();
        attachedEntityIds.remove(entityName);
         if(removeOwnership==true) {

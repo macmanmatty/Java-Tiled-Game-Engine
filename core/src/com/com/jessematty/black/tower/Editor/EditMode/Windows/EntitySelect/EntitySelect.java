@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.EditorImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -19,7 +19,7 @@ public class EntitySelect extends Table {// finds all textureRegions that start 
     private GameAssets assets;
     private Skin skin;
     private WorldObjects objects;
-    private ComponentMapper<Name> nameComponentMapper;
+    private ComponentMapper<NameComponent> nameComponentMapper;
     private ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper;
     private Array<Entity> entities;
     private TextureRegion noImage;

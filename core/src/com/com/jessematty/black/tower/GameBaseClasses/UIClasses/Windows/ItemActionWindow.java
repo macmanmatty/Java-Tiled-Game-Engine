@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
 
@@ -39,14 +39,14 @@ public class ItemActionWindow extends GameWindow {
         Label label= new Label(text, skin);
         add(label);
         ComponentMapper<ImageComponent> imageComponentComponentMapper=world.getGameComponentMapper().getImageComponentMapper();
-        ComponentMapper<Name> nameComponentMapper=world.getGameComponentMapper().getNameComponentMapper();
+        ComponentMapper<NameComponent> nameComponentMapper=world.getGameComponentMapper().getNameComponentMapper();
         int size=entities.size;
         for(int count=0; count<size; count++) {
             final Entity entity=entities.get(count);
             HorizontalGroup horizontalGroup = new HorizontalGroup();
-            Name name=nameComponentMapper.get(entity);
+            NameComponent nameComponent =nameComponentMapper.get(entity);
             ImageComponent imageComponent=imageComponentComponentMapper.get(entity);
-            String itemName=name.getStat();
+            String itemName= nameComponent.getStat();
             Label nameLabel= new Label(itemName, skin);
             horizontalGroup.addActor(nameLabel);
             Image image= imageComponent.getImage();

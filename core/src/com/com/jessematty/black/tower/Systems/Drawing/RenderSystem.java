@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Systems;
+package com.jessematty.black.tower.Systems.Drawing;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -69,14 +69,6 @@ public  class RenderSystem extends SortedRenderingSystem {
                 float positionX = position.getLocationX() + drawableComponent.getDrawOffsets().x;
                 float positionY = position.getLocationY() + drawableComponent.getDrawOffsets().y;
                     batch.draw(textureRegion, positionX, positionY);
-                    System.out.println( "region width" + textureRegion.getRegionWidth());                    System.out.println("region x" +textureRegion.getRegionX());
-                    System.out.println( "region y" + textureRegion.getRegionY());
-                    System.out.println("region height" +textureRegion.getRegionHeight());
-                    System.out.println( "region width" + textureRegion.getRegionWidth());
-                    System.out.println("region u" +textureRegion.getU());
-                    System.out.println( "region u2" + textureRegion.getU2());
-                    System.out.println("region v1" +textureRegion.getV());
-                    System.out.println( "region v2" + textureRegion.getV2());
 
                 }
             }

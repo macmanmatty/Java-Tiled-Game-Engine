@@ -7,7 +7,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
@@ -60,7 +60,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 		position.getTiles().add(this);
 		position.removeBounds();
 		add(position);
-		add(new Name(true, toString()));
+		add(new NameComponent(true, toString()));
 
 	}
 	public LandSquareTile(int locationX, int locationY, int yTiles){

@@ -57,8 +57,8 @@ public class TestMap {
         position.setBoundsXOffset(16);
         position.setHeight(10);
         position.setMapID(map2.getId());
-        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(1000);
-        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setValue(1000);
+        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(70);
+        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setValue(70);
         int size=entityBag.getEntities().size;
         for(int count=0; count<size; count++){
             entityBag.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
@@ -69,8 +69,8 @@ public class TestMap {
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 500);
         position2.setHeight(10);
-        position2.setLocationX(66);
-        position2.setLocationY(900);
+        position2.setLocationX(200);
+        position2.setLocationY(200);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getEntities().get(0));

@@ -6,7 +6,7 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
@@ -74,7 +74,7 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
         weapon.add(physicalObject);
-        weapon.add(new Name(true, name));
+        weapon.add(new NameComponent(true, name));
         weapon.add(new Info(true, "info", info));
         if(booleanStatsChangeable !=null){
             weapon.add(booleanStatsChangeable);

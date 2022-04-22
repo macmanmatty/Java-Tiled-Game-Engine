@@ -35,7 +35,7 @@ public class StatsGroup extends VerticalGroup {
        NumericStats numericStats=zrpgPlayer.getNumericStats();
        BooleanStats booleanStats=zrpgPlayer.getBooleanStats();
        StringStats stringStats=zrpgPlayer.getStringStats();
-       String name=zrpgPlayer.getName().getStat();
+       String name=zrpgPlayer.getNameComponent().getStat();
        Image image=null;
        ImageComponent imageComponent=zrpgPlayer.getImageComponent();
        if(imageComponent!=null) {

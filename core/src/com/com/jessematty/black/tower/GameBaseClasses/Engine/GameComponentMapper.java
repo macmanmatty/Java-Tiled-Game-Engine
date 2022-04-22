@@ -78,7 +78,7 @@ import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
@@ -121,7 +121,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Light> lightComponentMapper = ComponentMapper.getFor(Light.class);
     private static ComponentMapper<Tile> tileComponentMapper = ComponentMapper.getFor(Tile.class);
     private static ComponentMapper<Holder> holderComponentMapper = ComponentMapper.getFor(Holder.class);
-    private static ComponentMapper<Name> nameComponentMapper = ComponentMapper.getFor(Name.class);
+    private static ComponentMapper<NameComponent> nameComponentMapper = ComponentMapper.getFor(NameComponent.class);
     private static ComponentMapper<Growable> growableComponentMapper = ComponentMapper.getFor(Growable.class);
     private static ComponentMapper<NumericStats> numericStatsComponentMapper = ComponentMapper.getFor(NumericStats.class);
     private static ComponentMapper<StringStats> stringStatsComponentMapper = ComponentMapper.getFor(StringStats.class);
@@ -224,7 +224,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(PhysicalObjectComponent.class, physicalObjectComponentMapper);
         componentComponentMapperMap.put(Light.class, lightComponentMapper);
         componentComponentMapperMap.put(Growable.class, growableComponentMapper);
-        componentComponentMapperMap.put(Name.class, nameComponentMapper);
+        componentComponentMapperMap.put(NameComponent.class, nameComponentMapper);
         componentComponentMapperMap.put(NumericStats.class, numericStatsComponentMapper);
         componentComponentMapperMap.put(BooleanStats.class, booleanStatsComponentMapper);
         componentComponentMapperMap.put(StringStats.class, stringStatsComponentMapper);
@@ -554,7 +554,7 @@ public class GameComponentMapper {
         return holderComponentMapper;
     }
 
-    public static ComponentMapper<Name> getNameComponentMapper() {
+    public static ComponentMapper<NameComponent> getNameComponentMapper() {
         return nameComponentMapper;
     }
 

@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Name;
+import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -32,7 +32,7 @@ public class ObjectInfo {
 
     Window window;
     GameAssets assetts;
-    ComponentMapper<Name> nameComponentMapper;
+    ComponentMapper<NameComponent> nameComponentMapper;
     ComponentMapper<NumericStats> numericStatsComponentMapper;
     ComponentMapper<BooleanStats> booleanStatsComponentMapper;
     ComponentMapper<StringStats> stringStatsComponentMapper;
@@ -80,7 +80,7 @@ public class ObjectInfo {
 
         nameComponentMapper = GameComponentMapper.getNameComponentMapper();
         window = new Window("window", skin);
-        String name = player.getName().getStat();
+        String name = player.getNameComponent().getStat();
         Label label = new Label(name, skin, style);
         window.add(label);
 
