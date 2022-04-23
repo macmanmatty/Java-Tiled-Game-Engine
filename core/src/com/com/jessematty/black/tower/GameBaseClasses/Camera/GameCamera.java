@@ -206,7 +206,7 @@ public class GameCamera  extends OrthographicCamera implements InputKeys {
     public void enableControlledMovement(){
         if(orthographicCameraControls==null){
             orthographicCameraControls= new OrthographicCameraControls(this);
-            GameAssets.getGameInput().getKeyListener().addInputKeys(orthographicCameraControls.getCameraControlKeyCombos());
+            GameAssets.getGameInput().getKeyListener().addInputKeyCombos(orthographicCameraControls.getCameraControlKeyCombos());
         }
         orthographicCameraControls.enableControlledMovement();
         controllable=true;

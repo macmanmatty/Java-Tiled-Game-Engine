@@ -26,9 +26,9 @@ public class GameWindow extends ClosableWindow {
         super.act(delta);
         if (inputKeyComboList.size > 0) {
             if (getStage().getKeyboardFocus().equals(this)) {
-                gameAssets.getGameInput().getKeyListener().addInputKeys(inputKeyComboList);
+                gameAssets.getGameInput().getKeyListener().addInputKeyCombos(inputKeyComboList);
             } else {
-                gameAssets.getGameInput().getKeyListener().removeInputKeys(inputKeyComboList);
+                gameAssets.getGameInput().getKeyListener().removeInputKeyCombos(inputKeyComboList);
             }
         }
     }

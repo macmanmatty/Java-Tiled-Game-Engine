@@ -11,15 +11,16 @@ public class InputKeyCombo implements Nameable {
     /** 
      * the integers  keyboard key code from libGDX  input keys (libGDX.Input.Keys);
      * **/
-   private Array<Integer> keysPressed= new Array<>();
+   private int [] keysPressed;
     /**
      * // the press mode for they key that correlates
      *     // to the libGDX key input method.
-     *     Key.KEY_UP
-     *     Key.KEY_DOWN
-     *     Key.KEY_PRESSED
+     *     Key.KEY_UP  will fire the KeyAction if any of the keys in the key pressed array are pressed up 
+     *     Key.KEY_DOWN will fire  the  KeyAction if all of the keys in the array are pressed down
+     *     Key.KEY_PRESSED will fire the KeyAction every second the keys  are held down
+     *     Key.Key_Typed will fire when key is typed
      */
-    private KeyPressMode keyPressMode=KeyPressMode.KEY_DOWN;
+    private KeyPressMode [] keyPressModes= new KeyPressMode[]{KeyPressMode.KEY_DOWN};
     /**
      * // the action to be preformed when the keys are pressed
      */
@@ -42,32 +43,26 @@ public class InputKeyCombo implements Nameable {
     private Actor focusActor;
     /**
      *
-     * @param keysPressed the keys that need to pressed to preform the action
-     * @param keyPressMode  the mode of when to action the key
+     * @param keys the keys that need to pressed to preform the action
+     * @param keyPressMode  the mode(s) of when to action the key
      * @param keyAction the action to be preformed when the keys are pressed
      */
-    public InputKeyCombo(Array<Integer> keysPressed, KeyPressMode keyPressMode, KeyAction keyAction) {
-        this(keysPressed, keyAction, "combo");
-        this.keyPressMode = keyPressMode;
+
+    public InputKeyCombo(KeyAction keyAction, KeyPressMode keyPressMode,  String name , int... keys) {
+        this(keyAction,new KeyPressMode[] {keyPressMode}, name, keys);
+
     }
-    public InputKeyCombo(Array<Integer> keysPressed, KeyPressMode keyPressMode, KeyAction keyAction, String name) {
-        this.keysPressed = keysPressed;
-        this.keyPressMode = keyPressMode;
+    public InputKeyCombo(KeyAction keyAction, KeyPressMode  [] keyPressMode,  String name , int... keys) {
+        this.keysPressed=keys;
+        this.keyPressModes =keyPressMode;
         this.keyAction = keyAction;
         this.name = name;
     }
-    public InputKeyCombo(Array<Integer> keysPressed, KeyAction keyAction, String name) {
-        this.keysPressed = keysPressed;
-        this.keyAction = keyAction;
-        this.name = name;
-    }
-    public InputKeyCombo( KeyAction action, String name,  Integer... keys) {
-        this.keysPressed.addAll(keys);
+
+    public InputKeyCombo( KeyAction action, String name,  int... keys) {
+        this.keysPressed=keys;
         this.keyAction=action;
         this.name = name;
-    }
-    public InputKeyCombo(  Integer... keys) {
-       this(null,"combo",  keys);
     }
     public InputKeyCombo() {
     }
@@ -88,27 +83,33 @@ public class InputKeyCombo implements Nameable {
         if (!(o instanceof InputKeyCombo)) return false;
         InputKeyCombo that = (InputKeyCombo) o;
         return keysPressed.equals(that.keysPressed) &&
-                keyPressMode == that.keyPressMode &&
+                keyPressModes == that.keyPressModes &&
                 keyAction.equals(that.keyAction) &&
                 Objects.equals(focusActor, that.focusActor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(keysPressed, keyPressMode, keyAction, focusActor);
+        return Objects.hash(keysPressed, keyPressModes, keyAction, focusActor);
     }
 
 
 
-    public KeyPressMode getKeyPressMode() {
-        return keyPressMode;
+    public KeyPressMode [] getKeyPressModes() {
+        return keyPressModes;
     }
-    public void setKeyPressMode(KeyPressMode keyPressMode) {
-        this.keyPressMode = keyPressMode;
+    public void setKeyPressModes(KeyPressMode [] keyPressModes) {
+        this.keyPressModes = keyPressModes;
     }
-    public Array<Integer> getKeysPressed() {
+
+    public int [] getKeysPressed() {
         return keysPressed;
     }
+
+    public void setKeysPressed(int [] keysPressed) {
+        this.keysPressed = keysPressed;
+    }
+
     public String getName() {
         return name;
     }

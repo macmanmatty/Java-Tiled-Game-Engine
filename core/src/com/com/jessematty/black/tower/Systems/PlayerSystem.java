@@ -69,60 +69,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
     }
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == gameInputKeys.getMoveRightKey()&& player.getActionComponent().isActing()==false   ) {
-          playerFunctions.moveRight();
-        } else if (keycode == gameInputKeys.getMoveLeftKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.moveLeft();
-        } else if (keycode == gameInputKeys.getMoveUpKey() && player.getActionComponent().isActing()==false) {
-          playerFunctions.moveUp();
-        } else if (keycode == gameInputKeys.getMoveDownKey() && player.getActionComponent().isActing()==false) {
-          playerFunctions.moveDown();
-        } else if (keycode == gameInputKeys.getMoveRightUpKey() && player.getActionComponent().isActing()==false) {
-          playerFunctions.moveRightUp();
-        } else if (keycode == gameInputKeys.getMoveLeftUpKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.moveLeftUp();
-        } else if (keycode == gameInputKeys.getMoveLeftDownKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.moveLeftDown();
-        } else if (keycode == gameInputKeys.getMoveRightDownKey() && player.getActionComponent().isActing()==false) {
-           playerFunctions.moveRightDown();
-        }
-        else if (keycode == gameInputKeys.getEatKey() && player.getActionComponent().isActing()==false) {
-           playerFunctions.eatItem(player.getHandToUse());
-        }
-        else if (keycode == gameInputKeys.getThrowKey() && player.getActionComponent().isActing()==false) {
-           playerFunctions.throwItem(player.getHandToUse());
-        }
-        else if (keycode == gameInputKeys.getSlashKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.slashItem(handNumber);
-            System.out.println("slashed");
-        }
-        else if (keycode == gameInputKeys.getThrustKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.thrustItem(handNumber);
-        }
-        else if (keycode == gameInputKeys.getShootKey() && player.getActionComponent().isActing()==false) {
-            playerFunctions.shootItem(handNumber);
-        }
-        else if (keycode == gameInputKeys.getPickUpItemKey() && player.getActionComponent().isActing()==false ) {
-            playerFunctions.pickupItem();
-        }
-        else if (keycode == gameInputKeys.getChangeHoldPositionKey() && player.getActionComponent().isActing()==false ) {
-            playerFunctions.changeHoldPosition(handNumber);
-            System.out.println("Hold Position Changed");
-        }
-        else if (keycode == gameInputKeys.getChangeHandNumberKey() && player.getActionComponent().isActing()==false) {
-            if(handNumber==1) {
-                handNumber = 0;
-            }
-            else{
-                handNumber=1;
-            }
-            System.out.println("Current Hand Number: "+handNumber);
-        }
-        else if (keycode == gameInputKeys.getIncreaseSpeedKey()) {
-            player.getSpeed().addValues(1, 0, 0);
-        } else if (keycode ==gameInputKeys.getDecreaseSpeedKey() ){
-            player.getSpeed().addValues(-1, 0, 0);
-        }
+
         return true;
     }
     
@@ -150,16 +97,7 @@ public class PlayerSystem extends GameEntitySystem  implements InputProcessor {
         if(button== Buttons.LEFT){
         }
         if(button==Buttons.RIGHT) {
-            ZRPGPlayerButtonModes buttonModes=player.getButtonMode();
-            switch(buttonModes){
-                case TARGET:
-                    playerFunctions.target(unProjectedCoordinates.x, unProjectedCoordinates.y);
-                    break;
-                case INFO:
-                    break;
-                case SELECT:
-                    break;
-            }
+
         }
         return true;
     }
