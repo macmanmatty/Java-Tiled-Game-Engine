@@ -17,7 +17,7 @@ public class InputKeyCombo implements Nameable {
      *     // to the libGDX key input method.
      *     Key.KEY_UP  will fire the KeyAction if any of the keys in the key pressed array are pressed up 
      *     Key.KEY_DOWN will fire  the  KeyAction if all of the keys in the array are pressed down
-     *     Key.KEY_PRESSED will fire the KeyAction every second the keys  are held down
+     *     Key.KEY_PRESSED will fire the KeyAction at the set rate  for the duration  the keys  are held down
      *     Key.Key_Typed will fire when key is typed
      */
     private KeyPressMode [] keyPressModes= new KeyPressMode[]{KeyPressMode.KEY_DOWN};
@@ -48,6 +48,17 @@ public class InputKeyCombo implements Nameable {
      * @param keyAction the action to be preformed when the keys are pressed
      */
 
+    /**
+     * the rate in Milliseconds at which the  key input is called when they key is held down;
+     */
+    private float fireRate=1;
+
+    /**
+     * counter for the time passed when counter >=fireRate counter is reset;
+     *
+     */
+    private float counter;
+
     public InputKeyCombo(KeyAction keyAction, KeyPressMode keyPressMode,  String name , int... keys) {
         this(keyAction,new KeyPressMode[] {keyPressMode}, name, keys);
 
@@ -58,11 +69,14 @@ public class InputKeyCombo implements Nameable {
         this.keyAction = keyAction;
         this.name = name;
     }
+    public InputKeyCombo(KeyAction keyAction,  float fireRate,  String name , int... keys) {
+       this(keyAction,new KeyPressMode[]{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED} , name, keys );
+        this.fireRate=fireRate;
+    }
 
-    public InputKeyCombo( KeyAction action, String name,  int... keys) {
-        this.keysPressed=keys;
-        this.keyAction=action;
-        this.name = name;
+    public InputKeyCombo( KeyAction keyAction, String name,  int... keys) {
+        this(keyAction,new KeyPressMode[]{KeyPressMode.KEY_DOWN} , name, keys );
+
     }
     public InputKeyCombo() {
     }
@@ -129,5 +143,25 @@ public class InputKeyCombo implements Nameable {
 
     public void setFocusActor(Actor focusActor) {
         this.focusActor = focusActor;
+    }
+
+    public float getFireRate() {
+        return fireRate;
+    }
+
+    public void setFireRate(float fireRate) {
+        this.fireRate = fireRate;
+    }
+
+    public float getCounter() {
+        return counter;
+    }
+
+    public void increaseCounter(float increase) {
+        this.counter =this.counter+ increase;
+    }
+
+    public void resetCounter() {
+        counter=0;
     }
 }

@@ -5,9 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-
 import java.util.Collections;
-
 /**
  * class that detects  input from multiple keys  at the same time
  * holds map of key codes to keys pressed
@@ -19,19 +17,16 @@ import java.util.Collections;
  *
  */
 public class KeyListener implements LockableInputProcessor {
-
     /**
      *  The current key that is pressed up;
      *  Only one key can be pressed up at a time
      */
     private int keyUpCode;
-
     /**
      * the map containing which keys are pressed down
      * @see com.badlogic.gdx.utils.ObjectMap.Keys
      */
     private final ObjectMap<Integer, Boolean> keysPressedDown = new ObjectMap<Integer, Boolean>();
-
     /**
      * whether or not to use key input combos and functions or just check for key presses
      */
@@ -51,17 +46,14 @@ public class KeyListener implements LockableInputProcessor {
      * to avoid other key actions from being called
      */
     private boolean keyInputLocked=false;
-
     /**
      * if true only one  action be used per key combo
      */
     private  boolean onlyOneKeyComboPerAction;
-
     public KeyListener(boolean useKeyCombos, boolean onlyOneKeyComboPerAction) {
         this(useKeyCombos);
         this.onlyOneKeyComboPerAction = onlyOneKeyComboPerAction;
     }
-
     public KeyListener(boolean useKeyCombos) {
         this();
         this.useKeyCombos=useKeyCombos;
@@ -82,11 +74,9 @@ public class KeyListener implements LockableInputProcessor {
     public boolean keyDown(int keycode) {
         // set key boolean to pressed to true
         keysPressedDown.put(keycode, true);
-        checkForKeyAction(KeyPressMode.KEY_DOWN);
-
+        checkForKeyAction(0, KeyPressMode.KEY_DOWN);
         return false;
     }
-
     /**
      * sets the key pressed to false in the boolean array
      * then checks for key actions  and acts on them if a  TextField  or other typing input Actor  is not the main focus of the stage
@@ -98,10 +88,9 @@ public class KeyListener implements LockableInputProcessor {
         // set key pressed to false
         keysPressedDown.put(keycode, false);
         keyUpCode=keycode;
-        checkForKeyAction(KeyPressMode.KEY_UP);
+        checkForKeyAction(0, KeyPressMode.KEY_UP);
         return false;
     }
-
     /**
      *
      * then checks for key actions  and acts on them
@@ -117,11 +106,10 @@ public class KeyListener implements LockableInputProcessor {
         // if keyboard is focused  on  a text field  don't try call key functions
         useKeyCombos=!focusText;
         if(useKeyCombos){
-            checkForKeyAction(KeyPressMode.KEY_TYPED);
+            checkForKeyAction(0, KeyPressMode.KEY_TYPED);
         }
         return false;
     }
-
     /**
      * unused methods required by  the  libGDX input processor interface.
      * @see  com.badlogic.gdx.InputProcessor
@@ -147,7 +135,6 @@ public class KeyListener implements LockableInputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
-
     /**
      * checks to see if  a TextField is the primary  focus of the keyboard
      * @return true of the actor is  a  TextField false of not
@@ -163,7 +150,6 @@ public class KeyListener implements LockableInputProcessor {
         }
         return  false;
     }
-
     /**
      * checks to see if  a a passed actor  is the primary  focus of the keyboard
      * for any of the games stages
@@ -185,8 +171,10 @@ public class KeyListener implements LockableInputProcessor {
      if they do it calls  the  key actions act method provided  if the action is not currently locked
      and the KeyPressMode  and if applicable  the stage focused actor  match
      returns true if any  key combo  was  acted on  false if no key was acted on
+     @param  keyPressMode the current mode of keys being acted on
+     @param delta libGDX delta time only used  with update(float delta) Method  call to this method.
      **/
-    public  boolean  checkForKeyAction(KeyPressMode keyPressMode){
+    public  boolean  checkForKeyAction(float delta , KeyPressMode keyPressMode){
         int size=inputKeyCombos.size;
         for(int count=0; count<size; count++) {
           InputKeyCombo inputKeyCombo= inputKeyCombos.get(count);
@@ -205,34 +193,48 @@ public class KeyListener implements LockableInputProcessor {
               }
           }
             int [] keysToBePressed=inputKeyCombo.getKeysPressed();
-            boolean pressed=false;
-            if(keyPressMode==KeyPressMode.KEY_DOWN || keyPressMode==KeyPressMode.KEY_PRESSED){
-                pressed=keysPressedDown(keysToBePressed);
-            }
-
-            else if(keyPressMode==KeyPressMode.KEY_UP){
-               pressed= keysPressedUp(keysToBePressed);
-
-            }
-            if(pressed){
-                inputKeyCombo.getKeyAction().act();
-            }
-
+            boolean pressed=checkForKeyPress(delta, keyPressMode, inputKeyCombo);
         }
         return false;
     }
+    /**
+     * checks to see if any of the keys are pressed for a given keyInputCombo
+     * based on the key pressed mode
+     * @param keyPressMode current mode  of keys being operated on
+     * @param inputKeyCombo the keyInput combo to check for matching key presses
+     * @param  delta libGDX delta time
+     * @return true if the actions key(s) are pressed false if not
+     */
+    public boolean  checkForKeyPress( float delta , KeyPressMode keyPressMode, InputKeyCombo inputKeyCombo){
+        int [] keysToBePressed=inputKeyCombo.getKeysPressed();
+        boolean pressed=false;
+        if(keyPressMode==KeyPressMode.KEY_DOWN ){
+            pressed=keysPressedDown(keysToBePressed);
+        }
+        else if(keyPressMode==KeyPressMode.KEY_PRESSED){
+            inputKeyCombo.increaseCounter(delta);
 
+            if(inputKeyCombo.getCounter()>=inputKeyCombo.getFireRate()){
+                pressed=keysPressedDown(keysToBePressed);
+                inputKeyCombo.resetCounter();
+            }
+        }
+        else if(keyPressMode==KeyPressMode.KEY_UP){
+            pressed= keysPressedUp(keysToBePressed);
+        }
+        if(pressed){
+            inputKeyCombo.getKeyAction().act();
+        }
+        return  pressed;
+    }
     /**
      * called every second to check if keys are pressed from any render loop
      * if you do not call this any InputKeyCombos with the Key_Pressed mode will not be called
      * more than once
      */
-    public void update(){
-        checkForKeyAction(KeyPressMode.KEY_PRESSED);
-        
+    public void update(float delta){
+        checkForKeyAction(delta, KeyPressMode.KEY_PRESSED);
     }
-
-
     /**
      * checks if all of the key codes  in the array of key codes aka Integers
      * match  are currently pressed down
@@ -253,7 +255,6 @@ public class KeyListener implements LockableInputProcessor {
         }
         return  true;
     }
-
     /**
      * checks if any of the key codes  in the array of key codes aka Integers
      * match teh current key that is pressed up
@@ -269,7 +270,6 @@ public class KeyListener implements LockableInputProcessor {
            if( keyUpCode==keysToBePressed[count2]){
                return true;
            }
-
         }
         return  false;
     }
@@ -296,7 +296,6 @@ public class KeyListener implements LockableInputProcessor {
     // keys are pressed
      @param keys  the array of keys that need to be pressed
      **/
-
     public boolean anyKeysPressed(int... keys){
         int size=keys.length;
         for(int count=0; count<size; count++){
@@ -331,18 +330,15 @@ public class KeyListener implements LockableInputProcessor {
             DualActionKeyInputCombo inputKeyCombo){
         inputKeyCombos.removeValue(inputKeyCombo.getInputKeyCombos()[0], true);
         inputKeyCombos.removeValue(inputKeyCombo.getInputKeyCombos()[1], true);
-
     }
     public void removeInputKeyCombo(InputKeyCombo inputKeyCombo){
         inputKeyCombos.removeValue(inputKeyCombo, true);
     }
     public void addInputKeyCombos(Array<InputKeyCombo> inputKeyComboList) {
         this.inputKeyCombos.addAll(inputKeyComboList);
-
     }
     public void removeInputKeyCombos(Array<InputKeyCombo> inputKeyComboList) {
       this.inputKeyCombos.removeAll(inputKeyComboList, true);
-
     }
     /**
      sets all keys down to false
@@ -369,11 +365,9 @@ public class KeyListener implements LockableInputProcessor {
     public void setKeyInputLocked(boolean locked) {
         this.keyInputLocked=keyInputLocked;
     }
-
     public boolean isOnlyOneKeyComboPerAction() {
         return onlyOneKeyComboPerAction;
     }
-
     public void setOnlyOneKeyComboPerAction(boolean onlyOneKeyComboPerAction) {
         this.onlyOneKeyComboPerAction = onlyOneKeyComboPerAction;
     }

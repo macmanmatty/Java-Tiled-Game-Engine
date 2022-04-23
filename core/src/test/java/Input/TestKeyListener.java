@@ -26,6 +26,20 @@ public class TestKeyListener {
     assertEquals(true, called[0]);
     }
     @Test
+    public void removeKeyInputCombo(){
+        final boolean[] called = {false};
+        KeyAction keyAction= new KeyAction() {
+            @Override
+            public void act() {
+                called[0] =true;
+            }
+        };
+        InputKeyCombo inputKeyCombo= new InputKeyCombo(keyAction, "name", Keys.M, Keys.N);
+        keyListener.addInputKeyCombo(inputKeyCombo);
+        keyListener.removeInputKeyCombo(inputKeyCombo);
+        assertEquals(0, keyListener.getInputKeyCombos().size);
+    }
+    @Test
     public void testMultipleKeysPressedDownIncorrect(){
         final boolean[] called = {false};
         KeyAction keyAction= new KeyAction() {
@@ -151,18 +165,17 @@ public class TestKeyListener {
                 called[0]++;
             }
         };
-        KeyPressMode []  keyPressMode= new KeyPressMode []{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED};
         InputKeyCombo inputKeyCombo= new InputKeyCombo(keyAction, KeyPressMode.KEY_PRESSED, "name", Keys.M);
         keyListener.addInputKeyCombo(inputKeyCombo);
         keyListener.keyDown(Keys.M);
-        keyListener.update();
-        keyListener.update();
-        keyListener.update();
+        keyListener.update(1);
+        keyListener.update(1);
+        keyListener.update(1);
         keyListener.keyTyped('V');
         assertEquals(3, called[0]);
     }
     @Test
-    public void testMutiplePressModes(){
+    public void testMultiplePressModes(){
         final int[] called = {0};
         KeyAction keyAction= new KeyAction() {
             @Override
@@ -174,9 +187,9 @@ public class TestKeyListener {
         InputKeyCombo inputKeyCombo= new InputKeyCombo(keyAction, keyPressMode, "name", Keys.M);
         keyListener.addInputKeyCombo(inputKeyCombo);
         keyListener.keyDown(Keys.M);
-        keyListener.update();
-        keyListener.update();
-        keyListener.update();
+        keyListener.update(1);
+        keyListener.update(1);
+        keyListener.update(1);
         keyListener.keyTyped('V');
         assertEquals(4, called[0]);
     }
@@ -221,5 +234,25 @@ public class TestKeyListener {
         keyListener.keyUp(Keys.K);
         keyListener.keyTyped('V');
         assertEquals(-1, called[0]);
+    }
+    @Test
+    public void removeDualInputKeyCombo(){
+        final int[] called = {0};
+        KeyAction keyUpAction= new KeyAction() {
+            @Override
+            public void act() {
+                called[0]++;
+            }
+        };
+        KeyAction keyDownAction= new KeyAction() {
+            @Override
+            public void act() {
+                called[0]=-2;
+            }
+        };
+        DualActionKeyInputCombo inputKeyCombo= new DualActionKeyInputCombo(keyUpAction,keyDownAction,  "name", Keys.C);
+        keyListener.addInputKeyCombo(inputKeyCombo);
+        keyListener.removeInputKeyCombo(inputKeyCombo);
+        assertEquals(0, keyListener.getInputKeyCombos().size);
     }
 }
