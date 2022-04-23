@@ -92,8 +92,8 @@ public class EngineSetup {
        engine.addSystem(renderSystem);
        //engine.addSystem(lightSystem);
        engine.addEntityListener(renderSystem);
-       ZRPGPlayerSystem ZRPGPlayerSystem =new ZRPGPlayerSystem(draw);
-       engine.addSystem(ZRPGPlayerSystem);
+      // ZRPGPlayerSystem zRPGPlayerSystem =new ZRPGPlayerSystem(draw);
+      // engine.addSystem(ZRPGPlayerSystem);
        MoveOnGroundSystem moveOnGroundSystem =new MoveOnGroundSystem(draw);
        engine.addSystem(moveOnGroundSystem);
         engine.addSystem(new SetPositionMarkersSystem(draw, 0));
@@ -132,7 +132,7 @@ public class EngineSetup {
        if(drawBounds){
            engine.addSystem(new BoundingBoxRenderer(shapes));
        }
-       GameAssets.getGameInput().addProcessor(ZRPGPlayerSystem);
+      // GameAssets.getGameInput().addProcessor(ZRPGPlayerSystem);
    }
    public static  void addRenderSystemsToEngine(  Engine engine, Batch batch,  ShapeRenderer shapes, boolean drawBounds, FrameBuffer mapBuffer, FrameBuffer lightBuffer){
        Family drawableFamily= Family.all(PositionComponent.class, DrawableComponent.class).get();
