@@ -56,6 +56,12 @@ public class InputKeyCombo implements Nameable {
         this.keyAction = keyAction;
         this.name = name;
     }
+    public InputKeyCombo(KeyAction keyAction, KeyPressMode keyPressMode,  String name , Integer... keys) {
+        this.keysPressed.addAll(keys);
+        this.keyPressMode = keyPressMode;
+        this.keyAction = keyAction;
+        this.name = name;
+    }
     public InputKeyCombo(Array<Integer> keysPressed, KeyAction keyAction, String name) {
         this.keysPressed = keysPressed;
         this.keyAction = keyAction;

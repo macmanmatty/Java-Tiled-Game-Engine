@@ -16,6 +16,7 @@ import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
@@ -203,14 +204,16 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
      */
     public void setPlayer(ZRPGPlayer player) {
         this.player = player;
-        engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
       // DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getCurrentMap().getSkin(),  "windowCompass", this );
        // defaultZRPGBottomWindow.setZrpgPlayer(player);
       // addUIBarWindow(defaultZRPGBottomWindow, Direction.DOWN);
        gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPosition());
+        GameAssets.getGameInput().getKeyListener().addInputKeyCombos(new ZRPGPlayerFunctions(player, this).getPlayerControlFunctions());
     }
+
+
     /**
      *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y
      *

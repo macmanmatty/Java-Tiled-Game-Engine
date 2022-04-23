@@ -1,9 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToPackComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PickUp;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Read;
@@ -20,9 +22,12 @@ import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
+import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
+import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
@@ -42,48 +47,116 @@ public class ZRPGPlayerFunctions {
         this.mapDraw = mapDraw;
         idComponentMapper= GameComponentMapper.getIdComponentMapper();
         this.world=mapDraw.getWorld();
+        DualActionKeyInputCombo moveRightCombo= new DualActionKeyInputCombo( stop, moveRight, "Move Player Right", Keys.RIGHT);
+        playerControlFunctions.addAll(  moveRightCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveLeftCombo= new DualActionKeyInputCombo( stop, moveLeft, "Move Player Left", Keys.LEFT);
+        playerControlFunctions.addAll(  moveLeftCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveUpCombo= new DualActionKeyInputCombo( stop, moveUp, "Move Player Up", Keys.UP);
+        playerControlFunctions.addAll(  moveUpCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveDownCombo= new DualActionKeyInputCombo( stop, moveDown, "Move Player Down", Keys.DOWN);
+        playerControlFunctions.addAll(  moveDownCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveRightDownCombo= new DualActionKeyInputCombo( stop, moveRightDown, "Move Player RightDown", Keys.L);
+        playerControlFunctions.addAll(  moveRightDownCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveRightUpCombo= new DualActionKeyInputCombo( stop, moveRightUp, "Move Player RightUpDown", Keys.P);
+        playerControlFunctions.addAll(  moveRightUpCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveLeftDownCombo= new DualActionKeyInputCombo( stop, moveLeftDown, "Move Player LeftDown", Keys.K);
+        playerControlFunctions.addAll(  moveLeftDownCombo.getInputKeyCombos());
+        DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.O);
+        playerControlFunctions.addAll(  moveLeftUpCombo.getInputKeyCombos());
+        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, "Increase Player Speed", Keys.CONTROL_RIGHT);
+        playerControlFunctions.add(increaseSpeedCombo);
+        InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed, "Decrease Player Speed", Keys.ALT_RIGHT);
+        playerControlFunctions.add(decreaseSpeedCombo);
+
     }
-        public void moveRight() {
-        player.getPlayerEntity().add(new MovingOnGroundComponent());
-        player.getActionComponent().setStat("move");
-        player.getMovableComponent().moveRight();
-    }
-    public void moveLeft() {
+  private   KeyAction stop= new KeyAction() {
+        @Override
+        public void act() {
+            if (player.getMovableComponent().getCurrentSpeed()>0 ) {
+                player.getPlayerEntity().remove(MovingOnGroundComponent.class);
+                player.getPlayerEntity().remove(Moved.class);
+                player.getActionComponent().setStat("rest");
+                player.getMovableComponent().setMoved(false);
+                player.getMovableComponent().setCurrentSpeed(0);
+            }
+        }
+    };
+
+    private  KeyAction moveRight =new KeyAction(){
+          @Override
+          public void act()  {
+                  player.getPlayerEntity().add(new MovingOnGroundComponent());
+                  player.getActionComponent().setStat("move");
+                  player.getMovableComponent().moveRight();
+              }
+          
+      };
+    
+    private KeyAction moveLeft =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveLeft();
-    }
-    public void moveUp() {
+    }};
+    private KeyAction moveUp =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveUp();
-    }
-    public void moveDown() {
+    }};
+    private KeyAction moveDown =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveDown();
-    }
-    public void moveRightUp() {
+    }};
+    private KeyAction moveRightUp =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveRightUp();
-    }
-    public void moveLeftUp() {
+    }};
+    private KeyAction moveLeftUp =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveLeftUp();
-    }
-    public void moveLeftDown() {
+    }};
+    private KeyAction moveLeftDown =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveLeftDown();
-    }
-    public void moveRightDown() {
+    }};
+    private KeyAction moveRightDown =new KeyAction(){
+        @Override
+          public void act()  {
         player.getPlayerEntity().add(new MovingOnGroundComponent());
         player.getActionComponent().setStat("move");
         player.getMovableComponent().moveRightDown();
-    }
-    public void pickupItem() {
+    }};
+    private KeyAction increaseSpeed =new KeyAction(){
+        @Override
+        public void act()  {
+          NumericStat speed= player.getNumericStats().getNumericStat("speed");
+           speed.addValue(1);
+        }};
+    private KeyAction decreaseSpeed =new KeyAction(){
+        @Override
+        public void act()  {
+            NumericStat speed= player.getNumericStats().getNumericStat("speed");
+            speed.subtractValue(1);
+        }};
+
+    private KeyAction pickupItem =new KeyAction(){
+        @Override
+          public void act()  {
         Holder []  holder=player.getHandHolders();
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
             PositionComponent position = player.getPosition();
@@ -112,19 +185,21 @@ public class ZRPGPlayerFunctions {
                 }
             }
         }
-    }
-    public void dropItem(int hand) {
+    }};
+    
+    private void dropItem() {
         Drop drop = new Drop();
-            player.getHand(hand).add(drop);
+            player.getHand(1).add(drop);
     }
-    public void eatItem(int hand) {
+
+    private void eatItem() {
             Ingest ingest = new Ingest();
             ingest.setIngestorID(player.getId());
-            player.getHand(hand).add(ingest);
+            player.getHand(1).add(ingest);
     }
-    public void slashItem(int hand) {
+    private void slashItem() {
             Slash slash = new Slash();
-            Holder holder=player.getHandHolders()[ hand];
+            Holder holder=player.getHandHolders()[1];
             String itemToHoledID=holder.getItemToHoldId();
             if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
                 Entity heldItem = world.getEntity(holder.getItemToHoldId());
@@ -132,9 +207,9 @@ public class ZRPGPlayerFunctions {
                 player.getActionComponent().setStat("slash");
             }
     }
-    public void thrustItem(int hand) {
+    private void thrustItem() {
         Thrust thrust = new Thrust();
-        Holder holder=player.getHandHolders()[ hand];
+        Holder holder=player.getHandHolders()[1];
         String itemToHoledID=holder.getItemToHoldId();
         if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
             Entity heldItem = world.getEntity(holder.getItemToHoldId());
@@ -142,26 +217,26 @@ public class ZRPGPlayerFunctions {
             player.getActionComponent().setStat("thrust");
         }
     }
-    public void readItem(int hand) {
+    private void readItem(int hand) {
         Read read = new Read();
         player.getHand(hand).add(read);
     }
-    public void shootItem(int hand) {
+    private void shootItem(int hand) {
        Shoot shoot = new Shoot();
         player.getHand(hand).add(shoot);
     }
-    public void throwItem(int handNumber) {
+    private void throwItem(int handNumber) {
         Throw throwV= new Throw();
        Entity hand=player.getHand(handNumber);
        if(hand!=null) {
            hand.add(throwV);
        }
     }
-    public void equipItem(int hand) {
+    private void equipItem() {
         EquipItem equipItem= new EquipItem();
-        player.getHand(hand).add(equipItem);
+        player.getHand(1).add(equipItem);
     }
-    public void addItemToPack(int hand){
+    private void addItemToPack(int hand){
         Holder []  holder=player.getHandHolders();
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
             PositionComponent position = player.getPosition();
@@ -175,15 +250,7 @@ public class ZRPGPlayerFunctions {
             }
         }
     }
-    public void target(float screenX, float screenY){
-    }
-    public void changeHandNumber() {
-        if(player.getHandToUse()==1){
-            player.setHandToUse(0);
-        }
-        else{
-            player.setHandToUse(1);
-        }
+    private void target(float screenX, float screenY){
     }
     public Entity getItem(int hand) {
         Holder[] holder = player.getHandHolders();
@@ -221,7 +288,7 @@ public class ZRPGPlayerFunctions {
             }
         }
     }
-    public void changeHoldPosition(int hand) {
+    private void changeHoldPosition(int hand) {
         Holder holder = player.getHandHolders()[hand];
         HoldPosition []  holdPosition=HoldPosition.values();
         int holdPositions=holdPosition.length;
@@ -231,6 +298,7 @@ public class ZRPGPlayerFunctions {
         }
         holder.setHoldPosition(holdPosition[holdPositionNumber]);
     }
+
     public Array<InputKeyCombo> getPlayerControlFunctions() {
         return playerControlFunctions;
     }
