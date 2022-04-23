@@ -123,6 +123,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
             currentMap.mapTurnActions(deltaTime, gameTime);
             engine.update(deltaTime);
             uiStage.update(deltaTime, gameTime);
+            GameAssets.getGameInput().getKeyListener().update();
             gameTime.countTime();
     }
     @Override

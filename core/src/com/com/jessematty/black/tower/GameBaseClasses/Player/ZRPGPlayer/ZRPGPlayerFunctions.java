@@ -28,6 +28,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
+import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
@@ -63,9 +64,10 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.addAll(  moveLeftDownCombo.getInputKeyCombos());
         DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.O);
         playerControlFunctions.addAll(  moveLeftUpCombo.getInputKeyCombos());
-        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, "Increase Player Speed", Keys.CONTROL_RIGHT);
+        KeyPressMode []  keyPressMode= new KeyPressMode []{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED};
+        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", Keys.CONTROL_RIGHT);
         playerControlFunctions.add(increaseSpeedCombo);
-        InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed, "Decrease Player Speed", Keys.ALT_RIGHT);
+        InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
         playerControlFunctions.add(decreaseSpeedCombo);
 
     }

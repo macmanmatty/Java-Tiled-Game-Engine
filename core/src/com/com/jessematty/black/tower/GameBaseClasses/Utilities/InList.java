@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
+import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
@@ -34,9 +35,17 @@ public class InList {
 		}
 		return false;
 	}
+	public  static boolean isInList(Object object, Object [] names) {
+		int number = names.length;
+		for (int count = 0; count < number; count++) {
+			if (object.equals(names[count]) == true) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public  static boolean isInList(Object object, Keys<? extends Object> keys) {
-
 		while (keys.hasNext()){
 			if (object.equals(keys.next())) {
 				return true;
