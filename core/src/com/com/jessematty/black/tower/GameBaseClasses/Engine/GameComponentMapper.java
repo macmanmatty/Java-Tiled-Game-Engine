@@ -66,7 +66,7 @@ import com.jessematty.black.tower.Components.Glow;
 import com.jessematty.black.tower.Components.Growable;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.Ingestable;
@@ -140,7 +140,7 @@ public class GameComponentMapper {
     private static ComponentMapper<VisibleOnScreen> visibleOnScreenComponentMapper = ComponentMapper.getFor(VisibleOnScreen.class);
     private static ComponentMapper<TileWeatherNumericStatsChangable> tileNumericStatsChangableComponentMapper = ComponentMapper.getFor(TileWeatherNumericStatsChangable.class);
     private static ComponentMapper<ImageComponent> imageComponentMapper = ComponentMapper.getFor(ImageComponent.class);
-    private static ComponentMapper<ID> idComponentMapper = ComponentMapper.getFor(ID.class);
+    private static ComponentMapper<EntityId> idComponentMapper = ComponentMapper.getFor(EntityId.class);
     private static ComponentMapper<Glow> glowComponentMapper = ComponentMapper.getFor(Glow.class);
     private static ComponentMapper<NumericStatsSelfChangable> numericStatsSelfChangableComponentMapper = ComponentMapper.getFor(NumericStatsSelfChangable.class);
     private static ComponentMapper<ChangeImageOnStatsValueChanges> changeImageOnStatsValueChangesComponentMapper = ComponentMapper.getFor(ChangeImageOnStatsValueChanges.class);
@@ -244,7 +244,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(VisibleOnScreen.class, visibleOnScreenComponentMapper);
         componentComponentMapperMap.put(TileWeatherNumericStatsChangable.class, tileNumericStatsChangableComponentMapper);
         componentComponentMapperMap.put(Glow.class, glowComponentMapper);
-        componentComponentMapperMap.put(ID.class, idComponentMapper);
+        componentComponentMapperMap.put(EntityId.class, idComponentMapper);
         componentComponentMapperMap.put(NumericStatsSelfChangable.class, numericStatsChangableComponentMapper);
         componentComponentMapperMap.put(ChangeImageOnStatsValueChanges.class, changeImageOnStatsValueChangesComponentMapper);
         componentComponentMapperMap.put(StringStatChanged.class, stringStatChangedComponentMapper);
@@ -637,7 +637,7 @@ public class GameComponentMapper {
         return tileNumericStatsChangableComponentMapper;
     }
 
-    public static ComponentMapper<ID> getIdComponentMapper() {
+    public static ComponentMapper<EntityId> getIdComponentMapper() {
         return idComponentMapper;
     }
 

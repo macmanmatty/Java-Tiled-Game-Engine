@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 
 import java.util.UUID;
 
-public class ID  implements Component {
+public class EntityId implements Component {
     private  String id= UUID.randomUUID().toString();
 
     public String getId() {

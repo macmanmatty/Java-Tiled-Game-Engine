@@ -55,6 +55,11 @@ public class MovableComponent implements ActionableComponent {
     public void setMoveAngle(float moveAngle) {
         this.moveAngle = moveAngle;
     }
+
+    /**
+     * functions to set the move angle in radians
+     * to a direction
+     */
     public void moveUp() { // moves owner up
         moveAngle = 0;
     }
@@ -62,22 +67,22 @@ public class MovableComponent implements ActionableComponent {
         moveAngle = (float) Math.PI;
     }
     public void moveRight() { //
-        moveAngle = (float) 1.5708;
+        moveAngle =  1.5708f;
     }
     public void moveLeft() {
-        moveAngle = (float) 4.71239;
+        moveAngle =  4.71239f;
     }
     public void moveLeftUp() { //
-        moveAngle = (float) 5.5065138;
+        moveAngle =  5.5065138f;
     }
     public void moveLeftDown() { //
-        moveAngle = (float) 3.9357175;
+        moveAngle = 3.9357175f;
     }
     public void moveRightUp() { //
-        moveAngle = (float) 0.7941248;
+        moveAngle =  0.7941248f;
     }
     public void moveRightDown() {
-        moveAngle = (float) 2.3649211;
+        moveAngle = 2.3649211f;
     }
     public void stop(){
         currentSpeed =0;

@@ -2,7 +2,6 @@ package com.jessematty.black.tower.Systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -13,7 +12,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.Ingestable;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Readable;
 import com.jessematty.black.tower.Components.Shootable;
 import com.jessematty.black.tower.Components.Slashable;
@@ -30,7 +29,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Actors.ZRPGActors;
 public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInputProcessor, InputKeys {
-    private ZRPGPlayer player;
+    private ZRPGCharacter player;
    private GameInputKeys gameInputKeys;
    private int handNumber=1;
    private Entity [] items= new Entity[2];
@@ -193,10 +192,10 @@ public class ZRPGPlayerSystem extends GameEntitySystem  implements  LockableInpu
     public boolean scrolled(int amount) {
         return false;
     }
-    public ZRPGPlayer getPlayer() {
+    public ZRPGCharacter getPlayer() {
         return player;
     }
-    public void setPlayer(ZRPGPlayer player) {
+    public void setPlayer(ZRPGCharacter player) {
         this.player = player;
         playerFunctions= new ZRPGPlayerFunctions(player, getDraw());
     }

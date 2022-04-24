@@ -20,7 +20,7 @@ import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -34,13 +34,13 @@ public class MenOnTileSelect
 	ArrayList<CheckBox> manChecks;
 	LandSquareTile tile;
 	public MenOnTileSelect(){}
-	ZRPGPlayer entity;
+	ZRPGCharacter entity;
 	GameAssets gameAssets;
 	Window window;
 	Skin skin;
 	ComponentMapper<ImageComponent> imageComponentComponentMapper;
 	 ComponentMapper<NameComponent> nameComponentMapper;
-	 public Actor selectMan(final ZRPGPlayer player, final Skin skin, GameAssets gameAssets, String styleName) {
+	 public Actor selectMan(final ZRPGCharacter player, final Skin skin, GameAssets gameAssets, String styleName) {
 		 this.skin = skin;
 		 this.gameAssets = gameAssets;
 

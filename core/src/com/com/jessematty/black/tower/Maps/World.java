@@ -4,19 +4,16 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector.LandMapSelectorWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -24,15 +21,9 @@ import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePref
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
-import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
-
-import org.omg.CORBA.Object;
-
-import java.rmi.server.UID;
-import java.util.UUID;
 
 /**
  * The Game World Class the has a 2d  array of game  maps that make up the world as well as the world's  texture atlas  and  ashley ecs entities
@@ -278,14 +269,14 @@ public class World implements Disposable {
      */
        public void addEntityToWorld(Entity entity) {
         PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
-           ID id= gameComponentMapper.getIdComponentMapper().get(entity);
+           EntityId entityId = gameComponentMapper.getIdComponentMapper().get(entity);
           // if entity has no id give it one
-           if(id==null){
-               id= new ID();
-               entity.add(id);
+           if(entityId ==null){
+               entityId = new EntityId();
+               entity.add(entityId);
            }
            // add entity to entity map
-           entitiesInWorld.put(id.getId(), entity);
+           entitiesInWorld.put(entityId.getId(), entity);
            addEntityToEngine(entity);
         if (position!=null) { // has  position add entity to map
             addEntityToMap(entity, position);

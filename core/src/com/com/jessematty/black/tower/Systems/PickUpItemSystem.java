@@ -8,16 +8,15 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PickUp;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class PickUpItemSystem extends GameEntitySystem {
-            private ComponentMapper<ID> idComponentMapper;
+            private ComponentMapper<EntityId> idComponentMapper;
             private  ComponentMapper<Holder> holderComponentMapper;
             private ComponentMapper<ActionComponent> actionComponentMapper;
             private ComponentMapper<PositionComponent> positionComponentMapper;

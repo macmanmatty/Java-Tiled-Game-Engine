@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -24,7 +24,7 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
     private ComponentMapper<Attachable> attachableComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
-    private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<EntityId> idComponentMapper;
 
     public AddOwnerSystem(MapDraw draw) {
         super(draw);

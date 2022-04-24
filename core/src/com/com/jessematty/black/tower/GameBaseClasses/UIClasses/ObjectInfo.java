@@ -19,7 +19,7 @@ import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -54,7 +54,7 @@ public class ObjectInfo {
 
     }
 
-    public void listObjects(final LandSquareTile location, final ZRPGPlayer fighter, final  Skin skin, final  String style){
+    public void listObjects(final LandSquareTile location, final ZRPGCharacter fighter, final  Skin skin, final  String style){
         window= new Window(location.toString(), skin);
         Array<Entity> entities=location.getEntities();
 
@@ -73,7 +73,7 @@ public class ObjectInfo {
         }
 
     }
-    public Window displayInfo (ZRPGPlayer player, Entity entity, Skin skin, String style){
+    public Window displayInfo (ZRPGCharacter player, Entity entity, Skin skin, String style){
         if(style==null || style.isEmpty()){
             style="default";
         }

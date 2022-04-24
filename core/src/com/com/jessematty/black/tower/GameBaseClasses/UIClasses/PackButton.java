@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 
@@ -20,11 +20,11 @@ public class PackButton extends TextButton {
 
 	Entity item;
 	int cost;
-	ZRPGPlayer fighters;
+	ZRPGCharacter fighters;
 	GameAssets assetts;
 
 
-	public PackButton(String text, final Skin skin, final Entity item, final ZRPGPlayer player, PackButtonKind kind) {
+	public PackButton(String text, final Skin skin, final Entity item, final ZRPGCharacter player, PackButtonKind kind) {
 		super(text, skin, "Brick");
 		this.item = item;
 		this.fighters = player;
@@ -150,7 +150,7 @@ public class PackButton extends TextButton {
 		return item;
 	}
 
-	public ZRPGPlayer getFighters() {
+	public ZRPGCharacter getFighters() {
 		return fighters;
 	}
 }

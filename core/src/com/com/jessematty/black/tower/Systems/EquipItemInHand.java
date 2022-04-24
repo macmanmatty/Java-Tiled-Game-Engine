@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Systems;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -14,7 +14,7 @@ public class EquipItemInHand extends EventSystem {
     private ComponentMapper<PositionComponent> positions;
     private ComponentMapper<Holder> hands;
     private ComponentMapper<NameComponent> names;
-    private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<EntityId> idComponentMapper;
 
 
     Entity holder;

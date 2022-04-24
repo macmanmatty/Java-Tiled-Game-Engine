@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.UnHoldItem;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.ErrorComponent;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -24,7 +24,7 @@ public class UnHoldItemSystem extends GameEntitySystem{
     private ComponentMapper<Body> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
-    private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<EntityId> idComponentMapper;
     private ComponentMapper<UnHoldItem> unEquipItemComponentMapperquipItemComponentMapper;
     private ComponentMapper<NameComponent> nameComponentMapper;
 

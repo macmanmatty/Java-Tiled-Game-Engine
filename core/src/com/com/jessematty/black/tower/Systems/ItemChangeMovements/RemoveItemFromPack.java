@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -24,7 +24,7 @@ public class RemoveItemFromPack extends GameEntitySystem {
     private Item item;
     private  int  counter;
     private Holder holder;
-    private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<EntityId> idComponentMapper;
 
 
     public RemoveItemFromPack(MapDraw draw, Pack pack, Entity itemToGet) {

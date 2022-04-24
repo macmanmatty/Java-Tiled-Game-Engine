@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToContainerComponent;
 import com.jessematty.black.tower.Components.Container;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 
 
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -20,7 +20,7 @@ public class AddItemToContainerSystem extends GameEntitySystem {
     ComponentMapper<PositionComponent> positionGameComponentMapper;
     ComponentMapper<Container> containerComponentMapper;
     ComponentMapper<AddItemToContainerComponent> addItemToContainerComponentComponentMapper;
-    ComponentMapper<ID> idComponentMapper;
+    ComponentMapper<EntityId> idComponentMapper;
 
 
     public AddItemToContainerSystem(MapDraw draw) {

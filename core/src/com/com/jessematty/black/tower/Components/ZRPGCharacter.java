@@ -16,7 +16,16 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Maps.World;
-public class ZRPGPlayer implements Component {
+
+/**
+ * class the represents a rpg Character
+ * be it a Enemy, Friendly,  NPC, Quest Giver, Shop Owner or the Player
+ * with convenience  access to commonly used components;
+ */
+public class ZRPGCharacter implements Component {
+    /**
+     * commonly used the components
+     */
     private MovableComponent movableComponent;
     private  PositionComponent position;
     private  NumericStats numericStats;
@@ -52,7 +61,7 @@ public class ZRPGPlayer implements Component {
     private boolean autoAddToFirstPack;
     private ZRPGPlayerButtonModes buttonMode;
     private int handToUse;
-    public ZRPGPlayer(World world, Entity playerEntity) {
+    public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
         this.world=world;
         this.movableComponent = playerEntity.getComponent(MovableComponent.class);
@@ -71,7 +80,7 @@ public class ZRPGPlayer implements Component {
         this.body=playerEntity.getComponent(Body.class);
         this.imageComponent=playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.ImageComponent.class);
         this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
-        this.id=playerEntity.getComponent(ID.class).getId();
+        this.id=playerEntity.getComponent(EntityId.class).getId();
         this.rightHand=world.getEntity(body.getBodyParts().get("rightHand"));
         this.leftHand=world.getEntity(body.getBodyParts().get("leftHand"));
         System.out.println ("hands "+leftHand + ", " +rightHand);

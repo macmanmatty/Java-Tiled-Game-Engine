@@ -10,7 +10,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Play
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.SoundComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
@@ -20,7 +20,7 @@ public  class PlaySoundSystem extends GameEntitySystem{
     private ComponentMapper<SoundComponent> soundComponentComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
    private  ImmutableArray<Entity> entities;
-    private ZRPGPlayer player;
+    private ZRPGCharacter player;
     private PositionComponent playerPosition;
 
 
@@ -106,11 +106,11 @@ public  class PlaySoundSystem extends GameEntitySystem{
         }
 
 
-    public ZRPGPlayer getPlayer() {
+    public ZRPGCharacter getPlayer() {
         return player;
     }
 
-    public void setPlayer(ZRPGPlayer player) {
+    public void setPlayer(ZRPGCharacter player) {
         this.player = player;
         playerPosition=player.getPosition();
 

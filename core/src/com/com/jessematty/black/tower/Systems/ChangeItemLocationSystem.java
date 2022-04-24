@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Container;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
@@ -19,7 +19,7 @@ public class ChangeItemLocationSystem extends GameEntitySystem {
        private PhysicalObjectComponent object;
        private PositionComponent position;
        private Item item;
-       private ComponentMapper<ID> idComponentMapper;
+       private ComponentMapper<EntityId> idComponentMapper;
        private ComponentMapper<Item> itemComponentMapper;
        private ComponentMapper<Container> containerComponentMapper;
 

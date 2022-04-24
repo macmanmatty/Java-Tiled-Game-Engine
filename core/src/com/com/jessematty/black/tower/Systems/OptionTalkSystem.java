@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Systems;
 
 
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class OptionTalkSystem extends TalkSystem { // a class that display a  me
     int optionNumber; // the selected option if no is slected it equals -1;
 
 
-    public OptionTalkSystem(MapDraw draw, ZRPGPlayer player) {
+    public OptionTalkSystem(MapDraw draw, ZRPGCharacter player) {
         super(draw, player);
     }
 

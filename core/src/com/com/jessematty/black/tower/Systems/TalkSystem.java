@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.Components.TalkComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -18,9 +18,9 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 public class TalkSystem extends EventSystem { // talking fighter action that displays a speech bubble
   private ComponentMapper<TalkComponent> talkComponentMapper;
 
-  private ZRPGPlayer player;
+  private ZRPGCharacter player;
 
-    public TalkSystem(MapDraw draw, ZRPGPlayer player) {
+    public TalkSystem(MapDraw draw, ZRPGCharacter player) {
         super(draw);
         this.player = player;
     }

@@ -9,7 +9,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.Groups;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -22,7 +22,7 @@ public class UnCurseItemSystem extends GameEntitySystem{
     private ComponentMapper<Body> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
-    private ComponentMapper<ID> idComponentMapper;
+    private ComponentMapper<EntityId> idComponentMapper;
     private  ComponentMapper<EquipItem> equipItemComponentMapper;
     private ComponentMapper<Groups> groupsComponentMapper;
 
