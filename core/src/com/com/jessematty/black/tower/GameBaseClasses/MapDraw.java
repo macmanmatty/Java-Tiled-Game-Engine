@@ -25,10 +25,10 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.Drawing.BoundingBoxRenderer;
-import com.jessematty.black.tower.Systems.LightRenderSystem;
-import com.jessematty.black.tower.Systems.PlaySoundSystem;
+import com.jessematty.black.tower.Systems.Drawing.LightRenderSystem;
+import com.jessematty.black.tower.Systems.Sound.PlaySoundSystem;
 import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
-import com.jessematty.black.tower.Systems.UIBarSystem;
+import com.jessematty.black.tower.Systems.UI.UIBarSystem;
 
 import java.io.IOException;
 public class MapDraw implements NamedScreen{// class for drawing the currentGameMap and actors plants, fighters, item ECT on to the screen

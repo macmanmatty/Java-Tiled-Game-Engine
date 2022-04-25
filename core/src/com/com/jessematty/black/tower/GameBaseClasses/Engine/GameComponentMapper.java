@@ -9,14 +9,15 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Ingest;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PickUp;
+import com.jessematty.black.tower.Components.Item.PickUpItem;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.SpellCast;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Talk;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToContainerComponent;
+import com.jessematty.black.tower.Components.Item.AddItemToContainerComponent;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Systems.AddSystemsComponent;
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
@@ -39,7 +40,6 @@ import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.ErrorComponent;
 import com.jessematty.black.tower.Components.Eyes;
 import com.jessematty.black.tower.Components.Groups;
-import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -163,7 +163,7 @@ public class GameComponentMapper {
     private static ComponentMapper<NumericStatsChangeComponent> numericStatChangeComponentMapper = ComponentMapper.getFor(NumericStatsChangeComponent.class);
     private static ComponentMapper<BooleanStatsChangeComponent> booleanStatChangeComponentComponentMapper = ComponentMapper.getFor(BooleanStatsChangeComponent.class);
     private static ComponentMapper<StringStatsChangeComponent> stringStatChangeComponentComponentMapper = ComponentMapper.getFor(StringStatsChangeComponent.class);
-    private static ComponentMapper<Item> itemComponentMapper = ComponentMapper.getFor(Item.class);
+    private static ComponentMapper<ItemComponent> itemComponentMapper = ComponentMapper.getFor(ItemComponent.class);
     private static ComponentMapper<TimeChangingStats> timeChangingNumericStatsComponentMapper = ComponentMapper.getFor(TimeChangingStats.class);
     private static ComponentMapper<Dying> dyingComponentMapper = ComponentMapper.getFor(Dying.class);
     private static ComponentMapper<TalkComponent> talkComponentComponentMapper = ComponentMapper.getFor(TalkComponent.class);
@@ -192,7 +192,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Target> targetComponentMapper = ComponentMapper.getFor(Target.class);
     private static ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper = ComponentMapper.getFor(CreateEntityOnAction.class);
     private static ComponentMapper<CreateEntity> createEntityComponentMapper = ComponentMapper.getFor(CreateEntity.class);
-    private static ComponentMapper<PickUp> pickUpComponentMapper = ComponentMapper.getFor(PickUp.class);
+    private static ComponentMapper<PickUpItem> pickUpComponentMapper = ComponentMapper.getFor(PickUpItem.class);
     private static ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper = ComponentMapper.getFor(EditorImageComponent.class);
     private static ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnTime.class);
     private static ComponentMapper<CreateEntitiesOnNumericStatChange> createEntitiesOnNumericStatChangeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnNumericStatChange.class);
@@ -266,7 +266,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NumericStatsChangeComponent.class, numericStatChangeComponentMapper);
         componentComponentMapperMap.put(BooleanStatsChangeComponent.class, booleanStatChangeComponentComponentMapper);
         componentComponentMapperMap.put(StringStatsChangeComponent.class, stringStatChangeComponentComponentMapper);
-        componentComponentMapperMap.put(Item.class, itemComponentMapper);
+        componentComponentMapperMap.put(ItemComponent.class, itemComponentMapper);
         componentComponentMapperMap.put(TimeChangingStats.class, timeChangingNumericStatsComponentMapper);
         componentComponentMapperMap.put(Dying.class, dyingComponentMapper);
         componentComponentMapperMap.put(TalkComponent.class, talkComponentComponentMapper);
@@ -295,7 +295,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Target.class, targetComponentMapper);
         componentComponentMapperMap.put(CreateEntityOnAction.class, entityCreateableComponentMapper);
         componentComponentMapperMap.put(CreateEntity.class, createEntityComponentMapper);
-        componentComponentMapperMap.put(PickUp.class, pickUpComponentMapper);
+        componentComponentMapperMap.put(PickUpItem.class, pickUpComponentMapper);
         componentComponentMapperMap.put(EditorImageComponent.class, equipItemComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnTime.class, createEntitiesOnTimeComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnNumericStatChange.class, createEntitiesOnNumericStatChangeComponentMapper);
@@ -729,7 +729,7 @@ public class GameComponentMapper {
         return stringStatChangeComponentComponentMapper;
     }
 
-    public static ComponentMapper<Item> getItemComponentMapper() {
+    public static ComponentMapper<ItemComponent> getItemComponentMapper() {
         return itemComponentMapper;
     }
 
@@ -851,7 +851,7 @@ public class GameComponentMapper {
         return createEntityComponentMapper;
     }
 
-    public static ComponentMapper<PickUp> getPickUpComponentMapper() {
+    public static ComponentMapper<PickUpItem> getPickUpComponentMapper() {
         return pickUpComponentMapper;
     }
 

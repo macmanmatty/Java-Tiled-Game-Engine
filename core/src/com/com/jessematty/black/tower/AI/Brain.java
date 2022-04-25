@@ -2,7 +2,7 @@ package com.jessematty.black.tower.AI;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionMarkerComponent;
+import com.jessematty.black.tower.Components.Item.ActionMarkerComponent;
 import com.jessematty.black.tower.Maps.GameMap;
 
 import java.util.LinkedList;

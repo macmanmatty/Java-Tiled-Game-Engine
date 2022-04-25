@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Item;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -495,7 +495,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
         ComponentMapper<Holder> holderComponentMapper=gameComponentMapper.getHolderComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentComponentMapper=gameComponentMapper.getOwnedComponentComponentMapper();
-        ComponentMapper<Item> itemComponentMapper=gameComponentMapper.getItemComponentMapper();
+        ComponentMapper<ItemComponent> itemComponentMapper=gameComponentMapper.getItemComponentMapper();
        Holder holderComponent =holderComponentMapper.get(holder);
         OwnerComponent ownerComponent=ownerComponentComponentMapper.get(holder);
         if(holderComponent ==null){
@@ -523,7 +523,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ownedComponent.setAttached(true);
         ownedComponent.setOwnerEntityID(holderID.getId());
         ownedComponent.setSetEntityActionToOwner(true);
-        Item item=itemComponentMapper.get(itemToHold);
+        ItemComponent item=itemComponentMapper.get(itemToHold);
         item.setHeld(true);
       return  true;
    }

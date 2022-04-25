@@ -1,34 +1,13 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToPackComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Read;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
-import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
-import com.jessematty.black.tower.Components.HoldPosition;
-import com.jessematty.black.tower.Components.Ingest;
-import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.Pack;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ItemActionWindow;
-import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.World;
 
 /**
  * class that holds all InputKeyCombos related to player actions

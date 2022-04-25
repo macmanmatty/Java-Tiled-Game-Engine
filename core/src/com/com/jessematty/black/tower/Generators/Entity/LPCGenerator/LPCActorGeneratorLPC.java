@@ -14,7 +14,7 @@ import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.BodyParts.BodyPart;
 import com.jessematty.black.tower.Components.BodyParts.BodyPartSize;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
-import com.jessematty.black.tower.Components.Item;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Slashable;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
@@ -183,9 +183,8 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         }
         return armor;
     }
-    public Entity generateItem(Entity entity, int price,  com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent... components){
-        Item item= new Item();
-        item.setPrice(price);
+    public Entity generateItem(Entity entity,  com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent... components){
+        ItemComponent item= new ItemComponent();
         entity.add(item);
         ActionComponents actionComponents= new ActionComponents();
         actionComponents.getActionComponents().add(new Throw());
@@ -262,7 +261,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         if(numericStatsChangeable !=null){
             weapon.add(numericStatsChangeable);
         }
-        generateItem(weapon, 100);
+        generateItem(weapon);
         return weapon;
     }
     public  Entity generatePack(String atlasName, String name, String info, NamedColor color, float brightness, float volume, float mass, float length, float width, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
