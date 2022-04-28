@@ -1,0 +1,13 @@
+package com.jessematty.black.tower.Systems.Attack;
+
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.GameEntitySystem;
+
+public class WandAttack extends GameEntitySystem {
+
+    public WandAttack(MapDraw draw) {
+        super(draw);
+    }
+
+
+}

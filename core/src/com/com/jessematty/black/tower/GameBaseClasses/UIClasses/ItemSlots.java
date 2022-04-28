@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses;
 
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.EntitySelectButton;
 
@@ -16,11 +16,11 @@ ArrayList<ImageButton> abilitiesButtons= new ArrayList<ImageButton>(10);
 
 HorizontalGroup itemGroup=new HorizontalGroup();
     HorizontalGroup abilityGroup=new HorizontalGroup();
-    ZRPGPlayer fighter;
+    ZRPGCharacter fighter;
 
 GameAssets assetts;
 
-    public ItemSlots(int slots, ZRPGPlayer fighter) { // creates  slots of empty items that you can addCopiedItem items too
+    public ItemSlots(int slots, ZRPGCharacter fighter) { // creates  slots of empty items that you can addCopiedItem items too
        // this.assetts=fighter.getAssetts();
         this.slots = slots;
 
