@@ -181,6 +181,7 @@ public class KeyListener implements LockableInputProcessor {
      **/
     public  boolean  checkForKeyAction(float delta , KeyPressMode keyPressMode){
         int size=inputKeyCombos.size;
+        boolean pressed=false;
         for(int count=0; count<size; count++) {
           InputKeyCombo inputKeyCombo= inputKeyCombos.get(count);
           KeyPressMode [] keyComboPressMode=inputKeyCombo.getKeyPressModes();
@@ -197,10 +198,9 @@ public class KeyListener implements LockableInputProcessor {
                   continue;
               }
           }
-            int [] keysToBePressed=inputKeyCombo.getKeysPressed();
-            boolean pressed=checkForKeyPress(delta, keyPressMode, inputKeyCombo);
+            pressed=checkForKeyPress(delta, keyPressMode, inputKeyCombo);
         }
-        return false;
+        return pressed;
     }
     /**
      * checks to see if any of the keys are pressed for a given keyInputCombo
@@ -233,8 +233,8 @@ public class KeyListener implements LockableInputProcessor {
         return  pressed;
     }
     /**
-     * called every second to check if keys are pressed from any render loop
-     * if you do not call this any InputKeyCombos with the Key_Pressed mode will not be called
+     * called to check if keys are pressed this should be called from a libGDX Screen render method
+     * if you do not call this method  any InputKeyCombos with the Key_Pressed mode will not be called
      * more than once
      */
     public void update(float delta){
