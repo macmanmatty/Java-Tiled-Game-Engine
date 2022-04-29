@@ -46,6 +46,11 @@ public class KeyListener implements LockableInputProcessor {
      * to avoid other key actions from being called
      */
     private boolean keyInputLocked=false;
+    private boolean keyTypedKeyInputLocked=false;
+    private boolean keyUpKeyInputLocked=false;
+    private boolean keyDownKeyInputLocked=false;
+
+
     /**
      * if true only one  action be used per key combo
      */
@@ -357,6 +362,62 @@ public class KeyListener implements LockableInputProcessor {
     public void setMouseInputLocked(boolean locked) {
         // this a key listener no mouse input needed
     }
+
+    /**
+     * all return true mouse input is not used here
+     * and locking mouse input  is not allowed for the  key listener class
+     * @return
+     */
+    @Override
+    public boolean isTouchUpMouseInputLocked() {
+        return true;
+    }
+
+    @Override
+    public void setTouchDownMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isTouchDownMouseInputLocked() {
+        return true;
+    }
+
+    @Override
+    public void setTouchUpMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isMouseMovedMouseInputLocked() {
+        return true;
+    }
+
+    @Override
+    public void setMouseMovedMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isScrolledMouseInputLocked() {
+        return true;
+    }
+
+    @Override
+    public void setScrolledMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isTouchDraggedMouseInputLocked() {
+        return true;
+    }
+
+    @Override
+    public void setTouchDraggedMouseInputLocked(boolean locked) {
+
+    }
+
     @Override
     public boolean isKeyInputLocked() {
         return keyInputLocked;
@@ -370,5 +431,34 @@ public class KeyListener implements LockableInputProcessor {
     }
     public void setOnlyOneKeyComboPerAction(boolean onlyOneKeyComboPerAction) {
         this.onlyOneKeyComboPerAction = onlyOneKeyComboPerAction;
+    }
+
+    @Override
+    public boolean isKeyTypedKeyInputLocked() {
+        return keyTypedKeyInputLocked;
+    }
+    @Override
+
+    public void setKeyTypedKeyInputLocked(boolean keyTypedKeyInputLocked) {
+        this.keyTypedKeyInputLocked = keyTypedKeyInputLocked;
+    }
+    @Override
+
+    public boolean isKeyUpKeyInputLocked() {
+        return keyUpKeyInputLocked;
+    }
+    @Override
+
+    public void setKeyUpKeyInputLocked(boolean keyUpKeyInputLocked) {
+        this.keyUpKeyInputLocked = keyUpKeyInputLocked;
+    }
+    @Override
+
+    public boolean isKeyDownKeyInputLocked() {
+        return keyDownKeyInputLocked;
+    }
+    @Override
+    public void setKeyDownKeyInputLocked(boolean keyDownKeyInputLocked) {
+        this.keyDownKeyInputLocked = keyDownKeyInputLocked;
     }
 }

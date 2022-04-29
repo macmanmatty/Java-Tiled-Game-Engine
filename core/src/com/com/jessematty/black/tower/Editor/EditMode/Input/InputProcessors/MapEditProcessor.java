@@ -23,6 +23,14 @@ import com.jessematty.black.tower.Maps.GameMap;
 public  abstract class MapEditProcessor implements LockableInputProcessor {
     protected boolean mouseInputLocked=true;
     protected boolean keyInputLocked=true;
+    protected boolean  touchUpMouseInputLocked;
+    protected boolean touchDownMouseInputLocked;
+    protected boolean scrolledMouseInputLocked;
+    protected boolean mouseMovedMouseInputLocked;
+    protected boolean touchDraggedMouseInputLocked;
+    private boolean keyTypedKeyInputLocked=false;
+    private boolean keyUpKeyInputLocked=false;
+    private boolean keyDownKeyInputLocked=false;
     protected MapEditScreen mapEditScreen;
     protected OrthographicCamera camera;
     protected ClipBoard clipBoard;
@@ -175,5 +183,85 @@ public  abstract class MapEditProcessor implements LockableInputProcessor {
 
     public void setDrawPointerOutOfBounds(boolean drawPointerOutOfBounds) {
         this.drawPointerOutOfBounds = drawPointerOutOfBounds;
+    }
+
+    @Override
+    public boolean isTouchUpMouseInputLocked() {
+        return touchUpMouseInputLocked;
+    }
+
+    @Override
+    public void setTouchUpMouseInputLocked(boolean touchUpMouseInputLocked) {
+        this.touchUpMouseInputLocked = touchUpMouseInputLocked;
+    }
+
+    @Override
+    public boolean isTouchDownMouseInputLocked() {
+        return touchDownMouseInputLocked;
+    }
+
+    @Override
+    public void setTouchDownMouseInputLocked(boolean touchDownMouseInputLocked) {
+        this.touchDownMouseInputLocked = touchDownMouseInputLocked;
+    }
+
+    @Override
+    public boolean isScrolledMouseInputLocked() {
+        return scrolledMouseInputLocked;
+    }
+
+    @Override
+    public void setScrolledMouseInputLocked(boolean scrolledMouseInputLocked) {
+        this.scrolledMouseInputLocked = scrolledMouseInputLocked;
+    }
+
+    @Override
+    public boolean isMouseMovedMouseInputLocked() {
+        return mouseMovedMouseInputLocked;
+    }
+
+    @Override
+    public void setMouseMovedMouseInputLocked(boolean mouseMovedMouseInputLocked) {
+        this.mouseMovedMouseInputLocked = mouseMovedMouseInputLocked;
+    }
+
+    @Override
+    public boolean isTouchDraggedMouseInputLocked() {
+        return touchDraggedMouseInputLocked;
+    }
+
+    @Override
+    public void setTouchDraggedMouseInputLocked(boolean touchDraggedMouseInputLocked) {
+        this.touchDraggedMouseInputLocked = touchDraggedMouseInputLocked;
+    }
+
+    @Override
+    public boolean isKeyTypedKeyInputLocked() {
+        return keyTypedKeyInputLocked;
+    }
+
+    @Override
+    public void setKeyTypedKeyInputLocked(boolean keyTypedKeyInputLocked) {
+        this.keyTypedKeyInputLocked = keyTypedKeyInputLocked;
+    }
+
+    @Override
+    public boolean isKeyUpKeyInputLocked() {
+        return keyUpKeyInputLocked;
+    }
+
+    @Override
+    public void setKeyUpKeyInputLocked(boolean keyUpKeyInputLocked) {
+        this.keyUpKeyInputLocked = keyUpKeyInputLocked;
+    }
+
+    @Override
+    public boolean isKeyDownKeyInputLocked() {
+        return keyDownKeyInputLocked;
+    }
+
+    @Override
+    public void setKeyDownKeyInputLocked(boolean keyDownKeyInputLocked) {
+        this.keyDownKeyInputLocked = keyDownKeyInputLocked;
     }
 }

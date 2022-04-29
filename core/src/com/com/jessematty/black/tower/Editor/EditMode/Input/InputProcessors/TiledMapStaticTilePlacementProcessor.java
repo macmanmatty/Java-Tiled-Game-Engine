@@ -34,11 +34,8 @@ public class TiledMapStaticTilePlacementProcessor extends MapEditProcessor {
     private ShapeRenderer shapeRenderer;
     private Stage uiStage;
 
-
     public TiledMapStaticTilePlacementProcessor(MapEditScreen mapEditScreen) {
         super(mapEditScreen);
-
-
 
     }
 

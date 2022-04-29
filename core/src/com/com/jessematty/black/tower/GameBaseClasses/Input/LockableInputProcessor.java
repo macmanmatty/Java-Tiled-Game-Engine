@@ -18,8 +18,26 @@ public interface LockableInputProcessor extends InputProcessor {
      */
     boolean isMouseInputLocked();
     void setMouseInputLocked(boolean locked);
+    boolean isTouchUpMouseInputLocked();
+    void setTouchDownMouseInputLocked(boolean locked);
+    boolean isTouchDownMouseInputLocked();
+    void setTouchUpMouseInputLocked(boolean locked);
+    boolean isMouseMovedMouseInputLocked();
+    void setMouseMovedMouseInputLocked(boolean locked);
+    boolean isScrolledMouseInputLocked();
+    void setScrolledMouseInputLocked(boolean locked);
+    boolean isTouchDraggedMouseInputLocked();
+    void setTouchDraggedMouseInputLocked(boolean locked);
     boolean isKeyInputLocked();
     void setKeyInputLocked(boolean locked);
+    boolean isKeyTypedKeyInputLocked();
+    void setKeyTypedKeyInputLocked(boolean keyTypedKeyInputLocked);
+    boolean isKeyUpKeyInputLocked();
+    void setKeyUpKeyInputLocked(boolean keyUpKeyInputLocked);
+    boolean isKeyDownKeyInputLocked();
+    void setKeyDownKeyInputLocked(boolean keyDownKeyInputLocked);
+
+
 
 }
 

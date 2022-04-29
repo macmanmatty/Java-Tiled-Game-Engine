@@ -209,6 +209,57 @@ public class ZRPGPlayerSystem extends GameEntitySystem implements  LockableInput
     public void setMouseInputLocked(boolean locked) {
         this.mouseLocked =locked;
     }
+
+    @Override
+    public boolean isTouchUpMouseInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setTouchDownMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isTouchDownMouseInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setTouchUpMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isMouseMovedMouseInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setMouseMovedMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isScrolledMouseInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setScrolledMouseInputLocked(boolean locked) {
+
+    }
+
+    @Override
+    public boolean isTouchDraggedMouseInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setTouchDraggedMouseInputLocked(boolean locked) {
+
+    }
+
     @Override
     public boolean isKeyInputLocked() {
         return keyLocked;
@@ -217,6 +268,37 @@ public class ZRPGPlayerSystem extends GameEntitySystem implements  LockableInput
     public void setKeyInputLocked(boolean locked) {
         this.keyLocked=locked;
     }
+
+    @Override
+    public boolean isKeyTypedKeyInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setKeyTypedKeyInputLocked(boolean keyTypedKeyInputLocked) {
+
+    }
+
+    @Override
+    public boolean isKeyUpKeyInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setKeyUpKeyInputLocked(boolean keyUpKeyInputLocked) {
+
+    }
+
+    @Override
+    public boolean isKeyDownKeyInputLocked() {
+        return false;
+    }
+
+    @Override
+    public void setKeyDownKeyInputLocked(boolean keyDownKeyInputLocked) {
+
+    }
+
     @Override
     public Array<InputKeyCombo> getKeys() {
         return playerFunctions.getPlayerControlFunctions();
