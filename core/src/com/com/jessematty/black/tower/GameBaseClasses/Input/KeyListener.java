@@ -37,7 +37,7 @@ public class KeyListener implements LockableInputProcessor {
      */
     private Array< InputKeyCombo> inputKeyCombos = new Array<>();
     /**
-     * the games stages
+     * the games stages used to check for keyboard actor focus
      */
     private Array<Stage> stages= new Array<>(); // the game stages
     /**
@@ -364,7 +364,7 @@ public class KeyListener implements LockableInputProcessor {
     }
 
     /**
-     * all return true mouse input is not used here
+     * all return true for locking all  mouse input  because is not used here
      * and locking mouse input  is not allowed for the  key listener class
      * @return
      */

@@ -12,7 +12,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
     private SnapshotArray<InputProcessor> processors = new SnapshotArray(4);
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be  the only
      * mouse  processor being polled for input on the
      * touchDown(int screenX, int screenY, int pointer, int button) InputProcessor method call
      *
@@ -20,7 +20,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
     private InputProcessor currentUnlockedTouchDownMouseProcessor;
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be  the  only
      * mouse  processor being polled for input on the
      * touchUp(int screenX, int screenY, int pointer, int button) InputProcessor method call
      *
@@ -29,7 +29,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
 
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be  the only
      * mouse  processor being polled for input on the
      * touchDragged(int screenX, int screenY, int pointer) InputProcessor method call
      *
@@ -38,7 +38,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
 
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be   the  only
      * mouse  processor being polled for input on the
      * touchDragged(int screenX, int screenY) InputProcessor method call
      *
@@ -46,7 +46,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
     private InputProcessor currentUnlockedMouseMovedMouseProcessor;
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be  the  only
      * mouse  processor being polled for input on the
      * scrolled(int amount)  InputProcessor method call
      *
@@ -54,7 +54,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
     private InputProcessor currentUnlockedScrolledMouseProcessor;
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be   the  only
      * key InputProcessor being polled for input on the
      * scrolled(char key)  InputProcessor method call
      *
@@ -63,14 +63,14 @@ public class LockableInputMultiplexer implements  InputProcessor {
 
 
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be   the only
      * key  InputProcessor being polled for input on the
      * keyUp(int keycode)  InputProcessor method call
      *
      */
     private InputProcessor currentUnlockedKeyUpProcessor;
     /**
-     * if all other processors are locked  the currently and only
+     *  if this  InputProcessor  is not null this will be  the  only
      * key InputProcessor processor being polled for input on the
      * keyDown(int keycode)  InputProcessor method call
      *
@@ -82,6 +82,13 @@ public class LockableInputMultiplexer implements  InputProcessor {
     public LockableInputMultiplexer(InputProcessor... processors) {
         this.processors.addAll(processors);
     }
+
+    /**
+     * adds an input processor to the array at the specified location
+     *
+     * @param index the location in the Array of Processor to add the processor to.
+     @param processor the InputProcessor To Add
+     */
     public void addProcessor(int index, InputProcessor processor) {
         if (processor == null) throw new NullPointerException("processor cannot be null");
         processors.insert(index, processor);
@@ -89,6 +96,11 @@ public class LockableInputMultiplexer implements  InputProcessor {
     public void removeProcessor(int index) {
         processors.removeIndex(index);
     }
+    /**
+     * adds an input processor to the array at the last index
+     *
+     * @param processor the InputProcessor To Add
+     */
     public void addProcessor(InputProcessor processor) {
         if (processor == null) throw new NullPointerException("processor cannot be null");
         processors.add(processor);
