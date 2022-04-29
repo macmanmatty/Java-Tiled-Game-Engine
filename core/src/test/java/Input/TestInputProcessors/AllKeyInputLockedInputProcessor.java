@@ -1,15 +1,15 @@
-package Input;
+package Input.TestInputProcessors;
 
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 
-public class KeyUpInputLockedInputProcessor implements LockableInputProcessor {
+public class AllKeyInputLockedInputProcessor implements LockableInputProcessor {
     String text="";
 
 
 
     @Override
     public boolean isMouseInputLocked() {
-        return false;
+        return true;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class KeyUpInputLockedInputProcessor implements LockableInputProcessor {
 
     @Override
     public boolean isMouseMovedMouseInputLocked() {
-        return false;
+        return true;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class KeyUpInputLockedInputProcessor implements LockableInputProcessor {
 
     @Override
     public boolean isKeyInputLocked() {
-        return false;
+        return true;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class KeyUpInputLockedInputProcessor implements LockableInputProcessor {
 
     @Override
     public boolean isKeyUpKeyInputLocked() {
-        return true;
+        return false;
     }
 
     @Override

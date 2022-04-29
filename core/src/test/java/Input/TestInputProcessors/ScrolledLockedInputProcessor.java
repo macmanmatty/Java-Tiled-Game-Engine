@@ -1,8 +1,8 @@
-package Input;
+package Input.TestInputProcessors;
 
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 
-public class TouchDraggedLockedInputProcessor implements LockableInputProcessor {
+public class ScrolledLockedInputProcessor implements LockableInputProcessor {
     String text="";
 
 
@@ -49,7 +49,7 @@ public class TouchDraggedLockedInputProcessor implements LockableInputProcessor 
 
     @Override
     public boolean isScrolledMouseInputLocked() {
-        return false;
+        return true;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class TouchDraggedLockedInputProcessor implements LockableInputProcessor 
 
     @Override
     public boolean isTouchDraggedMouseInputLocked() {
-        return true;
+        return false;
     }
 
     @Override

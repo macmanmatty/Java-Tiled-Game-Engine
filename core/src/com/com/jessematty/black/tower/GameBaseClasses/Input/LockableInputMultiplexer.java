@@ -151,8 +151,8 @@ public class LockableInputMultiplexer implements  InputProcessor {
      * @return
      */
     public boolean keyUp(int keycode) {
-        if(currentUnlockedKeyDownProcessor!=null){
-            return  currentUnlockedKeyUpProcessor.keyDown(keycode);
+        if(currentUnlockedKeyUpProcessor!=null){
+            return  currentUnlockedKeyUpProcessor.keyUp(keycode);
         }
         Object[] items = processors.begin();
         try {
@@ -178,15 +178,15 @@ public class LockableInputMultiplexer implements  InputProcessor {
      * @return
      */
     public boolean keyTyped(char character) {
-        if(currentUnlockedKeyDownProcessor!=null){
-            return  currentUnlockedKeyTypedProcessor.keyDown(character);
+        if(currentUnlockedKeyTypedProcessor!=null){
+            return  currentUnlockedKeyTypedProcessor.keyTyped(character);
         }
         Object[] items = processors.begin();
         try {
             for (int i = 0, n = processors.size; i < n; i++) {
                 InputProcessor inputProcessor = (InputProcessor) items[i];
 
-                if (inputProcessor instanceof LockableInputProcessor && (((LockableInputProcessor) inputProcessor).isKeyInputLocked() || ((LockableInputProcessor) inputProcessor).isKeyInputLocked())) {
+                if (inputProcessor instanceof LockableInputProcessor && (((LockableInputProcessor) inputProcessor).isKeyInputLocked() || ((LockableInputProcessor) inputProcessor).isKeyTypedKeyInputLocked())) {
                     continue;
                 }
                 if (inputProcessor.keyTyped(character)) {
