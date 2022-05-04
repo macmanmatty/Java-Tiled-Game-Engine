@@ -1,15 +1,23 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.MouseInput;
 
+import com.badlogic.gdx.Game;
+import com.jessematty.black.tower.AI.Movement.MoveToLocation;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.BaseLockingInputProcessor;
-import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor {
 
     private ZRPGCharacter player;
+    private GameMap map;
 
-    public PlayerMoveOnClickInputProcessor(ZRPGCharacter player) {
+
+    public PlayerMoveOnClickInputProcessor(ZRPGCharacter player, GameMap map) {
         this.player = player;
+        this.map=map;
     }
 
     @Override
@@ -29,7 +37,8 @@ public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+        LandSquareTile tile= map.screenToTile(screenX, screenY);
+        player.getBrain().addAction(new MoveToLocation(player, tile));
         return true;
     }
 

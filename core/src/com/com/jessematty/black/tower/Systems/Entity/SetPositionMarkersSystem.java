@@ -59,7 +59,7 @@ public class SetPositionMarkersSystem extends GameEntitySystem {// sets the a fl
 
 
             }
-            PositionComponent playerPosition=getDraw().getPlayer().getPosition();
+            PositionComponent playerPosition=getDraw().getPlayer().getPositionComponent();
             double distance= MathUtilities.calculateMinScreenDistance(playerPosition, position);
             float maxScreenSize=Math.max(getDraw().getViewPortWidth(), getDraw().getViewPortHeight())+32;
             if(distance>maxScreenSize){

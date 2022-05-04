@@ -37,7 +37,7 @@ public class CharacterItemFunctions {
     public static  void pickUpItem(ZRPGCharacter zrpgCharacter) {
         Holder[] holder = zrpgCharacter.getHandHolders();
         if (holder[0].getItemToHoldId() == null || holder[1].getItemToHoldId() == null) {
-            PositionComponent position = zrpgCharacter.getPosition();
+            PositionComponent position = zrpgCharacter.getPositionComponent();
             GameMap map = mapDraw.getWorld().getMap(position.getMapId());
             Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), ItemComponent.class);
             PickUpItem pickUpItem = new PickUpItem();
@@ -115,7 +115,7 @@ public class CharacterItemFunctions {
     private void addItemToPack(ZRPGCharacter player, int hand){
         Holder []  holder=player.getHandHolders();
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
-            PositionComponent position = player.getPosition();
+            PositionComponent position = player.getPositionComponent();
             GameMap map = mapDraw.getWorld().getMap(position.getMapId());
             Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), Pack.class);
             AddItemToPackComponent addItemToPackComponent= new AddItemToPackComponent();

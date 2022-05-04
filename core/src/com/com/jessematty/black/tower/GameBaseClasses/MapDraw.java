@@ -26,6 +26,7 @@ import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.Drawing.BoundingBoxRenderer;
 import com.jessematty.black.tower.Systems.Drawing.LightRenderSystem;
+import com.jessematty.black.tower.Systems.Player.ZRPGPlayerSystem;
 import com.jessematty.black.tower.Systems.Sound.PlaySoundSystem;
 import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
 import com.jessematty.black.tower.Systems.UI.UIBarSystem;
@@ -101,7 +102,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         float w = Gdx.graphics.getWidth();
             float h = Gdx.graphics.getHeight();
             if(player !=null){
-                gameCamera.centerCameraToPosition(player.getPosition());
+                gameCamera.centerCameraToPosition(player.getPositionComponent());
             }
         }
     /**
@@ -193,9 +194,6 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
             gameAssets.setSkin(skin);
         }
     }
-    public GameMap getMap() {
-        return currentMap;
-    }
     public ZRPGCharacter getPlayer() {
         return player;
     }
@@ -206,11 +204,12 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     public void setPlayer(ZRPGCharacter player) {
         this.player = player;
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
+        engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
       // DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getCurrentMap().getSkin(),  "windowCompass", this );
        // defaultZRPGBottomWindow.setZrpgPlayer(player);
       // addUIBarWindow(defaultZRPGBottomWindow, Direction.DOWN);
        gameCamera.setEntityToFollow(player.getPlayerEntity());
-        gameCamera.centerCameraToPosition(player.getPosition());
+        gameCamera.centerCameraToPosition(player.getPositionComponent());
         GameAssets.getGameInput().getKeyListener().addInputKeyCombos(new ZRPGPlayerFunctions(player).getPlayerControlFunctions());
     }
 

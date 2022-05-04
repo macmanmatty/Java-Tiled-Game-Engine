@@ -4,7 +4,7 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;public class AICode
 RandomNumbers value= new RandomNumbers();
 GameMap map;
 int xSize;
-int ySize;    private LandSquareTile pickASquare(){ // finds WoodWand new square for the enemy to floatThing to after he has rested or when he is created
+int ySize;    private LandSquareTile pickASquare(){ // finds a new square for the enemy to floatThing to after he has rested or when he is created
         LandSquareTile newTile=null;
         while(newTile==null){
             int xRandom=value.getRandomNumber(0, xSize-1);

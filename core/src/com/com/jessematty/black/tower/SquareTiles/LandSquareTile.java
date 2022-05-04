@@ -127,6 +127,15 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	    Array< Entity> entitiesToReturn= GameComponentMapper.getEntitiesWithComponents(tileComponent.getEntities(), components);
 		return entitiesToReturn;
 	}
+
+	/**
+	 * get all entities with  that match all of the passed in stats and components
+	 * @param numericStats the array of strings that map to  the numeric stat names an entity must have to be returned
+	 * @param stringStats the array of strings that map to  the string stat names an entity must have to be returned
+	 * @param booleanStats the array of strings that map to  the booleanstat names an entity must have to be returned
+	 * @param components the components an entity mus have to be returned
+	 * @return an array  of the matching Entities  who are  present on this tile
+	 */
 	public Array<Entity> getEntities(Array<String> numericStats, Array<String> stringStats, Array<String> booleanStats, Class<? extends Component>... components) {
 		Array< Entity> entitiesToReturn=GameComponentMapper.getEntitiesContainingStats(tileComponent.getEntities(), numericStats, stringStats, booleanStats,  components);
 		return  entitiesToReturn;

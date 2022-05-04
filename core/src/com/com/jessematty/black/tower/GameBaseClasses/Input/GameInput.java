@@ -17,10 +17,6 @@ public class GameInput {
      */
     private final  KeyListener keyListener= new KeyListener(); // the key listner
     private final LockableInputMultiplexer lockableInputMultiplexer= new LockableInputMultiplexer();
-    /**
-     * the currently used input for mouse input
-     */
-    private InputProcessor currentMouseInput;
 
     public GameInput() {
         lockableInputMultiplexer.addProcessor(keyListener);
@@ -41,7 +37,7 @@ public class GameInput {
      * @param inputProcessor the processor to add
      */
     public void addProcessor(InputProcessor inputProcessor){
-        if(!InList.isInList(currentMouseInput, lockableInputMultiplexer.getProcessors())) {
+        if(!InList.isInList(inputProcessor, lockableInputMultiplexer.getProcessors())) {
             lockableInputMultiplexer.addProcessor(inputProcessor);
         }
 
@@ -54,7 +50,7 @@ public class GameInput {
      */
     public void addProcessor(Array< ? extends InputProcessor> inputProcessors){
         for(InputProcessor inputProcessor : inputProcessors) {
-            if(!InList.isInList(currentMouseInput, lockableInputMultiplexer.getProcessors())) {
+            if(!InList.isInList(inputProcessors, lockableInputMultiplexer.getProcessors())) {
                 lockableInputMultiplexer.addProcessor(inputProcessor);
             }
 
@@ -73,7 +69,7 @@ public class GameInput {
     }
 
     public void addProcessor(Stage stage){
-        if(!InList.isInList(currentMouseInput, lockableInputMultiplexer.getProcessors())) {
+        if(!InList.isInList(stage, lockableInputMultiplexer.getProcessors())) {
             lockableInputMultiplexer.addProcessor(stage);
             keyListener.getStages().add(stage);
         }
@@ -86,9 +82,6 @@ public class GameInput {
         this.lockableInputMultiplexer.removeProcessor(inputProcessor);
     }
 
-    public InputProcessor getCurrentMouseInput() {
-        return currentMouseInput;
-    }
 
 }
 

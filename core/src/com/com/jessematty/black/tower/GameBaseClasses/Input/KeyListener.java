@@ -145,7 +145,7 @@ public class KeyListener implements LockableInputProcessor {
      * checks to see if  a TextField is the primary  focus of the keyboard
      * @return true of the actor is  a  TextField false of not
      */
-    private boolean isKeyboardFocusOnTextField(){
+    public boolean isKeyboardFocusOnTextField(){
         int size=stages.size;
         for(int count=0;  count<size; count++){
             Stage stage=stages.get(count);

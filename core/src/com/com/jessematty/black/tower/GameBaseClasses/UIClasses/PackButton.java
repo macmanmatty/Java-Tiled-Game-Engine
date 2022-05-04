@@ -116,7 +116,7 @@ public class PackButton extends TextButton {
                 addListener(new InputListener() {
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						PositionComponent position=player.getPosition();
+						PositionComponent position=player.getPositionComponent();
 
 						Window window=new ObjectInfo(assetts).displayInfo( player,item, new Skin(), "");
                         assetts.getMapDraw().getUiStage().addWindow(window, position.getLocationX(), position.getLocationY());

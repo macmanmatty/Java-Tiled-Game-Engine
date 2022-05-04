@@ -113,7 +113,7 @@ public  class PlaySoundSystem extends GameEntitySystem {
 
     public void setPlayer(ZRPGCharacter player) {
         this.player = player;
-        playerPosition=player.getPosition();
+        playerPosition=player.getPositionComponent();
 
     }
 }

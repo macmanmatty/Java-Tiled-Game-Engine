@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.Systems.Ai.AiSystem;
 import com.jessematty.black.tower.Systems.Owner.AddOwnerSystem;
+import com.jessematty.black.tower.Systems.Player.ZRPGPlayerSystem;
 import com.jessematty.black.tower.Systems.Stats.BooleanStatChangeSystem;
 import com.jessematty.black.tower.Systems.Entity.ChangeBoundsSystem;
 import com.jessematty.black.tower.Systems.Item.ChangeHeldItemBoundsSystem;
@@ -101,6 +104,7 @@ public class EngineSetup {
         AnimationSystem animationSystem =new AnimationSystem(draw, renderSystem, 4);
         engine.addSystem(new SoundSystem(draw, 5));
         engine.addSystem( new PlaySoundSystem(draw, 6));
+        engine.addSystem(new AiSystem(Integer.MAX_VALUE-1, draw));
         engine.addSystem(animationSystem);
        engine.addSystem(new CollisionSystem(draw));
        engine.addSystem(new RemoveEntityFromEngineSystem(draw));
@@ -127,6 +131,9 @@ public class EngineSetup {
        engine.addSystem(new RemoveOwnerSystem(draw));
        engine.addSystem(new SlashSystem(draw));
        engine.addSystem(new ThrustSystem(draw));
+        engine.addSystem( new ZRPGPlayerSystem( draw  ));
+
+
        if(drawBounds){
            engine.addSystem(new BoundingBoxRenderer(shapes));
        }

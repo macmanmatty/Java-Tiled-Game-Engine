@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+import com.jessematty.black.tower.AI.Brain;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
@@ -32,6 +33,7 @@ public class ZRPGCharacter implements Component {
     private  BooleanStats booleanStats;
     private  StringStats stringStats;
     private  OwnerComponent ownerComponent;
+    private Brain brain;
     private   Ears ears;
     private   Nose nose;
     private  Eyes eyes;
@@ -63,6 +65,9 @@ public class ZRPGCharacter implements Component {
     private int handToUse;
     public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
+        AIComponent aiComponent= new AIComponent();
+        this.brain=aiComponent.getBrain();
+        playerEntity.add(aiComponent);
         this.world=world;
         this.movableComponent = playerEntity.getComponent(MovableComponent.class);
         this.position = playerEntity.getComponent(PositionComponent.class);
@@ -102,7 +107,7 @@ public class ZRPGCharacter implements Component {
     public MovableComponent getMovableComponent() {
         return movableComponent;
     }
-    public PositionComponent getPosition() {
+    public PositionComponent getPositionComponent() {
         return position;
     }
     public NumericStats getNumericStats() {
@@ -233,4 +238,9 @@ public class ZRPGCharacter implements Component {
     public void setWorld(World world) {
         this.world = world;
     }
+
+    public Brain getBrain() {
+        return brain;
+    }
+
 }

@@ -217,6 +217,8 @@ public class MapUtilities {
         }
         return newTile;
     }
+
+
     
     
     public static Entity getClosestEntity(Map map, LandSquareTile location, Direction direction, int distance, Class<? extends Component>... components) {

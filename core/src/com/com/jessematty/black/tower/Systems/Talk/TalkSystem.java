@@ -30,11 +30,11 @@ public class TalkSystem extends EventSystem { // talking fighter action that dis
     @Override
     public void act(float deltaTime) {
 
-        String mapId= player.getPosition().getMapId();
+        String mapId= player.getPositionComponent().getMapId();
 
         GameMap map=getWorld().getMap( mapId);
         float voiceDistance=player.getNumericStats().getNumericStats().get("voiceProjection").getFloatValue();
-         Array<Entity> entities= MapUtilities.getClosestEntities(map, player.getPosition(),  voiceDistance, TalkComponent.class );
+         Array<Entity> entities= MapUtilities.getClosestEntities(map, player.getPositionComponent(),  voiceDistance, TalkComponent.class );
         TalkBox talkBox= new TalkBox("Conversation", getDraw().getCurrentMap().getSkin());
         talkBox.setTalkers(entities);
          getDraw().getUiStage().addWindow(talkBox, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
