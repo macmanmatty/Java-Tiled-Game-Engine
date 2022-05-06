@@ -55,7 +55,6 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setLocationY(float locationY) {
         this.locationY = locationY;
         bounds.setPosition(bounds.getX(), this.locationY +boundsYOffset);
-        System.out.println("Position Y Was Set");
     }
     public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
         this.boundsX=x;

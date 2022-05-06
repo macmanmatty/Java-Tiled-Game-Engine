@@ -67,7 +67,7 @@ public class ObjectInfo {
             button.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                   assetts.getMapDraw().getUiStage().addWindow(window, location.getScreenLocationx(), location.getScreenLocationy());
+                   assetts.getMapDraw().getUiStage().addWindow(window, location.getScreenLocationX(), location.getScreenLocationY());
                 }
             });
         }

@@ -68,7 +68,7 @@ public class FlySystem extends GameEntitySystem {
             float screenLocationX = position.getLocationX() + distanceX;
             float screenLocationY = position.getLocationY() + distanceY;
             GameMap  map=getDraw().getWorld().getMap(position.getMapId());
-            if (screenLocationX >= map.getMaxXScreen() - 32 || screenLocationY >= map.getMaxYScreen() - 32 || screenLocationY < 10 || screenLocationX < 10) {
+            if (screenLocationX >= map.getMaxXWorld() - 32 || screenLocationY >= map.getMaxYWorld() - 32 || screenLocationY < 10 || screenLocationX < 10) {
                 return; //  trying to  move out of map bounds bounds exit move function
             }
             movableComponent.setMoved(true);

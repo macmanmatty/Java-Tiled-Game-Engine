@@ -65,7 +65,7 @@ public class MapTools {
         for (int countx = 0; countx < xSize; countx++) {
             for (int county = 0; county < ySize; county++) {
                 if (countx < currentXSize && county < currentYSize) {
-                    tiles[countx][county] = map.getMapSquare(countx, county);
+                    tiles[countx][county] = map.getTile(countx, county);
                 }
             }
         }

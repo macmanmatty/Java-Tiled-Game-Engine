@@ -18,6 +18,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thru
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Item.AddItemToContainerComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Components.Systems.AddSystemsComponent;
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
@@ -212,6 +213,8 @@ public class GameComponentMapper {
     private static ComponentMapper<AddSystemsComponent> addSystemsComponentComponentMapper = ComponentMapper.getFor(AddSystemsComponent.class);
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
     private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
+    private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
+
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
     public GameComponentMapper() {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
@@ -313,7 +316,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(OnCurrentMap.class, onCurrentMapComponentMapper);
         componentComponentMapperMap.put(AddSystemsComponent.class, addSystemsComponentComponentMapper);
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
-        componentComponentMapperMap.put(Brain.class, brainComponentComponentMapper);
+        componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
     }
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentClass);
@@ -424,9 +427,13 @@ public class GameComponentMapper {
      * @return a boolean true if entity has all of the components false if not
      */
     private static boolean hasComponents(Entity entity, Class<? extends Component>... components) {
+        if(entity==null){
+        throw new NullPointerException("Entity Must Not Be Null");
+        }
         int length = components.length;
         for (int count2 = 0; count2 < length; count2++) {
-            if (componentComponentMapperMap.get(components[count2]).get(entity) == null) {
+            ComponentMapper component=componentComponentMapperMap.get(components[count2]);
+            if (component.get(entity) == null) {
                 return false;
             }
         }
@@ -776,5 +783,9 @@ public class GameComponentMapper {
     }
     public static ComponentMapper<Brain> getBrainComponentComponentMapper() {
         return brainComponentComponentMapper;
+    }
+
+    public static ComponentMapper<SolidObject> getSolidObjectComponentMapper() {
+        return solidObjectComponentMapper;
     }
 }

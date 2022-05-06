@@ -9,7 +9,7 @@ int ySize;    private LandSquareTile pickASquare(){ // finds a new square for th
         while(newTile==null){
             int xRandom=value.getRandomNumber(0, xSize-1);
             int yRandom=value.getRandomNumber(0, ySize-1);
-            LandSquareTile moveTile=map.getMapSquare(xRandom, yRandom);
+            LandSquareTile moveTile=map.getTile(xRandom, yRandom);
             boolean enterable=moveTile.isEnterable();
             if (enterable==true){
                 newTile=moveTile;
