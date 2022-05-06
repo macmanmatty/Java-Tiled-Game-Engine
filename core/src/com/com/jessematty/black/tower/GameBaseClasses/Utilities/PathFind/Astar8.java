@@ -108,12 +108,12 @@ public class Astar8 {
         }
     }
     protected boolean isValid (int x, int y) {
-        if(map.getMapSquare(x,y).isEnterable()) {
-            Array<Entity> entityList = map.getMapSquare(x, y).getEntities(SolidObject.class);
-
-            if (entityList.size> 0) {
-                return false;
-            }
+        if(map.getTile(x,y).isEnterable()) {
+//            Array<Entity> entityList = map.getTile(x, y).getEntities(SolidObject.class);
+//
+//            if (entityList.size> 0) {
+//                return false;
+//            }
             return true;
         }
         else{

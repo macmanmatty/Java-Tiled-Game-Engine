@@ -215,17 +215,14 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
 
 
     /**
-     *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y
-     *
-     *
+     *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y in tile units
      * @param x the screen x location in pixels
      * @param y the screen y location  in pixels
-     *
      * @return LandSquareTile  the tile at given screen location
      */
     public LandSquareTile screenToTile(float x, float y){
         Vector3 vec3= gameCamera.unproject(new Vector3(x,y,0));
-        LandSquareTile tile= currentMap.screenToTile(vec3.x, vec3.y);
+        LandSquareTile tile= currentMap.getTileFromTileCoordinates(vec3.x, vec3.y);
         return tile;
     }
     public GameMap getCurrentMap(){

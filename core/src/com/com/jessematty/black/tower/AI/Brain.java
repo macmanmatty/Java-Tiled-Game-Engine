@@ -5,25 +5,25 @@ import com.badlogic.gdx.utils.Array;
 
 public  class Brain implements Component {
 
-    private Array<ZRPGAIAction> zrpgaiActions =new Array<ZRPGAIAction>();
+    private Array<ZRPGAIAction> zrpgAIActions =new Array<ZRPGAIAction>();
 
-    public Array<ZRPGAIAction> getZrpgaiActions() {
-        return zrpgaiActions;
+    public Array<ZRPGAIAction> getZrpgAIActions() {
+        return zrpgAIActions;
     }
 
     public void aiAct(float deltaTime){
-        if(zrpgaiActions.size>0) {
-            zrpgaiActions.get(0).actAI(deltaTime);
+        if(zrpgAIActions.size>0) {
+            zrpgAIActions.get(0).actAI(deltaTime);
 
         }
     }
 
     public void addAction(ZRPGAIAction zrpgaiAction){
-        this.zrpgaiActions.add(zrpgaiAction);
+        this.zrpgAIActions.add(zrpgaiAction);
     }
 
     public void removeAction(ZRPGAIAction zrpgaiAction){
-        this.zrpgaiActions.removeValue(zrpgaiAction, true);
+        this.zrpgAIActions.removeValue(zrpgaiAction, true);
     }
 
 }

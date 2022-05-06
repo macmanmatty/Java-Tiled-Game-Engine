@@ -4,24 +4,24 @@ import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.AI.ZRPGAIAction;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.MoveToSingleTile;
 import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.Systems.Unused.Node;
 
 public class MoveToLocation extends ZRPGAIAction {
-   private LandSquareTile moveTile;
+   private LandSquareTile targetTile;
    private Array<LandSquareTile> placesToMove;
   private GameMap map;
    private  int xSize;
     private int ySize;
     private PositionComponent position;
    private MovableComponent movableComponent;
-    public MoveToLocation(ZRPGCharacter zrpgCharacter) {
+    public MoveToLocation(ZRPGCharacter zrpgCharacter, GameMap map) {
         super(zrpgCharacter);
         this.xSize=map.getXTiles();
         this.ySize=map.getYTiles();
@@ -30,9 +30,9 @@ public class MoveToLocation extends ZRPGAIAction {
         movableComponent=zrpgCharacter.getMovableComponent();
     }
 
-    public MoveToLocation(ZRPGCharacter zrpgCharacter, LandSquareTile moveTile) {
-        super(zrpgCharacter);
-        this.moveTile = moveTile;
+    public MoveToLocation(ZRPGCharacter zrpgCharacter, GameMap map,  LandSquareTile targetTile) {
+        this(zrpgCharacter, map);
+        this.targetTile = targetTile;
     }
 
     /**
@@ -43,39 +43,46 @@ public class MoveToLocation extends ZRPGAIAction {
      * @return
      */
     @Override
-    public int  act(float deltaTime) { //  if path is null it sets it tries  to floatThing the owner to WoodWand given location one tile at actionTurns using the path it finds.
-        LandSquareTile nextTile=placesToMove.get(0);
+    public int  act(float deltaTime) {
+        // no places to move try to find them
         if (placesToMove == null) {
-            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
+            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() , targetTile.getScreenLocationX(), targetTile.getScreenLocationY(),0,0, xSize, ySize);
         }
-        if (placesToMove.size <= 0) {// path is zero stop you are either done or can't get to the tile
+
+        // no place to move to you are either done or can't get to the tile
+        if (placesToMove.size == 0) {
             // stop movable is done moving
-                movableComponent.stop();
+            CharacterMoveFunctions.stop(zrpgCharacter);
             return -1;
-        } else if (nextTile.isEnterable()==false || nextTile.getEntities(SolidObject.class).size>0) { // things can floatThing in the  way of the path  and if they do recalculate the path
-            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getLocationX(), moveTile.getLocationY(),0,0, xSize, ySize);
-            if (placesToMove.size > 0) {
-                calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
-                if (movableComponent.getLocationToMoveTo().equals(nextTile)) {
-                    placesToMove.removeValue(movableComponent.getLocationToMoveTo(), false);
-                }
-            }
-            else{
-                movableComponent.stop();
-                return -1;
-            }
         }
+
+        // get next tile  to move to
+        LandSquareTile nextTile=placesToMove.get(0);
+
+        // if you cant enter the tile or the tile is occupied recalculate the the path
+      if (nextTile.isEnterable()==false ) {
+            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() , targetTile.getLocationX(), targetTile.getLocationY(),0,0, xSize, ySize);
+            // set the move direction
+                calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
+                // get current tile
+                LandSquareTile tile=map.getTile(position.getTileLocationX(), position.getTileLocationY());
+                // you are at the tile  remove it and recalculate
+                if (tile.equals(nextTile)) {
+                    placesToMove.removeValue(nextTile, false);
+                }
+
+      }
         else{
-            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() ,moveTile.getScreenLocationx(), moveTile.getScreenLocationy(),0,0, xSize, ySize);
-            if (placesToMove.size <= 0) {
-                    movableComponent.stop();
-                    return -1;
+
+          calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
+          LandSquareTile tile=map.getTileFromTileCoordinates(position.getLocationX(), position.getLocationY());
+            if(InList.isInList(nextTile, position.getTiles())) {
+                placesToMove.removeValue(nextTile, false);
             }
-            entity.add(new MoveToSingleTile());
-            LandSquareTile tileToMoveTo= movableComponent.getLocationToMoveTo();
-            if(tileToMoveTo.equals(nextTile)) {
-                placesToMove.removeValue(tileToMoveTo, false);
-            }
+      }
+        if(placesToMove.size==0){
+            CharacterMoveFunctions.stop(zrpgCharacter);
+            return -1;
         }
         return placesToMove.size;
         }
@@ -94,10 +101,10 @@ public class MoveToLocation extends ZRPGAIAction {
      * @return
      */
     public Array<LandSquareTile> pathFind(GameMap map,  float screenLocationXStart, float screenLocationYStart, float screenLocationXEnd, float screenLocationYEnd, int xStart, int yStart, int xMax, int yMax) { // calculates  the path finding method using the A* algorithm
-        LandSquareTile tileFrom=map.screenToTile(screenLocationXStart, screenLocationYStart);
+        LandSquareTile tileFrom=map.getTileFromTileCoordinates(screenLocationXStart, screenLocationYStart);
         int fromX=tileFrom.getLocationX();
         int fromY=tileFrom.getLocationY();
-        LandSquareTile tileTo=map.screenToTile(screenLocationXEnd, screenLocationYEnd);
+        LandSquareTile tileTo=map.getTileFromTileCoordinates(screenLocationXEnd, screenLocationYEnd);
         int toY=tileTo.getLocationY();
         int toX=tileTo.getLocationX();
         int width=xMax-xStart;
@@ -108,7 +115,7 @@ public class MoveToLocation extends ZRPGAIAction {
             IntArray paths=star.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
             }
         }
         else {
@@ -116,24 +123,23 @@ public class MoveToLocation extends ZRPGAIAction {
             IntArray paths=star.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
             }
         }
         return tiles;
-    }
-    private LandSquareTile nodeToTile( GameMap map, Node node){ // actionTurns WoodWand node in to land square tile using  the x and y coordinates
-        return map.getMapSquare(node.getxLocation(), node.getyLocation());
     }
 
     /**
      *Takes two tile and determines the direction one would have to travel to get from
      * tile one to tile two then  set the Characters moveable component to that direction;
-     * @param tile the tile you are traveling from
-     * @param tile2 the tile you are you traveling to
      * @return
+     * @param tileX
+     * @param tileY
+     * @param tile2X
+     * @param tile2Y
      */
-    public  void calculateAndSetMoveDirection(int tileX, int tileY, int tile2X, int tile2Y) {
-        int locationXDifference = tileX - tile2X;
+    public void calculateAndSetMoveDirection(int tileX, int tileY, int tile2X, int tile2Y) {
+       int locationXDifference = tileX - tile2X;
         int locationYDifference = tileY - tile2Y;
         if (locationYDifference > 0 && locationXDifference == 0) {
             movableComponent.moveUp();
@@ -152,6 +158,6 @@ public class MoveToLocation extends ZRPGAIAction {
         } else if (locationYDifference > 0 && locationXDifference < 0) {
             movableComponent.moveRightUp();
         } ;
-        return ;
+        return;
     }
 }

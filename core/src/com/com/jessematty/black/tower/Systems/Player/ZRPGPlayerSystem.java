@@ -54,7 +54,6 @@ public class ZRPGPlayerSystem extends GameEntitySystem   {
     public ZRPGPlayerSystem(MapDraw draw) {
         super(draw);
         zrpgActors=new ZRPGActors(draw);
-        GameAssets.getGameInput().getLockableInputMultiplexer().setCurrentMouseProcessor(mouseProcessor);
     }
     @Override
     public void addedToEngine(Engine engine) {
@@ -82,7 +81,8 @@ public class ZRPGPlayerSystem extends GameEntitySystem   {
 
     public void setPlayer(ZRPGCharacter player) {
         this.player = player;
-        mouseProcessor= new PlayerMoveOnClickInputProcessor(player, getDraw().getCurrentMap());
+        mouseProcessor= new PlayerMoveOnClickInputProcessor(player, getDraw());
+        GameAssets.getGameInput().getLockableInputMultiplexer().setCurrentMouseProcessor(mouseProcessor);
 
     }
 }

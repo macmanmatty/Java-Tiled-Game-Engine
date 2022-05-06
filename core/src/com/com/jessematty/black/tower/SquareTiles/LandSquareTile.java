@@ -95,10 +95,10 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	public int getLocationY() {
 		return position.getTileLocationY();
 	}
-	public float getScreenLocationx() {
+	public float getScreenLocationX() {
 		return position.getLocationX();
 	}
-	public float getScreenLocationy() {
+	public float getScreenLocationY() {
 		return position.getLocationY();
 	}
 	public boolean isEnterable() {

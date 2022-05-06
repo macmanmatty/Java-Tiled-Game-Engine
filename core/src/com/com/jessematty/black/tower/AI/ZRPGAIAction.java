@@ -42,10 +42,10 @@ public abstract class ZRPGAIAction {
 
     public void actAI(float deltaTime){
        int place= act(deltaTime);
-        brain.getZrpgaiActions().removeValue(this, false);
-        if(place>-1) {
-            brain.getZrpgaiActions().insert(place, this);
-        }
+       if(place<0) {
+           brain.getZrpgAIActions().removeValue(this, false);
+       }
+
 
     }
 
