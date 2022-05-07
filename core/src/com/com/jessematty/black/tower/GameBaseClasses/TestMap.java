@@ -69,7 +69,7 @@ public class TestMap {
         Entity entity1= lpcActorGenerator.generateObject("/world/worldAssetts.atlas", "tree114", "tree");
         entity1.add(new SolidObject());
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
-        position2.setBounds(200, 500);
+        position2.setBounds(200, 300);
         position2.setHeight(10);
         position2.setLocationX(200);
         position2.setLocationY(200);

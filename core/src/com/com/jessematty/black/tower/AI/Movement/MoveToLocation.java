@@ -55,31 +55,15 @@ public class MoveToLocation extends ZRPGAIAction {
             CharacterMoveFunctions.stop(zrpgCharacter);
             return -1;
         }
-
         // get next tile  to move to
         LandSquareTile nextTile=placesToMove.get(0);
-
         // if you cant enter the tile or the tile is occupied recalculate the the path
-      if (nextTile.isEnterable()==false ) {
-            placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() , targetTile.getLocationX(), targetTile.getLocationY(),0,0, xSize, ySize);
-            // set the move direction
-                calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
-                // get current tile
-                LandSquareTile tile=map.getTile(position.getTileLocationX(), position.getTileLocationY());
-                // you are at the tile  remove it and recalculate
-                if (tile.equals(nextTile)) {
-                    placesToMove.removeValue(nextTile, false);
-                }
-
-      }
-        else{
-
           calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
           LandSquareTile tile=map.getTileFromTileCoordinates(position.getLocationX(), position.getLocationY());
             if(InList.isInList(nextTile, position.getTiles())) {
                 placesToMove.removeValue(nextTile, false);
             }
-      }
+
         if(placesToMove.size==0){
             CharacterMoveFunctions.stop(zrpgCharacter);
             return -1;
@@ -119,7 +103,7 @@ public class MoveToLocation extends ZRPGAIAction {
             }
         }
         else {
-            Astar8 star = new Astar8(width, height, map);
+            Astar8 star = new Astar8(width, height, map, zrpgCharacter.getPlayerEntity());
             IntArray paths=star.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){

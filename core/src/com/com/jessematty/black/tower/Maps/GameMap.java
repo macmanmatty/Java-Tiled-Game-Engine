@@ -327,21 +327,18 @@ public abstract  class GameMap  implements Map {
 	 */
 	public Array<LandSquareTile> getAllTilesAndAddEntity(float xMin, float yMin, float xMax, float yMax, Entity entity){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-		xMin=xMin-10;
-		yMin=yMin-10;
-		yMax=yMax+10;
-		xMax=xMax+10;
+		xMin=xMin;
+		yMin=yMin;
+		yMax=yMax;
+		xMax=xMax;
 		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
 			for (float county = yMin; county < yMax; county = county + tileHeight) {
 				LandSquareTile tile= getTileFromTileCoordinates(countx, county);
-				boolean  canAdd= !InList.isInList(tile, tiles);
 				if(tile==null){
 					continue;
 				}
-				if(canAdd==true){
 					tiles.add(tile);
 					tile.addEntity(entity);
-				}
 			}
 		}
 		return tiles;
@@ -365,10 +362,8 @@ public abstract  class GameMap  implements Map {
 				if(tile==null){
 					continue;
 				}
-				boolean  canAdd= !InList.isInList(tile, tiles);
-				if(canAdd==true){
 					tiles.add(tile);
-				}
+
 			}
 		}
 		return tiles;

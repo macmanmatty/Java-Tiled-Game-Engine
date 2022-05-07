@@ -14,13 +14,15 @@ public class Astar8 {
     int runID;
     private final IntArray path = new IntArray();
     private int targetX, targetY;
-  final private GameMap map ;
-    public Astar8(int width, int height ,GameMap map , MovableComponent movableComponent) {
+    final private GameMap map ;
+    private Entity entity;
+    public Astar8(int width, int height ,GameMap map , Entity entity) {
         this.width = width;
         this.height = height;
         open = new BinaryHeap(width * 4, false);
         nodes = new PathNode[width * height];
         this.map=map;
+        this.entity=entity;
     }
     public Astar8(int width, int height, GameMap map) {
         this.width = width;
@@ -109,11 +111,11 @@ public class Astar8 {
     }
     protected boolean isValid (int x, int y) {
         if(map.getTile(x,y).isEnterable()) {
-//            Array<Entity> entityList = map.getTile(x, y).getEntities(SolidObject.class);
-//
-//            if (entityList.size> 0) {
-//                return false;
-//            }
+            Array<Entity> entityList = map.getTile(x, y).getEntities(SolidObject.class);
+            entityList.removeValue(entity, true);
+            if (entityList.size> 0) {
+                return false;
+            }
             return true;
         }
         else{
