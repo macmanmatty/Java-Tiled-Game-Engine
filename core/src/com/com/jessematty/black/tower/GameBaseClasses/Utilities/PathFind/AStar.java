@@ -4,23 +4,68 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.Components.SolidObject;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.Node;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValid;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValidForEntity;
 import com.jessematty.black.tower.Maps.GameMap;
 /** @author Nathan Sweet */
-public class Astar4 {
+public class AStar {
+    /**
+     * the width and height of the map
+     */
     private final int width, height;
+    /**
+     * heaps of nodes for path finding
+     */
     private final BinaryHeap<PathNode> open;
+    /**
+     * the array of nodes
+     */
     private final PathNode[] nodes;
     int runID;
+    /**
+     * the array of ending points
+     */
     private final IntArray path = new IntArray();
+    /**
+     * the end points x and y coordinates
+     */
     private int targetX, targetY;
-  final private GameMap map;
-  double fighterWidth;
-    public Astar4(int width, int height ,GameMap map ) {
+    /**
+     * the map to path find on
+     */
+    final private GameMap map ;
+    /**
+     * the entity to find a path for
+     * may be null
+     */
+    private Entity entity;
+
+    /**
+     * whether or not path find using diagonals
+     */
+
+    boolean pathFindDiagonals=true;
+
+    /**
+     * functional interface  for calling the isValid(x, y) method to determine if a give tile is valid movement for path finding
+     */
+    private IsValid isValid;
+    public AStar(int width, int height , GameMap map , Entity entity) {
         this.width = width;
         this.height = height;
         open = new BinaryHeap(width * 4, false);
         nodes = new PathNode[width * height];
         this.map=map;
+        this.entity=entity;
+        isValid= new IsValidForEntity(map, entity);
+    }
+    public AStar(int width, int height, GameMap map) {
+        this.width = width;
+        this.height = height;
+        open = new BinaryHeap(width * 4, false);
+        nodes = new PathNode[width * height];
+        this.map = map;
     }
     /** Returns x,y pairs that are the path from the target to the start. */
     public IntArray getPath(int startX, int startY, int targetX, int targetY) {
@@ -31,7 +76,7 @@ public class Astar4 {
         runID++;
         if (runID < 0) runID = 1;
         int index = startY * width + startX;
-       PathNode root = nodes[index];
+        PathNode root = nodes[index];
         if (root == null) {
             root = new PathNode(0);
             root.x = startX;
@@ -56,17 +101,44 @@ public class Astar4 {
             node.closedID = runID;
             int x = node.x;
             int y = node.y;
-            if (x < lastColumn) {
-                addNode(node, x + 1, y, 10);
-            }
-            if (x > 0) {
-                addNode(node, x - 1, y, 10);
-            }
-            if (y < lastRow) addNode(node, x, y + 1, 10);
-            if (y > 0) addNode(node, x, y - 1, 10);
+           if(pathFindDiagonals){
+               addNodeEightDirections(x, y, lastRow, lastColumn, node);
+           }
+
+           else{
+               addNodeFourDirections(x, y, lastRow, lastColumn, node);
+           }
             i++;
         }
         return path;
+    }
+
+    private void  addNodeEightDirections(int x , int y , int lastRow, int lastColumn, PathNode node){
+        if (x < lastColumn) {
+            addNode(node, x + 1, y, 10);
+            if (y < lastRow)
+                addNode(node, x + 1, y + 1, 14); // Diagonals cost more, roughly equivalent to sqrt(2).
+            if (y > 0) addNode(node, x + 1, y - 1, 14);
+        }
+        if (x > 0) {
+            addNode(node, x - 1, y, 10);
+            if (y < lastRow) addNode(node, x - 1, y + 1, 14);
+            if (y > 0) addNode(node, x - 1, y - 1, 14);
+        }
+        if (y < lastRow) addNode(node, x, y + 1, 10);
+        if (y > 0) addNode(node, x, y - 1, 10);
+
+    }
+
+    private void  addNodeFourDirections(int x , int y , int lastRow, int lastColumn, PathNode node){
+        if (x < lastColumn) {
+            addNode(node, x + 1, y, 10);
+        }
+        if (x > 0) {
+            addNode(node, x - 1, y, 10);
+        }
+        if (y < lastRow) addNode(node, x, y + 1, 10);
+        if (y > 0) addNode(node, x, y - 1, 10);
     }
     private void addNode(PathNode parent, int x, int y, int cost) {
         if (!isValid(x, y)) return;
@@ -82,7 +154,7 @@ public class Astar4 {
                 node.pathCost = pathCost;
             }
         } else {
-            // Use node from the cache or createFromJson WoodWand new one.
+            // Use node from the cache or create a new one.
             if (node == null) {
                 node = new PathNode(0);
                 node.x = x;
@@ -96,16 +168,7 @@ public class Astar4 {
         }
     }
     protected boolean isValid (int x, int y) {
-        if(map.getTile(x,y).isEnterable()) {
-            Array<Entity> entityList = map.getTile(x, y).getEntities(SolidObject.class);
-            if (entityList.size > 0) {
-                return false;
-            }
-            return true;
-        }
-        else{
-            return  false;
-        }
+     return isValid.isValid(x, y);
     }
     public int getWidth () {
         return width;
@@ -120,4 +183,22 @@ public class Astar4 {
             super(value);
         }
     }
+
+    public IsValid getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(IsValid isValid) {
+        this.isValid = isValid;
+    }
+
+    public boolean isPathFindDiagonals() {
+        return pathFindDiagonals;
+    }
+
+    public void setPathFindDiagonals(boolean pathFindDiagonals) {
+        this.pathFindDiagonals = pathFindDiagonals;
+    }
+
+
 }

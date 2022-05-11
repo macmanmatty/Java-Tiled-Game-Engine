@@ -6,10 +6,9 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar8;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.AStar;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.SolidObject;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -94,22 +93,15 @@ public class MoveToLocation extends ZRPGAIAction {
         int width=xMax-xStart;
         int height=yMax-yStart;
         Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-        if (movableComponent.isEightDirections()){
-            Astar4 star = new Astar4(width,height,  map);
+
+            AStar star = new AStar(width, height, map, zrpgCharacter.getPlayerEntity());
+            star.setPathFindDiagonals(movableComponent.isEightDirections());
             IntArray paths=star.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
                 tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
             }
-        }
-        else {
-            Astar8 star = new Astar8(width, height, map, zrpgCharacter.getPlayerEntity());
-            IntArray paths=star.getPath(fromX, fromY, toX, toY);
-            int size=paths.size;
-            for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
-            }
-        }
+
         return tiles;
     }
 

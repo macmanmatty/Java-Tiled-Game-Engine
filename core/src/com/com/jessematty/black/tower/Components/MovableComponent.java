@@ -34,7 +34,7 @@ public class MovableComponent implements ActionableComponent {
     /**
      * whether or not movement in 8 directions is possible
      */
-    private boolean eightDirections;
+    private boolean eightDirections=true;
 
     /**
      *
