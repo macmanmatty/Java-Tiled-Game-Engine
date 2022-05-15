@@ -1,47 +1,45 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.jessematty.black.tower.Components.MovableComponent;
+import com.jessematty.black.tower.Components.Stats.BooleanStat;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValid;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.MapSettable;
+import com.jessematty.black.tower.Maps.World;
+import com.jessematty.black.tower.Maps.WorldSettable;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
+import java.util.ArrayList;
 
 /**
  * class that hold basic path finding functions to ne used with a GameMap LandSquareTiles / and  / Or Entities
+ * This class will path find on whatever map set in this class.
  *
  */
-public class PathFinding {
+public class PathFinding  implements WorldSettable {
 
     /**
      * path finding class
      */
    private AStar astar;
-    /**
-     * the Map to path find on
+   /**
+     * the World to path find on
      */
-   private GameMap map;
+    private World world;
 
-    public PathFinding(GameMap map) {
-        this.map = map;
-        astar = new AStar(map.getXTiles(), map.getYTiles(), map);
+
+    public PathFinding(World world) {
+        this.world = world;
     }
+
     public PathFinding() {
     }
 
-    public AStar getAstar() {
-        return astar;
-    }
-    public GameMap getMap() {
-        return map;
-    }
-
-    /**
-     * sets the GameMap and initlizes the path finding objects;
-     * @param map The GameMap to path find on
-     */
-    public void setMap(GameMap map) {
-        this.map = map;
-        astar = new AStar(map.getXTiles(), map.getYTiles(), map);
-    }
 
     /**
      * checks to see if a  clear path exists between two map  LandSquareTiles
@@ -75,6 +73,104 @@ public class PathFinding {
         else{
             return  false;
         }
-
     }
+
+
+    /**
+     *finds a path for a  ZRPGCharacter based his current location
+     * searches the whole map
+     * @param map the map to path find on
+     * @param startX starting point  x coordinate   in world units
+     * @param startY starting point  y  coordinate  in world units
+     * @param endX ending  point  x  coordinate  in world units
+     * @param endY ending  point  y coordinate in world units
+     * @return An Array of LandSquareTiles  the represent  the path to take to get from the start point to the end point
+     */
+    public Array<LandSquareTile> pathFind(ZRPGCharacter zrpgCharacter, GameMap map, float startX, float startY, float endX, float endY) { // calculates  the path finding method using the A* algorithm
+
+        return pathFind(zrpgCharacter, map, startX, startY, endX, endY, 0, 0, map.getXTiles()-1, map.getYTiles()-1);
+    }
+
+    /**
+     *finds a path for a  ZRPGCharacter based his current location
+     * searches specified area based
+     * @param map the map to path find on
+     * @param startX starting point  x coordinate   in world units
+     * @param startY starting point  y  coordinate  in world units
+     * @param endX ending  point  x  coordinate  in world units
+     * @param endY ending  point  y coordinate in world units
+     * @param searchAreaStartX  x starting path find  area  in world units
+     * @param searchAreaStartY y starting path find  area  in world units
+     * @param searchAreaWidth x ending  path find  area  in world units
+     * @param searchAreaHeight y ending path find  area  in world units
+     * @return An Array of LandSquareTiles  the represent  the path to take to get from the start point to the end point
+     */
+    public Array<LandSquareTile> pathFind(ZRPGCharacter zrpgCharacter, GameMap map, float startX, float startY, float endX, float endY, int searchAreaStartX, int searchAreaStartY, int searchAreaWidth, int searchAreaHeight) { // calculates  the path finding method using the A* algorithm
+        LandSquareTile tileFrom=map.getTileFromTileCoordinates(startX, startY);
+        int fromX=tileFrom.getLocationX();
+        int fromY=tileFrom.getLocationY();
+        LandSquareTile tileTo=map.getTileFromTileCoordinates(endX, endY);
+        int toY=tileTo.getLocationY();
+        int toX=tileTo.getLocationX();
+        int width=searchAreaWidth-searchAreaStartX;
+        int height=searchAreaHeight-searchAreaStartY;
+        Array<LandSquareTile> tiles= new Array<LandSquareTile>();
+        Entity entity=zrpgCharacter.getPlayerEntity();
+        AStar star = new AStar(width, height, map, entity);
+        MovableComponent movableComponent= GameComponentMapper.getComponent(MovableComponent.class).get(entity);
+        star.setPathFindDiagonals(movableComponent.isEightDirections());
+        IntArray paths=star.getPath(fromX, fromY, toX, toY);
+        int size=paths.size;
+        for (int count=size-1; count>=0; count=count-2){
+            tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+        }
+
+        return tiles;
+    }
+
+    /**
+     *  finds a Path if there is one between to given LandSquareTiles
+     * @param tileFrom the start finding the path on
+     * @param tileTo the end tile for the path
+     * @param pathFindDiagonals  whether or not to path find using diagonals
+     * @return An Array of LandSquareTiles  the represent  the path to take to get from the start tile to the end tile
+     */
+    public Array<LandSquareTile> pathFind( LandSquareTile tileFrom, LandSquareTile tileTo, boolean pathFindDiagonals) { // calculates  the path finding method using the A* algorithm
+        int fromX=tileFrom.getLocationX();
+        int fromY=tileFrom.getLocationY();
+        String fromMapId=tileFrom.getMapId();
+        int toY=tileTo.getLocationY();
+        int toX=tileTo.getLocationX();
+        String tileToMapId=tileTo.getMapId();
+        Array<LandSquareTile> tiles= new Array<LandSquareTile>();
+            //  return empty array because tiles aren't on the same map so you cant path find.
+        if(!fromMapId.equals(tileToMapId)){
+            return tiles;
+        }
+        GameMap map=world.getMap(tileToMapId);
+           astar.setPathFindDiagonals(pathFindDiagonals);
+            IntArray paths=astar.getPath(fromX, fromY, toX, toY);
+            int size=paths.size;
+            for (int count=size-1; count>=0; count=count-2){
+                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+            }
+
+        return tiles;
+    }
+
+    public AStar getAStar() {
+        return astar;
+    }
+
+    @Override
+    public World getWorld() {
+        return world;
+    }
+
+    @Override
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+
 }

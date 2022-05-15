@@ -34,17 +34,6 @@ public class AStar {
     /**
      * the map to path find on
      */
-    final private GameMap map ;
-    /**
-     * the entity to find a path for
-     * may be null
-     */
-    private Entity entity;
-
-    /**
-     * whether or not path find using diagonals
-     */
-
     boolean pathFindDiagonals=true;
 
     /**
@@ -56,8 +45,7 @@ public class AStar {
         this.height = height;
         open = new BinaryHeap(width * 4, false);
         nodes = new PathNode[width * height];
-        this.map=map;
-        this.entity=entity;
+
         isValid= new IsValidForEntity(map, entity);
     }
     public AStar(int width, int height, GameMap map) {
@@ -65,7 +53,6 @@ public class AStar {
         this.height = height;
         open = new BinaryHeap(width * 4, false);
         nodes = new PathNode[width * height];
-        this.map = map;
     }
     /** Returns x,y pairs that are the path from the target to the start. */
     public IntArray getPath(int startX, int startY, int targetX, int targetY) {
