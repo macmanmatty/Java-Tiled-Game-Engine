@@ -232,12 +232,7 @@ public class ZRPGCharacter implements Component {
     public ImageComponent getImageComponent() {
         return imageComponent;
     }
-    public World getWorld() {
-        return world;
-    }
-    public void setWorld(World world) {
-        this.world = world;
-    }
+
 
     public Brain getBrain() {
         return brain;

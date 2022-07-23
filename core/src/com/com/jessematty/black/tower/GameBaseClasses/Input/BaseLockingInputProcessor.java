@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Input;
 /**
  * base abstract class for  a locking  Input Processor  with  the locking booleans implemented
  */
-public abstract   class BaseLockingInputProcessor implements LockableInputProcessor {
+public  abstract class BaseLockingInputProcessor implements LockableInputProcessor {
 
     protected boolean mouseInputLocked;
     protected boolean keyInputLocked;
@@ -114,6 +114,7 @@ public abstract   class BaseLockingInputProcessor implements LockableInputProces
     public void setKeyDownKeyInputLocked(boolean keyDownKeyInputLocked) {
         this.keyDownKeyInputLocked = keyDownKeyInputLocked;
     }
+
 
 
 }

@@ -137,7 +137,13 @@ public class KeyListener implements LockableInputProcessor {
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
+
     @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
+
+
     public boolean scrolled(int amount) {
         return false;
     }

@@ -77,6 +77,11 @@ public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor
     }
 
     @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
+
+
     public boolean scrolled(int amount) {
         return false;
     }

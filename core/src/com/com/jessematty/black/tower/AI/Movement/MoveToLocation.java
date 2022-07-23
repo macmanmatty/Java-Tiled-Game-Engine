@@ -8,7 +8,6 @@ import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMove
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.AStar;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
