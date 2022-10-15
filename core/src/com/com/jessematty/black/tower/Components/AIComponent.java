@@ -5,7 +5,7 @@ import com.jessematty.black.tower.AI.Brain;
 
 public class AIComponent implements Component {
 
-  private  Brain brain;
+  private Brain brain= new Brain();
 
   public Brain getBrain() {
     return brain;

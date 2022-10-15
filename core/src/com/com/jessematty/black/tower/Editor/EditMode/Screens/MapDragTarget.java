@@ -56,7 +56,7 @@ public class MapDragTarget extends Target {
             if (object instanceof LandSquareTile[][]) {
                 LandSquareTile[][] tilesToPlace= (LandSquareTile[][]) object;
                 if (currentMap != null) {
-                    LandSquareTile tile = currentMap.screenToTile(unprojectedScreenCoordinates.x, unprojectedScreenCoordinates.y);
+                    LandSquareTile tile = currentMap.getTileFromTileCoordinates(unprojectedScreenCoordinates.x, unprojectedScreenCoordinates.y);
                     if (tilesToPlace != null) {
                         placeTiles(tile.getLocationX(), tile.getLocationY(), tilesToPlace);
                     }
@@ -65,7 +65,7 @@ public class MapDragTarget extends Target {
         }
         if(placeMode == PlaceMode.PLACE) {
             if (currentMap != null) {
-                LandSquareTile tile = currentMap.screenToTile(unprojectedScreenCoordinates.x, unprojectedScreenCoordinates.y);
+                LandSquareTile tile = currentMap.getTileFromTileCoordinates(unprojectedScreenCoordinates.x, unprojectedScreenCoordinates.y);
                 Object object=payload.getObject();
                 if (object instanceof Cell [] [] []) {
                     Cell[][][] cellsToPlace  = (Cell [] [] []) object;

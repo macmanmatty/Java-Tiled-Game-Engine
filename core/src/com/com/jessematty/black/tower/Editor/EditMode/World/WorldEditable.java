@@ -1,31 +1,14 @@
 package com.jessematty.black.tower.Editor.EditMode.World;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
-import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
-import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
-import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
-import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
-import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class WorldEditable extends World {

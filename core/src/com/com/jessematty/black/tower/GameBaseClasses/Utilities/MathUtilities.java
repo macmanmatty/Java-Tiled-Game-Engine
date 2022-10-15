@@ -2,6 +2,8 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+
 public class MathUtilities {
     private  MathUtilities() {
     }
@@ -60,4 +62,36 @@ public class MathUtilities {
 
 
     }
+
+    /**
+     * calculates the directional difference between two points  point 1 and point 2
+     * @param point1X
+     * @param point1Y
+     * @param point2X
+     * @param point2Y
+     * @return
+     */
+    public static Direction findDirectionBetweenPoints(int point1X, int point1Y, int point2X, int point2Y){
+    int pointsXDifference = point1X - point2X;
+     int pointsYDifference = point1Y - point2Y;
+    Direction direction=Direction.SAME;
+        if (pointsYDifference > 0 && pointsXDifference == 0) {
+        direction=Direction.UP;
+    } else if (pointsYDifference < 0 && pointsXDifference == 0) {
+        direction=Direction.DOWN;
+    } else if (pointsXDifference < 0 && pointsYDifference == 0) {
+        direction=Direction.RIGHT;
+    } else if (pointsXDifference > 0 && pointsYDifference == 0) {
+        direction=Direction.LEFT;
+    } else if (pointsYDifference < 0 && pointsXDifference > 0) {
+        direction=Direction.LEFTDOWN;
+    } else if (pointsYDifference > 0 && pointsXDifference > 0) {
+        direction=Direction.LEFTUP;
+    } else if (pointsYDifference < 0 && pointsXDifference < 0) {
+        direction=Direction.RIGHTDOWN;
+    } else if (pointsYDifference > 0 && pointsXDifference < 0) {
+        direction=Direction.RIGHTUP;
+    } ;
+        return  direction;
+}
 }

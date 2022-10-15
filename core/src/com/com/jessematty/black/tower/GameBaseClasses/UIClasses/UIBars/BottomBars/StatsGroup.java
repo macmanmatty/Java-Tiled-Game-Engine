@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
@@ -29,15 +29,15 @@ public class StatsGroup extends VerticalGroup {
         this.groupName=groupName;
         
     }
-    public   void update(Skin skin, ZRPGPlayer zrpgPlayer){
+    public   void update(Skin skin, ZRPGCharacter zrpgCharacter){
       clear();
        this.skin = skin;
-       NumericStats numericStats=zrpgPlayer.getNumericStats();
-       BooleanStats booleanStats=zrpgPlayer.getBooleanStats();
-       StringStats stringStats=zrpgPlayer.getStringStats();
-       String name=zrpgPlayer.getNameComponent().getStat();
+       NumericStats numericStats= zrpgCharacter.getNumericStats();
+       BooleanStats booleanStats= zrpgCharacter.getBooleanStats();
+       StringStats stringStats= zrpgCharacter.getStringStats();
+       String name= zrpgCharacter.getNameComponent().getStat();
        Image image=null;
-       ImageComponent imageComponent=zrpgPlayer.getImageComponent();
+       ImageComponent imageComponent= zrpgCharacter.getImageComponent();
        if(imageComponent!=null) {
        image=imageComponent.getImage();
        }
