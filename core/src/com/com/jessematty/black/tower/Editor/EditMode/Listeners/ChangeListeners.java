@@ -10,7 +10,7 @@ import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
 
 /**
- *  clkass that hold array objects that need to be notified  when something changes.
+ *  class that hold array objects that need to be notified  when something changes.
  */
 public class ChangeListeners {
     private final  Array<WorldSettable> worldSettables= new Array<>();

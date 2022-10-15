@@ -107,7 +107,7 @@ public class Astar8MapGenerator {
         }
     }
     protected boolean isValid (int x, int y) {
-        LandSquareTile tile=map.getMapSquare(x,y);
+        LandSquareTile tile=map.getTile(x,y);
         return  flagCheck(tile);
     }
     boolean flagCheck(LandSquareTile location){

@@ -9,7 +9,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Pack;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
@@ -24,7 +24,7 @@ public class DefaultZRPGBottomWindow extends UITable {
    private Entity rightHandItem;
    private ComponentMapper<ActionComponents> actionComponentsComponentMapper;
    private AttackMode attackMode;
-   private ZRPGPlayer zrpgPlayer;
+   private ZRPGCharacter zrpgCharacter;
    private GameComponentMapper gameComponentMapper;
    private MapDraw mapDraw;
 
@@ -51,8 +51,8 @@ public class DefaultZRPGBottomWindow extends UITable {
     }
     public void updateHands(){
 
-        Holder rightHolder=zrpgPlayer.getHandHolders()[1];
-        Holder leftHolder=zrpgPlayer.getHandHolders()[0];
+        Holder rightHolder= zrpgCharacter.getHandHolders()[1];
+        Holder leftHolder= zrpgCharacter.getHandHolders()[0];
         if(rightHolder!=null) {
             String rightHandHeldEntityID = rightHolder.getItemToHoldId();
             Entity rightHeldItem=mapDraw.getWorld().getEntity(rightHandHeldEntityID);
@@ -73,7 +73,7 @@ public class DefaultZRPGBottomWindow extends UITable {
     @Override
     public void act(float delta){
         super.act(delta);
-        attackMode=zrpgPlayer.getAttackMode();
+        attackMode= zrpgCharacter.getAttackMode();
         updateHands();
 
 
@@ -81,17 +81,17 @@ public class DefaultZRPGBottomWindow extends UITable {
     }
 
 
-    public ZRPGPlayer getZrpgPlayer() {
-        return zrpgPlayer;
+    public ZRPGCharacter getZrpgCharacter() {
+        return zrpgCharacter;
     }
 
-    public void setZrpgPlayer(ZRPGPlayer zrpgPlayer) {
-        this.zrpgPlayer = zrpgPlayer;
-        StringStat name=zrpgPlayer.getNameComponent();
+    public void setZrpgCharacter(ZRPGCharacter zrpgCharacter) {
+        this.zrpgCharacter = zrpgCharacter;
+        StringStat name= zrpgCharacter.getNameComponent();
         StringStatGroup stringStatGroup= new StringStatGroup(getSkin(), name);
-        StringStat attackMode=zrpgPlayer.getAttackMode();
+        StringStat attackMode= zrpgCharacter.getAttackMode();
 
-        NumericStats numericStats=zrpgPlayer.getNumericStats();
+        NumericStats numericStats= zrpgCharacter.getNumericStats();
         NumericStatGroup numericStatGroup= new NumericStatGroup(getSkin(), numericStats.getNumericStat("health"), false);
         add(stringStatGroup).pad(7.5f);
         row();
