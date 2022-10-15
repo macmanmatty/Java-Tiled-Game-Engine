@@ -8,7 +8,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Systems.Engine.EventSystem;
+import com.jessematty.black.tower.Systems.EventSystem;
 
 /**
  * system for an inelastic  collision

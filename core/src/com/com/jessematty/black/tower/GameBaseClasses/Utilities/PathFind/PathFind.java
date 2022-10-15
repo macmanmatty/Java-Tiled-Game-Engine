@@ -26,7 +26,7 @@ public class PathFind {
             IntArray paths=star4.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         else {
@@ -35,7 +35,7 @@ public class PathFind {
             IntArray paths=star8.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         return tiles;
@@ -52,7 +52,7 @@ public class PathFind {
             IntArray paths=star4.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         else {
@@ -61,7 +61,7 @@ public class PathFind {
             IntArray paths=star8.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         return tiles;
@@ -81,7 +81,7 @@ public class PathFind {
             IntArray paths=star4.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         else {
@@ -91,7 +91,7 @@ public class PathFind {
             IntArray paths=star8.getPath(fromX, fromY, toX, toY);
             int size=paths.size;
             for (int count=size-1; count>=0; count=count-2){
-                tiles.add(map.getTile(paths.get(count-1), paths.get(count)));
+                tiles.add(map.getMapSquare(paths.get(count-1), paths.get(count)));
             }
         }
         return tiles;

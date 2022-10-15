@@ -30,7 +30,7 @@ public class MoveOnGround {
             movableComponent.setDistanceMoved(distanceX, distanceY, 0);
             float screenLocationX = position.getLocationX() + distanceX;
             float screenLocationY = position.getLocationY() + distanceY;
-            if (screenLocationX >= map.getMaxXWorld() - map.getTileWidth()-10 || screenLocationY >= map.getMaxYWorld() - map.getTileHeight()-10 || screenLocationY < 10 || screenLocationX < 10) {
+            if (screenLocationX >= map.getMaxXScreen() - map.getTileWidth()-10 || screenLocationY >= map.getMaxYScreen() - map.getTileHeight()-10 || screenLocationY < 10 || screenLocationX < 10) {
                 return; //  trying to  move out of map bounds bounds exit move function
             }
             movableComponent.setMoved(true);
@@ -39,9 +39,6 @@ public class MoveOnGround {
             map.removeEntity(position.getTiles(), entity);
             Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
             position.setTiles(newTiles);
-            position.setTileLocationX(newTiles.get(0).getLocationX());
-            position.setTileLocationY(newTiles.get(0).getLocationY());
-
             movableComponent.setVelocity(speedX, speedY, 0);
         }
 }

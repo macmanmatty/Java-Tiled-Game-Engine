@@ -372,7 +372,7 @@ layer.setName("Road");
                 int sizeY=y+length;
             for (int countx = x; countx < sizeX; countx++) {
                 for (int county = y; county < sizeY; county++) {
-                    boolean unchangeable=map.getTile(countx, county).isUnchangeble();
+                    boolean unchangeable=map.getMapSquare(countx, county).isUnchangeble();
                     if(unchangeable==true){
                         return false;
                     }

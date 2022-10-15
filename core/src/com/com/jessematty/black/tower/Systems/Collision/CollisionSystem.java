@@ -18,7 +18,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
-import com.jessematty.black.tower.Systems.Stats.ChangeStats;
+import com.jessematty.black.tower.Systems.ChangeStats;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 

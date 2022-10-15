@@ -1,10 +1,12 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-
+import com.jessematty.black.tower.Components.Item;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 public class EntitySelectButton extends ImageButton {
    Entity entity;

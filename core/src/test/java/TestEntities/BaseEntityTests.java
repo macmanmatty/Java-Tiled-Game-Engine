@@ -15,13 +15,11 @@ public class BaseEntityTests {
   private Entity nonMovable;
   private MapDraw mapDraw;
   private World world;
-  private TestMap testMap= new TestMap();
-
-  @Before
+    @Before
     public void setup() {
-      movable1=  new TestEntity().movable;
-      world= testMap.testWorld;
-      mapDraw=testMap.mapDraw;
+      movable1= TestEntity.movable;
+      world= TestMap.testWorld;
+      mapDraw=TestMap.mapDraw;
     PositionComponent positionComponent=  movable1.getComponent(PositionComponent.class);
     positionComponent.setMapID(mapDraw.getCurrentMap().getId());
     positionComponent.setLocationX(128);
@@ -32,7 +30,7 @@ public class BaseEntityTests {
     world.addEntityToWorld(movable1);
     Engine engine=world.getEngine();
     int size=50*50+1;
-    assertEquals(size, engine.getEntities().size());
+    assertEquals(engine.getEntities().size(), size);
     world.removeEntityFromWorld(movable1);
     assertEquals(engine.getEntities().size(), 50*50);
     }

@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Groups;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -16,7 +16,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChange
 // used for faster component access
 public class BasicEntityContainer {
    private  Entity entity;
-   private EntityId id;
+   private ID id;
    private NumericStats numericStats;
    private BooleanStats booleanStats;
    private StringStats stringStats;
@@ -27,10 +27,10 @@ public class BasicEntityContainer {
    private Groups groups;
    private NameComponent nameComponent;
 
-    public BasicEntityContainer(Entity entity, EntityId entityId, NameComponent nameComponent, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
+    public BasicEntityContainer(Entity entity, ID id, NameComponent nameComponent, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
         this.entity = entity;
         this.nameComponent = nameComponent;
-        this.id = entityId;
+        this.id = id;
         this.numericStats = numericStats;
         this.booleanStats = booleanStats;
         this.stringStats = stringStats;
@@ -48,7 +48,7 @@ public class BasicEntityContainer {
 
 
 
-    public EntityId getId() {
+    public ID getId() {
         return id;
     }
 
