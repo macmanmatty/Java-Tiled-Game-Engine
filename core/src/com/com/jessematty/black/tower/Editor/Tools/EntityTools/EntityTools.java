@@ -10,7 +10,7 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.EditorImageComponent;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.NameComponent;
@@ -197,7 +197,7 @@ public class EntityTools {
     public Entity createNewEntity(boolean isPhysical, boolean hasLocation, boolean moves,  boolean animatable, boolean changesStats,  Image image, String entityName, Component... components){
         Entity entity= new Entity();
         NameComponent nameComponent = new NameComponent(true, entityName);
-        entity.add(new EntityId());
+        entity.add(new ID());
         entity.add(nameComponent);
         entity.add(new BooleanStats());
         entity.add(new StringStats());

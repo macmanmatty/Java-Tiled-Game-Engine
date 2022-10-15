@@ -82,7 +82,7 @@ public class WeaponGeneratorLPC extends LPCActorGeneratorLPC {
         if(numericStatsChangeable !=null){
             weapon.add(numericStatsChangeable);
         }
-        generateItem(weapon);
+        generateItem(weapon, 100);
 
         return weapon;
     }

@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.Components.Pack;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
@@ -53,7 +53,7 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 
 	}
 
-	public Window displayPack(Pack pack, ZRPGCharacter player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
+	public Window displayPack(Pack pack, ZRPGPlayer player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
 		this.pack=pack;
 		this.skin=skin;
 	window= new Window("Pack Contents", skin);
@@ -164,7 +164,7 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 		HorizontalGroup bottomButtons= new HorizontalGroup();
 		bottomButtons.getChildren().add(exit);
 		window.add(bottomButtons);
-		gameAssets.getMapDraw().getUiStage().addWindow(window,player.getPositionComponent().getLocationX()+100, player.getPositionComponent().getLocationY()+100);
+		gameAssets.getMapDraw().getUiStage().addWindow(window,player.getPosition().getLocationX()+100, player.getPosition().getLocationY()+100);
 		return window;
 	}
 

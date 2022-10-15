@@ -10,9 +10,9 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 
 public  final class TestEntity {
 
-   public  Entity movable= new Entity();
-   public    Entity staticWall= new Entity();
-  {
+   public static  Entity movable= new Entity();
+   public  static  Entity staticWall= new Entity();
+   static{
 
        movable.add(new PhysicalObjectComponent());
        movable.add(new PositionComponent());

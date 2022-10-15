@@ -109,7 +109,7 @@ public class ClosableWindow extends Window {
             else{
                 addAction(Actions.removeActor());
                 if(lockableInputMultiplexer!=null){
-                    lockableInputMultiplexer.clearAllCurrentInputProcessors();
+                    lockableInputMultiplexer.unlockAllProcessors();
                 }
             }
         }
@@ -250,12 +250,12 @@ public class ClosableWindow extends Window {
     }
     public void setLockOtherInput(boolean lockOtherInput) {
         if (lockableInputMultiplexer!=null && lockOtherInput==true) {
-            lockableInputMultiplexer.setCurrentMouseProcessor(getStage());
-            lockableInputMultiplexer.setCurrentKeyInputProcessor(getStage());
+            lockableInputMultiplexer.lockAllOtherProcessorKeyInput(getStage());
+            lockableInputMultiplexer.lockAllOtherProcessorMouseInput(getStage());
         }
         else{
             if(lockableInputMultiplexer!=null) {
-                lockableInputMultiplexer.clearAllCurrentInputProcessors();
+                lockableInputMultiplexer.unlockAllProcessors();
             }
         }
     }
@@ -271,7 +271,7 @@ public class ClosableWindow extends Window {
         // actor is set to not visible and is the focused stage actor  unlock all other listeners
         if( getStage()!=null && getStage().getKeyboardFocus().equals(this)) {
             if (visible == false && lockableInputMultiplexer != null) {
-                lockableInputMultiplexer.clearAllCurrentInputProcessors();
+                lockableInputMultiplexer.unlockAllProcessors();
             }
         }
     }
@@ -282,8 +282,8 @@ public class ClosableWindow extends Window {
                         if (lockOtherInputOnStageFocus) {
                             stageFocused = true;
                             if (lockableInputMultiplexer != null) {
-                                lockableInputMultiplexer.setCurrentUnlockedKeyDownProcessor(getStage());
-                                lockableInputMultiplexer.setCurrentMouseProcessor(getStage());
+                                lockableInputMultiplexer.lockAllOtherProcessorMouseInput(getStage());
+                                lockableInputMultiplexer.lockAllOtherProcessorKeyInput(getStage());
                             }
                         }
             }
@@ -291,13 +291,13 @@ public class ClosableWindow extends Window {
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 if (lockOtherInputOnStageFocus==true && stageFocused==true ){
                     stageFocused=false;
-                    lockableInputMultiplexer.clearAllCurrentInputProcessors();
+                    lockableInputMultiplexer.unlockAllProcessors();
                 }
             }
         });
     }
     public  void releaseInputLock(){
-        lockableInputMultiplexer.clearAllCurrentInputProcessors();
+        lockableInputMultiplexer.unlockAllProcessors();
     }
     public boolean isLockOtherInputOnStageFocus() {
         return lockOtherInputOnStageFocus;

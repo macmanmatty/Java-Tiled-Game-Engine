@@ -19,8 +19,8 @@ import java.util.List;
 public class MapUtilities {
     private final static  RandomNumbers value= new RandomNumbers();
     public static void addEntityToTile(GameMap map, LandSquareTile tile, Entity entity, PositionComponent position){
-        float screenLocationX=tile.getScreenLocationX();
-       float screenLocationY= tile.getScreenLocationY();
+        float screenLocationX=tile.getScreenLocationx();
+       float screenLocationY= tile.getScreenLocationy();
         position.setLocationX(screenLocationX);
         position.setLocationY(screenLocationY);
         map.removeEntity(position.getTiles(), entity);
@@ -44,7 +44,7 @@ public class MapUtilities {
        Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     Array<Entity> occupants = tile.getEntities();
@@ -79,7 +79,7 @@ public class MapUtilities {
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     // add the tile entity
@@ -104,7 +104,7 @@ public class MapUtilities {
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.screenToTile(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     Array<Entity> occupants = tile.getEntities(numericStats, stringStats, booleanStats, components);
@@ -217,8 +217,6 @@ public class MapUtilities {
         }
         return newTile;
     }
-
-
     
     
     public static Entity getClosestEntity(Map map, LandSquareTile location, Direction direction, int distance, Class<? extends Component>... components) {
@@ -270,7 +268,7 @@ public class MapUtilities {
         int ySize=map.getYTiles();
         LandSquareTile tile = null;
         while (tile == null) {
-            LandSquareTile tile2 = map.getTile(value.getRandomNumber(3, xSize - 3), value.getRandomNumber(3, ySize - 3));
+            LandSquareTile tile2 = map.getMapSquare(value.getRandomNumber(3, xSize - 3), value.getRandomNumber(3, ySize - 3));
             if (tile2.isEnterable() == true) {
                 tile = tile2;
             }
@@ -296,7 +294,7 @@ public class MapUtilities {
         for (int countx = 0; countx < xTiles; countx++) {
             for (int county = 0; county < yTiles; county++) {
                 if (countx == minTileX || countx == maxTileX || county == maxTileY || county == minTileY) {
-                    LandSquareTile tile = map.getTile(minTileX, minTileY);
+                    LandSquareTile tile = map.getMapSquare(minTileX, minTileY);
                     tiles.add(tile);
                 }
             }
@@ -320,7 +318,7 @@ public class MapUtilities {
         for (int countx = 0; countx < xTiles; countx++) {
             for (int county = 0; county < yTiles; county++) {
                 if (countx == minTileX || countx == maxTileX || county == maxTileY || county == minTileY) {
-                    LandSquareTile tile = map.getTile(minTileX, minTileY);
+                    LandSquareTile tile = map.getMapSquare(minTileX, minTileY);
                     tiles.add(tile);
                 }
             }
@@ -333,7 +331,7 @@ public class MapUtilities {
         int locationy = tile.getLocationY();
         for (int countx = -distance; countx < distance; countx++) {
             for (int county = -distance; county < distance; county++) {
-                LandSquareTile tile2 = map.getTile(locationx + distance, locationy + distance);
+                LandSquareTile tile2 = map.getMapSquare(locationx + distance, locationy + distance);
                 tiles.add(tile2);
             }
         }
@@ -348,21 +346,21 @@ public class MapUtilities {
         int yLocation = tile.getLocationY();
         switch (direction) {
             case UP:
-                return map.getTile(xLocation, yLocation - 1);
+                return map.getMapSquare(xLocation, yLocation - 1);
             case DOWN:
-                return map.getTile(xLocation, yLocation + 1);
+                return map.getMapSquare(xLocation, yLocation + 1);
             case LEFT:
-                return map.getTile(xLocation - 1, yLocation);
+                return map.getMapSquare(xLocation - 1, yLocation);
             case RIGHT:
-                return map.getTile(xLocation + 1, yLocation);
+                return map.getMapSquare(xLocation + 1, yLocation);
             case LEFTUP:
-                return map.getTile(xLocation - 1, yLocation - 1);
+                return map.getMapSquare(xLocation - 1, yLocation - 1);
             case LEFTDOWN:
-                return map.getTile(xLocation - 1, yLocation + 1);
+                return map.getMapSquare(xLocation - 1, yLocation + 1);
             case RIGHTUP:
-                return map.getTile(xLocation + 1, yLocation - 1);
+                return map.getMapSquare(xLocation + 1, yLocation - 1);
             case RIGHTDOWN:
-                return map.getTile(xLocation + 1, yLocation + 1);
+                return map.getMapSquare(xLocation + 1, yLocation + 1);
             case SAME:
                 return tile;
         }
@@ -373,21 +371,21 @@ public class MapUtilities {
         int yLocation = tile.getLocationY();
         switch (direction) {
             case UP:
-                return map.getTile(xLocation, yLocation + distance);
+                return map.getMapSquare(xLocation, yLocation + distance);
             case DOWN:
-                return map.getTile(xLocation, yLocation - distance);
+                return map.getMapSquare(xLocation, yLocation - distance);
             case LEFT:
-                return map.getTile(xLocation + distance, yLocation);
+                return map.getMapSquare(xLocation + distance, yLocation);
             case RIGHT:
-                return map.getTile(xLocation - distance, yLocation);
+                return map.getMapSquare(xLocation - distance, yLocation);
             case LEFTUP:
-                return map.getTile(xLocation + distance, yLocation + distance);
+                return map.getMapSquare(xLocation + distance, yLocation + distance);
             case LEFTDOWN:
-                return map.getTile(xLocation + distance, yLocation - distance);
+                return map.getMapSquare(xLocation + distance, yLocation - distance);
             case RIGHTUP:
-                return map.getTile(xLocation - distance, yLocation + distance);
+                return map.getMapSquare(xLocation - distance, yLocation + distance);
             case RIGHTDOWN:
-                return map.getTile(xLocation - distance, yLocation - distance);
+                return map.getMapSquare(xLocation - distance, yLocation - distance);
             case SAME:
                 return tile;
         }
@@ -400,35 +398,35 @@ public class MapUtilities {
         switch (direction) {
             case UP:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation - count));
                 }
             case DOWN:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation + count));
                 }
             case LEFT:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation));
                 }
             case RIGHT:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation));
                 }
             case LEFTUP:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation - count));
                 }
             case LEFTDOWN:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation + count));
                 }
             case RIGHTUP:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation - count));
                 }
             case RIGHTDOWN:
                 for (int count = 0; count < distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation + count));
                 }
             case SAME:
                 return tiles;
@@ -460,7 +458,7 @@ public class MapUtilities {
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
         int mapYSize=map.getYTiles();
-        return map.getTile((int) Math.ceil(screenLocationX / tileSizeX) - 1, mapYSize - (int) Math.ceil(screenLocationY / tileSizeY));
+        return map.getMapSquare((int) Math.ceil(screenLocationX / tileSizeX) - 1, mapYSize - (int) Math.ceil(screenLocationY / tileSizeY));
     }
    
     
@@ -474,7 +472,7 @@ public class MapUtilities {
     ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
         for (float countx=xMin-10; countx<xMax; countx=countx+tileSizeX) {
             for (float county = yMin-10; county < yMax; county = county + tileSizeY) {
-                LandSquareTile tile=map.getTileFromTileCoordinates(countx, county);
+                LandSquareTile tile=map.screenToTile(countx, county);
                 boolean  canAdd=tileCheck(tile, tiles);
                 if(canAdd==true){
                     tiles.add(tile);
@@ -501,27 +499,27 @@ public class MapUtilities {
         int random=value.getRandomNumber(1,13);
         switch (random) {
             case 1:
-                return map.getTile(xLocation, yLocation - 1);
+                return map.getMapSquare(xLocation, yLocation - 1);
             case 2:
-                return map.getTile(xLocation, yLocation + 1);
+                return map.getMapSquare(xLocation, yLocation + 1);
             case 3:
-                return map.getTile(xLocation - 1, yLocation);
+                return map.getMapSquare(xLocation - 1, yLocation);
             case 4:
-                return map.getTile(xLocation + 1, yLocation);
+                return map.getMapSquare(xLocation + 1, yLocation);
             case 5:
-                return map.getTile(xLocation - 1, yLocation - 1);
+                return map.getMapSquare(xLocation - 1, yLocation - 1);
             case 6:
-                return map.getTile(xLocation - 1, yLocation + 1);
+                return map.getMapSquare(xLocation - 1, yLocation + 1);
             case 7:
-                return map.getTile(xLocation + 1, yLocation - 1);
+                return map.getMapSquare(xLocation + 1, yLocation - 1);
             case 8:
-                return map.getTile(xLocation + 1, yLocation + 1);
+                return map.getMapSquare(xLocation + 1, yLocation + 1);
             case 9:
-                return map.getTile(xLocation + 1, yLocation + 1);
+                return map.getMapSquare(xLocation + 1, yLocation + 1);
             case 10:
-                return map.getTile(xLocation, yLocation + 1);
+                return map.getMapSquare(xLocation, yLocation + 1);
             default:
-                return map.getTile(xLocation, yLocation - 1);
+                return map.getMapSquare(xLocation, yLocation - 1);
         }
     }
     public static Array<LandSquareTile> getAdjacentTiles( Map map, LandSquareTile tile, Direction direction, int distance) { // returns  an array tiles  of  tiles for specified distance going plis one tile to left and right of you in the squence based on the direction you are headed
@@ -531,58 +529,58 @@ public class MapUtilities {
         switch (direction) {
             case UP:
                 for (int count=0; count<distance; count++){
-                    tiles.add(map.getTile(xLocation, yLocation - count)); // addEntity the tiles right int front you x distance ahead
-                    tiles.add(map.getTile(xLocation + count, yLocation - count)); // addEntity the tiles to the left of you x distance ahead
-                    tiles.add(map.getTile(xLocation - count, yLocation-count )); // addthe tiles to the righjt of you x distance ahead
+                    tiles.add(map.getMapSquare(xLocation, yLocation - count)); // addEntity the tiles right int front you x distance ahead
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation - count)); // addEntity the tiles to the left of you x distance ahead
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation-count )); // addthe tiles to the righjt of you x distance ahead
                 }
                 break;
             case DOWN:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation, yLocation + count));
-                    tiles.add(map.getTile(xLocation + count, yLocation + count));
-                    tiles.add(map.getTile(xLocation - count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation + count));
                 }
                 break;
             case LEFT:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation));
-                    tiles.add(map.getTile(xLocation - count, yLocation + count));
-                    tiles.add(map.getTile(xLocation - count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation - count));
                 }
                 break;
             case RIGHT:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation));
-                    tiles.add(map.getTile(xLocation + count, yLocation - count));
-                    tiles.add(map.getTile(xLocation + count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation + count));
                 }
                 break;
             case LEFTUP:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation - count));
-                    tiles.add(map.getTile(xLocation, yLocation - count));
-                    tiles.add(map.getTile(xLocation - count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation));
                 }
                 break;
             case LEFTDOWN:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation - count, yLocation + count));
-                    tiles.add(map.getTile(xLocation, yLocation + count));
-                    tiles.add(map.getTile(xLocation - count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation - count, yLocation));
                 }
                 break;
             case RIGHTUP:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation - count));
-                    tiles.add(map.getTile(xLocation, yLocation - count));
-                    tiles.add(map.getTile(xLocation + count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation - count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation - count));
                 }
                 break;
             case RIGHTDOWN:
                 for (int count=0; count<distance; count++) {
-                    tiles.add(map.getTile(xLocation + count, yLocation + count));
-                    tiles.add(map.getTile(xLocation, yLocation + count));
-                    tiles.add(map.getTile(xLocation + count, yLocation));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation, yLocation + count));
+                    tiles.add(map.getMapSquare(xLocation + count, yLocation));
                 }
                 break;
             case SAME:
@@ -596,44 +594,44 @@ public class MapUtilities {
         LandSquareTile [] tiles = new LandSquareTile [3];
         switch (direction) {
             case UP:
-                tiles [0]=map.getTile(xLocation, yLocation - 1);
-                tiles[1]=map.getTile(xLocation+1, yLocation - 1);
-                tiles[2]=map.getTile(xLocation-1, yLocation - 1);
+                tiles [0]=map.getMapSquare(xLocation, yLocation - 1);
+                tiles[1]=map.getMapSquare(xLocation+1, yLocation - 1);
+                tiles[2]=map.getMapSquare(xLocation-1, yLocation - 1);
                 break;
             case DOWN:
-                tiles [0]=map.getTile(xLocation, yLocation + 1);
-                tiles[1]=map.getTile(xLocation+1, yLocation + 1);
-                tiles[2]=map.getTile(xLocation-1, yLocation + 1);
+                tiles [0]=map.getMapSquare(xLocation, yLocation + 1);
+                tiles[1]=map.getMapSquare(xLocation+1, yLocation + 1);
+                tiles[2]=map.getMapSquare(xLocation-1, yLocation + 1);
                 break;
             case LEFT:
-                tiles [0]=map.getTile(xLocation-1, yLocation );
-                tiles[1]=map.getTile(xLocation-1, yLocation+1  );
-                tiles[2]=map.getTile(xLocation-1, yLocation -1);
+                tiles [0]=map.getMapSquare(xLocation-1, yLocation );
+                tiles[1]=map.getMapSquare(xLocation-1, yLocation+1  );
+                tiles[2]=map.getMapSquare(xLocation-1, yLocation -1);
                 break;
             case RIGHT:
-                tiles [0]=map.getTile(xLocation+1, yLocation  );
-                tiles[1]=map.getTile(xLocation+1, yLocation - 1);
-                tiles[2]=map.getTile(xLocation+1, yLocation + 1);
+                tiles [0]=map.getMapSquare(xLocation+1, yLocation  );
+                tiles[1]=map.getMapSquare(xLocation+1, yLocation - 1);
+                tiles[2]=map.getMapSquare(xLocation+1, yLocation + 1);
                 break;
             case LEFTUP:
-                tiles [0]=map.getTile(xLocation-1, yLocation -1 );
-                tiles[1]=map.getTile(xLocation, yLocation - 1);
-                tiles[2]=map.getTile(xLocation-1, yLocation);
+                tiles [0]=map.getMapSquare(xLocation-1, yLocation -1 );
+                tiles[1]=map.getMapSquare(xLocation, yLocation - 1);
+                tiles[2]=map.getMapSquare(xLocation-1, yLocation);
                 break;
             case LEFTDOWN:
-                tiles [0]=map.getTile(xLocation-1, yLocation + 1);
-                tiles[1]=map.getTile(xLocation, yLocation + 1);
-                tiles[2]=map.getTile(xLocation-1, yLocation);
+                tiles [0]=map.getMapSquare(xLocation-1, yLocation + 1);
+                tiles[1]=map.getMapSquare(xLocation, yLocation + 1);
+                tiles[2]=map.getMapSquare(xLocation-1, yLocation);
                 break;
             case RIGHTUP:
-                tiles [0]=map.getTile(xLocation+1, yLocation - 1);
-                tiles[1]=map.getTile(xLocation, yLocation -1);
-                tiles[2]=map.getTile(xLocation+1, yLocation - 1);
+                tiles [0]=map.getMapSquare(xLocation+1, yLocation - 1);
+                tiles[1]=map.getMapSquare(xLocation, yLocation -1);
+                tiles[2]=map.getMapSquare(xLocation+1, yLocation - 1);
                 break;
             case RIGHTDOWN:
-                tiles [0]=map.getTile(xLocation+1, yLocation + 1);
-                tiles[1]=map.getTile(xLocation, yLocation + 1);
-                tiles[2]=map.getTile(xLocation+1, yLocation);
+                tiles [0]=map.getMapSquare(xLocation+1, yLocation + 1);
+                tiles[1]=map.getMapSquare(xLocation, yLocation + 1);
+                tiles[2]=map.getMapSquare(xLocation+1, yLocation);
                 break;
             case SAME:
                 return tiles;
@@ -653,8 +651,8 @@ public class MapUtilities {
         return new Vector2(xVector, yVector);
     }
     public static void setPositionToTile(LandSquareTile tile , PositionComponent positionComponent){
-        float loactionX=tile.getScreenLocationX();
-        float locationY=tile.getScreenLocationY();
+        float loactionX=tile.getScreenLocationx();
+        float locationY=tile.getScreenLocationy();
         positionComponent.setLocationX(loactionX);
         positionComponent.setLocationY(locationY);
         positionComponent.setMapID(tile.getMapId());
