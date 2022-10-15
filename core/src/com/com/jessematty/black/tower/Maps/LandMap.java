@@ -27,6 +27,33 @@ public class LandMap extends GameMap implements Serializable {
 		}
 	}
 
+	public void setDayLightAmount(double gameTime) {
+		if(gettingBrighter ==true) {
+			if (gameTime % 60 == 0) {
+				dayLightAmount = dayLightAmount - lightChangeAmount;
+				if(dayLightAmount<0){
+					dayLightAmount=0;
+				}
+			}
+		}
+		else {
+			if (gameTime % 60 == 0) {
+				dayLightAmount = dayLightAmount + lightChangeAmount;
+				if(dayLightAmount>1){
+					dayLightAmount=1;
+				}
+			}
+		}
+		if(gameTime%86400==0){
+			if(gettingBrighter ==true){
+				gettingBrighter =false;
+			}
+			else{
+				gettingBrighter =true;
+			}
+		}
+	}
+
 	@Override
 	public void setMapName(String mapName) {
 		gameMapSettings.getSimpleSetting("mapName", String.class);

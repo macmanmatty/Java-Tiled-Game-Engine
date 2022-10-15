@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-public class Hold extends ItemActionComponent{
+import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+
+public class Hold extends ItemActionComponent {
 
 
 }

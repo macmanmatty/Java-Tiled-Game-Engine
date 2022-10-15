@@ -14,7 +14,7 @@ import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.BodyParts.BodyPart;
 import com.jessematty.black.tower.Components.BodyParts.BodyPartSize;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
-import com.jessematty.black.tower.Components.Item;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Slashable;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.NameComponent;
@@ -51,7 +51,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
      private    GameComponentMapper gameComponentMapper;
     protected  int layerNumber=1;
      private int objectlayernumber =2;
-     private ComponentMapper<ID> idComponentMapper;
+     private ComponentMapper<EntityId> idComponentMapper;
     public LPCActorGeneratorLPC(GameAssets assets, World world ) {
         super(assets, world);
         this.assets = assets;
@@ -183,9 +183,8 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         }
         return armor;
     }
-    public Entity generateItem(Entity entity, int price,  com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent... components){
-        Item item= new Item();
-        item.setPrice(price);
+    public Entity generateItem(Entity entity,  com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent... components){
+        ItemComponent item= new ItemComponent();
         entity.add(item);
         ActionComponents actionComponents= new ActionComponents();
         actionComponents.getActionComponents().add(new Throw());
@@ -262,7 +261,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         if(numericStatsChangeable !=null){
             weapon.add(numericStatsChangeable);
         }
-        generateItem(weapon, 100);
+        generateItem(weapon);
         return weapon;
     }
     public  Entity generatePack(String atlasName, String name, String info, NamedColor color, float brightness, float volume, float mass, float length, float width, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
@@ -339,7 +338,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         Body body=ownerBody.getComponent(Body.class);
         com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();
         Entity bodyPart=container.getEntity();
-            String id=bodyPart.getComponent(ID.class).getId();
+            String id=bodyPart.getComponent(EntityId.class).getId();
             OwnerComponent ownerComponent=ownerBody.getComponent(OwnerComponent.class);
             ownerComponent.addEntity(id);
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
@@ -352,7 +351,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         bodyPart.add (new NameComponent(true, name));
         OwnedComponent ownedComponent= new OwnedComponent();
         ownedComponent.setAttached(true);
-        ownedComponent.setOwnerEntityID(ownerBody.getComponent(ID.class).getId());
+        ownedComponent.setOwnerEntityID(ownerBody.getComponent(EntityId.class).getId());
         ownedComponent.setSetEntityActionToOwner(true);
         ownedComponent.setSetEntityPositionToOwner(true);
         bodyPart.add(ownedComponent);
@@ -378,7 +377,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         OwnedComponent ownedComponent= new OwnedComponent();
         ownedComponent.setOwnerEntityID(idComponentMapper.get(owner).getId());
         wings.add(ownedComponent);
-        parts.getBodyParts().put(name,wings.getComponent(ID.class).getId());
+        parts.getBodyParts().put(name,wings.getComponent(EntityId.class).getId());
         wings.add(new BodyPartSize(true,  "wingSize", size));
         DrawableComponent drawableComponent = new DrawableComponent();
         drawableComponent.setLayerNumber(layerNumber);
@@ -422,7 +421,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         horns.add(new BodyPart());
         horns.add (new NameComponent(true, "horns of "+name));
         horns.add(new ActionComponent());
-        parts.getBodyParts().put(name+"Hand",horns.getComponent(ID.class).getId());
+        parts.getBodyParts().put(name+"Hand",horns.getComponent(EntityId.class).getId());
         horns.add(new BodyPartSize(true,  "wingSize", size));
         DrawableComponent drawableComponent = new DrawableComponent();
         drawableComponent.setLayerNumber(layerNumber);

@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Components.ZRPGPlayer;
+import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
@@ -25,11 +25,12 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.Drawing.BoundingBoxRenderer;
-import com.jessematty.black.tower.Systems.LightRenderSystem;
-import com.jessematty.black.tower.Systems.PlaySoundSystem;
+import com.jessematty.black.tower.Systems.Drawing.LightRenderSystem;
+import com.jessematty.black.tower.Systems.Player.ZRPGPlayerSystem;
+import com.jessematty.black.tower.Systems.Sound.PlaySoundSystem;
 import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
-import com.jessematty.black.tower.Systems.UIBarSystem;
-import com.jessematty.black.tower.Systems.ZRPGPlayerSystem;
+import com.jessematty.black.tower.Systems.UI.UIBarSystem;
+
 import java.io.IOException;
 public class MapDraw implements NamedScreen{// class for drawing the currentGameMap and actors plants, fighters, item ECT on to the screen
     protected GameMap currentMap;
@@ -40,7 +41,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     private GameAssets gameAssets;
     private   ShapeRenderer shapeRenderer;
     private  Engine engine;
-    private ZRPGPlayer player;
+    private ZRPGCharacter player;
     private Viewport mapViewport;
     private FrameBufferRenderer frameBufferRenderer;
     private boolean drawEntityDebugBounds;
@@ -101,7 +102,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         float w = Gdx.graphics.getWidth();
             float h = Gdx.graphics.getHeight();
             if(player !=null){
-                gameCamera.centerCameraToPosition(player.getPosition());
+                gameCamera.centerCameraToPosition(player.getPositionComponent());
             }
         }
     /**
@@ -193,40 +194,35 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
             gameAssets.setSkin(skin);
         }
     }
-    public GameMap getMap() {
-        return currentMap;
-    }
-    public ZRPGPlayer getPlayer() {
+    public ZRPGCharacter getPlayer() {
         return player;
     }
     /**
      *   sets the rpg player object and adds the players UI Bars
      * @param player  the player to set to
      */
-    public void setPlayer(ZRPGPlayer player) {
+    public void setPlayer(ZRPGCharacter player) {
         this.player = player;
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
+        engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
       // DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getCurrentMap().getSkin(),  "windowCompass", this );
        // defaultZRPGBottomWindow.setZrpgPlayer(player);
       // addUIBarWindow(defaultZRPGBottomWindow, Direction.DOWN);
        gameCamera.setEntityToFollow(player.getPlayerEntity());
-        gameCamera.centerCameraToPosition(player.getPosition());
-        GameAssets.getGameInput().getKeyListener().addInputKeyCombos(new ZRPGPlayerFunctions(player, this).getPlayerControlFunctions());
+        gameCamera.centerCameraToPosition(player.getPositionComponent());
+        GameAssets.getGameInput().getKeyListener().addInputKeyCombos(new ZRPGPlayerFunctions(player).getPlayerControlFunctions());
     }
 
 
     /**
-     *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y
-     *
-     *
+     *  Method to convert a  x, y screen location to  a land square tile  on the map at map position x, y in tile units
      * @param x the screen x location in pixels
      * @param y the screen y location  in pixels
-     *
      * @return LandSquareTile  the tile at given screen location
      */
     public LandSquareTile screenToTile(float x, float y){
         Vector3 vec3= gameCamera.unproject(new Vector3(x,y,0));
-        LandSquareTile tile= currentMap.screenToTile(vec3.x, vec3.y);
+        LandSquareTile tile= currentMap.getTileFromTileCoordinates(vec3.x, vec3.y);
         return tile;
     }
     public GameMap getCurrentMap(){

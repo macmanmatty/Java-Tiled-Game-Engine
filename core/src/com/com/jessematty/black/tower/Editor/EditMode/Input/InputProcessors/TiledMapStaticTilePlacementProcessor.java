@@ -34,11 +34,8 @@ public class TiledMapStaticTilePlacementProcessor extends MapEditProcessor {
     private ShapeRenderer shapeRenderer;
     private Stage uiStage;
 
-
     public TiledMapStaticTilePlacementProcessor(MapEditScreen mapEditScreen) {
         super(mapEditScreen);
-
-
 
     }
 
@@ -105,11 +102,11 @@ public class TiledMapStaticTilePlacementProcessor extends MapEditProcessor {
     protected void place(Object object, float x, float y) {
 
         if (object instanceof Cell[][][]) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
+            LandSquareTile tile = currentMap.getTileFromTileCoordinates(x, y);
             tiledMapEdit.placeCells(tile.getLocationX(), tile.getLocationY(), (Cell[][][]) object);
         }
         if (object instanceof Cell[][]) {
-            LandSquareTile tile = currentMap.screenToTile(x, y);
+            LandSquareTile tile = currentMap.getTileFromTileCoordinates(x, y);
             tiledMapEdit.placeCell(tile.getLocationX(), tile.getLocationY(), (Cell[][]) object);
         }
 
