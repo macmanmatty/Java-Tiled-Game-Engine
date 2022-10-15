@@ -20,7 +20,7 @@ import com.jessematty.black.tower.Maps.GameMap;
  * class all input processors for editing the game extend
  *
  */
-public  abstract class MapEditProcessor implements LockableInputProcessor {
+public abstract   class MapEditProcessor implements LockableInputProcessor {
     protected boolean mouseInputLocked=true;
     protected boolean keyInputLocked=true;
     protected boolean  touchUpMouseInputLocked;
@@ -118,7 +118,7 @@ public  abstract class MapEditProcessor implements LockableInputProcessor {
     }
 
     @Override
-    public boolean scrolled(int amount) {
+    public boolean scrolled(float amountX, float amountY) {
         return false;
     }
 

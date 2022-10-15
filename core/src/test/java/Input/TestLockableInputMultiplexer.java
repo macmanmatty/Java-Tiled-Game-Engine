@@ -62,7 +62,7 @@ public class TestLockableInputMultiplexer {
         LockableInputMultiplexer lockableInputMultiplexer=new LockableInputMultiplexer();
         lockableInputMultiplexer.addProcessor(scrolledLockedInputProcessor);
         lockableInputMultiplexer.addProcessor(touchDownLockedInputProcessor);
-        lockableInputMultiplexer.scrolled(0);
+        lockableInputMultiplexer.scrolled(0,0);
         assertEquals("", scrolledLockedInputProcessor.getText());
         assertEquals("Scrolled", touchDownLockedInputProcessor.getText());
     }
@@ -90,7 +90,7 @@ public class TestLockableInputMultiplexer {
         lockableInputMultiplexer.addProcessor(allMouseInputLockedInputProcessor);
         lockableInputMultiplexer.addProcessor(touchDownLockedInputProcessor);
         lockableInputMultiplexer.mouseMoved(0, 0);
-        lockableInputMultiplexer.scrolled(0);
+        lockableInputMultiplexer.scrolled(0,0);
         lockableInputMultiplexer.touchUp(0, 0, 0, 0);
         lockableInputMultiplexer.touchDragged(0, 0, 0);
         lockableInputMultiplexer.touchDown(0, 0, 0, 0);
@@ -162,7 +162,7 @@ public class TestLockableInputMultiplexer {
         LockableInputMultiplexer lockableInputMultiplexer=new LockableInputMultiplexer();
         lockableInputMultiplexer.addProcessor(touchDraggedLockedInputProcessor);
         lockableInputMultiplexer.setCurrentUnlockedScrolledMouseProcessor(touchUpLockedInputProcessor);
-        lockableInputMultiplexer.scrolled(0);
+        lockableInputMultiplexer.scrolled(0, 0);
         assertEquals("", touchDraggedLockedInputProcessor.getText());
         assertEquals("Scrolled", touchUpLockedInputProcessor.getText());
     }

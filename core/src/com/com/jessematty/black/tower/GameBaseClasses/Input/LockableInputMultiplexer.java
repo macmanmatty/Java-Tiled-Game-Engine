@@ -330,17 +330,20 @@ public class LockableInputMultiplexer implements  InputProcessor {
         return false;
     }
 
+
     /**
      * calls the scrolled method on all input processors in the array that aren't locked
      * unless a the currentUnlockedScrolledMouseProcessor is set
      * then acts on only on the currentUnlockedScrolledMouseProcessor
-     * @param amount the amount scrolled
+     * @param amountX the amount scrolled in the x direction
+     * @param amountY the amount scrolled in the y direction
      * @return
      */
-    public boolean scrolled(int amount) {
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
         Object[] items = processors.begin();
         if(currentUnlockedScrolledMouseProcessor!=null){
-           return currentUnlockedScrolledMouseProcessor.scrolled(amount);
+           return currentUnlockedScrolledMouseProcessor.scrolled(amountX,amountY);
         }
         try {
             for (int i = 0, n = processors.size; i < n; i++) {
@@ -348,7 +351,7 @@ public class LockableInputMultiplexer implements  InputProcessor {
                 if (inputProcessor instanceof LockableInputProcessor && (((LockableInputProcessor) inputProcessor).isMouseInputLocked() || ((LockableInputProcessor) inputProcessor).isScrolledMouseInputLocked())) {
                     continue;
                 }
-                if (inputProcessor.scrolled(amount)) {
+                if (inputProcessor.scrolled(amountX, amountY)) {
                     return true;
                 }
             }
