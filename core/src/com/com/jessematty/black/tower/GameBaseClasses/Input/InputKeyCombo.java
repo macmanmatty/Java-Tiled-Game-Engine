@@ -18,7 +18,7 @@ public class InputKeyCombo implements Nameable {
      *     Key.KEY_UP  will fire the KeyAction if any of the keys in the key pressed array are pressed up 
      *     Key.KEY_DOWN will fire  the  KeyAction if all of the keys in the array are pressed down
      *     Key.KEY_PRESSED will fire the KeyAction at the set rate  for the duration  the keys  are held down
-     *     Key.Key_Typed will fire when  a key is typed
+     *     Key.Key_Typed will fire when key is typed
      */
     private KeyPressMode [] keyPressModes= new KeyPressMode[]{KeyPressMode.KEY_DOWN};
     /**
