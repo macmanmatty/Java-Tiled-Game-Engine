@@ -27,8 +27,6 @@ public class LockingInputStage extends Stage {
     // adds an actor to the stage  and removes all other input processors
     public  void addLockingActor(Actor actor){
         super.addActor(actor);
-        lockableInputMultiplexer.lockAllOtherProcessorKeyInput(this);
-        lockableInputMultiplexer.lockAllOtherProcessorMouseInput(this);
 
 
     }

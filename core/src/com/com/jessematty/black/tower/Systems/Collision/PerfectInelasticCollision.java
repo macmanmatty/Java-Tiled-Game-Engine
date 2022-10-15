@@ -10,7 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Systems.EventSystem;
+import com.jessematty.black.tower.Systems.Engine.EventSystem;
 
 public class PerfectInelasticCollision extends EventSystem {
     private MovableComponent movableComponent1;

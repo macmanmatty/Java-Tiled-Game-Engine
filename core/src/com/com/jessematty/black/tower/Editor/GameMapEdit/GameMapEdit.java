@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.Editor.GameMapEdit;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
@@ -20,12 +19,12 @@ public class GameMapEdit {
         this.gameAssets = gameAssets;
     }
     public void fill(int locationX, int locationY, LandSquareTile fillTile) {
-    LandSquareTile landSquareTile = currentMap.getMapSquare(locationX, locationY);
+    LandSquareTile landSquareTile = currentMap.getTile(locationX, locationY);
     String  type = landSquareTile.getComponent(StringStats.class).getStringStat("type").getStat();
     fillCell(locationX, locationY, fillTile, type);
 }
     public void fillCell(int locationX, int locationY, LandSquareTile fillTile, String type) {
-        LandSquareTile landSquareTile = currentMap.getMapSquare(locationX, locationY);
+        LandSquareTile landSquareTile = currentMap.getTile(locationX, locationY);
         String  currentTileType = landSquareTile.getComponent(StringStats.class).getStringStat("type").getStat();
         if (currentTileType.equalsIgnoreCase(type)) {
             currentMap.getMap()[locationX][locationY]=fillTile;

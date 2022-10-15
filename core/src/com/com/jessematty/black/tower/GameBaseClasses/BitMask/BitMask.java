@@ -434,7 +434,7 @@ public class BitMask {
                     bitMap[countx+1][county+1]=true;
                     continue;
                 }
-                LandSquareTile tile2 = map.getMapSquare(x, y);
+                LandSquareTile tile2 = map.getTile(x, y);
                   Array<Entity> things = tile2.getEntities(components);
                   int size=things.size;
                     if (size>0) {

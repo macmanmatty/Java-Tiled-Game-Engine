@@ -1,22 +1,24 @@
 package com.jessematty.black.tower.GameBaseClasses.Engine;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.AI.Brain;
 import com.jessematty.black.tower.Components.AIComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Ingest;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.PickUp;
+import com.jessematty.black.tower.Components.Item.PickUpItem;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.SpellCast;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Talk;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.AddItemToContainerComponent;
+import com.jessematty.black.tower.Components.Item.AddItemToContainerComponent;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Components.Systems.AddSystemsComponent;
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
@@ -39,7 +41,6 @@ import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.ErrorComponent;
 import com.jessematty.black.tower.Components.Eyes;
 import com.jessematty.black.tower.Components.Groups;
-import com.jessematty.black.tower.Components.Item;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -66,7 +67,7 @@ import com.jessematty.black.tower.Components.Glow;
 import com.jessematty.black.tower.Components.Growable;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.ID;
+import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.Ingestable;
@@ -105,10 +106,11 @@ import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.Weapon;
 import com.jessematty.black.tower.Maps.World;
-
 import java.util.HashMap;
 import java.util.Map;
-//  class that contains all of the component mappers for all of the components in the game
+/** class that contains all of the component mappers for all of the components in the game
+ * 
+ */
 public class GameComponentMapper {
     private static ComponentMapper<AddedToEngine> addedToEngineComponentMapper = ComponentMapper.getFor(AddedToEngine.class);
     private static ComponentMapper<DrawableComponent> drawableComponentMapper = ComponentMapper.getFor(DrawableComponent.class);
@@ -140,7 +142,7 @@ public class GameComponentMapper {
     private static ComponentMapper<VisibleOnScreen> visibleOnScreenComponentMapper = ComponentMapper.getFor(VisibleOnScreen.class);
     private static ComponentMapper<TileWeatherNumericStatsChangable> tileNumericStatsChangableComponentMapper = ComponentMapper.getFor(TileWeatherNumericStatsChangable.class);
     private static ComponentMapper<ImageComponent> imageComponentMapper = ComponentMapper.getFor(ImageComponent.class);
-    private static ComponentMapper<ID> idComponentMapper = ComponentMapper.getFor(ID.class);
+    private static ComponentMapper<EntityId> idComponentMapper = ComponentMapper.getFor(EntityId.class);
     private static ComponentMapper<Glow> glowComponentMapper = ComponentMapper.getFor(Glow.class);
     private static ComponentMapper<NumericStatsSelfChangable> numericStatsSelfChangableComponentMapper = ComponentMapper.getFor(NumericStatsSelfChangable.class);
     private static ComponentMapper<ChangeImageOnStatsValueChanges> changeImageOnStatsValueChangesComponentMapper = ComponentMapper.getFor(ChangeImageOnStatsValueChanges.class);
@@ -163,7 +165,7 @@ public class GameComponentMapper {
     private static ComponentMapper<NumericStatsChangeComponent> numericStatChangeComponentMapper = ComponentMapper.getFor(NumericStatsChangeComponent.class);
     private static ComponentMapper<BooleanStatsChangeComponent> booleanStatChangeComponentComponentMapper = ComponentMapper.getFor(BooleanStatsChangeComponent.class);
     private static ComponentMapper<StringStatsChangeComponent> stringStatChangeComponentComponentMapper = ComponentMapper.getFor(StringStatsChangeComponent.class);
-    private static ComponentMapper<Item> itemComponentMapper = ComponentMapper.getFor(Item.class);
+    private static ComponentMapper<ItemComponent> itemComponentMapper = ComponentMapper.getFor(ItemComponent.class);
     private static ComponentMapper<TimeChangingStats> timeChangingNumericStatsComponentMapper = ComponentMapper.getFor(TimeChangingStats.class);
     private static ComponentMapper<Dying> dyingComponentMapper = ComponentMapper.getFor(Dying.class);
     private static ComponentMapper<TalkComponent> talkComponentComponentMapper = ComponentMapper.getFor(TalkComponent.class);
@@ -192,7 +194,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Target> targetComponentMapper = ComponentMapper.getFor(Target.class);
     private static ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper = ComponentMapper.getFor(CreateEntityOnAction.class);
     private static ComponentMapper<CreateEntity> createEntityComponentMapper = ComponentMapper.getFor(CreateEntity.class);
-    private static ComponentMapper<PickUp> pickUpComponentMapper = ComponentMapper.getFor(PickUp.class);
+    private static ComponentMapper<PickUpItem> pickUpComponentMapper = ComponentMapper.getFor(PickUpItem.class);
     private static ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper = ComponentMapper.getFor(EditorImageComponent.class);
     private static ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnTime.class);
     private static ComponentMapper<CreateEntitiesOnNumericStatChange> createEntitiesOnNumericStatChangeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnNumericStatChange.class);
@@ -210,9 +212,10 @@ public class GameComponentMapper {
     private static ComponentMapper<OnCurrentMap> onCurrentMapComponentMapper = ComponentMapper.getFor(OnCurrentMap.class);
     private static ComponentMapper<AddSystemsComponent> addSystemsComponentComponentMapper = ComponentMapper.getFor(AddSystemsComponent.class);
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
+    private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
+    private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
-
     public GameComponentMapper() {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
         componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
@@ -244,7 +247,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(VisibleOnScreen.class, visibleOnScreenComponentMapper);
         componentComponentMapperMap.put(TileWeatherNumericStatsChangable.class, tileNumericStatsChangableComponentMapper);
         componentComponentMapperMap.put(Glow.class, glowComponentMapper);
-        componentComponentMapperMap.put(ID.class, idComponentMapper);
+        componentComponentMapperMap.put(EntityId.class, idComponentMapper);
         componentComponentMapperMap.put(NumericStatsSelfChangable.class, numericStatsChangableComponentMapper);
         componentComponentMapperMap.put(ChangeImageOnStatsValueChanges.class, changeImageOnStatsValueChangesComponentMapper);
         componentComponentMapperMap.put(StringStatChanged.class, stringStatChangedComponentMapper);
@@ -266,7 +269,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NumericStatsChangeComponent.class, numericStatChangeComponentMapper);
         componentComponentMapperMap.put(BooleanStatsChangeComponent.class, booleanStatChangeComponentComponentMapper);
         componentComponentMapperMap.put(StringStatsChangeComponent.class, stringStatChangeComponentComponentMapper);
-        componentComponentMapperMap.put(Item.class, itemComponentMapper);
+        componentComponentMapperMap.put(ItemComponent.class, itemComponentMapper);
         componentComponentMapperMap.put(TimeChangingStats.class, timeChangingNumericStatsComponentMapper);
         componentComponentMapperMap.put(Dying.class, dyingComponentMapper);
         componentComponentMapperMap.put(TalkComponent.class, talkComponentComponentMapper);
@@ -295,7 +298,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Target.class, targetComponentMapper);
         componentComponentMapperMap.put(CreateEntityOnAction.class, entityCreateableComponentMapper);
         componentComponentMapperMap.put(CreateEntity.class, createEntityComponentMapper);
-        componentComponentMapperMap.put(PickUp.class, pickUpComponentMapper);
+        componentComponentMapperMap.put(PickUpItem.class, pickUpComponentMapper);
         componentComponentMapperMap.put(EditorImageComponent.class, equipItemComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnTime.class, createEntitiesOnTimeComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnNumericStatChange.class, createEntitiesOnNumericStatChangeComponentMapper);
@@ -313,43 +316,28 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(OnCurrentMap.class, onCurrentMapComponentMapper);
         componentComponentMapperMap.put(AddSystemsComponent.class, addSystemsComponentComponentMapper);
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
-
-
+        componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
     }
-
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
-
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentClass);
-
         componentComponentMapperMap.put(componentClass, componentMapper);
-
     }
-
     public static <T extends Component> ComponentMapper<T> getComponent(Class<T> componentClass) {
-
         return componentComponentMapperMap.get(componentClass);
     }
-
-
     public static <T extends Component> Array<T> getComponentsFromEntitiesWithComponents(Array<Entity> entities, Class<T> componentsClass) {
         Array<T> componentsToReturn = new Array<T>();
         int size = entities.size;
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentsClass);
-
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
             T component = componentMapper.get(entity);
-
             if (component != null) {
                 componentsToReturn.add(component);
             }
-
-
         }
         return componentsToReturn;
     }
-
-
     public static Array<Entity> getEntitiesWithComponents(Array<Entity> entities, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
         int size = entities.size;
@@ -361,13 +349,10 @@ public class GameComponentMapper {
                 if (hasComponents == true) {
                     entitiesToReturn.add(entity);
                 }
-
-
             }
         }
         return entitiesToReturn;
     }
-
     public static Array<Entity> getEntitiesWithComponentsById(World world, Array<String> entityIDs, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
         int size = entityIDs.size;
@@ -379,17 +364,13 @@ public class GameComponentMapper {
                 if (hasComponents == true) {
                     entitiesToReturn.add(entity);
                 }
-
-
             }
         }
         return entitiesToReturn;
     }
-
     public static Array<Entity> getEntitiesContainingStats(Array<Entity> entities, Array<String> numericStatNames, Array<String> booleanStatNames, Array<String> stringStatNames, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
         int size = entities.size;
-
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
             boolean hasNumericStats = true;
@@ -399,15 +380,11 @@ public class GameComponentMapper {
                     hasNumericStats = hasNumericStats(numericStats, numericStatNames);
                 } else {
                     hasNumericStats = false;
-
                 }
-
             }
             if (hasNumericStats == false) {
                 continue;
             }
-
-
             boolean hasBooleanStats = true;
             if (booleanStatNames != null) {
                 BooleanStats booleanStats = booleanStatsComponentMapper.get(entity);
@@ -415,16 +392,11 @@ public class GameComponentMapper {
                     hasBooleanStats = hasBooleanStats(booleanStats, booleanStatNames);
                 } else {
                     hasBooleanStats = false;
-
                 }
             }
-
             if (hasBooleanStats == false) {
-
                 continue;
             }
-
-
             boolean hasStringStats = true;
             if (stringStatNames != null) {
                 StringStats stringStats = stringStatsComponentMapper.get(entity);
@@ -432,62 +404,57 @@ public class GameComponentMapper {
                     hasStringStats = hasStringStats(stringStats, stringStatNames);
                 } else {
                     hasStringStats = false;
-
                 }
-
             }
             if (hasStringStats == false) {
-
                 continue;
             }
             boolean hasComponents = true;
-
             if (components.length > 0) {
-
                 hasComponents = hasComponents(entity, components);
-
-
             }
             if (hasBooleanStats == true && hasComponents == true && hasNumericStats == true && hasStringStats == true) {
                 entitiesToReturn.add(entity);
-
             }
-
         }
         return entitiesToReturn;
     }
 
+    /**
+     *  check to see if  an entity has  has all of the passed in components
+     * @param entity the entity to check for
+     * @param components the array of components
+     * @return a boolean true if entity has all of the components false if not
+     */
     private static boolean hasComponents(Entity entity, Class<? extends Component>... components) {
+        if(entity==null){
+        throw new NullPointerException("Entity Must Not Be Null");
+        }
         int length = components.length;
         for (int count2 = 0; count2 < length; count2++) {
-            if (componentComponentMapperMap.get(components[count2]).get(entity) == null) {
+            ComponentMapper component=componentComponentMapperMap.get(components[count2]);
+            if (component.get(entity) == null) {
                 return false;
             }
         }
-
         return true;
     }
-
-
+    /**
+     *  check to see if  an entity has  has all of given numeric stats
+     * @param stats the entities stats
+     * @param numericStatNames the names of the stats to check
+     * @return a boolean true if entity has all of the components false if not
+     */
     private static boolean hasNumericStats(NumericStats stats, Array<String> numericStatNames) {
-
         int size = numericStatNames.size;
         for (int count = 0; count < size; count++) {
-
             NumericStat stat = stats.getNumericStat(numericStatNames.get(count));
             if (stat == null) {
-
                 return false;
             }
-
-
         }
-
-
         return true;
-
     }
-
     private static boolean hasBooleanStats(BooleanStats stats, Array<String> booleanStatNames) {
         int size = booleanStatNames.size;
         for (int count = 0; count < size; count++) {
@@ -498,7 +465,6 @@ public class GameComponentMapper {
         }
         return true;
     }
-
     private static boolean hasStringStats(StringStats stats, Array<String> stringStatNames) {
         int size = stringStatNames.size;
         for (int count = 0; count < size; count++) {
@@ -509,422 +475,317 @@ public class GameComponentMapper {
         }
         return true;
     }
-
     public static ComponentMapper<AddedToEngine> getAddedToEngineComponentMapper() {
         return addedToEngineComponentMapper;
     }
-
     public static ComponentMapper<DrawableComponent> getDrawableComponentMapper() {
         return drawableComponentMapper;
     }
-
     public static ComponentMapper<AnimatableComponent> getAnimatableComponentMapper() {
         return animatableComponentMapper;
     }
-
     public static ComponentMapper<ActionComponent> getActionComponentMapper() {
         return actionComponentMapper;
     }
-
     public static ComponentMapper<PositionComponent> getPositionComponentMapper() {
         return positionComponentMapper;
     }
-
     public static ComponentMapper<BitMaskable> getBitMaskableComponentMapper() {
         return bitMaskableComponentMapper;
     }
-
     public static ComponentMapper<MovableComponent> getMovableComponentMapper() {
         return movableComponentMapper;
     }
-
     public static ComponentMapper<PhysicalObjectComponent> getPhysicalObjectComponentMapper() {
         return physicalObjectComponentMapper;
     }
-
     public static ComponentMapper<Light> getLightComponentMapper() {
         return lightComponentMapper;
     }
-
     public static ComponentMapper<Tile> getTileComponentMapper() {
         return tileComponentMapper;
     }
-
     public static ComponentMapper<Holder> getHolderComponentMapper() {
         return holderComponentMapper;
     }
-
     public static ComponentMapper<NameComponent> getNameComponentMapper() {
         return nameComponentMapper;
     }
-
     public static ComponentMapper<Growable> getGrowableComponentMapper() {
         return growableComponentMapper;
     }
-
     public static ComponentMapper<NumericStats> getNumericStatsComponentMapper() {
         return numericStatsComponentMapper;
     }
-
     public static ComponentMapper<StringStats> getStringStatsComponentMapper() {
         return stringStatsComponentMapper;
     }
-
     public static ComponentMapper<BooleanStats> getBooleanStatsComponentMapper() {
         return booleanStatsComponentMapper;
     }
-
     public static ComponentMapper<NumericStatsChangeable> getNumericStatsChangableComponentMapper() {
         return numericStatsChangableComponentMapper;
     }
-
     public static ComponentMapper<StringStatsChangeable> getStringStatsChangableComponentMapper() {
         return stringStatsChangableComponentMapper;
     }
-
     public static ComponentMapper<BooleanStatsChangeable> getBooleanStatsChangableComponentMapper() {
         return booleanStatsChangableComponentMapper;
     }
-
     public static ComponentMapper<ImageComponent> getImageComponentMapper() {
         return imageComponentMapper;
     }
-
     public static ComponentMapper<Breather> getBreatherComponentMapper() {
         return breatherComponentMapper;
     }
-
     public static ComponentMapper<Holdable> getHoldableComponentMapper() {
         return holdableComponentMapper;
     }
-
-
     public static ComponentMapper<TileWeatherNumericStatsChangable> getTileWeatherNumericStatsChangableComponentMapper() {
         return tileNumericStatsChangableComponentMapper;
     }
-
     public static ComponentMapper<Slashable> getSlashComponentMapper() {
         return slashComponentMapper;
     }
-
     public static ComponentMapper<Thrustable> getThrustComponentMapper() {
         return thrustComponentMapper;
     }
-
     public static ComponentMapper<Shootable> getShootComponentMapper() {
         return shootComponentMapper;
     }
-
     public static ComponentMapper<Armor> getArmorComponentMapper() {
         return armorComponentMapper;
     }
-
     public static ComponentMapper<Weapon> getWeaponComponentMapper() {
         return weaponComponentMapper;
     }
-
     public static Map<Class<? extends Component>, ComponentMapper> getComponentComponentMapperMap() {
         return componentComponentMapperMap;
     }
-
-
     public static ComponentMapper<VisibleOnScreen> getVisibleOnScreenComponentMapper() {
         return visibleOnScreenComponentMapper;
     }
-
-
     public static ComponentMapper<TileWeatherNumericStatsChangable> getTileNumericStatsChangableComponentMapper() {
         return tileNumericStatsChangableComponentMapper;
     }
-
-    public static ComponentMapper<ID> getIdComponentMapper() {
+    public static ComponentMapper<EntityId> getIdComponentMapper() {
         return idComponentMapper;
     }
-
     public static ComponentMapper<Glow> getGlowComponentMapper() {
         return glowComponentMapper;
     }
-
     public static ComponentMapper<NumericStatsSelfChangable> getNumericStatsSelfChangableComponentMapper() {
         return numericStatsSelfChangableComponentMapper;
     }
-
     public static ComponentMapper<ChangeImageOnStatsValueChanges> getChangeImageOnStatsValueChangesComponentMapper() {
         return changeImageOnStatsValueChangesComponentMapper;
     }
-
     public static ComponentMapper<NumericStatChanged> getNumericStatChangedComponentMapper() {
         return numericStatChangedComponentMapper;
     }
-
     public static ComponentMapper<BooleanStatChanged> getBooleanStatChangedComponentMapper() {
         return booleanStatChangedComponentMapper;
     }
-
     public static ComponentMapper<StringStatChanged> getStringStatChangedComponentMapper() {
         return stringStatChangedComponentMapper;
     }
-
     public static ComponentMapper<StatChanged> getStatChangedComponentMapper() {
         return statChangedComponentMapper;
     }
-
     public static ComponentMapper<ActionComponents> getActionComponentsComponentMapper() {
         return actionComponentsComponentMapper;
     }
-
     public static ComponentMapper<Info> getInfoComponentMapper() {
         return infoComponentMapper;
     }
-
     public static ComponentMapper<Ingestable> getIngestableComponentMapper() {
         return ingestableComponentMapper;
     }
-
     public static ComponentMapper<Ingest> getIngestingComponentMapper() {
         return ingestingComponentMapper;
     }
-
     public static ComponentMapper<Slashable> getSlashableComponentMapper() {
         return slashableComponentMapper;
     }
-
     public static ComponentMapper<Slash> getSlashingComponentMapper() {
         return slashingComponentMapper;
     }
-
     public static ComponentMapper<Thrust> getThrustingComponentMapper() {
         return thrustingComponentMapper;
     }
-
     public static ComponentMapper<Thrustable> getThrustableComponentMapper() {
         return thrustableComponentMapper;
     }
-
     public static ComponentMapper<Shoot> getShootingComponentMapper() {
         return shootingComponentMapper;
     }
-
     public static ComponentMapper<Shootable> getShootableComponentMapper() {
         return shootableComponentMapper;
     }
-
     public static ComponentMapper<SpellCastable> getSpellCastableComponentMapper() {
         return spellCastableComponentMapper;
     }
-
     public static ComponentMapper<SpellCast> getSpellCastingComponentMapper() {
         return spellCastingComponentMapper;
     }
-
     public static ComponentMapper<NumericStatsChangeComponent> getNumericStatChangeComponentMapper() {
         return numericStatChangeComponentMapper;
     }
-
     public static ComponentMapper<BooleanStatsChangeComponent> getBooleanStatChangeComponentComponentMapper() {
         return booleanStatChangeComponentComponentMapper;
     }
-
     public static ComponentMapper<StringStatsChangeComponent> getStringStatChangeComponentComponentMapper() {
         return stringStatChangeComponentComponentMapper;
     }
-
-    public static ComponentMapper<Item> getItemComponentMapper() {
+    public static ComponentMapper<ItemComponent> getItemComponentMapper() {
         return itemComponentMapper;
     }
-
     public static ComponentMapper<TimeChangingStats> getTimeChangingNumericStatsComponentMapper() {
         return timeChangingNumericStatsComponentMapper;
     }
-
     public static ComponentMapper<TalkComponent> getTalkComponentComponentMapper() {
         return talkComponentComponentMapper;
     }
-
     public static ComponentMapper<Attachable> getAttachableComponentMapper() {
         return attachableComponentMapper;
     }
-
     public static ComponentMapper<Launchable> getThrowComponentMapper() {
         return throwComponentMapper;
     }
-
     public static ComponentMapper<AIComponent> getAiComponentMapper() {
         return aiComponentMapper;
     }
-
     public static ComponentMapper<Talk> getTalkingComponentMapper() {
         return talkingComponentMapper;
     }
-
     public static ComponentMapper<Dying> getDyingComponentMapper() {
         return dyingComponentMapper;
     }
-
-
     public static ComponentMapper<AddItemToContainerComponent> getAddItemToContainerComponentComponentMapper() {
         return addItemToContainerComponentComponentMapper;
     }
-
     public static ComponentMapper<RemoveItemFromContainerComponent> getRemoveItemFromContainerComponentComponentMapper() {
         return removeItemFromContainerComponentComponentMapper;
     }
-
     public static ComponentMapper<Container> getContainerComponentMapper() {
         return containerComponentMapper;
     }
-
     public static ComponentMapper<AddOwnerComponent> getAddOwnerComponentComponentMapper() {
         return addOwnerComponentComponentMapper;
     }
-
     public static ComponentMapper<OwnerComponent> getOwnerComponentComponentMapper() {
         return ownerComponentComponentMapper;
     }
-
     public static ComponentMapper<OwnedComponent> getOwnedComponentComponentMapper() {
         return ownedComponentComponentMapper;
     }
-
     public static ComponentMapper<RemoveOwnerComponent> getRemoveOwnerComponentComponentMapper() {
         return removeOwnerComponentComponentMapper;
     }
-
     public static ComponentMapper<ErrorComponent> getErrorComponentComponentMapper() {
         return errorComponentComponentMapper;
     }
-
     public static ComponentMapper<EquipItem> getEquipItemComponentMapper() {
         return equipItemComponentMapper;
     }
-
     public static ComponentMapper<UnEquipItem> getUnEquipItemComponentMapperr() {
         return unEquipItemComponentMapperr;
     }
-
     public static ComponentMapper<Throwable> getThrowableComponentMapper() {
         return throwableComponentMapper;
     }
-
     public static ComponentMapper<Readable> getReadableComponentMapper() {
         return readableComponentMapper;
     }
-
     public static ComponentMapper<Loadable> getLoadableComponentMapper() {
         return loadableComponentMapper;
     }
-
-
     public static ComponentMapper<SoundComponent> getSoundComponentComponentMapper() {
         return soundComponentComponentMapper;
     }
-
     public static ComponentMapper<Groups> getGroupsComponentMapper() {
         return groupsComponentMapper;
     }
-
     public static ComponentMapper<Pack> getPackComponentMapper() {
         return packComponentMapper;
     }
-
     public static ComponentMapper<Explodable> getBlastableComponentMapper() {
         return blastableComponentMapper;
     }
-
     public static ComponentMapper<Root> getRootComponentMapper() {
         return rootComponentMapper;
     }
-
     public static ComponentMapper<AddComponent> getAddComponentComponentMapper() {
         return addComponentComponentMapper;
     }
-
     public static ComponentMapper<Target> getTargetComponentMapper() {
         return targetComponentMapper;
     }
-
     public static ComponentMapper<CreateEntityOnAction> getEntityCreateableComponentMapper() {
         return entityCreateableComponentMapper;
     }
-
     public static ComponentMapper<CreateEntity> getCreateEntityComponentMapper() {
         return createEntityComponentMapper;
     }
-
-    public static ComponentMapper<PickUp> getPickUpComponentMapper() {
+    public static ComponentMapper<PickUpItem> getPickUpComponentMapper() {
         return pickUpComponentMapper;
     }
-
-
     public static ComponentMapper<EditorImageComponent> getEditorImageComponentComponentMapper() {
         return editorImageComponentComponentMapper;
     }
-
     public static ComponentMapper<CreateEntitiesOnTime> getCreateEntitiesOnTimeComponentMapper() {
         return createEntitiesOnTimeComponentMapper;
     }
-
     public static ComponentMapper<CreateEntitiesOnNumericStatChange> getCreateEntitiesOnNumericStatChangeComponentMapper() {
         return createEntitiesOnNumericStatChangeComponentMapper;
     }
-
     public static ComponentMapper<CreateEntitiesOnBooleanStatChange> getCreateEntitiesOnBooleanStatChangeComponentMapper() {
         return createEntitiesOnBooleanStatChangeComponentMapper;
     }
-
     public static ComponentMapper<Eyes> getEyesComponentMapper() {
         return eyesComponentMapper;
     }
-
     public static ComponentMapper<Ears> getEarsComponentMapper() {
         return earsComponentMapper;
     }
-
     public static ComponentMapper<AttachedComponent> getAttachedComponentComponentMapper() {
         return attachedComponentComponentMapper;
     }
-
     public static ComponentMapper<HoldItem> getHoldItemComponentMapper() {
         return holdItemComponentMapper;
     }
-
     public static ComponentMapper<UnHoldItem> getUnholdItemComponentMapper() {
         return unholdItemComponentMapper;
     }
-
     public static ComponentMapper<BoundsChangeable> getBoundsChangeableComponentMapper() {
         return boundsChangeableComponentMapper;
     }
-
     public static ComponentMapper<OnEnterTileComponent> getOnEnterTileComponentComponentMapper() {
         return onEnterTileComponentComponentMapper;
     }
-
     public static ComponentMapper<OnExitTileComponent> getOnExitTileComponentComponentMapper() {
         return onExitTileComponentComponentMapper;
     }
-
     public static ComponentMapper<NotAddedToEngine> getNotAddedToEngineComponentMapper() {
         return notAddedToEngineComponentMapper;
     }
-
-
     public static ComponentMapper<RandomlyCreateAndPlaceEntity> getRandomlyCreateAndPlaceEntityComponentMapper() {
         return randomlyCreateAndPlaceEntityComponentMapper;
     }
-
     public static ComponentMapper<OnCurrentMap> getOnCurrentMapComponentMapper() {
         return onCurrentMapComponentMapper;
     }
-
     public static ComponentMapper<AddSystemsComponent> getAddSystemsComponentComponentMapper() {
         return addSystemsComponentComponentMapper;
     }
-
     public static ComponentMapper<RemoveSystemsComponent> getRemoveSystemsComponentComponentMapper() {
         return removeSystemsComponentComponentMapper;
     }
+    public static ComponentMapper<Brain> getBrainComponentComponentMapper() {
+        return brainComponentComponentMapper;
+    }
+
+    public static ComponentMapper<SolidObject> getSolidObjectComponentMapper() {
+        return solidObjectComponentMapper;
+    }
 }
-
-
-
