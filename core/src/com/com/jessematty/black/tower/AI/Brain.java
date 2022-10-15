@@ -1,29 +1,43 @@
 package com.jessematty.black.tower.AI;
 
-import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionMarkerComponent;
+import com.jessematty.black.tower.Maps.GameMap;
 
-public  class Brain implements Component {
+import java.util.LinkedList;
+import java.util.Queue;
 
-    private Array<ZRPGAIAction> zrpgAIActions =new Array<ZRPGAIAction>();
+public abstract class Brain {
 
-    public Array<ZRPGAIAction> getZrpgAIActions() {
-        return zrpgAIActions;
+    private Queue<ActionMarkerComponent> actionMarkerComponents=new LinkedList<ActionMarkerComponent>();
+
+    public ActionMarkerComponent getNextAction(){
+        return actionMarkerComponents.remove();
+
+
+    }
+    public void  addNewAction( ActionMarkerComponent actionMarkerComponent){
+        actionMarkerComponents.add(actionMarkerComponent);
+
+
+
     }
 
-    public void aiAct(float deltaTime){
-        if(zrpgAIActions.size>0) {
-            zrpgAIActions.get(0).actAI(deltaTime);
 
-        }
+    public Queue<ActionMarkerComponent> getActionMarkerComponents() {
+        return actionMarkerComponents;
     }
 
-    public void addAction(ZRPGAIAction zrpgaiAction){
-        this.zrpgAIActions.add(zrpgaiAction);
-    }
 
-    public void removeAction(ZRPGAIAction zrpgaiAction){
-        this.zrpgAIActions.removeValue(zrpgaiAction, true);
-    }
+
+    public abstract  void act(GameMap map);
+    public abstract  void see(Array<Entity> entities);
+    public abstract  void hear(Array<Entity> entities);
+
+
+
+
+
 
 }

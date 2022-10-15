@@ -68,12 +68,6 @@ public  class Building extends GameMap  {
 		super.mapTurnActions(deltaTime, gameTime);
 		//castShadow(gameTime);
 	}
-
-	@Override
-	public void setDayLightAmount(double gameTime) {
-
-	}
-
 	public int getXTiles() {
 		return xTiles;
 	}

@@ -5,7 +5,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.SolidObject;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
@@ -67,9 +66,8 @@ public class TestMap {
         world.addEntityToWorld(entityBag);
 
         Entity entity1= lpcActorGenerator.generateObject("/world/worldAssetts.atlas", "tree114", "tree");
-        entity1.add(new SolidObject());
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
-        position2.setBounds(200, 300);
+        position2.setBounds(200, 500);
         position2.setHeight(10);
         position2.setLocationX(200);
         position2.setLocationY(200);
@@ -97,7 +95,7 @@ public class TestMap {
 
         //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
         for(int count = 0; count<map2.getXTiles(); count++){
-            LandSquareTile landSquareTile= map2.getTile(count, 10);
+            LandSquareTile landSquareTile= map2.getMapSquare(count, 10);
             PhysicalObjectComponent physicalObjectComponent=new PhysicalObjectComponent();
             physicalObjectComponent.setMass(Float.MAX_VALUE);
             physicalObjectComponent.setVolume(100);

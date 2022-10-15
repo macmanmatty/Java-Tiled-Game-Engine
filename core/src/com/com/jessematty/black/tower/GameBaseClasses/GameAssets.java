@@ -20,9 +20,10 @@ import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPGPlayer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.ObjectMapSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.OrderedMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.AtlasStaticTileMapTileKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
@@ -35,6 +36,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.Land
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.BuildingKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.MapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.WorldKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldReader;
@@ -440,7 +442,7 @@ public class GameAssets implements Disposable {
         this.mapDraw= new MapDraw( this, true);
         mapDraw.setWorld(world);
         mapDraw.showCurrentWorld();
-        mapDraw.setPlayer(new ZRPGCharacter(world, world.getPlayer()));
+        mapDraw.setPlayer(new ZRPGPlayer(world, world.getPlayer()));
     }
     public void showGame(){
         game.setScreen(mapDraw);

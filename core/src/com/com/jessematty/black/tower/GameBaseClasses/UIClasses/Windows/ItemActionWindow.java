@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

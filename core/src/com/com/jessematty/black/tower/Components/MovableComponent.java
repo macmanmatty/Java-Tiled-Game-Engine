@@ -34,7 +34,7 @@ public class MovableComponent implements ActionableComponent {
     /**
      * whether or not movement in 8 directions is possible
      */
-    private boolean eightDirections=true;
+    private boolean eightDirections;
 
     /**
      *
@@ -55,11 +55,6 @@ public class MovableComponent implements ActionableComponent {
     public void setMoveAngle(float moveAngle) {
         this.moveAngle = moveAngle;
     }
-
-    /**
-     * functions to set the move angle in radians
-     * to a direction
-     */
     public void moveUp() { // moves owner up
         moveAngle = 0;
     }
@@ -67,22 +62,22 @@ public class MovableComponent implements ActionableComponent {
         moveAngle = (float) Math.PI;
     }
     public void moveRight() { //
-        moveAngle =  1.5708f;
+        moveAngle = (float) 1.5708;
     }
     public void moveLeft() {
-        moveAngle =  4.71239f;
+        moveAngle = (float) 4.71239;
     }
     public void moveLeftUp() { //
-        moveAngle =  5.5065138f;
+        moveAngle = (float) 5.5065138;
     }
     public void moveLeftDown() { //
-        moveAngle = 3.9357175f;
+        moveAngle = (float) 3.9357175;
     }
     public void moveRightUp() { //
-        moveAngle =  0.7941248f;
+        moveAngle = (float) 0.7941248;
     }
     public void moveRightDown() {
-        moveAngle = 2.3649211f;
+        moveAngle = (float) 2.3649211;
     }
     public void stop(){
         currentSpeed =0;

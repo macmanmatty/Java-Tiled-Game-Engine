@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.ID;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -18,7 +18,7 @@ public class LPCObjectGenerator {
     private GameComponentMapper gameComponentMapper;
     protected  int layerNumber=1;
     private int objectlayerNumber=2;
-    private ComponentMapper<EntityId> idComponentMapper;
+    private ComponentMapper<ID> idComponentMapper;
 
     public LPCObjectGenerator(GameAssets assetts, World world) {
         this.assets = assetts;
