@@ -8,7 +8,6 @@ import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMove
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.AStar;
 import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Astar4;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -71,23 +70,23 @@ public class MoveToLocation extends ZRPGAIAction {
         }
 
     /**
-     *
-     * @param map
-     * @param screenLocationXStart
-     * @param screenLocationYStart
-     * @param screenLocationXEnd
-     * @param screenLocationYEnd
+     *method for finding the path from tile  a to tile b  calculates the path with  the path finding method using the A* algorithm
+     * @param map the game map
+     * @param worldLocationX the x  start point   in  wold units
+     * @param worldLocationY the y world   point   in  wold units
+     * @param worldLocationXEnd the x world  end point    in  wold units
+     * @param worldLocationYEnd the y world  end point    in  wold units
      * @param xStart
      * @param yStart
      * @param xMax
      * @param yMax
      * @return
      */
-    public Array<LandSquareTile> pathFind(GameMap map,  float screenLocationXStart, float screenLocationYStart, float screenLocationXEnd, float screenLocationYEnd, int xStart, int yStart, int xMax, int yMax) { // calculates  the path finding method using the A* algorithm
-        LandSquareTile tileFrom=map.getTileFromTileCoordinates(screenLocationXStart, screenLocationYStart);
+    public Array<LandSquareTile> pathFind(GameMap map,  float worldLocationX, float worldLocationY, float worldLocationXEnd, float worldLocationYEnd, int xStart, int yStart, int xMax, int yMax) {
+        LandSquareTile tileFrom=map.getTileFromTileCoordinates(worldLocationX, worldLocationY);
         int fromX=tileFrom.getLocationX();
         int fromY=tileFrom.getLocationY();
-        LandSquareTile tileTo=map.getTileFromTileCoordinates(screenLocationXEnd, screenLocationYEnd);
+        LandSquareTile tileTo=map.getTileFromTileCoordinates(worldLocationXEnd, worldLocationYEnd);
         int toY=tileTo.getLocationY();
         int toX=tileTo.getLocationX();
         int width=xMax-xStart;
@@ -107,7 +106,7 @@ public class MoveToLocation extends ZRPGAIAction {
 
     /**
      *Takes two tile and determines the direction one would have to travel to get from
-     * tile one to tile two then  set the Characters moveable component to that direction;
+     * tile one to tile two then  set the Characters movable component to that direction;
      * @return
      * @param tileX
      * @param tileY
