@@ -4,10 +4,14 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 
 /**
  * class that holds all InputKeyCombos related to player actions
@@ -16,8 +20,10 @@ import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 public class ZRPGPlayerFunctions {
     private ZRPGCharacter player;
     private final  Array<InputKeyCombo> playerControlFunctions= new Array<>();
-    public ZRPGPlayerFunctions(ZRPGCharacter player) {
+    private final MapDraw mapDraw;
+    public ZRPGPlayerFunctions(MapDraw draw , ZRPGCharacter player) {
         this.player = player;
+        this.mapDraw=draw;
         DualActionKeyInputCombo moveRightCombo= new DualActionKeyInputCombo( stop, moveRight, "Move Player Right", Keys.RIGHT);
         playerControlFunctions.addAll(  moveRightCombo.getInputKeyCombos());
         DualActionKeyInputCombo moveLeftCombo= new DualActionKeyInputCombo( stop, moveLeft, "Move Player Left", Keys.LEFT);
@@ -39,8 +45,17 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(increaseSpeedCombo);
         InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
         playerControlFunctions.add(decreaseSpeedCombo);
+        InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        playerControlFunctions.add(displayPackWindow);
 
     }
+    private   KeyAction displayPack= new KeyAction() {
+        @Override
+        public void act() {
+            GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
+            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(), "OK", "Are You Ok?", "Click Me!!!"), ScreenPosition.CENTER);
+        }
+    };
   private   KeyAction stop= new KeyAction() {
         @Override
         public void act() {
