@@ -82,7 +82,7 @@ public class ZRPGPlayerSystem extends GameEntitySystem   {
     public void setPlayer(ZRPGCharacter player) {
         this.player = player;
         mouseProcessor= new PlayerMoveOnClickInputProcessor(player, getDraw());
-        GameAssets.getGameInput().getLockableInputMultiplexer().setCurrentMouseProcessor(mouseProcessor);
+        GameAssets.getGameInput().getLockableInputMultiplexer().addProcessor(mouseProcessor);
 
     }
 }
