@@ -53,7 +53,8 @@ public abstract  class GameMap  implements Map {
 	/**
 	 * the libGDX Skin the map will use for it's UI
 	 */
-	protected transient Skin skin; // UI skin  for landSquareTileMap
+	protected transient Skin skin;
+
 	/**
 	 * the Entities currently on the map NOT including the map of tiles
 	 * note entities do not have to have  a x, y location to be present on the map
