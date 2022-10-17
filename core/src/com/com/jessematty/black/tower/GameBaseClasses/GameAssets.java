@@ -62,6 +62,11 @@ public class GameAssets implements Disposable {
      *  the current loaded skin
      */
     private Skin skin;
+
+    /**
+     * The Style Used By the libGDX skin
+     */
+    String skinStyle="Brick";
     /**
      * libGDX assetManager  @see AssetManager
      */
@@ -483,5 +488,13 @@ public class GameAssets implements Disposable {
 
     public void setCurrentTextureAtlas(TextureAtlas currentTextureAtlas) {
         this.currentTextureAtlas = currentTextureAtlas;
+    }
+
+    public String getSkinStyle() {
+        return skinStyle;
+    }
+
+    public void setSkinStyle(String skinStyle) {
+        this.skinStyle = skinStyle;
     }
 }
