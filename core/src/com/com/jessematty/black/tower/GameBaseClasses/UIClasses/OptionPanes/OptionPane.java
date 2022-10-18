@@ -21,7 +21,6 @@ public class OptionPane extends Dialog{
 	 * class for various option pane like dialogs used to display text  or give choices
 	 */
 	private int count;
-	private boolean lockInput;
 
 	/**
 	 *  Option Pane With A  Single Button the closes the pane upon clicking it
@@ -39,9 +38,7 @@ public class OptionPane extends Dialog{
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					hide();
-				GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
-
+				closePane();
 				return true;
 			}
 
@@ -51,6 +48,8 @@ public class OptionPane extends Dialog{
 		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		setSize(getPrefWidth(), getPrefHeight());
 	}
+
+
 	/**
 	 *  Option Pane With An image and a   Single Button the closes the pane upon clicking it
 	 * @param skin the libGDX skin to be used wth option pane
@@ -67,8 +66,7 @@ public class OptionPane extends Dialog{
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
-				hide();
+				closePane();
 				return true;
 			}
 		});
@@ -97,9 +95,9 @@ public class OptionPane extends Dialog{
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
-				hide();
+
 				optionPaneAction.act();
+				closePane();
 				return true;
 			}
 		});
@@ -134,17 +132,15 @@ public class OptionPane extends Dialog{
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
 				optionPaneAction.act();
-				hide();
+				closePane();
 				return true;
 			}
 		});
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
-				hide();
+				closePane();
 				return true;
 			}
 		});
@@ -174,8 +170,7 @@ public class OptionPane extends Dialog{
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						actions.get(count).act();
-						GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
-						hide();
+					closePane();
 						return true;
 					}
 				});
@@ -186,11 +181,13 @@ public class OptionPane extends Dialog{
 
 		}
 
-	public boolean isLockInput() {
-		return lockInput;
+	/**
+	 * method to close the option pane hides the window and unlocks the input processors
+	 */
+	private void closePane(){
+		hide();
+		GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
+
 	}
 
-	public void setLockInput(boolean lockInput) {
-		this.lockInput = lockInput;
-	}
 }
