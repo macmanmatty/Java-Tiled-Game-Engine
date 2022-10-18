@@ -53,7 +53,7 @@ public class ZRPGPlayerFunctions {
         @Override
         public void act() {
             GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
-            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(), "OK", "Are You Ok?", "Click Me!!!"), ScreenPosition.CENTER);
+            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(), "OK", "Are You Ok?", "Click Me!!!", "Brick"), ScreenPosition.CENTER);
         }
     };
   private   KeyAction stop= new KeyAction() {

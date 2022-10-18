@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -29,11 +31,11 @@ public class OptionPane extends Dialog{
 	 * @param buttonText the buttons text
 	 */
 	
-	public OptionPane(Skin skin, String title, String text, String buttonText) {
-		super(title, skin);
+	public OptionPane(Skin skin, String title, String text, String buttonText, String style) {
+		super(title, skin, style);
 	
 		text(text);
-		TextButton button = new TextButton(buttonText, skin);
+		TextButton button = new TextButton(buttonText, skin, style);
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -57,11 +59,11 @@ public class OptionPane extends Dialog{
 	 * @param imageView  the image to be displayed  on the OptionPane
 	 * @param buttonText the buttons text
 	 */
-	public OptionPane( Skin skin, String title, String text, String buttonText, AtlasRegion imageView) {
+	public OptionPane( Skin skin, String title, String text, String buttonText, AtlasRegion imageView , String style) {
  
-		super(title, skin);
+		super(title, skin, style);
 		text(text);
-		TextButton button = new TextButton(buttonText, skin);
+		TextButton button = new TextButton(buttonText, skin, style);
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -87,11 +89,11 @@ public class OptionPane extends Dialog{
 	 * @param buttonText the buttons text
 	 * @param optionPaneAction  the acton to be preformed  when the first button is clicked
 	 */
-	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, Image image,  final OptionPaneAction optionPaneAction) {
-		super(title, skin);
+	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, Image image,  final OptionPaneAction optionPaneAction, String style) {
+		super(title, skin, style);
 	text(text);
-		TextButton button = new TextButton(buttonText, skin);
-		TextButton button2 = new TextButton(button2Text, skin);
+		TextButton button = new TextButton(buttonText, skin, style);
+		TextButton button2 = new TextButton(button2Text, skin, style);
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -124,11 +126,11 @@ public class OptionPane extends Dialog{
 	 * @param buttonText the buttons text
 	 * @param optionPaneAction  the acton to be preformed  when the first button is clicked
 	 */
-	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, final OptionPaneAction optionPaneAction) {
-		super(title, skin);
+	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, final OptionPaneAction optionPaneAction, String style) {
+		super(title, skin, style);
 		text(text);
-		TextButton button = new TextButton(buttonText, skin);
-		TextButton button2 = new TextButton(button2Text, skin);
+		TextButton button = new TextButton(buttonText, skin, style);
+		TextButton button2 = new TextButton(button2Text, skin, style);
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -162,12 +164,12 @@ public class OptionPane extends Dialog{
 	 * @param actions  the actions to be preformed  when the buttons are clicked
 	 */
 		
-		public OptionPane(Skin skin, String title,   String text, List<String> buttonText, final List<OptionPaneAction> actions){
-			super(title, skin);
+		public OptionPane(Skin skin, String title,   String text, List<String> buttonText, final List<OptionPaneAction> actions,  String style){
+			super(title, skin, style);
 			text(text);
 			int size=buttonText.size();
 			for ( count=0; count<size; count++){
-				TextButton button = new TextButton(buttonText.get(count), skin);
+				TextButton button = new TextButton(buttonText.get(count), skin, style);
 				button.addListener(new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
