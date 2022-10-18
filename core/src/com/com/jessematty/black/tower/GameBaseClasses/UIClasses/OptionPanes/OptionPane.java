@@ -20,7 +20,6 @@ public class OptionPane extends Dialog{
 	/**
 	 * class for various option pane like dialogs used to display text  or give choices
 	 */
-	private int count;
 
 	/**
 	 *  Option Pane With A  Single Button the closes the pane upon clicking it
@@ -164,12 +163,13 @@ public class OptionPane extends Dialog{
 			super(title, skin, style);
 			text(text);
 			int size=buttonText.size();
-			for ( count=0; count<size; count++){
+			for ( int count=0; count<size; count++){
 				TextButton button = new TextButton(buttonText.get(count), skin, style);
+				int finalCount = count;
 				button.addListener(new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-						actions.get(count).act();
+						actions.get(finalCount).act();
 					closePane();
 						return true;
 					}
