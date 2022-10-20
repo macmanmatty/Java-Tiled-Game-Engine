@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
 
+/**
+ *  Action Button that adds an action to an entity
+ */
 public class ActionButton extends ImageButton {
    private ActionComponent action;
     private Entity entity;
@@ -69,14 +72,11 @@ public class ActionButton extends ImageButton {
     }
 
     public void  addListener(){
-
         addListener(new ClickListener(){
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                entity.add(action);
-
-
                return true;
 
             }

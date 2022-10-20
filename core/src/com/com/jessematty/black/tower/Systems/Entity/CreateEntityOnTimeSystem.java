@@ -13,6 +13,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class CreateEntityOnTimeSystem extends GameEntitySystem {
@@ -21,6 +22,7 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
     private  ComponentMapper<CreateEntity> createEntityComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ImmutableArray<Entity> entities;
+    private JsonLoader jsonLoader= new JsonLoader();
     public CreateEntityOnTimeSystem(MapDraw draw) {
         super(draw);
     }
@@ -49,7 +51,7 @@ public class CreateEntityOnTimeSystem extends GameEntitySystem {
                     if(position!=null) {
                         String entityToCreateID = createEntityOnTime.getEntityToCreateID();
                         Entity entityToCreate = getWorld().getEntity(entityToCreateID);
-                        Entity entityCopy = GameAssets.getJsonLoader().copyObject(entityToCreate, Entity.class);
+                        Entity entityCopy = jsonLoader.copyObject(entityToCreate, Entity.class);
                         entityCopy.add(position);
                         getWorld().addEntityToWorld(entityCopy);
                     }

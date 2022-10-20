@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
@@ -95,23 +96,40 @@ public class MapTools {
         World world = new World( name);
         return world;
     }
-    public static LandMap newLandMap(double gravity, String name, int xSize, int ySize, int tileSizeX, int tileSizeY) {
+
+    /**
+     *
+     * Method that creates a new map of tiles
+     * @param gravity
+     * @param name
+     * @param mapWidth
+     * @param mapHeight
+     * @param tileWidth
+     * @param tileHeight
+     * @return
+     * @throws MapLoadingException
+     */
+    public static LandMap newLandMap(double gravity, String name, int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
+
+        if(name==null){
+
+        }
         LandMap map = new LandMap();
-        LandSquareTile[][] tiles = new LandSquareTile[xSize][ySize];
-        for (int countx = 0; countx < xSize; countx++) {
-            for (int county = 0; county < ySize; county++) {
-                tiles[countx][county] = new LandSquareTile(countx, county, ySize);
+        LandSquareTile[][] tiles = new LandSquareTile[mapWidth][mapHeight];
+        for (int countx = 0; countx < mapWidth; countx++) {
+            for (int county = 0; county < mapHeight; county++) {
+                tiles[countx][county] = new LandSquareTile(countx, county, mapHeight);
             }
         }
         TiledMap tiledMap = new TiledMap();
-        tiledMap.getProperties().put("width",  xSize);
-        tiledMap.getProperties().put("height",  ySize);
-        tiledMap.getProperties().put("tilewidth",  tileSizeX);
-        tiledMap.getProperties().put("tileheight",  tileSizeY);
-      NamedTiledMapTileLayer tiledMapTileLayer = new NamedTiledMapTileLayer(xSize, ySize, tileSizeX, tileSizeY);
+        tiledMap.getProperties().put("width",  mapWidth);
+        tiledMap.getProperties().put("height",  mapHeight);
+        tiledMap.getProperties().put("tilewidth",  tileWidth);
+        tiledMap.getProperties().put("tileheight",  tileHeight);
+      NamedTiledMapTileLayer tiledMapTileLayer = new NamedTiledMapTileLayer(mapWidth, mapHeight, tileWidth, tileHeight);
         tiledMapTileLayer.setDisplayName("layer 0");
-        for (int countx = 0; countx < xSize; countx++) {
-            for (int county = 0; county < ySize; county++) {
+        for (int countx = 0; countx < mapWidth; countx++) {
+            for (int county = 0; county < mapHeight; county++) {
                 Cell cell = new Cell();
                 cell.setTile(new AtlasStaticTiledMapTile((emptyGridTile)));
                 tiledMapTileLayer.setCell(countx, county, cell);
@@ -119,10 +137,10 @@ public class MapTools {
         }
         tiledMap.getLayers().add(tiledMapTileLayer);
         //  create the preview tile layer
-        NamedTiledMapTileLayer previewLayer = new NamedTiledMapTileLayer(xSize, ySize, tileSizeX, tileSizeY);
+        NamedTiledMapTileLayer previewLayer = new NamedTiledMapTileLayer(mapWidth, mapHeight, tileWidth, tileHeight);
         previewLayer.setDisplayName("newRegion");
-        for (int countx = 0; countx < xSize; countx++) {
-            for (int county = 0; county < ySize; county++) {
+        for (int countx = 0; countx < mapWidth; countx++) {
+            for (int county = 0; county < mapHeight; county++) {
                 Cell cell = new Cell();
                 cell.setTile(new AtlasStaticTiledMapTile((emptyGridTile)));
                 previewLayer.setCell(countx, county, cell);
@@ -133,7 +151,7 @@ public class MapTools {
         map.getGameMapSettings().getSettings().put("name", name);
         map.getGameMapSettings().getSettings().put("gravity", gravity);
         map.setTiledMap(tiledMap);
-        map.setTileSize(tileSizeX, tileSizeY);
+        map.setTileSize(tileWidth, tileHeight);
         return map;
     }
     public  LandSquareTile [] [] newTileMap (int xSize, int ySize){

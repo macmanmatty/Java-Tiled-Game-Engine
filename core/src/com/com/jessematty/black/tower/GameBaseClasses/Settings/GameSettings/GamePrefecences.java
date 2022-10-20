@@ -11,7 +11,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 public class GamePrefecences {
     private GameInputKeys gameInputKeys = new GameInputKeys();
     private String gameName;
-   private  JsonLoader jsonLoader= GameAssets.getJsonLoader();
+   private  JsonLoader jsonLoader= new JsonLoader();
     Preferences settings ;
 
 

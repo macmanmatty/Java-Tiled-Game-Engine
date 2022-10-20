@@ -31,7 +31,7 @@ public class OptionPane extends Dialog{
 	
 	public OptionPane(Skin skin, String title, String text, String buttonText, String style) {
 		super(title, skin, style);
-	
+
 		text(text);
 		TextButton button = new TextButton(buttonText, skin, style);
 		button.addListener(new InputListener() {
@@ -45,7 +45,8 @@ public class OptionPane extends Dialog{
 		add(button);
 		
 		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-		setSize(getPrefWidth(), getPrefHeight());
+		pack();
+		validate();
 	}
 
 
@@ -70,10 +71,12 @@ public class OptionPane extends Dialog{
 			}
 		});
 		Image image = new Image(imageView);
-		addActor(image);
+		add(image);
 		add(button);
 		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		setSize(getPrefWidth(), getPrefHeight());
+		pack();
+		validate();
 
 	}
 	/**
@@ -112,6 +115,8 @@ public class OptionPane extends Dialog{
 		add(button2);
 		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		setSize(getPrefWidth(), getPrefHeight());
+		pack();
+		validate();
 
 	}
 	/**
@@ -147,6 +152,8 @@ public class OptionPane extends Dialog{
 		add(button2);
 		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		setSize(getPrefWidth(), getPrefHeight());
+		pack();
+		validate();
 
 	}
 
@@ -178,6 +185,8 @@ public class OptionPane extends Dialog{
 		    }
 			setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 			setSize(getPrefWidth(), getPrefHeight());
+			pack();
+			validate();
 
 		}
 

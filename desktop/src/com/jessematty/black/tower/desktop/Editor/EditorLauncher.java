@@ -1,7 +1,10 @@
 package com.jessematty.black.tower.desktop.Editor;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jessematty.black.tower.Editor.GameEditor;
 
 public class EditorLauncher {
@@ -10,14 +13,13 @@ public class EditorLauncher {
 	}
 
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
-		config.title = "Game Editor";
-		config.height = 1120;
-		config.width =1600;
-		config.forceExit=false;
-
-		new LwjglApplication(new GameEditor(), config);
+		config.setTitle( "Game Editor");
+		config.setWindowSizeLimits(1200, 1200, 1200, 1200);
+		Graphics.DisplayMode dm = Lwjgl3ApplicationConfiguration.getDisplayMode();
+		config.setWindowedMode((int) (dm.width*.75), (int) (dm.height*.75));
+		new Lwjgl3Application(new GameEditor(), config);
 	}
 
 	public void start(){
