@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -47,6 +48,15 @@ public class GameStage extends Stage implements Disposable {
     public void addWindow(Actor window, ScreenPosition screenPosition) {
         window.setPosition(screenPosition.getX(), screenPosition.getY());
      addActor(window);
+    }
+    /**
+     *  adds  a libGDX scene 2d UI component  to the  screen to be displayed
+     * @param window
+     * @param screenPosition
+     */
+    public void addWindow(Dialog window, ScreenPosition screenPosition) {
+        window.setPosition(screenPosition.getX(), screenPosition.getY());
+        window.show(this);
     }
     public void addLabel(Label label, float positionX, float positionY){
         label.setPosition(positionX, positionY);

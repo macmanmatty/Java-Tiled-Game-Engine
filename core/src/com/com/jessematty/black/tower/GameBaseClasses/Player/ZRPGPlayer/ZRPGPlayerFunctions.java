@@ -21,6 +21,12 @@ public class ZRPGPlayerFunctions {
     private ZRPGCharacter player;
     private final  Array<InputKeyCombo> playerControlFunctions= new Array<>();
     private final MapDraw mapDraw;
+
+    /**
+     * adds default player functions
+     * @param draw
+     * @param player
+     */
     public ZRPGPlayerFunctions(MapDraw draw , ZRPGCharacter player) {
         this.player = player;
         this.mapDraw=draw;
@@ -53,7 +59,7 @@ public class ZRPGPlayerFunctions {
         @Override
         public void act() {
             GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
-            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(), "OK", "Are You Ok?", "Click Me!!!", "lpcOptionPane"), ScreenPosition.CENTER);
+            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "lpcOptionPane"), ScreenPosition.CENTER);
         }
     };
   private   KeyAction stop= new KeyAction() {

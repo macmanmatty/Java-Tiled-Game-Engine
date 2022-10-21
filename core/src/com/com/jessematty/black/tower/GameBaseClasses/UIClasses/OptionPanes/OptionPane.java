@@ -11,28 +11,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 
 import java.util.List;
-public class OptionPane extends Dialog{
+public class OptionPane extends Window {
 	/**
 	 * class for various option pane like dialogs used to display text  or give choices
 	 */
 
 	/**
-	 *  Option Pane With A  Single Button the closes the pane upon clicking it
+	 *  Option Pane With A  Single Button the closes the pane upon clicking it and no title
 	 * @param skin the libGDX skin to be used wth option pane
-	 * @param title the title of the option pane
 	 * @param text the text of the option pane
 	 * @param buttonText the buttons text
 	 */
 	
-	public OptionPane(Skin skin, String title, String text, String buttonText, String style) {
-		super(title, skin, style);
-
-		text(text);
+	public OptionPane(Skin skin, String text, String buttonText, String style) {
+		super("", skin, style);
+		Label label= new Label(text, skin);
+		add(label);
+		row();
 		TextButton button = new TextButton(buttonText, skin, style);
 		button.addListener(new InputListener() {
 			@Override
@@ -40,16 +42,41 @@ public class OptionPane extends Dialog{
 				closePane();
 				return true;
 			}
-
 		});
 		add(button);
-		
-		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		pack();
 		validate();
+
+
 	}
 
+	/**
+	 *  Option Pane With A  Single Button the closes the pane upon clicking it and no title
+	 * @param skin the libGDX skin to be used wth option pane
+	 * @param text the text of the option pane
+	 * @param title the title of the option pane
+	 * @param buttonText the buttons text
+	 */
 
+	public OptionPane(Skin skin, String title,  String text, String buttonText, String style) {
+		super(title, skin, style);
+		Label label= new Label(text, skin);
+		add(label);
+		row();
+		TextButton button = new TextButton(buttonText, skin, style);
+		button.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				closePane();
+				return true;
+			}
+		});
+		add(button);
+		pack();
+		validate();
+
+
+	}
 	/**
 	 *  Option Pane With An image and a   Single Button the closes the pane upon clicking it
 	 * @param skin the libGDX skin to be used wth option pane
@@ -61,8 +88,8 @@ public class OptionPane extends Dialog{
 	public OptionPane( Skin skin, String title, String text, String buttonText, AtlasRegion imageView , String style) {
  
 		super(title, skin, style);
-		text(text);
-		TextButton button = new TextButton(buttonText, skin, style);
+		Label label= new Label(text, skin);
+		add(label);		TextButton button = new TextButton(buttonText, skin, style);
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -91,8 +118,8 @@ public class OptionPane extends Dialog{
 	 */
 	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, Image image,  final OptionPaneAction optionPaneAction, String style) {
 		super(title, skin, style);
-	text(text);
-		TextButton button = new TextButton(buttonText, skin, style);
+		Label label= new Label(text, skin);
+		add(label);		TextButton button = new TextButton(buttonText, skin, style);
 		TextButton button2 = new TextButton(button2Text, skin, style);
 		button.addListener(new InputListener() {
 			@Override
@@ -106,7 +133,7 @@ public class OptionPane extends Dialog{
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				hide();
+				closePane();
 				return true;
 			}
 		});
@@ -130,8 +157,8 @@ public class OptionPane extends Dialog{
 	 */
 	public OptionPane(Skin skin, String title,  String text, String buttonText, String button2Text, final OptionPaneAction optionPaneAction, String style) {
 		super(title, skin, style);
-		text(text);
-		TextButton button = new TextButton(buttonText, skin, style);
+		Label label= new Label(text, skin);
+		add(label);		TextButton button = new TextButton(buttonText, skin, style);
 		TextButton button2 = new TextButton(button2Text, skin, style);
 		button.addListener(new InputListener() {
 			@Override
@@ -168,8 +195,8 @@ public class OptionPane extends Dialog{
 		
 		public OptionPane(Skin skin, String title,   String text, List<String> buttonText, final List<OptionPaneAction> actions,  String style){
 			super(title, skin, style);
-			text(text);
-			int size=buttonText.size();
+			Label label= new Label(text, skin);
+			add(label);			int size=buttonText.size();
 			for ( int count=0; count<size; count++){
 				TextButton button = new TextButton(buttonText.get(count), skin, style);
 				int finalCount = count;
@@ -194,7 +221,7 @@ public class OptionPane extends Dialog{
 	 * method to close the option pane hides the window and unlocks the input processors
 	 */
 	private void closePane(){
-		hide();
+		addAction(Actions.removeActor(this));
 		GameAssets.getGameInput().getLockableInputMultiplexer().unlockAllProcessors();
 
 	}

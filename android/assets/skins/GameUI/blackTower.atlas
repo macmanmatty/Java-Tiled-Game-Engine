@@ -147,7 +147,7 @@ window16t
   index: -1
 window17
   rotate: false
-  xy: 645, 342
+  xy: 645, 502
   size: 318, 78
   split: 19, 19, 19, 19
   pad: 0, 0, 0, 0
@@ -156,7 +156,7 @@ window17
   index: -1
 window17t
   rotate: false
-  xy: 645, 502
+  xy: 645, 422
   size: 318, 78
   split: 19, 17, 37, 20
   pad: 0, 0, 0, 0
@@ -165,7 +165,7 @@ window17t
   index: -1
 window18
   rotate: false
-  xy: 645, 262
+  xy: 645, 342
   size: 318, 78
   split: 20, 19, 19, 19
   pad: 0, 0, 0, 0
@@ -174,7 +174,7 @@ window18
   index: -1
 window19
   rotate: false
-  xy: 645, 182
+  xy: 645, 262
   size: 318, 78
   split: 18, 19, 18, 19
   pad: 0, 0, 0, 0
@@ -183,7 +183,7 @@ window19
   index: -1
 window20
   rotate: false
-  xy: 645, 102
+  xy: 645, 182
   size: 318, 78
   split: 20, 19, 18, 19
   pad: 0, 0, 0, 0
@@ -192,7 +192,7 @@ window20
   index: -1
 windowCompass
   rotate: false
-  xy: 645, 422
+  xy: 645, 102
   size: 318, 78
   split: 13, 66, 8, 69
   pad: 0, 0, 0, 0
