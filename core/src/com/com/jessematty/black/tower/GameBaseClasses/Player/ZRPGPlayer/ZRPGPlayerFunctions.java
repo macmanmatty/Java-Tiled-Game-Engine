@@ -18,8 +18,17 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
  * such as moving stopping picking up items shooting , slashing eating ETC.
  */
 public class ZRPGPlayerFunctions {
+    /**
+     * the player object
+     */
     private ZRPGCharacter player;
+    /**
+     *  the key input combos used to control the player
+     */
     private final  Array<InputKeyCombo> playerControlFunctions= new Array<>();
+    /**
+     * the games map draw class
+     */
     private final MapDraw mapDraw;
 
     /**
@@ -55,6 +64,10 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(displayPackWindow);
 
     }
+
+    /**
+     * displays the players pack window
+     */
     private   KeyAction displayPack= new KeyAction() {
         @Override
         public void act() {
@@ -62,12 +75,18 @@ public class ZRPGPlayerFunctions {
             mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "lpcOptionPane"), ScreenPosition.CENTER);
         }
     };
+    /**
+     * stops player movement
+     */
   private   KeyAction stop= new KeyAction() {
         @Override
         public void act() {
             CharacterMoveFunctions.stop(player);
         }
     };
+    /**
+     * player movement functions up down left right ect.
+     */
     private  KeyAction moveRight =new KeyAction(){
           @Override
           public void act()  {
@@ -123,6 +142,13 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.increaseSpeed(player);
 
         }};
+    /**
+     *  end player movement functions
+     */
+
+    /**
+     * increases a players speed
+     */
     private KeyAction decreaseSpeed =new KeyAction(){
         @Override
         public void act()  {
