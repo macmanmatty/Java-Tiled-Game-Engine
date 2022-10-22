@@ -26,6 +26,8 @@ import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Info;
 import com.jessematty.black.tower.Components.MovableComponent;
 import com.jessematty.black.tower.Components.NameComponent;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
@@ -44,6 +46,10 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColo
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
+
+/**
+ * class that generates various entities based of the LPC assets
+ */
 public class LPCActorGeneratorLPC extends LPCObjectGenerator {
    LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
@@ -59,6 +65,32 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         this.gameComponentMapper=world.getGameComponentMapper();
         this.idComponentMapper=gameComponentMapper.getIdComponentMapper();
     }
+
+
+    /**
+     *
+     * @param atlasName
+     * @param bodyName
+     * @param name
+     * @param info
+     * @param brightness
+     * @param color
+     * @param mass
+     * @param volume
+     * @param boundsX
+     * @param boundsY
+     * @param health
+     * @param maxHealth
+     * @param strength
+     * @param hearingDistance
+     * @param seeingDistance
+     * @param iq
+     * @param experience
+     * @param maxSpeed
+     * @param flies
+     * @param swims
+     * @return
+     */
     public EntityBag generateLPCCharacter(String atlasName, String bodyName, String name, String info, float brightness, NamedColor color, float mass, float volume, float boundsX, float boundsY, float health, float maxHealth, float strength, float hearingDistance, float seeingDistance, float iq, float experience, float maxSpeed, boolean flies, boolean swims ) {
         BasicEntityContainer container= EntityUtilities.makeBasicEntity();
        NumericStats numericStats=container.getNumericStats();
@@ -136,12 +168,12 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
             return entity;
     }
     public  Entity generateArmor(String bodyName, String atlasName, String name, String info, boolean hashSlashFrames, boolean hasThrustFrames, boolean hasWalkFrames, NamedColor color, float brightness, float condition, float volume, float mass, float length, float width, double damage, double speed, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
-        com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();
+        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
         Entity armor=container.getEntity();
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
         container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
        AnimatableComponent animatable= new AnimatableComponent(true);
-        lpcSpriteGenerator= new com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator(animatable, assets, atlasName, bodyName);
+        lpcSpriteGenerator= new LPCSpriteGenerator(animatable, assets, atlasName, bodyName);
         lpcSpriteGenerator.setHasWalkFrames(true);
         lpcSpriteGenerator.setHasDieFrames(true);
         lpcSpriteGenerator.setHasEatFrames(true);
@@ -264,32 +296,68 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         generateItem(weapon);
         return weapon;
     }
-    public  Entity generatePack(String atlasName, String name, String info, NamedColor color, float brightness, float volume, float mass, float length, float width, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
-        com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();        Entity pack=container.getEntity();
+
+    public void setStats(Entity entity, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable, StringStatsChangeable stringStatsChangeable){
+
+        if(booleanStatsChangeable !=null){
+            entity.add(booleanStatsChangeable);
+        }
+        if(numericStatsChangeable !=null){
+            entity.add(numericStatsChangeable);
+        }
+
+        if(numericStats!=null){
+            entity.add(numericStats);
+        }
+
+        if(booleanStats!=null){
+            entity.add(numericStats);
+
+        }
+
+        if(stringStatsChangeable!=null){
+            entity.add(stringStatsChangeable);
+
+        }
+
+        if(stringStats!=null){
+            entity.add(stringStats);
+        }
+    }
+
+
+    public  Entity generatePack( boolean displayOnBody, String packAnimationName, String name, String info, NamedColor color, float brightness, float volume, float mass, float length, float width) {
+       BasicEntityContainer container= EntityUtilities.makeBasicEntity();
+       Entity pack=container.getEntity();
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
         container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-       AnimatableComponent animatable= new AnimatableComponent(true);
-        lpcSpriteGenerator.setHasWalkFrames(true);
-        lpcSpriteGenerator.setHasDieFrames(true);
-        lpcSpriteGenerator.setHasEatFrames(true);
-        lpcSpriteGenerator.setHasShootFrames(true);
-        lpcSpriteGenerator.setHasThrustFrames(true);
-        lpcSpriteGenerator.setHasSlashFrames(true);
-        lpcSpriteGenerator.setHasSpellCastFrames(true);
-        lpcSpriteGenerator.setHasPickUpFrames(true);
-        lpcSpriteGenerator.setHasThrowFrames(true);
-        lpcSpriteGenerator.makeBody();
-        animatable.setCurrentAction("rest");
-        animatable.nextFrame();
-        pack.add(animatable);
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-        drawableComponent.setDraw(true);
-        drawableComponent.setLayerNumber(layerNumber);
-        drawableComponent.setColor(color);
-        drawableComponent.setBrightness(brightness);
+        if(displayOnBody) {
+            AnimatableComponent animatable = new AnimatableComponent(true);
+            lpcSpriteGenerator.setHasWalkFrames(true);
+            lpcSpriteGenerator.setHasDieFrames(true);
+            lpcSpriteGenerator.setHasEatFrames(true);
+            lpcSpriteGenerator.setHasShootFrames(true);
+            lpcSpriteGenerator.setHasThrustFrames(true);
+            lpcSpriteGenerator.setHasSlashFrames(true);
+            lpcSpriteGenerator.setHasSpellCastFrames(true);
+            lpcSpriteGenerator.setHasPickUpFrames(true);
+            lpcSpriteGenerator.setHasThrowFrames(true);
+            lpcSpriteGenerator.makeBody();
+            lpcSpriteGenerator.setBodyName(packAnimationName);
+            animatable.setCurrentAction("rest");
+            animatable.nextFrame();
+            pack.add(animatable);
+
+            DrawableComponent drawableComponent = new DrawableComponent();
+            drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
+            drawableComponent.setDraw(true);
+            drawableComponent.setLayerNumber(layerNumber);
+            drawableComponent.setColor(color);
+            drawableComponent.setBrightness(brightness);
+
+            pack.add(drawableComponent);
+        }
         MovableComponent movableComponent = new MovableComponent();
-        pack.add(drawableComponent);
         pack.add(movableComponent);
         PositionComponent position= new PositionComponent();
         position.setBounds(width, length);
@@ -300,15 +368,14 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         physicalObject.setMass(mass);
         physicalObject.setVolume(volume);
         pack.add(physicalObject);
-        pack.add(new Pack());
+        Pack packComponent= new Pack();
+        packComponent.setFixedNumberOfSlots(false);
+        packComponent.setMaxHoldWeight(100);
+        packComponent.setInnerVolume(1000);
+        pack.add(packComponent);
         pack.add(new NameComponent(true, name));
         pack.add(new Info(true, "info", info));
-        if(booleanStatsChangeable !=null){
-            pack.add(booleanStatsChangeable);
-        }
-        if(numericStatsChangeable !=null){
-            pack.add(numericStatsChangeable);
-        }
+
         return pack;
     }
     public  Entity generateObject (String atlasName, String bodyName, String name) {

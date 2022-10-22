@@ -72,7 +72,7 @@ public class ZRPGPlayerFunctions {
         @Override
         public void act() {
             GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
-            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "lpcOptionPane"), ScreenPosition.CENTER);
+            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "packWindow"), ScreenPosition.CENTER);
         }
     };
     /**

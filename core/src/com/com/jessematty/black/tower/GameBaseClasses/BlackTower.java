@@ -5,8 +5,8 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
 public class BlackTower extends Game {
 private GameAssets gameAssets;
-private boolean packAssets=false;
-private String assetsPath="TestAssets";
+private boolean packAssets=true;
+private String assetsPath="testAssets";
 public void MainGame(){
 }
 	public void makeMainWindow(){
@@ -14,7 +14,7 @@ public void MainGame(){
 	@Override
 	public void create () {
 	if(packAssets){
-		TexturePacker.process(new Settings(), "TestAssets", "android/assets/textureAtlases", "testAssets");
+		TexturePacker.process(new Settings(), "testAssets", "android/assets/textureAtlases", "testAssets");
 	}
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
