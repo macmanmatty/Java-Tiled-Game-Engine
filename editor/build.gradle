@@ -3,6 +3,9 @@ apply plugin: "java"
 
 
 sourceCompatibility = 1.8
+dependencies {
+    implementation project(path: ':core')
+}
 
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
