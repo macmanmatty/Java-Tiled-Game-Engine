@@ -1,27 +1,26 @@
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
-import java.io.File;
-
 public class TexturePackerLoader {
 
+    /**
+     * class to run texture packer uses older libGDX versions to run properly
+     */
     public TexturePackerLoader() {
     }
-    String fileOutputPath=System.getenv("fileOutputPath");
-    String atlasFileName =System.getenv("atlasFileName");
+     //static String atlasFileOutputPath =System.getenv("atlasFileOutputPath");
+     static String atlasFileInputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/TestAssets/";
+    static String atlasFileOutputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/textureAtlases/testAssets";
+    static  String atlasFileName ="testAssets.atlas";
 
-    private TexturePacker texturePacker= new TexturePacker(new Settings());
+  //  static String atlasFileInputPath =System.getenv("atlasFileInputPath");
+    // static  String atlasFileName =System.getenv("atlasFileName");
 
-    public void pack(Settings settings){
-        texturePacker = new TexturePacker(settings);
-        texturePacker.pack(new File(fileOutputPath), atlasFileName);
+    public static void main(String [] args){
+        pack(new Settings());
+    }
+    public static  void pack(Settings settings){
+        TexturePacker.process(settings, atlasFileInputPath, atlasFileOutputPath, atlasFileName);
 
     }
-    public static void process(Settings settings, String inputPath, String outputPath, String packFileName){
-
-        TexturePacker.process(settings, inputPath, outputPath, packFileName);
-
-    }
-
-
 }
