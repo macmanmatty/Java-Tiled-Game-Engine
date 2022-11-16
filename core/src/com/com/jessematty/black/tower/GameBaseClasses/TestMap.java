@@ -30,12 +30,12 @@ public class TestMap {
         
         //assetts.loadInternalTextureAtlas("swordWalk");
        TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
-       assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
-        assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
+       //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
+       //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
-        TextureAtlas atlas= assetts.loadInternalTextureAtlas("testAssets");
+        TextureAtlas atlas= assetts.loadInternalTextureAtlas("/testAssets/testAssets");
         assetts.finishLoading();
-        LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
+        LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
         Skin skin=assetts.getDefaultSkin();
         LandMapGenerator generator2= new LandMapGenerator(assetts, specs);
         generator2.makeTiledMap();
@@ -43,7 +43,7 @@ public class TestMap {
         map2.setTileSize(32, 32);
         World world= new World();
         world.addMap(map2);
-        world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets.atlas");
+        world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets/testAssets.atlas");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
         EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "/world/worldAssetts.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);

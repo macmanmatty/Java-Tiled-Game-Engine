@@ -405,6 +405,10 @@ public class GameAssets implements Disposable {
         T object= jsonLoader.loadObject(thingClass, filePath);
         return  object;
     }
+    public <T> T  loadInternalObject(String filePath, Class<T> thingClass){
+        T object= jsonLoader.loadInternalObject(thingClass, filePath);
+        return  object;
+    }
     public void saveObject(Object object, String path, boolean append){
         jsonLoader.writeObjectToFile(object, path, append);
     }
