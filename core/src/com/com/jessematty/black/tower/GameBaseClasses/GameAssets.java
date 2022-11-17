@@ -21,32 +21,31 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.ObjectMapSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.OrderedMapSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
-import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.TiledMapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.LandSquareTileKryoSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.ObjectMapSerializer;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.ObjectMap.OrderedMapSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.BuildingKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.MapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World.WorldKryoSerializer;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureAtlasPacker;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.TiledMapKryoSerializer;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldReader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.World.WorldWriter;
+import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
-import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Skins.NamedSkin;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 /**
@@ -119,7 +118,7 @@ public class GameAssets implements Disposable {
     public void setup(){
         // register serializing classes
          this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
-       kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
+         kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
          kryo.register(AnimatableComponent.class, new AnimatableSerializer(this));
@@ -129,14 +128,6 @@ public class GameAssets implements Disposable {
         kryo.register(ObjectMap.class, new ObjectMapSerializer());
         kryo.register(OrderedMap.class, new OrderedMapSerializer());
     }
-     // loads a json file if doesn't exist creates it.
-     public<T> T loadOrCreateJsonFile(String path, String name, Class<T> objectType) throws IOException {
-         File file= new File(path);
-         if(!file.exists()) {
-             FileUtilities.createFile(path, name);
-         }
-         return jsonLoader.loadObject(objectType, path);
-     }
     public void showPreviousScreen(){ // changes the screen back to the screen that was displayed before
        game.setScreen(previousScreen);
     }
@@ -319,11 +310,10 @@ public class GameAssets implements Disposable {
     }
     /**
      *  returns a libGDX texture atlas located  externally form the jar file
-     * @param name the  name of the texture atlas
+     * @param internalPath the internal   path found under android/assets to the texture atlas
      * @return TextureAtlas the loaded texture atlas
      */
-    public NamedTextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
-       String internalPath="textureAtlases/"+name+".atlas";
+    public NamedTextureAtlas loadInternalTextureAtlas(String internalPath) { // loads a texture atlas based on the give path.
         NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
         atlas.setAtlasFileName(internalPath);
         assetManager.load(internalPath, TextureAtlas.class);
@@ -403,6 +393,10 @@ public class GameAssets implements Disposable {
     }
           public <T> T  loadObject(String filePath, Class<T> thingClass){
         T object= jsonLoader.loadObject(thingClass, filePath);
+        return  object;
+    }
+    public <T> T  loadInternalObject(String filePath, Class<T> thingClass){
+        T object= jsonLoader.loadInternalObject(thingClass, filePath);
         return  object;
     }
     public void saveObject(Object object, String path, boolean append){

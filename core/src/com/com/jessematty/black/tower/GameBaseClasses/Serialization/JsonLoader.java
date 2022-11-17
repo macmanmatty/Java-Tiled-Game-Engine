@@ -43,6 +43,17 @@ public class JsonLoader {
         return object;
     }
     /**
+     * reads an internal  object from android/assets to a file in json format
+     * @param thingClass the class of the object to read
+     * @param path the file path to read from
+     */
+    public <T>  T loadInternalObject(Class thingClass , String path){
+        FileHandle file = Gdx.files.internal(path);
+        String object2= file.readString();
+        T  object  = (T) json.fromJson(thingClass, object2);
+        return object;
+    }
+    /**
      * reads a json  array of objects  from a file
      * @param typeClass
      * @param path

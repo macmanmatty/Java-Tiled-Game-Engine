@@ -19,7 +19,6 @@ import com.jessematty.black.tower.GameBaseClasses.TestMap;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.Maps.World;
-import com.kotcrab.vis.ui.VisUI;
 
 import java.io.File;
 
@@ -64,8 +63,6 @@ public class MainScreen implements Screen  {
         if(pack==true) {
         }
         skin= gameAssets.getDefaultSkin();
-        gameAssets.loadInternalTextureAtlas("editorAssets");
-        gameAssets.loadInternalTextureAtlas("editorAssets");
         gameAssets.finishLoading();
        // assetts.loadTextureAtlasFromExternalFile("textureAtlases/assets.atlas" );
         gameAssets.finishLoading();
