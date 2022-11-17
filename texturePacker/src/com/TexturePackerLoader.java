@@ -17,9 +17,12 @@ public class TexturePackerLoader {
     // static  String atlasFileName =System.getenv("atlasFileName");
 
     public static void main(String [] args){
+
         pack(new Settings());
+
     }
     public static  void pack(Settings settings){
+        settings.flattenPaths=true;
         TexturePacker.process(settings, atlasFileInputPath, atlasFileOutputPath, atlasFileName);
 
     }

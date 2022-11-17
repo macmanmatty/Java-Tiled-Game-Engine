@@ -310,11 +310,10 @@ public class GameAssets implements Disposable {
     }
     /**
      *  returns a libGDX texture atlas located  externally form the jar file
-     * @param name the  name of the texture atlas
+     * @param internalPath the internal   path found under android/assets to the texture atlas
      * @return TextureAtlas the loaded texture atlas
      */
-    public NamedTextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
-       String internalPath="textureAtlases/"+name;
+    public NamedTextureAtlas loadInternalTextureAtlas(String internalPath) { // loads a texture atlas based on the give path.
         NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
         atlas.setAtlasFileName(internalPath);
         assetManager.load(internalPath, TextureAtlas.class);
