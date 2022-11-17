@@ -33,7 +33,7 @@ public class TestMap {
        //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
        //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
-        TextureAtlas atlas= assetts.loadInternalTextureAtlas("/testAssets/testAssets");
+        TextureAtlas atlas= assetts.loadInternalTextureAtlas("testAssets/testAssets.atlas");
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
         Skin skin=assetts.getDefaultSkin();
@@ -43,9 +43,9 @@ public class TestMap {
         map2.setTileSize(32, 32);
         World world= new World();
         world.addMap(map2);
-        world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets/testAssets.atlas");
+        world.setWorldTextureAtlas(atlas, "/testAssets/testAssets.atlas");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
-        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "/world/worldAssetts.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
+        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "/testAssets/testAssets.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);

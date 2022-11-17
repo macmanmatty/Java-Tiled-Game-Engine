@@ -314,7 +314,7 @@ public class GameAssets implements Disposable {
      * @return TextureAtlas the loaded texture atlas
      */
     public NamedTextureAtlas loadInternalTextureAtlas(String name) { // loads a texture atlas based on the give path.
-       String internalPath="textureAtlases/"+name+".atlas";
+       String internalPath="textureAtlases/"+name;
         NamedTextureAtlas atlas = new NamedTextureAtlas(internalPath);
         atlas.setAtlasFileName(internalPath);
         assetManager.load(internalPath, TextureAtlas.class);
