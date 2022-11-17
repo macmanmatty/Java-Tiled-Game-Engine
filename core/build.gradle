@@ -12,3 +12,12 @@ sourceSets.test.java.srcDirs = [ "src/test/java/" ]
 sourceSets.test.resources.srcDirs = [ "src/test/res/" ]
 
 eclipse.project.name = appName + "-core"
+
+
+
+task run(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main ="texturePackerLoader"
+}

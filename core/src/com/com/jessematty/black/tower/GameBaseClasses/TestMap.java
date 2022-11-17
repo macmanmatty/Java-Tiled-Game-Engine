@@ -30,12 +30,12 @@ public class TestMap {
         
         //assetts.loadInternalTextureAtlas("swordWalk");
        TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
-       assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
-        assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
+       //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
+       //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
-        TextureAtlas atlas= assetts.loadInternalTextureAtlas("testAssets");
+        TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
-        LandMapSpecs specs= (LandMapSpecs) assetts.loadObject("/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/maps/mapLandSpecs1.json", LandMapSpecs.class);
+        LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
         Skin skin=assetts.getDefaultSkin();
         LandMapGenerator generator2= new LandMapGenerator(assetts, specs);
         generator2.makeTiledMap();
@@ -43,9 +43,9 @@ public class TestMap {
         map2.setTileSize(32, 32);
         World world= new World();
         world.addMap(map2);
-        world.setWorldTextureAtlas(atlas, "/textureAtlases/testAssets.atlas");
+        world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
-        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "/world/worldAssetts.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
+        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "textureAtlases/testAssets/testAssets.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);
@@ -66,7 +66,7 @@ public class TestMap {
         }
         world.addEntityToWorld(entityBag);
 
-        Entity entity1= lpcActorGenerator.generateObject("/world/worldAssetts.atlas", "tree114", "tree");
+        Entity entity1= lpcActorGenerator.generateObject("textureAtlases/testAssets/testAssets.atlas", "tree114", "tree");
         entity1.add(new SolidObject());
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 300);
@@ -76,7 +76,7 @@ public class TestMap {
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getEntities().get(0));
-       world.setWorldTextureAtlas(assetts.getAssetManager().get("/world/worldAssetts.atlas", TextureAtlas.class),"/world/worldAssetts.atlas");
+       world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
         //assetts.setWorld(world);
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
@@ -89,7 +89,7 @@ public class TestMap {
         map2.setTiledMap(map);
         TiledMap  tiledMap=null;
         try {
-       tiledMap =TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "/world/worldAssetts.atlas");
+       tiledMap =TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "textureAtlases/testAssets/testAssets.atlas");
          map2.setTiledMap(tiledMap);
         } catch (MapLoadingException mapLoadingException) {
             mapLoadingException.printStackTrace();
@@ -116,7 +116,7 @@ public class TestMap {
         e.printStackTrace();
         }
        World newWorld=assetts.loadGame("/world/game.bin");
-     newWorld.getMap(map2.getId()).setSkin(assetts.getDefaultSkin());
+       newWorld.getMap(map2.getId()).setSkin(assetts.getDefaultSkin());
        assetts.setWorld(newWorld);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();

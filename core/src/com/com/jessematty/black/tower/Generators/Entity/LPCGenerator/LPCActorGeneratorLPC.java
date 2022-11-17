@@ -45,7 +45,7 @@ import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntity
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
 public class LPCActorGeneratorLPC extends LPCObjectGenerator {
-   LPCSpriteGenerator lpcSpriteGenerator;
+   private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
      private   World  world;
      private    GameComponentMapper gameComponentMapper;
