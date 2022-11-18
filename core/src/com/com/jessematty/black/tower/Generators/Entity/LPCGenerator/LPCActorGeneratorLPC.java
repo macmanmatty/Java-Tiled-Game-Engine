@@ -51,7 +51,7 @@ import com.jessematty.black.tower.Maps.World;
  * class that generates various entities based of the LPC assets
  */
 public class LPCActorGeneratorLPC extends LPCObjectGenerator {
-   LPCSpriteGenerator lpcSpriteGenerator;
+   private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
      private   World  world;
      private    GameComponentMapper gameComponentMapper;

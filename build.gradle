@@ -53,9 +53,6 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 
-
-
-
     }
 }
 
@@ -132,9 +129,7 @@ project(":core") {
     apply plugin: "java-library"
 
     dependencies {
-        compile ("com.badlogicgames.gdx:gdx-tools:$gdxVersion") {
-            exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
-        }
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
@@ -153,4 +148,44 @@ project(":core") {
 
 
     }
+}
+
+project(":texturePacker") {
+    apply plugin: "java-library"
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        api "com.badlogicgames.ashley:ashley:$ashleyVersion"
+        api "com.kotcrab.vis:vis-ui:1.3.0"
+        api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        api group: 'commons-io', name: 'commons-io', version: '2.6'
+        api group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+        api group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+        testImplementation"junit:junit:$junitVersion"
+        testImplementation "junit:junit:$junitVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+        testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
+
+
+    }
+
+}
+
+project(":editor") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+
+
+    }
+
 }
