@@ -653,12 +653,14 @@ public class MapUtilities {
         return new Vector2(xVector, yVector);
     }
     public static void setPositionToTile(LandSquareTile tile , PositionComponent positionComponent){
-        float loactionX=tile.getScreenLocationX();
+        float locationX=tile.getScreenLocationX();
         float locationY=tile.getScreenLocationY();
-        positionComponent.setLocationX(loactionX);
+        positionComponent.setLocationX(locationX);
         positionComponent.setLocationY(locationY);
         positionComponent.setMapID(tile.getMapId());
         positionComponent.getTiles().clear();
         positionComponent.getTiles().add(tile);
     }
+
+
 }

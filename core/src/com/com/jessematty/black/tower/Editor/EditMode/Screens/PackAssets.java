@@ -97,12 +97,12 @@ public class PackAssets implements NamedScreen  {
         texturePackerSettings.paddingY=Integer.valueOf(paddingY.getField().getText());
         texturePackerSettings.paddingX=Integer.valueOf(paddingX.getField().getText());
         if(inputPathButton.getFile()==null || outputPathButton.getFile()==null){
-           OptionPane optionPane= new OptionPane(skin, "Check Paths", " You Must Enter a Input Directory and Output Directory  to pack", "ok");
+           OptionPane optionPane= new OptionPane(skin, "Check Paths", " You Must Enter a Input Directory and Output Directory  to pack", "ok", "default");
            stage.addActor(optionPane);
             return;
         }
         if(atlasName.getField().getText().isEmpty() ){
-            OptionPane optionPane= new OptionPane(skin, "Check Paths", "  Atlas Name Must Not Be Empty" , "ok");
+            OptionPane optionPane= new OptionPane(skin, "Check Paths", "  Atlas Name Must Not Be Empty" , "ok", "default");
             stage.addActor(optionPane);
             return;
         }

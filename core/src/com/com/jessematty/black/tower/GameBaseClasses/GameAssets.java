@@ -61,6 +61,11 @@ public class GameAssets implements Disposable {
      *  the current loaded skin
      */
     private Skin skin;
+
+    /**
+     * The Style Used By the libGDX skin
+     */
+    String skinStyle="Brick";
     /**
      * libGDX assetManager  @see AssetManager
      */
@@ -76,7 +81,7 @@ public class GameAssets implements Disposable {
     /**
      * object for loading json based objects
      */
-    private static  final JsonLoader jsonLoader= new JsonLoader();
+    private  final JsonLoader jsonLoader= new JsonLoader();
     /**
      * map of all screens currently loaded in the game
      */
@@ -445,7 +450,7 @@ public class GameAssets implements Disposable {
     public MapDraw getMapDraw() {
         return mapDraw;
     }
-    public static  JsonLoader getJsonLoader() {
+    public  JsonLoader getJsonLoader() {
         return jsonLoader;
     }
     public void exit() {
@@ -477,5 +482,13 @@ public class GameAssets implements Disposable {
 
     public void setCurrentTextureAtlas(TextureAtlas currentTextureAtlas) {
         this.currentTextureAtlas = currentTextureAtlas;
+    }
+
+    public String getSkinStyle() {
+        return skinStyle;
+    }
+
+    public void setSkinStyle(String skinStyle) {
+        this.skinStyle = skinStyle;
     }
 }

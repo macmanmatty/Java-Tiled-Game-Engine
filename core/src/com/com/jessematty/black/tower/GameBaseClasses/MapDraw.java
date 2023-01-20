@@ -88,7 +88,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         gameCamera.update();
         gameTime=world.getGameTime();
         frameBufferRenderer= new FrameBufferRenderer(batch, (int)viewPortWidth, (int)viewPortHeight);
-        uiStage = new GameStage((int)viewPortWidth, (int)viewPortHeight);
+        uiStage = new GameStage();
         GameAssets.getGameInput().addProcessor(uiStage);
         shapeRenderer =new ShapeRenderer();
         boundingBoxRenderer= new BoundingBoxRenderer(shapeRenderer);
@@ -210,7 +210,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
       // addUIBarWindow(defaultZRPGBottomWindow, Direction.DOWN);
        gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPositionComponent());
-        GameAssets.getGameInput().getKeyListener().addInputKeyCombos(new ZRPGPlayerFunctions(player).getPlayerControlFunctions());
+        GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(this, player).getPlayerControlFunctions());
     }
 
 

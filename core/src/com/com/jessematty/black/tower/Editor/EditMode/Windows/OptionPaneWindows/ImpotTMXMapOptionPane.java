@@ -32,7 +32,7 @@ public class ImpotTMXMapOptionPane extends EditWindow {
                 mapEditScreen.getMapTools().loadTmxMap( mapEditScreen.getWorld().getWorldTextureAtlas(), mapEditScreen.getCurrentMap(), mapEditScreen.getGameAssets(), fileSelectPane.getFile().getAbsolutePath(),expandToFit.isChecked(), clipToFit.isChecked());
                         setVisible(false);
             } catch (MapLoadingException mapLoadingException) {
-                mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error Loading Map", mapLoadingException.getMessage(), "OK"));
+                mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error Loading Map", mapLoadingException.getMessage(), "OK", "default"));
                 setVisible(false);
             }
         }

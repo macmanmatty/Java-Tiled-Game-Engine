@@ -66,12 +66,7 @@ public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor
     public boolean mouseMoved(int screenX, int screenY) {
         LandSquareTile tile= mapDraw.screenToTile(screenX, screenY);
 
-        if(tile!=null) {
-            Print.printXY("tile location ", tile.getLocationX(), tile.getLocationY());
-        }
-        else{
-            System.out.println("Tile is  Null!!!!???");
-        }
+
 
         return false;
     }
