@@ -105,6 +105,7 @@ import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.Weapon;
+import com.jessematty.black.tower.GameBaseClasses.Logging.Log;
 import com.jessematty.black.tower.Maps.World;
 import java.util.HashMap;
 import java.util.Map;
@@ -214,6 +215,7 @@ public class GameComponentMapper {
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
     private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
     private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
+    private static ComponentMapper<Log> logComponentMapper = ComponentMapper.getFor(Log.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
     public GameComponentMapper() {
@@ -317,6 +319,8 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(AddSystemsComponent.class, addSystemsComponentComponentMapper);
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
         componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
+        componentComponentMapperMap.put(Log.class, logComponentMapper);
+
     }
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentClass);
@@ -787,5 +791,9 @@ public class GameComponentMapper {
 
     public static ComponentMapper<SolidObject> getSolidObjectComponentMapper() {
         return solidObjectComponentMapper;
+    }
+
+    public static ComponentMapper<Log> getLogComponentMapper() {
+        return logComponentMapper;
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 public class GameStage extends Stage implements Disposable {
+
     public GameStage(float width, float height) {
        Viewport stageViewPort=new FillViewport(width, height);
         setViewport(stageViewPort);
@@ -61,5 +62,10 @@ public class GameStage extends Stage implements Disposable {
     public void addLabel(Label label, float positionX, float positionY){
         label.setPosition(positionX, positionY);
         addActor(label);
+    }
+
+    public void addLogLabel(Label label) {
+        addLabel(label, 0, 0);
+
     }
 }
