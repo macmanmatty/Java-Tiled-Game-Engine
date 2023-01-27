@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Logger;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogLevel;
-import com.jessematty.black.tower.GameBaseClasses.Logging.Log;
+import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class LoggerSystem extends GameEntitySystem {
-    private ComponentMapper<Log> logComponentMapper;
+    private ComponentMapper<GameLog> logComponentMapper;
     private ImmutableArray<Entity> entities;
     private Logger logger= new Logger("gameLogs");
 
@@ -30,15 +30,15 @@ public class LoggerSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Log.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( GameLog.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
             Entity entity=entities.get(count);
-            Log log=logComponentMapper.get(entity);
-            if(log.isDisplayOnScreen()) {
-                getDraw().getUiStage().addLogLabel(new Label(log.getText(), getDraw().getCurrentMap().getSkin(), log.getStyle()));
+            GameLog gameLog =logComponentMapper.get(entity);
+            if(gameLog.isDisplayOnScreen()) {
+                getDraw().getUiStage().addLogLabel(new Label(gameLog.getText(), getDraw().getCurrentMap().getSkin(), gameLog.getStyle()));
             }
-            systemLog(log);
+            systemLog(gameLog);
             // after logging remove log from engine
             getEngine().removeEntity(entity);
 
@@ -52,19 +52,19 @@ public class LoggerSystem extends GameEntitySystem {
     /**
      * write logs to  system log file  based on  log level
      * OFF level doesn't write logs to the system log  file.
-     * @param log the log component
+     * @param gameLog the log component
      */
-    public void systemLog(Log log){
-        GameLogLevel logLevel=log.getGameLogLevel();
+    public void systemLog(GameLog gameLog){
+        GameLogLevel logLevel= gameLog.getGameLogLevel();
         switch(logLevel){
             case ERROR:
-                logger.error(log.getText());
+                logger.error(gameLog.getText());
                 break;
             case INFO:
-                logger.info(log.getText());
+                logger.info(gameLog.getText());
                 break;
             case DEBUG:
-                logger.debug(log.getText());
+                logger.debug(gameLog.getText());
                 break;
             default:
                 return;

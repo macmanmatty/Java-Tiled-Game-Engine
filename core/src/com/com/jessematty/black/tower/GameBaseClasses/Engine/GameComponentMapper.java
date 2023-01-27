@@ -105,7 +105,7 @@ import com.jessematty.black.tower.Components.Tiles.Tile;
 import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.Weapon;
-import com.jessematty.black.tower.GameBaseClasses.Logging.Log;
+import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.Maps.World;
 import java.util.HashMap;
 import java.util.Map;
@@ -215,7 +215,7 @@ public class GameComponentMapper {
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
     private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
     private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
-    private static ComponentMapper<Log> logComponentMapper = ComponentMapper.getFor(Log.class);
+    private static ComponentMapper<GameLog> logComponentMapper = ComponentMapper.getFor(GameLog.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
     public GameComponentMapper() {
@@ -319,7 +319,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(AddSystemsComponent.class, addSystemsComponentComponentMapper);
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
         componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
-        componentComponentMapperMap.put(Log.class, logComponentMapper);
+        componentComponentMapperMap.put(GameLog.class, logComponentMapper);
 
     }
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
@@ -342,6 +342,13 @@ public class GameComponentMapper {
         }
         return componentsToReturn;
     }
+
+    /**
+     * should probably use engine.getFor(); and remove this duplicate method
+     * @param entities
+     * @param components
+     * @return
+     */
     public static Array<Entity> getEntitiesWithComponents(Array<Entity> entities, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
         int size = entities.size;
@@ -372,6 +379,16 @@ public class GameComponentMapper {
         }
         return entitiesToReturn;
     }
+
+    /**
+     * returns  a libGDX array of entities containing ALL  passed in stats and components
+     * @param entities
+     * @param numericStatNames  numeric stats to check for
+     * @param booleanStatNames boolean to check if exists
+     * @param stringStatNames string stats to check if exists
+     * @param components components to check if exists
+     * @return the libGDX array of entities
+     */
     public static Array<Entity> getEntitiesContainingStats(Array<Entity> entities, Array<String> numericStatNames, Array<String> booleanStatNames, Array<String> stringStatNames, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
         int size = entities.size;
@@ -444,7 +461,7 @@ public class GameComponentMapper {
         return true;
     }
     /**
-     *  check to see if  an entity has  has all of given numeric stats
+     *  checks to see if  an entity has  has all of given numeric stats
      * @param stats the entities stats
      * @param numericStatNames the names of the stats to check
      * @return a boolean true if entity has all of the components false if not
@@ -793,7 +810,7 @@ public class GameComponentMapper {
         return solidObjectComponentMapper;
     }
 
-    public static ComponentMapper<Log> getLogComponentMapper() {
+    public static ComponentMapper<GameLog> getLogComponentMapper() {
         return logComponentMapper;
     }
 }

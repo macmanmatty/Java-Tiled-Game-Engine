@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Logging;
 import com.badlogic.ashley.core.Component;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
-public class Log  implements  Component {
+public class GameLog implements  Component {
     /**
      * the log statement
      */
@@ -36,13 +36,13 @@ public class Log  implements  Component {
      */
     private boolean displayOnScreen;
 
-    public Log(String text, GameLogLevel gameLogLevel, boolean displayOnScreen) {
+    public GameLog(String text, GameLogLevel gameLogLevel, boolean displayOnScreen) {
         this.text = text;
         this.gameLogLevel = gameLogLevel;
         this.displayOnScreen = displayOnScreen;
     }
 
-    public Log() {
+    public GameLog() {
     }
 
 
@@ -87,7 +87,7 @@ public class Log  implements  Component {
         this.scale = scale;
     }
 
-    public Log(boolean displayOnScreen) {
+    public GameLog(boolean displayOnScreen) {
         this.displayOnScreen = displayOnScreen;
     }
 

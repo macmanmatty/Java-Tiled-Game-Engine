@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -7,15 +8,24 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 public class GameStage extends Stage implements Disposable {
 
-    public GameStage(float width, float height) {
+    private  final GameLogger gameLogger;
+    public GameStage(float width, float height, GameLogger gameLogger) {
        Viewport stageViewPort=new FillViewport(width, height);
         setViewport(stageViewPort);
+        this.gameLogger=gameLogger;
+    }
+
+    public GameStage(GameLogger gameLogger) {
+        this.gameLogger = gameLogger;
+        addActor(gameLogger);
     }
 
     public GameStage() {
+        this.gameLogger=new GameLogger();
     }
 
     /**
@@ -68,4 +78,10 @@ public class GameStage extends Stage implements Disposable {
         addLabel(label, 0, 0);
 
     }
+
+    public GameLogger getGameLogger() {
+        return gameLogger;
+    }
+
+
 }
