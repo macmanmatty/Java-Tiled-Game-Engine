@@ -89,6 +89,10 @@ public class GameLogger  extends Table {
     
     }
 
+    /**
+     * removes a log label from  the table
+     * @param logLabel  the log label to remove
+     */
     private void removeLogLabel(LogLabel logLabel){
         logLabel.addAction(Actions.removeActor());
         Cell cell=getCell(logLabel);
