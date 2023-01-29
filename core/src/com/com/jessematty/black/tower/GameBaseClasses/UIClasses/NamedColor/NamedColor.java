@@ -18,6 +18,24 @@ public class NamedColor extends Color implements Nameable {
      * 100% black RGBA color
      */
     public static final  NamedColor BLACK= new NamedColor(0,0,0 , 1, "Black");
+    /**
+     *  100%  Red RGBA color
+     */
+    public static final  NamedColor RED= new NamedColor(1,0,0,1 , "Red");
+    /**
+     * 100% BLUE RGBA color
+     */
+    public static final  NamedColor BLUE= new NamedColor(0,0,1 , 1, "Blue");
+    /**
+     * 100% GREEN RGBA color
+     */
+    public static final  NamedColor GREEN= new NamedColor(0,1,1 , 1, "Green");
+
+    /**
+     * 100% TRANSPARENT RGBA color
+     */
+    public static final  NamedColor TRANSPARENT= new NamedColor(0,0,0 , 0, "Transparent");
+
     public NamedColor(String name) {
         this.name = name;
     }
@@ -25,9 +43,9 @@ public class NamedColor extends Color implements Nameable {
         super(rgba8888);
         this.name = name;
     }
+
     public NamedColor(int rgba8888) {
         super(rgba8888);
-        this.name = getName();
     }
     public NamedColor() {
     }
