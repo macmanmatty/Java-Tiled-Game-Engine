@@ -4,20 +4,41 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 
 /**
  * class that holds all InputKeyCombos related to player actions
  * such as moving stopping picking up items shooting , slashing eating ETC.
  */
 public class ZRPGPlayerFunctions {
+    /**
+     * the player object
+     */
     private ZRPGCharacter player;
+    /**
+     *  the key input combos used to control the player
+     */
     private final  Array<InputKeyCombo> playerControlFunctions= new Array<>();
-    public ZRPGPlayerFunctions(ZRPGCharacter player) {
+    /**
+     * the games map draw class
+     */
+    private final MapDraw mapDraw;
+
+    /**
+     * adds default player functions
+     * @param draw
+     * @param player
+     */
+    public ZRPGPlayerFunctions(MapDraw draw , ZRPGCharacter player) {
         this.player = player;
+        this.mapDraw=draw;
         DualActionKeyInputCombo moveRightCombo= new DualActionKeyInputCombo( stop, moveRight, "Move Player Right", Keys.RIGHT);
         playerControlFunctions.addAll(  moveRightCombo.getInputKeyCombos());
         DualActionKeyInputCombo moveLeftCombo= new DualActionKeyInputCombo( stop, moveLeft, "Move Player Left", Keys.LEFT);
@@ -39,14 +60,33 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(increaseSpeedCombo);
         InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
         playerControlFunctions.add(decreaseSpeedCombo);
+        InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        playerControlFunctions.add(displayPackWindow);
 
     }
+
+    /**
+     * displays the players pack window
+     */
+    private   KeyAction displayPack= new KeyAction() {
+        @Override
+        public void act() {
+            GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
+            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "packWindow"), ScreenPosition.CENTER);
+        }
+    };
+    /**
+     * stops player movement
+     */
   private   KeyAction stop= new KeyAction() {
         @Override
         public void act() {
             CharacterMoveFunctions.stop(player);
         }
     };
+    /**
+     * player movement functions up down left right ect.
+     */
     private  KeyAction moveRight =new KeyAction(){
           @Override
           public void act()  {
@@ -102,6 +142,13 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.increaseSpeed(player);
 
         }};
+    /**
+     *  end player movement functions
+     */
+
+    /**
+     * increases a players speed
+     */
     private KeyAction decreaseSpeed =new KeyAction(){
         @Override
         public void act()  {

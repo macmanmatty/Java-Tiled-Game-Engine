@@ -22,6 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
+import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
@@ -61,6 +62,11 @@ public class GameAssets implements Disposable {
      *  the current loaded skin
      */
     private Skin skin;
+
+    /**
+     * The Style Used By the libGDX skin
+     */
+    String skinStyle="Brick";
     /**
      * libGDX assetManager  @see AssetManager
      */
@@ -76,7 +82,7 @@ public class GameAssets implements Disposable {
     /**
      * object for loading json based objects
      */
-    private static  final JsonLoader jsonLoader= new JsonLoader();
+    private  final JsonLoader jsonLoader= new JsonLoader();
     /**
      * map of all screens currently loaded in the game
      */
@@ -105,6 +111,12 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
+
+    private final static GameLogger gameLogger= new GameLogger();
+
+
+
+
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -118,6 +130,7 @@ public class GameAssets implements Disposable {
     public void setup(){
         // register serializing classes
          this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
+         getGameLogger().setSkin(skin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
@@ -445,7 +458,7 @@ public class GameAssets implements Disposable {
     public MapDraw getMapDraw() {
         return mapDraw;
     }
-    public static  JsonLoader getJsonLoader() {
+    public  JsonLoader getJsonLoader() {
         return jsonLoader;
     }
     public void exit() {
@@ -477,5 +490,18 @@ public class GameAssets implements Disposable {
 
     public void setCurrentTextureAtlas(TextureAtlas currentTextureAtlas) {
         this.currentTextureAtlas = currentTextureAtlas;
+    }
+
+    public String getSkinStyle() {
+        return skinStyle;
+    }
+
+    public void setSkinStyle(String skinStyle) {
+        this.skinStyle = skinStyle;
+    }
+
+    public static  GameLogger getGameLogger() {
+
+        return gameLogger;
     }
 }

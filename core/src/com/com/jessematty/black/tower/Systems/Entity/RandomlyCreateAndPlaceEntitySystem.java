@@ -12,6 +12,7 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Maps.Buildings.Building;
@@ -24,6 +25,8 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<RandomlyCreateAndPlaceEntity> randomlyCreateAndPlaceEntityComponentMapper;
     private ImmutableArray<Entity> entities;
+    private JsonLoader jsonLoader= new JsonLoader();
+
     public RandomlyCreateAndPlaceEntitySystem(int priority, MapDraw draw) {
         super(priority, draw);
     }
@@ -38,7 +41,7 @@ public class RandomlyCreateAndPlaceEntitySystem extends GameEntitySystem {
         int size = entities.size();
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
-            Entity entityToPlace= GameAssets.getJsonLoader().copyObject(entity, Entity.class);
+            Entity entityToPlace= jsonLoader.copyObject(entity, Entity.class);
             PositionComponent entityPosition = positionComponentMapper.get(entityToPlace);
             RandomlyCreateAndPlaceEntity randomlyCreateAndPlaceEntitySystem = randomlyCreateAndPlaceEntityComponentMapper.get(entity);
             GameTime gameTime=getDraw().getGameTime();

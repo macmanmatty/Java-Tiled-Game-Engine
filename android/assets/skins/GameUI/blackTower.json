@@ -211,6 +211,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		over: closeOver
 		disabled: close2
 	}
+	lpcOptionPane: {
+		up: window19
+		down: window18
+		over: window17
+		disabled: window20
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {
@@ -402,6 +408,15 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	Readable: {
 		font: Black_Readable
 	}
+	lpcOptionPane: {
+		font: EnglishGold
+		fontColor: Gold
+		disabledFontColor: Goldenrod
+		up: buttonBrick2
+		down: buttonBrick
+		over: buttonBrick3
+		disabled: buttonBrick4
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
@@ -497,6 +512,21 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		background: windowCompass
 		titleFont: EnglishGold
 		titleFontColor: RED
+	}
+	pack: {
+		background: packgreen large
+		titleFont: Arial
+		titleFontColor: Goldenrod
+	}
+	itemBox: {
+		background: packgreen
+		titleFont: Georgia
+		titleFontColor: Gold
+	}
+	lpcOptionPane: {
+		background: window18
+		titleFont: OldeEnglish
+		titleFontColor: Gold
 	}
 }
 }

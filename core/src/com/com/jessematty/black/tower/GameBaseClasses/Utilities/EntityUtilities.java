@@ -421,6 +421,12 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    public static  Entity copyEntity(GameAssets assets, Entity entity){
        return new CopyObject(assets).copyObject(entity, Entity.class);
    }
+
+    /**
+     * factory method that creates a new entity with  all  the required
+     * base components and stats
+     * @return a Basic Entity
+     */
    public static BasicEntityContainer makeBasicEntity() {
         Entity entity = new Entity();
        EntityId entityId = new EntityId();

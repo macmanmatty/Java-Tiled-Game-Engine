@@ -275,7 +275,7 @@ public class TextureDisplayWindow extends EditWindow implements TextureRegionSet
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (heightField.getInteger() < minSplitHeight || widthField.getInteger() < minSplitWidth) {
-                    OptionPane pane = new OptionPane(getSkin(), " Too Small", " Split Height must be at least " + minSplitHeight + " pixles  Split Width must be at least " + minSplitWidth + "pixles", "ok");
+                    OptionPane pane = new OptionPane(getSkin(), " Too Small", " Split Height must be at least " + minSplitHeight + " pixles  Split Width must be at least " + minSplitWidth + "pixles", "ok", "default");
                     getStage().addActor(pane);
                     return;
                 }

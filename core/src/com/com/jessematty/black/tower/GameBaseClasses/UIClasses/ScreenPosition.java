@@ -1,5 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses;
 import com.badlogic.gdx.Gdx;
+
+/**
+ * enum for screen position  for game used windows used with a UIStage
+ */
 public enum ScreenPosition {
     BOTTOM(0,  0),
     TOP(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()),

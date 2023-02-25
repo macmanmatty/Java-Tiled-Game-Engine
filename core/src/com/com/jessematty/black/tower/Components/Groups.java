@@ -6,6 +6,9 @@ import com.badlogic.gdx.utils.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * component that contains a list of groups represented as strings that an entity belongs to.
+ */
 public class Groups implements Component {
 
     private Array<String> groups= new Array<String>();

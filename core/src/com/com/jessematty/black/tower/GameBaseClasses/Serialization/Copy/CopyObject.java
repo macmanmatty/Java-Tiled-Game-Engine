@@ -7,10 +7,10 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 public class CopyObject {
-    private JsonLoader jsonLoader;
+    private JsonLoader jsonLoader= new JsonLoader();
 
     public CopyObject(GameAssets gameAssets) {
-        GameAssets.getJsonLoader();
+
         jsonLoader.getJson().setSerializer(Entity.class, new EntitySerializer(gameAssets));
         jsonLoader.getJson().setSerializer(AtlasNamedAtlasRegion.class, new AtlasNamedAtlasRegionSerializer(gameAssets));
     }

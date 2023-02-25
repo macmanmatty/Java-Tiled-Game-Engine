@@ -16,6 +16,10 @@ public class TexturePackerLoader {
   //  static String atlasFileInputPath =System.getenv("atlasFileInputPath");
     // static  String atlasFileName =System.getenv("atlasFileName");
 
+    /**
+     * main method used to call the pack method to pack textures.
+     * @param args
+     */
     public static void main(String [] args){
 
         pack(new Settings());
