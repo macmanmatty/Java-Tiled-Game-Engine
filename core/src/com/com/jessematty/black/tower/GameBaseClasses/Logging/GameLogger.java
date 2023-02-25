@@ -128,6 +128,7 @@ public class GameLogger  extends Table {
           LogLabel label= new LogLabel(gameLog.getText(), getSkin());
           label.setFontScale(gameLog.getScale());
           label.setColor(gameLog.getTextColor());
+          label.setTimeToLive(gameLog.getTimeToDisplayOnScreen());
           addLogLabel(label);
         }
         
@@ -144,6 +145,7 @@ public class GameLogger  extends Table {
             LogLabel label= new LogLabel(gameLog.getText(), skin);
             label.setFontScale(gameLog.getScale());
             label.setColor(gameLog.getTextColor());
+            label.setTimeToLive(gameLog.getTimeToDisplayOnScreen());
             addLogLabel(label);
         }
 
