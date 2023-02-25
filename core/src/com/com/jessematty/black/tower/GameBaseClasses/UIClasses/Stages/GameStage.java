@@ -12,7 +12,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 public class GameStage extends Stage implements Disposable {
 
     /**
-     * the logger object for print lgs to the screen
+     * the logger object for printing logs to the screen
      */
     private  final GameLogger gameLogger;
 

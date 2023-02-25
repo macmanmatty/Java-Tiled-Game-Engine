@@ -1,11 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.Logging;
-
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Queue;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-
 /**
  * class that writes  logs statements to the libGDX screen extends a libGDX table for displaying the logs
  * this table  is added to the game stage
@@ -14,11 +12,10 @@ public class GameLogger  extends Table {
     /**
      * the level at which to write logs at
      * 0= no logging
-     * 1= log info
-     * 2= log error
+     * 1= log error
+     * 2= log info
      * 3= log debug
      */
-
     
     private int logLevel=3;
     /**
@@ -32,8 +29,7 @@ public class GameLogger  extends Table {
     /**
      *  the queue of log labels added to The table
      */
-    private Queue<LogLabel> displayLogs= new Queue<>(10);
-
+    private Queue<LogLabel> displayLogs= new Queue<>(4);
     /**
      * the position of the logger on the screen;
      */
@@ -43,18 +39,15 @@ public class GameLogger  extends Table {
         super(skin);
     }
     public GameLogger() {
-
     }
     @Override
     public void act(float deltaTime){
         super.act(deltaTime);
-
         if(displayLogs.size>maxDisplayedLogs){
          removeLogs(displayLogs.size-maxDisplayedLogs);
         }
         checkTime(deltaTime);
     }
-
     /**
      *  Checks how long a log label has been on screen
      *  and if it has been on longer than Time To Live Of
@@ -66,17 +59,13 @@ public class GameLogger  extends Table {
         for(int count=0; count<displayLogs.size; count++){
             LogLabel logLabel=displayLogs.get(count);
             System.out.println( "log :"+logLabel.getTimeLived() + " delta time: " +deltaTime);
-
             if(logLabel.getTimeToLive()>-1 && logLabel.getTimeLived()>=logLabel.getTimeToLive()) {
                 removeLogLabel(logLabel);
-
-
             }
             else{
                 logLabel.addiTme(deltaTime);
             }
         }
-
     }
     /**
      * removes all logs before  the end  position
@@ -92,7 +81,6 @@ public class GameLogger  extends Table {
         pack();
     
     }
-
     /**
      * removes a log label from  the table
      * @param logLabel  the log label to remove
@@ -103,9 +91,6 @@ public class GameLogger  extends Table {
         validate();
         pack();
     }
-
-
-
     /**
      * adds a log label to the log table to be displayed on the  screen
      * @param logLabel the log label to add
@@ -148,7 +133,6 @@ public class GameLogger  extends Table {
             label.setTimeToLive(gameLog.getTimeToDisplayOnScreen());
             addLogLabel(label);
         }
-
     }
     /**
      * logs an error message to the log table (this)
@@ -182,7 +166,6 @@ public class GameLogger  extends Table {
             addLogLabel(label);
         }
     }
-
     /**
      * removes all logs from the screen
      */
@@ -216,11 +199,9 @@ public class GameLogger  extends Table {
     public Queue<LogLabel> getDisplayLogs() {
         return displayLogs;
     }
-
     public ScreenPosition getLoggerScreenPosition() {
         return loggerScreenPosition;
     }
-
     public void setLoggerScreenPosition(ScreenPosition loggerScreenPosition) {
         this.loggerScreenPosition = loggerScreenPosition;
         setPosition(loggerScreenPosition.getX(), loggerScreenPosition.getY());
