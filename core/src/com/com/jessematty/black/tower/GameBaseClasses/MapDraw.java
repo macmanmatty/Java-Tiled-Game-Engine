@@ -88,7 +88,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         gameCamera.update();
         gameTime=world.getGameTime();
         frameBufferRenderer= new FrameBufferRenderer(batch, (int)viewPortWidth, (int)viewPortHeight);
-        uiStage = new GameStage();
+        uiStage = new GameStage(gameAssets.getGameLogger());
         GameAssets.getGameInput().addProcessor(uiStage);
         shapeRenderer =new ShapeRenderer();
         boundingBoxRenderer= new BoundingBoxRenderer(shapeRenderer);

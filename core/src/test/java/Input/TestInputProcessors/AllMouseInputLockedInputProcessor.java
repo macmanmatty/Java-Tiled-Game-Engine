@@ -158,7 +158,7 @@ public class AllMouseInputLockedInputProcessor implements LockableInputProcessor
     }
 
     @Override
-    public boolean scrolled(int amount) {
+    public boolean scrolled(float amountX, float amountY) {
         text="Scrolled";
 
         return false;
