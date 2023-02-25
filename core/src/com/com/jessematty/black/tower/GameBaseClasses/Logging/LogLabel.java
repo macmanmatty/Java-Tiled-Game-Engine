@@ -13,8 +13,8 @@ public class LogLabel  extends Label {
      * how long to display the text on the screen in milliseconds
      * -1 means stay until pushed off by other logs
      */
-    float timeToLive=100;
-    float timeLived=0;
+   private  float timeToLive=2;
+   private  float timeLived=0;
 
     public LogLabel(CharSequence text, Skin skin) {
         super(text, skin);
@@ -32,6 +32,7 @@ public class LogLabel  extends Label {
         super(text, skin, fontName, colorName);
     }
 
+
     public LogLabel(CharSequence text, LabelStyle style) {
         super(text, style);
     }
@@ -48,11 +49,8 @@ public class LogLabel  extends Label {
         return timeLived;
     }
 
-    public void setTimeLived(float timeLived) {
-        this.timeLived = timeLived;
-    }
-
     public void addiTme(float time) {
         this.timeLived=this.timeLived+time;
+
     }
 }
