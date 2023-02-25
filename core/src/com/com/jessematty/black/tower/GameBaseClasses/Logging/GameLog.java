@@ -24,7 +24,7 @@ public class GameLog implements  Component {
     /**
      * the scale of the log label
      */
-    private float scale;
+    private float scale=1;
 
     /**
      * the log level

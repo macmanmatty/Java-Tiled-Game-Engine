@@ -13,7 +13,7 @@ public class LogLabel  extends Label {
      * how long to display the text on the screen in milliseconds
      * -1 means stay until pushed off by other logs
      */
-    float timeToLive=10000;
+    float timeToLive=100;
     float timeLived=0;
 
     public LogLabel(CharSequence text, Skin skin) {

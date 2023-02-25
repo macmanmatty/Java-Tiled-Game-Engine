@@ -3,7 +3,7 @@ package Systems;
 import com.badlogic.ashley.core.Engine;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Systems.UI.LoggerSystem;
+import com.jessematty.black.tower.Systems.Unused.LoggerSystem;
 
 import org.junit.Before;
 

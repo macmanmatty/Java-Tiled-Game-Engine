@@ -3,7 +3,6 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -12,11 +11,16 @@ import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 public class GameStage extends Stage implements Disposable {
 
+    /**
+     * the logger object for print lgs to the screen
+     */
     private  final GameLogger gameLogger;
+
     public GameStage(float width, float height, GameLogger gameLogger) {
        Viewport stageViewPort=new FillViewport(width, height);
         setViewport(stageViewPort);
         this.gameLogger=gameLogger;
+        addActor(gameLogger);
     }
 
     public GameStage(GameLogger gameLogger) {
@@ -26,6 +30,7 @@ public class GameStage extends Stage implements Disposable {
 
     public GameStage() {
         this.gameLogger=new GameLogger();
+        addActor(gameLogger);
     }
 
     /**
@@ -68,15 +73,6 @@ public class GameStage extends Stage implements Disposable {
     public void addWindow(Dialog window, ScreenPosition screenPosition) {
         window.setPosition(screenPosition.getX(), screenPosition.getY());
         window.show(this);
-    }
-    public void addLabel(Label label, float positionX, float positionY){
-        label.setPosition(positionX, positionY);
-        addActor(label);
-    }
-
-    public void addLogLabel(Label label) {
-        addLabel(label, 0, 0);
-
     }
 
     public GameLogger getGameLogger() {

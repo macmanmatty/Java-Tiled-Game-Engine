@@ -19,6 +19,7 @@ public class GameLogger  extends Table {
      * 2= log error
      * 3= log debug
      */
+
     
     private int logLevel=3;
     /**
@@ -43,10 +44,12 @@ public class GameLogger  extends Table {
         super(skin);
     }
     public GameLogger() {
+
     }
     @Override
     public void act(float deltaTime){
         super.act(deltaTime);
+
         if(displayLogs.size>maxDisplayedLogs){
          removeLogs(displayLogs.size-maxDisplayedLogs);
         }
@@ -62,9 +65,10 @@ public class GameLogger  extends Table {
      */
     private void checkTime(float deltaTime){
         for(int count=0; count<displayLogs.size; count++){
-            LogLabel logLabel=displayLogs.first();
+            LogLabel logLabel=displayLogs.last();
             if(logLabel.getTimeToLive()>-1 && logLabel.getTimeLived()>=logLabel.getTimeToLive()) {
-                removeLogLabel(displayLogs.first());
+                removeLogLabel(logLabel);
+
 
             }
             else{
@@ -82,7 +86,7 @@ public class GameLogger  extends Table {
     private void removeLogs( int end){
         end=end-1;
         for(int count=0; count<end; count++){
-           removeLogLabel(displayLogs.first());
+           removeLogLabel(displayLogs.last());
         }
         validate();
         pack();
@@ -97,6 +101,7 @@ public class GameLogger  extends Table {
         logLabel.addAction(Actions.removeActor());
         Cell cell=getCell(logLabel);
         getCells().removeValue(cell, true);
+        displayLogs.removeValue(logLabel, true);
     }
 
 
@@ -107,6 +112,7 @@ public class GameLogger  extends Table {
      */
     private void  addLogLabel(LogLabel logLabel){
         add(logLabel).padTop(logPadding);
+        displayLogs.addFirst(logLabel);
         row();
         pack();
         validate();

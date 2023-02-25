@@ -1,15 +1,14 @@
-package com.jessematty.black.tower.Systems.UI;
+package com.jessematty.black.tower.Systems.Unused;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Logger;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogLevel;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
+import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogLevel;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
@@ -36,7 +35,6 @@ public class LoggerSystem extends GameEntitySystem {
             Entity entity=entities.get(count);
             GameLog gameLog =logComponentMapper.get(entity);
             if(gameLog.isDisplayOnScreen()) {
-                getDraw().getUiStage().addLogLabel(new Label(gameLog.getText(), getDraw().getCurrentMap().getSkin(), gameLog.getStyle()));
             }
             systemLog(gameLog);
             // after logging remove log from engine
