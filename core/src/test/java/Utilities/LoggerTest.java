@@ -1,5 +1,6 @@
 package Utilities;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogLevel;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
@@ -16,12 +17,24 @@ public class LoggerTest {
     public void testLogger(){
         new HeadlesslibGDX();
         GameLogger gameLogger= new GameLogger();
-        gameLogger.setLogLevel(1);
-        gameLogger.log(new GameLog("log", GameLogLevel.ERROR, false));
-        gameLogger.log(new GameLog("log1", GameLogLevel.INFO, false));
-        gameLogger.log(new GameLog("log2", GameLogLevel.DEBUG, false));
-        gameLogger.log(new GameLog("log3", GameLogLevel.OFF, false));
-        assertEquals(gameLogger.getDisplayLogs().size, 3);
+        Skin skin= new Skin();
+        gameLogger.setLogLevel(GameLogLevel.DEBUG);
+        gameLogger.log(new GameLog("log3", GameLogLevel.OFF, false), skin);
+        assertEquals(gameLogger.getDisplayLogs().size, 0);
+
+    }
+
+    @Test
+    public void testLogger2(){
+        new HeadlesslibGDX();
+        GameLogger gameLogger= new GameLogger();
+        Skin skin= new Skin();
+        gameLogger.setLogLevel(GameLogLevel.OFF);
+        gameLogger.log(new GameLog("log3", GameLogLevel.OFF, false), skin);
+        gameLogger.log(new GameLog("log3", GameLogLevel.DEBUG, false), skin);
+        gameLogger.log(new GameLog("log3", GameLogLevel.INFO, false), skin);
+        gameLogger.log(new GameLog("log3", GameLogLevel.ERROR, false), skin);
+        assertEquals(gameLogger.getDisplayLogs().size, 0);
 
     }
 

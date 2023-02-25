@@ -1,8 +1,8 @@
 package libGDX;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.jessematty.black.tower.GameBaseClasses.BlackTower;
 
 public class HeadlesslibGDX {
     /**
@@ -12,7 +12,12 @@ public class HeadlesslibGDX {
    static  {
         if (headlessApplication == null) {
             HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-            headlessApplication = new HeadlessApplication(new BlackTower(), config);
+            headlessApplication = new HeadlessApplication(new Game() {
+                @Override
+                public void create() {
+
+                }
+            }, config);
         }
     }
 
