@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Components;
 import com.badlogic.gdx.math.Vector3;
 import com.jessematty.black.tower.Components.Actions.ActionableComponent;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 /**
@@ -63,11 +62,9 @@ public class MovableComponent implements ActionableComponent {
      */
     public void moveUp() { // moves owner up
         moveAngle = 0;
-        GameAssets.getGameLogger().logInfo("moved up");
     }
     public void moveDown() { // moves owner down
         moveAngle = (float) Math.PI;
-        GameAssets.getGameLogger().logInfo("moved down");
 
     }
     public void moveRight() { //

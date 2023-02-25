@@ -36,6 +36,17 @@ public class GameLog implements  Component {
      */
     private boolean displayOnScreen;
 
+
+
+    /**
+     *
+     *
+     * @param text
+     * @param gameLogLevel
+     * @param displayOnScreen
+     */
+
+
     public GameLog(String text, GameLogLevel gameLogLevel, boolean displayOnScreen) {
         this.text = text;
         this.gameLogLevel = gameLogLevel;
@@ -106,4 +117,5 @@ public class GameLog implements  Component {
     public void setDisplayOnScreen(boolean displayOnScreen) {
         this.displayOnScreen = displayOnScreen;
     }
+
 }

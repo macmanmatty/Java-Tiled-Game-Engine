@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Logging;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Queue;
@@ -65,7 +64,9 @@ public class GameLogger  extends Table {
      */
     private void checkTime(float deltaTime){
         for(int count=0; count<displayLogs.size; count++){
-            LogLabel logLabel=displayLogs.last();
+            LogLabel logLabel=displayLogs.get(count);
+            System.out.println( "log :"+logLabel.getTimeLived() + " delta time: " +deltaTime);
+
             if(logLabel.getTimeToLive()>-1 && logLabel.getTimeLived()>=logLabel.getTimeToLive()) {
                 removeLogLabel(logLabel);
 
@@ -75,8 +76,7 @@ public class GameLogger  extends Table {
                 logLabel.addiTme(deltaTime);
             }
         }
-    validate();
-        pack();
+
     }
     /**
      * removes all logs before  the end  position
@@ -99,9 +99,9 @@ public class GameLogger  extends Table {
      */
     private void removeLogLabel(LogLabel logLabel){
         logLabel.addAction(Actions.removeActor());
-        Cell cell=getCell(logLabel);
-        getCells().removeValue(cell, true);
         displayLogs.removeValue(logLabel, true);
+        validate();
+        pack();
     }
 
 
@@ -123,13 +123,32 @@ public class GameLogger  extends Table {
      * @param gameLog the gameLog to log
      */
     public void log(GameLog gameLog){
-        if(logLevel>gameLog.getGameLogLevel().value){
+        int value=gameLog.getGameLogLevel().value;
+        if(logLevel>value && value>0){
           LogLabel label= new LogLabel(gameLog.getText(), getSkin());
           label.setFontScale(gameLog.getScale());
           label.setColor(gameLog.getTextColor());
+          label.setTimeToLive(gameLog.getTimeToDisplayOnScreen());
           addLogLabel(label);
         }
         
+    }
+    /**
+     * logs an game log object message to the log table (this) with different  skin than the table
+     * @param gameLog the gameLog to log
+     * @param skin  the libGDX skin for the label
+     *
+     */
+    public void log(GameLog gameLog, Skin skin){
+        int value=gameLog.getGameLogLevel().value;
+        if(logLevel>value && value>0){
+            LogLabel label= new LogLabel(gameLog.getText(), skin);
+            label.setFontScale(gameLog.getScale());
+            label.setColor(gameLog.getTextColor());
+            label.setTimeToLive(gameLog.getTimeToDisplayOnScreen());
+            addLogLabel(label);
+        }
+
     }
     /**
      * logs an error message to the log table (this)
