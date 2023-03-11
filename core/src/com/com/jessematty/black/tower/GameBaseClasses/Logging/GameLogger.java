@@ -40,6 +40,13 @@ public class GameLogger  extends Table {
     }
     public GameLogger() {
     }
+
+    /**
+     * overridden actor  act method
+     * to remove logs from the screen as new  logs appear
+     * or when log TTL expires
+     * @param deltaTime libGDX delta time
+     */
     @Override
     public void act(float deltaTime){
         super.act(deltaTime);
