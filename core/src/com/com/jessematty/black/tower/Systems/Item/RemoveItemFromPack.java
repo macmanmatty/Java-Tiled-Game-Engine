@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Pack;
+import com.jessematty.black.tower.Components.Containers.Pack;
 import com.jessematty.black.tower.Components.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;

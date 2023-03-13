@@ -8,7 +8,7 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.FlagComponents.AnimationFinished;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Position.BoundsChangeable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;

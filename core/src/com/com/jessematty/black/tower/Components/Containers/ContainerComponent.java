@@ -1,11 +1,12 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Containers;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
 /**
  * component for  an entity  that holds other entities
  */
-public class Container implements Component {
+public class ContainerComponent implements Component {
     /**
      * maximum volume  pack can hold <0= no volume limit
      */
@@ -23,7 +24,7 @@ public class Container implements Component {
      */
     private double currentWeight;
     /**
-     * the ids of he entities in the container
+     * the ids of the entities in the container
      */
    private Array<String > entitiesInContainerIds = new Array<String>();
     /**
@@ -34,7 +35,7 @@ public class Container implements Component {
      *  whether or not to display entities  info used for UI
      */
    private boolean listEntities; 
-    public Container() {
+    public ContainerComponent() {
         innerVolume =200;
         maxHoldWeight =200;
     }

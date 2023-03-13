@@ -3,7 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.Annotation;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 
 /**
  * @author David Saltares

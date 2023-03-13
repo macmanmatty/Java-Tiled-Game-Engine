@@ -1,4 +1,6 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Containers;
+
+import com.jessematty.black.tower.Components.Container;
 
 public class Pack extends Container {
 

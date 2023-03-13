@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.HoldPosition;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

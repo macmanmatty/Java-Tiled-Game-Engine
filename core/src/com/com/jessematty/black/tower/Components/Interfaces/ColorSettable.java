@@ -1,6 +1,5 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Interfaces;
 
-import com.badlogic.gdx.graphics.Color;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 public interface ColorSettable {

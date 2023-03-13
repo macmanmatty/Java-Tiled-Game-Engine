@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components;
 
 import com.badlogic.gdx.graphics.Color;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 

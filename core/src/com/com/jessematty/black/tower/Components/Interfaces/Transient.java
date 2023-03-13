@@ -1,6 +1,5 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Interfaces;
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

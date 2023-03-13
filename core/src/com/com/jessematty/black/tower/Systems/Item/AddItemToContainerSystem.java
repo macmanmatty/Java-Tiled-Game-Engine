@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Item.AddItemToContainerComponent;
-import com.jessematty.black.tower.Components.Container;
+import Container;
 import com.jessematty.black.tower.Components.EntityId;
 
 

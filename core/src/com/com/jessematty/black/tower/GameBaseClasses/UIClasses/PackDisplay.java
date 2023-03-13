@@ -21,7 +21,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Acti
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.NameComponent;
-import com.jessematty.black.tower.Components.Pack;
+import com.jessematty.black.tower.Components.Containers.Pack;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Animation;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;

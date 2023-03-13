@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Editor.OldClasses;
 
-import com.jessematty.black.tower.Components.Pack;
+import com.jessematty.black.tower.Components.Containers.Pack;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 
 public class PackEdit extends ItemEdit {

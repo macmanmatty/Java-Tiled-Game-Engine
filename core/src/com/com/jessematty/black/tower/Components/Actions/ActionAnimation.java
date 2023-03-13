@@ -1,8 +1,8 @@
 package com.jessematty.black.tower.Components.Actions;
 
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.ColorSettable;
-import com.jessematty.black.tower.Components.DirectionalAnimation;
+import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
+import com.jessematty.black.tower.Components.Animation.DirectionalAnimation;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 public class ActionAnimation  implements ColorSettable {

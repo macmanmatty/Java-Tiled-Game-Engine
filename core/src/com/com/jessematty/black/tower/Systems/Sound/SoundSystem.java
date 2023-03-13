@@ -8,7 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.SoundComponent;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;

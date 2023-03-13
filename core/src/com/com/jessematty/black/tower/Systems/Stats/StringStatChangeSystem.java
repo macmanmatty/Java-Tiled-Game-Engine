@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

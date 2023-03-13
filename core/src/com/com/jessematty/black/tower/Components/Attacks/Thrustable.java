@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Attacks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Actions.ActionableComponent;

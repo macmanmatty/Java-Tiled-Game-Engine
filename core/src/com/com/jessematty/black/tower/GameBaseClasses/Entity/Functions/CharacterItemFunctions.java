@@ -18,7 +18,7 @@ import com.jessematty.black.tower.Components.EntityId;
 import com.jessematty.black.tower.Components.HoldPosition;
 import com.jessematty.black.tower.Components.Ingest;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Pack;
+import com.jessematty.black.tower.Components.Containers.Pack;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

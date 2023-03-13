@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Components;
+package com.jessematty.black.tower.Components.Interfaces;
 
 import com.badlogic.ashley.core.Component;
 
