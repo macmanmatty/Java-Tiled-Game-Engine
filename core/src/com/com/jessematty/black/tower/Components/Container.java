@@ -1,26 +1,43 @@
 package com.jessematty.black.tower.Components;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * component for  an entity  that holds other entities
+ */
 public class Container implements Component {
-    private double innerVolume; // maximum volumer pack can hold
-   private double filledInnerVolume; // current volume of all the item in the pack.
-   private  double maxHoldWeight; // maximum weight the pack can carry determined by the fighetr who is wearing it.
-    private double currentWeight; // the current weight of all the item sthe pack.
-   private Array<String > entitiesInContainerIds = new Array<String>(); // the items in the pack.
+    /**
+     * maximum volume  pack can hold <0= no volume limit
+     */
+    private double innerVolume;
+    /**
+     * current total  volume of all the item in the pack.
+     */
+   private double filledInnerVolume; 
+    /**
+     * maximum weight the container can hold  <0 = no weight limit;
+     */
+   private  double maxHoldWeight;
+    /**
+     *  the current total  weight of all the items the container
+     */
+    private double currentWeight;
+    /**
+     * the ids of he entities in the container
+     */
+   private Array<String > entitiesInContainerIds = new Array<String>();
+    /**
+     *  the allowable groups to add  to the container
+     */
    private  Array<String> groupsAddable= new Array<String>();
-   private boolean listEntities; // whether or not to display entities  info
-
-
-
+    /**
+     *  whether or not to display entities  info used for UI
+     */
+   private boolean listEntities; 
     public Container() {
-
         innerVolume =200;
         maxHoldWeight =200;
     }
-
-
     public double getCurrentCarryVolume(){
         return filledInnerVolume;
     }
@@ -45,11 +62,9 @@ public class Container implements Component {
     public void setInnerVolume(double points){
         innerVolume =points;
     }
-
     public Array<String> getEntitiesInContainerIds() {
         return entitiesInContainerIds;
     }
-
     public Array<String> getGroupsAddable() {
         return groupsAddable;
     }
@@ -65,13 +80,10 @@ public class Container implements Component {
     public void setFilledInnerVolume(double filledInnerVolume) {
         this.filledInnerVolume = filledInnerVolume;
     }
-
     public boolean isListEntities() {
         return listEntities;
     }
-
     public void setListEntities(boolean listEntities) {
         this.listEntities = listEntities;
     }
 }
-
