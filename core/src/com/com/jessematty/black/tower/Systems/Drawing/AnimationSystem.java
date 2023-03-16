@@ -13,7 +13,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
-import com.jessematty.black.tower.Components.Glow;
+import com.jessematty.black.tower.Components.Other.Glow;
 import com.jessematty.black.tower.Components.Animation.AnimationState;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

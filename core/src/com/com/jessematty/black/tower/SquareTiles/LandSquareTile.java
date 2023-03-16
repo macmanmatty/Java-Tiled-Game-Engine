@@ -2,20 +2,20 @@ package com.jessematty.black.tower.SquareTiles;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Groups;
+import com.jessematty.black.tower.Components.Base.Groups;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.NameComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Tiles.Tile;
-import com.jessematty.black.tower.Components.TileWeatherChangableNumericStatChangeable;
-import com.jessematty.black.tower.Components.TileWeatherNumericStatsChangable;
+import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;
+import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 /**

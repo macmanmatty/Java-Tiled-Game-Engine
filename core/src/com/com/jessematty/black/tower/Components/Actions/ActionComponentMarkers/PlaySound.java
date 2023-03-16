@@ -1,4 +1,6 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-public class PlaySound extends ActionComponent {
+import com.badlogic.ashley.core.Component;
+
+public class PlaySound implements Component {
 }

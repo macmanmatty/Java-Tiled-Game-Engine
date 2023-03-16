@@ -6,16 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionImageComponent;
 
 /**
  *  Action Button that adds an action to an entity
  */
 public class ActionButton extends ImageButton {
-   private ActionComponent action;
+   private ItemActionImageComponent action;
     private Entity entity;
 
-    public ActionButton(Skin skin, ActionComponent action, Entity entity) {
+    public ActionButton(Skin skin, ItemActionImageComponent action, Entity entity) {
         super(skin);
         this.action = action;
         this.entity = entity;
@@ -23,7 +23,7 @@ public class ActionButton extends ImageButton {
         addListener();
     }
 
-    public ActionButton(Skin skin, String styleName, ActionComponent action, Entity entity) {
+    public ActionButton(Skin skin, String styleName, ItemActionImageComponent action, Entity entity) {
         super(skin, styleName);
         this.action = action;
         this.entity = entity;
@@ -31,14 +31,14 @@ public class ActionButton extends ImageButton {
 
     }
 
-    public ActionButton(ImageButtonStyle style, ActionComponent action, Entity entity) {
+    public ActionButton(ImageButtonStyle style, ItemActionImageComponent action, Entity entity) {
         super(style);
         this.action = action;
         this.entity = entity;
         addListener();
 
     }
-    public ActionButton( ActionComponent action, Entity entity) {
+    public ActionButton(ItemActionImageComponent action, Entity entity) {
         this(action.getButtonUpImage().getDrawable(), action.getButtonDownImage().getDrawable(),action,  entity);
 
         this.action = action;
@@ -47,7 +47,7 @@ public class ActionButton extends ImageButton {
 
     }
 
-    public ActionButton(Drawable imageUp, ActionComponent action, Entity entity) {
+    public ActionButton(Drawable imageUp, ItemActionImageComponent action, Entity entity) {
         super(imageUp);
         this.action = action;
         this.entity = entity;
@@ -55,7 +55,7 @@ public class ActionButton extends ImageButton {
 
     }
 
-    public ActionButton(Drawable imageUp, Drawable imageDown, ActionComponent action, Entity entity) {
+    public ActionButton(Drawable imageUp, Drawable imageDown, ItemActionImageComponent action, Entity entity) {
         super(imageUp, imageDown);
         this.action = action;
         this.entity = entity;
@@ -63,7 +63,7 @@ public class ActionButton extends ImageButton {
 
     }
 
-    public ActionButton(Drawable imageUp, Drawable imageDown, Drawable imageChecked, ActionComponent action, Entity entity) {
+    public ActionButton(Drawable imageUp, Drawable imageDown, Drawable imageChecked, ItemActionImageComponent action, Entity entity) {
         super(imageUp, imageDown, imageChecked);
         this.action = action;
         this.entity = entity;

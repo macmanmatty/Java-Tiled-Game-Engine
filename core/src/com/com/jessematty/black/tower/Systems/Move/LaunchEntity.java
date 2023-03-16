@@ -9,10 +9,10 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Launched;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
-import com.jessematty.black.tower.Components.MovableComponent;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Attacks.Launchable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Target;
+import com.jessematty.black.tower.Components.Other.Target;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

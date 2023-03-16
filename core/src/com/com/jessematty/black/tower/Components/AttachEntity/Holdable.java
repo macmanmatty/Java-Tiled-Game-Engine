@@ -2,7 +2,6 @@ package com.jessematty.black.tower.Components.AttachEntity;
 
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionableComponent;
-import com.jessematty.black.tower.Components.HoldPosition;
 
 public class Holdable implements ActionableComponent {
 

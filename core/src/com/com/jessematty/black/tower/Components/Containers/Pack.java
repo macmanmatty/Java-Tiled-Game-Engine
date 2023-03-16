@@ -1,8 +1,7 @@
 package com.jessematty.black.tower.Components.Containers;
 
-import com.jessematty.black.tower.Components.Container;
 
-public class Pack extends Container {
+public class Pack extends ContainerComponent{
 
     private String fullMessage=" Pack is Full!!!";
     private String fullTitle="Pack is Full";

@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Editor.EditMode.UIElements.PopUpMenus.MenuIte
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.jessematty.black.tower.Components.EditorImageComponent;
+import com.jessematty.black.tower.Components.Other.EditorImageComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;

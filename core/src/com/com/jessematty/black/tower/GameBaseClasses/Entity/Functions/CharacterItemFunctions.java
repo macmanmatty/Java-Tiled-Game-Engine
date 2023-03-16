@@ -3,9 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Entity.Functions;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Item.AddItemToPackComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
-import com.jessematty.black.tower.Components.Item.PickUpItem;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Read;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
@@ -13,14 +11,16 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thro
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.DominateHand;
-import com.jessematty.black.tower.Components.EntityId;
-import com.jessematty.black.tower.Components.HoldPosition;
-import com.jessematty.black.tower.Components.Ingest;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.Other.DominateHand;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
+import com.jessematty.black.tower.Components.Other.HoldPosition;
+import com.jessematty.black.tower.Components.Other.Ingest;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Item.PickUpItem;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ItemActionWindow;
@@ -117,9 +117,8 @@ public class CharacterItemFunctions {
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
             PositionComponent position = player.getPositionComponent();
             GameMap map = mapDraw.getWorld().getMap(position.getMapId());
-            Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), Pack.class);
-            AddItemToPackComponent addItemToPackComponent= new AddItemToPackComponent();
-            addItemToPackComponent.setItemToAddId(idComponentMapper.get(player.getHand(hand)).getId());
+            Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), ContainerComponent.class);
+            AddItemToContainer addItemToPackComponent= new AddItemToContainer();
             if (packs.size > 0) {
                 String text="Select A Pack To Add To";
                 mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);

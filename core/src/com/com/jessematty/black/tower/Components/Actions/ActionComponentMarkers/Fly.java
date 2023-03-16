@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-public class Fly extends ActionComponent  {
+import com.badlogic.ashley.core.Component;
+
+public class Fly implements Component {
 }
 
 

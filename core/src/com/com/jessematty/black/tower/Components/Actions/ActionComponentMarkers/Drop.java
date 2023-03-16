@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+import com.badlogic.ashley.core.Component;
 
-public class Drop   extends ItemActionComponent {
+public class Drop   implements Component {
 
 }

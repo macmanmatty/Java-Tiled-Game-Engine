@@ -10,11 +10,11 @@ public class ContainerComponent implements Component {
     /**
      * maximum volume  pack can hold <0= no volume limit
      */
-    private double innerVolume;
+    private double maxVolume;
     /**
      * current total  volume of all the item in the pack.
      */
-   private double filledInnerVolume; 
+   private double currentFilledVolume;
     /**
      * maximum weight the container can hold  <0 = no weight limit;
      */
@@ -29,18 +29,47 @@ public class ContainerComponent implements Component {
    private Array<String > entitiesInContainerIds = new Array<String>();
     /**
      *  the allowable groups to add  to the container
+     *  if this any array is empty any item that is small enough
+     *  or light enough can be added to  this  container
      */
    private  Array<String> groupsAddable= new Array<String>();
     /**
      *  whether or not to display entities  info used for UI
      */
-   private boolean listEntities; 
+   private boolean listEntities;
+    /**
+     *  if true items that  will / cannot not be added to the container (entitiesInContainerIds array)  and
+     *  instead permanently disappear  from the game!
+     */
+   private boolean eatAllItems;
+
+    /**
+     *  if true items with groups  that don't match the groups in the groups addableArray
+     *  will not be added to the container (entitiesInContainerIds array)  and instead permanently disappear
+     *  from the game!
+     */
+    private boolean eatItemsNotInGroups;
+
+    /**
+     * if this is set to true  weight and volume will be ignored
+     *  and items can  be added into the container up to
+     *  the maxNumberOfItemsAllowed variable;
+     */
+    private boolean  addByNumberOfItems;
+
+    /**
+     * the maximum number of Items allowed in the pack
+     * only used  if addByNumberOfItems=true;
+     */
+    private int maxNumberOfItemsAllowed;
+
+
     public ContainerComponent() {
-        innerVolume =200;
+        maxVolume =200;
         maxHoldWeight =200;
     }
     public double getCurrentCarryVolume(){
-        return filledInnerVolume;
+        return currentFilledVolume;
     }
     public double getCurrentWeight() {
         return currentWeight;
@@ -54,14 +83,14 @@ public class ContainerComponent implements Component {
     public void setMaxHoldWeight(double maxHoldWeight) {
         this.maxHoldWeight = maxHoldWeight;
     }
-    public double getInnerVolume() {
-        return innerVolume;
+    public double getMaxVolume() {
+        return maxVolume;
     }
     public String getItem(int  number){
         return entitiesInContainerIds.get(number);
     }
-    public void setInnerVolume(double points){
-        innerVolume =points;
+    public void setMaxVolume(double points){
+        maxVolume =points;
     }
     public Array<String> getEntitiesInContainerIds() {
         return entitiesInContainerIds;
@@ -75,16 +104,48 @@ public class ContainerComponent implements Component {
     public void emptyPack(){
         entitiesInContainerIds.removeAll(entitiesInContainerIds,false);
     }
-    public double getFilledInnerVolume() {
-        return filledInnerVolume;
+    public double getCurrentFilledVolume() {
+        return currentFilledVolume;
     }
-    public void setFilledInnerVolume(double filledInnerVolume) {
-        this.filledInnerVolume = filledInnerVolume;
+    public void setCurrentFilledVolume(double currentFilledVolume) {
+        this.currentFilledVolume = currentFilledVolume;
     }
     public boolean isListEntities() {
         return listEntities;
     }
     public void setListEntities(boolean listEntities) {
         this.listEntities = listEntities;
+    }
+
+    public boolean isEatAllItems() {
+        return eatAllItems;
+    }
+
+    public void setEatAllItems(boolean eatAllItems) {
+        this.eatAllItems = eatAllItems;
+    }
+
+    public boolean isEatItemsNotInGroups() {
+        return eatItemsNotInGroups;
+    }
+
+    public void setEatItemsNotInGroups(boolean eatItemsNotInGroups) {
+        this.eatItemsNotInGroups = eatItemsNotInGroups;
+    }
+
+    public boolean isAddByNumberOfItems() {
+        return addByNumberOfItems;
+    }
+
+    public void setAddByNumberOfItems(boolean addByNumberOfItems) {
+        this.addByNumberOfItems = addByNumberOfItems;
+    }
+
+    public int getMaxNumberOfItemsAllowed() {
+        return maxNumberOfItemsAllowed;
+    }
+
+    public void setMaxNumberOfItemsAllowed(int maxNumberOfItemsAllowed) {
+        this.maxNumberOfItemsAllowed = maxNumberOfItemsAllowed;
     }
 }

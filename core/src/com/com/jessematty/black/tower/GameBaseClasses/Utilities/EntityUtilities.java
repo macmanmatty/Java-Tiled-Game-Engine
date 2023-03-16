@@ -4,30 +4,28 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
-import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.Groups;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.NameComponent;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Animation.Animation;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -35,9 +33,9 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
+import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;
 
 public class EntityUtilities {
@@ -464,32 +462,31 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity2.add(new RemoveFromEngine());
       return entity;
     }
+
+    /**
+     * links one entity to  another
+     * @param world
+     * @param entityToAttachTo
+     * @param entityToAttach
+     * @return
+     */
    public  static  boolean attachEntity(World world, Entity entityToAttachTo,   Entity entityToAttach){
        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
        ComponentMapper<EntityId> idComponentMapper=gameComponentMapper.getIdComponentMapper();
        ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
-       ComponentMapper<AttachedComponent> attachedComponentComponentMapper=gameComponentMapper.getAttachedComponentComponentMapper();
        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=gameComponentMapper.getOwnedComponentComponentMapper();
-       AttachedComponent attachedComponent=attachedComponentComponentMapper.get(entityToAttachTo);
        OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToAttachTo);
-       if(attachedComponent==null){
-           return false;
-       }
       EntityId entityToAttachID=idComponentMapper.get(entityToAttach);
         EntityId entityToAttachToID=idComponentMapper.get(entityToAttachTo);
        if(entityToAttachID==null){
             return false;
         }
-
-    NameComponent nameComponent =entityToAttach.getComponent(NameComponent.class);
-        ObjectMap<String , String> attachedEntityIds=attachedComponent.getAttachedEntities();
-        String entityKey="entity"+attachedEntityIds.size;
-      if(nameComponent !=null){
-            entityKey= nameComponent.getStat();
-       }
-       boolean attached=attachedComponent.addEntity(entityKey, entityToAttachID.getId());
-       attached=ownerComponent.addEntity(entityToAttachID.getId());
-        OwnedComponent ownedComponent=ownedComponentComponentMapper.get(entityToAttachTo);
+      boolean  attached=ownerComponent.addEntity(entityToAttachID.getId());
+        OwnedComponent ownedComponent=ownedComponentComponentMapper.get(entityToAttach);
+        if(ownedComponent==null){
+            ownedComponent= new OwnedComponent();
+            entityToAttach.add(ownedComponent);
+        }
         ownedComponentComponentMapper.get(entityToAttach);
         ownedComponent.setAttached(true);
         ownedComponent.setOwnerEntityID(entityToAttachToID.getId());
@@ -539,19 +536,13 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
         GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         ComponentMapper<EntityId> idComponentMapper=gameComponentMapper.getIdComponentMapper();
         ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
-        ComponentMapper<AttachedComponent> attachedComponentComponentMapper=gameComponentMapper.getAttachedComponentComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentComponentMapper=gameComponentMapper.getOwnedComponentComponentMapper();
-        AttachedComponent attachedComponent=attachedComponentComponentMapper.get(entityToDetachFrom);
         OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToDetachFrom);
         OwnedComponent ownedComponent = ownedComponentComponentMapper.get(entityToDetachFrom);
-       if(attachedComponent==null){
-            return;
-        }
+
       EntityId entityTodetachID=idComponentMapper.get(entityToDetach);
       NameComponent nameComponent =entityToDetach.getComponent(NameComponent.class);
         String entityName= nameComponent.getStat();
-        ObjectMap<String , String> attachedEntityIds=attachedComponent.getAttachedEntities();
-       attachedEntityIds.remove(entityName);
         if(removeOwnership==true) {
             ownerComponent.getOwnedEntityIDs().removeValue(entityTodetachID.getId(), false);
             ownedComponentComponentMapper.get(entityToDetach);

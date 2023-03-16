@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.AI;
 
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 
 /**
  * base class for zelda style rpg actions

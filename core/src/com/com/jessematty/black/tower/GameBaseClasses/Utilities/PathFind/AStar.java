@@ -1,10 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
-import com.jessematty.black.tower.Components.SolidObject;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.Node;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValid;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValidForEntity;
 import com.jessematty.black.tower.Maps.GameMap;

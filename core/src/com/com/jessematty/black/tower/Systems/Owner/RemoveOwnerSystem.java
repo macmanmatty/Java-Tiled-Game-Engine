@@ -48,8 +48,6 @@ public class RemoveOwnerSystem extends GameEntitySystem {
             EntityUtilities.detachEntity(getWorld(), entity, entityToRemove, true);
             entity.remove(RemoveOwnerComponent.class);
 
-
-
         }
 
 

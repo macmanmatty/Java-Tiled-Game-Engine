@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-public class MovingOnGroundComponent extends ActionComponent { // flag for entity moving
+import com.badlogic.ashley.core.Component;
+
+public class MovingOnGroundComponent implements Component { // flag for entity moving
 
 
 

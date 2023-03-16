@@ -7,7 +7,7 @@ public class OwnerComponent implements Component {
 
     private Array<String> ownedEntityIDs= new Array<>();
     private int maxOwnedEntities=-1;
-    private String maxEntitiesError="Man Number Of Entities Already Attached";
+    private String maxEntitiesError="Max Number Of Entities Already Attached";
     private String maxEntitiesErrorTitle="Error!";
 
 
