@@ -45,7 +45,7 @@ public class RemoveOwnerSystem extends GameEntitySystem {
             RemoveOwnerComponent removeOwnerComponent=removeOwnerComponentComponentMapper.get(entity);
             String entityToRemoveID=removeOwnerComponent.getEntityToRemoveID();
             Entity entityToRemove=getWorld().getEntity(entityToRemoveID);
-            EntityUtilities.detachEntity(getWorld(), entity, entityToRemove, true);
+            EntityUtilities.detachEntity(getWorld(), entity, entityToRemove);
             entity.remove(RemoveOwnerComponent.class);
 
         }

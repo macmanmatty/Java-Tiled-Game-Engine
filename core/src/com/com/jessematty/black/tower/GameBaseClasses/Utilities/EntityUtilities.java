@@ -476,6 +476,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=gameComponentMapper.getOwnedComponentComponentMapper();
        OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToAttachTo);
+       if(ownerComponent==null){
+          return false;
+       }
       EntityId entityToAttachID=idComponentMapper.get(entityToAttach);
         EntityId entityToAttachToID=idComponentMapper.get(entityToAttachTo);
        if(entityToAttachID==null){
@@ -532,7 +535,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    }
 
 
-public  static  void detachEntity(World world, Entity entityToDetachFrom,   Entity entityToDetach, boolean removeOwnership){
+public  static  void detachEntity(World world, Entity entityToDetachFrom,   Entity entityToDetach){
         GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         ComponentMapper<EntityId> idComponentMapper=gameComponentMapper.getIdComponentMapper();
         ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
@@ -541,15 +544,11 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
         OwnedComponent ownedComponent = ownedComponentComponentMapper.get(entityToDetachFrom);
 
       EntityId entityTodetachID=idComponentMapper.get(entityToDetach);
-      NameComponent nameComponent =entityToDetach.getComponent(NameComponent.class);
-        String entityName= nameComponent.getStat();
-        if(removeOwnership==true) {
             ownerComponent.getOwnedEntityIDs().removeValue(entityTodetachID.getId(), false);
             ownedComponentComponentMapper.get(entityToDetach);
-            ownedComponent.setAttached(false);
-            ownedComponent.setOwnerEntityID(null);
-        }
-  }
+                entityToDetach.remove(OwnedComponent.class);
+
+                      }
    public static Array<Entity> getEntities() {
         return entities;
     }

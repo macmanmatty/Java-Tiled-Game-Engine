@@ -22,37 +22,54 @@ public class EntityUtilitiesTest {
     Entity owned= new Entity();
     Maps.TestMap testMap= new TestMap();
     World testWorld;
+    String ownedId;
+    String ownerId;
     @Before
     public void createEntities(){
 
-        owned.add(new OwnedComponent());
+       owned.add(new OwnedComponent());
         owner.add(new OwnerComponent());
         testWorld=testMap.testWorld;
         testWorld.addEntityToWorld(owner);
         testWorld.addEntityToWorld(owned);
+      ownedId= owned.getComponent(EntityId.class).getId();
+      ownerId= owner.getComponent(EntityId.class).getId();
+
 
     }
 
     @Test
-    public void testAttachEntity(){
+    public void testAttachEntityWithOwnedComponent(){
         EntityUtilities.attachEntity(testWorld, owner, owned);
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNotNull(ownedComponent);
         assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
-        assertEquals(owned.getComponent(EntityId.class).getId(), ownerComponent.getOwnedEntityIDs().get(0));
+        assertEquals(ownedId, ownerComponent.getOwnedEntityIDs().get(0));
+        assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
     }
     @Test
     public void testAttachEntityWithoutOwnedComponent(){
+        owned.remove(OwnedComponent.class);
         EntityUtilities.attachEntity(testWorld, owner, owned);
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        owned.remove(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
         assertNotNull(ownedComponent);
-
+        assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
 
     }
+
+    @Test
+    public void testDetachEntity(){
+        EntityUtilities.detachEntity(testWorld, owner, owned);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
+        assertEquals(null, ownedComponent);
+    }
+
 }
