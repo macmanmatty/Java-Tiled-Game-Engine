@@ -47,6 +47,7 @@ public class OwnedComponent implements Component {
      */
     private String rootOwnerID;
 
+
     public OwnedComponent() {
     }
 
