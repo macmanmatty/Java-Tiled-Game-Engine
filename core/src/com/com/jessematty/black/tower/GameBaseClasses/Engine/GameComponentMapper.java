@@ -20,7 +20,7 @@ import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Other.Armor;
-import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.AttachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
@@ -29,7 +29,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.UnHoldItem;
 import com.jessematty.black.tower.Components.Attacks.Breather;
@@ -174,8 +174,8 @@ public class GameComponentMapper {
     private static ComponentMapper<AIComponent> aiComponentMapper = ComponentMapper.getFor(AIComponent.class);
     private static ComponentMapper<Launchable> throwComponentMapper = ComponentMapper.getFor(Launchable.class);
     private static ComponentMapper<ContainerComponent> containerComponentMapper = ComponentMapper.getFor(ContainerComponent.class);
-    private static ComponentMapper<AddOwnerComponent> addOwnerComponentComponentMapper = ComponentMapper.getFor(AddOwnerComponent.class);
-    private static ComponentMapper<RemoveOwnerComponent> removeOwnerComponentComponentMapper = ComponentMapper.getFor(RemoveOwnerComponent.class);
+    private static ComponentMapper<AttachEntityEvent> addOwnerComponentComponentMapper = ComponentMapper.getFor(AttachEntityEvent.class);
+    private static ComponentMapper<DetachEntityEvent> removeOwnerComponentComponentMapper = ComponentMapper.getFor(DetachEntityEvent.class);
     private static ComponentMapper<OwnerComponent> ownerComponentComponentMapper = ComponentMapper.getFor(OwnerComponent.class);
     private static ComponentMapper<OwnedComponent> ownedComponentComponentMapper = ComponentMapper.getFor(OwnedComponent.class);
     private static ComponentMapper<ErrorComponent> errorComponentComponentMapper = ComponentMapper.getFor(ErrorComponent.class);
@@ -277,8 +277,8 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(AIComponent.class, aiComponentMapper);
         componentComponentMapperMap.put(Launchable.class, throwComponentMapper);
         componentComponentMapperMap.put(ContainerComponent.class, containerComponentMapper);
-        componentComponentMapperMap.put(AddOwnerComponent.class, addOwnerComponentComponentMapper);
-        componentComponentMapperMap.put(RemoveOwnerComponent.class, removeOwnerComponentComponentMapper);
+        componentComponentMapperMap.put(AttachEntityEvent.class, addOwnerComponentComponentMapper);
+        componentComponentMapperMap.put(DetachEntityEvent.class, removeOwnerComponentComponentMapper);
         componentComponentMapperMap.put(OwnedComponent.class, ownedComponentComponentMapper);
         componentComponentMapperMap.put(OwnerComponent.class, ownerComponentComponentMapper);
         componentComponentMapperMap.put(ErrorComponent.class, errorComponentComponentMapper);
@@ -681,7 +681,7 @@ public class GameComponentMapper {
     public static ComponentMapper<ContainerComponent> getContainerComponentMapper() {
         return containerComponentMapper;
     }
-    public static ComponentMapper<AddOwnerComponent> getAddOwnerComponentComponentMapper() {
+    public static ComponentMapper<AttachEntityEvent> getAddOwnerComponentComponentMapper() {
         return addOwnerComponentComponentMapper;
     }
     public static ComponentMapper<OwnerComponent> getOwnerComponentComponentMapper() {
@@ -690,7 +690,7 @@ public class GameComponentMapper {
     public static ComponentMapper<OwnedComponent> getOwnedComponentComponentMapper() {
         return ownedComponentComponentMapper;
     }
-    public static ComponentMapper<RemoveOwnerComponent> getRemoveOwnerComponentComponentMapper() {
+    public static ComponentMapper<DetachEntityEvent> getRemoveOwnerComponentComponentMapper() {
         return removeOwnerComponentComponentMapper;
     }
     public static ComponentMapper<ErrorComponent> getErrorComponentComponentMapper() {

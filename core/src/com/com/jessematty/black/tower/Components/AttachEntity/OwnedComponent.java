@@ -2,16 +2,49 @@ package com.jessematty.black.tower.Components.AttachEntity;
 
 import com.badlogic.ashley.core.Component;
 
+/**
+ * component for an Entity that is attached to another entity
+ */
 public class OwnedComponent implements Component {
-
+    /**
+     * the id  of the entity who owns this entity
+     */
     private String ownerEntityID;
+    /**
+     * whether or not to set the  owned entities  position to the position  of the owner entity;
+     * if this is true the owned entities position will mirror the owners position on the map
+     */
     private  boolean setEntityPositionToOwner=true;
+    /**
+     * whether or not to set the  owned entities action to the action   of the owner entity;
+     * if this is true the owned entities action  will mirror the action owner entity
+     */
     private boolean setEntityActionToOwner=true;
+    /**
+     * whether or not to set the  owner entity's action  to the action    of the owned entity;
+     * if this is true the owner entities action  will mirror the action of the owned entity
+     */
     private boolean setOwnerActionToEntity=false;
+    /**
+     * whether or not to set the  owner entity's position on the map  to the position on the map   of the owned entity;
+     * if this is true the owner entities position  will mirror the position of the owned entity
+     */
     private boolean setOwnerPositionToEntity=false;
+
+    /**
+     * whether or not to remove the owned from entity  from the engine on removal of the owner entity;
+     * if this is true the owned will be removed from the engine on removal of the owner entity
+     * if not  this component will be removed from the entity  and all of the entities   other components will remain intact
+     */
     private boolean removeEntityFromEngineOnOwnerRemoval=true;
 
+    /**
+     * whether  or not the entity is physically attached to the owner entity;
+     */
     private boolean attached=true;
+    /**
+     *  the id of the top level owner in the  node tree of owners
+     */
     private String rootOwnerID;
 
     public OwnedComponent() {
