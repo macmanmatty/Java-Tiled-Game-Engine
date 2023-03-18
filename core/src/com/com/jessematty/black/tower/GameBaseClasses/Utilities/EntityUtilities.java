@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
@@ -447,14 +447,14 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(stringStatsChangeable);
         NumericStatsSelfChangable numericStatsSelfChangable = new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
-        Groups groups = new Groups();
-        groups.getGroups().add("entity");
-        entity.add(groups);
+        GroupsComponent groupsComponent = new GroupsComponent();
+        groupsComponent.getGroups().add("entity");
+        entity.add(groupsComponent);
         OwnerComponent ownerComponent= new OwnerComponent();
         entity.add(ownerComponent);
         ImageComponent imageComponent= new ImageComponent();
         entity.add(imageComponent);
-     return new BasicEntityContainer(entity, entityId, nameComponent, groups,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+     return new BasicEntityContainer(entity, entityId, nameComponent, groupsComponent,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
    }
   public static Entity combineEntities(World world, Entity entity1, Entity entity2) {
        Entity entity=new Entity();

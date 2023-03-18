@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.Other.ErrorComponent;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -31,7 +31,7 @@ public class HoldItemSystem extends GameEntitySystem {
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;
     private  ComponentMapper<com.jessematty.black.tower.Components.AttachEntity.Holdable> holdableComponentMapper;
-    private ComponentMapper<Groups> groupsComponentMapper;
+    private ComponentMapper<GroupsComponent> groupsComponentMapper;
 
 
 

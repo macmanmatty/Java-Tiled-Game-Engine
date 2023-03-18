@@ -11,12 +11,13 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -34,7 +35,7 @@ public class AddToContainerSystem extends GameEntitySystem {
     private ComponentMapper<EntityId> idComponentMapper;
     private ComponentMapper<PhysicalObjectComponent> physicalObjectComponentComponentMapper;
     private ComponentMapper<AddItemToContainer> addItemToContainerComponentMapper;
-    private ComponentMapper<Groups> groupsComponentMapper;
+    private ComponentMapper<GroupsComponent> groupsComponentMapper;
     public AddToContainerSystem(MapDraw draw) {
         super(draw);
     }
@@ -60,28 +61,28 @@ public class AddToContainerSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
         ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(AddItemToContainer.class).get());
-        int size=entities.size();
         for(Entity entity: entities) {
             AddItemToContainer addItemToContainer=addItemToContainerComponentMapper.get(entity);
             Entity container = getWorld().getEntity(addItemToContainer.getContainerId());
             Entity itemToAdd = getWorld().getEntity(addItemToContainer.getItemId());
             ContainerComponent containerComponent = containerComponentComponentMapper.get(container);
             PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(itemToAdd);
-            Groups groups=groupsComponentMapper.get(itemToAdd);
+            PositionComponent containerPosition=positionComponentComponentMapper.get(container);
+            GroupsComponent groupsComponent =groupsComponentMapper.get(itemToAdd);
             Array<String> groupsAddable=containerComponent.getGroupsAddable();
-                if ( groupsAddable.size>0 && !InList.isInList(groups, containerComponent.getGroupsAddable())) {
+                if (groupsComponent !=null && groupsAddable.size>0 && !InList.isInList(groupsComponent.getGroups(), containerComponent.getGroupsAddable())) {
                     entity.add( new RemoveFromEngine());
                     continue;
-
                 }
-                boolean addable=true;
-
-
-
-
+                boolean addable=checkAddable(containerComponent, physicalObjectComponent, containerPosition);
+                if(addable){
+                    String itemToAddId=idComponentMapper.get(itemToAdd).getId();
+                    containerComponent.getEntitiesInContainerIds().add(itemToAddId);
+                    if(addItemToContainer.isSetContainerAsOwner()){
+                        EntityUtilities.attachEntity(getWorld(), container, itemToAdd);
+                    }
+                }
         }
-
-
 
     }
 
@@ -100,9 +101,9 @@ public class AddToContainerSystem extends GameEntitySystem {
      * @param positionComponent
      * @return  a boolean representing whether or not the item can be added to  the container
      */
-    private boolean checkAddable(ContainerComponent containerComponent, PhysicalObjectComponent physicalObjectComponent, PositionComponent positionComponent, int itemsInConainer){
+    private boolean checkAddable(ContainerComponent containerComponent, PhysicalObjectComponent physicalObjectComponent, PositionComponent positionComponent){
         int maxNumberOfItems=containerComponent.getMaxNumberOfItemsAllowed();
-        if((containerComponent.isAddByNumberOfItems() && maxNumberOfItems>itemsInConainer) ||maxNumberOfItems<0){
+        if((containerComponent.isAddByNumberOfItems() && maxNumberOfItems>containerComponent.getEntitiesInContainerIds().size) ||maxNumberOfItems<0){
             return true;
         }
         else{
@@ -121,6 +122,9 @@ public class AddToContainerSystem extends GameEntitySystem {
      * @return  a boolean representing whether or not the item can be added to  the container
      */
     private boolean checkWeightAndVolume(ContainerComponent containerComponent, PhysicalObjectComponent physicalObjectComponent, PositionComponent positionComponent){
+        if(physicalObjectComponent==null){
+            return true;
+        }
       double currentVolume=containerComponent.getCurrentCarryVolume();
       double currentCarryWeight=containerComponent.getCurrentWeight();
       double itemMass=physicalObjectComponent.getMass();

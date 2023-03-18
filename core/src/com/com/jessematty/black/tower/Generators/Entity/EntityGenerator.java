@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Generators.Entity;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
@@ -60,12 +60,12 @@ public class EntityGenerator {
         entity.add(booleanStatsChangeable);
         StringStatsChangeable stringStatsChangeable =  new StringStatsChangeable();
         entity.add(stringStatsChangeable);
-        Groups groups= new Groups();
-        groups.getGroups().add("entity");
-        entity.add(groups);
+        GroupsComponent groupsComponent = new GroupsComponent();
+        groupsComponent.getGroups().add("entity");
+        entity.add(groupsComponent);
         NumericStatsSelfChangable numericStatsSelfChangable= new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
-        return  new BasicEntityContainer(entity, entityId, nameComponent, groups,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+        return  new BasicEntityContainer(entity, entityId, nameComponent, groupsComponent,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
     }
 
 

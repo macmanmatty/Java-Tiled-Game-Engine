@@ -16,9 +16,22 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
      */
  private  String containerId;
 
+    /**
+     * if this flag is true the container will become  owner of the Entity
+     * The Entity will get ann Owned component  and the Enity will be added to the list of
+     * owned components in the Owner Component
+     */
+ private boolean setContainerAsOwner=true;
+
     public AddItemToContainer(String itemId, String containerId) {
         this.itemId = itemId;
         this.containerId = containerId;
+    }
+
+    public AddItemToContainer(String itemId, String containerId, boolean setContainerAsOwner) {
+        this.itemId = itemId;
+        this.containerId = containerId;
+        this.setContainerAsOwner = setContainerAsOwner;
     }
 
     public AddItemToContainer() {
@@ -38,5 +51,13 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
 
     public void setContainerId(String containerId) {
         this.containerId = containerId;
+    }
+
+    public boolean isSetContainerAsOwner() {
+        return setContainerAsOwner;
+    }
+
+    public void setSetContainerAsOwner(boolean setContainerAsOwner) {
+        this.setContainerAsOwner = setContainerAsOwner;
     }
 }

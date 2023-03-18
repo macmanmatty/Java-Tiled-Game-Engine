@@ -8,7 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -25,7 +25,7 @@ public class UnCurseItemSystem extends GameEntitySystem {
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;
     private  ComponentMapper<EquipItem> equipItemComponentMapper;
-    private ComponentMapper<Groups> groupsComponentMapper;
+    private ComponentMapper<GroupsComponent> groupsComponentMapper;
 
 
 

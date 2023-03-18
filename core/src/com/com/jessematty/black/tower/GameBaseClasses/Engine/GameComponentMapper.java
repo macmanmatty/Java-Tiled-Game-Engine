@@ -64,7 +64,7 @@ import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
 import com.jessematty.black.tower.Components.Other.Glow;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Other.Growable;
 import com.jessematty.black.tower.Components.Other.Info;
 import com.jessematty.black.tower.Components.Other.Ingestable;
@@ -181,7 +181,7 @@ public class GameComponentMapper {
     private static ComponentMapper<ErrorComponent> errorComponentComponentMapper = ComponentMapper.getFor(ErrorComponent.class);
     private static ComponentMapper<EquipItem> equipItemComponentMapper = ComponentMapper.getFor(EquipItem.class);
     private static ComponentMapper<UnEquipItem> unEquipItemComponentMapperr = ComponentMapper.getFor(UnEquipItem.class);
-    private static ComponentMapper<Groups> groupsComponentMapper = ComponentMapper.getFor(Groups.class);
+    private static ComponentMapper<GroupsComponent> groupsComponentMapper = ComponentMapper.getFor(GroupsComponent.class);
     private static ComponentMapper<Throwable> throwableComponentMapper = ComponentMapper.getFor(Throwable.class);
     private static ComponentMapper<Readable> readableComponentMapper = ComponentMapper.getFor(Readable.class);
     private static ComponentMapper<Loadable> loadableComponentMapper = ComponentMapper.getFor(Loadable.class);
@@ -284,7 +284,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(ErrorComponent.class, errorComponentComponentMapper);
         componentComponentMapperMap.put(EquipItem.class, equipItemComponentMapper);
         componentComponentMapperMap.put(UnEquipItem.class, unEquipItemComponentMapperr);
-        componentComponentMapperMap.put(Groups.class, groupsComponentMapper);
+        componentComponentMapperMap.put(GroupsComponent.class, groupsComponentMapper);
         componentComponentMapperMap.put(Loadable.class, loadableComponentMapper);
         componentComponentMapperMap.put(Throwable.class, throwableComponentMapper);
         componentComponentMapperMap.put(Readable.class, readableComponentMapper);
@@ -714,7 +714,7 @@ public class GameComponentMapper {
     public static ComponentMapper<SoundComponent> getSoundComponentComponentMapper() {
         return soundComponentComponentMapper;
     }
-    public static ComponentMapper<Groups> getGroupsComponentMapper() {
+    public static ComponentMapper<GroupsComponent> getGroupsComponentMapper() {
         return groupsComponentMapper;
     }
     public static ComponentMapper<Explodable> getBlastableComponentMapper() {

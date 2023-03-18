@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Generators.Entity.EntityContainers;
 
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Base.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Base.EntityId;
@@ -24,10 +24,10 @@ public class BasicEntityContainer {
    private StringStatsChangeable stringStatsChangeable;
    private BooleanStatsChangeable booleanStatsChangeable;
    private NumericStatsChangeable numericStatsChangeable;
-   private Groups groups;
+   private GroupsComponent groupsComponent;
    private NameComponent nameComponent;
 
-    public BasicEntityContainer(Entity entity, EntityId entityId, NameComponent nameComponent, Groups groups, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
+    public BasicEntityContainer(Entity entity, EntityId entityId, NameComponent nameComponent, GroupsComponent groupsComponent, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, StringStatsChangeable stringStatsChangeable, NumericStatsSelfChangable numericStatsSelfChangable, BooleanStatsChangeable booleanStatsChangeable, NumericStatsChangeable numericStatsChangeable) {
         this.entity = entity;
         this.nameComponent = nameComponent;
         this.id = entityId;
@@ -38,7 +38,7 @@ public class BasicEntityContainer {
         this.booleanStatsChangeable = booleanStatsChangeable;
         this.numericStatsChangeable = numericStatsChangeable;
         this.numericStatsSelfChangable=numericStatsSelfChangable;
-        this.groups=groups;
+        this.groupsComponent = groupsComponent;
     }
 
     public Entity getEntity() {
@@ -86,12 +86,12 @@ public class BasicEntityContainer {
         return numericStatsChangeable;
     }
 
-    public Groups getGroups() {
-        return groups;
+    public GroupsComponent getGroupsComponent() {
+        return groupsComponent;
     }
 
-    public void setGroups(Groups groups) {
-        this.groups = groups;
+    public void setGroupsComponent(GroupsComponent groupsComponent) {
+        this.groupsComponent = groupsComponent;
     }
 
 
