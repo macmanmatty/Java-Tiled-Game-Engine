@@ -57,7 +57,7 @@ public class AddToContainerTest {
 
         @Test
         public void addToContainer(){
-            addItemToContainer.add(new AddItemToContainer(ownedId, ownerId));
+            addItemToContainer.add(new AddItemToContainer(ownedId, ownerId, true));
             engine.addEntity(addItemToContainer);
             ContainerComponent containerComponent= new ContainerComponent();
             containerComponent.setMaxHoldWeight(1000);
@@ -138,14 +138,15 @@ public class AddToContainerTest {
     }
 
     @Test
-    public void addToContainerNotInGroups(){
-        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId, false));
+    public void addToContainerNotInGroupsNoContainerGroupsSet(){
+        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId));
         engine.addEntity(addItemToContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
         GroupsComponent groupsComponent = new GroupsComponent();
-
+        groupsComponent.getGroups().add("weapon");
+        owned.add(groupsComponent);
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(1);
         physicalObjectComponent.setVolume(10);
@@ -155,9 +156,32 @@ public class AddToContainerTest {
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
-        assertNull(ownedComponent);
-        assertEquals( 0, containerComponent.getEntitiesInContainerIds().size);
-        assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
+        assertNotNull(ownedComponent);
+        assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
+        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
     }
-
+    @Test
+    public void addToContainerNotInGroupsWithNonMatchingContainerGroupsSet(){
+        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId));
+        engine.addEntity(addItemToContainer);
+        ContainerComponent containerComponent= new ContainerComponent();
+        containerComponent.setMaxHoldWeight(1000);
+        containerComponent.setMaxVolume(100);
+        containerComponent.getGroupsAddable().add("food");
+        GroupsComponent groupsComponent = new GroupsComponent();
+        groupsComponent.getGroups().add("weapon");
+        owned.add(groupsComponent);
+        PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
+        physicalObjectComponent.setMass(1);
+        physicalObjectComponent.setVolume(10);
+        owned.add(physicalObjectComponent);
+        owner.add(containerComponent);
+        engine.update(1);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertNotNull(ownedComponent);
+        assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
+        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+    }
 }

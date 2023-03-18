@@ -69,12 +69,8 @@ public class AddToContainerSystem extends GameEntitySystem {
             PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(itemToAdd);
             PositionComponent containerPosition=positionComponentComponentMapper.get(container);
             GroupsComponent groupsComponent =groupsComponentMapper.get(itemToAdd);
-            Array<String> groupsAddable=containerComponent.getGroupsAddable();
-                if (groupsComponent !=null && groupsAddable.size>0 && !InList.isInList(groupsComponent.getGroups(), containerComponent.getGroupsAddable())) {
-                    entity.add( new RemoveFromEngine());
-                    continue;
-                }
-                boolean addable=checkAddable(containerComponent, physicalObjectComponent, containerPosition);
+
+            boolean addable=checkAddable(groupsComponent, containerComponent, physicalObjectComponent, containerPosition);
                 if(addable){
                     String itemToAddId=idComponentMapper.get(itemToAdd).getId();
                     containerComponent.getEntitiesInContainerIds().add(itemToAddId);
@@ -84,6 +80,22 @@ public class AddToContainerSystem extends GameEntitySystem {
                 }
         }
 
+    }
+
+
+    /**
+     * checks to see if an item can be added to a container based on whether or not it's groups match with the container components groups
+     *
+     * @param containerComponent the container component  with
+     * @param groupsComponent the groups of  the entity to add to the container
+     * @return boolean true if  the entity can be added to the container based on it's groups false if it can't
+     */
+    private boolean checkInGroups(ContainerComponent containerComponent, GroupsComponent  groupsComponent){
+        Array<String> groupsAddable=containerComponent.getGroupsAddable();
+        if (groupsComponent !=null && groupsAddable.size>0 && !InList.isInList(groupsComponent.getGroups(), containerComponent.getGroupsAddable())) {
+            return false;
+        }
+        return true;
     }
 
     private void removeEntity( boolean destroyItem, Entity addItemToPackEvent, Entity entityToAdd){
@@ -101,11 +113,19 @@ public class AddToContainerSystem extends GameEntitySystem {
      * @param positionComponent
      * @return  a boolean representing whether or not the item can be added to  the container
      */
-    private boolean checkAddable(ContainerComponent containerComponent, PhysicalObjectComponent physicalObjectComponent, PositionComponent positionComponent){
+    private boolean checkAddable( GroupsComponent groupsComponent,  ContainerComponent containerComponent, PhysicalObjectComponent physicalObjectComponent, PositionComponent positionComponent){
+        boolean addable=checkInGroups(containerComponent, groupsComponent);
+        if(!addable){
+            return false;
+
+        }
+        // check by number of items
         int maxNumberOfItems=containerComponent.getMaxNumberOfItemsAllowed();
         if((containerComponent.isAddByNumberOfItems() && maxNumberOfItems>containerComponent.getEntitiesInContainerIds().size) ||maxNumberOfItems<0){
             return true;
         }
+
+        // check by weight and volume
         else{
             return checkWeightAndVolume(containerComponent, physicalObjectComponent, positionComponent);
         }
