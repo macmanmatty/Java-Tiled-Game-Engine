@@ -159,6 +159,8 @@ public class AddToContainerTest {
         assertNotNull(ownedComponent);
         assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
         assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+        assertEquals(ownedId, ownerComponent.getOwnedEntityIDs().get(0));
+        assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
     }
     @Test
     public void addToContainerNotInGroupsWithNonMatchingContainerGroupsSet(){
@@ -180,8 +182,9 @@ public class AddToContainerTest {
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
-        assertNotNull(ownedComponent);
-        assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
-        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+        assertNull(ownedComponent);
+        assertEquals( 0, containerComponent.getEntitiesInContainerIds().size);
+        assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
+
     }
 }
