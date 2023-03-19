@@ -5,8 +5,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-public class PositionComponent implements Component { //  a  position  and bounds component for entities. This is REQUIRED to bed added to entities
-    // the engine will throw an illegal operation exeception  if an entity is added  with  out this component attached.
+
+/**
+ * //  a  position  and bounds component for entities. This is REQUIRED to be added to entities
+ *     // the engine will throw an illegal operation exception  if an entity is added  with  out this component attached.
+ */
+
+public class PositionComponent implements Component {
     private  float locationX = 0f; // the location the entity  on the current map in world units
     private float locationY = 0f;
     private int tileLocationX; // the current location of the entity in tiles units  where is x and y are the lower left tile aka tiles.get(0);
@@ -143,16 +148,24 @@ public class PositionComponent implements Component { //  a  position  and bound
     public void setPositionChanged(boolean positionChanged) {
         this.positionChanged = positionChanged;
     }
-    public void removeBounds(){ // set the bounds to a new sqaure of all zeros effectivly removing the entities bounds
+
+    /**
+     * // sets the bounds to a new square of all zeros effectively removing the entities bounds
+     */
+    public void removeBounds(){
         oldBounds=bounds;
        bounds= new Polygon( new float[] {0,0,0,0,0,0,0,0});
         hasBounds=false;
     }
-    public void reInstateBounds(){ // reinstates the entities old bounds after removing them
-        if(oldBounds!=null) {
+    /**
+     * / // reinstates the entities old bounds after removing them
+     */
+    public void reInstateBounds(){
+        if(oldBounds!=null && !hasBounds) {
             bounds = oldBounds;
+            hasBounds=true;
         }
-        hasBounds=true;
+
     }
     public boolean isBoundsIsRectangle() {
         return boundsIsRectangle;

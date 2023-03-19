@@ -8,13 +8,13 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
-import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
@@ -68,15 +68,21 @@ public class AddToContainerSystem extends GameEntitySystem {
             ContainerComponent containerComponent = containerComponentComponentMapper.get(container);
             PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(itemToAdd);
             PositionComponent containerPosition=positionComponentComponentMapper.get(container);
+            PositionComponent  itemToAddPosition=positionComponentComponentMapper.get(itemToAdd);
             GroupsComponent groupsComponent =groupsComponentMapper.get(itemToAdd);
 
             boolean addable=checkAddable(groupsComponent, containerComponent, physicalObjectComponent, containerPosition);
                 if(addable){
                     String itemToAddId=idComponentMapper.get(itemToAdd).getId();
                     containerComponent.getEntitiesInContainerIds().add(itemToAddId);
+                    if(addItemToContainer.isRemoveItemBoundsOnAdd()){
+                        itemToAddPosition.removeBounds();
+                    }
                     if(addItemToContainer.isSetContainerAsOwner()){
                         EntityUtilities.attachEntity(getWorld(), container, itemToAdd);
                     }
+                }
+                else{
                 }
         }
 

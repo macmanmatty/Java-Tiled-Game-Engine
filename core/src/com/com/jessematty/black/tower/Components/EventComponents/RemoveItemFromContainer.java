@@ -4,32 +4,36 @@ package com.jessematty.black.tower.Components.EventComponents;
 /**
  * event component  for removing an item from a container
  */
-public class RemoveItemFromContainer implements EventComponent{
-    /**
-     *  the  number of item in the array remove from the container component
-     *  if the item number is less than zero the first item in the array will be pulled
-     * @See ContainerComponent
-      */
- private    int itemNumber;
-    /**
+public class RemoveItemFromContainer implements EventComponent{ /**
      *  the id of the container to pull the item from
      */
  private  String containerId;
+    /**
+     * the id of  the item to be removed from the container;
+     */
+ private  String itemId;
 
-    public RemoveItemFromContainer(int itemNumber, String containerId) {
-        this.itemNumber = itemNumber;
+    /**
+     if true the entity will detached from the owner container on removal
+     */
+ private boolean detachOnRemove;
+
+
+
+    public RemoveItemFromContainer(String containerId, String itemId) {
         this.containerId = containerId;
+        this.itemId = itemId;
     }
 
     public RemoveItemFromContainer() {
     }
 
-    public int getItemNumber() {
-        return itemNumber;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setItemNumber(int itemNumber) {
-        this.itemNumber = itemNumber;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getContainerId() {
@@ -38,5 +42,13 @@ public class RemoveItemFromContainer implements EventComponent{
 
     public void setContainerId(String containerId) {
         this.containerId = containerId;
+    }
+
+    public boolean isDetachOnRemove() {
+        return detachOnRemove;
+    }
+
+    public void setDetachOnRemove(boolean detachOnRemove) {
+        this.detachOnRemove = detachOnRemove;
     }
 }

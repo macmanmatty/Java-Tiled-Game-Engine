@@ -35,24 +35,23 @@ public class AddToContainerTest {
         MapDraw mapDraw;
         Entity addItemToContainer= new Entity();
         @Before
-        public void createEntities(){
+        public void createEntities() {
 
             owner.add(new OwnerComponent());
-            testWorld=testMap.testWorld;
+            testWorld = testMap.testWorld;
             testWorld.addEntityToWorld(owner);
             testWorld.addEntityToWorld(owned);
-            ownedId= owned.getComponent(EntityId.class).getId();
-            ownerId= owner.getComponent(EntityId.class).getId();
-            mapDraw =  testMap.mapDraw;
+            ownedId = owned.getComponent(EntityId.class).getId();
+            ownerId = owner.getComponent(EntityId.class).getId();
+            mapDraw = testMap.mapDraw;
             mapDraw.setWorld(testMap.testWorld);
             engine.addSystem(new AddToContainerSystem(mapDraw));
-            PositionComponent positionComponent= new PositionComponent();
+            PositionComponent positionComponent = new PositionComponent();
             positionComponent.setMapID(testMap.testMap1.getId());
-            PositionComponent positionComponent2= new PositionComponent();
+            PositionComponent positionComponent2 = new PositionComponent();
             positionComponent2.setMapID(testMap.testMap1.getId());
             owned.add(positionComponent);
             owner.add(positionComponent2);
-
         }
 
         @Test

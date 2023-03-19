@@ -23,6 +23,14 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
      */
  private boolean setContainerAsOwner=true;
 
+    /**
+     * if this flag is the items collision  bounds will be set to 0,0,0 on adding the item to the container;
+     *
+     *
+     */
+    private boolean removeItemBoundsOnAdd=true;
+
+
     public AddItemToContainer(String itemId, String containerId) {
         this.itemId = itemId;
         this.containerId = containerId;
@@ -59,5 +67,13 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
 
     public void setSetContainerAsOwner(boolean setContainerAsOwner) {
         this.setContainerAsOwner = setContainerAsOwner;
+    }
+
+    public boolean isRemoveItemBoundsOnAdd() {
+        return removeItemBoundsOnAdd;
+    }
+
+    public void setRemoveItemBoundsOnAdd(boolean removeItemBoundsOnAdd) {
+        this.removeItemBoundsOnAdd = removeItemBoundsOnAdd;
     }
 }
