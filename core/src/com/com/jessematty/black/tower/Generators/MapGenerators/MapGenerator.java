@@ -15,7 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Lights.LightSource;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

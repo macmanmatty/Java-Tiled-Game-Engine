@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Components.Stats;
 
-import com.jessematty.black.tower.Components.CompareMode;
+import com.jessematty.black.tower.Components.Other.CompareMode;
 
 public   class FollowingNumericStat extends com.jessematty.black.tower.Components.Stats.NumericStat {
     private CompareMode compareMode;

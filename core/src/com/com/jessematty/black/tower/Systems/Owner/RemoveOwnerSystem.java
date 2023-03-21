@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 public class RemoveOwnerSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<Attachable> attachableComponentMapper;
-    private ComponentMapper<RemoveOwnerComponent> removeOwnerComponentComponentMapper;
+    private ComponentMapper<DetachEntityEvent> removeOwnerComponentComponentMapper;
 
 
     public RemoveOwnerSystem(MapDraw draw) {
@@ -38,17 +38,15 @@ public class RemoveOwnerSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        entities= getEngine().getEntitiesFor(Family.all(RemoveOwnerComponent.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(DetachEntityEvent.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
-            RemoveOwnerComponent removeOwnerComponent=removeOwnerComponentComponentMapper.get(entity);
-            String entityToRemoveID=removeOwnerComponent.getEntityToRemoveID();
+            DetachEntityEvent detachEntityEvent =removeOwnerComponentComponentMapper.get(entity);
+            String entityToRemoveID= detachEntityEvent.getOwnedId();
             Entity entityToRemove=getWorld().getEntity(entityToRemoveID);
-            EntityUtilities.detachEntity(getWorld(), entity, entityToRemove, true);
-            entity.remove(RemoveOwnerComponent.class);
-
-
+            EntityUtilities.detachEntity(getWorld(), entity, entityToRemove);
+            entity.remove(DetachEntityEvent.class);
 
         }
 

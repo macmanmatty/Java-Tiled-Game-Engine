@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.Growable;
+import com.jessematty.black.tower.Components.Other.Growable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;

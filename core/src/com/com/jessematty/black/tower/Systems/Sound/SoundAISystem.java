@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.SoundComponent;
+import com.jessematty.black.tower.Components.Other.SoundComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 

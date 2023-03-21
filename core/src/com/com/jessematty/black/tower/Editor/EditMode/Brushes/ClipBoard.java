@@ -1,27 +1,14 @@
 package com.jessematty.black.tower.Editor.EditMode.Brushes;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Clipboard;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
-import com.jessematty.black.tower.Components.EditorImageComponent;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.AnimatedTiledMapTileActor;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.CellActor;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.ClipBoardActor;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.StaticTiledMapTileActor;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.BrushActors.TextureRegionActor;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemSettable;
-import com.jessematty.black.tower.Maps.Buildings.Building;
+
 /** contains the current object to be copied or placed.
  *
  */

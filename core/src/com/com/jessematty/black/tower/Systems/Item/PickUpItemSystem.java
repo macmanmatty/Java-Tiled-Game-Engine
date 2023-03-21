@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Item.PickUpItem;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;

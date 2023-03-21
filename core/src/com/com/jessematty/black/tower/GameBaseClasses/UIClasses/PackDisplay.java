@@ -17,12 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ActionComponent;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionImageComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.NameComponent;
-import com.jessematty.black.tower.Components.Pack;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
@@ -59,7 +59,7 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 	window= new Window("Pack Contents", skin);
 		ArrayList<Integer> itemAmounts= new ArrayList<Integer>();
 		Table table= new Table();
-		Array<String>itemsInPack=pack.getEntitiesInContainerIds();
+		Array<String>itemsInPack=null;
 
 
 		Array<Entity> matchingItems= GameComponentMapper.getEntitiesWithComponentsById(world, itemsInPack, components);
@@ -106,11 +106,11 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 			if(actionComponents!=null){
 
 				HorizontalGroup buttons= new HorizontalGroup();
-				Array<  ActionComponent>  actionComponentsArray= actionComponents.getActionComponents();
+				Array<ItemActionImageComponent>  actionComponentsArray= actionComponents.getActionComponents();
 
 				int actions=actionComponentsArray.size;
 				for(int count2=0; count2<actions; count2++){
-					final ActionComponent componentClass=actionComponentsArray.get(count2);
+					final ItemActionImageComponent componentClass=actionComponentsArray.get(count2);
 
 					final TextButton actionButton= new TextButton(componentClass.toString(), skin);
 					actionButton.addListener(new ClickListener(){

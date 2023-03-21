@@ -662,5 +662,9 @@ public class MapUtilities {
         positionComponent.getTiles().add(tile);
     }
 
+    public static  double calculateWeight(GameMap map, double mass){
+        return map.getGravity()*mass;
+    }
+
 
 }

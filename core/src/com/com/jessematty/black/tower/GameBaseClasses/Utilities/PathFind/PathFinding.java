@@ -3,18 +3,14 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
-import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation.IsValid;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
-import java.util.ArrayList;
 
 /**
  * class that hold basic path finding functions to ne used with a GameMap LandSquareTiles / and  / Or Entities

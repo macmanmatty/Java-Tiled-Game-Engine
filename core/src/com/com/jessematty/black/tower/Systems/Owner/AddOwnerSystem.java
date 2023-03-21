@@ -5,9 +5,9 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.AttachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -19,7 +19,7 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 public class AddOwnerSystem extends GameEntitySystem { // checks  the die when zero  stats  for all entities  if all stats are zero
     // marks the entities  as dying.
 
-    private ComponentMapper<AddOwnerComponent> addOwnerComponentComponentMapper;
+    private ComponentMapper<AttachEntityEvent> addOwnerComponentComponentMapper;
     private ImmutableArray<Entity> entities;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<Attachable> attachableComponentMapper;
@@ -51,14 +51,14 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
 
     @Override
     public void update(float deltaTime) {
-        entities = getEngine().getEntitiesFor(Family.all(AddOwnerComponent.class).get());
+        entities = getEngine().getEntitiesFor(Family.all(AttachEntityEvent.class).get());
 
         int size = entities.size();
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
-            AddOwnerComponent addOwnerComponent = addOwnerComponentComponentMapper.get(entity);
-            entity.remove(AddOwnerComponent.class);
-            String ownerID = addOwnerComponent.getOwnerId();
+            AttachEntityEvent attachEntityEvent = addOwnerComponentComponentMapper.get(entity);
+            entity.remove(AttachEntityEvent.class);
+            String ownerID = attachEntityEvent.getOwnerId();
             Entity entityToAdd = getWorld().getEntity(ownerID);
             EntityUtilities.attachEntity(getWorld(), entity, entityToAdd);
 

@@ -1,13 +1,10 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.ColorPicker;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.jessematty.black.tower.Components.ColorSettable;
+import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;

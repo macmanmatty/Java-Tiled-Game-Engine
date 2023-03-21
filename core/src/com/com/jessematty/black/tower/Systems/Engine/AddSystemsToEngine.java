@@ -9,7 +9,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.Systems.AddSystemsComponent;
-import com.jessematty.black.tower.Components.AttachEntity.AddOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.AttachEntityEvent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -41,7 +41,7 @@ public class AddSystemsToEngine extends GameEntitySystem { // checks  the die wh
 
     @Override
     public void update(float deltaTime) {
-        entities = getEngine().getEntitiesFor(Family.all(AddOwnerComponent.class).get());
+        entities = getEngine().getEntitiesFor(Family.all(AttachEntityEvent.class).get());
 
         int size = entities.size();
         for (int count = 0; count < size; count++) {

@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Camera;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.MovableComponent;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

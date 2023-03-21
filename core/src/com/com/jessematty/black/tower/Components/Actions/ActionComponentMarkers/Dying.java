@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-public class Dying extends ActionComponent { // this flag indicates that an entity is dying and will be dead soon
+import com.badlogic.ashley.core.Component;
+
+public class Dying implements Component { // this flag indicates that an entity is dying and will be dead soon
 
 
    private  int timeToDie=5;
