@@ -43,9 +43,6 @@ public class EntityUtilitiesTest {
          ownedId= owned.getComponent(EntityId.class).getId();
         ownerId= owner.getComponent(EntityId.class).getId();
         subOwnedId= owner.getComponent(EntityId.class).getId();
-
-
-
     }
 
     @Test
@@ -60,14 +57,14 @@ public class EntityUtilitiesTest {
         assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
     }
     @Test
-    public void testAttachEntityWithOwnedComponentWithGetAllOwnedEntities(){
+    public void testGetAllOwnedEntities(){
         EntityUtilities.attachEntity(testWorld, owner, owned);
         Array<Entity> entities= EntityUtilities.getAllOwnedEntities(owner, testWorld);
         assertEquals(1,entities.size);
         assertEquals(owned, entities.get(0));
     }
     @Test
-    public void testAttachEntityWithOwnedComponentWithGetAllOwnedEntitiesLevel3(){
+    public void testGetAllOwnedEntitiesLevel3(){
         EntityUtilities.attachEntity(testWorld, owner, owned);
      EntityUtilities.attachEntity(testWorld, owner, owned2);
       EntityUtilities.attachEntity(testWorld, owned, subOwned);
@@ -96,7 +93,6 @@ public class EntityUtilitiesTest {
         assertNotNull(ownedComponent);
         assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
 
-
     }
 
     @Test
@@ -110,21 +106,32 @@ public class EntityUtilitiesTest {
     }
 
     @Test
-    public void getAllOwnedEntities(){
-
+    public void testGetTotalMassAndVolume() {
+        PhysicalObjectComponent physcialObject = new PhysicalObjectComponent(100, 100);
+        PhysicalObjectComponent physcialObject2 = new PhysicalObjectComponent(100, 100);
+        owner.add(physcialObject);
+        owned.add(physcialObject2);
+        EntityUtilities.attachEntity(testWorld, owner, owned);
+        double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
+        assertEquals(200,massAndVolume[1] ,1);
+        assertEquals(200, massAndVolume[0] ,1);
 
     }
     @Test
-    public void testGetTotalMass() {
+    public void testGetTotalMassAndVolumeL3() {
         PhysicalObjectComponent physcialObject = new PhysicalObjectComponent(100, 100);
         PhysicalObjectComponent physcialObject2 = new PhysicalObjectComponent(100, 100);
+        PhysicalObjectComponent physcialObject3 = new PhysicalObjectComponent(50, 50);
 
         owner.add(physcialObject);
         owned.add(physcialObject2);
-        double[] massAndVolume = EntityUtilities.getTotalMassWeightVolume(testWorld, owner);
+        subOwned.add(physcialObject3);
 
-        assertEquals(200,massAndVolume[1] ,1);
-        assertEquals(200, massAndVolume[0] ,1);
+        EntityUtilities.attachEntity(testWorld, owner, owned);
+        EntityUtilities.attachEntity(testWorld, owner, subOwned);
+        double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
+        assertEquals(250,massAndVolume[1] ,1);
+        assertEquals(250, massAndVolume[0] ,1);
 
     }
 

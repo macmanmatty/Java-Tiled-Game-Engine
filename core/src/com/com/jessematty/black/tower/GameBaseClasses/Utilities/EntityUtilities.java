@@ -116,70 +116,41 @@ public class EntityUtilities {
        }
          return entityIds;
     }
-   public static  boolean isEntityConnected(Entity entity, Entity entityToCheck,  World world) {
-      connected=false;
-        entities.clear();
-        entityIds.clear();
-           // entity equals entity to check return true
-       if(entity==entityToCheck){
-           return  true;
-      }
-      return  isEntityConnectedInternal(entity, entityToCheck, world);
-  }
-// checks to see if two entites are connected using recursion
-   private static  boolean isEntityConnectedInternal(Entity entity, Entity entityToCheck,  World world){
+
+    /** checks to see if two entities are connected using recursion
+     *
+     * @param entity
+     * @param entityToCheck
+     * @param world
+     * @return
+     */
+   private static  boolean isEntityConnected(Entity entity, Entity entityToCheck,  World world, boolean attached){
         ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
-        if(entity==entityToCheck){
-         if(ownedComponent==null || ownedComponent.isAttached()==false){
-                return connected;
-           }
-            connected=true;
-             return connected;
-    }
-       if(entityOwnerComponent==null && ownedComponent==null ){
-            return  connected;
+        if(entity==entityToCheck) {
+        return true;
         }
-      // get owner entity if  entity has one
-        if(ownedComponent!=null) {
-            String ownerId = ownedComponent.getOwnerEntityID();
-            boolean attachedToOwner = ownedComponent.isAttached();
-            if ( attachedToOwner == true) {
-                if (ownerId != null && !ownerId.isEmpty() && attachedToOwner == true) {
-                    Entity owner = world.getEntity(ownerId);
-                   if(!InList.isInList(entities, owner)) {
-                        entities.add(owner);
-                        entityIds.add(ownerId);
-                        isEntityConnectedInternal(owner,  entityToCheck, world);
-                    }
-               }
+         if(ownedComponent==null ){
+                return false;
            }
-       }
+         String ownerId=ownedComponent.getOwnerEntityID();
+         if(ownerId==null || ownerId.isEmpty()){
+             return false;
+         }
+         if(attached && !ownedComponent.isAttached()){
+             return  false;
+         }
+
        // get  all owned entities
         if(entityOwnerComponent!=null) {
-            Array<String> ownedEntityIds = entityOwnerComponent.getOwnedEntityIDs();
-            int size = ownedEntityIds.size;
-           for (int count = 0; count < size; count++) {
-                String entityId = ownedEntityIds.get(count);
-                Entity ownedEntity = world.getEntity(entityId);
-                OwnedComponent ownedEntityOwnedComponent = ownedComponentComponentMapperr.get(ownedEntity);
-                //entity is not attached and needs to be don't process
-               if ( ownedEntityOwnedComponent.isAttached() == false ) {
-                    continue;
-                }
-                entities.add(ownedEntity);
-                entityIds.add(entityId);
-                OwnerComponent ownedEntityOwnerComponent = ownerComponentMapper.get(entity);
-                // no entities or  owned entities to process
-                if (ownedEntityOwnerComponent == null || ownedEntityOwnerComponent.getOwnedEntityIDs().size <= 0) {
-                   continue;
-                }
-               isEntityConnectedInternal(ownedEntity,  entityToCheck, world);
-           }
+
+            return InList.isInList(   entities=getAllOwnedEntities(world.getEntity(ownerId), world), entity);
+
+
        }
-        return connected;
+        return false;
    }
 public static  Array<Entity> getAllConnectedEntities(Entity entity, World world, boolean attached ){
         entities.clear();
@@ -379,28 +350,31 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    }
 
     /**
-     *     returns a vector 2 object of the total combined mass, weight  and volume  of the entity plus all attached entities 0=mass 1=weight 2=volume
+     *     returns a vector 2 object of the total combined mass,   and volume  of the entity plus all attached entities 0=mass  1=volume
      */
-    public static double [] getTotalMassWeightVolume(World world, Entity entity){
+    public static double [] getEntityMassAndVolume(World world, Entity entity){
         GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         OwnerComponent  ownerComponent=gameComponentMapper.getOwnerComponentComponentMapper().get(entity);
         ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper=gameComponentMapper.getPhysicalObjectComponentMapper();
         ComponentMapper<PositionComponent> positionComponentMapper=gameComponentMapper.getPositionComponentMapper();
        PhysicalObjectComponent physicalObject=physicalObjectComponentMapper.get(entity);
-        PositionComponent position=positionComponentMapper.get(entity);
-        if(physicalObject!=null && position!=null) {
+        if(physicalObject!=null ) {
             float mass = physicalObject.getMass();
             float volume = physicalObject.getVolume();
            double[]  massAndVolume = new double[] {mass,  volume};
             if (ownerComponent != null) {
                Array<Entity> ownedEntitiesIds=getAllOwnedEntities(entity, world);
-                massAndVolume=getTotalWeightAndVolume(massAndVolume, physicalObjectComponentMapper, entity);
+               for(Entity entity1:ownedEntitiesIds){
+                   PhysicalObjectComponent physicalObject1=physicalObjectComponentMapper.get(entity1);
+                   massAndVolume[0]=massAndVolume[0]+physicalObject.getMass();
+                   massAndVolume[1]=massAndVolume[1]+physicalObject.getVolume();
+
+               }
            }
-            float weight= (float) (world.getMap(position.getMapId()).getGravity()*massAndVolume[0]);
-            return new double[]{massAndVolume[0], weight, massAndVolume[1]};
+            return new double[]{massAndVolume[0],  massAndVolume[1]};
      }
        // no physical  object or position  = no mass or volume return empty vector 2
-        return  new double[3];
+        return  new double[2];
    }
   private static   double [] getTotalWeightAndVolume(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
        PhysicalObjectComponent physicalObject= physicalObjectComponentMapper.get(entity);
@@ -433,7 +407,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    }
 
     /**
-     * factory method that creates a new entity with  all  the required
+     * factory method that creates a new entity with  all  the
      * base components and stats
      * @return a Basic Entity
      */
@@ -629,4 +603,6 @@ public  static  void detachEntity(World world, Entity entityToDetachFrom,   Enti
             }
         }
 }
+
+
 }
