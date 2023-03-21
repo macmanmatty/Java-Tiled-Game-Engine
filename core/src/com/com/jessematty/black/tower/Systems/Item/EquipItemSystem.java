@@ -7,15 +7,14 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
 import com.jessematty.black.tower.Components.BodyParts.Body;
-import com.jessematty.black.tower.Components.ErrorComponent;
-import com.jessematty.black.tower.Components.Groups;
-import com.jessematty.black.tower.Components.EntityId;
+import com.jessematty.black.tower.Components.Other.ErrorComponent;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.NameComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -29,8 +28,7 @@ public class EquipItemSystem extends GameEntitySystem {
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;
     private  ComponentMapper<EquipItem> equipItemComponentMapper;
-    private ComponentMapper<Groups> groupsComponentMapper;
-    private ComponentMapper<AttachedComponent> attachedComponentComponentMapper;
+    private ComponentMapper<GroupsComponent> groupsComponentMapper;
     private ComponentMapper<NameComponent> nameComponentMapper;
 
 
@@ -47,7 +45,6 @@ public class EquipItemSystem extends GameEntitySystem {
         ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
         idComponentMapper=GameComponentMapper.getIdComponentMapper();
         groupsComponentMapper=GameComponentMapper.getGroupsComponentMapper();
-        attachedComponentComponentMapper=GameComponentMapper.getAttachedComponentComponentMapper();
         nameComponentMapper=GameComponentMapper.getNameComponentMapper();
         equipItemComponentMapper=GameComponentMapper.getEquipItemComponentMapper();
 
@@ -115,25 +112,14 @@ public class EquipItemSystem extends GameEntitySystem {
             Array<String> ownedEntityIDs = ownerComponent.getOwnedEntityIDs();
             // check max number of owned  entites is reach if so  return false item can't be equiped
 
-        AttachedComponent attachedComponent=attachedComponentComponentMapper.get(equiper);
-        if(attachedComponent==null){
-            attachedComponent= new AttachedComponent();
-            attachedComponent.setMaxAttachedEntities(-1);
-        }
-        int maxEntitesAttached=attachedComponent.getMaxAttachedEntities();
+
 
         // too many entites attached can't equip item return false
-        if(maxEntitesAttached>0 && attachedComponent.getAttachedEntities().size>=maxEntitesAttached){
-            return  null;
 
-        }
 
 
                 ownedEntityIDs.add(itemToEquipID);
                 itemToEquip.add(new OwnedComponent(equipperId, true, true));
-        NameComponent nameComponent =nameComponentMapper.get(itemToEquip);
-                attachedComponent.getAttachedEntities().put(nameComponent.getStat(), equipperId);
-
         return  null;
 
     }

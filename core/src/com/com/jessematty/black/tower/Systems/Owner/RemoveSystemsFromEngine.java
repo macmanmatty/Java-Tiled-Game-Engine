@@ -9,7 +9,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.Systems.RemoveSystemsComponent;
-import com.jessematty.black.tower.Components.AttachEntity.RemoveOwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -41,7 +41,7 @@ public class RemoveSystemsFromEngine extends GameEntitySystem { // checks  the d
 
     @Override
     public void update(float deltaTime) {
-        entities = getEngine().getEntitiesFor(Family.all(RemoveOwnerComponent.class).get());
+        entities = getEngine().getEntitiesFor(Family.all(DetachEntityEvent.class).get());
 
         int size = entities.size();
         for (int count = 0; count < size; count++) {

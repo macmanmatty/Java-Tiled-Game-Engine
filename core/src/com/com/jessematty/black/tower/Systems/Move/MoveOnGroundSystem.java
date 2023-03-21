@@ -7,7 +7,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
-import com.jessematty.black.tower.Components.MovableComponent;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;

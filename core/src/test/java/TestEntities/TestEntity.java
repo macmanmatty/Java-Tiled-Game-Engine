@@ -2,9 +2,9 @@ package TestEntities;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.NameComponent;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 

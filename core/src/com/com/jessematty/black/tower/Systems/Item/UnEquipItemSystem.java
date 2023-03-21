@@ -5,21 +5,16 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.jessematty.black.tower.Components.Item.AddItemToPackComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.AttachEntity.AttachedComponent;
-import com.jessematty.black.tower.Components.BodyParts.Body;
 import com.jessematty.black.tower.Components.AttachEntity.DetachItemMode;
-import com.jessematty.black.tower.Components.ErrorComponent;
-import com.jessematty.black.tower.Components.EntityId;
-
-
-import com.jessematty.black.tower.Components.NameComponent;
-import com.jessematty.black.tower.Components.RemoveFromEngine;
-import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
+import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
+import com.jessematty.black.tower.Components.BodyParts.Body;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Other.ErrorComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -27,7 +22,6 @@ import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 public class UnEquipItemSystem extends GameEntitySystem {
     private ComponentMapper<Attachable> attachableComponentMapper;
-    private ComponentMapper<AttachedComponent> attachedComponentComponentMapper;
     private ComponentMapper<Body> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
@@ -49,7 +43,6 @@ public class UnEquipItemSystem extends GameEntitySystem {
         ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
         idComponentMapper=GameComponentMapper.getIdComponentMapper();
         unEquipItemComponentMapperquipItemComponentMapper=GameComponentMapper.getUnEquipItemComponentMapperr();
-        attachedComponentComponentMapper=GameComponentMapper.getAttachedComponentComponentMapper();
         nameComponentMapper=GameComponentMapper.getNameComponentMapper();
 
     }
@@ -103,11 +96,9 @@ public class UnEquipItemSystem extends GameEntitySystem {
             OwnerComponent ownerComponent=ownerComponentComponentMapper.get(unEquiper);
         // get attached component should not be null as one is created in equip item if it is null
 
-        AttachedComponent attachedComponent=attachedComponentComponentMapper.get(unEquiper);
 
                 String itemToUnEquipID = idComponentMapper.get(itemToUnEquip).getId();
                 ownerComponent.getOwnedEntityIDs().removeValue(itemToUnEquipID, false);
-                attachedComponent.getAttachedEntities().remove(nameComponentMapper.get(itemToUnEquip).getStat());
             itemToUnEquip.remove(OwnerComponent.class);
             itemToUnEquip.remove(UnEquipItem.class);
             itemToUnEquip.add(unEquipItem.getDetachItemAction());
@@ -125,10 +116,8 @@ public class UnEquipItemSystem extends GameEntitySystem {
 
         switch (detachItemMode){
             case DROP:
-                unEquipItem.add(new Drop());
                 break;
             case PACK:
-                unEquipItem.add(new AddItemToPackComponent());
                 break;
             case DISAPPEAR:
                 unEquipItem.add(new RemoveFromEngine());

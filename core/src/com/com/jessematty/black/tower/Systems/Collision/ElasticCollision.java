@@ -1,9 +1,8 @@
 package com.jessematty.black.tower.Systems.Collision;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.MovableComponent;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
+import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -20,7 +19,6 @@ public class ElasticCollision extends EventSystem {
     private final MovableComponent movableComponent2;
     private final PhysicalObjectComponent physicalObject2;
     private final PositionComponent position2;
-    private Engine engine;
     private final Entity entity1;
     private final Entity entity2;
     private final GameMap map;

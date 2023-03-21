@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

@@ -1,8 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Sound;
 
-import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.SoundComponent;
-
 public class Sound {
 
     private com.badlogic.gdx.audio.Sound sound;// the current  sound to play

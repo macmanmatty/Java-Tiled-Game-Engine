@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.Validation
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.SolidObject;
+import com.jessematty.black.tower.Components.Other.SolidObject;
 import com.jessematty.black.tower.Maps.GameMap;
 
 public class IsValidForEntity implements IsValid{

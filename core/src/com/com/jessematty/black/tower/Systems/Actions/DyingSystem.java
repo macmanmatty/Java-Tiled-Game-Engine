@@ -10,9 +10,9 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dyin
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.RemoveFromEngine;
+import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Animation.Animation;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

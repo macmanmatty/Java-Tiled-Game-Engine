@@ -2,17 +2,17 @@ package com.jessematty.black.tower.Generators.Entity;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.Groups;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.EntityId;
-import com.jessematty.black.tower.Components.NameComponent;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
@@ -60,12 +60,12 @@ public class EntityGenerator {
         entity.add(booleanStatsChangeable);
         StringStatsChangeable stringStatsChangeable =  new StringStatsChangeable();
         entity.add(stringStatsChangeable);
-        Groups groups= new Groups();
-        groups.getGroups().add("entity");
-        entity.add(groups);
+        GroupsComponent groupsComponent = new GroupsComponent();
+        groupsComponent.getGroups().add("entity");
+        entity.add(groupsComponent);
         NumericStatsSelfChangable numericStatsSelfChangable= new NumericStatsSelfChangable();
         entity.add(numericStatsSelfChangable);
-        return  new BasicEntityContainer(entity, entityId, nameComponent, groups,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+        return  new BasicEntityContainer(entity, entityId, nameComponent, groupsComponent,   numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
     }
 
 

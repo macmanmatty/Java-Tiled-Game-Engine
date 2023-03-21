@@ -4,9 +4,11 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
-import org.junit.Before;
+
 import org.junit.Test;
+
 import Maps.TestMap;
+
 import static org.junit.Assert.assertEquals;
 public class BaseEntityTests {
   private   Engine engine;
@@ -17,8 +19,8 @@ public class BaseEntityTests {
   private World world;
   private TestMap testMap= new TestMap();
 
-  @Before
-    public void setup() {
+
+    {
       movable1=  new TestEntity().movable;
       world= testMap.testWorld;
       mapDraw=testMap.mapDraw;
@@ -27,6 +29,7 @@ public class BaseEntityTests {
     positionComponent.setLocationX(128);
     positionComponent.setLocationY(128);
     }
+
     @Test
     public void basicFunctions(){
     world.addEntityToWorld(movable1);

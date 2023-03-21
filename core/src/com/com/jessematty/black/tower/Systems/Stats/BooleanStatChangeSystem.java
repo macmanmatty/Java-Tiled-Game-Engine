@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChang
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Transient;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;

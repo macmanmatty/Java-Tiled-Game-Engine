@@ -1,8 +1,8 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+import com.badlogic.ashley.core.Component;
 
-public class Slash extends ItemActionComponent {
+public class Slash implements Component {
 
 
 }

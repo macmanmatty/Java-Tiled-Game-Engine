@@ -2,8 +2,8 @@ package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.EntityId;
-import com.jessematty.black.tower.Components.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

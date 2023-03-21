@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;

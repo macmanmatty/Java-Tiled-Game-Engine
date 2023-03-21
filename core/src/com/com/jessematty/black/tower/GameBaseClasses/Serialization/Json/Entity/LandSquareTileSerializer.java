@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
-import com.jessematty.black.tower.Components.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 /**

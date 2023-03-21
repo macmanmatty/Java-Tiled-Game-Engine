@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses;
 
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.jessematty.black.tower.Components.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.EntitySelectButton;
 

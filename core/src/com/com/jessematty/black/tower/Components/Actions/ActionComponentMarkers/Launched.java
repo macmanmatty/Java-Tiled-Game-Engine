@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Components.Actions.ActionComponentMarkers;
 
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+import com.badlogic.ashley.core.Component;
 
-public class Launched extends ItemActionComponent {
+public class Launched implements Component {
 }
