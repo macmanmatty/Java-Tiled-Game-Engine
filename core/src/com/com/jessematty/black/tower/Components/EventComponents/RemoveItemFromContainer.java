@@ -18,6 +18,22 @@ public class RemoveItemFromContainer implements EventComponent{ /**
      */
  private boolean detachOnRemove;
 
+    /**
+     * the id of the entity the object is going to placed in
+     */
+ private   String newEntityLocationId;
+
+    /**
+     *if  true the new entity where the item goes (unless it just disappears)
+     * will become the items owner
+     */
+ private boolean makeNewHolderAsOwner=true;
+
+    /**
+     * where to put the removed item;
+     */
+ private RemoveTo removeTo;
+
 
 
     public RemoveItemFromContainer(String containerId, String itemId) {
@@ -50,5 +66,21 @@ public class RemoveItemFromContainer implements EventComponent{ /**
 
     public void setDetachOnRemove(boolean detachOnRemove) {
         this.detachOnRemove = detachOnRemove;
+    }
+
+    public String getNewEntityLocationId() {
+        return newEntityLocationId;
+    }
+
+    public void setNewEntityLocationId(String newEntityLocationId) {
+        this.newEntityLocationId = newEntityLocationId;
+    }
+
+    public RemoveTo getRemoveTo() {
+        return removeTo;
+    }
+
+    public void setRemoveTo(RemoveTo removeTo) {
+        this.removeTo = removeTo;
     }
 }

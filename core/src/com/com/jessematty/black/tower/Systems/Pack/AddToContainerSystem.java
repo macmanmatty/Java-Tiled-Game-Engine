@@ -88,7 +88,6 @@ public class AddToContainerSystem extends GameEntitySystem {
 
     }
 
-
     /**
      * checks to see if an item can be added to a container based on whether or not it's groups match with the container components groups
      *

@@ -47,9 +47,17 @@ public class EntityUtilities {
     }
     // get the an  array of all entities and sub owned entities  owned by a entity using recursion
    public static  Array<Entity> getAllOwnedEntities(Entity entity, World world){
-       getAllOwnedEntitiesIDs(entity, world);
+     entities.clear();
+     entityIds.clear();
+       getAllOwnedEntitiesIDsInternal(entity, world);
         return entities;
    }
+    public static  Array<String> getAllOwnedEntitiesIDs(Entity entity, World world){
+        entities.clear();
+        entityIds.clear();
+        getAllOwnedEntitiesIDsInternal(entity, world);
+        return entityIds;
+    }
   public static  Array<String> getAllConnectedEntitiesIds(Entity entity, World world, boolean attached) {
         entities.clear();
         entityIds.clear();
@@ -305,27 +313,28 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    }
 
 
+    /**
+     *    a  function that recursively  gets the ids of all entities and sub owned entities  owned by a entity
+      */
 
-
-
-// get the ids of all entities and sub owned entities  owned by a entity
-    public static Array<String> getAllOwnedEntitiesIDs(Entity entity, World world){
+    private static Array<String> getAllOwnedEntitiesIDsInternal(Entity entity, World world){
         ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
         OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
-        if(entityOwnerComponent==null){
+        if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
            return  entityIds;
         }
         Array<String> ownedEntityIds=entityOwnerComponent.getOwnedEntityIDs();
-        int size=entities.size;
+        int size=ownedEntityIds.size;
         for(int count=0; count<size; count++){
             String entityId=ownedEntityIds.get(count);
             Entity ownedEntity=world.getEntity(entityId);
             entityIds.add(entityId);
+            entities.add(world.getEntity(entityId));
             OwnerComponent ownedEntityOwnerComponent=ownerComponentMapper.get(entity);
-            if(ownedEntityOwnerComponent==null || ownedEntityOwnerComponent.getOwnedEntityIDs().size<=0){
+            if(ownedEntityOwnerComponent==null || ownedEntityOwnerComponent.getOwnedEntityIDs().isEmpty()){
                continue;
             }
-           getAllOwnedEntities(ownedEntity, world);
+           getAllOwnedEntitiesIDsInternal(ownedEntity, world);
        }
        return entityIds;
    }
@@ -368,7 +377,10 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
         return  gameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
    }
-   //returns a vector 2 object of the total combined mass, weight  and volume  of the entity plus all attached entities 0=mass 1=weight 2=volume
+
+    /**
+     *     returns a vector 2 object of the total combined mass, weight  and volume  of the entity plus all attached entities 0=mass 1=weight 2=volume
+     */
     public static double [] getTotalMassWeightVolume(World world, Entity entity){
         GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         OwnerComponent  ownerComponent=gameComponentMapper.getOwnerComponentComponentMapper().get(entity);

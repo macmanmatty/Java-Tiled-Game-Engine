@@ -18,6 +18,20 @@ public class PhysicalObjectComponent implements Component { // component for obj
      */
     private float entitySolidity = 1f;
 
+    public PhysicalObjectComponent(float mass, float volume) {
+        this.mass = mass;
+        this.volume = volume;
+    }
+
+    public PhysicalObjectComponent(float mass, float volume, float entitySolidity) {
+        this.mass = mass;
+        this.volume = volume;
+        this.entitySolidity = entitySolidity;
+    }
+
+    public PhysicalObjectComponent() {
+    }
+
     public float getMass() {
         return mass;
     }

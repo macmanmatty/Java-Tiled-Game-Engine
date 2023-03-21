@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Components.Position;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,8 +8,8 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 /**
- * //  a  position  and bounds component for entities. This is REQUIRED to be added to entities
- *     // the engine will throw an illegal operation exception  if an entity is added  with  out this component attached.
+ * //  a  position  and bounds component for entities.
+ *
  */
 
 public class PositionComponent implements Component {
@@ -16,7 +17,11 @@ public class PositionComponent implements Component {
     private float locationY = 0f;
     private int tileLocationX; // the current location of the entity in tiles units  where is x and y are the lower left tile aka tiles.get(0);
     private int tileLocationY;
-    private Direction direction=Direction.DOWN; // the current dierction of the entity
+
+    /**
+     * // the current diction of the entity
+     */
+    private Direction direction=Direction.DOWN;
     private transient Array<LandSquareTile> tiles= new Array<LandSquareTile>(); // the tiles the entity occupies
     private boolean positionChanged; // whether or not the position changed
     private Polygon bounds= new Polygon( new float[] {0,0,0,0,0,0,0,0}); // the entity bounds
@@ -32,6 +37,15 @@ public class PositionComponent implements Component {
     private float heightFromGround; // height from the ground or z coordinate of the entity
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
+    /**
+     *if true the position will mirror the position of the of the owner entity specified in the Owner Component
+     * @See OwnerComponent;
+     */
+    private boolean positionSetByOwner;
+    /**
+     * if this is not null this is id of the container the entity is located in
+     */
+    private String containerEntityId;
     private String mapId="";
     public PositionComponent() {
     }
@@ -208,7 +222,28 @@ public class PositionComponent implements Component {
     public void setMapID(String id) {
         this.mapId=id;
     }
+
     public String getMapId() {
         return mapId;
+    }
+
+    public String getContainerEntityId() {
+        return containerEntityId;
+    }
+
+    public void setContainerEntityId(String containerEntityId) {
+        this.containerEntityId = containerEntityId;
+    }
+
+    public void setMapId(String mapId) {
+        this.mapId = mapId;
+    }
+
+    public boolean isPositionSetByOwner() {
+        return positionSetByOwner;
+    }
+
+    public void setPositionSetByOwner(boolean positionSetByOwner) {
+        this.positionSetByOwner = positionSetByOwner;
     }
 }
