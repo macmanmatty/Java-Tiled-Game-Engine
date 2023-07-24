@@ -10,13 +10,13 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Attacks.Teleport;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class TileTeleportSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
-    private ComponentMapper<Tile> tileComponentMapper =ComponentMapper.getFor(Tile.class);
+    private ComponentMapper<TileComponent> tileComponentMapper =ComponentMapper.getFor(TileComponent.class);
     private ComponentMapper<Teleport> teleportComponentMapper =ComponentMapper.getFor(Teleport.class);
     private ComponentMapper<PositionComponent> positionComponentComponentMapper =ComponentMapper.getFor(PositionComponent.class);
 
@@ -37,10 +37,10 @@ public class TileTeleportSystem extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
-                Tile tile = tileComponentMapper.get(entity);
+                TileComponent tileComponent = tileComponentMapper.get(entity);
 
                 Teleport teleportComponent = teleportComponentMapper.get(entity);
-                Array<Entity> entities=tile.getEntities();
+                Array<Entity> entities= tileComponent.getEntities();
             int transportTileX= teleportComponent.getTileTransportLocationX();
             int transportTileY= teleportComponent.getTileTransportLocationY();
 

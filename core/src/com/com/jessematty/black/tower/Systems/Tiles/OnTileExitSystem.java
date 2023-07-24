@@ -10,14 +10,14 @@ import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Tiles.OnEnterTileComponent;
 import com.jessematty.black.tower.Components.Tiles.OnExitTileComponent;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class OnTileExitSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
-    private ComponentMapper<Tile> tileComponentMapper;
+    private ComponentMapper<TileComponent> tileComponentMapper;
     private ComponentMapper<OnExitTileComponent> onExitTileComponentComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentComponentMapper;
 
@@ -37,12 +37,12 @@ public class OnTileExitSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all( Tile.class, MovableComponent.class, PositionComponent.class, ActionComponent.class, OnEnterTileComponent.class).get());
+        entities=getEngine().getEntitiesFor(Family.all( TileComponent.class, MovableComponent.class, PositionComponent.class, ActionComponent.class, OnEnterTileComponent.class).get());
 
         int size=entities.size();
         for(int count=0; count<size; count++){
             Entity tile=entities.get(count);
-            Tile tileComponent = tileComponentMapper.get(tile);
+            TileComponent tileComponent = tileComponentMapper.get(tile);
                 OnExitTileComponent onExitTileComponent= onExitTileComponentComponentMapper.get(tile);
                 onExitTileComponent.getOnExitTile().onExitTile(tile, tileComponent.getLastEntity(), getDraw());
 

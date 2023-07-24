@@ -7,7 +7,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -16,7 +16,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameTimeIntervalSystem;
 
 public class TileWeatherSeasonSystem extends GameTimeIntervalSystem {
-    private ComponentMapper<Tile> tileComponentMapper;
+    private ComponentMapper<TileComponent> tileComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<TileWeatherNumericStatsChangable> numericStatsChangableComponentMapper;
     private ImmutableArray<Entity> entities;
@@ -35,7 +35,7 @@ public class TileWeatherSeasonSystem extends GameTimeIntervalSystem {
     }
     @Override
     protected void updateInterval() {
-        entities= getEngine().getEntitiesFor(Family.all( Tile.class, NumericStats.class, TileWeatherNumericStatsChangable.class ).get());
+        entities= getEngine().getEntitiesFor(Family.all( TileComponent.class, NumericStats.class, TileWeatherNumericStatsChangable.class ).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
             Entity entity = entities.get(count);

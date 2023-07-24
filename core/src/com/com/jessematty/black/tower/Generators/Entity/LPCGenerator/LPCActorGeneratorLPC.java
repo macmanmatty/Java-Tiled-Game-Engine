@@ -414,7 +414,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         bodyPart.add(new BodyPart());
         bodyPart.add (new NameComponent(true, name));
         OwnedComponent ownedComponent= new OwnedComponent();
-        ownedComponent.setAttached(true);
+        ownedComponent.setPhysicallyAttached(true);
         ownedComponent.setOwnerEntityID(ownerBody.getComponent(EntityId.class).getId());
         ownedComponent.setSetEntityActionToOwner(true);
         ownedComponent.setSetEntityPositionToOwner(true);

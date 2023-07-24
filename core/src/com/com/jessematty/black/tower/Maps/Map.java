@@ -21,7 +21,7 @@ public interface Map {
     public TiledMap getTiledMap() ;
     public void setTiledMap(TiledMap tiledMap);
     public void removeEntity( Entity entity);
-    public LandSquareTile getTileFromTileCoordinates(float screenLocationX, float screenLocationY) ;
+    public LandSquareTile getTileFromWorldUnitCoordinates(float screenLocationX, float screenLocationY) ;
     public void setMap(LandSquareTile[][] map);
     public double getGravity();
     public void setGravity(double gravity) ;

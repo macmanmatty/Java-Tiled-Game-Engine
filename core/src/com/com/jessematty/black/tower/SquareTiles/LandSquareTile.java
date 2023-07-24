@@ -3,17 +3,17 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -30,9 +30,10 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	protected  transient boolean checked;
 	protected  transient boolean inArea;
 	protected  transient PositionComponent position;
-	protected transient Tile tileComponent;
+	protected  transient TileComponent tileComponent;
 	public  LandSquareTile() {
-		tileComponent= new Tile();
+		tileComponent= new TileComponent();
+
 		NumericStats numericStats= new NumericStats();
 		BooleanStats booleanStats= new BooleanStats();
 		StringStats stringStats=new StringStats();
@@ -110,7 +111,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	public PositionComponent getPosition() {
 		return position;
 	}
-	public Tile getTileComponent() {
+	public TileComponent getTileComponent() {
 		return tileComponent;
 	}
 	@Override
@@ -171,7 +172,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	public void setPosition(PositionComponent position) {
 		this.position = position;
 	}
-	public void setTileComponent(Tile tileComponent) {
+	public void setTileComponent(TileComponent tileComponent) {
 		this.tileComponent = tileComponent;
 	}
 	public void setMapId(String mapId){

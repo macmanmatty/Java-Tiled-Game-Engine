@@ -44,7 +44,7 @@ public class MapUtilities {
        Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     Array<Entity> occupants = tile.getEntities();
@@ -79,7 +79,7 @@ public class MapUtilities {
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     // add the tile entity
@@ -104,7 +104,7 @@ public class MapUtilities {
         Array<Entity> entities= new Array<>();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromTileCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
                 // get tile occupants
                 if (tile != null) {
                     Array<Entity> occupants = tile.getEntities(numericStats, stringStats, booleanStats, components);
@@ -474,7 +474,7 @@ public class MapUtilities {
     ArrayList<LandSquareTile> tiles= new ArrayList<LandSquareTile>();
         for (float countx=xMin-10; countx<xMax; countx=countx+tileSizeX) {
             for (float county = yMin-10; county < yMax; county = county + tileSizeY) {
-                LandSquareTile tile=map.getTileFromTileCoordinates(countx, county);
+                LandSquareTile tile=map.getTileFromWorldUnitCoordinates(countx, county);
                 boolean  canAdd=tileCheck(tile, tiles);
                 if(canAdd==true){
                     tiles.add(tile);

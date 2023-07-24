@@ -41,7 +41,7 @@ public class OwnedComponent implements Component {
     /**
      * whether  or not the entity is physically attached to the owner entity;
      */
-    private boolean attached=true;
+    private boolean physicallyAttached =true;
     /**
      *  the id of the top level owner in the  node tree of owners
      */
@@ -51,11 +51,11 @@ public class OwnedComponent implements Component {
     public OwnedComponent() {
     }
 
-    public OwnedComponent(String ownerEntityID, boolean setEntityPositionToOwner, boolean setEntityActionToOwner, boolean attached) {
+    public OwnedComponent(String ownerEntityID, boolean setEntityPositionToOwner, boolean setEntityActionToOwner, boolean physicallyAttached) {
         this.ownerEntityID = ownerEntityID;
         this.setEntityPositionToOwner = setEntityPositionToOwner;
         this.setEntityActionToOwner = setEntityActionToOwner;
-        this.attached = attached;
+        this.physicallyAttached = physicallyAttached;
     }
 
     public OwnedComponent(String ownerEntityID, boolean setEntityPositionToOwner, boolean setEntityActionToOwner) {
@@ -89,12 +89,12 @@ public class OwnedComponent implements Component {
         this.setEntityActionToOwner = setEntityActionToOwner;
     }
 
-    public boolean isAttached() {
-        return attached;
+    public boolean isPhysicallyAttached() {
+        return physicallyAttached;
     }
 
-    public void setAttached(boolean attached) {
-        this.attached = attached;
+    public void setPhysicallyAttached(boolean physicallyAttached) {
+        this.physicallyAttached = physicallyAttached;
     }
 
     public String getRootOwnerID() {

@@ -72,7 +72,7 @@ public class SpreadSystem extends GameEntitySystem {
         if (screenLocationX >= map.getMaxXWorld() - 32 || screenLocationY >= map.getMaxYWorld() - 32 || screenLocationY < 10 || screenLocationX < 10) {
             return; //  trying to  move out of map bounds bounds exit move function
         }
-        LandSquareTile newTile = map.getTileFromTileCoordinates(screenLocationX, screenLocationY);
+        LandSquareTile newTile = map.getTileFromWorldUnitCoordinates(screenLocationX, screenLocationY);
         movableComponent.setMoved(true);
         position.setLocationX(screenLocationX);
         position.setLocationY(screenLocationY);

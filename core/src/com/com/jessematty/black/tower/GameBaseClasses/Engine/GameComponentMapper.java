@@ -102,7 +102,7 @@ import com.jessematty.black.tower.Components.Other.Target;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.Components.Tiles.OnEnterTileComponent;
 import com.jessematty.black.tower.Components.Tiles.OnExitTileComponent;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Other.Weapon;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.Maps.World;
@@ -122,7 +122,7 @@ public class GameComponentMapper {
     private static ComponentMapper<MovableComponent> movableComponentMapper = ComponentMapper.getFor(MovableComponent.class);
     private static ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper = ComponentMapper.getFor(PhysicalObjectComponent.class);
     private static ComponentMapper<Light> lightComponentMapper = ComponentMapper.getFor(Light.class);
-    private static ComponentMapper<Tile> tileComponentMapper = ComponentMapper.getFor(Tile.class);
+    private static ComponentMapper<TileComponent> tileComponentMapper = ComponentMapper.getFor(TileComponent.class);
     private static ComponentMapper<Holder> holderComponentMapper = ComponentMapper.getFor(Holder.class);
     private static ComponentMapper<NameComponent> nameComponentMapper = ComponentMapper.getFor(NameComponent.class);
     private static ComponentMapper<Growable> growableComponentMapper = ComponentMapper.getFor(Growable.class);
@@ -241,7 +241,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Weapon.class, weaponComponentMapper);
         componentComponentMapperMap.put(ImageComponent.class, imageComponentMapper);
         componentComponentMapperMap.put(Holder.class, holderComponentMapper);
-        componentComponentMapperMap.put(Tile.class, tileComponentMapper);
+        componentComponentMapperMap.put(TileComponent.class, tileComponentMapper);
         componentComponentMapperMap.put(Breather.class, holdableComponentMapper);
         componentComponentMapperMap.put(Attachable.class, attachableComponentMapper);
         componentComponentMapperMap.put(VisibleOnScreen.class, visibleOnScreenComponentMapper);
@@ -517,7 +517,7 @@ public class GameComponentMapper {
     public static ComponentMapper<Light> getLightComponentMapper() {
         return lightComponentMapper;
     }
-    public static ComponentMapper<Tile> getTileComponentMapper() {
+    public static ComponentMapper<TileComponent> getTileComponentMapper() {
         return tileComponentMapper;
     }
     public static ComponentMapper<Holder> getHolderComponentMapper() {

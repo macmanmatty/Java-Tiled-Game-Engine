@@ -79,7 +79,7 @@ public class AddToContainerSystem extends GameEntitySystem {
                         itemToAddPosition.removeBounds();
                     }
                     if(addItemToContainer.isSetContainerAsOwner()){
-                        EntityUtilities.attachEntity(getWorld(), container, itemToAdd);
+                        EntityUtilities.attachEntity( container, itemToAdd);
                     }
                 }
                 else{

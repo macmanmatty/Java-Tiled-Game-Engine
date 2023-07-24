@@ -8,7 +8,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.Interfaces.NewComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity.TransientChecker;
@@ -53,8 +53,8 @@ public class LandSquareTileKryoSerializer extends Serializer<LandSquareTile> {
                     ((SerializableComponet) component).deSerialize(gameAssets);
                 }
                 landSquareTile.add(components.get(count));
-                if(component instanceof  Tile){
-                    landSquareTile.setTileComponent((Tile) component);
+                if(component instanceof TileComponent){
+                    landSquareTile.setTileComponent((TileComponent) component);
                 }
                 if(component instanceof  PositionComponent){
                     landSquareTile.setPosition((PositionComponent) component);

@@ -123,7 +123,7 @@ public class LandSquareTileSelect  implements Screen , InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        tileSelected=map.getTileFromTileCoordinates(screenX, screenY);
+        tileSelected=map.getTileFromWorldUnitCoordinates(screenX, screenY);
         return true;
 
     }

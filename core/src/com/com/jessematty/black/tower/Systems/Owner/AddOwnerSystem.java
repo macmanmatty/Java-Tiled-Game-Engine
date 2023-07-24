@@ -60,7 +60,7 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
             entity.remove(AttachEntityEvent.class);
             String ownerID = attachEntityEvent.getOwnerId();
             Entity entityToAdd = getWorld().getEntity(ownerID);
-            EntityUtilities.attachEntity(getWorld(), entity, entityToAdd);
+            EntityUtilities.attachEntity( entity, entityToAdd);
 
         }
     }
