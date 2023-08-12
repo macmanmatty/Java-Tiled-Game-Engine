@@ -8,22 +8,16 @@ public class TexturePackerLoader {
      */
     public TexturePackerLoader() {
     }
-     //static String atlasFileOutputPath =System.getenv("atlasFileOutputPath");
-     static String atlasFileInputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/TestAssets/";
-    static String atlasFileOutputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/textureAtlases/testAssets";
+    static String atlasFileOutputPath ="/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine/android/assets/testAssets/Atlas";
+    static String atlasFileInputPath ="/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine/testAssetsUnpacked";
     static  String atlasFileName ="testAssets.atlas";
-
-  //  static String atlasFileInputPath =System.getenv("atlasFileInputPath");
-    // static  String atlasFileName =System.getenv("atlasFileName");
-
     /**
      * main method used to call the pack method to pack textures.
      * @param args
      */
     public static void main(String [] args){
-
         pack(new Settings());
-
+        System.out.println("packed");
     }
     public static  void pack(Settings settings){
         settings.flattenPaths=true;
