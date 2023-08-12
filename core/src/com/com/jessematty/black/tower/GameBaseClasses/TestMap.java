@@ -29,7 +29,7 @@ public class TestMap {
     public void testMap(){
         
         //assetts.loadInternalTextureAtlas("swordWalk");
-       TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
+       TiledMap map =assetts.loadExternalTMXMap("android/assets/testAssets/Maps/testMap.tmx");
        //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
        //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
