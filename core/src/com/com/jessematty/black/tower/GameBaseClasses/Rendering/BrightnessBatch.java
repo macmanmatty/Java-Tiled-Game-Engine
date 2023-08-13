@@ -16,9 +16,8 @@ public class BrightnessBatch  extends SpriteBatch {
     public BrightnessBatch() {
         ShaderProgram.pedantic=false;
         shader= new ShaderProgram(Gdx.files.internal("Shaders/BrightnessVertexShader.vsh"), Gdx.files.internal("Shaders/BrightnessFragmentShader.fsh"));
-        shader.begin();
+        shader.bind();
         shader.setUniformf("bright", 1);
-        shader.end();
         setShader(shader);
     }
     /**

@@ -18,6 +18,7 @@ buildscript {
     }
 }
 
+
 allprojects {
     apply plugin: "eclipse"
 
@@ -54,6 +55,8 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 
     }
+
+
 }
 
 project(":android") {
@@ -129,6 +132,7 @@ project(":core") {
     apply plugin: "java-library"
 
     dependencies {
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
@@ -147,7 +151,9 @@ project(":core") {
         testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 
 
+
     }
+
 }
 
 project(":texturePacker") {
@@ -177,6 +183,13 @@ project(":editor") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        testImplementation"junit:junit:$junitVersion"
+        testImplementation "junit:junit:$junitVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+        testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 
 
     }

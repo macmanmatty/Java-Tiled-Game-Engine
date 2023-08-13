@@ -1,23 +1,14 @@
 targetCompatibility = JavaVersion.VERSION_1_8
 apply plugin: "java"
 
-
 sourceCompatibility = 1.8
-
-
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/com/" ]
 sourceSets.test.java.srcDirs = [ "src/test/java/" ]
 sourceSets.test.resources.srcDirs = [ "src/test/res/" ]
-
 eclipse.project.name = appName + "-core"
 
 
 
-task run(type: JavaExec) {
-    group = "Execution"
-    description = "Run the main class with JavaExecTask"
-    classpath = sourceSets.main.runtimeClasspath
-    main ="texturePackerLoader"
-}
+

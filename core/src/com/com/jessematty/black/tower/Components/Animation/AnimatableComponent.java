@@ -8,8 +8,13 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
+/**
+ * libGDX ashley component for animations;
+ */
 public class AnimatableComponent implements SerializableComponet{
-    //ObjectMap of directions  that links to ObjectMap of actions and ObjectMap integers that links to the animations;
+    /**
+        ObjectMap of directions  that links to ObjectMap of actions and ObjectMap integers that links to the animations;
+     */
     protected    ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
     protected boolean eightDirections=true;
     protected int currentFrameNumber; // the current animation frame number
@@ -64,6 +69,13 @@ public class AnimatableComponent implements SerializableComponet{
             return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
         }
     }
+
+    /**
+     * returns the current frame rate for a given direction and action
+     * @param direction
+     * @param action
+     * @return
+     */
     public int getFrameRate(Direction direction, String action) {
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
@@ -162,6 +174,11 @@ public class AnimatableComponent implements SerializableComponet{
     public void setCurrentDirection(Direction currentDirection) {
         this.currentDirection = currentDirection;
     }
+
+    /**
+     *  returns the current  libGDX TextureRegion of the animation
+     * @return the current frame for the animation;
+     */
    public  AtlasNamedAtlasRegion getCurrentTexture(){
         if(singleImage==true) {
             return staticTexture;

@@ -23,6 +23,7 @@ import java.io.IOException;
 
 public class TestMap {
     GameAssets assetts;
+    String assetsPath ="testAssets/Atlas/testAssets.atlas";
     public TestMap(GameAssets assets) {
         this.assetts = assets;
     }
@@ -33,7 +34,7 @@ public class TestMap {
        //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
        //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
-        TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
+        TextureAtlas atlas= assetts.loadInternalTextureAtlas(assetsPath);
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
         Skin skin=assetts.getDefaultSkin();
@@ -43,9 +44,9 @@ public class TestMap {
         map2.setTileSize(32, 32);
         World world= new World();
         world.addMap(map2);
-        world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
+        world.setWorldTextureAtlas(atlas, assetsPath);
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
-        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "textureAtlases/testAssets/testAssets.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
+        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter(assetsPath, "LizardMale", "Lizard", "Lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);
@@ -65,18 +66,18 @@ public class TestMap {
             entityBag.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
         }
         world.addEntityToWorld(entityBag);
-
-        Entity entity1= lpcActorGenerator.generateObject("textureAtlases/testAssets/testAssets.atlas", "tree114", "tree");
-        entity1.add(new SolidObject());
-       PositionComponent position2 =entity1.getComponent(PositionComponent.class);
+         Entity entity1= lpcActorGenerator.generateObject(assetsPath, "tree115", "tree");
+         entity1.add(new SolidObject());
+        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 300);
         position2.setHeight(10);
         position2.setLocationX(200);
         position2.setLocationY(200);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
+
         world.setPlayer( entityBag.getEntities().get(0));
-       world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
+       world.setWorldTextureAtlas(assetts.getAssetManager().get(assetsPath, TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
         //assetts.setWorld(world);
 
 //        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());

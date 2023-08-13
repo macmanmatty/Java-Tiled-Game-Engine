@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.Components.Animation;
 import com.badlogic.gdx.math.Vector2;
+import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
 import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
@@ -21,6 +22,9 @@ public class Animation implements ColorSettable {
         return frames;
     }
     public void setFrames(AtlasNamedAtlasRegion[] frames) {
+        if(frames[0]==null){
+            return;
+        }
         this.frames = frames;
         int size=frames.length;
         atlasRegionNames = new String[size];
