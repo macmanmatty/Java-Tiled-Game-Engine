@@ -74,7 +74,6 @@ public class FullInfoWindow extends GameWindow {
         weightMassVolumeGroup.addActor(mass);
         weightMassVolumeGroup.addActor(volume);
         double [] totalWeightMassVolume= EntityUtilities.getEntityMassAndVolume(world, entity);
-        double [] totalWeightMassVolume= EntityUtilities.getTotalMassAndVolume(world, entity);
         VerticalGroup verticalGroup= new VerticalGroup();
         HorizontalGroup totalWeightMassVolumeGroup=new HorizontalGroup();
         Label total= new Label("Total Weight Including All Attached Items", skin);

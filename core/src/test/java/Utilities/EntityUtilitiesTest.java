@@ -146,14 +146,11 @@ public class EntityUtilitiesTest {
         PhysicalObjectComponent physcialObject = new PhysicalObjectComponent(100, 100);
         PhysicalObjectComponent physcialObject2 = new PhysicalObjectComponent(100, 100);
         PhysicalObjectComponent physcialObject3 = new PhysicalObjectComponent(50, 50);
-
         owner.add(physcialObject);
         owned.add(physcialObject2);
         subOwned.add(physcialObject3);
-        EntityUtilities.attachEntity(testWorld, owner, owned);
-        double[] massAndVolume = EntityUtilities.getTotalMassAndVolume(testWorld, owner);
-        EntityUtilities.attachEntity( owner, owned);
-        EntityUtilities.attachEntity( owner, subOwned);
+        EntityUtilities.attachEntity(owner, owned);
+        EntityUtilities.attachEntity( owned, subOwned);
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
         assertEquals(250,massAndVolume[1] ,1);
         assertEquals(250, massAndVolume[0] ,1);
