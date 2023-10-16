@@ -382,28 +382,33 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper=GameComponentMapper.getPhysicalObjectComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
        PhysicalObjectComponent physicalObject=physicalObjectComponentMapper.get(entity);
-        if(physicalObject!=null ) {
+        if(physicalObject==null ) {
+        // no physical  object or position  = no mass or volume return empty array
+        return  new double[2];
+        }
             float mass = physicalObject.getMass();
             float volume = physicalObject.getVolume();
            double[]  massAndVolume = new double[] {mass,  volume};
 
             if (ownerComponent != null) {
-               Array<Entity> ownedEntitiesIds=getAllOwnedEntities(entity, world);
-               for(Entity entity1:ownedEntitiesIds){
-                   PhysicalObjectComponent physicalObject1=physicalObjectComponentMapper.get(entity1);
-                   OwnedComponent ownedComponent=ownedComponentMapper.get(entity1);
+               Array<Entity> allOwnedEntities=getAllOwnedEntities(entity, world);
+               for(Entity attachedEntity:allOwnedEntities){
+
+                   PhysicalObjectComponent physicalObjectOfAttachedEntity=physicalObjectComponentMapper.get(attachedEntity);
+                   if(physicalObjectOfAttachedEntity==null){
+                       continue;
+                   }
+                   OwnedComponent ownedComponent=ownedComponentMapper.get(attachedEntity);
                    if(ownedComponent!=null && ownedComponent.isPhysicallyAttached()) {
-                       massAndVolume[0] = massAndVolume[0] + physicalObject1.getMass();
-                       massAndVolume[1] = massAndVolume[1] + physicalObject1.getVolume();
+                       massAndVolume[0] = massAndVolume[0] + physicalObjectOfAttachedEntity.getMass();
+                       massAndVolume[1] = massAndVolume[1] + physicalObjectOfAttachedEntity.getVolume();
                    }
 
 
                }
            }
             return new double[]{massAndVolume[0],  massAndVolume[1]};
-     }
-       // no physical  object or position  = no mass or volume return empty vector 2
-        return  new double[2];
+
    }
   private static   double [] getTotalMassAndVolumeInternal(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
        PhysicalObjectComponent physicalObject= physicalObjectComponentMapper.get(entity);
