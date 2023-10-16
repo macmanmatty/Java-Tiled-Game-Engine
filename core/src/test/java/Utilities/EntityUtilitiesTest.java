@@ -121,7 +121,8 @@ public class EntityUtilitiesTest {
 
         owner.add(physcialObject);
         owned.add(physcialObject2);
-        double[] massAndVolume = EntityUtilities.getTotalMassWeightVolume(testWorld, owner);
+        EntityUtilities.attachEntity(testWorld, owner, owned);
+        double[] massAndVolume = EntityUtilities.getTotalMassAndVolume(testWorld, owner);
 
         assertEquals(200,massAndVolume[1] ,1);
         assertEquals(200, massAndVolume[0] ,1);
