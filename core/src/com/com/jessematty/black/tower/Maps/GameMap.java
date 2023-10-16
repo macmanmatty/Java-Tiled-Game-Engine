@@ -12,10 +12,10 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
 import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
+
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,9 +152,7 @@ public abstract  class GameMap  implements Map {
 	 * @return LandSquare The given tile
 	 */
 	public LandSquareTile getTile(int xLocation, int yLocation) {
-		// return a landSquareTileMap square checking first that the square exists based on the given numbers and returns a map tile
-		// if given tile is out of bounds returns the closest tile that is in bounds
-		if (xLocation < 0) {
+			if (xLocation < 0) {
 			xLocation = 0;
 		}
 		if (yLocation < 0) {
@@ -248,8 +246,8 @@ public abstract  class GameMap  implements Map {
 	 * @param mapLocationY the  y location  map in world units 
 	 * @return the LandSquareTile at point location.
 	 */
-	public LandSquareTile getTileFromTileCoordinates(float mapLocationX, float mapLocationY) {
-		return getMapSquareOrNull((int) Math.ceil(mapLocationX / tileWidth) - 1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
+	public LandSquareTile getTileFromWorldUnitCoordinates(float mapLocationX, float mapLocationY) {
+		return getMapSquareOrNull((int) Math.ceil(mapLocationX / tileWidth)-1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
 	}
 	/**
 	 *
@@ -328,13 +326,9 @@ public abstract  class GameMap  implements Map {
 	 */
 	public Array<LandSquareTile> getAllTilesAndAddEntity(float xMin, float yMin, float xMax, float yMax, Entity entity){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-		xMin=xMin;
-		yMin=yMin;
-		yMax=yMax;
-		xMax=xMax;
 		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
 			for (float county = yMin; county < yMax; county = county + tileHeight) {
-				LandSquareTile tile= getTileFromTileCoordinates(countx, county);
+				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;
 				}
@@ -359,7 +353,7 @@ public abstract  class GameMap  implements Map {
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
 		for (float countx=xMin-10; countx<xMax; countx=countx+ tileWidth) {
 			for (float county = yMin-10; county < yMax; county = county + tileHeight) {
-				LandSquareTile tile= getTileFromTileCoordinates(countx, county);
+				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;
 				}

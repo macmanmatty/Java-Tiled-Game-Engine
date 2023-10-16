@@ -70,7 +70,7 @@ public class RemoveFromContainerSystem extends GameEntitySystem {
                     String itemToAddId=idComponentMapper.get(itemToAdd).getId();
                     containerComponent.getEntitiesInContainerIds().removeValue(itemToAddId, false);
                     if(removeItemFromContainer.isDetachOnRemove()){
-                        EntityUtilities.detachEntity(getWorld(), container, itemToAdd);
+                        EntityUtilities.detachEntity( container, itemToAdd);
                     }
                 }
         }

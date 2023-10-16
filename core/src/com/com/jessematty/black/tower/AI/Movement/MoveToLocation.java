@@ -57,7 +57,7 @@ public class MoveToLocation extends ZRPGAIAction {
         LandSquareTile nextTile=placesToMove.get(0);
         // if you cant enter the tile or the tile is occupied recalculate the the path
           calculateAndSetMoveDirection(position.getTileLocationX(), position.getTileLocationY(), nextTile.getLocationX(), nextTile.getLocationY());
-          LandSquareTile tile=map.getTileFromTileCoordinates(position.getLocationX(), position.getLocationY());
+          LandSquareTile tile=map.getTileFromWorldUnitCoordinates(position.getLocationX(), position.getLocationY());
             if(InList.isInList(nextTile, position.getTiles())) {
                 placesToMove.removeValue(nextTile, false);
             }
@@ -83,10 +83,10 @@ public class MoveToLocation extends ZRPGAIAction {
      * @return
      */
     public Array<LandSquareTile> pathFind(GameMap map,  float worldLocationX, float worldLocationY, float worldLocationXEnd, float worldLocationYEnd, int xStart, int yStart, int xMax, int yMax) {
-        LandSquareTile tileFrom=map.getTileFromTileCoordinates(worldLocationX, worldLocationY);
+        LandSquareTile tileFrom=map.getTileFromWorldUnitCoordinates(worldLocationX, worldLocationY);
         int fromX=tileFrom.getLocationX();
         int fromY=tileFrom.getLocationY();
-        LandSquareTile tileTo=map.getTileFromTileCoordinates(worldLocationXEnd, worldLocationYEnd);
+        LandSquareTile tileTo=map.getTileFromWorldUnitCoordinates(worldLocationXEnd, worldLocationYEnd);
         int toY=tileTo.getLocationY();
         int toX=tileTo.getLocationX();
         int width=xMax-xStart;

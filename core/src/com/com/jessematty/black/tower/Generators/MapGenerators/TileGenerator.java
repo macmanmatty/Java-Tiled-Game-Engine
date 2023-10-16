@@ -10,7 +10,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -31,7 +31,7 @@ public class TileGenerator {
 
         tile.add(position);
         position.setPosition(screenLocationX, screenLocationY);
-        Tile tileComponent = new Tile();
+        TileComponent tileComponent = new TileComponent();
         NumericStats numericStats = new NumericStats();
         BooleanStats booleanStats = new BooleanStats();
         StringStats stringStats = new StringStats();

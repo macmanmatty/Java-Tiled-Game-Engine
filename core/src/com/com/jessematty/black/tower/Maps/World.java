@@ -12,15 +12,13 @@ import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
-import com.jessematty.black.tower.GameBaseClasses.Crafting.Craft;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables.CraftLookUpTable;
+import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
+import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.Maps.Settings.WorldSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -54,11 +52,10 @@ public class World implements Disposable {
      */
     private transient GameMap currentMap;
     /**
-     * the map entities in the world  teh key is the entity's id
+     * the map entities in the world  the key is the entity's id the object is the entity
      */
     @KryoSerialized
     private ObjectMap<String, Entity> entitiesInWorld= new ObjectMap<String, Entity>(); // all of the entities currently in the world
-    private   transient CraftLookUpTable craftLookUpTable;
     /**
      * the games engine
      */
@@ -70,7 +67,7 @@ public class World implements Disposable {
     /**
      * the name of the world
      */
-    private String name;
+    private String name="world";
     /**
      * the game currently running
      */
@@ -96,7 +93,8 @@ public class World implements Disposable {
     private OrderedMap< Class<? extends EntitySystem>, EntitySystem> systemsInWorld = new OrderedMap<>();
         // used for  deserialization
         public World() {
-            craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
+            createWorld();
+
         }
     /**
      *
@@ -105,7 +103,6 @@ public class World implements Disposable {
     public World( String name) {
         createWorld();
         this.name = name;
-        craftLookUpTable= new CraftLookUpTable(getGameComponentMapper());
     }
 
     /**
@@ -375,9 +372,6 @@ public class World implements Disposable {
     @Override
     public String toString() {
         return name;
-    }
-    public Array<Entity> getEntityFromCraft(Craft craft){
-            return craftLookUpTable.lookUpCraft(craft);
     }
     public void setWorldMap(ObjectMap<String, GameMap> worldMap) {
         this.worldMap = worldMap;

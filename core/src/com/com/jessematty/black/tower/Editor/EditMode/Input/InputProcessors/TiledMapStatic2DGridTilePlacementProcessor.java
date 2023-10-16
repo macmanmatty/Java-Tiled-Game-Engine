@@ -31,7 +31,7 @@ public class TiledMapStatic2DGridTilePlacementProcessor extends MapEditProcessor
         Vector3 unprojectedScreenCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
         float x = unprojectedScreenCoordinates.x;
         float y = unprojectedScreenCoordinates.y;
-        LandSquareTile tile = currentMap.getTileFromTileCoordinates(x, y);
+        LandSquareTile tile = currentMap.getTileFromWorldUnitCoordinates(x, y);
         tiledMapEdit.placeCell(tile.getLocationX(), tile.getLocationY(), (Cell[][]) object);
         return false;
     }

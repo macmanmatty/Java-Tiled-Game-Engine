@@ -18,11 +18,11 @@ public class ContainerComponent implements Component {
     /**
      * maximum weight the container can hold  <0 = no weight limit;
      */
-   private  double maxHoldWeight;
+   private  double maxHoldWeight=-1;
     /**
      *  the current total  weight of all the items the container
      */
-    private double currentWeight;
+    private double currentWeight=-1;
     /**
      * the ids of the entities in the container
      */
@@ -65,8 +65,6 @@ public class ContainerComponent implements Component {
 
 
     public ContainerComponent() {
-        maxVolume =200;
-        maxHoldWeight =200;
     }
     public double getCurrentCarryVolume(){
         return currentFilledVolume;

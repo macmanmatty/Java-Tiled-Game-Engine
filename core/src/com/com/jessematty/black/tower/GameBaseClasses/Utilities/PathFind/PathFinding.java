@@ -102,10 +102,10 @@ public class PathFinding  implements WorldSettable {
      * @return An Array of LandSquareTiles  the represent  the path to take to get from the start point to the end point
      */
     public Array<LandSquareTile> pathFind(ZRPGCharacter zrpgCharacter, GameMap map, float startX, float startY, float endX, float endY, int searchAreaStartX, int searchAreaStartY, int searchAreaWidth, int searchAreaHeight) { // calculates  the path finding method using the A* algorithm
-        LandSquareTile tileFrom=map.getTileFromTileCoordinates(startX, startY);
+        LandSquareTile tileFrom=map.getTileFromWorldUnitCoordinates(startX, startY);
         int fromX=tileFrom.getLocationX();
         int fromY=tileFrom.getLocationY();
-        LandSquareTile tileTo=map.getTileFromTileCoordinates(endX, endY);
+        LandSquareTile tileTo=map.getTileFromWorldUnitCoordinates(endX, endY);
         int toY=tileTo.getLocationY();
         int toX=tileTo.getLocationX();
         int width=searchAreaWidth-searchAreaStartX;

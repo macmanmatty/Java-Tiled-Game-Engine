@@ -9,7 +9,7 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.Root;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
@@ -19,7 +19,7 @@ import com.jessematty.black.tower.Systems.GameTimeIntervalSystem;
 import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 public class RootFeedSystem extends GameTimeIntervalSystem {
-    private ComponentMapper<Tile> tileComponentMapper;
+    private ComponentMapper<TileComponent> tileComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
     private ComponentMapper<Root> rootComponentMapper;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 public class TexturePackerLoader {
 
     /**
-     * class to run texture packer uses older libGDX versions to run properly
+     * class to run  the libGDX texture packer uses older libGDX versions to run properly
      */
     public TexturePackerLoader() {
     }

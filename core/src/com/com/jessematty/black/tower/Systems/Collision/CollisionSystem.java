@@ -88,7 +88,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                         continue;
                     }
                     PhysicalObjectComponent occupantBody = objects.get(occupant);
-                   boolean connected= EntityUtilities.isEntityConnected(entity, occupant, getWorld());
+                   boolean connected= EntityUtilities.isEntityConnected(entity, occupant, getWorld(), true);
                     if (connected==true) { // check to make sure the object isn't colliding into itself
                         continue;
                     }

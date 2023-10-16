@@ -221,7 +221,7 @@ protected void eraseTiles (ArrayList<LandSquareTile> tiles, TiledMapTileLayer la
         String id= properities.get("id", String.class);
         String objectClassName=properities.get("class", String.class);
         Entity thing=loadedEntity.get(id);
-            LandSquareTile location=map.getTileFromTileCoordinates(locationX, locationY);
+            LandSquareTile location=map.getTileFromWorldUnitCoordinates(locationX, locationY);
             location.addEntity(thing);
         Color color=mapObject.getColor();
         mapObject.setTile(null);

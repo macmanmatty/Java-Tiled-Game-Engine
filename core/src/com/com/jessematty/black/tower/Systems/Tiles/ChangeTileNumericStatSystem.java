@@ -13,7 +13,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChange
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
-import com.jessematty.black.tower.Components.Tiles.Tile;
+import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.Season;
@@ -24,7 +24,7 @@ import com.jessematty.black.tower.Systems.GameTimeIntervalSystem;
 public class ChangeTileNumericStatSystem extends GameTimeIntervalSystem {
 
 
-    private ComponentMapper<Tile> tileComponentMapper;
+    private ComponentMapper<TileComponent> tileComponentMapper;
     private ComponentMapper<NumericStatsChangeable> numericStatChangeableComponentMapper;
     private ComponentMapper<NumericStats> numericStatsComponentMapper;
     ImmutableArray<Entity> entities;
@@ -58,7 +58,7 @@ public class ChangeTileNumericStatSystem extends GameTimeIntervalSystem {
 
     @Override
     protected void updateInterval() {
-        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, Tile.class, NumericStatsChangeable.class).get());
+        entities= getEngine().getEntitiesFor(Family.all(NumericStats.class, TileComponent.class, NumericStatsChangeable.class).get());
 
             int size=entities.size();
             for(int count=0; count<size; count++){

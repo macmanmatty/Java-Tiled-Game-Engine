@@ -222,7 +222,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
      */
     public LandSquareTile screenToTile(float x, float y){
         Vector3 vec3= gameCamera.unproject(new Vector3(x,y,0));
-        LandSquareTile tile= currentMap.getTileFromTileCoordinates(vec3.x, vec3.y);
+        LandSquareTile tile= currentMap.getTileFromWorldUnitCoordinates(vec3.x, vec3.y);
         return tile;
     }
     public GameMap getCurrentMap(){

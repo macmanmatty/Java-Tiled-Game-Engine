@@ -13,9 +13,6 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-
-import TestEntities.BaseEntityTests;
 import TestEntities.TestEntity;
 
 import static junit.framework.Assert.assertEquals;
@@ -85,10 +82,21 @@ public final  class TestMap {
     public void getAllTiles(){
         Entity entity= new TestEntity().movable;
         PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
-        positionComponent.setBounds(68, 68);
-        positionComponent.setPosition(64 , 64);
+        positionComponent.setBounds(64, 64);
+        positionComponent.setPosition(74 , 64);
         Array<LandSquareTile> tiles=testMap1.getAllTiles(positionComponent.getBoundsBoundingRectangle());
         assertEquals(9, tiles.size);
+
+    }
+
+    @Test
+    public void getAllTiles2(){
+        Entity entity= new TestEntity().movable;
+        PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
+        positionComponent.setBounds(64, 32);
+        positionComponent.setPosition(64 , 32);
+        Array<LandSquareTile> tiles=testMap1.getAllTiles(positionComponent.getBoundsBoundingRectangle());
+        assertEquals(6, tiles.size);
 
     }
 
