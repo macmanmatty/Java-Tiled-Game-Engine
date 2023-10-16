@@ -13,5 +13,7 @@ dependencies {
 sourceSets.main.java.srcDirs = [ "src/com/" ]
 sourceSets.test.java.srcDirs = [ "src/test/java/" ]
 sourceSets.test.resources.srcDirs = [ "src/test/res/" ]
+sourceSets.main.resources.srcDirs = ["../android/assets"]
+
 
 eclipse.project.name = appName + "-editor"
