@@ -376,7 +376,7 @@ public class LPCActorGeneratorLPC extends LPCObjectGenerator {
         return pack;
     }
     public  Entity generateObject (String atlasName, String bodyName, String name) {
-        com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();
+        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
         Entity lpcActor=container.getEntity();
         container.getNameComponent().setStat(name);
         container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
