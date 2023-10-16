@@ -150,7 +150,8 @@ public class EntityUtilitiesTest {
         owner.add(physcialObject);
         owned.add(physcialObject2);
         subOwned.add(physcialObject3);
-
+        EntityUtilities.attachEntity(testWorld, owner, owned);
+        double[] massAndVolume = EntityUtilities.getTotalMassAndVolume(testWorld, owner);
         EntityUtilities.attachEntity( owner, owned);
         EntityUtilities.attachEntity( owner, subOwned);
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);

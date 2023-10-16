@@ -45,16 +45,34 @@ public class EntityUtilities {
    private static  boolean connected;
  private EntityUtilities() {
     }
-    // get the an  array of all entities and sub owned entities  owned by a entity using recursion
+
+    /**
+     *     get an  array of all entities and sub owned entities  owned by a entity using recursion
+     *     and returns the attached entities
+     */
    public static  Array<Entity> getAllOwnedEntities(Entity entity, World world){
      entities.clear();
-     entityIds.clear();
+       ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
+       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
+       if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
+           return  entities;
+       }
+       entityIds.clear();
        getAllOwnedEntitiesIDsInternal(entity, world);
         return entities;
    }
+    /**
+     *     get an  array of all entities and sub owned entities  owned by a entity using recursion
+     *     and returns the attached entities ids
+     */
     public static  Array<String> getAllOwnedEntitiesIDs(Entity entity, World world){
-        entities.clear();
         entityIds.clear();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
+        OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
+        if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
+            return  entityIds;
+        }
+        entities.clear();
         getAllOwnedEntitiesIDsInternal(entity, world);
         return entityIds;
     }
@@ -66,7 +84,14 @@ public class EntityUtilities {
         entityIds.add(idComponentMapper.get(entity).getId());
       return getAllConnectedEntitiesIdsInternal(entity, world, attached);
    }
-    
+
+    /**
+     * internal method for getting all attached entities and sun entities  ids
+     * @param entity the entity to get the entities for
+     * @param world the game world object
+     * @param attached whether for not search for physically attach entities
+     * @return
+     */
     private static  Array<String> getAllConnectedEntitiesIdsInternal(Entity entity, World world, boolean attached){
          entities.clear();
          entityIds.clear();
@@ -361,6 +386,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
             float mass = physicalObject.getMass();
             float volume = physicalObject.getVolume();
            double[]  massAndVolume = new double[] {mass,  volume};
+
             if (ownerComponent != null) {
                Array<Entity> ownedEntitiesIds=getAllOwnedEntities(entity, world);
                for(Entity entity1:ownedEntitiesIds){
@@ -379,7 +405,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        // no physical  object or position  = no mass or volume return empty vector 2
         return  new double[2];
    }
-  private static   double [] getTotalWeightAndVolume(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
+  private static   double [] getTotalMassAndVolumeInternal(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
        PhysicalObjectComponent physicalObject= physicalObjectComponentMapper.get(entity);
         if(physicalObject!=null){
             massAndVolume[0]=massAndVolume[0]+physicalObject.getMass();
