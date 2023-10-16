@@ -9,8 +9,8 @@ public class TexturePackerLoader {
     public TexturePackerLoader() {
     }
      //static String atlasFileOutputPath =System.getenv("atlasFileOutputPath");
-     static String atlasFileInputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/TestAssets/";
-    static String atlasFileOutputPath ="/Users/jessematty/AndroidStudioProjects/BlackTowerHTML/android/assets/textureAtlases/testAssets";
+     static String atlasFileInputPath ="./TestAssets/";
+    static String atlasFileOutputPath ="./android/assets/textureAtlases/testAssets";
     static  String atlasFileName ="testAssets.atlas";
 
   //  static String atlasFileInputPath =System.getenv("atlasFileInputPath");
