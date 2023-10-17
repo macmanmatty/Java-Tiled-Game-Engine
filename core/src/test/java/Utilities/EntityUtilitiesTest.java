@@ -64,6 +64,18 @@ public class EntityUtilitiesTest {
         assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
     }
     @Test
+    public void testAttachEntityWithOutOwnerComponent(){
+        owner.remove(OwnerComponent.class);
+        EntityUtilities.attachEntity( owner, owned);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertNotNull(ownedComponent);
+        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+        assertEquals(ownedId, ownerComponent.getOwnedEntityIDs().get(0));
+        assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
+    }
+    @Test
     public void testGetAllOwnedEntities(){
         EntityUtilities.attachEntity( owner, owned);
         Array<Entity> entities= EntityUtilities.getAllOwnedEntities(owner, testWorld);

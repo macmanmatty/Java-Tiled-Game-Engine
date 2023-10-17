@@ -502,7 +502,8 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
        OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToAttachTo);
        if(ownerComponent==null){
-        entityToAttachTo.add(new OwnerComponent());
+           ownerComponent=new OwnerComponent();
+        entityToAttachTo.add(ownerComponent);
        }
       EntityId entityToAttachID=idComponentMapper.get(entityToAttach);
         EntityId entityToAttachToID=idComponentMapper.get(entityToAttachTo);
