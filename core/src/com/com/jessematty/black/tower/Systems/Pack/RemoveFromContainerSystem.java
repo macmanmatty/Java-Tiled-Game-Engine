@@ -86,7 +86,6 @@ public class RemoveFromContainerSystem extends GameEntitySystem {
      * @return boolean true if  the entity can be removed  from  the container based on something
      */
     private boolean checkRemoveable(ContainerComponent containerComponent, GroupsComponent  groupsComponent){
-        //TODO future cool code  goes here
         return true;
     }
 

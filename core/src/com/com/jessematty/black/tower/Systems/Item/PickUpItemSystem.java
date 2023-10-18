@@ -40,7 +40,6 @@ public class PickUpItemSystem extends GameEntitySystem {
         ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(PositionComponent.class, PickUpItem.class).get());
         int size=entities.size();
         for(int count=0; count<size; count++) {
-
             Entity entityToPickUp=entities.get(count);
             PickUpItem pickUpItem =pickUpComponentMapper.get(entityToPickUp);
             String entityToPickUpId=idComponentMapper.get(entityToPickUp).getId();

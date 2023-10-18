@@ -70,7 +70,6 @@ public class AddToContainerSystem extends GameEntitySystem {
             PositionComponent containerPosition=positionComponentComponentMapper.get(container);
             PositionComponent  itemToAddPosition=positionComponentComponentMapper.get(itemToAdd);
             GroupsComponent groupsComponent =groupsComponentMapper.get(itemToAdd);
-
             boolean addable=checkAddable(groupsComponent, containerComponent, physicalObjectComponent, containerPosition);
                 if(addable){
                     String itemToAddId=idComponentMapper.get(itemToAdd).getId();
@@ -82,8 +81,7 @@ public class AddToContainerSystem extends GameEntitySystem {
                         EntityUtilities.attachEntity( container, itemToAdd);
                     }
                 }
-                else{
-                }
+
         }
 
     }

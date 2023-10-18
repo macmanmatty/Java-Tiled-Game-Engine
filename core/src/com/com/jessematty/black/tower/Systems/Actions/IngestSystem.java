@@ -51,7 +51,7 @@ public class IngestSystem extends GameEntitySystem {
                     Entity entity=entities.get(count);
                     Ingestable ingestable=ingestableComponentMapper.get(entity);
                     Ingest ingest=ingestingComponentMapper.get(entity);
-                    String ingestorId=ingest.getIngestorID();
+                    String ingestorId="";
                     if(ingestorId!=null){
                         Entity ingestor=getWorld().getEntity(ingestorId);
 

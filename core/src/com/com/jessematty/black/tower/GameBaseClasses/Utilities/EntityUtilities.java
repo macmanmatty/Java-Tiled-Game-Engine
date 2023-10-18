@@ -43,7 +43,7 @@ public class EntityUtilities {
    private static Array<Entity> entities= new Array<>();
    private static Array<String> entityIds= new Array<>();
    private static  boolean connected;
- private EntityUtilities() {
+   private EntityUtilities() {
     }
 
     /**
