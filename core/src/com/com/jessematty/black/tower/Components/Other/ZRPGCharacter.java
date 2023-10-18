@@ -47,7 +47,7 @@ public class ZRPGCharacter implements Component {
     private  PhysicalObjectComponent physicalObject;
     private DrawableComponent drawableComponent;
     private  AnimatableComponent animatable;
-    private com.jessematty.black.tower.Components.Attacks.Thrower thrower;
+    private Thrower thrower;
     private  Entity rightHand;
     private  Holder[]  handHolders= new Holder[2];
     private  Entity leftHand;
@@ -56,7 +56,7 @@ public class ZRPGCharacter implements Component {
     private ContainerComponent pack;
     private  Entity playerEntity;
     private ActionComponent actionComponent;
-    private com.jessematty.black.tower.Components.Attacks.AttackMode attackMode= new com.jessematty.black.tower.Components.Attacks.AttackMode("slash");
+    private AttackMode attackMode= new AttackMode("slash");
     private  Body body;
     private NameComponent nameComponent;
     private  World world;
