@@ -1,8 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.ZRPGTest;
 
+
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
+
 public class TestEntities {
 
-    static  LPCActorGeneratorDTO lizard = new LPCActorGeneratorDTO();
+    static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
    static  {
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         lizard.setBodyName("lizardMale");
@@ -17,6 +20,9 @@ public class TestEntities {
         lizard.setHealth(100);
         lizard.setMass(100);
         lizard.setVolume(100);
+        lizard.setMoveable(true);
+        lizard.setAnimated(true);
+        lizard.setDrawable(true);
     }
 
     public TestEntities() {
@@ -24,7 +30,7 @@ public class TestEntities {
 
     }
 
-    public static LPCActorGeneratorDTO getLizard() {
+    public static LPCObjectGeneratorDTO getLizard() {
         return lizard;
     }
 

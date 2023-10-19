@@ -10,9 +10,6 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
 
 public class LPCObjectGenerator {
-
-
-
     private final  GameAssets assets;
     private final  World world;
     private GameComponentMapper gameComponentMapper;

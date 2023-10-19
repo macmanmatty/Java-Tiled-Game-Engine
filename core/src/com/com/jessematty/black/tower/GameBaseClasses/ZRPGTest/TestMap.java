@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
-import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
 import com.jessematty.black.tower.Maps.LandMap;
@@ -44,7 +44,7 @@ public class TestMap {
         World world= new World();
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
-        LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
+        LPCActorGenerator lpcActorGenerator= new LPCActorGenerator(assetts, world);
         EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( TestEntities.lizard);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
