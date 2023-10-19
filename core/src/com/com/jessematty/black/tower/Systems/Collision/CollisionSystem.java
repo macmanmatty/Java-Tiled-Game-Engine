@@ -102,7 +102,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                             collide = Intersector.overlapConvexPolygons(occupantBounds1, occupantBounds2);
                         }
                      if (collide == true) {
-                         if(occupantBody.getEntitySolidity()==1) {
+                         if(occupantBody.getSolidity()==1) {
                              entityMovableComponent.setCollided(true);
                              if(occupantMovableComponent!=null) {
                                  occupantMovableComponent.setCollided(true);

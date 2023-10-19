@@ -58,7 +58,7 @@ public class InelasticCollision extends EventSystem {
         MovableComponent movableComponent =movableComponentMapper.get(entity1);
         if(movableComponent !=null){
             float newSpeed=((mass1*speed1)+(mass2*speed2))/(mass1+mass2);
-            float speedReduction=newSpeed*physicalObject2.getEntitySolidity();
+            float speedReduction=newSpeed*physicalObject2.getSolidity();
             movableComponent.setCurrentSpeed(newSpeed-speedReduction);
         }
 

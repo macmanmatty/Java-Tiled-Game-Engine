@@ -16,17 +16,17 @@ public class PhysicalObjectComponent implements Component { // component for obj
     /**
      * entity solidity  0=gas .5=fluid 1=solid used for collision Detection
      */
-    private float entitySolidity = 1f;
+    private float solidity = 1f;
 
     public PhysicalObjectComponent(float mass, float volume) {
         this.mass = mass;
         this.volume = volume;
     }
 
-    public PhysicalObjectComponent(float mass, float volume, float entitySolidity) {
+    public PhysicalObjectComponent(float mass, float volume, float solidity) {
         this.mass = mass;
         this.volume = volume;
-        this.entitySolidity = entitySolidity;
+        this.solidity = solidity;
     }
 
     public PhysicalObjectComponent() {
@@ -52,11 +52,11 @@ public class PhysicalObjectComponent implements Component { // component for obj
         return mass / volume;
     }
 
-    public float getEntitySolidity() {
-        return entitySolidity;
+    public float getSolidity() {
+        return solidity;
     }
 
-    public void setEntitySolidity(float entitySolidity) {
-        this.entitySolidity = entitySolidity;
+    public void setSolidity(float solidity) {
+        this.solidity = solidity;
     }
 }

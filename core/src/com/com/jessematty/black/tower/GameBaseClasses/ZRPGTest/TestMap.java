@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses;
+package com.jessematty.black.tower.GameBaseClasses.ZRPGTest;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,11 +10,11 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGeneratorLPC;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -45,7 +45,7 @@ public class TestMap {
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
         LPCActorGeneratorLPC lpcActorGenerator= new LPCActorGeneratorLPC(assetts, world);
-        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( "textureAtlases/testAssets/testAssets.atlas", "lizardMale", "lizard", "lizard", .67f,new NamedColor(0, 1, .1f, 1),100, 100,32,64,100, 100,100,100,100,100,100,100,true,true);
+        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( TestEntities.lizard);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);

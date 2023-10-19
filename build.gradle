@@ -138,6 +138,7 @@ project(":core") {
         api group: 'commons-io', name: 'commons-io', version: '2.6'
         api group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
         api group: 'com.esotericsoftware.kryo', name: 'kryo', version: '2.24.0'
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
         testImplementation"junit:junit:$junitVersion"
         testImplementation "junit:junit:$junitVersion"
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
