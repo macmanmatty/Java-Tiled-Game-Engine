@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -50,45 +51,40 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
-
 /**
  * class that generates various entities based of the LPC assets
  */
-
 public class LPCActorGenerator  {
    private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
      private   World  world;
-     private    GameComponentMapper gameComponentMapper;
-    protected  int layerNumber=1;
-     private int objectlayernumber =2;
      private ComponentMapper<EntityId> idComponentMapper;
     public LPCActorGenerator(GameAssets assets, World world ) {
         this.assets = assets;
         this.world=world;
-        this.gameComponentMapper=world.getGameComponentMapper();
-        this.idComponentMapper=gameComponentMapper.getIdComponentMapper();
+        this.idComponentMapper=GameComponentMapper.getIdComponentMapper();
     }
-
     public Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
         Entity entity= new Entity();
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(lpcObjectGeneratorDTO.getMass());
         physicalObject.setVolume(lpcObjectGeneratorDTO.getVolume());
         entity.add(physicalObject);
+        Polygon bounds=lpcObjectGeneratorDTO.getBounds();
         PositionComponent position= new PositionComponent();
-        position.setBounds(lpcObjectGeneratorDTO.getBoundsX(), lpcObjectGeneratorDTO.getBoundsY());
+        if(bounds!=null){
+            position.setBounds(bounds);
+        }
+        else {
+            position.setBounds(lpcObjectGeneratorDTO.getBoundsX(), lpcObjectGeneratorDTO.getBoundsY());
+        }
         entity.add(position);
         entity.add(physicalObject);
-
         return  entity;
-
     }
-
     public EntityBag generateLPCCharacter(LPCObjectGeneratorDTO lpcActorGeneratorDTO) {
         Entity lpcActor=generateBaseLPCEntity(lpcActorGeneratorDTO);
         lpcActor.add(new Body());
-
         Entity leftHand= makeBodyPart(lpcActor, "leftHand",  lpcActorGeneratorDTO.getGloveSize());
         makeHand(leftHand);
         Entity rightHand= makeBodyPart(lpcActor, "rightHand", lpcActorGeneratorDTO.getGloveSize());
@@ -101,14 +97,13 @@ public class LPCActorGenerator  {
         entityBag.getEntities().add(leftFoot);
         entityBag.getEntities().add(rightFoot);
         entityBag.getEntities().add(leftHand);
-
         return entityBag;
     }
     public Entity generateStaticLPCActor(Entity entity, AtlasNamedAtlasRegion namedAtlasRegion, NamedColor color, float brightness) {
         DrawableComponent drawableComponent = new DrawableComponent();
         drawableComponent.setCurrentRegion(namedAtlasRegion);
         drawableComponent.setDraw(true);
-        drawableComponent.setLayerNumber(layerNumber);
+        drawableComponent.setLayerNumber(1);
         drawableComponent.setColor(color);
         drawableComponent.setBrightness(brightness);
         
@@ -116,10 +111,9 @@ public class LPCActorGenerator  {
     }
     
     
-    private Entity generateAnimatedLPCActor(Entity entity,  String atlasName, String bodyName, NamedColor color,  float brightness){
-      
+    private Entity generateAnimatedLPCActor( Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
         AnimatableComponent animatable= new AnimatableComponent(true);
-        lpcSpriteGenerator= new LPCSpriteGenerator(animatable, assets, atlasName, bodyName);
+        lpcSpriteGenerator= new LPCSpriteGenerator(animatable, assets, lpcObjectGeneratorDTO.getAtlasName(), lpcObjectGeneratorDTO.getBodyName());
         lpcSpriteGenerator.setHasWalkFrames(true);
         lpcSpriteGenerator.setHasDieFrames(true);
         lpcSpriteGenerator.setHasEatFrames(true);
@@ -136,17 +130,14 @@ public class LPCActorGenerator  {
             DrawableComponent drawableComponent = new DrawableComponent();
             drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
             drawableComponent.setDraw(true);
-            drawableComponent.setLayerNumber(layerNumber);
-            drawableComponent.setColor(color);
-            drawableComponent.setBrightness(brightness);
+            drawableComponent.setLayerNumber(1);
+            drawableComponent.setColor(new NamedColor());
+            drawableComponent.setBrightness(lpcObjectGeneratorDTO.getBrightness());
             entity.add(drawableComponent);
             return entity;
     }
-
-
-
     public  Entity generateBaseLPCEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-        Entity entity = new Entity();
+        Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
         EntityId entityId = new EntityId();
         entity.add(entityId);
         NameComponent nameComponent = new NameComponent();
@@ -194,7 +185,6 @@ public class LPCActorGenerator  {
             animatable.nextFrame();
             entity.add(animatable);
         }
-
             if(drawable || animated) {
                 DrawableComponent drawableComponent = new DrawableComponent();
                 if(animatable!=null) {
@@ -212,9 +202,7 @@ public class LPCActorGenerator  {
                         ImageComponent imageComponent = new ImageComponent();
                         imageComponent.setImage(image);
                         drawableComponent.setCurrentRegion(image);
-
                     }
-
                 }
                 drawableComponent.setDraw(lpcObjectGeneratorDTO.isDrawOnStart());
                 drawableComponent.setLayerNumber(lpcObjectGeneratorDTO.getDrawLayer());
@@ -223,27 +211,10 @@ public class LPCActorGenerator  {
                 drawableComponent.setBrightness(lpcObjectGeneratorDTO.getBrightness());
                 entity.add(drawableComponent);
             }
-
         if(lpcObjectGeneratorDTO.isMoveable()) {
             MovableComponent movableComponent = new MovableComponent();
             entity.add(movableComponent);
         }
-        Polygon bounds=lpcObjectGeneratorDTO.getBounds();
-        PositionComponent position= new PositionComponent();
-        if(bounds!=null){
-            position.setBounds(bounds);
-        }
-        else {
-            position.setBounds(lpcObjectGeneratorDTO.getBoundsX(), lpcObjectGeneratorDTO.getBoundsY());
-        }
-
-        entity.add(position);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(lpcObjectGeneratorDTO.getMass());
-        physicalObject.setVolume(lpcObjectGeneratorDTO.getVolume());
-        entity.add(physicalObject);
-        entity.add(new NameComponent(true,  lpcObjectGeneratorDTO.getName()));
-        entity.add(new Info(true, "info", lpcObjectGeneratorDTO.getInfo()));
         booleanStatsChangeable.getStatsToChange().addAll(lpcObjectGeneratorDTO.getBooleanStatChangeableList());
         numericStatsChangeable.getStatsToChange().addAll(lpcObjectGeneratorDTO.getNumericStatsChangeableList());
         stringStatsChangeable.getStatsToChange().addAll(lpcObjectGeneratorDTO.getStringStatChangeableList());
@@ -264,245 +235,24 @@ public class LPCActorGenerator  {
                 stringStats.addStat((StringStat) stat);
             }
         }
-
-
     }
-
-
     public  Entity generateArmor(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-        Entity armor=container.getEntity();
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-       AnimatableComponent animatable= new AnimatableComponent(true);
-        lpcSpriteGenerator= new LPCSpriteGenerator(animatable, assets, lpcObjectGeneratorDTO.getAtlasName(), lpcObjectGeneratorDTO.getBodyName());
-        lpcSpriteGenerator.setHasWalkFrames(lpcObjectGeneratorDTO.isHasWalkFrames());
-        lpcSpriteGenerator.setHasDieFrames(lpcObjectGeneratorDTO.isHasDieFrames());
-        lpcSpriteGenerator.setHasEatFrames(lpcObjectGeneratorDTO.isHasEatFrames());
-        lpcSpriteGenerator.setHasShootFrames(lpcObjectGeneratorDTO.isHasShootFrames());
-        lpcSpriteGenerator.setHasThrustFrames(lpcObjectGeneratorDTO.isHasThrustFrames());
-        lpcSpriteGenerator.setHasSlashFrames(lpcObjectGeneratorDTO.isHashSlashFrames());
-        lpcSpriteGenerator.setHasSpellCastFrames(lpcObjectGeneratorDTO.isHasSpellCastFrames());
-        lpcSpriteGenerator.setHasPickUpFrames(lpcObjectGeneratorDTO.isHasPickupFrames());
-        lpcSpriteGenerator.setHasThrowFrames(lpcObjectGeneratorDTO.isHasThrowFrames());
-        lpcSpriteGenerator.makeBody();
-        animatable.setCurrentAction("rest");
-        animatable.nextFrame();
-        armor.add(animatable);
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-        drawableComponent.setDraw(true);
-        drawableComponent.setLayerNumber(layerNumber);
-        NamedColor color= new NamedColor(lpcObjectGeneratorDTO.getColorR(), lpcObjectGeneratorDTO.getColorG(), lpcObjectGeneratorDTO.getColorB(), lpcObjectGeneratorDTO.getColorA());
-        drawableComponent.setColor(color);
-        drawableComponent.setBrightness(lpcObjectGeneratorDTO.getBrightness());
-        MovableComponent movableComponent = new MovableComponent();
-        armor.add(drawableComponent);
-        armor.add(movableComponent);
-        PositionComponent position= new PositionComponent();
-        position.setBounds(lpcObjectGeneratorDTO.getBoundsX(), lpcObjectGeneratorDTO.getBoundsY());
-        ActionComponent actionComponent = new ActionComponent();
-        armor.add(position);
-        armor.add(actionComponent);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(lpcObjectGeneratorDTO.getMass());
-        physicalObject.setVolume(lpcObjectGeneratorDTO.getVolume());
-        armor.add(physicalObject);
-        armor.add(new NameComponent(true,  lpcObjectGeneratorDTO.getName()));
-        armor.add(new Info(true, "info", lpcObjectGeneratorDTO.getInfo()));
-        BooleanStatsChangeable booleanStatsChangeable= new BooleanStatsChangeable();
-        booleanStatsChangeable.getStatsToChange().addAll(lpcObjectGeneratorDTO.getBooleanStatChangeableList());
-        NumericStatsChangeable numericStatsChangeable= new NumericStatsChangeable();
-        numericStatsChangeable.getStatsToChange().addAll(lpcObjectGeneratorDTO.getNumericStatsChangeableList());
-            armor.add(booleanStatsChangeable);
-            armor.add(numericStatsChangeable);
+        Entity armor=generateItem(lpcObjectGeneratorDTO);
         return armor;
     }
-    public Entity generateItem(Entity entity,  ItemActionImageComponent... components){
-        ItemComponent item= new ItemComponent();
-        entity.add(item);
-        ActionComponents actionComponents= new ActionComponents();
-//        actionComponents.getActionComponents().add(new Throw());
-//        actionComponents.getActionComponents().add(new Drop());
-//        actionComponents.getActionComponents().add(new Hold());
-        actionComponents.getActionComponents().addAll(components);
-        entity.add(actionComponents);
-        return  entity;
+    public Entity generateItem(LPCObjectGeneratorDTO lpcObjectGenerator){
+        Entity item=generateBaseLPCEntity(lpcObjectGenerator);
+        ItemComponent itemComponent= new ItemComponent();
+        item.add(itemComponent);
+        return  item;
     }
-    public  Entity generateMeeleWeapon(String bodyName, String atlasName, String name, String info, boolean hashSlashFrames, boolean overSizeSlash, boolean hasThrustFrames, boolean hasWalkFrames, NamedColor color, float brightness, float condition, float volume, float mass, float length, float width, boolean upBehind, double damage, double speed, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable) {
-        com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();        Entity weapon=container.getEntity();
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-       AnimatableComponent animatable= new AnimatableComponent(true);
-        lpcSpriteGenerator= new com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator(animatable, assets, atlasName, bodyName);
-        lpcSpriteGenerator.setHasWalkFrames(hasWalkFrames);
-        lpcSpriteGenerator.setHasSlashFrames(hashSlashFrames);
-        lpcSpriteGenerator.setHasThrustFrames(hasThrustFrames);
-        if(upBehind==true){
-            lpcSpriteGenerator.upLayerNumberOffset=3;
-            lpcSpriteGenerator.upLayerNumberOffset=1;
-            lpcSpriteGenerator.upLayerNumberOffset=1;
-            lpcSpriteGenerator.downLayerNumberOffset=-1;
-        }
-        if(overSizeSlash==true){
-           lpcSpriteGenerator.slashDownOffsets=new Vector2(-64, -64);
-            lpcSpriteGenerator.slashUpOffsets=new Vector2(-64, -64);
-            lpcSpriteGenerator.slashLeftOffsets=new Vector2(-64, -64);
-            lpcSpriteGenerator.slashRightOffsets=new Vector2(-64, -64);
-        }
-        lpcSpriteGenerator.makeBody();
-        if(hashSlashFrames==true){
-            Slashable slashable=new Slashable();
-            weapon.add(slashable);
-        }
-        if(hasThrustFrames==true){
-            Thrustable thrustable=new Thrustable();
-            weapon.add(thrustable);
-        }
-        animatable.setCurrentAction("rest");
-        animatable.nextFrame();
-        weapon.add(animatable);
-        NumericStats numericStats=container.getNumericStats();
-        NumericStat healthStat= new NumericStat( true, "health", 100, 0, 100);
-        healthStat.setKillWhenZero(true);
-        numericStats.addStat(healthStat);
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-        drawableComponent.setDraw(true);
-        drawableComponent.setLayerNumber(layerNumber);
-        drawableComponent.setColor(color);
-        drawableComponent.setBrightness(brightness);
-        MovableComponent movableComponent = new MovableComponent();
-        weapon.add(drawableComponent);
-        weapon.add(movableComponent);
-        PositionComponent position= new PositionComponent();
-        position.setBounds(width, length);
-        position.setBoundsXOffset(28);
-        position.setBoundsYOffset(28);
-        Rectangle boundingRectangle=position.getBoundsBoundingRectangle();
-        position.getBounds().setOrigin(boundingRectangle.width/2f,boundingRectangle.height/50f );
-        ActionComponent actionComponent = new ActionComponent();
-        weapon.add(position);
-        weapon.add(actionComponent);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(mass);
-        physicalObject.setVolume(volume);
-        weapon.add(physicalObject);
-        weapon.add(new NameComponent(true, name));
-        weapon.add(new Info(true, "info", info));
-        if(booleanStatsChangeable !=null){
-            weapon.add(booleanStatsChangeable);
-        }
-        if(numericStatsChangeable !=null){
-            weapon.add(numericStatsChangeable);
-        }
-        generateItem(weapon);
+    public Entity generateWeapon(LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
+        Entity weapon=generateItem(lpcObjectGeneratorDTO);
         return weapon;
     }
-
-    public void setStats(Entity entity, NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats, NumericStatsChangeable numericStatsChangeable, BooleanStatsChangeable booleanStatsChangeable, StringStatsChangeable stringStatsChangeable){
-
-        if(booleanStatsChangeable !=null){
-            entity.add(booleanStatsChangeable);
-        }
-        if(numericStatsChangeable !=null){
-            entity.add(numericStatsChangeable);
-        }
-
-        if(numericStats!=null){
-            entity.add(numericStats);
-        }
-
-        if(booleanStats!=null){
-            entity.add(numericStats);
-
-        }
-
-        if(stringStatsChangeable!=null){
-            entity.add(stringStatsChangeable);
-
-        }
-
-        if(stringStats!=null){
-            entity.add(stringStats);
-        }
-    }
-
-
-    public  Entity generatePack( boolean displayOnBody, String packAnimationName, String name, String info, NamedColor color, float brightness, float volume, float mass, float length, float width) {
-       BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-       Entity pack=container.getEntity();
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-        if(displayOnBody) {
-            AnimatableComponent animatable = new AnimatableComponent(true);
-            lpcSpriteGenerator.setHasWalkFrames(true);
-            lpcSpriteGenerator.setHasDieFrames(true);
-            lpcSpriteGenerator.setHasEatFrames(true);
-            lpcSpriteGenerator.setHasShootFrames(true);
-            lpcSpriteGenerator.setHasThrustFrames(true);
-            lpcSpriteGenerator.setHasSlashFrames(true);
-            lpcSpriteGenerator.setHasSpellCastFrames(true);
-            lpcSpriteGenerator.setHasPickUpFrames(true);
-            lpcSpriteGenerator.setHasThrowFrames(true);
-            lpcSpriteGenerator.makeBody();
-            lpcSpriteGenerator.setBodyName(packAnimationName);
-            animatable.setCurrentAction("rest");
-            animatable.nextFrame();
-            pack.add(animatable);
-
-            DrawableComponent drawableComponent = new DrawableComponent();
-            drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-            drawableComponent.setDraw(true);
-            drawableComponent.setLayerNumber(layerNumber);
-            drawableComponent.setColor(color);
-            drawableComponent.setBrightness(brightness);
-
-            pack.add(drawableComponent);
-        }
-        MovableComponent movableComponent = new MovableComponent();
-        pack.add(movableComponent);
-        PositionComponent position= new PositionComponent();
-        position.setBounds(width, length);
-        ActionComponent actionComponent = new ActionComponent();
-        pack.add(position);
-        pack.add(actionComponent);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(mass);
-        physicalObject.setVolume(volume);
-        pack.add(physicalObject);
-        Pack packComponent= new Pack();
-        packComponent.setFixedNumberOfSlots(false);
-        packComponent.setMaxHoldWeight(100);
-        packComponent.setMaxVolume(1000);
-        pack.add(packComponent);
-        pack.add(new NameComponent(true, name));
-        pack.add(new Info(true, "info", info));
-
+    public Entity generatePack(LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
+        Entity pack=generateItem(lpcObjectGeneratorDTO);
         return pack;
-    }
-    public  Entity generateObject (String atlasName, String bodyName, String name) {
-        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-        Entity lpcActor=container.getEntity();
-        container.getNameComponent().setStat(name);
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setCurrentRegion(assets.getAtlasRegionByName(bodyName, atlasName));
-        drawableComponent.setDraw(true);
-        drawableComponent.setColor(NamedColor.WHITE);
-        drawableComponent.setBrightness(1f);
-        drawableComponent.setLayerNumber(objectlayernumber);
-        lpcActor.add(drawableComponent);
-        PositionComponent position= new PositionComponent();
-        ActionComponent actionComponent = new ActionComponent();
-        lpcActor.add(position);
-        lpcActor.add(actionComponent);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(1000);
-        physicalObject.setVolume(1500);
-        lpcActor.add(physicalObject);
-        return lpcActor;
     }
         public   Entity makeBodyPart(Entity ownerBody, String name, int size){
         Body body=ownerBody.getComponent(Body.class);
@@ -531,97 +281,5 @@ public class LPCActorGenerator  {
     }
     public void makeHand(Entity entity){
        entity.add(new Holder());
-    }
-    public   Entity makeWings(  String atlasName, String spriteName, Entity owner, String name, Body parts, NamedColor color, float brightness, int size, float mass, float volume){
-        com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer container= EntityUtilities.makeBasicEntity();        Entity wings=container.getEntity();
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        wings.add(new PositionComponent());
-        wings.add(new Attachable( wings, owner));
-        wings.add(new BodyPart());
-        wings.add (new NameComponent(true, "wings of "+name));
-        wings.add(new ActionComponent());
-        NumericStats numericStats=container.getNumericStats();
-        NumericStat healthStat= new NumericStat( true, "health", 100, 0, 100);
-        healthStat.setKillWhenZero(true);
-        numericStats.addStat(healthStat);
-        OwnedComponent ownedComponent= new OwnedComponent();
-        ownedComponent.setOwnerEntityID(idComponentMapper.get(owner).getId());
-        wings.add(ownedComponent);
-        parts.getBodyParts().put(name,wings.getComponent(EntityId.class).getId());
-        wings.add(new BodyPartSize(true,  "wingSize", size));
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setLayerNumber(layerNumber);
-       AnimatableComponent animatable= new AnimatableComponent(true);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(mass);
-        physicalObject.setVolume(volume);
-        lpcSpriteGenerator= new com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator(animatable, assets, atlasName, spriteName);
-        lpcSpriteGenerator.setHasWalkFrames(true);
-        lpcSpriteGenerator.setHasDieFrames(true);
-        lpcSpriteGenerator.setHasEatFrames(true);
-        lpcSpriteGenerator.setHasShootFrames(true);
-        lpcSpriteGenerator.setHasThrustFrames(true);
-        lpcSpriteGenerator.setHasSlashFrames(true);
-        lpcSpriteGenerator.setHasSpellCastFrames(true);
-        lpcSpriteGenerator.setHasPickUpFrames(true);
-        lpcSpriteGenerator.setHasThrowFrames(true);
-        lpcSpriteGenerator.upLayerNumberOffset=1;
-        lpcSpriteGenerator.downLayerNumberOffset=-1;
-        lpcSpriteGenerator.leftLayerNumberOffset=-1;
-        lpcSpriteGenerator.rightLayerNumberOffset=-1;
-        lpcSpriteGenerator.makeBody();
-        wings.add(drawableComponent);
-        wings.add(animatable);
-        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-        drawableComponent.setDraw(true);
-        drawableComponent.setColor(color);
-        drawableComponent.setBrightness(brightness);
-        animatable.nextFrame();
-        MovableComponent movableComponent = new MovableComponent();
-        wings.add(movableComponent);
-        return wings;
-    }
-    public   Entity makeHorns(  String atlasName, String spriteName, Entity owner, String name, Body parts, NamedColor color, float brightness, int size, float mass, float volume){
-        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-        Entity horns=container.getEntity();
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-        horns.add(new PositionComponent());
-        horns.add(new Attachable( horns, owner));
-        horns.add(new BodyPart());
-        horns.add (new NameComponent(true, "horns of "+name));
-        horns.add(new ActionComponent());
-        parts.getBodyParts().put(name+"Hand",horns.getComponent(EntityId.class).getId());
-        horns.add(new BodyPartSize(true,  "wingSize", size));
-        DrawableComponent drawableComponent = new DrawableComponent();
-        drawableComponent.setLayerNumber(layerNumber);
-       AnimatableComponent animatable= new AnimatableComponent(true);
-        PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
-        physicalObject.setMass(mass);
-        physicalObject.setVolume(volume);
-        OwnedComponent ownedComponent= new OwnedComponent();
-        ownedComponent.setOwnerEntityID(idComponentMapper.get(owner).getId());
-        horns.add(ownedComponent);
-        lpcSpriteGenerator= new LPCSpriteGenerator(animatable, assets, atlasName, spriteName);
-        lpcSpriteGenerator.setHasWalkFrames(true);
-        lpcSpriteGenerator.setHasDieFrames(true);
-        lpcSpriteGenerator.setHasEatFrames(true);
-        lpcSpriteGenerator.setHasShootFrames(true);
-        lpcSpriteGenerator.setHasThrustFrames(true);
-        lpcSpriteGenerator.setHasSlashFrames(true);
-        lpcSpriteGenerator.setHasSpellCastFrames(true);
-        lpcSpriteGenerator.setHasPickUpFrames(true);
-        lpcSpriteGenerator.setHasThrowFrames(true);
-        lpcSpriteGenerator.makeBody();
-        horns.add(drawableComponent);
-        horns.add(animatable);
-        drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
-        drawableComponent.setDraw(true);
-        drawableComponent.setColor(color);
-        drawableComponent.setBrightness(brightness);
-        animatable.nextFrame();
-        MovableComponent movableComponent = new MovableComponent();
-        horns.add(movableComponent);
-        return horns;
     }
 }

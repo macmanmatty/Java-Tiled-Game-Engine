@@ -6,7 +6,9 @@ import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenera
 public class TestEntities {
 
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
-   static  {
+    static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
+
+    static  {
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         lizard.setBodyName("lizardMale");
         lizard.setName("lizard");
@@ -23,6 +25,12 @@ public class TestEntities {
         lizard.setMoveable(true);
         lizard.setAnimated(true);
         lizard.setDrawable(true);
+        tree.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        tree.setImageName("tree");
+        tree.setBodyName("tree");
+        tree.setHasImage(true);
+        tree.setDrawable(true);
+
     }
 
     public TestEntities() {

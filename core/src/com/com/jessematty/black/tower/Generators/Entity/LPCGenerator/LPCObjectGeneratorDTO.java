@@ -22,7 +22,13 @@ import lombok.Setter;
 
 public class LPCObjectGeneratorDTO {
     String atlasName;
+    /**
+     * the base name of the animation
+     */
     String bodyName="humanMale";
+    /**
+     * the name of the entity
+     */
     String name="name";
     String info="info";
     float brightness;

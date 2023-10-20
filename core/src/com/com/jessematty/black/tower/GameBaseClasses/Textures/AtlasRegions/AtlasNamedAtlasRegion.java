@@ -12,7 +12,6 @@ public class AtlasNamedAtlasRegion  extends AtlasRegion  {
      * the name of the atlas
      * **/
    private  String atlasName=" ";
-   private Array<AtlasNamedAtlasRegion> atlasNamedAtlasRegions= new Array<>();
     /**
      * the page to put the region into used to make sure that texture gets on the correct page
      * **/
