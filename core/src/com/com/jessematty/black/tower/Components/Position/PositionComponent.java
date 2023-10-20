@@ -38,11 +38,6 @@ public class PositionComponent implements Component {
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
     /**
-     *if true the position will mirror the position of the of the owner entity specified in the Owner Component
-     * @See OwnerComponent;
-     */
-    private boolean positionSetByOwner;
-    /**
      * if this is not null this is id of the container the entity is located in
      */
     private String containerEntityId;
@@ -239,11 +234,4 @@ public class PositionComponent implements Component {
         this.mapId = mapId;
     }
 
-    public boolean isPositionSetByOwner() {
-        return positionSetByOwner;
-    }
-
-    public void setPositionSetByOwner(boolean positionSetByOwner) {
-        this.positionSetByOwner = positionSetByOwner;
-    }
 }

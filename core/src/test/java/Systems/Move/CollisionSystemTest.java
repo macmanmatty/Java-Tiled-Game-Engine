@@ -1,4 +1,4 @@
-package Systems;
+package Systems.Move;
 
 public class CollisionSystemTest {
 }
