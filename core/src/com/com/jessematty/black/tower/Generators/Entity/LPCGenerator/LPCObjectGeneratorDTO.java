@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
@@ -85,6 +86,12 @@ public class LPCObjectGeneratorDTO {
     float maxAtachedWeight;
     float internalVolume;
     Polygon bounds;
+    Array<String> groups= new Array<>();
+    Array<String> groupsAddable= new Array<>();
+
+    int packSlots;
+
+
 
     public String getAtlasName() {
         return atlasName;
@@ -548,5 +555,29 @@ public class LPCObjectGeneratorDTO {
 
     public void setBounds(Polygon bounds) {
         this.bounds = bounds;
+    }
+
+    public Array<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Array<String> groups) {
+        this.groups = groups;
+    }
+
+    public int getPackSlots() {
+        return packSlots;
+    }
+
+    public void setPackSlots(int packSlots) {
+        this.packSlots = packSlots;
+    }
+
+    public Array<String> getGroupsAddable() {
+        return groupsAddable;
+    }
+
+    public void setGroupsAddable(Array<String> groupsAddable) {
+        this.groupsAddable = groupsAddable;
     }
 }

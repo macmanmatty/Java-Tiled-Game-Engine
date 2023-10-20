@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Base.EntityId;
 
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -15,7 +15,7 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class ChangeItemLocationSystem extends GameEntitySystem {
 
-       private  Pack pack;
+       private PackComponent packComponent;
        private  Entity entity;
        private PhysicalObjectComponent object;
        private PositionComponent position;
@@ -24,9 +24,9 @@ public class ChangeItemLocationSystem extends GameEntitySystem {
        private ComponentMapper<ItemComponent> itemComponentMapper;
 
 
-    public ChangeItemLocationSystem(MapDraw draw, Pack pack, Entity entity) {
+    public ChangeItemLocationSystem(MapDraw draw, PackComponent packComponent, Entity entity) {
         super(draw);
-        this.pack = pack;
+        this.packComponent = packComponent;
         this.entity = entity;
         idComponentMapper= GameComponentMapper.getIdComponentMapper();
     }

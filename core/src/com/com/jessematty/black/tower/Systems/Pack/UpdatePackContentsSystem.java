@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class UpdatePackContentsSystem extends GameEntitySystem {
     private ComponentMapper<ContainerComponent> containerComponentComponentMapper;
-    private ComponentMapper<Pack> packComponentMapper;
+    private ComponentMapper<PackComponent> packComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentComponentMapper;
     public UpdatePackContentsSystem(MapDraw draw) {
         super(draw);
@@ -43,7 +43,7 @@ public class UpdatePackContentsSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(Pack.class, ContainerComponent.class).get());
+        ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(PackComponent.class, ContainerComponent.class).get());
         int size=entities.size();
         for(Entity entity: entities) {
            ContainerComponent container=containerComponentComponentMapper.get(entity);

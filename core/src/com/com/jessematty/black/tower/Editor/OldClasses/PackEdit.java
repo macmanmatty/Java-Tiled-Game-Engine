@@ -1,17 +1,17 @@
 package com.jessematty.black.tower.Editor.OldClasses;
 
-import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
 
 public class PackEdit extends ItemEdit {
 
-    Pack pack;
+    PackComponent packComponent;
     FloatField volume;
 
 
 
 
-    public Pack makeThing(Pack item){
+    public PackComponent makeThing(PackComponent item){
 
         super.makeThing(item);
 
@@ -20,8 +20,8 @@ public class PackEdit extends ItemEdit {
     }
 
 
-    public void setTextFieldsToThing(Pack pack){
-        this.pack=pack;
+    public void setTextFieldsToThing(PackComponent packComponent){
+        this.packComponent = packComponent;
 
 
 

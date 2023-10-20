@@ -1,12 +1,14 @@
 package com.jessematty.black.tower.Components.Containers;
 
 
-public class Pack extends ContainerComponent{
+import com.badlogic.gdx.utils.Array;
+
+public class PackComponent extends ContainerComponent{
 
     private String fullMessage=" Pack is Full!!!";
     private String fullTitle="Pack is Full";
     private boolean fixedNumberOfSlots;
-    private int numberOfSlots=20;
+    private Array<PackSlot> slots =new Array();
 
     public String getFullMessage() {
         return fullMessage;
@@ -32,11 +34,7 @@ public class Pack extends ContainerComponent{
         this.fixedNumberOfSlots = fixedNumberOfSlots;
     }
 
-    public int getNumberOfSlots() {
-        return numberOfSlots;
-    }
-
-    public void setNumberOfSlots(int numberOfSlots) {
-        this.numberOfSlots = numberOfSlots;
+    public Array<PackSlot> getSlots() {
+        return slots;
     }
 }

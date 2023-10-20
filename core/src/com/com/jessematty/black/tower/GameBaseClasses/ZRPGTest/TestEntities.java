@@ -7,6 +7,7 @@ public class TestEntities {
 
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
+    static LPCObjectGeneratorDTO pack = new LPCObjectGeneratorDTO();
 
     static  {
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -31,6 +32,22 @@ public class TestEntities {
         tree.setHasImage(true);
         tree.setDrawable(true);
         tree.setDrawOnStart(true);
+
+        pack.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        pack.setBodyName("backPack");
+        pack.setName("pack");
+        pack.setBrightness( .67f);
+        pack.setColorA(1);
+        pack.setColorB(.1f);
+        pack.setColorR(1);
+        pack.setColorG(0);
+        pack.setBoundsX(32);
+        pack.setBoundsY(64);
+        pack.setHealth(100);
+        pack.setMass(100);
+        pack.setVolume(100);
+        pack.setAnimated(true);
+        pack.setDrawable(true);
 
     }
 

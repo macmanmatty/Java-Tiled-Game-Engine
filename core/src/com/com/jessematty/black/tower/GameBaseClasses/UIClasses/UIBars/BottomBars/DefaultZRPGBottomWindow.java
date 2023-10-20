@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.Containers.Pack;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
@@ -67,7 +67,7 @@ public class DefaultZRPGBottomWindow extends UITable {
 
     }
     
-    public void updatePackButtons(Array<Pack> packs){
+    public void updatePackButtons(Array<PackComponent> packs){
     }
 
     @Override

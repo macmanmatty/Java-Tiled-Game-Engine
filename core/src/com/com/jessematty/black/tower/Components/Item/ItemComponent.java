@@ -11,6 +11,7 @@ public class ItemComponent implements Component {
     private boolean dropOnoDie;
     private boolean held;
     private String heldItemAction="rest";
+    private int slot;
 
     public boolean isInPack() {
         return inPack;
@@ -70,5 +71,13 @@ public class ItemComponent implements Component {
 
     public void setHeldItemAction(String heldItemAction) {
         this.heldItemAction = heldItemAction;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 }
