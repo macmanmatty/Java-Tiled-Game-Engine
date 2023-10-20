@@ -19,9 +19,9 @@ public class DrawableComponent implements Component , ColorSettable , Serializab
    private float  brightness=.33f;
     private Vector2 drawOffsets= new Vector2();
     private boolean draw=true;
-    private  float layerNumber;
+    private  float layerNumber=1;
     private float previousLayerNumber;
-    private float subLayerNumber;
+    private float subLayerNumber=1;
     private ColorChangeMode colorChangeMode=ColorChangeMode.NONE;
     private String atlasName;
     private boolean layerChanged;

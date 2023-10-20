@@ -12,7 +12,7 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
-import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCActorGenerator;
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
 import com.jessematty.black.tower.Maps.LandMap;
@@ -44,8 +44,8 @@ public class TestMap {
         World world= new World();
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
-        LPCActorGenerator lpcActorGenerator= new LPCActorGenerator(assetts, world);
-        EntityBag entityBag=lpcActorGenerator.generateLPCCharacter( TestEntities.lizard);
+        LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts, world);
+        EntityBag entityBag= lpcObjectGenerator.generateLPCCharacter( TestEntities.lizard);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);
@@ -66,7 +66,7 @@ public class TestMap {
         }
         world.addEntityToWorld(entityBag);
 
-        Entity entity1= lpcActorGenerator.generateBaseLPCEntity(TestEntities.tree);
+        Entity entity1= lpcObjectGenerator.generateBaseLPCEntity(TestEntities.tree);
         entity1.add(new SolidObject());
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 300);

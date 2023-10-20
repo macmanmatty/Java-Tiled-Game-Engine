@@ -59,8 +59,8 @@ public class LPCObjectGeneratorDTO {
     boolean hasImage;
     boolean useDownFrame1AsImage;
     String imageName;
-    boolean drawOnStart;
-    int drawLayer;
+    boolean drawOnStart=true;
+    int drawLayer=1;
     float strength;
     float hearingDistance;
     float seeingDistance;

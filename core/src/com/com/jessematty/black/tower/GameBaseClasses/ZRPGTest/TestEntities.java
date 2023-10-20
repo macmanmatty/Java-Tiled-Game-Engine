@@ -30,6 +30,7 @@ public class TestEntities {
         tree.setBodyName("tree");
         tree.setHasImage(true);
         tree.setDrawable(true);
+        tree.setDrawOnStart(true);
 
     }
 
