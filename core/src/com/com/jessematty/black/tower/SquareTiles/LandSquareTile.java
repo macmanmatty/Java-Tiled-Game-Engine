@@ -141,6 +141,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 		Array< Entity> entitiesToReturn=GameComponentMapper.getEntitiesContainingStats(tileComponent.getEntities(), numericStats, stringStats, booleanStats,  components);
 		return  entitiesToReturn;
 	}
+
 	public boolean isInArea() {
 		return inArea;
 	}
@@ -181,4 +182,6 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	public String getMapId(){
 		return position.getMapId();
 	}
+
+
 }

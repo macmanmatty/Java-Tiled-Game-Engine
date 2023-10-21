@@ -200,10 +200,10 @@ public abstract  class GameMap  implements Map {
 			return;
 		}
 		if(position.getMapId()!=id) {
-			entities.add(entity);
 			position.setMapID(id);
 		}
-			Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
+		entities.add(entity);
+		Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
 			position.setTiles(tiles);
 		}
 	/**
@@ -247,7 +247,7 @@ public abstract  class GameMap  implements Map {
 	 * @return the LandSquareTile at point location.
 	 */
 	public LandSquareTile getTileFromWorldUnitCoordinates(float mapLocationX, float mapLocationY) {
-		return getMapSquareOrNull((int) Math.ceil(mapLocationX / tileWidth)-1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
+		return getTile((int) Math.ceil(mapLocationX / tileWidth)-1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
 	}
 	/**
 	 *
@@ -312,7 +312,7 @@ public abstract  class GameMap  implements Map {
 	 * @return
 	 */
 	public Array<LandSquareTile> getAllTilesAndAddEntity(Rectangle rectangle, Entity entity) {
-		return getAllTilesAndAddEntity(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y, entity);
+		return getAllTilesAndAddEntity(rectangle.x, rectangle.y,Math.max(rectangle.width+rectangle.x, 1), Math.max(rectangle.height+rectangle.y, 1), entity);
 	}
 	/**
 	 * finds all tiles for a given  rectangle bounds  and adds them to a list and returns them

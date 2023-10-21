@@ -63,6 +63,7 @@ public class ZRPGPlayerFunctions {
         InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
         playerControlFunctions.add(displayPackWindow);
 
+
     }
 
     /**
@@ -142,9 +143,8 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.increaseSpeed(player);
 
         }};
-    /**
-     *  end player movement functions
-     */
+
+
 
     /**
      * increases a players speed
