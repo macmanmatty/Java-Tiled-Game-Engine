@@ -28,7 +28,7 @@ public class AiSystem extends GameEntitySystem {
         int size=entities.size();
         for(int count=0; count<size; count++) {
          AIComponent aiComponent =  aiComponentMapper.get(entities.get(count));
-         aiComponent.getBrain().aiAct(deltaTime);
+         aiComponent.getZRPGBrainComponen().aiAct(deltaTime);
         }
     }
 }

@@ -3,7 +3,13 @@ package com.jessematty.black.tower.AI;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
-public  class Brain implements Component {
+/**
+ * A Component That contains a list of ZRPG actions  to be preformed by a ZRPG Player
+ */
+public  class ZRPGBrainComponent implements Component {
+    /**
+     * the List Of Actions
+     */
 
     private Array<ZRPGAIAction> zrpgAIActions =new Array<ZRPGAIAction>();
 

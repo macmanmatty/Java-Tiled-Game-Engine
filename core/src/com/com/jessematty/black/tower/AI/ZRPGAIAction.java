@@ -18,15 +18,35 @@ public abstract class ZRPGAIAction {
     /**
      * the Character's Brain Object
      */
-   protected  Brain brain;
+   protected ZRPGBrainComponent zrpgBrainComponent;
     /**
      * whether or not to allow more tha one instance  of this action in a
      * Characters Brain
      */
    protected   boolean allowDuplicateActions;
+
+    /**
+     * if true this action is locked and can't be removed from the queue and
+     * must stay at position zero
+     */
+   protected boolean locked;
+
+    /**
+     *
+     * the counter for the number of turns;
+     */
+    int turnCounter;
+
+    /**
+     *
+     * the number of turns it takes to preform this action
+     */
+      int turns;
+
+
     public ZRPGAIAction(ZRPGCharacter zrpgCharacter) {
         this.zrpgCharacter = zrpgCharacter;
-        brain =zrpgCharacter.getBrain();
+        zrpgBrainComponent =zrpgCharacter.getZRPGBrainComponen();
         this.entity=zrpgCharacter.getPlayerEntity();
     }
 
@@ -41,11 +61,18 @@ public abstract class ZRPGAIAction {
     protected  abstract int act(float deltaTime);
 
     public void actAI(float deltaTime){
-       int place= act(deltaTime);
-       if(place<0) {
-           brain.getZrpgAIActions().removeValue(this, false);
+        turnCounter++;
+        int place= act(deltaTime);
+       if(place<0 && !locked) {
+           zrpgBrainComponent.getZrpgAIActions().removeValue(this, false);
        }
+       else if(!locked){
+           zrpgBrainComponent.getZrpgAIActions().set(place, this);
 
+       }
+       else{
+           zrpgBrainComponent.getZrpgAIActions().set(0, this);
+       }
 
     }
 
@@ -53,5 +80,23 @@ public abstract class ZRPGAIAction {
         return allowDuplicateActions;
     }
 
+    public boolean isLocked() {
+        return locked;
+    }
 
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public int getTurnCounter() {
+        return turnCounter;
+    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
+    }
 }

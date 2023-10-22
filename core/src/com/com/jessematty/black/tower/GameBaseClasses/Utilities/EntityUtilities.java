@@ -507,7 +507,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        }
       EntityId entityToAttachID=idComponentMapper.get(entityToAttach);
         EntityId entityToAttachToID=idComponentMapper.get(entityToAttachTo);
-       if(entityToAttachID==null){
+       if(entityToAttachID==null || InList.isInList(entityToAttachID.getId(), ownerComponent.getOwnedEntityIDs())){
             return false;
         }
       boolean  attached=ownerComponent.addEntity(entityToAttachID.getId());

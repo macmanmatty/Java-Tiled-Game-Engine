@@ -53,6 +53,20 @@ public class EntityUtilitiesTest {
     }
 
     @Test
+    public void testAttachSameEntityTwice(){
+       boolean attached= EntityUtilities.attachEntity( owner, owned);
+     boolean attachedAgain=   EntityUtilities.attachEntity( owner, owned);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertEquals(true, attached);
+        assertEquals(false, attachedAgain);
+        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+        assertEquals(ownedId, ownerComponent.getOwnedEntityIDs().get(0));
+        assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
+    }
+
+    @Test
     public void testAttachEntityWithOwnedComponent(){
         EntityUtilities.attachEntity( owner, owned);
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
@@ -116,6 +130,7 @@ public class EntityUtilitiesTest {
 
     @Test
     public void testDetachEntity(){
+        EntityUtilities.attachEntity( owner, owned);
         EntityUtilities.detachEntity(owner, owned);
         OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);

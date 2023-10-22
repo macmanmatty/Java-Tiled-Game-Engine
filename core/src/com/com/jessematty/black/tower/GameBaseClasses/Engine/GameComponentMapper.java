@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.AI.Brain;
+import com.jessematty.black.tower.AI.ZRPGBrainComponent;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
@@ -69,7 +69,7 @@ import com.jessematty.black.tower.Components.Other.Growable;
 import com.jessematty.black.tower.Components.Other.Info;
 import com.jessematty.black.tower.Components.Other.Ingestable;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Item.PickUpItem;
+import com.jessematty.black.tower.Components.Item.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Other.Light;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
@@ -192,7 +192,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Target> targetComponentMapper = ComponentMapper.getFor(Target.class);
     private static ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper = ComponentMapper.getFor(CreateEntityOnAction.class);
     private static ComponentMapper<CreateEntity> createEntityComponentMapper = ComponentMapper.getFor(CreateEntity.class);
-    private static ComponentMapper<PickUpItem> pickUpComponentMapper = ComponentMapper.getFor(PickUpItem.class);
+    private static ComponentMapper<PickUpItemComponent> pickUpComponentMapper = ComponentMapper.getFor(PickUpItemComponent.class);
     private static ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper = ComponentMapper.getFor(EditorImageComponent.class);
     private static ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnTime.class);
     private static ComponentMapper<CreateEntitiesOnNumericStatChange> createEntitiesOnNumericStatChangeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnNumericStatChange.class);
@@ -209,7 +209,7 @@ public class GameComponentMapper {
     private static ComponentMapper<OnCurrentMap> onCurrentMapComponentMapper = ComponentMapper.getFor(OnCurrentMap.class);
     private static ComponentMapper<AddSystemsComponent> addSystemsComponentComponentMapper = ComponentMapper.getFor(AddSystemsComponent.class);
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
-    private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
+    private static ComponentMapper<ZRPGBrainComponent> brainComponentComponentMapper = ComponentMapper.getFor(ZRPGBrainComponent.class);
     private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
     private static ComponentMapper<GameLog> logComponentMapper = ComponentMapper.getFor(GameLog.class);
     private static ComponentMapper<RemoveItemFromContainer> removeItemFromContainerComponentComponentMapper = ComponentMapper.getFor(RemoveItemFromContainer.class);
@@ -295,7 +295,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Target.class, targetComponentMapper);
         componentComponentMapperMap.put(CreateEntityOnAction.class, entityCreateableComponentMapper);
         componentComponentMapperMap.put(CreateEntity.class, createEntityComponentMapper);
-        componentComponentMapperMap.put(PickUpItem.class, pickUpComponentMapper);
+        componentComponentMapperMap.put(PickUpItemComponent.class, pickUpComponentMapper);
         componentComponentMapperMap.put(EditorImageComponent.class, equipItemComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnTime.class, createEntitiesOnTimeComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnNumericStatChange.class, createEntitiesOnNumericStatChangeComponentMapper);
@@ -735,7 +735,7 @@ public class GameComponentMapper {
     public static ComponentMapper<CreateEntity> getCreateEntityComponentMapper() {
         return createEntityComponentMapper;
     }
-    public static ComponentMapper<PickUpItem> getPickUpComponentMapper() {
+    public static ComponentMapper<PickUpItemComponent> getPickUpComponentMapper() {
         return pickUpComponentMapper;
     }
     public static ComponentMapper<EditorImageComponent> getEditorImageComponentComponentMapper() {
@@ -786,7 +786,7 @@ public class GameComponentMapper {
     public static ComponentMapper<RemoveSystemsComponent> getRemoveSystemsComponentComponentMapper() {
         return removeSystemsComponentComponentMapper;
     }
-    public static ComponentMapper<Brain> getBrainComponentComponentMapper() {
+    public static ComponentMapper<ZRPGBrainComponent> getBrainComponentComponentMapper() {
         return brainComponentComponentMapper;
     }
 

@@ -18,7 +18,7 @@ import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Other.HoldPosition;
 import com.jessematty.black.tower.Components.Other.Ingest;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Item.PickUpItem;
+import com.jessematty.black.tower.Components.Item.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -40,7 +40,7 @@ public class CharacterItemFunctions {
             PositionComponent position = zrpgCharacter.getPositionComponent();
             GameMap map = mapDraw.getWorld().getMap(position.getMapId());
             Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), ItemComponent.class);
-            PickUpItem pickUpItem = new PickUpItem();
+            PickUpItemComponent pickUpItemComponent = new PickUpItemComponent();
             String handId = "";
             DominateHand dominateHand = zrpgCharacter.getDominateHand();
             if (dominateHand == DominateHand.RIGHT) {
@@ -50,14 +50,14 @@ public class CharacterItemFunctions {
             } else if (holder[1].getItemToHoldId() == null) {
                 handId = idComponentMapper.get(zrpgCharacter.getHand(1)).getId();
             }
-            pickUpItem.setEntityToPickUpId(handId);
+            pickUpItemComponent.setEntityToPickUpId(handId);
             if (entities.size > 0) {
                 if (zrpgCharacter.isAutoPickUpFirstItem()) {
-                    entities.get(0).add(pickUpItem);
+                    entities.get(0).add(pickUpItemComponent);
                     return;
                 } else {
                     String text = "Select an Item to Pick Up";
-                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUpItem, mapDraw), ScreenPosition.CENTER);
+                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUpItemComponent, mapDraw), ScreenPosition.CENTER);
                 }
             }
         }

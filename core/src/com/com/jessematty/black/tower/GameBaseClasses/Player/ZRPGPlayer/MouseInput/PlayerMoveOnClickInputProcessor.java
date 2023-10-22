@@ -39,10 +39,10 @@ public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
             LandSquareTile tile = mapDraw.screenToTile(screenX, screenY);
             if(moveToLocation!=null){
-                player.getBrain().removeAction(moveToLocation);
+                player.getZRPGBrainComponen().removeAction(moveToLocation);
             }
             moveToLocation = new MoveToLocation(player, mapDraw.getCurrentMap(), tile);
-            player.getBrain().addAction(moveToLocation);
+            player.getZRPGBrainComponen().addAction(moveToLocation);
             player.getMovableComponent().setCurrentSpeed(20);
             player.getPlayerEntity().add(new MovingOnGroundComponent());
 

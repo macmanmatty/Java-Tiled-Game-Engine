@@ -22,7 +22,7 @@ public class CharacterMoveFunctions {
             player.getMovableComponent().setMoved(false);
             player.getMovableComponent().setCurrentSpeed(0);
         }
-        player.getBrain().getZrpgAIActions().clear();
+        player.getZRPGBrainComponen().getZrpgAIActions().clear();
 
 
     }
