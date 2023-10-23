@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -37,7 +36,6 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;
-
 public class EntityUtilities {
   
    private static Array<Entity> entities= new Array<>();
@@ -45,7 +43,6 @@ public class EntityUtilities {
    private static  boolean connected;
    private EntityUtilities() {
     }
-
     /**
      *     get an  array of all entities and sub owned entities  owned by a entity using recursion
      *     and returns the attached entities
@@ -84,7 +81,6 @@ public class EntityUtilities {
         entityIds.add(idComponentMapper.get(entity).getId());
       return getAllConnectedEntitiesIdsInternal(entity, world, attached);
    }
-
     /**
      * internal method for getting all attached entities and sun entities  ids
      * @param entity the entity to get the entities for
@@ -141,7 +137,6 @@ public class EntityUtilities {
        }
          return entityIds;
     }
-
     /** checks to see if two entities are connected using recursion
      *
      * @param entity
@@ -167,13 +162,9 @@ public class EntityUtilities {
          if(attached && !ownedComponent.isPhysicallyAttached()){
              return  false;
          }
-
        // get  all owned entities
         if(entityOwnerComponent!=null) {
-
             return InList.isInList(   entities=getAllOwnedEntities(world.getEntity(ownerId), world), entity);
-
-
        }
         return false;
    }
@@ -307,12 +298,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        }
         return;
    }
-
-
     /**
      *    a  function that recursively  gets the ids of all entities and sub owned entities  owned by a entity
       */
-
     private static Array<String> getAllOwnedEntitiesIDsInternal(Entity entity, World world){
         ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
         OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
@@ -373,7 +361,6 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
         return  gameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
    }
-
     /**
      *     returns a vector 2 object of the total combined mass,   and volume  of the entity plus all attached entities 0=mass  1=volume
      */
@@ -389,11 +376,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
             float mass = physicalObject.getMass();
             float volume = physicalObject.getVolume();
            double[]  massAndVolume = new double[] {mass,  volume};
-
             if (ownerComponent != null) {
                Array<Entity> allOwnedEntities=getAllOwnedEntities(entity, world);
                for(Entity attachedEntity:allOwnedEntities){
-
                    PhysicalObjectComponent physicalObjectOfAttachedEntity=physicalObjectComponentMapper.get(attachedEntity);
                    if(physicalObjectOfAttachedEntity==null){
                        continue;
@@ -403,12 +388,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
                        massAndVolume[0] = massAndVolume[0] + physicalObjectOfAttachedEntity.getMass();
                        massAndVolume[1] = massAndVolume[1] + physicalObjectOfAttachedEntity.getVolume();
                    }
-
-
                }
            }
             return new double[]{massAndVolume[0],  massAndVolume[1]};
-
    }
   private static   double [] getTotalMassAndVolumeInternal(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
        PhysicalObjectComponent physicalObject= physicalObjectComponentMapper.get(entity);
@@ -429,7 +411,6 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         double volumeNumber = physicalObject.getVolume();
        return new double[]{massNumber, weightNumber, volumeNumber};
   }
-
     /**
      * deep clones an entity and all of its components
      * @param assets
@@ -439,7 +420,6 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
    public static  Entity copyEntity(GameAssets assets, Entity entity){
        return new CopyObject(assets).copyObject(entity, Entity.class);
    }
-
     /**
      * factory method that creates a new entity with  all  the
      * base components and stats
@@ -482,14 +462,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity2.add(new RemoveFromEngine());
       return entity;
     }
-
     public  static  boolean attachEntity(Entity entityToAttachTo,   Entity entityToAttach) {
-
      return  attachEntity(  entityToAttachTo,  entityToAttach, true);
-
         }
-
-
         /**
          * links one entity to  another
          * @param entityToAttachTo
@@ -517,7 +492,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
             entityToAttach.add(ownedComponent);
         }
         ownedComponentComponentMapper.get(entityToAttach);
-        ownedComponent.setPhysicallyAttached(physicallyAttached);
+       ownedComponent.setPhysicallyAttached(physicallyAttached);
         ownedComponent.setOwnerEntityID(entityToAttachToID.getId());
       return  attached;
    }
@@ -559,8 +534,6 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         item.setHeld(true);
       return  true;
    }
-
-
 public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToDetach){
         ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
         ComponentMapper<OwnerComponent> ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
@@ -570,9 +543,7 @@ public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToD
             ownerComponent.getOwnedEntityIDs().removeValue(entityTodetachID.getId(), false);
             ownedComponentComponentMapper.get(entityToDetach);
                 entityToDetach.remove(OwnedComponent.class);
-
                       }
-
     public  static  PositionComponent  getEntityPosition(World world,  Entity entity){
         ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
         ComponentMapper<PositionComponent> positionComponentComponentMapper=GameComponentMapper.getPositionComponentMapper();
@@ -653,11 +624,9 @@ public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToD
             }
         }
 }
-
 public static Entity  createEntity(boolean addStats, boolean addChangeableStats){
     Entity gameEntity= new Entity();
     gameEntity.add(new EntityId());
-
     if(addStats){
         gameEntity.add(new NumericStats());
         gameEntity.add(new BooleanStats());
@@ -669,8 +638,5 @@ public static Entity  createEntity(boolean addStats, boolean addChangeableStats)
         gameEntity.add(new StringStatsChangeable());
     }
     return gameEntity;
-
 }
-
-
 }

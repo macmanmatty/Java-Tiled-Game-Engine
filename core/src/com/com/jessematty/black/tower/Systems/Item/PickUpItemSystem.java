@@ -51,7 +51,6 @@ public class PickUpItemSystem extends GameEntitySystem {
             EntityUtilities.attachEntity(pickerUpperEntity , entityToPickUp);
             entityToPickUp.remove(PickUpItemComponent.class);
 
-
             }
 
 

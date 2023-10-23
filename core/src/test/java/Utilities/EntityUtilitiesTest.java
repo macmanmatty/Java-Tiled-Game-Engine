@@ -1,5 +1,4 @@
 package Utilities;
-
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -15,18 +14,12 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.World;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import Maps.TestMap;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-
 public class EntityUtilitiesTest {
-
     Entity owner= new Entity();
     Entity owned= new Entity();
     Entity owned2 = new Entity();
@@ -38,7 +31,6 @@ public class EntityUtilitiesTest {
     String subOwnedId;
     @Before
     public void createEntities(){
-
        owned.add(new OwnedComponent());
         owner.add(new OwnerComponent());
         owned.add(new OwnerComponent());
@@ -51,7 +43,6 @@ public class EntityUtilitiesTest {
         ownerId= owner.getComponent(EntityId.class).getId();
         subOwnedId= owner.getComponent(EntityId.class).getId();
     }
-
     @Test
     public void testAttachSameEntityTwice(){
        boolean attached= EntityUtilities.attachEntity( owner, owned);
@@ -65,7 +56,6 @@ public class EntityUtilitiesTest {
         assertEquals(ownedId, ownerComponent.getOwnedEntityIDs().get(0));
         assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
     }
-
     @Test
     public void testAttachEntityWithOwnedComponent(){
         EntityUtilities.attachEntity( owner, owned);
@@ -106,7 +96,6 @@ public class EntityUtilitiesTest {
         assertEquals(owned, entities.get(0));
         assertEquals(owned2, entities.get(2));
         assertEquals(subOwned, entities.get(1));
-
     }
     @Test
     public void testAttachEntityWithOwnedComponentWithGetAllOwnedEntitiesIDs(){
@@ -125,9 +114,7 @@ public class EntityUtilitiesTest {
         OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
         assertNotNull(ownedComponent);
         assertEquals(ownedComponent.getOwnerEntityID(), ownerId);
-
     }
-
     @Test
     public void testDetachEntity(){
         EntityUtilities.attachEntity( owner, owned);
@@ -138,7 +125,19 @@ public class EntityUtilitiesTest {
         assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
         assertEquals(null, ownedComponent);
     }
-
+    @Test
+    public void testDetachSameEntityTwice(){
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.detachEntity(owner, owned);
+        EntityUtilities.detachEntity(owner, owned);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
+        assertEquals(null, ownedComponent);
+    }
+    
+    
     @Test
     public void testGetTotalMassAndVolume() {
         PhysicalObjectComponent physcialObject = new PhysicalObjectComponent(100, 100);
@@ -149,24 +148,20 @@ public class EntityUtilitiesTest {
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
         assertEquals(200,massAndVolume[1] ,1);
         assertEquals(200, massAndVolume[0] ,1);
-
     }
     @Test
     public void testGetTotalMassAndVolumeL3() {
         PhysicalObjectComponent physcialObject = new PhysicalObjectComponent(100, 100);
         PhysicalObjectComponent physcialObject2 = new PhysicalObjectComponent(100, 100);
         PhysicalObjectComponent physcialObject3 = new PhysicalObjectComponent(50, 50);
-
         owner.add(physcialObject);
         owned.add(physcialObject2);
         subOwned.add(physcialObject3);
-
         EntityUtilities.attachEntity( owner, owned);
         EntityUtilities.attachEntity(owner, subOwned);
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
         assertEquals(250,massAndVolume[1] ,1);
         assertEquals(250, massAndVolume[0] ,1);
-
     }
     @Test
     public void testGetTotalMassAndVolumeL3NonAttachedEntity() {
@@ -181,9 +176,7 @@ public class EntityUtilitiesTest {
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
         assertEquals(250,massAndVolume[1] ,1);
         assertEquals(250, massAndVolume[0] ,1);
-
     }
-
     @Test
     public void testGetEntityPosition() {
         PositionComponent positionComponent = new PositionComponent();
@@ -199,10 +192,7 @@ public class EntityUtilitiesTest {
         assertEquals(1, positionComponent1.getLocationX(), 0);
         assertEquals(10, positionComponent1.getTileLocationY());
         assertEquals("map", positionComponent1.getMapId());
-
-
     }
-
     @Test
     public void createEntityTest(){
     Entity entity= EntityUtilities.createEntity(true, true);
@@ -213,7 +203,5 @@ public class EntityUtilitiesTest {
         assertNotNull(entity.getComponent(NumericStatsChangeable.class));
         assertNotNull(entity.getComponent(BooleanStatsChangeable.class));
         assertNotNull(entity.getComponent(StringStatsChangeable.class));
-
     }
-
     }
