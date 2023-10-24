@@ -36,6 +36,11 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;
+/**
+ * Utilities class that  contains  basic helper methods for an entity
+ * such as attach detach get all owned components get total weight ect.
+ *
+ */
 public class EntityUtilities {
   
    private static Array<Entity> entities= new Array<>();
@@ -362,7 +367,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         return  gameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
    }
     /**
-     *     returns a vector 2 object of the total combined mass,   and volume  of the entity plus all attached entities 0=mass  1=volume
+     *     returns an array  of  2 double the total combined mass,   and volume  of the entity plus all attached entities 0=mass  1=volume
      */
     public static double [] getEntityMassAndVolume(World world, Entity entity){
         OwnerComponent  ownerComponent=GameComponentMapper.getOwnerComponentComponentMapper().get(entity);

@@ -19,13 +19,8 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class PickUpItem extends ZRPGAIAction {
    private LandSquareTile targetTile;
     private GameMap map;
-    public PickUpItem(ZRPGCharacter zrpgCharacter, GameMap map) {
+    public PickUpItem(ZRPGCharacter zrpgCharacter, LandSquareTile targetTile) {
         super(zrpgCharacter);
-        this.map=map;
-    }
-
-    public PickUpItem(ZRPGCharacter zrpgCharacter, GameMap map, LandSquareTile targetTile) {
-        this(zrpgCharacter, map);
         this.targetTile = targetTile;
     }
 
@@ -35,7 +30,6 @@ public class PickUpItem extends ZRPGAIAction {
        Array<Entity>  entities=targetTile.getEntities(ItemComponent.class);
         Entity entity =entities.get(0);
         ComponentMapper<EntityId> idComponentMapper= GameComponentMapper.getIdComponentMapper();
-        entity.add(new PickUpItemComponent(idComponentMapper.get(entity).getId()));
         return -1;
         }
 

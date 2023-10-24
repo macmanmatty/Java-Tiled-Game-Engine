@@ -98,10 +98,10 @@ public class MenOnTileSelect
 			 }
 
 		 }
-			Holder[]  heldItems = player.getHolders();
+			//Holder[]  heldItems = player.getHolders();
 			
 			for(int count=0; count<2; count++) {
-				Entity item = gameAssets.getMapDraw().getWorld().getEntity(heldItems[count].getItemToHoldId());
+				Entity item = gameAssets.getMapDraw().getWorld().getEntity("uuu");
 				if (item != null) {
 					NameComponent nameComponent = nameComponentMapper.get(item);
 					String itemName="";

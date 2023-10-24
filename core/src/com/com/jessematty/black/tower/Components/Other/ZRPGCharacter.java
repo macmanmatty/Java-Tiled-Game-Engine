@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components.Other;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.AI.ZRPGBrainComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
@@ -53,7 +54,7 @@ public class ZRPGCharacter implements Component {
     private  Entity leftHand;
     private   Entity leftFoot;
     private  Entity rightFoot;
-    private ContainerComponent pack;
+    private Array<ContainerComponent> packs= new Array<>();
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
@@ -97,7 +98,6 @@ public class ZRPGCharacter implements Component {
         handHolders[0]=leftHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
         this.rightFoot=world.getEntity(body.getBodyParts().get("rightFoot"));
         this.leftFoot=world.getEntity(body.getBodyParts().get("leftFoot"));
-        this.pack= playerEntity.getComponent(ContainerComponent.class);
         this.thrower= playerEntity.getComponent(com.jessematty.black.tower.Components.Attacks.Thrower.class);
         this.nameComponent = playerEntity.getComponent(NameComponent.class);
         this.speed=numericStats.getNumericStat("speed");
@@ -128,17 +128,6 @@ public class ZRPGCharacter implements Component {
     }
     public Thrower getThrower() {
         return thrower;
-    }
-    public ContainerComponent getPack() {
-        return pack;
-    }
-    public Entity getHand( int number ) {
-        if(number==0) {
-            return rightHand;
-        }
-        else{
-            return  leftHand;
-        }
     }
     public com.jessematty.black.tower.Components.AttachEntity.Holder[] getHolders() {
         return handHolders;
@@ -233,10 +222,35 @@ public class ZRPGCharacter implements Component {
     public ImageComponent getImageComponent() {
         return imageComponent;
     }
-
-
     public ZRPGBrainComponent getZRPGBrainComponen() {
         return ZRPGBrainComponen;
     }
 
+    public PositionComponent getPosition() {
+        return position;
+    }
+
+    public Entity getRightHand() {
+        return rightHand;
+    }
+
+    public Entity getLeftHand() {
+        return leftHand;
+    }
+
+    public Array<ContainerComponent> getPacks() {
+        return packs;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public Entity getHand(int i) {
+        return null;
+    }
 }
