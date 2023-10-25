@@ -2,6 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -20,13 +21,13 @@ public class PackUtilities {
      * @param entity the entity to add the pack(s)
      * @return the packs the entity can currently be added to.
      */
-    public static  Array<PackComponent> getAvailablePacks(World world, Array<PackComponent> packComponents, Entity entity){
+    public static  Array<? extends ContainerComponent> getAvailableContainers(World world, Array<ContainerComponent> packComponents, Entity entity){
         PhysicalObjectComponent physicalObjectComponent= GameComponentMapper.getPhysicalObjectComponentMapper().get(entity);
         GroupsComponent groupsComponent=GameComponentMapper.getGroupsComponentMapper().get(entity);
         PositionComponent positionComponent=GameComponentMapper.getPositionComponentMapper().get(entity);
          double gravity=world.getMap(positionComponent.getMapId()).getGravity();
-        Array<PackComponent> availablePacks=new Array<>();
-        for(PackComponent pack: packComponents){
+        Array<ContainerComponent> availablePacks=new Array<>();
+        for(ContainerComponent pack: packComponents){
             double availableWeight=pack.getMaxHoldWeight()-pack.getCurrentWeight();
             double availableVolume=pack.getMaxVolume()-pack.getCurrentFilledVolume();
             double [] volumeAndMass=EntityUtilities.getEntityMassAndVolume(world, entity);

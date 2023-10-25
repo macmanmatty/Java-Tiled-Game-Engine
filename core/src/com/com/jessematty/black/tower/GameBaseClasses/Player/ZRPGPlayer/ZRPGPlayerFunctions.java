@@ -1,8 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
@@ -12,6 +13,7 @@ import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PackUtilities;
 
 /**
  * class that holds all InputKeyCombos related to player actions
@@ -159,8 +161,11 @@ public class ZRPGPlayerFunctions {
     private KeyAction pickupItem =new KeyAction(){
         @Override
           public void act()  {
-            CharacterItemFunctions.pickUpItem(player);
+            Array<Entity> entities=player.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
+            if(entities.size>0){
+            }
 
+            PackUtilities.getAvailableContainers(mapDraw.getWorld(), player.getPacks(), null);
     }};
 
     public Array<InputKeyCombo> getPlayerControlFunctions() {

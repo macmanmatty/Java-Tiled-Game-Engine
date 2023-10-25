@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
-import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
@@ -21,7 +20,6 @@ import org.junit.Test;
 
 import Maps.TestMap;
 import TestEntities.TestEntity;
-import sun.jvm.hotspot.gc.shared.G1HeapRegionType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -98,20 +96,20 @@ class PackUtilitiesTest {
 
     @Test
     public void testAddItemToHeavy(){
-        Array<PackComponent> packs= PackUtilities.getAvailablePacks(world, this.packs, owner);
+        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 1, packs.size);
 
     }
     @Test
     public void testAddItemToHeavy2(){
         packComponent2.setCurrentWeight(100);
-        Array<PackComponent> packs= PackUtilities.getAvailablePacks(world, this.packs, owner);
+        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
     @Test
     public void testAddAll(){
-        Array<PackComponent> packs= PackUtilities.getAvailablePacks(world, this.packs, wand);
+        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, wand);
         assertEquals( 2, packs.size);
 
     }
@@ -120,7 +118,7 @@ class PackUtilitiesTest {
        GroupsComponent groupsComponent= owner.getComponent(GroupsComponent.class);
        groupsComponent.getGroups().clear();
        groupsComponent.getGroups().add("wand");
-        Array<PackComponent> packs= PackUtilities.getAvailablePacks(world, this.packs, owner);
+        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
@@ -128,7 +126,7 @@ class PackUtilitiesTest {
     @Test
     public void testNoGroups(){
         owner.remove(GroupsComponent.class);
-        Array<PackComponent> packs= PackUtilities.getAvailablePacks(world, this.packs, owner);
+        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }

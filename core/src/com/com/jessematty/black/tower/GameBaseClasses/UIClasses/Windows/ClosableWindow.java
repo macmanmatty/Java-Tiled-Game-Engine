@@ -84,6 +84,26 @@ public class ClosableWindow extends Window {
         this(title, skin);
         this.closableWindowStyle = closableWindowStyle;
     }
+
+    /**
+     * method to close the window
+     */
+    protected void close(){
+        if(onCloseAction!=null){
+            onCloseAction.act();
+        }
+        if(removeOnClose==false) {
+            setVisible(false);
+        }
+        else{
+            addAction(Actions.removeActor());
+            if(lockableInputMultiplexer!=null){
+                lockableInputMultiplexer.clearAllCurrentInputProcessors();
+            }
+        }
+    }
+
+
     /**
      *  remakes the title bar on window resize and re-adds the  top buttons close resize and lock
      */
@@ -100,18 +120,8 @@ public class ClosableWindow extends Window {
         close.addListener(new ClickListener() {
         @Override
         public void clicked (InputEvent event,float x, float y){
-            if(onCloseAction!=null){
-                onCloseAction.act();
-            }
-            if(removeOnClose==false) {
-                setVisible(false);
-            }
-            else{
-                addAction(Actions.removeActor());
-                if(lockableInputMultiplexer!=null){
-                    lockableInputMultiplexer.clearAllCurrentInputProcessors();
-                }
-            }
+            close();
+
         }
     });
         if(hasMove==true) {

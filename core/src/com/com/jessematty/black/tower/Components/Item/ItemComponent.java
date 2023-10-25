@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 
 public class ItemComponent implements Component {
 
-    private boolean inPack;
+    private boolean inContainer;
     private boolean removable;
     private boolean onGround;
     private float price;
@@ -13,11 +13,11 @@ public class ItemComponent implements Component {
     private String heldItemAction="rest";
     private int slot;
 
-    public boolean isInPack() {
-        return inPack;
+    public boolean isInContainer() {
+        return inContainer;
     }
-    public void setInPack(boolean inPack) {
-        this.inPack = inPack;
+    public void setInContainer(boolean inContainer) {
+        this.inContainer = inContainer;
     }
 
 

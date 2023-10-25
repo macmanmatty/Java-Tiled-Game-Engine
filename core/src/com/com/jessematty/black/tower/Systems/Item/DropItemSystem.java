@@ -62,7 +62,7 @@ public class DropItemSystem extends GameEntitySystem {
                 ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
                 actionComponent.setActing(false);
                 actionComponent.setStat("rest");
-                item.setInPack(false);
+                item.setInContainer(false);
                 item.setOnGround(true);
 
         }
