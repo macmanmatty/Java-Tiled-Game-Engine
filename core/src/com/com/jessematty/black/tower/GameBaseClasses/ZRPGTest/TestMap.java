@@ -29,7 +29,7 @@ public class TestMap {
     public void testMap(){
         
         //assetts.loadInternalTextureAtlas("swordWalk");
-       TiledMap map =assetts.loadExternalTMXMap("/testMap.tmx");
+       TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
        //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
        //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
 
@@ -96,8 +96,8 @@ public class TestMap {
         }
 
         //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
-        for(int count = 0; count<map2.getXTiles(); count++){
-            LandSquareTile landSquareTile= map2.getTile(count, 10);
+        for(int count = 33; count<map2.getXTiles(); count++){
+            LandSquareTile landSquareTile= map2.getTile(count, 15);
             PhysicalObjectComponent physicalObjectComponent=new PhysicalObjectComponent();
             physicalObjectComponent.setMass(Float.MAX_VALUE);
             physicalObjectComponent.setVolume(100);
@@ -111,11 +111,11 @@ public class TestMap {
         map4.setTiledMap(tiledMap);
 
       try {
-       assetts.saveGameWithAssets(world, "/world", 2048, 2048);
+       assetts.saveGameWithAssets(world, "~/world", 2048, 2048);
        } catch (IOException e) {
         e.printStackTrace();
         }
-       World newWorld=assetts.loadGame("/world/game.bin");
+       World newWorld=assetts.loadGame("~/world/game.bin");
        newWorld.getMap(map2.getId()).setSkin(assetts.getDefaultSkin());
        assetts.setWorld(newWorld);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
