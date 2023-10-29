@@ -1,0 +1,21 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+    },
+    "last.imagePath": "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/tiles",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 50,
+    "openFiles": [
+    ],
+    "project": "testMap.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
