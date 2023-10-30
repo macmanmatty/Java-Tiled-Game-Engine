@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.AI;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 
 /**
@@ -67,7 +68,12 @@ public abstract class ZRPGAIAction {
            zrpgBrainComponent.getZrpgAIActions().removeValue(this, false);
        }
        else if(!locked){
-           zrpgBrainComponent.getZrpgAIActions().set(place, this);
+           Array<ZRPGAIAction> zrpgaiActions=zrpgBrainComponent.getZrpgAIActions();
+           if(place>=zrpgaiActions.size){
+               place=zrpgaiActions.size-1;
+           }
+           zrpgaiActions.set(place, this);
+
 
        }
        else{
