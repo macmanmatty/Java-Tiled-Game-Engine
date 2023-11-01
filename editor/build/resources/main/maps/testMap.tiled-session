@@ -1,0 +1,37 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "testMap.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "magecity.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "testMap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 436,
+                "y": 420.66666666666663
+            }
+        }
+    },
+    "last.imagePath": "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/tiles",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 50,
+    "openFiles": [
+        "testMap.tmx",
+        "magecity.tsx"
+    ],
+    "project": "testMap.tiled-project",
+    "recentFiles": [
+        "magecity.tsx",
+        "testMap.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

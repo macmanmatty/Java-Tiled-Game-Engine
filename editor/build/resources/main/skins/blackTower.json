@@ -1,0 +1,423 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	Black_Readable: {
+		file: Xerox Sans Serif Narrow.fnt
+	}
+	Elvish_North: {
+		file: Elfic Caslon.fnt
+	}
+	Elvish_South: {
+		file: Greifswalder Tengwar.fnt
+	}
+	EnglishGold: {
+		file: OldeEnglish.fnt
+	}
+	LargeOld: {
+		file: Carta_Magna-line-demo-FFP.fnt
+	}
+	LargeOldNavy: {
+		file: Carta_Magna-line-demo-FFP.fnt
+	}
+	Lizard: {
+		file: ANGERTH.fnt
+	}
+	Mage: {
+		file: UrnordiskaRunor.fnt
+	}
+	Ogre: {
+		file: Theban Alphabet.fnt
+	}
+	OldeEnglish: {
+		file: OldeEnglish.fnt
+	}
+	OldeEnglishLarge: {
+		file: OldeEnglish.fnt
+	}
+	OldeEnglishMaroon: {
+		file: OldeEnglish.fnt
+	}
+	OldeEnglishSmall: {
+		file: OldeEnglish.fnt
+	}
+	OldeEnglishSmallMaroon: {
+		file: OldeEnglish.fnt
+	}
+	Readable_Large: {
+		file: Xerox Sans Serif Narrow.fnt
+	}
+	SpeechBubble: {
+		file: HammerThin Regular.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	Black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	DarkRed: {
+		r: 0.64
+		g: 0.08746666
+		b: 0.08746666
+		a: 1
+	}
+	Gold: {
+		r: 0.9433334
+		g: 0.88981336
+		b: 0.14778894
+		a: 1
+	}
+	Goldenrod: {
+		r: 0.56666666
+		g: 0.5524018
+		b: 0.23233333
+		a: 1
+	}
+	Green: {
+		r: 0.067833334
+		g: 0.55
+		b: 0.21901934
+		a: 1
+	}
+	Maroon: {
+		r: 0.32
+		g: 0.074666664
+		b: 0.074666664
+		a: 1
+	}
+	NavyBlue: {
+		r: 0.09533331
+		g: 0.11478126
+		b: 0.47666663
+		a: 1
+	}
+	Teal: {
+		r: 0.102277756
+		g: 0.8522305
+		b: 0.87666667
+		a: 1
+	}
+	Yellow: {
+		r: 0.95333326
+		g: 0.90836734
+		b: 0.23515552
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: label1
+		down: label2
+		over: label3
+	}
+	MinusUD: {
+		up: minusUD4
+		down: minusUD2
+		over: minusUD3
+		disabled: minusUDD
+	}
+	PlusUD: {
+		up: plusUD
+		down: plusUD4
+		over: plusUD3
+		disabled: plusUDD
+	}
+	MinusLR: {
+		up: minusLR4
+		down: minusLR2
+		over: minusLR3
+		disabled: minusLRD
+	}
+	PlusLR: {
+		up: plusLR
+		down: plusLR2
+		over: plusLR3
+		disabled: plusLRD
+	}
+	minusUDBrick: {
+		up: brickDown
+		down: brickDownPressed
+		over: brickOverDown
+		disabled: brickDisabledDown
+	}
+	plusUDBrick: {
+		up: brickUp
+		down: brickupPressed
+		over: brickOverUp
+		disabled: brickDisabledUp
+	}
+	minusLRBrick: {
+		up: brickLeft
+		down: brickLeftPressed
+		over: brickOverLeft
+		disabled: brickDisabledLeft
+	}
+	plusLRBrick: {
+		up: brickRight
+		down: brickRightPressed
+		over: brickOverRight
+		disabled: brickDisabledRight
+	}
+	ExitBrick: {
+		up: checkBrick
+		down: checkBrick3
+		over: checkBrick2
+	}
+	Brick: {
+		up: buttonBrick2
+		down: buttonBrick3
+		over: buttonBrick
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: checked
+		checkboxOff: unchecked
+		font: OldeEnglish
+	}
+	checkBox2: {
+		checkboxOn: checked3
+		checkboxOff: unchecked3
+		font: OldeEnglishLarge
+		fontColor: Gold
+	}
+	Brick: {
+		checkboxOn: closeButton2
+		checkboxOff: checkBrick
+		checkboxOnDisabled: checkBrick2
+		checkboxOffDisabled: closeButton
+		font: OldeEnglishLarge
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: OldeEnglishLarge
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: OldeEnglishSmallMaroon
+		fontColor: Gold
+	}
+	Elvish_South: {
+		font: Elvish_South
+	}
+	Elvish_North: {
+		font: Elvish_North
+	}
+	Lizard: {
+		font: Lizard
+	}
+	Ogre: {
+		font: Ogre
+	}
+	Mage: {
+		font: Mage
+	}
+	LargeOld: {
+		font: LargeOld
+	}
+	LargeOldNavy: {
+		font: LargeOldNavy
+	}
+	Readable: {
+		font: Black_Readable
+	}
+	ReadableYellow: {
+		font: Black_Readable
+		fontColor: Gold
+	}
+	SpeechBubble: {
+		font: LargeOld
+		background: speechBubble
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: OldeEnglishSmallMaroon
+		fontColorSelected: Gold
+		fontColorUnselected: Gold
+		selection: brickTitle
+		background: ninePartchWindow
+	}
+	Brick: {
+		font: EnglishGold
+		fontColorSelected: Gold
+		fontColorUnselected: Gold
+		selection: woodBar
+		background: brickLight
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: ProgressBar
+		knob: slider2LR
+		knobBefore: progressbarBar
+		knobAfter: progressbarBar
+	}
+	default-vertical: {
+		background: ProgressBar
+		disabledBackground: progressbarBar
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		corner: corner
+		hScroll: barT
+		hScrollKnob: sliderLR
+		vScroll: barL
+		vScrollKnob: sliderUD
+	}
+	Brick: {
+		corner: cornerBrick
+		hScroll: brickTitle
+		hScrollKnob: sliderBrickLR
+		vScroll: brickBarUD
+		vScrollKnob: silderBarUD
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: OldeEnglishSmallMaroon
+		fontColor: Maroon
+		scrollStyle: default
+		listStyle: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: {
+		knobOver: slider2LR
+		knobDown: slider2LR
+		background: bar
+		knob: sliderLR
+		disabledKnob: sliderDLR
+	}
+	default-vertical: {
+		knobOver: slider2UD
+		knobDown: slider2UD
+		background: barUD
+		knob: sliderUD
+		disabledKnob: sliderDUD
+	}
+	BrickV: {
+		knobOver: brickBlockL
+		knobDown: brickBlockL
+		background: brickBarSLR
+		knob: brickBlock
+		disabledKnob: brickBlockD
+	}
+	brickH: {
+		knobOver: brickBlockL
+		knobDown: brickBlockL
+		background: brickBarSLR
+		knob: brickBlock
+		disabledKnob: brickBlockD
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
+	default-horizontal: {
+		handle: barUD
+	}
+	default-vertical: {
+		handle: bar
+	}
+	Brick: {
+		handle: brickTitle
+	}
+	BrickH: {
+		handle: brickBarUD
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: OldeEnglishMaroon
+		fontColor: Gold
+		downFontColor: DarkRed
+		overFontColor: Gold
+		checkedFontColor: Gold
+		checkedOverFontColor: Gold
+		disabledFontColor: Goldenrod
+		up: label1
+		down: label2
+		over: label3
+		disabled: buttonWoodDisabled
+	}
+	Brick: {
+		font: EnglishGold
+		fontColor: Gold
+		disabledFontColor: Goldenrod
+		up: buttonBrick2
+		down: buttonBrick
+		over: buttonBrick3
+		disabled: buttonBrick4
+	}
+	Readable: {
+		font: Black_Readable
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: OldeEnglishSmallMaroon
+		fontColor: Gold
+		focusedFontColor: Yellow
+		disabledFontColor: Goldenrod
+		background: textbox
+		cursor: sliderBrickLR
+	}
+	Wood: {
+		font: OldeEnglish
+		fontColor: Yellow
+		background: textField
+		cursor: sliderBrickLR
+	}
+	Readable: {
+		font: Black_Readable
+		fontColor: Black
+		background: textFieldGrey
+		cursor: cursor
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: LargeOld
+		background: ninePartchWindow
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
+	default: {
+		background: brickBrown
+		knob: brickBrown
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
+	default: {
+		plus: plusUD
+		minus: minusUD
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: ninePartchWindow
+		titleFont: OldeEnglishMaroon
+		titleFontColor: Maroon
+	}
+	Brick: {
+		titleFont: OldeEnglishLarge
+		titleFontColor: Gold
+		stageBackground: brick
+	}
+	Readable: {
+		titleFont: Black_Readable
+		titleFontColor: Green
+		stageBackground: textFieldGrey
+	}
+	Pack: {
+		titleFont: OldeEnglishLarge
+	}
+	SpeechBubble: {
+		background: speechBubble
+		titleFont: SpeechBubble
+	}
+}
+}
