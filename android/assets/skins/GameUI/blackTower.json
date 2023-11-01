@@ -205,6 +205,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		over: closeButton
 		disabled: closeButton
 	}
+	close: {
+		up: closeButton2
+		down: buttonClose3
+		over: closeButton
+		disabled: closeButton
+	}
 	closegreen: {
 		up: close
 		down: close4
@@ -216,6 +222,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		down: window18
 		over: window17
 		disabled: window20
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	close: {
+		up: closeButton2
+		down: buttonClose3
+		over: closeButton
+		disabled: closeButton
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

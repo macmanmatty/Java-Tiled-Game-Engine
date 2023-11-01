@@ -25,8 +25,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class AddToContainerTest {
-        Entity owner= new Entity();
-        Entity owned= new Entity();
+        Entity container = new Entity();
+        Entity itemToPutInContainer = new Entity();
         Maps.TestMap testMap= new TestMap();
         World testWorld;
         String ownedId;
@@ -37,12 +37,12 @@ public class AddToContainerTest {
         @Before
         public void createEntities() {
 
-            owner.add(new OwnerComponent());
+            container.add(new OwnerComponent());
             testWorld = testMap.testWorld;
-            testWorld.addEntityToWorld(owner);
-            testWorld.addEntityToWorld(owned);
-            ownedId = owned.getComponent(EntityId.class).getId();
-            ownerId = owner.getComponent(EntityId.class).getId();
+            testWorld.addEntityToWorld(container);
+            testWorld.addEntityToWorld(itemToPutInContainer);
+            ownedId = itemToPutInContainer.getComponent(EntityId.class).getId();
+            ownerId = container.getComponent(EntityId.class).getId();
             mapDraw = testMap.mapDraw;
             mapDraw.setWorld(testMap.testWorld);
             engine.addSystem(new AddToContainerSystem(mapDraw));
@@ -50,8 +50,8 @@ public class AddToContainerTest {
             positionComponent.setMapID(testMap.testMap1.getId());
             PositionComponent positionComponent2 = new PositionComponent();
             positionComponent2.setMapID(testMap.testMap1.getId());
-            owned.add(positionComponent);
-            owner.add(positionComponent2);
+            itemToPutInContainer.add(positionComponent);
+            container.add(positionComponent2);
         }
 
         @Test
@@ -64,11 +64,11 @@ public class AddToContainerTest {
             PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
             physicalObjectComponent.setMass(1);
             physicalObjectComponent.setVolume(1);
-            owned.add(physicalObjectComponent);
-            owner.add(containerComponent);
+            itemToPutInContainer.add(physicalObjectComponent);
+            container.add(containerComponent);
             engine.update(1);
-            OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-            OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+            OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+            OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
             assertNotNull(ownerComponent);
             assertNotNull(ownedComponent);
             assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
@@ -85,11 +85,11 @@ public class AddToContainerTest {
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(10000);
         physicalObjectComponent.setVolume(1);
-        owned.add(physicalObjectComponent);
-        owner.add(containerComponent);
+        itemToPutInContainer.add(physicalObjectComponent);
+        container.add(containerComponent);
         engine.update(1);
-        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNull(ownedComponent);
         assertEquals( 0, containerComponent.getEntitiesInContainerIds().size);
@@ -104,11 +104,11 @@ public class AddToContainerTest {
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(1);
         physicalObjectComponent.setVolume(1000);
-        owned.add(physicalObjectComponent);
-        owner.add(containerComponent);
+        itemToPutInContainer.add(physicalObjectComponent);
+        container.add(containerComponent);
         engine.update(1);
-        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNull(ownedComponent);
         assertEquals( 0, containerComponent.getEntitiesInContainerIds().size);
@@ -125,11 +125,11 @@ public class AddToContainerTest {
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(1);
         physicalObjectComponent.setVolume(10);
-        owned.add(physicalObjectComponent);
-        owner.add(containerComponent);
+        itemToPutInContainer.add(physicalObjectComponent);
+        container.add(containerComponent);
         engine.update(1);
-        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNull(ownedComponent);
         assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
@@ -145,15 +145,15 @@ public class AddToContainerTest {
         containerComponent.setMaxVolume(100);
         GroupsComponent groupsComponent = new GroupsComponent();
         groupsComponent.getGroups().add("weapon");
-        owned.add(groupsComponent);
+        itemToPutInContainer.add(groupsComponent);
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(1);
         physicalObjectComponent.setVolume(10);
-        owned.add(physicalObjectComponent);
-        owner.add(containerComponent);
+        itemToPutInContainer.add(physicalObjectComponent);
+        container.add(containerComponent);
         engine.update(1);
-        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNotNull(ownedComponent);
         assertEquals( 1, containerComponent.getEntitiesInContainerIds().size);
@@ -171,15 +171,15 @@ public class AddToContainerTest {
         containerComponent.getGroupsAddable().add("food");
         GroupsComponent groupsComponent = new GroupsComponent();
         groupsComponent.getGroups().add("weapon");
-        owned.add(groupsComponent);
+        itemToPutInContainer.add(groupsComponent);
         PhysicalObjectComponent physicalObjectComponent= new PhysicalObjectComponent();
         physicalObjectComponent.setMass(1);
         physicalObjectComponent.setVolume(10);
-        owned.add(physicalObjectComponent);
-        owner.add(containerComponent);
+        itemToPutInContainer.add(physicalObjectComponent);
+        container.add(containerComponent);
         engine.update(1);
-        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
-        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        OwnerComponent ownerComponent= container.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent= itemToPutInContainer.getComponent(OwnedComponent.class);
         assertNotNull(ownerComponent);
         assertNull(ownedComponent);
         assertEquals( 0, containerComponent.getEntitiesInContainerIds().size);

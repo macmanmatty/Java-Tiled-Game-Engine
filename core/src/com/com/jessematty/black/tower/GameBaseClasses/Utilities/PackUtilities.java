@@ -21,7 +21,7 @@ public class PackUtilities {
      * @param entity the entity to add the pack(s)
      * @return the packs the entity can currently be added to.
      */
-    public static  Array<? extends ContainerComponent> getAvailableContainers(World world, Array<ContainerComponent> packComponents, Entity entity){
+    public static  Array<ContainerComponent> getAvailableContainers(World world, Array<ContainerComponent> packComponents, Entity entity){
         PhysicalObjectComponent physicalObjectComponent= GameComponentMapper.getPhysicalObjectComponentMapper().get(entity);
         GroupsComponent groupsComponent=GameComponentMapper.getGroupsComponentMapper().get(entity);
         PositionComponent positionComponent=GameComponentMapper.getPositionComponentMapper().get(entity);

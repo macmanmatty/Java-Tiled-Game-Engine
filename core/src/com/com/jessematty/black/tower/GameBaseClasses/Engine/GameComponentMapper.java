@@ -66,7 +66,7 @@ import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
 import com.jessematty.black.tower.Components.Other.Glow;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Other.Growable;
-import com.jessematty.black.tower.Components.Other.Info;
+import com.jessematty.black.tower.Components.Other.InfoComponent;
 import com.jessematty.black.tower.Components.Other.Ingestable;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Item.PickUpItemComponent;
@@ -152,7 +152,7 @@ public class GameComponentMapper {
     private static ComponentMapper<StringStatChanged> stringStatChangedComponentMapper = ComponentMapper.getFor(StringStatChanged.class);
     private static ComponentMapper<StatChanged> statChangedComponentMapper = ComponentMapper.getFor(StatChanged.class);
     private static ComponentMapper<ActionComponents> actionComponentsComponentMapper = ComponentMapper.getFor(ActionComponents.class);
-    private static ComponentMapper<Info> infoComponentMapper = ComponentMapper.getFor(Info.class);
+    private static ComponentMapper<InfoComponent> infoComponentMapper = ComponentMapper.getFor(InfoComponent.class);
     private static ComponentMapper<Ingestable> ingestableComponentMapper = ComponentMapper.getFor(Ingestable.class);
     private static ComponentMapper<Ingest> ingestingComponentMapper = ComponentMapper.getFor(Ingest.class);
     private static ComponentMapper<Slashable> slashableComponentMapper = ComponentMapper.getFor(Slashable.class);
@@ -255,7 +255,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(BooleanStatChanged.class, booleanStatChangedComponentMapper);
         componentComponentMapperMap.put(StatChanged.class, statChangedComponentMapper);
         componentComponentMapperMap.put(ActionComponents.class, actionComponentsComponentMapper);
-        componentComponentMapperMap.put(Info.class, infoComponentMapper);
+        componentComponentMapperMap.put(InfoComponent.class, infoComponentMapper);
         componentComponentMapperMap.put(Ingestable.class, ingestableComponentMapper);
         componentComponentMapperMap.put(Ingest.class, ingestingComponentMapper);
         componentComponentMapperMap.put(Slashable.class, slashableComponentMapper);
@@ -610,7 +610,7 @@ public class GameComponentMapper {
     public static ComponentMapper<ActionComponents> getActionComponentsComponentMapper() {
         return actionComponentsComponentMapper;
     }
-    public static ComponentMapper<Info> getInfoComponentMapper() {
+    public static ComponentMapper<InfoComponent> getInfoComponentMapper() {
         return infoComponentMapper;
     }
     public static ComponentMapper<Ingestable> getIngestableComponentMapper() {

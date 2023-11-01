@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -33,7 +34,7 @@ class PackUtilitiesTest {
     private Entity wand= new Entity();
     private PackComponent packComponent2;
 
-    private Array<PackComponent> packs= new Array<>();
+    private Array<ContainerComponent> packs= new Array<>();
 
     @Before
     public void before(){
@@ -96,20 +97,20 @@ class PackUtilitiesTest {
 
     @Test
     public void testAddItemToHeavy(){
-        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 1, packs.size);
 
     }
     @Test
     public void testAddItemToHeavy2(){
         packComponent2.setCurrentWeight(100);
-        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
     @Test
     public void testAddAll(){
-        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, wand);
+        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, wand);
         assertEquals( 2, packs.size);
 
     }
@@ -118,7 +119,7 @@ class PackUtilitiesTest {
        GroupsComponent groupsComponent= owner.getComponent(GroupsComponent.class);
        groupsComponent.getGroups().clear();
        groupsComponent.getGroups().add("wand");
-        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
@@ -126,7 +127,7 @@ class PackUtilitiesTest {
     @Test
     public void testNoGroups(){
         owner.remove(GroupsComponent.class);
-        Array<PackComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
