@@ -110,7 +110,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
     }
     public  void makeBooleanStatWindow(){
         final BooleanStat booleanStat= (BooleanStat) stat;
-        final CheckBox flagBox= new CheckBox("Stat Flag Checked=True Unchecked=False", skin);
+        final CheckBox flagBox= new CheckBox("Stat Flag Checked=True Unchecked=False", getSkin());
         flagBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -125,7 +125,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
         Array<String> gameActions = worldObjects.getChangeActions();
         Array<String> itemChangeActions = booleanStat.getActionsToChangeOn();
         OneWayDragList<String> actionsGroup = new OneWayDragList<>(new DragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
-        final SelectBox<BooleanStatCombine> booleanStatCombineSelectBox= new SelectBox<BooleanStatCombine>(skin);
+        final SelectBox<BooleanStatCombine> booleanStatCombineSelectBox= new SelectBox<BooleanStatCombine>(getSkin());
         booleanStatCombineSelectBox.setItems(BooleanStatCombine.values());
         booleanStatCombineSelectBox.addListener(new ChangeListener() {
             @Override
@@ -135,7 +135,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
             }
         });
 
-        final PositiveIntegerField timeField = new PositiveIntegerField(""+booleanStat.getAmountOfTimeToChangeFor(), skin);
+        final PositiveIntegerField timeField = new PositiveIntegerField(""+booleanStat.getAmountOfTimeToChangeFor(), getSkin());
         timeField.addListener(new InputListener() {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
@@ -146,7 +146,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
             }
         });
 
-        NamedField namedField= new NamedField("Duration Of Stat Change",skin, timeField);
+        NamedField namedField= new NamedField("Duration Of Stat Change",getSkin(), timeField);
 
         add(namedField);
         row();
@@ -159,7 +159,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
         Array<String> gameActions = worldObjects.getChangeActions();
         Array<String> itemChangeActions = changableNumericStat.getActionsToChangeOn();
          OneWayDragList<String> actionsGroup = new OneWayDragList<>(new DragAndDrop(), getSkin(), gameActions, itemChangeActions, "Groups In Game", "Groups That Change Stat");
-        final CheckBox selfChangeable = new CheckBox("Stat Changes Entity's Color", skin);
+        final CheckBox selfChangeable = new CheckBox("Stat Changes Entity's Color", getSkin());
         selfChangeable.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -178,7 +178,7 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
                 }
             }
         });
-        final PositiveIntegerField timeField = new PositiveIntegerField(""+changableNumericStat.getAmountOfTimeToChangeFor(), skin);
+        final PositiveIntegerField timeField = new PositiveIntegerField(""+changableNumericStat.getAmountOfTimeToChangeFor(), getSkin());
         timeField.addListener(new InputListener() {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
@@ -189,11 +189,11 @@ public   class FullStatEditWindow extends EditWindow implements EntitySettable {
             }
         });
 
-        NamedField namedField= new NamedField("Duration Of Stat Change",skin, timeField);
+        NamedField namedField= new NamedField("Duration Of Stat Change",getSkin(), timeField);
 
         add(namedField);
         row();
-        final CheckBox randomBox= new CheckBox("Stat Flag Checked=True Unchecked=False", skin);
+        final CheckBox randomBox= new CheckBox("Stat Flag Checked=True Unchecked=False", getSkin());
         randomBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

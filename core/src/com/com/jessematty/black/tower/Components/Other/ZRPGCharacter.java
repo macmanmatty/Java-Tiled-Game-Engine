@@ -54,7 +54,7 @@ public class ZRPGCharacter implements Component {
     private  Entity leftHand;
     private   Entity leftFoot;
     private  Entity rightFoot;
-    private Array<ContainerComponent> packs= new Array<>();
+    private Array<Entity> packs= new Array<>();
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
@@ -238,7 +238,7 @@ public class ZRPGCharacter implements Component {
         return leftHand;
     }
 
-    public Array<ContainerComponent> getPacks() {
+    public Array<Entity> getPacks() {
         return packs;
     }
 

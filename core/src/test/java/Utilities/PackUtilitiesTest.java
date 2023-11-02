@@ -31,10 +31,13 @@ class PackUtilitiesTest {
     private World world;
     private TestMap testMap= new TestMap();
     private Entity owned;
-    private Entity wand= new Entity();
-    private PackComponent packComponent2;
+    private Entity pack1=new Entity();
 
-    private Array<ContainerComponent> packs= new Array<>();
+    private Entity pack2=new Entity();
+    private Entity wand= new Entity();
+    private ContainerComponent packComponent2;
+
+    private Array<Entity> packs= new Array<>();
 
     @Before
     public void before(){
@@ -80,37 +83,41 @@ class PackUtilitiesTest {
         world.addEntityToWorld(owned);
 
         Boolean attach = EntityUtilities.attachEntity(owner, owned);
-        PackComponent packComponent1= new PackComponent();
+        ContainerComponent packComponent1= new ContainerComponent();
         packComponent1.setMaxVolume(10);
         packComponent1.setMaxHoldWeight(10);
         packComponent1.getGroupsAddable().add("food");
         packComponent1.getGroupsAddable().add("wand");
-        packComponent2=new PackComponent();
+        pack1.add(packComponent1);
+        packComponent2=new ContainerComponent();
         packComponent2.setMaxVolume(201);
         packComponent2.setMaxHoldWeight(201);
         packComponent2.getGroupsAddable().add("food");
         packComponent2.getGroupsAddable().add("wood");
-        packs.add(packComponent1);
-        packs.add(packComponent2);
+        pack2.add(packComponent2);
+        packs.add(pack1);
+        packs.add(pack2);
+        world.addEntityToWorld(pack1);
+        world.addEntityToWorld(pack2);
 
     }
 
     @Test
     public void testAddItemToHeavy(){
-        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<Entity> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 1, packs.size);
 
     }
     @Test
     public void testAddItemToHeavy2(){
         packComponent2.setCurrentWeight(100);
-        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<Entity> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
     @Test
     public void testAddAll(){
-        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, wand);
+        Array<Entity> packs= PackUtilities.getAvailableContainers(world, this.packs, wand);
         assertEquals( 2, packs.size);
 
     }
@@ -119,7 +126,7 @@ class PackUtilitiesTest {
        GroupsComponent groupsComponent= owner.getComponent(GroupsComponent.class);
        groupsComponent.getGroups().clear();
        groupsComponent.getGroups().add("wand");
-        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<Entity> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }
@@ -127,7 +134,7 @@ class PackUtilitiesTest {
     @Test
     public void testNoGroups(){
         owner.remove(GroupsComponent.class);
-        Array<ContainerComponent> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
+        Array<Entity> packs= PackUtilities.getAvailableContainers(world, this.packs, owner);
         assertEquals( 0, packs.size);
 
     }

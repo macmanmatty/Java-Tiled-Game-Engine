@@ -46,7 +46,7 @@ public class EditEntityWindow  extends EditWindow implements ClipBoardChangeList
     }
     @Override
     public void makeWindow() {
-        componentList=new TwoWayDragList<>(skin, worldObjects.getComponents(), null, "Components", "Components in Entity");
+        componentList=new TwoWayDragList<>(getSkin(), worldObjects.getComponents(), null, "Components", "Components in Entity");
         noEntityImage=  new Image( new TextureRegionDrawable(getGameAssets().getInternalAtlasRegionByName("questionMark", "editorAssets")));
         entityImage= noEntityImage;
         goToEntity=  new ImageButton( new TextureRegionDrawable(getGameAssets().getInternalAtlasRegionByName("search", "editorAssets")));
@@ -57,14 +57,14 @@ public class EditEntityWindow  extends EditWindow implements ClipBoardChangeList
                 return  true;
             }
         });
-        editComponents= new TextButton("Edit Components", skin);
+        editComponents= new TextButton("Edit Components", getSkin());
         editComponents.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return  true;
             }
         });
-        name= new Label("label", skin);
+        name= new Label("label", getSkin());
         add(goToEntity);
         add(entityImage);
         add(editComponents);

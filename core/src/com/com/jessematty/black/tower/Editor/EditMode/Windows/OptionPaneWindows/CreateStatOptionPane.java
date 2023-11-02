@@ -30,12 +30,12 @@ public class CreateStatOptionPane extends EditWindow {
     }
     @Override
     public void makeWindow() {
-        statKindsList= new SelectBox<StatKinds>(skin);
+        statKindsList= new SelectBox<StatKinds>(getSkin());
         statKindsList.setItems(com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.StatKinds.values());
-        globalMaxValue= new FloatField(String.valueOf(Double.MAX_VALUE), skin);
-        globalMinValue= new FloatField(String.valueOf(Double.MIN_VALUE), skin);
-        statName=new TextField("", skin);
-        addStat= new TextButton("Add Stat", skin);
+        globalMaxValue= new FloatField(String.valueOf(Double.MAX_VALUE), getSkin());
+        globalMinValue= new FloatField(String.valueOf(Double.MIN_VALUE), getSkin());
+        statName=new TextField("", getSkin());
+        addStat= new TextButton("Add Stat", getSkin());
         addStat.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -58,7 +58,7 @@ public class CreateStatOptionPane extends EditWindow {
                 return true;
             }
         });
-        add(new Label("Select Stat Kind", skin));
+        add(new Label("Select Stat Kind", getSkin()));
         add(statKindsList);
         row();
         add( new NamedField("Enter Stat Name", getSkin(), statName));

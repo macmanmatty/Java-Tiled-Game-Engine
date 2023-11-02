@@ -139,22 +139,22 @@ public class ListWindow<T> extends GameWindow {
     }
     public void makeWindow(){
         if(items.size>0){
-            itemList = new ItemList<T>(skin, listTitle, methodName, String.class, true);
+            itemList = new ItemList<T>(getSkin(), listTitle, methodName, String.class, true);
             itemList.setItems(items, true);
             itemList.setEditable(listNameEditable);
             itemList.setSortable(false);
-            layerLabel = new Label("Current " + itemName + "  :", skin);
+            layerLabel = new Label("Current " + itemName + "  :", getSkin());
 
             itemsPane = new ScrollPane(this.itemList);
             add(layerLabel).height(layerLabel.getPrefHeight());
             row();
-            ScrollPane scrollPane = new ScrollableItemList<>(itemList, skin).getScrollPane();
+            ScrollPane scrollPane = new ScrollableItemList<>(itemList, getSkin()).getScrollPane();
             add(scrollPane).size(300, listHeight);
             itemsPane.setTransform(true);
             itemsPane.setScrollbarsVisible(true);
             row();
             this.addButton.getLabel().setFontScale(1);
-            enterName = new NamedField("Enter Name", skin, new TextField("", skin));
+            enterName = new NamedField("Enter Name", getSkin(), new TextField("", getSkin()));
             enterName.getLabel().setFontScale(1);
             enterName.getField().setLayoutEnabled(true);
             if (showAddAndRemoveButtons == true) {
@@ -177,7 +177,7 @@ public class ListWindow<T> extends GameWindow {
             }
         }
         else{
-            Label label= new Label(notItemsText, skin);
+            Label label= new Label(notItemsText, getSkin());
             add(label);
         }
         

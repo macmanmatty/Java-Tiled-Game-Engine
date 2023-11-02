@@ -2,8 +2,12 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
+import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
@@ -11,9 +15,12 @@ import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PackUtilities;
+import com.jessematty.black.tower.Maps.World;
 
 /**
  * class that holds all InputKeyCombos related to player actions
@@ -157,6 +164,27 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.decreaseSpeed(player);
 
         }};
+
+    private KeyAction addItemToPackLeft =new KeyAction(){
+        @Override
+        public void act()  {
+
+        }};
+
+     private void  addItemToPack(int hand){
+         World world=player.getWorld();
+         Entity item=world.getEntity( player.getHolders()[hand].getItemToHoldId());
+         Array<Entity> containerComponents= PackUtilities.getAvailableContainers(world,player.getPacks(), item);
+         OnSelected<Entity> onSelected= new OnSelected<Entity>() {
+             @Override
+             public void onSelected(Entity pack) {
+                 item.add(new AddItemToContainer(pack));
+
+             }
+         };
+         EntitySelectWindow entitySelectWindow= new EntitySelectWindow(mapDraw.getGameAssets().getSkin(), containerComponents, mapDraw.getGameAssets(), onSelected);
+
+     }
 
     private KeyAction pickupItem =new KeyAction(){
         @Override

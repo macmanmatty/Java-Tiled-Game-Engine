@@ -22,7 +22,7 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
     /**
      * game assets object
      */
-   private GameAssets gameAssets;
+   private  GameAssets gameAssets;
     /**
      * the selected entity
      */

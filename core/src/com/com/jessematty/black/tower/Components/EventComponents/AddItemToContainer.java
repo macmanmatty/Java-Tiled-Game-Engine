@@ -1,20 +1,20 @@
 package com.jessematty.black.tower.Components.EventComponents;
 
 
+import com.badlogic.ashley.core.Entity;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+
 
 /**
  * event component  for adding an item to container
  */
+@Transient
 public class AddItemToContainer extends ItemActionComponent implements EventComponent  {
     /**
-     *  the  id of item to add to the container
-      */
- private    String itemId;
-    /**
-     *  the id of the container to add the item to
+     *  the the container to add the item to
      */
- private  String containerId;
+ private Entity container;
 
     /**
      * if this flag is true the container will become  owner of the Entity
@@ -31,34 +31,24 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
     private boolean removeItemBoundsOnAdd=true;
 
 
-    public AddItemToContainer(String itemId, String containerId) {
-        this.itemId = itemId;
-        this.containerId = containerId;
+    public AddItemToContainer(Entity container) {
+        this.container=container;
     }
 
-    public AddItemToContainer(String itemId, String containerId, boolean setContainerAsOwner) {
-        this.itemId = itemId;
-        this.containerId = containerId;
+    public AddItemToContainer(Entity container, boolean setContainerAsOwner) {
+        this.container=container;
         this.setContainerAsOwner = setContainerAsOwner;
     }
 
     public AddItemToContainer() {
     }
 
-    public String getItemId() {
-        return itemId;
+    public Entity getContainer() {
+        return container;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getContainerId() {
-        return containerId;
-    }
-
-    public void setContainerId(String containerId) {
-        this.containerId = containerId;
+    public void setContainer(Entity container) {
+        this.container = container;
     }
 
     public boolean isSetContainerAsOwner() {

@@ -32,18 +32,18 @@ public class ImpotTMXMapOptionPane extends EditWindow {
                 mapEditScreen.getMapTools().loadTmxMap( mapEditScreen.getWorld().getWorldTextureAtlas(), mapEditScreen.getCurrentMap(), mapEditScreen.getGameAssets(), fileSelectPane.getFile().getAbsolutePath(),expandToFit.isChecked(), clipToFit.isChecked());
                         setVisible(false);
             } catch (MapLoadingException mapLoadingException) {
-                mapEditScreen.getUiStage().addActor(new OptionPane(skin, "Error Loading Map", mapLoadingException.getMessage(), "OK", "default"));
+                mapEditScreen.getUiStage().addActor(new OptionPane(getSkin(), "Error Loading Map", mapLoadingException.getMessage(), "OK", "default"));
                 setVisible(false);
             }
         }
     public void makeWindow() {
-        Label label= new Label("Select TMX File To Import", skin);
-        fileSelectPane= new FileSelectPane(skin, "Import", 0);
+        Label label= new Label("Select TMX File To Import", getSkin());
+        fileSelectPane= new FileSelectPane(getSkin(), "Import", 0);
         fileSelectPane.setFileTypes("TMX Map", "tmx");
         fileSelectPane.setDisplayFilePath(true);
-        clipToFit= new CheckBox("Clip Map To Fit Current Map", skin);
-        expandToFit= new CheckBox("Expand Map To Fit", skin);
-        importMap = new TextButton("Create Map",skin);
+        clipToFit= new CheckBox("Clip Map To Fit Current Map", getSkin());
+        expandToFit= new CheckBox("Expand Map To Fit", getSkin());
+        importMap = new TextButton("Create Map", getSkin());
         importMap.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

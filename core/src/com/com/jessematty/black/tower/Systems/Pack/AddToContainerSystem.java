@@ -59,22 +59,21 @@ public class AddToContainerSystem extends GameEntitySystem {
         ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(AddItemToContainer.class).get());
         for(Entity entity: entities) {
             AddItemToContainer addItemToContainer = addItemToContainerComponentMapper.get(entity);
-            Entity container = getWorld().getEntity(addItemToContainer.getContainerId());
-            Entity itemToAdd = getWorld().getEntity(addItemToContainer.getItemId());
+            Entity container =addItemToContainer.getContainer();
             ContainerComponent containerComponent = containerComponentComponentMapper.get(container);
-            PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(itemToAdd);
+            PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(entity);
             PositionComponent containerPosition = positionComponentComponentMapper.get(container);
-            PositionComponent itemToAddPosition = positionComponentComponentMapper.get(itemToAdd);
-            GroupsComponent groupsComponent = groupsComponentMapper.get(itemToAdd);
+            PositionComponent itemToAddPosition = positionComponentComponentMapper.get(entity);
+            GroupsComponent groupsComponent = groupsComponentMapper.get(entity);
 
             if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
-                String itemToAddId = idComponentMapper.get(itemToAdd).getId();
+                String itemToAddId = idComponentMapper.get(entity).getId();
                 containerComponent.getEntitiesInContainerIds().add(itemToAddId);
                 if (addItemToContainer.isRemoveItemBoundsOnAdd()) {
                     itemToAddPosition.removeBounds();
                 }
                 if (addItemToContainer.isSetContainerAsOwner()) {
-                    EntityUtilities.attachEntity(container, itemToAdd);
+                    EntityUtilities.attachEntity(container, entity);
                 }
             }
         }

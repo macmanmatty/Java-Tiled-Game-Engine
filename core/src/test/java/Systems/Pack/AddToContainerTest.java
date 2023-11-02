@@ -33,7 +33,6 @@ public class AddToContainerTest {
         String ownerId;
         Engine engine= new Engine();
         MapDraw mapDraw;
-        Entity addItemToContainer= new Entity();
         @Before
         public void createEntities() {
 
@@ -56,8 +55,8 @@ public class AddToContainerTest {
 
         @Test
         public void addToContainer(){
-            addItemToContainer.add(new AddItemToContainer(ownedId, ownerId, true));
-            engine.addEntity(addItemToContainer);
+            itemToPutInContainer.add(new AddItemToContainer(container, true));
+            engine.addEntity(itemToPutInContainer);
             ContainerComponent containerComponent= new ContainerComponent();
             containerComponent.setMaxHoldWeight(1000);
             containerComponent.setMaxVolume(100);
@@ -78,7 +77,7 @@ public class AddToContainerTest {
         }
     @Test
     public void addToContainerItemTooHeavy(){
-        engine.addEntity(addItemToContainer);
+        engine.addEntity(itemToPutInContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
@@ -97,7 +96,7 @@ public class AddToContainerTest {
     }
     @Test
     public void addToContainerItemTooLarge(){
-        engine.addEntity(addItemToContainer);
+        engine.addEntity(itemToPutInContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
@@ -117,8 +116,8 @@ public class AddToContainerTest {
 
     @Test
     public void addToContainerWithoutAddingOwnership(){
-        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId, false));
-        engine.addEntity(addItemToContainer);
+        itemToPutInContainer.add(new AddItemToContainer(container, false));
+        engine.addEntity(itemToPutInContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
@@ -138,8 +137,8 @@ public class AddToContainerTest {
 
     @Test
     public void addToContainerNotInGroupsNoContainerGroupsSet(){
-        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId));
-        engine.addEntity(addItemToContainer);
+        itemToPutInContainer.add(new AddItemToContainer(container));
+        engine.addEntity(itemToPutInContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
@@ -163,8 +162,8 @@ public class AddToContainerTest {
     }
     @Test
     public void addToContainerNotInGroupsWithNonMatchingContainerGroupsSet(){
-        addItemToContainer.add(new AddItemToContainer(ownedId, ownerId));
-        engine.addEntity(addItemToContainer);
+        itemToPutInContainer.add(new AddItemToContainer(container));
+        engine.addEntity(itemToPutInContainer);
         ContainerComponent containerComponent= new ContainerComponent();
         containerComponent.setMaxHoldWeight(1000);
         containerComponent.setMaxVolume(100);
