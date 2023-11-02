@@ -111,7 +111,7 @@ public    class MapEditScreen implements NamedScreen,  EditScreen, MapSettable {
     }
     @Override
     public void resize(int width, int height) {
-        uiStage.getViewport().setScreenSize(width, height);
+       uiStage.getViewport().setScreenSize(width, height);
         camera.update();
     }
     @Override

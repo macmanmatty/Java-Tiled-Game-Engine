@@ -46,7 +46,6 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
         this(skin, entities, gameAssets, null);
     }
     public void createWindow(){
-        clear();
         Table table = new Table();
         for(final  Entity entity: entities){
             EntityHorizontalGroup entityHorizontalGroup= new EntityHorizontalGroup(this, gameAssets, getSkin(), entity);

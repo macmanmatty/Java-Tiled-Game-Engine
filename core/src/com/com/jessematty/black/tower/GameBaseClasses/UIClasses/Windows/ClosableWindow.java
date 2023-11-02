@@ -146,7 +146,7 @@ public class ClosableWindow extends Window {
     /**
      *  remakes the title bar on window resize and re-adds the  top buttons close resize and lock
      */
-    private void remakeTitle() {
+    protected void remakeTitle() {
         getTitleTable().clear();
         getTitleTable().add(getTitleLabel()).expandX().fillX().minWidth(0);
         HorizontalGroup buttons= new HorizontalGroup();

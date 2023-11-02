@@ -47,7 +47,6 @@ public class UITEST  implements Screen {
         entitySelectWindow= new EntitySelectWindow(skin, entityArray, gameAssets, null);
         entitySelectWindow.setPosition(200,200);
         entitySelectWindow.setMovable(true);
-        entitySelectWindow.setTransform(true);
         testStage.addActor(entitySelectWindow);
         testStage.setDebugAll(true);
 

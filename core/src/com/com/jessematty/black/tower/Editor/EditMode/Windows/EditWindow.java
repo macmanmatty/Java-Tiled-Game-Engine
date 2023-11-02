@@ -13,7 +13,7 @@ public   class EditWindow extends GameWindow  implements EditorSettable {
     }
 
     public void clearWindow(){
-        clear();
+        getChildren().clear();
     }
     public void setWindowSize(float width, float height){
         setHeight(height);
