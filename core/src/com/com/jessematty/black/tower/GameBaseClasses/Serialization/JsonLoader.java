@@ -27,6 +27,7 @@ public class JsonLoader {
      * @param append // whether or not to over the json file or just append it
      */
     public void writeObjectToFile(Object object, String path, boolean append){
+        json.setUsePrototypes(false);
         String objectJson= json.prettyPrint(object);
         FileHandle file = Gdx.files.absolute(path);
         file.writeString(objectJson, append);

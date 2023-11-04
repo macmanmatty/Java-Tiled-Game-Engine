@@ -26,7 +26,9 @@ public class LPCObjectGeneratorDTO {
     /**
      * the base name of the animation
      */
-    String bodyName="humanMale";
+    String body="humanMale";
+    String sex="Male";
+
     /**
      * the name of the entity
      */
@@ -85,6 +87,35 @@ public class LPCObjectGeneratorDTO {
     int slots;
     float maxAtachedWeight;
     float internalVolume;
+    float maxPrice;
+
+    float minPrice;
+
+    boolean item;
+
+    boolean readable;
+    boolean ingestable;
+    boolean drinkable;
+    boolean slashable;
+    boolean thrustable;
+    boolean shootable;
+
+    boolean holder;
+
+    boolean bodyPart;
+
+    boolean wearable;
+
+    boolean pack;
+
+    boolean plant;
+
+
+
+
+
+
+
     Polygon bounds;
     Array<String> groups= new Array<>();
     Array<String> groupsAddable= new Array<>();
@@ -101,12 +132,20 @@ public class LPCObjectGeneratorDTO {
         this.atlasName = atlasName;
     }
 
-    public String getBodyName() {
-        return bodyName;
+    public String getBody() {
+        return body;
     }
 
-    public void setBodyName(String bodyName) {
-        this.bodyName = bodyName;
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getName() {
@@ -579,5 +618,117 @@ public class LPCObjectGeneratorDTO {
 
     public void setGroupsAddable(Array<String> groupsAddable) {
         this.groupsAddable = groupsAddable;
+    }
+
+    public float getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(float maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+    public float getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public boolean isItem() {
+        return item;
+    }
+
+    public void setItem(boolean item) {
+        this.item = item;
+    }
+
+    public boolean isReadable() {
+        return readable;
+    }
+
+    public void setReadable(boolean readable) {
+        this.readable = readable;
+    }
+
+    public boolean isIngestable() {
+        return ingestable;
+    }
+
+    public void setIngestable(boolean ingestable) {
+        this.ingestable = ingestable;
+    }
+
+    public boolean isDrinkable() {
+        return drinkable;
+    }
+
+    public void setDrinkable(boolean drinkable) {
+        this.drinkable = drinkable;
+    }
+
+    public boolean isSlashable() {
+        return slashable;
+    }
+
+    public void setSlashable(boolean slashable) {
+        this.slashable = slashable;
+    }
+
+    public boolean isThrustable() {
+        return thrustable;
+    }
+
+    public void setThrustable(boolean thrustable) {
+        this.thrustable = thrustable;
+    }
+
+    public boolean isShootable() {
+        return shootable;
+    }
+
+    public void setShootable(boolean shootable) {
+        this.shootable = shootable;
+    }
+
+    public boolean isPack() {
+        return pack;
+    }
+
+    public void setPack(boolean pack) {
+        this.pack = pack;
+    }
+
+    public boolean isWearable() {
+        return wearable;
+    }
+
+    public void setWearable(boolean wearable) {
+        this.wearable = wearable;
+    }
+
+    public boolean isPlant() {
+        return plant;
+    }
+
+    public void setPlant(boolean plant) {
+        this.plant = plant;
+    }
+
+    public boolean isHolder() {
+        return holder;
+    }
+
+    public void setHolder(boolean holder) {
+        this.holder = holder;
+    }
+
+    public boolean isBodyPart() {
+        return bodyPart;
+    }
+
+    public void setBodyPart(boolean bodyPart) {
+        this.bodyPart = bodyPart;
     }
 }

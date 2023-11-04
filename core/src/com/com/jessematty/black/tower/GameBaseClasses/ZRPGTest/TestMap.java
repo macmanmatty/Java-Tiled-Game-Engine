@@ -66,7 +66,7 @@ public class TestMap {
         }
         world.addEntityToWorld(entityBag);
 
-        Entity entity1= lpcObjectGenerator.generateBaseLPCEntity(TestEntities.tree);
+        Entity entity1= lpcObjectGenerator.generateLPCEntity(TestEntities.tree);
         entity1.add(new SolidObject());
        PositionComponent position2 =entity1.getComponent(PositionComponent.class);
         position2.setBounds(200, 300);

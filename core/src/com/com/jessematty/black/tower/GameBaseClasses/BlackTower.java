@@ -15,7 +15,7 @@ public void MainGame(){
 
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
-		setScreen(new UITEST(gameAssets));
+		setScreen(new MainScreen(gameAssets));
 	}
 	@Override
 	public void render () {

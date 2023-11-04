@@ -1,12 +1,14 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations;
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.Other.Sex;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 public class LPCSpriteGenerator {
-    private AnimatableComponent animatable;
-  private  GameAssets gameAssets;
+
+  private Sex sex;
+ private  GameAssets gameAssets;
 public   String atlasName;
 public   String bodyName;
 public   boolean hasWalkFrames;
@@ -275,13 +277,16 @@ public  int addItemToPackFrameRate = 5;
 public  int talkFrameRate = 5;
 public  int craftFrameRate = 5;
 public  int unlockFrameRate = 5;
-    public LPCSpriteGenerator(AnimatableComponent animatable, GameAssets gameAssets, String atlasName, String bodyName) {
-        this.animatable = animatable;
+    public LPCSpriteGenerator( GameAssets gameAssets) {
         this.gameAssets = gameAssets;
-        this.atlasName = atlasName;
-        this.bodyName = bodyName;
     }
-    public void makeBody () {
+    public AnimatableComponent makeBody ( String sex, String body, String atlasName ) {
+        AnimatableComponent animatableComponent= new AnimatableComponent();
+        this.atlasName=atlasName;
+        this.bodyName=body;
+        if(sex!=null){
+            this.bodyName=body+sex;
+        }
         boolean slashForThrow = true;// will the slash frames  be using fro throwing items too?
         boolean dieForPickup = true;// will the dieing frames be used for throwing too?
         boolean dieDownOnly = true; // is the dieing animatuions only in the down direction;
@@ -362,10 +367,10 @@ public  int unlockFrameRate = 5;
                 restLeftAnamation[0] = gameAssets.getAtlasRegionByName(bodyName + "walkLeft" + 0, atlasName);
             
                 restRightAnamation[0] = gameAssets.getAtlasRegionByName(bodyName + "walkRight" + 0, atlasName);
-            animatable.addAnimation(restUpAnamation, Direction.UP, "rest", 1, restUpOffsets, restUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(restDownAnamation, Direction.DOWN, "rest", 1,restDownOffsets, restDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(restLeftAnamation, Direction.LEFT, "rest", 1, restLeftOffsets, restLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(restRightAnamation, Direction.RIGHT, "rest", 1, restRightOffsets, restRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(restUpAnamation, Direction.UP, "rest", 1, restUpOffsets, restUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(restDownAnamation, Direction.DOWN, "rest", 1,restDownOffsets, restDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(restLeftAnamation, Direction.LEFT, "rest", 1, restLeftOffsets, restLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(restRightAnamation, Direction.RIGHT, "rest", 1, restRightOffsets, restRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasWalkFrames == true) {
             for (int count = 0; count < walkUpFrames; count++) {
@@ -380,10 +385,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < walkRightFrames; count++) {
                 walkRightAnamation[count] = gameAssets.getAtlasRegionByName(bodyName + "walkRight" + count, atlasName);
             }
-            animatable.addAnimation(walkUpAnamation, Direction.UP, "move", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(walkDownAnamation, Direction.DOWN, "move", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(walkLeftAnamation, Direction.LEFT, "move", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(walkRightAnamation, Direction.RIGHT, "move", walkFrameRate, walkRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(walkUpAnamation, Direction.UP, "move", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(walkDownAnamation, Direction.DOWN, "move", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(walkLeftAnamation, Direction.LEFT, "move", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(walkRightAnamation, Direction.RIGHT, "move", walkFrameRate, walkRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
         }
         grabAnamationUp = new AtlasNamedAtlasRegion[grabUpFrames];
         grabAnamationDown = new AtlasNamedAtlasRegion[grabDownFrames];
@@ -458,10 +463,10 @@ public  int unlockFrameRate = 5;
                     dieAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "dieRight" + count, atlasName);
                 }
             }
-            animatable.addAnimation(dieAnamationUp, Direction.UP, "die", dieFrameRate, dieUpOffsets, dieUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(dieAnamationDown, Direction.DOWN, "die", dieFrameRate,dieDownOffsets, dieDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(dieAnamationLeft, Direction.LEFT, "die", dieFrameRate, dieLeftOffsets, dieLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(dieAnamationRight, Direction.RIGHT, "die", dieFrameRate, dieRightOffsets, dieRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationUp, Direction.UP, "die", dieFrameRate, dieUpOffsets, dieUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationDown, Direction.DOWN, "die", dieFrameRate,dieDownOffsets, dieDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationLeft, Direction.LEFT, "die", dieFrameRate, dieLeftOffsets, dieLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationRight, Direction.RIGHT, "die", dieFrameRate, dieRightOffsets, dieRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasSlashFrames) {
             for (int count = 0; count < slashUpFrames; count++) {
@@ -476,10 +481,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < slashRightFrames; count++) {
                 slashAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "slashRight" + count, atlasName);
             }
-            animatable.addAnimation(slashAnamationUp, Direction.UP, "slash", slashFrameRate, slashUpOffsets, slashUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(slashAnamationDown, Direction.DOWN, "slash", slashFrameRate,slashDownOffsets, slashDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(slashAnamationLeft, Direction.LEFT, "slash", slashFrameRate, slashLeftOffsets, slashLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(slashAnamationRight, Direction.RIGHT, "slash", slashFrameRate, slashRightOffsets, slashRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationUp, Direction.UP, "slash", slashFrameRate, slashUpOffsets, slashUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationDown, Direction.DOWN, "slash", slashFrameRate,slashDownOffsets, slashDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationLeft, Direction.LEFT, "slash", slashFrameRate, slashLeftOffsets, slashLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationRight, Direction.RIGHT, "slash", slashFrameRate, slashRightOffsets, slashRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasEatFrames) {
             for (int count = 0; count < eatUpFrames; count++) {
@@ -494,10 +499,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < eatRightFrames; count++) {
                 eatAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "eatRight" + count, atlasName);
             }
-            animatable.addAnimation(eatAnamationUp, Direction.UP, "eat", eatFrameRate, eatUpOffsets, eatUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(eatAnamationDown, Direction.DOWN, "eat", eatFrameRate,eatDownOffsets, eatDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(eatAnamationLeft, Direction.LEFT, "eat", eatFrameRate, eatLeftOffsets, eatLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(eatAnamationRight, Direction.RIGHT, "eat", eatFrameRate, eatRightOffsets, eatRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationUp, Direction.UP, "eat", eatFrameRate, eatUpOffsets, eatUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationDown, Direction.DOWN, "eat", eatFrameRate,eatDownOffsets, eatDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationLeft, Direction.LEFT, "eat", eatFrameRate, eatLeftOffsets, eatLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationRight, Direction.RIGHT, "eat", eatFrameRate, eatRightOffsets, eatRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasThrustFrames) {
             for (int count = 0; count < thrustUpFrames; count++) {
@@ -512,10 +517,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < thrustRightFrames; count++) {
                 thrustAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "thrustRight" + count, atlasName);
             }
-            animatable.addAnimation(thrustAnamationUp, Direction.UP, "thrust", thrustFrameRate, thrustUpOffsets, thrustUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationDown, Direction.DOWN, "thrust", thrustFrameRate,thrustDownOffsets, thrustDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationLeft, Direction.LEFT, "thrust", thrustFrameRate, thrustLeftOffsets, thrustLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationRight, Direction.RIGHT, "thrust", thrustFrameRate, thrustRightOffsets, thrustRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationUp, Direction.UP, "thrust", thrustFrameRate, thrustUpOffsets, thrustUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationDown, Direction.DOWN, "thrust", thrustFrameRate,thrustDownOffsets, thrustDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationLeft, Direction.LEFT, "thrust", thrustFrameRate, thrustLeftOffsets, thrustLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationRight, Direction.RIGHT, "thrust", thrustFrameRate, thrustRightOffsets, thrustRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasShootFrames) {
             for (int count = 0; count < shootUpFrames; count++) {
@@ -530,10 +535,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < shootRightFrames; count++) {
                 shootAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "shootRight" + count, atlasName);
             }
-            animatable.addAnimation(shootAnamationUp, Direction.UP, "shoot", shootFrameRate, shootUpOffsets, shootUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(shootAnamationDown, Direction.DOWN, "shoot", shootFrameRate,shootDownOffsets, shootDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(shootAnamationLeft, Direction.LEFT, "shoot", shootFrameRate, shootLeftOffsets, shootLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(shootAnamationRight, Direction.RIGHT, "shoot", shootFrameRate, shootRightOffsets, shootRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationUp, Direction.UP, "shoot", shootFrameRate, shootUpOffsets, shootUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationDown, Direction.DOWN, "shoot", shootFrameRate,shootDownOffsets, shootDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationLeft, Direction.LEFT, "shoot", shootFrameRate, shootLeftOffsets, shootLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationRight, Direction.RIGHT, "shoot", shootFrameRate, shootRightOffsets, shootRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasSpellCastFrames) {
             for (int count = 0; count < spellCastUpFrames; count++) {
@@ -548,10 +553,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < spellCastRightFrames; count++) {
                 spellCastAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "spellCastRight" + count, atlasName);
             }
-            animatable.addAnimation(spellCastAnamationUp, Direction.UP, "spellCast", spellCastFrameRate, spellCastUpOffsets, spellCastUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationDown, Direction.DOWN, "spellCast", spellCastFrameRate,spellCastDownOffsets, spellCastDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationLeft, Direction.LEFT, "spellCast", spellCastFrameRate, spellCastLeftOffsets, spellCastLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationRight, Direction.RIGHT, "spellCast", spellCastFrameRate, spellCastRightOffsets, spellCastRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationUp, Direction.UP, "spellCast", spellCastFrameRate, spellCastUpOffsets, spellCastUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationDown, Direction.DOWN, "spellCast", spellCastFrameRate,spellCastDownOffsets, spellCastDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationLeft, Direction.LEFT, "spellCast", spellCastFrameRate, spellCastLeftOffsets, spellCastLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationRight, Direction.RIGHT, "spellCast", spellCastFrameRate, spellCastRightOffsets, spellCastRightLayerNumber- rightLayerNumberOffset);
         }
         
         
@@ -583,10 +588,10 @@ public  int unlockFrameRate = 5;
                 dropAnamationRight[1] = dieAnamationUp[1];
                 dropAnamationRight[2] = dieAnamationUp[0];
             }
-            animatable.addAnimation(dropAnamationUp, Direction.UP, "drop", dropFrameRate, dropUpOffsets, dropUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(dropAnamationDown, Direction.DOWN, "drop", dropFrameRate,dropDownOffsets, dropDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(dropAnamationLeft, Direction.LEFT, "drop", dropFrameRate, dropLeftOffsets, dropLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(dropAnamationRight, Direction.RIGHT, "drop", dropFrameRate, dropRightOffsets, dropRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationUp, Direction.UP, "drop", dropFrameRate, dropUpOffsets, dropUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationDown, Direction.DOWN, "drop", dropFrameRate,dropDownOffsets, dropDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationLeft, Direction.LEFT, "drop", dropFrameRate, dropLeftOffsets, dropLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationRight, Direction.RIGHT, "drop", dropFrameRate, dropRightOffsets, dropRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasGrabFrames) {
             if (thrustForGrab == false) {
@@ -634,10 +639,10 @@ public  int unlockFrameRate = 5;
                 grabAnamationDown[5] = thrustAnamationDown[1];
                 grabAnamationDown[6] = thrustAnamationDown[0];
             }
-            animatable.addAnimation(grabAnamationUp, Direction.UP, "grab", grabFrameRate, grabUpOffsets, grabUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(grabAnamationDown, Direction.DOWN, "grab", grabFrameRate,grabDownOffsets, grabDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(grabAnamationLeft, Direction.LEFT, "grab", grabFrameRate, grabLeftOffsets, grabLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(grabAnamationRight, Direction.RIGHT, "grab", grabFrameRate, grabRightOffsets, grabRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationUp, Direction.UP, "grab", grabFrameRate, grabUpOffsets, grabUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationDown, Direction.DOWN, "grab", grabFrameRate,grabDownOffsets, grabDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationLeft, Direction.LEFT, "grab", grabFrameRate, grabLeftOffsets, grabLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationRight, Direction.RIGHT, "grab", grabFrameRate, grabRightOffsets, grabRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasPickUpFrames) {
             if (dieForPickup == false) {
@@ -663,10 +668,10 @@ public  int unlockFrameRate = 5;
                 pickUpAnamationRight = pickUpAnamationUp;
                 pickUpAnamationDown = pickUpAnamationUp;
             }
-            animatable.addAnimation(pickUpAnamationUp, Direction.UP, "pickUp", pickUpFrameRate, pickUpUpOffsets, pickUpUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationDown, Direction.DOWN, "pickUp", pickUpFrameRate,pickUpDownOffsets, pickUpDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationLeft, Direction.LEFT, "pickUp", pickUpFrameRate, pickUpLeftOffsets, pickUpLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationRight, Direction.RIGHT, "pickUp", pickUpFrameRate, pickUpRightOffsets, pickUpRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationUp, Direction.UP, "pickUp", pickUpFrameRate, pickUpUpOffsets, pickUpUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationDown, Direction.DOWN, "pickUp", pickUpFrameRate,pickUpDownOffsets, pickUpDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationLeft, Direction.LEFT, "pickUp", pickUpFrameRate, pickUpLeftOffsets, pickUpLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationRight, Direction.RIGHT, "pickUp", pickUpFrameRate, pickUpRightOffsets, pickUpRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasThrowFrames) {
             if (slashForThrow == false) {
@@ -714,10 +719,10 @@ public  int unlockFrameRate = 5;
                 throwAnamationDown[5] = slashAnamationDown[1];
                 throwAnamationDown[6] = slashAnamationDown[0];
             }
-            animatable.addAnimation(throwAnamationUp, Direction.UP, "throw", throwFrameRate, throwUpOffsets, throwUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(throwAnamationDown, Direction.DOWN, "throw", throwFrameRate,throwDownOffsets, throwDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(throwAnamationLeft, Direction.LEFT, "throw", throwFrameRate, throwLeftOffsets, throwLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(throwAnamationRight, Direction.RIGHT, "throw", throwFrameRate, throwRightOffsets, throwRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationUp, Direction.UP, "throw", throwFrameRate, throwUpOffsets, throwUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationDown, Direction.DOWN, "throw", throwFrameRate,throwDownOffsets, throwDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationLeft, Direction.LEFT, "throw", throwFrameRate, throwLeftOffsets, throwLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationRight, Direction.RIGHT, "throw", throwFrameRate, throwRightOffsets, throwRightLayerNumber- rightLayerNumberOffset);
         }
         
         if (hasOpenFrames) {
@@ -764,10 +769,10 @@ public  int unlockFrameRate = 5;
                 openAnamationDown[5] = grabAnamationDown[1];
                 openAnamationDown[6] = grabAnamationDown[0];
             }
-            animatable.addAnimation(openAnamationUp, Direction.UP, "open", openFrameRate, openUpOffsets, openUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(openAnamationDown, Direction.DOWN, "open", openFrameRate,openDownOffsets, openDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(openAnamationLeft, Direction.LEFT, "open", openFrameRate, openLeftOffsets, openLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(openAnamationRight, Direction.RIGHT, "open", openFrameRate, openRightOffsets, openRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationUp, Direction.UP, "open", openFrameRate, openUpOffsets, openUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationDown, Direction.DOWN, "open", openFrameRate,openDownOffsets, openDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationLeft, Direction.LEFT, "open", openFrameRate, openLeftOffsets, openLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationRight, Direction.RIGHT, "open", openFrameRate, openRightOffsets, openRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasWalkFrames && hasTalkFrames) {
             talkUpAnamation = new AtlasNamedAtlasRegion[1];
@@ -778,14 +783,18 @@ public  int unlockFrameRate = 5;
             talkLeftAnamation[0] = walkLeftAnamation[0];
             talkRightAnamation = new AtlasNamedAtlasRegion[1];
             talkRightAnamation[0] = walkRightAnamation[0];
-            animatable.addAnimation(walkUpAnamation, Direction.UP, "walk", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(walkDownAnamation, Direction.DOWN, "walk", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(walkLeftAnamation, Direction.LEFT, "walk", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(walkRightAnamation, Direction.RIGHT, "walk", walkFrameRate, slashRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(walkUpAnamation, Direction.UP, "walk", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(walkDownAnamation, Direction.DOWN, "walk", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(walkLeftAnamation, Direction.LEFT, "walk", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(walkRightAnamation, Direction.RIGHT, "walk", walkFrameRate, slashRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
         }
+
+        return  animatableComponent;
     }
 
-    public void makeBody (LPCAnimations LPCAnimation) {
+    public AnimatableComponent makeBody (LPCAnimations LPCAnimation) {
+
+        AnimatableComponent animatableComponent= new AnimatableComponent();
         boolean slashForThrow = true;// will the slash frames  be using fro throwing items too?
         boolean dieForPickup = true;// will the dieing frames be used for throwing too?
         boolean dieDownOnly = true; // is the dieing animatuions only in the down direction;
@@ -866,10 +875,10 @@ public  int unlockFrameRate = 5;
             restLeftAnamation[0] = gameAssets.getAtlasRegionByName(bodyName + "walkLeft" + 0, atlasName);
 
             restRightAnamation[0] = gameAssets.getAtlasRegionByName(bodyName + "walkRight" + 0, atlasName);
-            animatable.addAnimation(restUpAnamation, Direction.UP, "rest", 1, restUpOffsets, restUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(restDownAnamation, Direction.DOWN, "rest", 1,restDownOffsets, restDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(restLeftAnamation, Direction.LEFT, "rest", 1, restLeftOffsets, restLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(restRightAnamation, Direction.RIGHT, "rest", 1, restRightOffsets, restRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(restUpAnamation, Direction.UP, "rest", 1, restUpOffsets, restUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(restDownAnamation, Direction.DOWN, "rest", 1,restDownOffsets, restDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(restLeftAnamation, Direction.LEFT, "rest", 1, restLeftOffsets, restLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(restRightAnamation, Direction.RIGHT, "rest", 1, restRightOffsets, restRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasWalkFrames == true) {
             for (int count = 0; count < walkUpFrames; count++) {
@@ -884,10 +893,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < walkRightFrames; count++) {
                 walkRightAnamation[count] = gameAssets.getAtlasRegionByName(bodyName + "walkRight" + count, atlasName);
             }
-            animatable.addAnimation(walkUpAnamation, Direction.UP, "move", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(walkDownAnamation, Direction.DOWN, "move", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(walkLeftAnamation, Direction.LEFT, "move", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(walkRightAnamation, Direction.RIGHT, "move", walkFrameRate, walkRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(walkUpAnamation, Direction.UP, "move", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(walkDownAnamation, Direction.DOWN, "move", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(walkLeftAnamation, Direction.LEFT, "move", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(walkRightAnamation, Direction.RIGHT, "move", walkFrameRate, walkRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
         }
         grabAnamationUp = new AtlasNamedAtlasRegion[grabUpFrames];
         grabAnamationDown = new AtlasNamedAtlasRegion[grabDownFrames];
@@ -962,10 +971,10 @@ public  int unlockFrameRate = 5;
                     dieAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "dieRight" + count, atlasName);
                 }
             }
-            animatable.addAnimation(dieAnamationUp, Direction.UP, "die", dieFrameRate, dieUpOffsets, dieUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(dieAnamationDown, Direction.DOWN, "die", dieFrameRate,dieDownOffsets, dieDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(dieAnamationLeft, Direction.LEFT, "die", dieFrameRate, dieLeftOffsets, dieLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(dieAnamationRight, Direction.RIGHT, "die", dieFrameRate, dieRightOffsets, dieRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationUp, Direction.UP, "die", dieFrameRate, dieUpOffsets, dieUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationDown, Direction.DOWN, "die", dieFrameRate,dieDownOffsets, dieDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationLeft, Direction.LEFT, "die", dieFrameRate, dieLeftOffsets, dieLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(dieAnamationRight, Direction.RIGHT, "die", dieFrameRate, dieRightOffsets, dieRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasSlashFrames) {
             for (int count = 0; count < slashUpFrames; count++) {
@@ -980,10 +989,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < slashRightFrames; count++) {
                 slashAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "slashRight" + count, atlasName);
             }
-            animatable.addAnimation(slashAnamationUp, Direction.UP, "slash", slashFrameRate, slashUpOffsets, slashUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(slashAnamationDown, Direction.DOWN, "slash", slashFrameRate,slashDownOffsets, slashDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(slashAnamationLeft, Direction.LEFT, "slash", slashFrameRate, slashLeftOffsets, slashLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(slashAnamationRight, Direction.RIGHT, "slash", slashFrameRate, slashRightOffsets, slashRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationUp, Direction.UP, "slash", slashFrameRate, slashUpOffsets, slashUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationDown, Direction.DOWN, "slash", slashFrameRate,slashDownOffsets, slashDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationLeft, Direction.LEFT, "slash", slashFrameRate, slashLeftOffsets, slashLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(slashAnamationRight, Direction.RIGHT, "slash", slashFrameRate, slashRightOffsets, slashRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasEatFrames) {
             for (int count = 0; count < eatUpFrames; count++) {
@@ -998,10 +1007,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < eatRightFrames; count++) {
                 eatAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "eatRight" + count, atlasName);
             }
-            animatable.addAnimation(eatAnamationUp, Direction.UP, "eat", eatFrameRate, eatUpOffsets, eatUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(eatAnamationDown, Direction.DOWN, "eat", eatFrameRate,eatDownOffsets, eatDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(eatAnamationLeft, Direction.LEFT, "eat", eatFrameRate, eatLeftOffsets, eatLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(eatAnamationRight, Direction.RIGHT, "eat", eatFrameRate, eatRightOffsets, eatRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationUp, Direction.UP, "eat", eatFrameRate, eatUpOffsets, eatUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationDown, Direction.DOWN, "eat", eatFrameRate,eatDownOffsets, eatDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationLeft, Direction.LEFT, "eat", eatFrameRate, eatLeftOffsets, eatLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(eatAnamationRight, Direction.RIGHT, "eat", eatFrameRate, eatRightOffsets, eatRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasThrustFrames) {
             for (int count = 0; count < thrustUpFrames; count++) {
@@ -1016,10 +1025,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < thrustRightFrames; count++) {
                 thrustAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "thrustRight" + count, atlasName);
             }
-            animatable.addAnimation(thrustAnamationUp, Direction.UP, "thrust", thrustFrameRate, thrustUpOffsets, thrustUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationDown, Direction.DOWN, "thrust", thrustFrameRate,thrustDownOffsets, thrustDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationLeft, Direction.LEFT, "thrust", thrustFrameRate, thrustLeftOffsets, thrustLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(thrustAnamationRight, Direction.RIGHT, "thrust", thrustFrameRate, thrustRightOffsets, thrustRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationUp, Direction.UP, "thrust", thrustFrameRate, thrustUpOffsets, thrustUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationDown, Direction.DOWN, "thrust", thrustFrameRate,thrustDownOffsets, thrustDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationLeft, Direction.LEFT, "thrust", thrustFrameRate, thrustLeftOffsets, thrustLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(thrustAnamationRight, Direction.RIGHT, "thrust", thrustFrameRate, thrustRightOffsets, thrustRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasShootFrames) {
             for (int count = 0; count < shootUpFrames; count++) {
@@ -1034,10 +1043,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < shootRightFrames; count++) {
                 shootAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "shootRight" + count, atlasName);
             }
-            animatable.addAnimation(shootAnamationUp, Direction.UP, "shoot", shootFrameRate, shootUpOffsets, shootUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(shootAnamationDown, Direction.DOWN, "shoot", shootFrameRate,shootDownOffsets, shootDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(shootAnamationLeft, Direction.LEFT, "shoot", shootFrameRate, shootLeftOffsets, shootLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(shootAnamationRight, Direction.RIGHT, "shoot", shootFrameRate, shootRightOffsets, shootRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationUp, Direction.UP, "shoot", shootFrameRate, shootUpOffsets, shootUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationDown, Direction.DOWN, "shoot", shootFrameRate,shootDownOffsets, shootDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationLeft, Direction.LEFT, "shoot", shootFrameRate, shootLeftOffsets, shootLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(shootAnamationRight, Direction.RIGHT, "shoot", shootFrameRate, shootRightOffsets, shootRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasSpellCastFrames) {
             for (int count = 0; count < spellCastUpFrames; count++) {
@@ -1052,10 +1061,10 @@ public  int unlockFrameRate = 5;
             for (int count = 0; count < spellCastRightFrames; count++) {
                 spellCastAnamationRight[count] = gameAssets.getAtlasRegionByName(bodyName + "spellCastRight" + count, atlasName);
             }
-            animatable.addAnimation(spellCastAnamationUp, Direction.UP, "spellCast", spellCastFrameRate, spellCastUpOffsets, spellCastUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationDown, Direction.DOWN, "spellCast", spellCastFrameRate,spellCastDownOffsets, spellCastDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationLeft, Direction.LEFT, "spellCast", spellCastFrameRate, spellCastLeftOffsets, spellCastLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(spellCastAnamationRight, Direction.RIGHT, "spellCast", spellCastFrameRate, spellCastRightOffsets, spellCastRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationUp, Direction.UP, "spellCast", spellCastFrameRate, spellCastUpOffsets, spellCastUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationDown, Direction.DOWN, "spellCast", spellCastFrameRate,spellCastDownOffsets, spellCastDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationLeft, Direction.LEFT, "spellCast", spellCastFrameRate, spellCastLeftOffsets, spellCastLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(spellCastAnamationRight, Direction.RIGHT, "spellCast", spellCastFrameRate, spellCastRightOffsets, spellCastRightLayerNumber- rightLayerNumberOffset);
         }
 
 
@@ -1087,10 +1096,10 @@ public  int unlockFrameRate = 5;
                 dropAnamationRight[1] = dieAnamationUp[1];
                 dropAnamationRight[2] = dieAnamationUp[0];
             }
-            animatable.addAnimation(dropAnamationUp, Direction.UP, "drop", dropFrameRate, dropUpOffsets, dropUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(dropAnamationDown, Direction.DOWN, "drop", dropFrameRate,dropDownOffsets, dropDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(dropAnamationLeft, Direction.LEFT, "drop", dropFrameRate, dropLeftOffsets, dropLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(dropAnamationRight, Direction.RIGHT, "drop", dropFrameRate, dropRightOffsets, dropRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationUp, Direction.UP, "drop", dropFrameRate, dropUpOffsets, dropUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationDown, Direction.DOWN, "drop", dropFrameRate,dropDownOffsets, dropDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationLeft, Direction.LEFT, "drop", dropFrameRate, dropLeftOffsets, dropLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(dropAnamationRight, Direction.RIGHT, "drop", dropFrameRate, dropRightOffsets, dropRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasGrabFrames) {
             if (thrustForGrab == false) {
@@ -1138,10 +1147,10 @@ public  int unlockFrameRate = 5;
                 grabAnamationDown[5] = thrustAnamationDown[1];
                 grabAnamationDown[6] = thrustAnamationDown[0];
             }
-            animatable.addAnimation(grabAnamationUp, Direction.UP, "grab", grabFrameRate, grabUpOffsets, grabUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(grabAnamationDown, Direction.DOWN, "grab", grabFrameRate,grabDownOffsets, grabDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(grabAnamationLeft, Direction.LEFT, "grab", grabFrameRate, grabLeftOffsets, grabLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(grabAnamationRight, Direction.RIGHT, "grab", grabFrameRate, grabRightOffsets, grabRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationUp, Direction.UP, "grab", grabFrameRate, grabUpOffsets, grabUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationDown, Direction.DOWN, "grab", grabFrameRate,grabDownOffsets, grabDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationLeft, Direction.LEFT, "grab", grabFrameRate, grabLeftOffsets, grabLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(grabAnamationRight, Direction.RIGHT, "grab", grabFrameRate, grabRightOffsets, grabRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasPickUpFrames) {
             if (dieForPickup == false) {
@@ -1167,10 +1176,10 @@ public  int unlockFrameRate = 5;
                 pickUpAnamationRight = pickUpAnamationUp;
                 pickUpAnamationDown = pickUpAnamationUp;
             }
-            animatable.addAnimation(pickUpAnamationUp, Direction.UP, "pickUp", pickUpFrameRate, pickUpUpOffsets, pickUpUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationDown, Direction.DOWN, "pickUp", pickUpFrameRate,pickUpDownOffsets, pickUpDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationLeft, Direction.LEFT, "pickUp", pickUpFrameRate, pickUpLeftOffsets, pickUpLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(pickUpAnamationRight, Direction.RIGHT, "pickUp", pickUpFrameRate, pickUpRightOffsets, pickUpRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationUp, Direction.UP, "pickUp", pickUpFrameRate, pickUpUpOffsets, pickUpUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationDown, Direction.DOWN, "pickUp", pickUpFrameRate,pickUpDownOffsets, pickUpDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationLeft, Direction.LEFT, "pickUp", pickUpFrameRate, pickUpLeftOffsets, pickUpLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(pickUpAnamationRight, Direction.RIGHT, "pickUp", pickUpFrameRate, pickUpRightOffsets, pickUpRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasThrowFrames) {
             if (slashForThrow == false) {
@@ -1218,10 +1227,10 @@ public  int unlockFrameRate = 5;
                 throwAnamationDown[5] = slashAnamationDown[1];
                 throwAnamationDown[6] = slashAnamationDown[0];
             }
-            animatable.addAnimation(throwAnamationUp, Direction.UP, "throw", throwFrameRate, throwUpOffsets, throwUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(throwAnamationDown, Direction.DOWN, "throw", throwFrameRate,throwDownOffsets, throwDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(throwAnamationLeft, Direction.LEFT, "throw", throwFrameRate, throwLeftOffsets, throwLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(throwAnamationRight, Direction.RIGHT, "throw", throwFrameRate, throwRightOffsets, throwRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationUp, Direction.UP, "throw", throwFrameRate, throwUpOffsets, throwUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationDown, Direction.DOWN, "throw", throwFrameRate,throwDownOffsets, throwDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationLeft, Direction.LEFT, "throw", throwFrameRate, throwLeftOffsets, throwLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(throwAnamationRight, Direction.RIGHT, "throw", throwFrameRate, throwRightOffsets, throwRightLayerNumber- rightLayerNumberOffset);
         }
 
         if (hasOpenFrames) {
@@ -1268,10 +1277,10 @@ public  int unlockFrameRate = 5;
                 openAnamationDown[5] = grabAnamationDown[1];
                 openAnamationDown[6] = grabAnamationDown[0];
             }
-            animatable.addAnimation(openAnamationUp, Direction.UP, "open", openFrameRate, openUpOffsets, openUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(openAnamationDown, Direction.DOWN, "open", openFrameRate,openDownOffsets, openDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(openAnamationLeft, Direction.LEFT, "open", openFrameRate, openLeftOffsets, openLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(openAnamationRight, Direction.RIGHT, "open", openFrameRate, openRightOffsets, openRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationUp, Direction.UP, "open", openFrameRate, openUpOffsets, openUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationDown, Direction.DOWN, "open", openFrameRate,openDownOffsets, openDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationLeft, Direction.LEFT, "open", openFrameRate, openLeftOffsets, openLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(openAnamationRight, Direction.RIGHT, "open", openFrameRate, openRightOffsets, openRightLayerNumber- rightLayerNumberOffset);
         }
         if (hasWalkFrames && hasTalkFrames) {
             talkUpAnamation = new AtlasNamedAtlasRegion[1];
@@ -1282,17 +1291,12 @@ public  int unlockFrameRate = 5;
             talkLeftAnamation[0] = walkLeftAnamation[0];
             talkRightAnamation = new AtlasNamedAtlasRegion[1];
             talkRightAnamation[0] = walkRightAnamation[0];
-            animatable.addAnimation(walkUpAnamation, Direction.UP, "walk", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
-            animatable.addAnimation(walkDownAnamation, Direction.DOWN, "walk", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
-            animatable.addAnimation(walkLeftAnamation, Direction.LEFT, "walk", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
-            animatable.addAnimation(walkRightAnamation, Direction.RIGHT, "walk", walkFrameRate, slashRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
+            animatableComponent.addAnimation(walkUpAnamation, Direction.UP, "walk", walkFrameRate, walkUpOffsets, walkUpLayerNumber- upLayerNumberOffset);
+            animatableComponent.addAnimation(walkDownAnamation, Direction.DOWN, "walk", walkFrameRate,walkDownOffsets, walkDownLayerNumber- downLayerNumberOffset);
+            animatableComponent.addAnimation(walkLeftAnamation, Direction.LEFT, "walk", walkFrameRate, walkLeftOffsets, walkLeftLayerNumber- leftLayerNumberOffset);
+            animatableComponent.addAnimation(walkRightAnamation, Direction.RIGHT, "walk", walkFrameRate, slashRightOffsets, walkRightLayerNumber- rightLayerNumberOffset);
         }
-    }
-    public void setAnimatable(AnimatableComponent animatable) {
-        this.animatable = animatable;
-    }
-    public void setGameAssets(GameAssets gameAssets) {
-        this.gameAssets = gameAssets;
+        return  animatableComponent;
     }
     public void setAtlasName(String atlasName) {
         this.atlasName = atlasName;

@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 
@@ -32,6 +34,8 @@ public class UITEST  implements Screen {
         super();
         this.gameAssetts=gameAssets;
         GameAssets.getGameInput().addProcessor(testStage);
+        JsonLoader jsonLoader= new JsonLoader();
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", true);
         testStage.setDebugInvisible(false);
         TextureAtlas atlas= gameAssets.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         gameAssets.finishLoading();
