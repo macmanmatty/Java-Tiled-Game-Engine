@@ -3,6 +3,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.SolidObject;
@@ -45,7 +46,9 @@ public class TestMap {
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts, world);
-        EntityBag entityBag= lpcObjectGenerator.generateLPCEntity( TestEntities.lizard);
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false, false );
+
+        EntityBag entityBag= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
         PositionComponent position =entityBag.getOwner().getComponent(PositionComponent.class);
@@ -66,7 +69,7 @@ public class TestMap {
         }
         world.addEntityToWorld(entityBag);
 
-        EntityBag entity1= lpcObjectGenerator.generateLPCEntity(TestEntities.tree);
+      EntityBag entity1= entityBagObjectMap.get("tree");
         entity1.getOwner().add(new SolidObject());
        PositionComponent position2 =entity1.getOwner().getComponent(PositionComponent.class);
         position2.setBounds(200, 300);
