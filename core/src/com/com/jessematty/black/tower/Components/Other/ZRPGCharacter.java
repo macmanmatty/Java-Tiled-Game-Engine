@@ -13,10 +13,9 @@ import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.Attacks.Thrower;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.BodyParts.Body;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
-import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -58,7 +57,7 @@ public class ZRPGCharacter implements Component {
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
-    private  Body body;
+    private BodyComponent bodyComponent;
     private NameComponent nameComponent;
     private  World world;
     private  NumericStat speed;
@@ -87,17 +86,17 @@ public class ZRPGCharacter implements Component {
         this.ears= playerEntity.getComponent(Ears.class);
         this.eyes= playerEntity.getComponent(Eyes.class);
         this.nose= playerEntity.getComponent(Nose.class);
-        this.body=playerEntity.getComponent(Body.class);
+        this.bodyComponent =playerEntity.getComponent(BodyComponent.class);
         this.imageComponent=playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.ImageComponent.class);
         this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
         this.id=playerEntity.getComponent(EntityId.class).getId();
-        this.rightHand=world.getEntity(body.getBodyParts().get("rightHand"));
-        this.leftHand=world.getEntity(body.getBodyParts().get("leftHand"));
+       this.rightHand=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
+       this.leftHand=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
         System.out.println ("hands "+leftHand + ", " +rightHand);
-        handHolders[1]=rightHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+       handHolders[1]=rightHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
         handHolders[0]=leftHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
-        this.rightFoot=world.getEntity(body.getBodyParts().get("rightFoot"));
-        this.leftFoot=world.getEntity(body.getBodyParts().get("leftFoot"));
+        this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
+        this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));
         this.thrower= playerEntity.getComponent(com.jessematty.black.tower.Components.Attacks.Thrower.class);
         this.nameComponent = playerEntity.getComponent(NameComponent.class);
         this.speed=numericStats.getNumericStat("speed");
@@ -242,8 +241,8 @@ public class ZRPGCharacter implements Component {
         return packs;
     }
 
-    public Body getBody() {
-        return body;
+    public BodyComponent getBody() {
+        return bodyComponent;
     }
 
     public World getWorld() {

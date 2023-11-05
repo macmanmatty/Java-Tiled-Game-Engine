@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.BodyParts.Body;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.Other.ErrorComponent;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
@@ -23,7 +23,7 @@ import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 public class EquipItemSystem extends GameEntitySystem {
     private ComponentMapper<Attachable> attachableComponentMapper;
-    private ComponentMapper<Body> bodyComponentMapper;
+    private ComponentMapper<BodyComponent> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;

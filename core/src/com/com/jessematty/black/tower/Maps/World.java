@@ -286,6 +286,7 @@ public class World implements Disposable {
     public void addEntityToWorld(EntityBag entityBag) {
         Array<Entity> entities=entityBag.getEntities();
         int size=entities.size;
+        addEntityToWorld(entityBag.getOwner());
         for(int count=0; count<size; count++) {
             Entity entity=entities.get(count);
             addEntityToWorld(entity);

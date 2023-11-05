@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.gdx.Game;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
+import com.jessematty.black.tower.GameBaseClasses.ZRPGTest.TestEntities;
 import com.jessematty.black.tower.GameBaseClasses.ZRPGTest.UITEST;
 
 public class BlackTower extends Game {
@@ -12,7 +14,6 @@ public void MainGame(){
 	}
 	@Override
 	public void create () {
-
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
 		setScreen(new MainScreen(gameAssets));

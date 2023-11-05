@@ -22,6 +22,7 @@ import lombok.Setter;
 
 
 public class LPCObjectGeneratorDTO {
+    boolean load=true;
     String atlasName;
     /**
      * the base name of the animation
@@ -109,6 +110,9 @@ public class LPCObjectGeneratorDTO {
     boolean pack;
 
     boolean plant;
+
+    boolean humanLikeCharacter;
+
 
 
 
@@ -730,5 +734,21 @@ public class LPCObjectGeneratorDTO {
 
     public void setBodyPart(boolean bodyPart) {
         this.bodyPart = bodyPart;
+    }
+
+    public boolean isLoad() {
+        return load;
+    }
+
+    public void setLoad(boolean load) {
+        this.load = load;
+    }
+
+    public boolean isHumanLikeCharacter() {
+        return humanLikeCharacter;
+    }
+
+    public void setHumanLikeCharacter(boolean humanLikeCharacter) {
+        this.humanLikeCharacter = humanLikeCharacter;
     }
 }

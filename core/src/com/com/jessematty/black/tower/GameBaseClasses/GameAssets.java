@@ -141,6 +141,7 @@ public class GameAssets implements Disposable {
         kryo.register(ObjectMap.class, new ObjectMapSerializer());
         kryo.register(OrderedMap.class, new OrderedMapSerializer());
     }
+
     public void showPreviousScreen(){ // changes the screen back to the screen that was displayed before
        game.setScreen(previousScreen);
     }

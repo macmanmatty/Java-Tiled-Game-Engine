@@ -45,10 +45,10 @@ public class TestMap {
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts, world);
-        EntityBag entityBag= lpcObjectGenerator.generateLPCCharacter( TestEntities.lizard);
+        EntityBag entityBag= lpcObjectGenerator.generateLPCEntity( TestEntities.lizard);
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
-        PositionComponent position =entityBag.getEntities().get(0).getComponent(PositionComponent.class);
+        PositionComponent position =entityBag.getOwner().getComponent(PositionComponent.class);
         position.setLocationX(66);
         position.setLocationY(1000);
         position.setMapID(map2.getId());
@@ -58,24 +58,24 @@ public class TestMap {
         position.setBoundsXOffset(16);
         position.setHeight(10);
         position.setMapID(map2.getId());
-        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(70);
-        entityBag.getEntities().get(0).getComponent(NumericStats.class).getNumericStats().get("speed").setValue(70);
+        entityBag.getOwner().getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(70);
+        entityBag.getOwner().getComponent(NumericStats.class).getNumericStats().get("speed").setValue(70);
         int size=entityBag.getEntities().size;
         for(int count=0; count<size; count++){
             entityBag.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
         }
         world.addEntityToWorld(entityBag);
 
-        Entity entity1= lpcObjectGenerator.generateLPCEntity(TestEntities.tree);
-        entity1.add(new SolidObject());
-       PositionComponent position2 =entity1.getComponent(PositionComponent.class);
+        EntityBag entity1= lpcObjectGenerator.generateLPCEntity(TestEntities.tree);
+        entity1.getOwner().add(new SolidObject());
+       PositionComponent position2 =entity1.getOwner().getComponent(PositionComponent.class);
         position2.setBounds(200, 300);
         position2.setHeight(10);
         position2.setLocationX(200);
         position2.setLocationY(200);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
-        world.setPlayer( entityBag.getEntities().get(0));
+        world.setPlayer( entityBag.getOwner());
        world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
         //assetts.setWorld(world);
 

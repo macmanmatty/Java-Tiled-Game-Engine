@@ -63,6 +63,7 @@ public class TestEntities {
         lizard.setAnimated(true);
         lizard.setDrawable(true);
         lizard.getStats().add(health, on, classuz);
+        lizard.setHumanLikeCharacter(true);
         tree.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tree.setImageName("tree");
         tree.setBody("tree");
