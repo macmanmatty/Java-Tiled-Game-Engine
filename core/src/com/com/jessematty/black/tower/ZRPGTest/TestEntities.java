@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.ZRPGTest;
+package com.jessematty.black.tower.ZRPGTest;
 
 
 import com.badlogic.gdx.utils.Array;
@@ -45,13 +45,16 @@ public class TestEntities {
 
     static LPCObjectGeneratorDTO shovel= new LPCObjectGeneratorDTO();
 
+    static LPCObjectGeneratorDTO tail= new LPCObjectGeneratorDTO();
+
     static LPCObjectGeneratorDTO axe= new LPCObjectGeneratorDTO();
 
    static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
 
       static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
 
-  static BooleanStat on= new BooleanStat(true, "on", true);
+
+    static BooleanStat on= new BooleanStat(true, "on", true);
     static StringStat classuz= new StringStat(true, "class", "normal");
 
 
@@ -80,9 +83,39 @@ public class TestEntities {
         lizard.setDrawable(true);
         lizard.getStats().add(health, on, classuz);
         lizard.getAttachedEntities().addAll("1", "2", "3", "4","5", "6");
-        lizard.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso);
+        lizard.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso, tail);
         lizard.setBody(true);
-        lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail");
+        lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
+
+
+        tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        tail.setAnimatableBodyName("wingsLizard");
+        tail.setSex("Male");
+        tail.setName("wing");
+        tail.setBrightness( .67f);
+        tail.setColorA(1);
+        tail.setColorB(.1f);
+        tail.setColorR(0);
+        tail.setColorG(1);
+        tail.setBoundsX(100);
+        tail.setBoundsY(100);
+        tail.setHealth(100);
+        tail.setMass(100);
+        tail.setVolume(100);
+        tail.setMoveable(true);
+        tail.setAnimated(true);
+        tail.setLpcActorAnimated(true);
+        tail.setDrawable(true);
+        tail.getStats().add(health, on, classuz);
+        tail.getAttachedEntities().addAll("1", "2", "3", "4","5", "6");
+        tail.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso);
+        tail.setBody(true);
+        tail.setUpLayerOffset(-1);
+        tail.setDownLayerOffset(1);
+      //  tail.setRightLayerOffset(1);
+      //  tail.setLeftLayerOffset(1);
+
+        tail.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
 
 
         leftHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");

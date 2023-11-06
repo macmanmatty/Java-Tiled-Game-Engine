@@ -219,6 +219,11 @@ public class LPCObjectGenerator {
             lpcSpriteGenerator.setHasSpellCastFrames(lpcObjectGeneratorDTO.isHasSpellCastFrames());
             lpcSpriteGenerator.setHasPickUpFrames(lpcObjectGeneratorDTO.isHasPickupFrames());
             lpcSpriteGenerator.setHasThrowFrames(lpcObjectGeneratorDTO.isHasThrowFrames());
+            lpcSpriteGenerator.upLayerNumberOffset=lpcObjectGeneratorDTO.getUpLayerOffset();
+            lpcSpriteGenerator.downLayerNumberOffset=lpcObjectGeneratorDTO.getDownLayerOffset();
+            lpcSpriteGenerator.rightLayerNumberOffset=lpcObjectGeneratorDTO.getRightLayerOffset();
+            lpcSpriteGenerator.leftLayerNumberOffset=lpcObjectGeneratorDTO.getLeftLayerOffset();
+
             animatableComponent = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
             animatableComponent.setCurrentAction("rest");
             animatableComponent.nextFrame();

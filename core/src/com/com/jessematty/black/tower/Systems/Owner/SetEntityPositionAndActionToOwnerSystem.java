@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Systems.Entity;
+package com.jessematty.black.tower.Systems.Owner;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;

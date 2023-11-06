@@ -1,5 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.ZRPGTest;
-import com.badlogic.ashley.core.Entity;
+package com.jessematty.black.tower.ZRPGTest;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

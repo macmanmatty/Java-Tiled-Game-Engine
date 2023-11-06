@@ -240,6 +240,12 @@ public class LPCObjectGeneratorDTO {
     Array<String> attachedEntities= new Array();
     Array<LPCObjectGeneratorDTO> attachedEntityDTOs= new Array();
 
+    private int upLayerOffset;
+    private int downLayerOffset;
+
+    private int leftLayerOffset;
+
+    private int rightLayerOffset;
 
 
     public String getAtlasName() {
@@ -722,5 +728,37 @@ public class LPCObjectGeneratorDTO {
 
     public void setBody(boolean body) {
         this.body = body;
+    }
+
+    public int getUpLayerOffset() {
+        return upLayerOffset;
+    }
+
+    public void setUpLayerOffset(int upLayerOffset) {
+        this.upLayerOffset = upLayerOffset;
+    }
+
+    public int getDownLayerOffset() {
+        return downLayerOffset;
+    }
+
+    public void setDownLayerOffset(int downLayerOffset) {
+        this.downLayerOffset = downLayerOffset;
+    }
+
+    public int getLeftLayerOffset() {
+        return leftLayerOffset;
+    }
+
+    public void setLeftLayerOffset(int leftLayerOffset) {
+        this.leftLayerOffset = leftLayerOffset;
+    }
+
+    public int getRightLayerOffset() {
+        return rightLayerOffset;
+    }
+
+    public void setRightLayerOffset(int rightLayerOffset) {
+        this.rightLayerOffset = rightLayerOffset;
     }
 }

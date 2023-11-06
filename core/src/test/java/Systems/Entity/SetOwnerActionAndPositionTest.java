@@ -14,7 +14,7 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Systems.Entity.SetEntityPositionAndActionToOwnerSystem;
+import com.jessematty.black.tower.Systems.Owner.SetEntityPositionAndActionToOwnerSystem;
 import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 
 import org.junit.Before;

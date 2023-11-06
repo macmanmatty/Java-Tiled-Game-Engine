@@ -20,7 +20,6 @@ public class GameInput {
 
     public GameInput() {
         lockableInputMultiplexer.addProcessor(keyListener);
-        Gdx.input.setInputProcessor(lockableInputMultiplexer);
     }
 
     public KeyListener getKeyListener() {

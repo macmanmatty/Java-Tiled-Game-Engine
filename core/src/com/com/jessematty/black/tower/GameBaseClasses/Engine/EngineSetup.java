@@ -44,7 +44,7 @@ import com.jessematty.black.tower.Systems.Actions.HungerSystem;
 import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 import com.jessematty.black.tower.Systems.Engine.RemoveEntityFromEngineSystem;
 import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
-import com.jessematty.black.tower.Systems.Entity.SetEntityPositionAndActionToOwnerSystem;
+import com.jessematty.black.tower.Systems.Owner.SetEntityPositionAndActionToOwnerSystem;
 import com.jessematty.black.tower.Systems.Actions.ThirstSystem;
 import com.jessematty.black.tower.Systems.Tiles.TileWeatherSeasonSystem;
 import com.jessematty.black.tower.Systems.Entity.TimeRemovingEntitySystem;
