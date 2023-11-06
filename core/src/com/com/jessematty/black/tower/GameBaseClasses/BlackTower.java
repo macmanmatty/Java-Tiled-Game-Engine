@@ -15,8 +15,6 @@ public void MainGame(){
 	}
 	@Override
 	public void create () {
-		JsonLoader jsonLoader= new JsonLoader();
-		jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
 		setScreen(new MainScreen(gameAssets));
