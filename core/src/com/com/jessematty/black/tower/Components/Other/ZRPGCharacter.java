@@ -92,7 +92,6 @@ public class ZRPGCharacter implements Component {
         this.id=playerEntity.getComponent(EntityId.class).getId();
        this.rightHand=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
        this.leftHand=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-        System.out.println ("hands "+leftHand + ", " +rightHand);
        handHolders[1]=rightHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
         handHolders[0]=leftHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
         this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));

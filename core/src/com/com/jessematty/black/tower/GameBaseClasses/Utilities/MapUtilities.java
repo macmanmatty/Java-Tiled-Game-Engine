@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.Map;
 import com.jessematty.black.tower.Maps.World;
@@ -125,7 +126,7 @@ public class MapUtilities {
        int tilesX=(int)(diameter/map.getTileWidth())+1;
        int tilesY=(int)(diameter/map.getTileHeight())+1;
        Array<Entity> entitiesInCircle= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
        int size=entities.size;
        for(int count=0; count<size; count++){
@@ -143,7 +144,7 @@ public class MapUtilities {
         int tilesX=(int)(width/map.getTileWidth())+1;
         int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInRectangle= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
         int size=entities.size;
         for(int count=0; count<size; count++){
@@ -162,7 +163,7 @@ public class MapUtilities {
         int tilesX=(int)(width/map.getTileWidth())+1;
         int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInPolygon= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
         int size=entities.size;
         for(int count=0; count<size; count++){

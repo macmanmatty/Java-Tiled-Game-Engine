@@ -13,6 +13,8 @@ import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
+import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
@@ -54,7 +56,7 @@ public class EntityUtilities {
      */
    public static  Array<Entity> getAllOwnedEntities(Entity entity, World world){
      entities.clear();
-       ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
+       ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
        OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
        if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
            return  entities;
@@ -69,7 +71,7 @@ public class EntityUtilities {
      */
     public static  Array<String> getAllOwnedEntitiesIDs(Entity entity, World world){
         entityIds.clear();
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
         OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
             return  entityIds;
@@ -81,7 +83,7 @@ public class EntityUtilities {
   public static  Array<String> getAllConnectedEntitiesIds(Entity entity, World world, boolean attached) {
         entities.clear();
         entityIds.clear();
-       ComponentMapper<EntityId> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
+       ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
         entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
       return getAllConnectedEntitiesIdsInternal(entity, world, attached);
@@ -96,8 +98,8 @@ public class EntityUtilities {
     private static  Array<String> getAllConnectedEntitiesIdsInternal(Entity entity, World world, boolean attached){
          entities.clear();
          entityIds.clear();
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=GameComponentMapper.getOwnedComponentComponentMapper();
        OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
         if(entityOwnerComponent==null && ownedComponent==null ){
@@ -150,8 +152,8 @@ public class EntityUtilities {
      * @return
      */
   public static  boolean isEntityConnected(Entity entity, Entity entityToCheck,  World world, boolean attached){
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=GameComponentMapper.getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
         if(entity==entityToCheck) {
@@ -176,7 +178,7 @@ public class EntityUtilities {
 public static  Array<Entity> getAllConnectedEntities(Entity entity, World world, boolean attached ){
         entities.clear();
         entityIds.clear();
-        ComponentMapper<EntityId> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
+        ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
        entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
        getAllConnectedEntitiesIdsInternal(entity, world, attached);
@@ -185,20 +187,20 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
   public static  void  setActionToAllConnectedEntities(Entity entity, World world, String action  ){
         entities.clear();
         entityIds.clear();
-       ComponentMapper<EntityId> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
+       ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
        entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
-        ActionComponent actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
+        ActionComponent actionComponent=GameComponentMapper.getActionComponentMapper().get(entity);
         actionComponent.setStat(action);
        setActionToAllConnectedEntitiesInternal(entity, world, action);
         return;
    }
    private static  void setActionToAllConnectedEntitiesInternal(Entity entity, World world, String action){
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=GameComponentMapper.getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
-        ActionComponent actionComponent=world.getGameComponentMapper().getActionComponentMapper().get(entity);
+        ActionComponent actionComponent=GameComponentMapper.getActionComponentMapper().get(entity);
         actionComponent.setStat(action);
         if(entityOwnerComponent==null && ownedComponent==null ){
             return;
@@ -245,7 +247,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
     public static  void  addComponentsAndStatsToAllConnectedEntities(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> changableNumericStats, Array<BooleanStatChangeable> changableBooleanStats, Array<StringStatChangeable> changableStringStats, Component... components){
         entities.clear();
         entityIds.clear();
-        ComponentMapper<EntityId> idComponentMapper=world.getGameComponentMapper().getIdComponentMapper();
+        ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
     
     entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
@@ -255,8 +257,8 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         return;
    }
    private static  void addComponentsAndStatsToAllConnectedEntitiesInternal(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> changableNumericStats, Array<BooleanStatChangeable> changableBooleanStats, Array<StringStatChangeable> changableStringStats, Component... components){
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=world.getGameComponentMapper().getOwnedComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ComponentMapper<OwnedComponent> ownedComponentComponentMapperr=GameComponentMapper.getOwnedComponentComponentMapper();
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
         addComponentsToEntity(entity, components);
@@ -307,7 +309,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
      *    a  function that recursively  gets the ids of all entities and sub owned entities  owned by a entity
       */
     private static Array<String> getAllOwnedEntitiesIDsInternal(Entity entity, World world){
-        ComponentMapper<OwnerComponent> ownerComponentMapper=world.getGameComponentMapper().getOwnerComponentComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
         OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         if(entityOwnerComponent==null || entityOwnerComponent.getOwnedEntityIDs().isEmpty()){
            return  entityIds;
@@ -328,31 +330,26 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        return entityIds;
    }
  public static  Array<Entity> getOwnedEntitiesWithComponents(World world, Entity entity , Class<? extends Component>... components ){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
-        return  gameComponentMapper.getEntitiesWithComponents(entities, components);
+        return  GameComponentMapper.getEntitiesWithComponents(entities, components);
    }
    public static  Array<Entity> getLinkedEntitiesWithComponents(World world, Entity entity , boolean attached,  Class<? extends Component>... components ){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         Array<Entity>  entities=getAllConnectedEntities(entity, world, attached);
-        return  gameComponentMapper.getEntitiesWithComponents(entities, components);
+        return  GameComponentMapper.getEntitiesWithComponents(entities, components);
    }
    public static  Array<Entity> getConnectedEntitiesWithStatsAndComponents(World world, Entity entity , boolean attached,  Array<String> numericStats, Array<String>  booleanStats, Array<String> stringStats,  Class<? extends Component>... components ){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         Array<Entity>  entities=getAllConnectedEntities(entity, world, attached);
-        return  gameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
+        return  GameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
    }
  public static   <T extends Component>  Array<T> getOwnedEntitiesComponent(World world, Entity entity , Class< T> components){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
-        return  gameComponentMapper.getComponentsFromEntitiesWithComponents(entities, components);
+        return  GameComponentMapper.getComponentsFromEntitiesWithComponents(entities, components);
    }
    public static    int getEntityActionTime(World world, Entity entity , String action){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
-        AnimatableComponent animatable=gameComponentMapper.getAnimatableComponentMapper().get(entity);
+        AnimatableComponent animatable=GameComponentMapper.getAnimatableComponentMapper().get(entity);
         int time=1;
         if(animatable!=null){
-            PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
+            PositionComponent position=GameComponentMapper.getPositionComponentMapper().get(entity);
             Direction direction=position.getDirection();
            Animation animation=animatable.getAnamation(direction, action);
             if(animation!=null){
@@ -362,9 +359,8 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        return  time;
    }
  public static  Array<Entity> getOwnedEntitiesWithStatsAndComponents(World world, Entity entity , Array<String> numericStats, Array<String>  booleanStats, Array<String> stringStats,  Class<? extends Component>... components ){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
-        return  gameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
+        return  GameComponentMapper.getEntitiesContainingStats(entities, numericStats, booleanStats, stringStats,  components);
    }
     /**
      *     returns an array  of  2 double the total combined mass,   and volume  of the entity plus all attached entities 0=mass  1=volume
@@ -406,9 +402,9 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
       return  massAndVolume;
     }
   public static  double [] getMassVolumeWeight( World world, Entity entity) {
-       ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper = world.getGameComponentMapper().getPhysicalObjectComponentMapper();
+       ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper = GameComponentMapper.getPhysicalObjectComponentMapper();
        PhysicalObjectComponent physicalObject = physicalObjectComponentMapper.get(entity);
-        ComponentMapper<PositionComponent> positionComponentMapper = world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper = GameComponentMapper.getPositionComponentMapper();
         PositionComponent position = positionComponentMapper.get(entity);
        double massNumber = physicalObject.getMass();
         double gravity = world.getMap(position.getMapId()).getGravity();
@@ -467,6 +463,29 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity2.add(new RemoveFromEngine());
       return entity;
     }
+
+    /**
+     * attaches a part to body
+     * @param entityToAttachTo the entity to attach the part to must have a body component
+     * @param entityToAttach the entity  to attach to the body must have part component
+     * @return the id of the entity previous entity if there was part that got replaced
+     * if no part was replaced returns null
+     * if entity was unable to be attached returns the id of the entity toi be attached
+     *
+     */
+    public static  String  attachPart(Entity entityToAttachTo,   Entity entityToAttach) {
+        String leftoverPartId=GameComponentMapper.getIdComponentMapper().get(entityToAttach).getId();
+        PartComponent partComponent = GameComponentMapper.getPartComponentComponentMapper().get(entityToAttach);
+        BodyComponent bodyComponent = GameComponentMapper.getBodyComponentComponentMapper().get(entityToAttachTo);
+        if(partComponent!=null && bodyComponent!=null && InList.isInList(partComponent.getPartName(), bodyComponent.getPartsAddable())) {
+          boolean  attached = attachEntity(entityToAttachTo, entityToAttach, true);
+            if (attached) {
+           leftoverPartId=   bodyComponent.getBodyParts().put(partComponent.getPartName(), leftoverPartId);
+
+            }
+        }
+        return leftoverPartId;
+    }
     public  static  boolean attachEntity(Entity entityToAttachTo,   Entity entityToAttach) {
      return  attachEntity(  entityToAttachTo,  entityToAttach, true);
         }
@@ -485,6 +504,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
            ownerComponent=new OwnerComponent();
         entityToAttachTo.add(ownerComponent);
        }
+
       EntityId entityToAttachID=idComponentMapper.get(entityToAttach);
         EntityId entityToAttachToID=idComponentMapper.get(entityToAttachTo);
        if(entityToAttachID==null || InList.isInList(entityToAttachID.getId(), ownerComponent.getOwnedEntityIDs())){
@@ -501,13 +521,12 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ownedComponent.setOwnerEntityID(entityToAttachToID.getId());
       return  attached;
    }
-  public  static  boolean holdItem(World world, Entity holder,   Entity itemToHold){
-        GameComponentMapper gameComponentMapper=world.getGameComponentMapper();
-        ComponentMapper<EntityId> idComponentMapper=gameComponentMapper.getIdComponentMapper();
-        ComponentMapper<OwnerComponent> ownerComponentComponentMapper=gameComponentMapper.getOwnerComponentComponentMapper();
-        ComponentMapper<Holder> holderComponentMapper=gameComponentMapper.getHolderComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=gameComponentMapper.getOwnedComponentComponentMapper();
-        ComponentMapper<ItemComponent> itemComponentMapper=gameComponentMapper.getItemComponentMapper();
+  public  static  boolean holdItem(Entity holder,   Entity itemToHold){
+        ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
+        ComponentMapper<OwnerComponent> ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
+        ComponentMapper<Holder> holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
+        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        ComponentMapper<ItemComponent> itemComponentMapper=GameComponentMapper.getItemComponentMapper();
        Holder holderComponent =holderComponentMapper.get(holder);
         OwnerComponent ownerComponent=ownerComponentComponentMapper.get(holder);
         if(holderComponent ==null){
@@ -577,15 +596,15 @@ public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToD
        }
   }
     public static  void addStatsToEntity(Entity entity, World world, Array<NumericStat> numericStats, Array<BooleanStat> booleanStats, Array<StringStat> stringStats, Array<NumericStatChangeable> numericStatsChangables, Array<BooleanStatChangeable> booleanStatsChangables, Array<StringStatChangeable> stringStatsChangables){
-       ComponentMapper<NumericStats> numericStatsComponentMapper=world.getGameComponentMapper().getNumericStatsComponentMapper();
-        ComponentMapper<BooleanStats> booleanStatsComponentMapper=world.getGameComponentMapper().getBooleanStatsComponentMapper();
-        ComponentMapper<StringStats> stringStatsComponentMapper=world.getGameComponentMapper().getStringStatsComponentMapper();
+       ComponentMapper<NumericStats> numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
+        ComponentMapper<BooleanStats> booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
+        ComponentMapper<StringStats> stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
         NumericStats numericStatsComponent=numericStatsComponentMapper.get(entity);
         BooleanStats booleanStatsComponent=booleanStatsComponentMapper.get(entity);
         StringStats stringStatsComponent=stringStatsComponentMapper.get(entity);
-        ComponentMapper<NumericStatsChangeable> numericStatsChangableComponentMapper=world.getGameComponentMapper().getNumericStatsChangableComponentMapper();
-        ComponentMapper<BooleanStatsChangeable> booleanStatsChangableComponentMapper=world.getGameComponentMapper().getBooleanStatsChangableComponentMapper();
-        ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper=world.getGameComponentMapper().getStringStatsChangableComponentMapper();
+        ComponentMapper<NumericStatsChangeable> numericStatsChangableComponentMapper=GameComponentMapper.getNumericStatsChangableComponentMapper();
+        ComponentMapper<BooleanStatsChangeable> booleanStatsChangableComponentMapper=GameComponentMapper.getBooleanStatsChangableComponentMapper();
+        ComponentMapper<StringStatsChangeable> stringStatsChangableComponentMapper=GameComponentMapper.getStringStatsChangableComponentMapper();
         NumericStatsChangeable numericStatsChangeableComponent =numericStatsChangableComponentMapper.get(entity);
         BooleanStatsChangeable booleanStatsChangeableComponent =booleanStatsChangableComponentMapper.get(entity);
         StringStatsChangeable stringStatsChangeableComponent =stringStatsChangableComponentMapper.get(entity);

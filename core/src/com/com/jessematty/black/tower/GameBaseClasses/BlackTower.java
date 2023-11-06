@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.ZRPGTest.TestEntities;
@@ -14,6 +15,8 @@ public void MainGame(){
 	}
 	@Override
 	public void create () {
+		JsonLoader jsonLoader= new JsonLoader();
+		jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
 		setScreen(new MainScreen(gameAssets));

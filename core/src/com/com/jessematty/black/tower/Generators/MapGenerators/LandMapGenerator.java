@@ -23,7 +23,6 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Generators.Sets.CliffSet;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.Generators.ObjectGenerator;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.Area;
 import com.jessematty.black.tower.Maps.Buildings.Building;
@@ -56,7 +55,6 @@ public class LandMapGenerator extends MapGenerator {
     protected int [] [] townSizes;
     protected int [] [] roadMap;
 
-    com.jessematty.black.tower.Generators.ObjectGenerator objectGenerator;
    PathFind pathFind;
    LandMapSpecs mapSpecs;
     public LandMapGenerator(GameAssets assetts, LandMapSpecs specs) {
@@ -76,7 +74,6 @@ public class LandMapGenerator extends MapGenerator {
         landSquareTileMap =new LandSquareTile[xSize][ySize];
         makeTiles();
         pathFind= new PathFind(map);
-    objectGenerator=new ObjectGenerator(map, assetts);
     }
     public boolean makeTiledMap(){
         makeBaseTiles();

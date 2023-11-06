@@ -121,15 +121,14 @@ public class GameAssets implements Disposable {
          assetManager = new AssetManager();
         this.game = game;
        settings = new GamePrefecences(gameName);
-        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
-
     }
     /**
      * loads the default game  libGDX skin  and registers the default games saving classes with kryo
      */
     public void setup(){
         // register serializing classes
-         this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
+        Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
+        this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
          getGameLogger().setSkin(skin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));

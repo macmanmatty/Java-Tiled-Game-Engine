@@ -1,6 +1,8 @@
 package com.jessematty.black.tower.Components.AttachEntity;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
+
 public class OwnerComponent implements Component {
     /**
      * a libGDX array of the IDs  of the entity that this entity owns / is attached to this entity
@@ -9,7 +11,7 @@ public class OwnerComponent implements Component {
     /**
      *  the maximum number of entities that can be attached to this entity
      *  if the entity has the maxAttachedEntities NumericStat in he NumericStats Component
-     *  that will be used instead oher wise this will be used for max attached  entities
+     *  that will be used instead otherwise this will be used for max attached  entities
      *
      */
     private int maxOwnedEntities=-1;
@@ -19,7 +21,7 @@ public class OwnerComponent implements Component {
     public Array<String> getOwnedEntityIDs() {
         return ownedEntityIDs;
     }
-    public boolean addEntity(String id){
+    public boolean addEntity( String id){
         if(ownedEntityIDs.size<maxOwnedEntities || maxOwnedEntities<0){
             ownedEntityIDs.add(id);
             return  true;
@@ -44,4 +46,5 @@ public class OwnerComponent implements Component {
     public void setMaxEntitiesErrorTitle(String maxEntitiesErrorTitle) {
         this.maxEntitiesErrorTitle = maxEntitiesErrorTitle;
     }
+
 }

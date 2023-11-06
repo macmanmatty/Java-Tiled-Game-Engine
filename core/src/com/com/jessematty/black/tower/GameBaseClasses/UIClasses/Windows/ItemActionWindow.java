@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Item.ItemActionComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
 
@@ -38,8 +39,8 @@ public class ItemActionWindow extends GameWindow {
         Skin skin=getSkin();
         Label label= new Label(text, skin);
         add(label);
-        ComponentMapper<ImageComponent> imageComponentComponentMapper=world.getGameComponentMapper().getImageComponentMapper();
-        ComponentMapper<NameComponent> nameComponentMapper=world.getGameComponentMapper().getNameComponentMapper();
+        ComponentMapper<ImageComponent> imageComponentComponentMapper= GameComponentMapper.getImageComponentMapper();
+        ComponentMapper<NameComponent> nameComponentMapper=GameComponentMapper.getNameComponentMapper();
         int size=entities.size;
         for(int count=0; count<size; count++) {
             final Entity entity=entities.get(count);

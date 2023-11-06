@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -8,15 +9,13 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
-import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
-import com.jessematty.black.tower.Components.BodyParts.BodyPart;
+import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
@@ -40,11 +39,11 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
 
 import java.util.List;
+
 /**
  * class that generates various entities based of the LPC assets
  */
@@ -53,6 +52,7 @@ public class LPCObjectGenerator {
      private    GameAssets assets;
      private   World  world;
      private ComponentMapper<EntityId> idComponentMapper;
+     private ObjectMap<String,LPCObjectGeneratorDTO> lpcObjectGeneratorDTOMap= new ObjectMap<>();
     public LPCObjectGenerator(GameAssets assets, World world ) {
         this.assets = assets;
         this.world=world;
@@ -80,19 +80,60 @@ public class LPCObjectGenerator {
         entity.add(entityId);
         return  entity;
     }
-    public EntityBag generateLPCCharacter(EntityBag lpcActorBag, LPCObjectGeneratorDTO lpcActorGeneratorDTO) {
+
+    /**
+     * links attached entities to the owner  entity
+     * where the attached entities are generated an array of LPC Generation DTO's
+     * @param lpcActorBag
+     * @param lpcActorGeneratorDTO
+     * @param lpcObjectGenerators
+     * @return
+     */
+    public EntityBag linkAttachedEntitiesViaDTO(EntityBag lpcActorBag, LPCObjectGeneratorDTO lpcActorGeneratorDTO, Array<LPCObjectGeneratorDTO> lpcObjectGenerators) {
         Entity lpcActor=lpcActorBag.getOwner();
-        lpcActor.add(new BodyComponent());
-        Entity leftHand= makeBodyPart(lpcActor, "leftHand",  lpcActorGeneratorDTO.getGloveSize());
-        makeHand(leftHand);
-        Entity rightHand= makeBodyPart(lpcActor, "rightHand", lpcActorGeneratorDTO.getGloveSize());
-        makeHand(rightHand);
-        Entity leftFoot= makeBodyPart(lpcActor, "leftFoot", lpcActorGeneratorDTO.getShoeSize());
-        Entity rightFoot= makeBodyPart(lpcActor, "rightFoot",lpcActorGeneratorDTO.getShoeSize());
-        lpcActorBag.getEntities().add(rightHand);
-        lpcActorBag.getEntities().add(leftFoot);
-        lpcActorBag.getEntities().add(rightFoot);
-        lpcActorBag.getEntities().add(leftHand);
+        for(LPCObjectGeneratorDTO lpcObjectGeneratorDTOAttached:lpcObjectGenerators) {
+            EntityBag attachedEntityBag=generateLPCEntity(lpcObjectGeneratorDTOAttached);
+            Entity attached=attachedEntityBag.getOwner();
+            if(lpcObjectGeneratorDTOAttached.isPart()){
+                PartComponent partComponent= new PartComponent();
+                partComponent.setPartName(lpcObjectGeneratorDTOAttached.partName);
+                attached.add(partComponent );
+                EntityUtilities.attachPart(lpcActor, attached);
+            }
+            else {
+                EntityUtilities.attachEntity(lpcActor, attached);
+            }            lpcActorBag.getEntities().add(attached);
+            lpcActorBag.getEntities().addAll(attachedEntityBag.getEntities());
+        }
+        return lpcActorBag;
+    }
+    /**
+     * links attached entities to the owner  entity
+     * where the attached entities are generated an array of LPC Generation DTO ids
+     * @param lpcActorBag
+     * @param lpcActorGeneratorDTO
+     * @param lpcObjectGeneratorsIds
+     * @return
+     */
+    public EntityBag linkAttachedEntitiesViaDTOId(EntityBag lpcActorBag, LPCObjectGeneratorDTO lpcActorGeneratorDTO, Array<String> lpcObjectGeneratorsIds) {
+        Entity lpcActor=lpcActorBag.getOwner();
+        for(String lpcEntityDtoId: lpcObjectGeneratorsIds) {
+            LPCObjectGeneratorDTO lpcObjectGeneratorDTOAttached=lpcObjectGeneratorDTOMap.get(lpcEntityDtoId);
+            if(lpcObjectGeneratorDTOAttached==null){
+                Gdx.app.getApplicationLogger().debug("Generation Exception", " No LPCObjectGeneratorDTO found for given Id "+lpcEntityDtoId);
+                continue;
+            }
+            EntityBag attachedEntityBag=generateLPCEntity(lpcObjectGeneratorDTOAttached);
+            Entity attached=attachedEntityBag.getOwner();
+            if(lpcObjectGeneratorDTOAttached.isPart()){
+                EntityUtilities.attachPart(lpcActor, attached);
+            }
+            else {
+                EntityUtilities.attachEntity(lpcActor, attached);
+            }
+            lpcActorBag.getEntities().add(attached);
+            lpcActorBag.getEntities().addAll(attachedEntityBag.getEntities());
+        }
         return lpcActorBag;
     }
     public Entity generateStaticLPCActor(Entity entity, AtlasNamedAtlasRegion namedAtlasRegion, NamedColor color, float brightness) {
@@ -116,7 +157,7 @@ public class LPCObjectGenerator {
         lpcSpriteGenerator.setHasSpellCastFrames(true);
         lpcSpriteGenerator.setHasPickUpFrames(true);
         lpcSpriteGenerator.setHasThrowFrames(true);
-     AnimatableComponent animatableComponent  = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getBody(), lpcObjectGeneratorDTO.getAtlasName());
+     AnimatableComponent animatableComponent  = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
         animatableComponent.setCurrentAction("rest");
         animatableComponent.nextFrame();
         entity.add(animatableComponent);
@@ -133,7 +174,6 @@ public class LPCObjectGenerator {
         EntityBag entityBag=new EntityBag();
         Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
         entityBag.setOwner(entity);
-
         NameComponent nameComponent = new NameComponent();
         entity.add(nameComponent);
         ActionComponent actionComponent = new ActionComponent();
@@ -159,12 +199,17 @@ public class LPCObjectGenerator {
         entity.add(groupsComponent);
         OwnerComponent ownerComponent= new OwnerComponent();
         entity.add(ownerComponent);
+        if(lpcObjectGeneratorDTO.isBody()){
+            BodyComponent bodyComponent= new BodyComponent();
+            bodyComponent.setPartsAddable(lpcObjectGeneratorDTO.getAttachableParts());
+            entity.add(bodyComponent);
+        }
         numericStats.addStat(new NumericStat(true, "health", 100, 0, 100));
         numericStats.addStat(new NumericStat(true, "speed", 20, 0, 40));
-        boolean animated=lpcObjectGeneratorDTO.isAnimated();
+        boolean lpcActorAnimated=lpcObjectGeneratorDTO.isLpcActorAnimated();
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
         AnimatableComponent animatableComponent=null;
-        if(animated) {
+        if(lpcActorAnimated) {
             lpcSpriteGenerator.setHasWalkFrames(lpcObjectGeneratorDTO.isHasWalkFrames());
             lpcSpriteGenerator.setHasDieFrames(lpcObjectGeneratorDTO.isHasDieFrames());
             lpcSpriteGenerator.setHasEatFrames(lpcObjectGeneratorDTO.isHasEatFrames());
@@ -174,12 +219,12 @@ public class LPCObjectGenerator {
             lpcSpriteGenerator.setHasSpellCastFrames(lpcObjectGeneratorDTO.isHasSpellCastFrames());
             lpcSpriteGenerator.setHasPickUpFrames(lpcObjectGeneratorDTO.isHasPickupFrames());
             lpcSpriteGenerator.setHasThrowFrames(lpcObjectGeneratorDTO.isHasThrowFrames());
-            animatableComponent = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getBody(), lpcObjectGeneratorDTO.getAtlasName());
+            animatableComponent = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
             animatableComponent.setCurrentAction("rest");
             animatableComponent.nextFrame();
             entity.add(animatableComponent);
         }
-            if(drawable || animated) {
+            if(drawable || lpcActorAnimated) {
                 DrawableComponent drawableComponent = new DrawableComponent();
                 if(animatableComponent!=null) {
                     drawableComponent.setCurrentRegion(animatableComponent.getCurrentTexture());
@@ -245,8 +290,11 @@ public class LPCObjectGenerator {
             generateHolder(entityBag, lpcObjectGeneratorDTO);
         }
 
-        if(lpcObjectGeneratorDTO.isHumanLikeCharacter()) {
-          generateLPCCharacter(entityBag, lpcObjectGeneratorDTO);
+        if(lpcObjectGeneratorDTO.getAttachedEntityDTOs().size>0) {
+          linkAttachedEntitiesViaDTO(entityBag,lpcObjectGeneratorDTO,  lpcObjectGeneratorDTO.attachedEntityDTOs);
+        }
+        else{
+            linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntities);
         }
 
         return  entityBag;
@@ -302,29 +350,13 @@ public class LPCObjectGenerator {
     private void generateWeapon(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
 
     }
-        private   Entity makeBodyPart(Entity ownerBody, String name, int size){
-        BodyComponent bodyComponent =ownerBody.getComponent(BodyComponent.class);
-        BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-        Entity bodyPart=container.getEntity();
-        String id=bodyPart.getComponent(EntityId.class).getId();
-        OwnerComponent ownerComponent=ownerBody.getComponent(OwnerComponent.class);
-        ownerComponent.addEntity(id);
-        container.getNumericStats().addStat(new NumericStat(true, "health", 100, 0, 100));
-        container.getNumericStats().addStat(new NumericStat(true, "speed", 20, 0, 40));
-        bodyPart.add(new PositionComponent());
-        Attachable attachable= new Attachable(bodyPart, ownerBody);
-        attachable.setDrawAttachedItem(false);
-         bodyPart.add(new Attachable( bodyPart, ownerBody));
-        bodyPart.add(new BodyPart());
-        bodyPart.add (new NameComponent(true, name));
-        OwnedComponent ownedComponent= new OwnedComponent();
-        ownedComponent.setPhysicallyAttached(true);
-        ownedComponent.setOwnerEntityID(ownerBody.getComponent(EntityId.class).getId());
-        ownedComponent.setSetEntityActionToOwner(true);
-        ownedComponent.setSetEntityPositionToOwner(true);
-        bodyPart.add(ownedComponent);
-        bodyComponent.getBodyParts().put(name,id);
-        container.getNumericStats().addStat(new NumericStat(true, "handSize", size, 0, 0));
+        private   Entity makeBodyPart(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
+
+        BodyComponent bodyComponent =GameComponentMapper.getBodyComponentComponentMapper().get(entityBag.getOwner());
+        EntityBag bodyPartEntityBag=generateLPCEntity(lpcObjectGeneratorDTO);
+        Entity bodyPart=bodyPartEntityBag.getOwner();
+        Entity ownerBody=entityBag.getOwner();
+        EntityUtilities.attachEntity(ownerBody, bodyPart);
         return bodyPart;
     }
     private void makeHand(Entity entity){
@@ -340,20 +372,25 @@ public class LPCObjectGenerator {
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
     public ObjectMap<String, EntityBag> loadEntities(String path, boolean useIdAsKey, boolean addToWorld){
+        lpcObjectGeneratorDTOMap.clear();
         ObjectMap<String, EntityBag> entities= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
        List<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path);
+       for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
+           lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
+
+       }
        for (LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS) {
            if(!lpcObjectGeneratorDTO.isLoad()){
                continue;
            }
            EntityBag entity = generateLPCEntity(lpcObjectGeneratorDTO);
-           String name=idComponentMapper.get(entity.getOwner()).getId();
+           String name=lpcObjectGeneratorDTO.getTmxObjectId();
            if(!useIdAsKey) {
               name= getName(entities, lpcObjectGeneratorDTO.getName());
            }
            entities.put(name, entity);
-           if(addToWorld==true){
+           if(addToWorld){
               world.addEntityToWorld(entity);
            }
        }

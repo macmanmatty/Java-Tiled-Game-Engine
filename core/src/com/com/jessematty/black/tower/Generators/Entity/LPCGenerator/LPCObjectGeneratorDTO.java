@@ -1,33 +1,25 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.Components.Stats.StringStat;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import java.util.UUID;
+
 public class LPCObjectGeneratorDTO {
     /**
      * whether or not to load the entity
      * into the game
      */
     boolean load=true;
-    
+
     String atlasName;
     /**
      * the base name of the animation
      */
-    String body="humanMale";
+    String animatableBodyName ="humanMale";
     String sex="Male";
     /**
      * the name of the entity
@@ -77,7 +69,12 @@ public class LPCObjectGeneratorDTO {
     /**
      * is the object animated
      */
-    boolean isAnimated;
+    boolean animated;
+    /**
+     * is the object animated using the LPC
+     * Actor sets
+     */
+    boolean lpcActorAnimated;
     /**
      * is object the drawable
      * aka has an image or is animated
@@ -183,7 +180,26 @@ public class LPCObjectGeneratorDTO {
     boolean thrustable;
     boolean shootable;
     boolean holder;
-    boolean bodyPart;
+    /**
+     * part entity that will added to a
+     * body component of an owner entity
+     *
+     */
+    boolean part;
+    /**
+     * if this is part entity the name of the part
+     */
+    String partName;
+    /**
+     *  the array of attachable  parts if the entity has a body
+     */
+    Array<String> attachableParts= new Array<>();
+
+    /**
+     * does this entity have body component;
+     */
+    boolean body;
+
     boolean wearable;
     /**
      * is the entity  a pack?
@@ -203,7 +219,7 @@ public class LPCObjectGeneratorDTO {
      * the id of the entity if placed in the object layer of a TMX map
      * not the same as entity id. But still must be unique.
      */
-    String tmxObjectId;
+    String tmxObjectId=UUID.randomUUID().toString();
     /**
      * if not using a rectangular bounds
      * the polygon bounds of the entity
@@ -220,18 +236,23 @@ public class LPCObjectGeneratorDTO {
     Array<String> groups= new Array<>();
   
     Array<String> groupsAddable= new Array<>();
-    
+
+    Array<String> attachedEntities= new Array();
+    Array<LPCObjectGeneratorDTO> attachedEntityDTOs= new Array();
+
+
+
     public String getAtlasName() {
         return atlasName;
     }
     public void setAtlasName(String atlasName) {
         this.atlasName = atlasName;
     }
-    public String getBody() {
-        return body;
+    public String getAnimatableBodyName() {
+        return animatableBodyName;
     }
-    public void setBody(String body) {
-        this.body = body;
+    public void setAnimatableBodyName(String animatableBodyName) {
+        this.animatableBodyName = animatableBodyName;
     }
     public String getSex() {
         return sex;
@@ -390,10 +411,11 @@ public class LPCObjectGeneratorDTO {
         this.hasThrowFrames = hasThrowFrames;
     }
     public boolean isAnimated() {
-        return isAnimated;
+        return animated;
     }
     public void setAnimated(boolean animated) {
-        isAnimated = animated;
+        this.animated = animated;
+        this.drawable=true;
     }
     public boolean isDrawable() {
         return drawable;
@@ -627,11 +649,11 @@ public class LPCObjectGeneratorDTO {
     public void setHolder(boolean holder) {
         this.holder = holder;
     }
-    public boolean isBodyPart() {
-        return bodyPart;
+    public boolean isPart() {
+        return part;
     }
-    public void setBodyPart(boolean bodyPart) {
-        this.bodyPart = bodyPart;
+    public void setPart(boolean part) {
+        this.part = part;
     }
     public boolean isLoad() {
         return load;
@@ -650,5 +672,55 @@ public class LPCObjectGeneratorDTO {
     }
     public void setTmxObjectId(String tmxObjectId) {
         this.tmxObjectId = tmxObjectId;
+    }
+
+    public Array<String> getAttachedEntities() {
+        return attachedEntities;
+    }
+
+    public void setAttachedEntities(Array<String> attachedEntities) {
+        this.attachedEntities = attachedEntities;
+    }
+
+    public Array<LPCObjectGeneratorDTO> getAttachedEntityDTOs() {
+        return attachedEntityDTOs;
+    }
+
+    public void setAttachedEntityDTOs(Array<LPCObjectGeneratorDTO> attachedEntityDTOs) {
+        this.attachedEntityDTOs = attachedEntityDTOs;
+    }
+
+    public boolean isLpcActorAnimated() {
+        return lpcActorAnimated;
+    }
+
+    public void setLpcActorAnimated(boolean lpcActorAnimated) {
+        this.lpcActorAnimated = lpcActorAnimated;
+        this.animated =true;
+        this.drawable=true;
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public void setPartName(String partName) {
+        this.partName = partName;
+    }
+
+    public Array<String> getAttachableParts() {
+        return attachableParts;
+    }
+
+    public void setAttachableParts(Array<String> attachableParts) {
+        this.attachableParts = attachableParts;
+    }
+
+    public boolean isBody() {
+        return body;
+    }
+
+    public void setBody(boolean body) {
+        this.body = body;
     }
 }

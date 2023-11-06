@@ -25,7 +25,6 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.Generators.ObjectGenerator;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -52,14 +51,12 @@ public  abstract class MapGenerator {
     protected ArrayList<LandSquareTile> exitGates = new ArrayList<LandSquareTile>();
     protected transient Skin skin; // UI skin  for landSquareTileMap
     protected ArrayList<LightSource> lightSources = new ArrayList<LightSource>();
-    com.jessematty.black.tower.Generators.ObjectGenerator objectGenerator;
     public MapGenerator(GameAssets assetts, int xSize, int ySize) {
         this.assetts = assetts;
         this.xSize = xSize;
         this.ySize = ySize;
         tiledMap = new TiledMap();
         mapLayers = tiledMap.getLayers();
-        objectGenerator = new ObjectGenerator( map, assetts);
     }
     public GameMap makeMap() {
         return map;

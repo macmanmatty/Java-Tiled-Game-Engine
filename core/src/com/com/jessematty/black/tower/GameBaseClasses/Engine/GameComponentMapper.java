@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.AI.ZRPGBrainComponent;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
+import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
@@ -214,9 +216,11 @@ public class GameComponentMapper {
     private static ComponentMapper<GameLog> logComponentMapper = ComponentMapper.getFor(GameLog.class);
     private static ComponentMapper<RemoveItemFromContainer> removeItemFromContainerComponentComponentMapper = ComponentMapper.getFor(RemoveItemFromContainer.class);
     private static ComponentMapper<AddItemToContainer> addItemToContainerComponentMapper = ComponentMapper.getFor(AddItemToContainer.class);
+    private static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
+    private static ComponentMapper<PartComponent> partComponentComponentMapper = ComponentMapper.getFor(PartComponent.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
-    public GameComponentMapper() {
+    static {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
         componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
         componentComponentMapperMap.put(AnimatableComponent.class, animatableComponentMapper);
@@ -314,8 +318,14 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
         componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
         componentComponentMapperMap.put(GameLog.class, logComponentMapper);
+        componentComponentMapperMap.put(BodyComponent.class, bodyComponentComponentMapper);
+        componentComponentMapperMap.put(PartComponent.class, partComponentComponentMapper);
 
     }
+
+    private GameComponentMapper() {
+    }
+
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentClass);
         componentComponentMapperMap.put(componentClass, componentMapper);
@@ -804,5 +814,13 @@ public class GameComponentMapper {
 
     public static ComponentMapper<GameLog> getLogComponentMapper() {
         return logComponentMapper;
+    }
+
+    public static ComponentMapper<BodyComponent> getBodyComponentComponentMapper() {
+        return bodyComponentComponentMapper;
+    }
+
+    public static ComponentMapper<PartComponent> getPartComponentComponentMapper() {
+        return partComponentComponentMapper;
     }
 }

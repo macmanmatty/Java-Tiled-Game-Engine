@@ -16,8 +16,11 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
-public class AddOwnerSystem extends GameEntitySystem { // checks  the die when zero  stats  for all entities  if all stats are zero
-    // marks the entities  as dying.
+/**
+ * system to attach one entity to another
+ * when the
+ */
+public class AddOwnerSystem extends GameEntitySystem {
 
     private ComponentMapper<AttachEntityEvent> addOwnerComponentComponentMapper;
     private ImmutableArray<Entity> entities;
@@ -32,7 +35,6 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
 
 
     }
-
     @Override
     public void addedToEngine(Engine engine) {
         addOwnerComponentComponentMapper=GameComponentMapper.getAddOwnerComponentComponentMapper();
@@ -53,15 +55,12 @@ public class AddOwnerSystem extends GameEntitySystem { // checks  the die when z
     public void update(float deltaTime) {
         entities = getEngine().getEntitiesFor(Family.all(AttachEntityEvent.class).get());
 
-        int size = entities.size();
-        for (int count = 0; count < size; count++) {
-            Entity entity = entities.get(count);
+        for (Entity entity: entities) {
             AttachEntityEvent attachEntityEvent = addOwnerComponentComponentMapper.get(entity);
             entity.remove(AttachEntityEvent.class);
             String ownerID = attachEntityEvent.getOwnerId();
             Entity entityToAdd = getWorld().getEntity(ownerID);
             EntityUtilities.attachEntity( entity, entityToAdd);
-
         }
     }
 

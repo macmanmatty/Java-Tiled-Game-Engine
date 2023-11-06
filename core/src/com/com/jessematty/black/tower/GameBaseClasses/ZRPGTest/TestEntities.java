@@ -10,6 +10,21 @@ import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenera
 public class TestEntities {
 
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO leftHand = new LPCObjectGeneratorDTO();
+    static LPCObjectGeneratorDTO rightHand = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO leftFoot = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO rightFoot = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO torso= new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO head = new LPCObjectGeneratorDTO();
+
+
+
+
     static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO pack = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO sword= new LPCObjectGeneratorDTO();
@@ -46,7 +61,7 @@ public class TestEntities {
     static  {
         health.getChangeGroups().add("all");
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        lizard.setBody("lizard");
+        lizard.setAnimatableBodyName("lizard");
         lizard.setSex("Male");
         lizard.setName("lizard");
         lizard.setBrightness( .67f);
@@ -61,12 +76,179 @@ public class TestEntities {
         lizard.setVolume(100);
         lizard.setMoveable(true);
         lizard.setAnimated(true);
+        lizard.setLpcActorAnimated(true);
         lizard.setDrawable(true);
         lizard.getStats().add(health, on, classuz);
-        lizard.setHumanLikeCharacter(true);
+        lizard.getAttachedEntities().addAll("1", "2", "3", "4","5", "6");
+        lizard.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso);
+        lizard.setBody(true);
+        lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail");
+
+
+        leftHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        leftHand.setAnimatableBodyName("leftHand");
+        leftHand.setSex("Male");
+        leftHand.setName("leftHand");
+        leftHand.setBrightness( .67f);
+        leftHand.setColorA(1);
+        leftHand.setColorB(.1f);
+        leftHand.setColorR(0);
+        leftHand.setColorG(1);
+        leftHand.setBoundsX(0);
+        leftHand.setBoundsY(0);
+        leftHand.setHealth(100);
+        leftHand.setMass(1);
+        leftHand.setVolume(1);
+        leftHand.setMoveable(true);
+        leftHand.setAnimated(false);
+        leftHand.setDrawable(false);
+        leftHand.getStats().add(health, on, classuz);
+        leftHand.setPart(true);
+        leftHand.setHolder(true);
+        leftHand.setHumanLikeCharacter(true);
+        leftHand.setTmxObjectId("1");
+        leftHand.setPart(true);
+        leftHand.setPartName("leftHand");
+
+
+
+        rightHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        rightHand.setAnimatableBodyName("rightHand");
+        rightHand.setSex("Male");
+        rightHand.setName("rightHand");
+        rightHand.setBrightness( .67f);
+        rightHand.setColorA(1);
+        rightHand.setColorB(.1f);
+        rightHand.setColorR(0);
+        rightHand.setColorG(1);
+        rightHand.setBoundsX(0);
+        rightHand.setBoundsY(0);
+        rightHand.setHealth(100);
+        rightHand.setMass(1);
+        rightHand.setVolume(1);
+        rightHand.setMoveable(true);
+        rightHand.setAnimated(false);
+        rightHand.setDrawable(false);
+        rightHand.getStats().add(health, on, classuz);
+        rightHand.setHolder(true);
+        rightHand.setPart(true);
+        rightHand.setHumanLikeCharacter(true);
+        rightHand.setTmxObjectId("2");
+        rightHand.setPart(true);
+        rightHand.setPartName("rightHand");
+
+
+        rightFoot.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        rightFoot.setAnimatableBodyName("rightFoot");
+        rightFoot.setSex("Male");
+        rightFoot.setName("rightFoot");
+        rightFoot.setBrightness( .67f);
+        rightFoot.setColorA(1);
+        rightFoot.setColorB(.1f);
+        rightFoot.setColorR(0);
+        rightFoot.setColorG(1);
+        rightFoot.setBoundsX(0);
+        rightFoot.setBoundsY(0);
+        rightFoot.setHealth(100);
+        rightFoot.setMass(1);
+        rightFoot.setVolume(1);
+        rightFoot.setMoveable(true);
+        rightFoot.setAnimated(false);
+        rightFoot.setDrawable(false);
+        rightFoot.getStats().add(health, on, classuz);
+        rightFoot.setHolder(true);
+        rightFoot.setPart(true);
+        rightFoot.setHumanLikeCharacter(true);
+        rightFoot.setTmxObjectId("3");
+        rightFoot.setPart(true);
+        rightFoot.setPartName("rightFoot");
+
+
+
+
+        leftFoot.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        leftFoot.setAnimatableBodyName("leftFoot");
+        leftFoot.setSex("Male");
+        leftFoot.setName("leftFoot");
+        leftFoot.setBrightness( .67f);
+        leftFoot.setColorA(1);
+        leftFoot.setColorB(.1f);
+        leftFoot.setColorR(0);
+        leftFoot.setColorG(1);
+        leftFoot.setBoundsX(0);
+        leftFoot.setBoundsY(0);
+        leftFoot.setHealth(100);
+        leftFoot.setMass(1);
+        leftFoot.setVolume(1);
+        leftFoot.setMoveable(true);
+        leftFoot.setAnimated(false);
+        leftFoot.setDrawable(false);
+        leftFoot.getStats().add(health, on, classuz);
+        leftFoot.setHolder(true);
+        leftFoot.setPart(true);
+        leftFoot.setPart(true);
+        leftFoot.setPartName("leftFoot");
+
+
+
+        torso.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        torso.setAnimatableBodyName("torso");
+        torso.setSex("Male");
+        torso.setName("torso");
+        torso.setBrightness( .67f);
+        torso.setColorA(1);
+        torso.setColorB(.1f);
+        torso.setColorR(0);
+        torso.setColorG(1);
+        torso.setBoundsX(0);
+        torso.setBoundsY(0);
+        torso.setHealth(100);
+        torso.setMass(1);
+        torso.setVolume(1);
+        torso.setMoveable(true);
+        torso.setAnimated(false);
+        torso.setDrawable(false);
+        torso.getStats().add(health, on, classuz);
+        torso.setHolder(true);
+        torso.setPart(true);
+        torso.setHumanLikeCharacter(true);
+        torso.setTmxObjectId("5");
+        torso.setPart(true);
+        torso.setPartName("torso");
+
+
+
+
+        head.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        head.setAnimatableBodyName("head");
+        head.setSex("Male");
+        head.setName("head");
+        head.setBrightness( .67f);
+        head.setColorA(1);
+        head.setColorB(.1f);
+        head.setColorR(0);
+        head.setColorG(1);
+        head.setBoundsX(0);
+        head.setBoundsY(0);
+        head.setHealth(100);
+        head.setMass(1);
+        head.setVolume(1);
+        head.setMoveable(true);
+        head.setAnimated(false);
+        head.setDrawable(false);
+        head.getStats().add(health, on, classuz);
+        head.setHolder(true);
+        head.setPart(true);
+        head.setHumanLikeCharacter(true);
+        head.setTmxObjectId("6");
+        head.setPart(true);
+        head.setPartName("head");
+
+
         tree.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tree.setImageName("tree");
-        tree.setBody("tree");
+        tree.setName("tree");
+        tree.setAnimatableBodyName("tree");
         tree.setHasImage(true);
         tree.setDrawable(true);
         tree.setDrawOnStart(true);
@@ -74,7 +256,7 @@ public class TestEntities {
 
 
         pack.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        pack.setBody("backPack");
+        pack.setAnimatableBodyName("backPack");
         pack.setName("pack");
         pack.setBrightness( .67f);
         pack.setColorA(1);
@@ -86,8 +268,8 @@ public class TestEntities {
         pack.setHealth(100);
         pack.setMass(100);
         pack.setVolume(100);
-        pack.setAnimated(true);
-        pack.setDrawable(true);
+        pack.setAnimated(false);
+        pack.setDrawable(false);
         pack.getStats().add(condition, on, classuz);
 
 
@@ -108,7 +290,7 @@ public class TestEntities {
         apple.setMass(100);
         apple.setVolume(100);
         apple.setAnimated(true);
-        apple.setDrawable(true);
+        apple.setDrawable(false);
 
         potion.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         potion.setName("potion");
@@ -124,8 +306,8 @@ public class TestEntities {
         potion.setHealth(100);
         potion.setMass(100);
         potion.setVolume(100);
-        potion.setAnimated(true);
-        potion.setDrawable(true);
+        potion.setAnimated(false);
+        potion.setDrawable(false);
         pack.getStats().add(condition,health,  on, classuz);
 
 
@@ -144,14 +326,14 @@ public class TestEntities {
         scroll.setHealth(100);
         scroll.setMass(100);
         scroll.setVolume(100);
-        scroll.setAnimated(true);
-        scroll.setDrawable(true);
+        scroll.setAnimated(false);
+        scroll.setDrawable(false);
         scroll.getStats().add(condition, on, classuz);
 
 
 
         sword.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        sword.setBody("swordMale");
+        sword.setAnimatableBodyName("swordMale");
         sword.setName("sword");
         sword.setImageName("sword1");
         sword.setBrightness( .67f);
@@ -164,12 +346,12 @@ public class TestEntities {
         sword.setHealth(100);
         sword.setMass(100);
         sword.setVolume(100);
-        sword.setAnimated(true);
-        sword.setDrawable(true);
+        sword.setAnimated(false);
+        sword.setDrawable(false);
 
 
         spear.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        spear.setBody("spear");
+        spear.setAnimatableBodyName("spear");
         spear.setName("spear");
         spear.setImageName("spear1");
         spear.setBrightness( .67f);
@@ -191,12 +373,12 @@ public class TestEntities {
         spear.setHealth(100);
         spear.setMass(100);
         spear.setVolume(100);
-        spear.setAnimated(true);
-        spear.setDrawable(true);
+        spear.setAnimated(false);
+        spear.setDrawable(false);
 
 
         axe.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        axe.setBody("axe");
+        axe.setAnimatableBodyName("axe");
         axe.setName("axe");
         axe.setImageName("axe1");
         axe.setBrightness( .67f);
@@ -209,12 +391,12 @@ public class TestEntities {
         axe.setHealth(100);
         axe.setMass(100);
         axe.setVolume(100);
-        axe.setAnimated(true);
-        axe.setDrawable(true);
+        axe.setAnimated(false);
+        axe.setDrawable(false);
 
 
         shovel.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        shovel.setBody("shovel");
+        shovel.setAnimatableBodyName("shovel");
         shovel.setName("shovel");
         shovel.setImageName("shovel1");
         shovel.setBrightness( .67f);
@@ -227,13 +409,13 @@ public class TestEntities {
         shovel.setHealth(100);
         shovel.setMass(100);
         shovel.setVolume(100);
-        shovel.setAnimated(true);
-        shovel.setDrawable(true);
+        shovel.setAnimated(false);
+        shovel.setDrawable(false);
 
 
 
         bow.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        bow.setBody("bow");
+        bow.setAnimatableBodyName("bow");
         bow.setName("bow");
         bow.setImageName("bow1");
         bow.setBrightness( .67f);
@@ -246,8 +428,8 @@ public class TestEntities {
         bow.setHealth(100);
         bow.setMass(100);
         bow.setVolume(100);
-        bow.setAnimated(true);
-        bow.setDrawable(true);
+        bow.setAnimated(false);
+        bow.setDrawable(false);
 
 
     }
