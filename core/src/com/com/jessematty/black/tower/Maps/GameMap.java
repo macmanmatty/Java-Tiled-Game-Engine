@@ -246,8 +246,15 @@ public abstract  class GameMap  implements Map {
 	 * @param mapLocationY the  y location  map in world units 
 	 * @return the LandSquareTile at point location.
 	 */
+
+	/**
+	 *  takes  in float world unit coordinates and returns the   the tile area at that point.
+	 * @param mapLocationX the  x location  map in world units
+	 * @param mapLocationY the  y location  map in world units
+	 * @return the LandSquareTile at point location.
+	 */
 	public LandSquareTile getTileFromWorldUnitCoordinates(float mapLocationX, float mapLocationY) {
-		return getTile((int) Math.ceil(mapLocationX / tileWidth)-1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
+		return getTile((int) Math.ceil(mapLocationX / tileWidth)-1,  yTiles-(int) Math.ceil(mapLocationY / tileHeight));
 	}
 	/**
 	 *
@@ -327,7 +334,7 @@ public abstract  class GameMap  implements Map {
 	public Array<LandSquareTile> getAllTilesAndAddEntity(float xMin, float yMin, float xMax, float yMax, Entity entity){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
 		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
-			for (float county = yMin; county < yMax; county = county + tileHeight) {
+			for (float county = yMin; county <yMax; county = county + tileHeight) {
 				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;
@@ -339,7 +346,7 @@ public abstract  class GameMap  implements Map {
 		return tiles;
 	}
 	public Array<LandSquareTile> getAllTiles(Rectangle rectangle) {
-		return getAllTiles(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y);
+		return getAllTiles(rectangle.x, rectangle.y,Math.max(rectangle.width+rectangle.x, 1), Math.max(rectangle.height+rectangle.y, 1));
 	}
 	/**
 	 * finds all tiles for a given  rectangle bounds with given side points and adds them to a list and returns them .
@@ -351,8 +358,8 @@ public abstract  class GameMap  implements Map {
 	 */
 	public Array<LandSquareTile> getAllTiles(float xMin, float yMin, float xMax, float yMax){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-		for (float countx=xMin-10; countx<xMax; countx=countx+ tileWidth) {
-			for (float county = yMin-10; county < yMax; county = county + tileHeight) {
+		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
+			for (float county = yMin; county < yMax; county = county + tileHeight) {
 				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;

@@ -3,12 +3,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.SolidObject;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
@@ -21,6 +23,8 @@ import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.io.IOException;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class TestMap {
     GameAssets assetts;
@@ -63,8 +67,13 @@ public class TestMap {
         position.setBoundsXOffset(16);
         position.setHeight(10);
         position.setMapID(map2.getId());
-        entityBag.getOwner().getComponent(NumericStats.class).getNumericStats().get("speed").setMaxValue(70);
-        entityBag.getOwner().getComponent(NumericStats.class).getNumericStats().get("speed").setValue(70);
+        MovableComponent movableComponent= entityBag.getOwner().getComponent(MovableComponent.class);
+        movableComponent.setCurrentSpeed(100000);
+        NumericStats numericStats=entityBag.getOwner().getComponent(NumericStats.class);
+        numericStats.getNumericStat("speed").setMinValue(10);
+        numericStats.getNumericStat("speed").setMaxValue(10000);
+        numericStats.getNumericStat("speed").setValue(100);
+
         int size=entityBag.getEntities().size;
         for(int count=0; count<size; count++){
             entityBag.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
@@ -74,10 +83,10 @@ public class TestMap {
       EntityBag entity1= entityBagObjectMap.get("tree");
         entity1.getOwner().add(new SolidObject());
        PositionComponent position2 =entity1.getOwner().getComponent(PositionComponent.class);
-        position2.setBounds(200, 300);
+        position2.setBounds(196, 320);
         position2.setHeight(10);
-        position2.setLocationX(200);
-        position2.setLocationY(200);
+        position2.setLocationX(196);
+        position2.setLocationY(196);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getOwner());
@@ -107,7 +116,7 @@ public class TestMap {
             physicalObjectComponent.setMass(Float.MAX_VALUE);
             physicalObjectComponent.setVolume(100);
             landSquareTile.add(physicalObjectComponent);
-            landSquareTile.getComponent(PositionComponent.class).setBounds(32, 32);
+            landSquareTile.getComponent(PositionComponent.class).setBounds(32, 64);
         }
         world.setStartMap(map2.getId());
         world.setName("game");

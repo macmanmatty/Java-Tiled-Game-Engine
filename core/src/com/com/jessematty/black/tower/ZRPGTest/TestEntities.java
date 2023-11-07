@@ -87,7 +87,6 @@ public class TestEntities {
         lizard.setBody(true);
         lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
 
-
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");
@@ -97,10 +96,10 @@ public class TestEntities {
         tail.setColorB(.1f);
         tail.setColorR(0);
         tail.setColorG(1);
-        tail.setBoundsX(100);
-        tail.setBoundsY(100);
+        tail.setBoundsX(0);
+        tail.setBoundsY(0);
         tail.setHealth(100);
-        tail.setMass(100);
+        tail.setMass(10000);
         tail.setVolume(100);
         tail.setMoveable(true);
         tail.setAnimated(true);

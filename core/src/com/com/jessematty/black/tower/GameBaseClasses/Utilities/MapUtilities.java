@@ -68,19 +68,20 @@ public class MapUtilities {
      *  for given square of tiles  in the  x and y axis on a given map
      *  by adding all of the Entities from the tile components
      * @param map the map to search on
-     * @param screenLocationX the x  location of the center tile
-     * @param screenLocationY the y location of the center tile
+     * @param worldUnitsX the x  location of the center tile
+     * @param worldUnitsY the y location of the center tile
      * @param xTiles the x distance  to search from the center tile
      * @param yTiles the y distance  to search from the center tile
      * @return an Array of Entities  an array of all entities including the tiles themselves Tiles are Entities
      */
-    public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
-        int tileSizeX=map.getTileWidth();
-        int tileSizeY=map.getTileHeight();
+    public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float worldUnitsX, float worldUnitsY, int xTiles, int yTiles){
         Array<Entity> entities= new Array<>();
+        LandSquareTile currentTile=map.getTileFromWorldUnitCoordinates(worldUnitsX, worldUnitsY);
+        int xTile=currentTile.getLocationX();
+        int yTile=currentTile.getLocationY();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.getMapSquareOrNull(xTile + countx, yTile + county);
                 // get tile occupants
                 if (tile != null) {
                     // add the tile entity

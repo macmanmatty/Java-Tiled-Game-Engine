@@ -7,6 +7,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
@@ -79,6 +80,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
              int checkDistanceY = (int)(( Math.abs(entitySpeed.y)+entityBounds.height)/tileSizeY)+1; // how far to check in the yAxis;
             // get all owned entities of the movable
         Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
+        System.out.println("Entities "+entities.size());
                 int size2 = occupants.size;
                 for (int count = 0; count < size2; count++) {
                     Entity occupant = occupants.get(count);

@@ -13,7 +13,9 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.Print;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 /**
  * System that moves  Entities on the Ground to be moved an Entity  must have
@@ -74,6 +76,8 @@ public class MoveOnGroundSystem extends GameEntitySystem {
             movableComponent.setCurrentSpeed(speedValue);
             actionComponent.setStat("move");
                 PositionComponent position = positions.get(entity);
+            LandSquareTile tile=getDraw().getCurrentMap().getTileFromWorldUnitCoordinates(position.getLocationX(), position.getLocationY());
+            Print.printXY("tile ", tile.getLocationX(), tile.getLocationY());
                 GameMap  map=getDraw().getWorld().getMap(position.getMapId());
                 if (movableComponent.getCurrentSpeed() > 0) {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);

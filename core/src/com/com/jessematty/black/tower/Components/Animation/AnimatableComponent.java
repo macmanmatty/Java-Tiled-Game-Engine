@@ -211,7 +211,7 @@ public class AnimatableComponent implements SerializableComponet{
     public   int getCurrentLayerNumber(){
 
      Animation animation=animations.get(currentDirection.toString()).get(currentAction);
-     System.out.println("Layer Number: "+currentLayerNumber +" Direction: "+currentDirection +" Action: "+currentAction);
+     //System.out.println("Layer Number: "+currentLayerNumber +" Direction: "+currentDirection +" Action: "+currentAction);
      if(animation!=null) {
      currentLayerNumber=animation.getLayerNumber();
      }
