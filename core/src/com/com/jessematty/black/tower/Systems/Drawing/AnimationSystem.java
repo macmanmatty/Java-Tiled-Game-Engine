@@ -64,6 +64,11 @@ public  class AnimationSystem extends GameEntitySystem {
                 }
 
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
+                int turnsToComplete=actionComponent.getTurnsToCompletion();
+                if(actionComponent.getTurns()>turnsToComplete && turnsToComplete>0){
+                    actionComponent.stopAction();
+                }
+                actionComponent.addTurn();
                 String currentAction= actionComponent.getStat();
                 actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
                 actionComponent.setCurrentFrame(animatable.getCurrentFrameNumber());

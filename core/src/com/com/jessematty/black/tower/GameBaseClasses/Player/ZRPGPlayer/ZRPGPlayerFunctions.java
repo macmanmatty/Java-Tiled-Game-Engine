@@ -6,7 +6,9 @@ import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.Other.Player;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -71,10 +73,18 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(decreaseSpeedCombo);
         InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
         playerControlFunctions.add(displayPackWindow);
+        InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
+        playerControlFunctions.add(slashCombo);
 
 
     }
+    private KeyAction slash =new KeyAction(){
+        @Override
+        public void act()  {
+            player.getActionComponent().setStat("slash");
+            player.getActionComponent().setTurnsToCompletion(80);
 
+        }};
     /**
      * displays the players pack window
      */
@@ -164,6 +174,8 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.decreaseSpeed(player);
 
         }};
+
+
 
     private KeyAction addItemToPackLeft =new KeyAction(){
         @Override

@@ -114,19 +114,4 @@ public class CharacterMoveFunctions {
             speed.subtractValue(1);
         }
 
-    /**
-     * method that moves a RPG Character  object to given x, y location on the map
-     *
-     * @param x the x location to move to
-     * @param y the y location to move to
-     * @return a boolean that stats whether or not  the move can be completed
-     */
-    public static boolean moveToLocation(float x, float y){
-
-
-
-        return false;
-
-        }
-
 }

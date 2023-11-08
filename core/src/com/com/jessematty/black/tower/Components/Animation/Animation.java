@@ -59,6 +59,8 @@ public class Animation implements ColorSettable {
      * the offsets of the animation
      */
     private Vector2 offsets= new Vector2();
+
+
     public AtlasNamedAtlasRegion[] getFrames() {
         return frames;
     }
