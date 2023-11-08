@@ -54,10 +54,8 @@ public class MapUtilitiesTest {
     @Test
     public void testGetAllEntitiesAndTiles(){
         LandSquareTile tile2=testMap.testMap1.getTileFromWorldUnitCoordinates(222,222);
-
-     Array<Entity> entities = MapUtilities.getAllEntitiesAndTiles(testMap.testMap2, 190, 189,  50, 50);
+     Array<Entity> entities = MapUtilities.getAllEntitiesAndTiles(testMap.testMap1, 161, 160,  2, 2);
      assertEquals(true, entities.contains(movable1, true));
-
      assertEquals(testMap.testMap1.getTileFromWorldUnitCoordinates(222,222).getEntities().size, 1);
      assertEquals(testMap.testMap1.getEntities().size, 1);
 

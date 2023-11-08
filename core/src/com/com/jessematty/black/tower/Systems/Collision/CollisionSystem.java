@@ -79,7 +79,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
             int checkDistanceX = (int)((Math.abs(entitySpeed.x)+entityBounds.width)/tileSizeX)+1; // how far to check in the xAxis;
              int checkDistanceY = (int)(( Math.abs(entitySpeed.y)+entityBounds.height)/tileSizeY)+1; // how far to check in the yAxis;
             // get all owned entities of the movable
-        Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
+        Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX+1, checkDistanceY+1);
         System.out.println("Entities "+entities.size());
                 int size2 = occupants.size;
                 for (int count = 0; count < size2; count++) {

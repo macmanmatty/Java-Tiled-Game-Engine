@@ -6,11 +6,11 @@ import com.badlogic.ashley.core.Component;
  */
 public class PhysicalObjectComponent implements Component { // component for objects that have a  mass and  a volume
     /**
-     * entities mass in world mass units
+     * entities mass in world mass units can't be less than or equal to zero
      */
     private float mass = 1f; // the entities mass
     /**
-     * entities volume in world volume units
+     * entities volume in world volume units can't be less than or equal to zero
      */
     private float volume = 1f;// the entities  volume
     /**
@@ -38,6 +38,9 @@ public class PhysicalObjectComponent implements Component { // component for obj
 
     public void setMass(float mass) {
         this.mass = mass;
+        if(mass<=0){
+            this.mass=1;
+        }
     }
 
     public float getVolume() {
@@ -46,6 +49,9 @@ public class PhysicalObjectComponent implements Component { // component for obj
 
     public void setVolume(float volume) {
         this.volume = volume;
+        if(this.volume<=0){
+            this.volume=1;
+        }
     }
 
     public float getDensity() {

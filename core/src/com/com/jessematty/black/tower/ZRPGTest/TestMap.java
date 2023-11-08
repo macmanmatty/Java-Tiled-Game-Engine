@@ -83,10 +83,10 @@ public class TestMap {
       EntityBag entity1= entityBagObjectMap.get("tree");
         entity1.getOwner().add(new SolidObject());
        PositionComponent position2 =entity1.getOwner().getComponent(PositionComponent.class);
-        position2.setBounds(196, 320);
-        position2.setHeight(10);
-        position2.setLocationX(196);
-        position2.setLocationY(196);
+        position2.setBounds(192, 320);
+        position2.setHeight(100);
+        position2.setLocationX(192);
+        position2.setLocationY(192);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getOwner());

@@ -75,7 +75,7 @@ public class TestEntities {
         lizard.setBoundsX(32);
         lizard.setBoundsY(64);
         lizard.setHealth(100);
-        lizard.setMass(100);
+        lizard.setMass(.0001f);
         lizard.setVolume(100);
         lizard.setMoveable(true);
         lizard.setAnimated(true);
@@ -99,7 +99,7 @@ public class TestEntities {
         tail.setBoundsX(0);
         tail.setBoundsY(0);
         tail.setHealth(100);
-        tail.setMass(10000);
+        tail.setMass(10);
         tail.setVolume(100);
         tail.setMoveable(true);
         tail.setAnimated(true);
