@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Entity.Functions;
+package com.jessematty.black.tower.GameBaseClasses.Character;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -35,82 +35,66 @@ public class CharacterItemFunctions {
     private static  MapDraw mapDraw;
     private static  World world;
     public static  void pickUpItem(ZRPGCharacter zrpgCharacter) {
-        Holder[] holder = zrpgCharacter.getHandHolders();
-        if (holder[0].getItemToHoldId() == null || holder[1].getItemToHoldId() == null) {
-            PositionComponent position = zrpgCharacter.getPositionComponent();
-            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
-            Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), ItemComponent.class);
-            PickUpItemComponent pickUpItemComponent = new PickUpItemComponent();
-            String handId = "";
-            DominateHand dominateHand = zrpgCharacter.getDominateHand();
-            if (dominateHand == DominateHand.RIGHT) {
-                if (holder[0].getItemToHoldId() == null) {
-                    handId = idComponentMapper.get(zrpgCharacter.getHand(0)).getId();
-                }
-            } else if (holder[1].getItemToHoldId() == null) {
-                handId = idComponentMapper.get(zrpgCharacter.getHand(1)).getId();
-            }
-            pickUpItemComponent.setEntityToPickUpId(handId);
-            if (entities.size > 0) {
-                if (zrpgCharacter.isAutoPickUpFirstItem()) {
-                    entities.get(0).add(pickUpItemComponent);
-                    return;
-                } else {
-                    String text = "Select an Item to Pick Up";
-                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUpItemComponent, mapDraw), ScreenPosition.CENTER);
-                }
-            }
-        }
+//        Holder[] holder = zrpgCharacter.getHandHolders();
+//        if (holder[0].getItemToHoldId() == null || holder[1].getItemToHoldId() == null) {
+//            PositionComponent position = zrpgCharacter.getPositionComponent();
+//            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
+//            Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), ItemComponent.class);
+//            PickUpItemComponent pickUpItemComponent = new PickUpItemComponent();
+//            String handId = "";
+//            DominateHand dominateHand = zrpgCharacter.getDominateHand();
+//            if (dominateHand == DominateHand.RIGHT) {
+//                if (holder[0].getItemToHoldId() == null) {
+//                    handId = idComponentMapper.get(zrpgCharacter.getHand(0)).getId();
+//                }
+//            } else if (holder[1].getItemToHoldId() == null) {
+//                handId = idComponentMapper.get(zrpgCharacter.getHand(1)).getId();
+//            }
+//            pickUpItemComponent.setEntityToPickUpId(handId);
+//            if (entities.size > 0) {
+//                if (zrpgCharacter.isAutoPickUpFirstItem()) {
+//                    entities.get(0).add(pickUpItemComponent);
+//                    return;
+//                } else {
+//                    String text = "Select an Item to Pick Up";
+//                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUpItemComponent, mapDraw), ScreenPosition.CENTER);
+//                }
+//            }
+//        }
     }
 
-    private void dropItem(ZRPGCharacter player) {
+    public static void dropItem(ZRPGCharacter player) {
         Drop drop = new Drop();
         player.getHand(1).add(drop);
     }
 
-    private void eatItem(ZRPGCharacter player) {
-        Ingest ingest = new Ingest();
-        ingest.setIngestorID(player.getId());
-        player.getHand(1).add(ingest);
+    public static void eatItem(ZRPGCharacter player) {
+       player.getActionComponent().setStat("eat");
     }
-    private void slashItem(ZRPGCharacter player) {
-        Slash slash = new Slash();
-        Holder holder=player.getHandHolders()[1];
-        String itemToHoledID=holder.getItemToHoldId();
-        if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
-            Entity heldItem = world.getEntity(holder.getItemToHoldId());
-            heldItem.add(slash);
+    public static void slashItem(ZRPGCharacter player) {
+
             player.getActionComponent().setStat("slash");
-        }
+
     }
-    private void thrustItem(ZRPGCharacter player) {
-        Thrust thrust = new Thrust();
-        Holder holder=player.getHandHolders()[1];
-        String itemToHoledID=holder.getItemToHoldId();
-        if(itemToHoledID!=null && !itemToHoledID.isEmpty()) {
-            Entity heldItem = world.getEntity(holder.getItemToHoldId());
-            heldItem.add(thrust);
+    public static void thrustItem(ZRPGCharacter player) {
             player.getActionComponent().setStat("thrust");
-        }
     }
-    private void readItem( ZRPGCharacter player, int hand) {
-        Read read = new Read();
-        player.getHand(hand).add(read);
+    public static void readItem( ZRPGCharacter player, int hand) {
+        player.getActionComponent().setStat("read");
     }
-    private void shootItem( ZRPGCharacter player, int hand) {
-        Shoot shoot = new Shoot();
-        player.getHand(hand).add(shoot);
+    public static void shootItem( ZRPGCharacter player) {
+        player.getActionComponent().setStat("shoot");
     }
-    private void throwItem(ZRPGCharacter player, int handNumber) {
-        Throw throwV= new Throw();
-        Entity hand=player.getHand(handNumber);
-        if(hand!=null) {
-            hand.add(throwV);
-        }
+    public static void throwItem(ZRPGCharacter player, int handNumber) {
+        player.getActionComponent().setStat("throw");
+
+    }
+    private void spellCast(ZRPGCharacter player, int handNumber) {
+        player.getActionComponent().setStat("spellCast");
+
     }
     private void equipItem(ZRPGCharacter player) {
-        EquipItem equipItem= new EquipItem();
-        player.getHand(1).add(equipItem);
+
     }
     private void addItemToPack(ZRPGCharacter player, int hand){
         Holder []  holder=player.getHandHolders();

@@ -13,13 +13,11 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
-import com.jessematty.black.tower.Components.Other.Glow;
 import com.jessematty.black.tower.Components.Animation.AnimationState;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
-
 @Transient
 public  class AnimationSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
@@ -27,7 +25,6 @@ public  class AnimationSystem extends GameEntitySystem {
     private ComponentMapper<AnimatableComponent> animatableComponentMapper;
     private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
-    private  ComponentMapper<Glow> glowComponentMapper;
     private RenderSystem renderSystem;
     public AnimationSystem(MapDraw draw, RenderSystem system, int priority) {
         super(priority, draw );
@@ -39,7 +36,6 @@ public  class AnimationSystem extends GameEntitySystem {
         animatableComponentMapper =GameComponentMapper.getAnimatableComponentMapper();
         actionComponentMapper =GameComponentMapper.getActionComponentMapper();
         positionComponentMapper =GameComponentMapper.getPositionComponentMapper();
-        glowComponentMapper=GameComponentMapper.getGlowComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
@@ -51,9 +47,7 @@ public  class AnimationSystem extends GameEntitySystem {
             DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
             drawableComponent.setDraw(true);
             AnimatableComponent animatable= animatableComponentMapper.get(entity);
-
             if(animatable!=null) {
-
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
                 Direction direction=position.getDirection();
@@ -62,12 +56,8 @@ public  class AnimationSystem extends GameEntitySystem {
                 } else {
                     animatable.setCurrentDirection(Direction.getBaseDirection(direction));
                 }
-
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
                 int turnsToComplete=actionComponent.getTurnsToCompletion();
-                if(actionComponent.getTurns()>turnsToComplete && turnsToComplete>0){
-                    actionComponent.stopAction();
-                }
                 actionComponent.addTurn();
                 String currentAction= actionComponent.getStat();
                 actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
@@ -94,49 +84,14 @@ public  class AnimationSystem extends GameEntitySystem {
                 animatable.nextFrame();
                 if (animatable.getFinishedAnimating()) {
                     entity.add(new AnimationFinished());
+                    actionComponent.stopAction();
                 }
-
-
             }
 
-
-            Glow glow= glowComponentMapper.get(entity);
-            if(glow!=null){
-                drawableComponent.setDraw(true);
-                drawableComponent.setCalculateColor(true);
-            float brightness= drawableComponent.getBrightness();
-            if(!glow.isDecreaseBrightness()) {
-                brightness = brightness + glow.getIncrease();
-                double  maxValue=glow.getMaxValue();
-                if (brightness > maxValue) {
-                    glow.setDecreaseBrightness(true);
-                    brightness= (float) maxValue;
-                }
-                drawableComponent.setBrightness(brightness);
-                glow.setValue(brightness);
-            }
-
-            else{
-                brightness = brightness - glow.getIncrease();
-                double  minValue=glow.getMinValue();
-                if (brightness < minValue) {
-                    glow.setDecreaseBrightness(true);
-                    brightness= (float) minValue;
-                }
-                drawableComponent.setBrightness(brightness);
-                glow.setValue(brightness);
-
-            }
-
-
-        }
             drawableComponent.setLayerNumber(-position.getLocationY()- drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
             if(drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()){ // layer changed sort entities before drawing them
                 renderSystem.forceSort();
             }
-
-
-
         }
     }
 }

@@ -2,15 +2,11 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Other.Player;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Character.CharacterItemFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Character.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
@@ -81,8 +77,26 @@ public class ZRPGPlayerFunctions {
     private KeyAction slash =new KeyAction(){
         @Override
         public void act()  {
-            player.getActionComponent().setStat("slash");
-            player.getActionComponent().setTurnsToCompletion(80);
+            CharacterItemFunctions.slashItem(player);
+        }};
+
+
+    private KeyAction thrust=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.thrustItem(player);
+        }};
+    private KeyAction shoot=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.shootItem(player);
+
+        }};
+
+    private KeyAction eat=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.eatItem(player);
 
         }};
     /**

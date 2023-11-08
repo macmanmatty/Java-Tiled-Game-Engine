@@ -228,7 +228,7 @@ public class AnimatableComponent implements SerializableComponet{
         this.animationState = animationState;
     }
     public boolean getFinishedAnimating() {
-        if(currentFrameNumber==getCurrentNumberOfFrames() || currentAction.equals("move")){
+        if(currentFrameNumber==getCurrentNumberOfFrames() ){
             animationState=AnimationState.FINISHED;
             return true;
         }

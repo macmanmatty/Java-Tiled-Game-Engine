@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.GameBaseClasses.Entity.Functions;
+package com.jessematty.black.tower.GameBaseClasses.Character;
 
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Moved;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
@@ -6,6 +6,8 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 
 public class CharacterMoveFunctions {
+    private CharacterMoveFunctions() {
+    }
 
     /**
      * stops all player movement
@@ -26,6 +28,7 @@ public class CharacterMoveFunctions {
 
 
     }
+
 
     /**
      * moves player right
