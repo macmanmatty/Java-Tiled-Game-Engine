@@ -5,21 +5,71 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
+
+/**
+ * the animation class
+ */
 public class Animation implements ColorSettable {
+    /**
+     * the atlas regions that make up the the animation
+     */
   private  transient   AtlasNamedAtlasRegion [] frames= new AtlasNamedAtlasRegion[0];
+    /**
+     *  the names of the animations in the texture atlas
+     *  used for serialization and  deserialization
+     *
+     */
   private String [] atlasRegionNames = new String [0];
+
+    /**
+     * the name of the atlas that holds the texture regions
+     */
   private String atlasName;
+
+    /**
+     * the action the animation corresponds to
+     */
   
    private  String action="";
+    /**
+     * the sub layer number of the animation
+     */
     private int layerNumber;
+
+    /**
+     * the direction of the animation
+     */
     private Direction direction;
+    /**
+     * the color of the animation
+     */
     private NamedColor color= NamedColor.WHITE;
+
+    /**
+     * the openGL brightness of the animation
+     */
     private float brightness;
+
+    /**
+     * the frame rate of the animation
+     */
     private int frameRate;
+
+    /**
+     * the offsets of the animation
+     */
     private Vector2 offsets= new Vector2();
     public AtlasNamedAtlasRegion[] getFrames() {
         return frames;
     }
+
+    /**
+     * sets the frames of the animation
+     * and the names of the atlas regions
+     * used to create the animation.
+     *
+     * @param frames
+     */
     public void setFrames(AtlasNamedAtlasRegion[] frames) {
         this.frames = frames;
         int size=frames.length;
