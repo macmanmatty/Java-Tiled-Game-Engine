@@ -85,8 +85,8 @@ public class TestMap {
        PositionComponent position2 =entity1.getOwner().getComponent(PositionComponent.class);
         position2.setBounds(192, 320);
         position2.setHeight(100);
-        position2.setLocationX(192);
-        position2.setLocationY(192);
+        position2.setLocationX(198);
+        position2.setLocationY(195);
         position2.setMapID(map2.getId());
         position2.setMapID(map2.getId());
         world.setPlayer( entityBag.getOwner());

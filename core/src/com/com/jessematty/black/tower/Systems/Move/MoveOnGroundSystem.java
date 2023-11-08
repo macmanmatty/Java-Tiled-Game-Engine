@@ -76,8 +76,6 @@ public class MoveOnGroundSystem extends GameEntitySystem {
             movableComponent.setCurrentSpeed(speedValue);
             actionComponent.setStat("move");
                 PositionComponent position = positions.get(entity);
-            LandSquareTile tile=getDraw().getCurrentMap().getTileFromWorldUnitCoordinates(position.getLocationX(), position.getLocationY());
-            Print.printXY("tile ", tile.getLocationX(), tile.getLocationY());
                 GameMap  map=getDraw().getWorld().getMap(position.getMapId());
                 if (movableComponent.getCurrentSpeed() > 0) {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);

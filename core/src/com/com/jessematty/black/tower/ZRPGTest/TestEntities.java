@@ -111,8 +111,8 @@ public class TestEntities {
         tail.setBody(true);
         tail.setUpLayerOffset(-1);
         tail.setDownLayerOffset(1);
-      //  tail.setRightLayerOffset(1);
-      //  tail.setLeftLayerOffset(1);
+        tail.setRightLayerOffset(1);
+       tail.setLeftLayerOffset(1);
 
         tail.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
 
@@ -298,7 +298,7 @@ public class TestEntities {
         pack.setBoundsX(32);
         pack.setBoundsY(64);
         pack.setHealth(100);
-        pack.setMass(100);
+        pack.setMass(1);
         pack.setVolume(100);
         pack.setAnimated(false);
         pack.setDrawable(false);

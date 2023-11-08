@@ -7,7 +7,6 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-
 public class AnimatableComponent implements SerializableComponet{
     //ObjectMap of directions  that links to ObjectMap of actions and ObjectMap integers that links to the animations;
     protected    ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
@@ -24,7 +23,6 @@ public class AnimatableComponent implements SerializableComponet{
     protected boolean layerChanged;
     protected boolean newlyCreated =true;
     protected String defaultAction="rest";
-
     private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
         this(true);
@@ -54,13 +52,11 @@ public class AnimatableComponent implements SerializableComponet{
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
         }
-
         Animation animation=animations.get(direction.toString()).get(action);
         if(animation!=null) {
             return animation.getFrames().length;
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
         }
     }
@@ -73,7 +69,6 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrameRate();
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
         }   }
     public Vector2 getScreenOffsets(  Direction direction, String action) {
@@ -85,27 +80,18 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getOffsets();
         }
         else{
-
             return  new Vector2(0, 0);
         }      }
     public void setScreenOffset( Direction direction, String action,  float x, float y) {
         animations.get(direction.toString()).get(action).setOffsets(new Vector2(x, y));
     }
-
     // add an animation to the current animation map  or overwrites it  with the new data if it exits
     public void addAnimation(Animation animation){
-
         Direction direction=animation.getDirection();
         String action=animation.getAction();
         animations.get(direction.toString()).put(action,animation);
-
-
     }
-
-
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int layerNumber, NamedColor color, float brightness ){
-
-
             Animation animation= new Animation();
             animation.setFrames(regions);
             animation.setDirection(direction);
@@ -116,7 +102,6 @@ public class AnimatableComponent implements SerializableComponet{
             animation.setBrightness(brightness);
             animation.setColor(color);
         animations.get(direction.toString()).put(action,animation);
-
     }
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int layerNumber){
             Animation animation = new Animation();
@@ -127,9 +112,6 @@ public class AnimatableComponent implements SerializableComponet{
             animation.setOffsets(offsets);
             animation.setLayerNumber(layerNumber);
             animations.get(direction.toString()).put(action, animation);
-
-
-
     }
     public boolean isEightDirections() {
         return eightDirections;
@@ -146,7 +128,6 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getColor();
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getColor();
         }    }
     public String getCurrentAction() {
@@ -166,13 +147,11 @@ public class AnimatableComponent implements SerializableComponet{
         if(singleImage==true) {
             return staticTexture;
         }
-
         Animation animation=animations.get(currentDirection.toString()).get(currentAction);
         if(animation!=null) {
             return animation.getFrames()[currentFrameNumber];
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getFrames()[0];
         }
     }
@@ -192,31 +171,23 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrames().length;
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
         }    }
-
     public   int getCurrentFrameRate(){
         Animation animation=animations.get(currentDirection.toString()).get(currentAction);
         if(animation!=null) {
             return animation.getFrameRate();
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
         }    }
-
-
-
     public   int getCurrentLayerNumber(){
-
      Animation animation=animations.get(currentDirection.toString()).get(currentAction);
-     //System.out.println("Layer Number: "+currentLayerNumber +" Direction: "+currentDirection +" Action: "+currentAction);
+     if(!currentAction.equals("move") && !currentAction.equals("rest")){
+         System.out.println(currentAction);
+     }
      if(animation!=null) {
      currentLayerNumber=animation.getLayerNumber();
-     }
-     else{
-         currentLayerNumber=0;
      }
         if(previousLayerNumber!=currentLayerNumber){
             layerChanged=true;
@@ -232,7 +203,6 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getOffsets();
         }
         else{
-
             return animations.get(currentDirection.toString()).get(defaultAction).getOffsets();
         }
     }
@@ -290,64 +260,43 @@ public class AnimatableComponent implements SerializableComponet{
             }
             }
     }
-
     public ObjectMap<String, ObjectMap<String, Animation>> getAnimations() {
         return animations;
     }
-
-
-
     @Override
     public void serialize() {
-
     }
-
-
-
     public String getDefaultAction() {
         return defaultAction;
     }
-
     public void setDefaultAction(String defaultAction) {
         this.defaultAction = defaultAction;
     }
-
     public void setAnimations(ObjectMap<String, ObjectMap<String, Animation>> animations) {
         this.animations = animations;
     }
-
-
-
     public void setEightDirections(boolean eightDirections) {
         this.eightDirections = eightDirections;
     }
-
     public void setCurrentFrameNumber(int currentFrameNumber) {
         this.currentFrameNumber = currentFrameNumber;
     }
-
     public void setFrameRateCounter(int frameRateCounter) {
         this.frameRateCounter = frameRateCounter;
     }
-
     public void setCurrrentFrameRate(int currrentFrameRate) {
         this.currrentFrameRate = currrentFrameRate;
     }
-
     public void setPreviousLayerNumber(int previousLayerNumber) {
         this.previousLayerNumber = previousLayerNumber;
     }
-
     public void setCurrentLayerNumber(int currentLayerNumber) {
         this.currentLayerNumber = currentLayerNumber;
     }
-
     public void setLayerChanged(boolean layerChanged) {
         this.layerChanged = layerChanged;
     }
-
     public void setNewlyCreated(boolean newlyCreated) {
         this.newlyCreated = newlyCreated;
     }
-
 }
