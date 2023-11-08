@@ -68,7 +68,7 @@ public class Animation implements ColorSettable {
      * and the names of the atlas regions
      * used to create the animation.
      *
-     * @param frames
+     * @param frames the AtlasNamedAtlasRegions that make up the animation
      */
     public void setFrames(AtlasNamedAtlasRegion[] frames) {
         this.frames = frames;
