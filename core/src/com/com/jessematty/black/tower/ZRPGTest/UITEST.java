@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 
 
@@ -36,7 +38,6 @@ public class UITEST  implements Screen {
         testStage.setDebugInvisible(false);
         TextureAtlas atlas= gameAssets.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         gameAssets.finishLoading();
-
         for(int count=0; count<30; count++){
             NameComponent nameComponent= new NameComponent("name "+count);
             Entity entity= new Entity();
@@ -44,10 +45,13 @@ public class UITEST  implements Screen {
             entityArray.add(entity);
 
         }
-        Skin skin= gameAssetts.getDefaultSkin();
+        Skin skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
         entitySelectWindow= new EntitySelectWindow(skin, entityArray, gameAssets, null);
+
         entitySelectWindow.setPosition(200,200);
         entitySelectWindow.setMovable(true);
+        entitySelectWindow.setSkin(skin);
+
         testStage.addActor(entitySelectWindow);
         testStage.setDebugAll(true);
 

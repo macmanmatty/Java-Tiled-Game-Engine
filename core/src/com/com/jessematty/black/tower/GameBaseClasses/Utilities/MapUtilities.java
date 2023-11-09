@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 public class MapUtilities {
     private final static  RandomNumbers value= new RandomNumbers();
+
+    private MapUtilities() {
+    }
+
     public static void addEntityToTile(GameMap map, LandSquareTile tile, Entity entity, PositionComponent position){
         float screenLocationX=tile.getScreenLocationX();
        float screenLocationY= tile.getScreenLocationY();
@@ -662,6 +666,20 @@ public class MapUtilities {
         positionComponent.setMapID(tile.getMapId());
         positionComponent.getTiles().clear();
         positionComponent.getTiles().add(tile);
+    }
+
+    /**
+     * Returns a center LandSquareTile for a libGDx Rectangle
+     * @param map The GameMap Object
+     * @param rectangle the bounding box rectangle
+     * @return the LandSquareTile in the center of the Rectangle
+     */
+    public static LandSquareTile getCenterTile(GameMap map, Rectangle rectangle){
+        float centerX=rectangle.getWidth()/2;
+        float centerY=rectangle.getHeight()/2;
+        int centerPointX= (int) (rectangle.x+centerX);
+        int centerPointY= (int) (rectangle.y+centerY);
+        return map.getTileFromWorldUnitCoordinates(centerPointX, centerPointY);
     }
 
     public static  double calculateWeight(GameMap map, double mass){

@@ -92,6 +92,12 @@ public class ZRPGPlayerFunctions {
             CharacterItemFunctions.shootItem(player);
 
         }};
+    private KeyAction pickUpItem=new KeyAction(){
+        @Override
+        public void act()  {
+
+
+        }};
 
     private KeyAction eat=new KeyAction(){
         @Override

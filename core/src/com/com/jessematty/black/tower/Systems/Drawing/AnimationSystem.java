@@ -39,34 +39,33 @@ public  class AnimationSystem extends GameEntitySystem {
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, ActionComponent.class).get());
-        int size=entities.size();
-        for(int count=0; count<size; count++){
-            Entity entity=entities.get(count);
-            PositionComponent position= positionComponentMapper.get(entity);
+        entities = getEngine().getEntitiesFor(Family.all(OnCurrentMap.class, AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, ActionComponent.class).get());
+        int size = entities.size();
+        for (int count = 0; count < size; count++) {
+            Entity entity = entities.get(count);
+            PositionComponent position = positionComponentMapper.get(entity);
             DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
             drawableComponent.setDraw(true);
-            AnimatableComponent animatable= animatableComponentMapper.get(entity);
-            if(animatable!=null) {
+            AnimatableComponent animatable = animatableComponentMapper.get(entity);
+            if (animatable != null) {
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
-                Direction direction=position.getDirection();
+                Direction direction = position.getDirection();
                 if (animatable.isEightDirections()) {
                     animatable.setCurrentDirection(position.getDirection());
                 } else {
                     animatable.setCurrentDirection(Direction.getBaseDirection(direction));
                 }
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
-                int turnsToComplete=actionComponent.getTurnsToCompletion();
+                int turnsToComplete = actionComponent.getTurnsToCompletion();
                 actionComponent.addTurn();
-                String currentAction= actionComponent.getStat();
+                String currentAction = actionComponent.getStat();
                 actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
                 actionComponent.setCurrentFrame(animatable.getCurrentFrameNumber());
-                actionComponent.setFrameRate(animatable.getFrameRate(direction,currentAction ));
+                actionComponent.setFrameRate(animatable.getFrameRate(direction, currentAction));
                 //set actions
                 if ((!animatable.getCurrentAction().equals(currentAction))) {
                     animatable.setCurrentAction(currentAction);
-                    animatable.setAnimationState(AnimationState.ACTING);
                 }
                 drawableComponent.setSubLayerNumber(animatable.getCurrentLayerNumber());
                 drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
@@ -82,15 +81,14 @@ public  class AnimationSystem extends GameEntitySystem {
                     }
                 }
                 animatable.nextFrame();
-                if (animatable.getFinishedAnimating()) {
+                if (animatable.isFinishedAnimating()) {
                     entity.add(new AnimationFinished());
                     actionComponent.stopAction();
                 }
-            }
-
-            drawableComponent.setLayerNumber(-position.getLocationY()- drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
-            if(drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()){ // layer changed sort entities before drawing them
-                renderSystem.forceSort();
+                drawableComponent.setLayerNumber(-position.getLocationY() - drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
+                if (drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()) { // layer changed sort entities before drawing them
+                    renderSystem.forceSort();
+                }
             }
         }
     }

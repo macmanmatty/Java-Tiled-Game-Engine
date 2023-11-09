@@ -351,7 +351,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         if(animatable!=null){
             PositionComponent position=GameComponentMapper.getPositionComponentMapper().get(entity);
             Direction direction=position.getDirection();
-           Animation animation=animatable.getAnamation(direction, action);
+           Animation animation=animatable.getAnimation(direction, action);
             if(animation!=null){
                 time=animation.getFrameRate()*animation.getFrames().length;
            }

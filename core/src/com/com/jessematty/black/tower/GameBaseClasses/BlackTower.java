@@ -1,13 +1,18 @@
 package com.jessematty.black.tower.GameBaseClasses;
 import com.badlogic.gdx.Game;
 import com.jessematty.black.tower.GameBaseClasses.Screens.MainScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
+import com.jessematty.black.tower.ZRPGTest.UITEST;
+
+import java.util.Stack;
 
 public class BlackTower extends Game {
 private GameAssets gameAssets;
-private String assetsPath="testAssets";
 public void MainGame(){
 }
 	public void makeMainWindow(){
+
+
 	}
 	@Override
 	public void create () {

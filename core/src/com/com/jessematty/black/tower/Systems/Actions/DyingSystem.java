@@ -46,7 +46,7 @@ public class DyingSystem extends GameEntitySystem {
                 dying.setDying(true);
                 AnimatableComponent animatable=animatableComponentMapper.get(entity);
                 if(animatable!=null){
-                    Animation animation=animatable.getAnamation(position.getDirection(), "die");
+                    Animation animation=animatable.getAnimation(position.getDirection(), "die");
                     if(animation!=null){
                         dying.setTimeToDie(animation.getFrames().length*animation.getFrameRate());
                     }

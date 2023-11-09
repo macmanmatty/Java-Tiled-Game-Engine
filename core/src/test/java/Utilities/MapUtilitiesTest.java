@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -53,11 +54,47 @@ public class MapUtilitiesTest {
     }
     @Test
     public void testGetAllEntitiesAndTiles(){
-        LandSquareTile tile2=testMap.testMap1.getTileFromWorldUnitCoordinates(222,222);
      Array<Entity> entities = MapUtilities.getAllEntitiesAndTiles(testMap.testMap1, 161, 160,  2, 2);
      assertEquals(true, entities.contains(movable1, true));
      assertEquals(testMap.testMap1.getTileFromWorldUnitCoordinates(222,222).getEntities().size, 1);
      assertEquals(testMap.testMap1.getEntities().size, 1);
+
+    }
+
+    @Test
+    public void testGetCenterTile() {
+        Rectangle rectangle = new Rectangle();
+        rectangle.x = 0;
+        rectangle.y = 0;
+        rectangle.height = 32;
+        rectangle.width = 32;
+        LandSquareTile landSquareTile = MapUtilities.getCenterTile(testMap.testMap1, rectangle);
+        assertEquals(0, landSquareTile.getLocationX());
+        assertEquals(49, landSquareTile.getLocationY());
+    }
+    @Test
+       public void  testGetCenterTile2(){
+        Rectangle rectangle2= new Rectangle();
+        rectangle2.x=10;
+        rectangle2.y=10;
+        rectangle2.height=99;
+        rectangle2.width=99;
+        LandSquareTile landSquareTile2 = MapUtilities.getCenterTile(testMap.testMap1,rectangle2);
+        assertEquals(1, landSquareTile2.getLocationX());
+        assertEquals(48, landSquareTile2.getLocationY());
+
+    }
+
+    @Test
+    public void  testGetCenterTile3(){
+        Rectangle rectangle2= new Rectangle();
+        rectangle2.x=0;
+        rectangle2.y=0;
+        rectangle2.height=0;
+        rectangle2.width=0;
+        LandSquareTile landSquareTile2 = MapUtilities.getCenterTile(testMap.testMap1,rectangle2);
+        assertEquals(0, landSquareTile2.getLocationX());
+        assertEquals(49, landSquareTile2.getLocationY());
 
     }
 
