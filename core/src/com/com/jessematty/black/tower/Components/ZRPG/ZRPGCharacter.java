@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Components.Other;
+package com.jessematty.black.tower.Components.ZRPG;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -16,6 +16,12 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.Other.AIComponent;
+import com.jessematty.black.tower.Components.Other.DominateHand;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
+import com.jessematty.black.tower.Components.Other.Nose;
+import com.jessematty.black.tower.Components.Other.Playable;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -41,16 +47,15 @@ public class ZRPGCharacter implements Component {
     private  OwnerComponent ownerComponent;
     private ZRPGBrainComponent ZRPGBrainComponen;
     private Ears ears;
-    private   Nose nose;
+    private Nose nose;
     private Eyes eyes;
     private String id;
-    private  PhysicalObjectComponent physicalObject;
+    private PhysicalObjectComponent physicalObject;
     private DrawableComponent drawableComponent;
     private  AnimatableComponent animatable;
     private Thrower thrower;
-    private  Entity rightHand;
+    private  Entity [] hands= new Entity[2];
     private  Holder[]  handHolders= new Holder[2];
-    private  Entity leftHand;
     private   Entity leftFoot;
     private  Entity rightFoot;
     private Array<Entity> packs= new Array<>();
@@ -68,6 +73,7 @@ public class ZRPGCharacter implements Component {
     private boolean autoAddToFirstPack;
     private ZRPGPlayerButtonModes buttonMode;
     private int handToUse;
+
     public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
         AIComponent aiComponent= new AIComponent();
@@ -90,10 +96,10 @@ public class ZRPGCharacter implements Component {
         this.imageComponent=playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.ImageComponent.class);
         this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
         this.id=playerEntity.getComponent(EntityId.class).getId();
-       this.rightHand=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
-       this.leftHand=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-       handHolders[1]=rightHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
-        handHolders[0]=leftHand.getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+       this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
+       this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
+       handHolders[1]=hands[1].getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+        handHolders[0]=hands[0].getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
         this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
         this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));
         this.thrower= playerEntity.getComponent(com.jessematty.black.tower.Components.Attacks.Thrower.class);
@@ -228,13 +234,6 @@ public class ZRPGCharacter implements Component {
         return position;
     }
 
-    public Entity getRightHand() {
-        return rightHand;
-    }
-
-    public Entity getLeftHand() {
-        return leftHand;
-    }
 
     public Array<Entity> getPacks() {
         return packs;
@@ -249,6 +248,7 @@ public class ZRPGCharacter implements Component {
     }
 
     public Entity getHand(int i) {
-        return null;
+        return hands[i];
     }
+
 }

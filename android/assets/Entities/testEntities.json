@@ -65,14 +65,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: b6e484ff-7908-4a6a-97bc-95adc1bda8f3
+	tmxObjectId: 9c9efafe-56a1-4ea5-b884-7d09e1f5f0d0
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -191,7 +191,7 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: [
 		leftHand
 		rightHand
@@ -208,7 +208,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 6c7a6b0c-b4fe-49bd-991e-55c1f5204bb1
+	tmxObjectId: 3958f7de-6e95-4361-a16c-4f623ac203ae
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -321,14 +321,18 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: leftFoot
-			attachableParts: []
-			body: false
+			partClass: leftFoot
+			attachableParts: [
+				ring
+				shoe
+				bracelet
+			]
+			body: true
 			wearable: false
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: d9dec030-0a48-4571-b04f-23cf181e79fd
+			tmxObjectId: 25a4e343-78db-41cc-b22a-7d915b7c2b01
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -446,9 +450,13 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: rightFoot
-			attachableParts: []
-			body: false
+			partClass: rightFoot
+			attachableParts: [
+				ring
+				shoe
+				bracelet
+			]
+			body: true
 			wearable: false
 			pack: false
 			plant: false
@@ -571,9 +579,13 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: rightHand
-			attachableParts: []
-			body: false
+			partClass: rightHand
+			attachableParts: [
+				ring
+				glove
+				bracelet
+			]
+			body: true
 			wearable: false
 			pack: false
 			plant: false
@@ -696,9 +708,13 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: leftHand
-			attachableParts: []
-			body: false
+			partClass: leftHand
+			attachableParts: [
+				ring
+				glove
+				bracelet
+			]
+			body: true
 			wearable: false
 			pack: false
 			plant: false
@@ -821,8 +837,13 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: head
-			attachableParts: []
+			partClass: torso
+			attachableParts: [
+				hat
+				helmet
+				mask
+				glasses
+			]
 			body: false
 			wearable: false
 			pack: false
@@ -946,9 +967,18 @@
 			shootable: false
 			holder: true
 			part: true
-			partName: torso
-			attachableParts: []
-			body: false
+			partClass: torso
+			attachableParts: [
+				armor
+				shirt
+				belt
+				pants
+				vest
+				backPack
+				pouch
+				quiver
+			]
+			body: true
 			wearable: false
 			pack: false
 			plant: false
@@ -1071,24 +1101,16 @@
 			shootable: false
 			holder: false
 			part: false
-			partName: null
+			partClass: null
 			attachableParts: [
-				leftHand
-				rightHand
-				leftFoot
-				rightFoot
-				torso
-				head
-				wings
-				tail
-				horns
+				ring
 			]
 			body: true
 			wearable: false
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 66d40aa7-1579-424c-a88f-3adb8cb54d14
+			tmxObjectId: a8865f09-ddaf-4c25-a39f-8741abe6fe3b
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1201,14 +1223,18 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: leftFoot
-					attachableParts: []
-					body: false
+					partClass: leftFoot
+					attachableParts: [
+						ring
+						shoe
+						bracelet
+					]
+					body: true
 					wearable: false
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: d9dec030-0a48-4571-b04f-23cf181e79fd
+					tmxObjectId: 25a4e343-78db-41cc-b22a-7d915b7c2b01
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1326,9 +1352,13 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: rightFoot
-					attachableParts: []
-					body: false
+					partClass: rightFoot
+					attachableParts: [
+						ring
+						shoe
+						bracelet
+					]
+					body: true
 					wearable: false
 					pack: false
 					plant: false
@@ -1451,9 +1481,13 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: rightHand
-					attachableParts: []
-					body: false
+					partClass: rightHand
+					attachableParts: [
+						ring
+						glove
+						bracelet
+					]
+					body: true
 					wearable: false
 					pack: false
 					plant: false
@@ -1576,9 +1610,13 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: leftHand
-					attachableParts: []
-					body: false
+					partClass: leftHand
+					attachableParts: [
+						ring
+						glove
+						bracelet
+					]
+					body: true
 					wearable: false
 					pack: false
 					plant: false
@@ -1701,8 +1739,13 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: head
-					attachableParts: []
+					partClass: torso
+					attachableParts: [
+						hat
+						helmet
+						mask
+						glasses
+					]
 					body: false
 					wearable: false
 					pack: false
@@ -1826,9 +1869,18 @@
 					shootable: false
 					holder: true
 					part: true
-					partName: torso
-					attachableParts: []
-					body: false
+					partClass: torso
+					attachableParts: [
+						armor
+						shirt
+						belt
+						pants
+						vest
+						backPack
+						pouch
+						quiver
+					]
+					body: true
 					wearable: false
 					pack: false
 					plant: false
@@ -1962,14 +2014,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 7c13d894-d606-45cd-9165-4ed911116db9
+	tmxObjectId: a6a35ef3-42a6-413b-91c9-da00ac493f6e
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2046,14 +2098,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 8c08b765-fd81-40fc-86de-89d938ae6b27
+	tmxObjectId: 3c1eaff4-ef03-4bc2-87df-68452d9da3f4
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2130,14 +2182,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: e9cc228f-dd56-4b79-a6b4-2443019ee6ef
+	tmxObjectId: 4cd0e80e-e25f-46d1-a6fa-6e061441b5d6
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2214,14 +2266,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 850d74e8-7912-4922-a612-0784c55fa628
+	tmxObjectId: 7a965bbd-2896-4075-889f-302291aef4d4
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2298,14 +2350,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: fd0a1388-6059-4432-89d1-3892778157d1
+	tmxObjectId: 7a12d3f5-5209-4bd6-9b89-2daa7ba39378
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2382,14 +2434,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: c0506ba2-e105-4af2-b2ee-4e926fb94877
+	tmxObjectId: 5b71bf2d-0051-4082-b9a4-3b88a4970eb5
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2405,7 +2457,7 @@
 	load: true
 	atlasName: textureAtlases/testAssets/testAssets.atlas
 	animatableBodyName: backPack
-	sex: Male
+	sex: ""
 	name: pack
 	info: info
 	brightness: 0.67
@@ -2431,9 +2483,9 @@
 	hasEatFrames: true
 	hasPickupFrames: true
 	hasThrowFrames: true
-	animated: false
-	lpcActorAnimated: false
-	drawable: false
+	animated: true
+	lpcActorAnimated: true
+	drawable: true
 	hasImage: false
 	useDownFrame1AsImage: false
 	imageName: null
@@ -2562,15 +2614,15 @@
 	thrustable: false
 	shootable: false
 	holder: false
-	part: false
-	partName: null
+	part: true
+	partClass: backPack
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 3dd02e56-21b1-43c8-ad6a-995e930b10d0
+	tmxObjectId: 01091240-ee6e-4a8e-a58b-f7a66aae4edc
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2689,14 +2741,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: b8640073-aa7d-439e-a2d5-370762331953
+	tmxObjectId: 8cb1391a-05b6-4dea-aa63-0c1afbbe9304
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2773,14 +2825,14 @@
 	shootable: false
 	holder: false
 	part: false
-	partName: null
+	partClass: null
 	attachableParts: []
 	body: false
 	wearable: false
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 46e35f75-6db5-4c99-a552-590c95a5ad66
+	tmxObjectId: 4aad20e9-6162-44ea-8901-f5c84e46f964
 	bounds: null
 	groups: []
 	groupsAddable: []

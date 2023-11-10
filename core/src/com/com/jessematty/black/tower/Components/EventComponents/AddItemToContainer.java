@@ -3,7 +3,7 @@ package com.jessematty.black.tower.Components.EventComponents;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
 
 
 /**

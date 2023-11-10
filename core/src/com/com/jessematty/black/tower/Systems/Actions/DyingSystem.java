@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
+import com.jessematty.black.tower.Components.Item.ItemAction.DropItemComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
@@ -73,8 +73,8 @@ public class DyingSystem extends GameEntitySystem {
                     ItemComponent item = itemComponentMapper.get(ownedEntity);
                     // unless owned entity is an item and is drop able remove it from engine
                     if (item != null && item.isDropOnoDie()) {
-                        Drop drop = new Drop();
-                        entity.add(drop);
+                        DropItemComponent dropItemClass = new DropItemComponent();
+                        entity.add(dropItemClass);
                     } else {
                         ownedEntity.add(new RemoveFromEngine());
                     }

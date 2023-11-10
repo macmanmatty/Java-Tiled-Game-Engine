@@ -106,7 +106,7 @@ default
   orig: 254, 139
   offset: 0, 0
   index: -1
-expand-drop-down
+expand-dropItemClass-down
   rotate: false
   xy: 264, 238
   size: 6, 4

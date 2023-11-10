@@ -112,9 +112,9 @@ public class TestEntities {
         tail.setUpLayerOffset(-1);
         tail.setDownLayerOffset(1);
         tail.setRightLayerOffset(1);
-       tail.setLeftLayerOffset(1);
+        tail.setLeftLayerOffset(1);
+        tail.getAttachableParts().addAll("ring");
 
-        tail.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
 
 
         leftHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -140,7 +140,10 @@ public class TestEntities {
         leftHand.setHumanLikeCharacter(true);
         leftHand.setTmxObjectId("1");
         leftHand.setPart(true);
-        leftHand.setPartName("leftHand");
+        leftHand.setPartClass("leftHand");
+        leftHand.setBody(true);
+        leftHand.getAttachableParts().addAll("ring", "glove", "bracelet");
+
 
 
 
@@ -167,7 +170,10 @@ public class TestEntities {
         rightHand.setHumanLikeCharacter(true);
         rightHand.setTmxObjectId("2");
         rightHand.setPart(true);
-        rightHand.setPartName("rightHand");
+        rightHand.setPartClass("rightHand");
+        rightHand.setBody(true);
+        rightHand.getAttachableParts().addAll("ring", "glove", "bracelet");
+
 
 
         rightFoot.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -193,7 +199,10 @@ public class TestEntities {
         rightFoot.setHumanLikeCharacter(true);
         rightFoot.setTmxObjectId("3");
         rightFoot.setPart(true);
-        rightFoot.setPartName("rightFoot");
+        rightFoot.setPartClass("rightFoot");
+        rightFoot.setBody(true);
+        rightFoot.getAttachableParts().addAll("ring", "shoe", "bracelet");
+
 
 
 
@@ -219,7 +228,10 @@ public class TestEntities {
         leftFoot.setHolder(true);
         leftFoot.setPart(true);
         leftFoot.setPart(true);
-        leftFoot.setPartName("leftFoot");
+        leftFoot.setPartClass("leftFoot");
+        leftFoot.setBody(true);
+        leftFoot.getAttachableParts().addAll("ring", "shoe", "bracelet");
+
 
 
 
@@ -246,7 +258,9 @@ public class TestEntities {
         torso.setHumanLikeCharacter(true);
         torso.setTmxObjectId("5");
         torso.setPart(true);
-        torso.setPartName("torso");
+        torso.setBody(true);
+        torso.getAttachableParts().addAll("armor", "shirt", "belt", "pants", "vest", "backPack", "pouch", "quiver");
+        torso.setPartClass("torso");
 
 
 
@@ -274,7 +288,9 @@ public class TestEntities {
         head.setHumanLikeCharacter(true);
         head.setTmxObjectId("6");
         head.setPart(true);
-        head.setPartName("head");
+        head.setPartClass("head");
+        head.getAttachableParts().addAll("hat", "helmet", "mask", "glasses");
+        head.setPartClass("torso");
 
 
         tree.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -289,6 +305,7 @@ public class TestEntities {
 
         pack.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         pack.setAnimatableBodyName("backPack");
+        pack.setSex("");
         pack.setName("pack");
         pack.setBrightness( .67f);
         pack.setColorA(1);
@@ -300,9 +317,13 @@ public class TestEntities {
         pack.setHealth(100);
         pack.setMass(1);
         pack.setVolume(100);
-        pack.setAnimated(false);
-        pack.setDrawable(false);
+        pack.setAnimated(true);
+        pack.setDrawable(true);
+        pack.setLpcActorAnimated(true);
         pack.getStats().add(condition, on, classuz);
+        pack.setLoad(true);
+        pack.setPart(true);
+        pack.setPartClass("backPack");
 
 
 

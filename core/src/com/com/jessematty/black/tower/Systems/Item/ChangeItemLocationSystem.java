@@ -7,7 +7,7 @@ import com.jessematty.black.tower.Components.Base.EntityId;
 
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

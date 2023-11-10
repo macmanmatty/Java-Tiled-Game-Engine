@@ -7,7 +7,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
@@ -21,7 +21,6 @@ import com.jessematty.black.tower.Maps.World;
 import org.junit.Test;
 
 import Maps.TestMap;
-import TestEntities.TestEntity;
 
 import static org.junit.Assert.assertEquals;
 

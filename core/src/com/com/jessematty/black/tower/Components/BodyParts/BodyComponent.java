@@ -3,9 +3,22 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
-public class BodyComponent implements Component {
-   private  HashMap<String, String> bodyParts = new HashMap<String, String>();
 
+/**
+ * component for bopy that has parts attached to it
+ */
+public class BodyComponent implements Component {
+
+    /**
+     * the map of body parts
+     * key is name
+     * value id the EntityID of the body part Entity
+     */
+    private  HashMap<String, String> bodyParts = new HashMap<String, String>();
+
+    /**
+     * list of names of body parts that can be added.
+     */
    private Array<String> partsAddable= new Array<>();
     public BodyComponent() {
     }

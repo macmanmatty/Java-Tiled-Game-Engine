@@ -16,7 +16,7 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
@@ -393,14 +393,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
            }
             return new double[]{massAndVolume[0],  massAndVolume[1]};
    }
-  private static   double [] getTotalMassAndVolumeInternal(double []  massAndVolume, ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper, Entity entity){
-       PhysicalObjectComponent physicalObject= physicalObjectComponentMapper.get(entity);
-        if(physicalObject!=null){
-            massAndVolume[0]=massAndVolume[0]+physicalObject.getMass();
-            massAndVolume[1]=massAndVolume[1]+physicalObject.getVolume();
-        }
-      return  massAndVolume;
-    }
+
   public static  double [] getMassVolumeWeight( World world, Entity entity) {
        ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper = GameComponentMapper.getPhysicalObjectComponentMapper();
        PhysicalObjectComponent physicalObject = physicalObjectComponentMapper.get(entity);
@@ -470,17 +463,17 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
      * @param entityToAttach the entity  to attach to the body must have part component
      * @return the id of the entity previous entity if there was part that got replaced
      * if no part was replaced returns null
-     * if entity was unable to be attached returns the id of the entity toi be attached
+     * if entity was unable to be attached returns the id of the entity to be attached
      *
      */
     public static  String  attachPart(Entity entityToAttachTo,   Entity entityToAttach) {
         String leftoverPartId=GameComponentMapper.getIdComponentMapper().get(entityToAttach).getId();
         PartComponent partComponent = GameComponentMapper.getPartComponentComponentMapper().get(entityToAttach);
         BodyComponent bodyComponent = GameComponentMapper.getBodyComponentComponentMapper().get(entityToAttachTo);
-        if(partComponent!=null && bodyComponent!=null && InList.isInList(partComponent.getPartName(), bodyComponent.getPartsAddable())) {
+        if(partComponent!=null && bodyComponent!=null && InList.isInList(partComponent.getPartClass(), bodyComponent.getPartsAddable())) {
           boolean  attached = attachEntity(entityToAttachTo, entityToAttach, true);
             if (attached) {
-           leftoverPartId=   bodyComponent.getBodyParts().put(partComponent.getPartName(), leftoverPartId);
+           leftoverPartId=   bodyComponent.getBodyParts().put(partComponent.getPartClass(), leftoverPartId);
 
             }
         }

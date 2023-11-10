@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slas
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.SpellCast;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Talk;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
-import com.jessematty.black.tower.Components.Actions.ActionComponents;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
@@ -71,11 +71,11 @@ import com.jessematty.black.tower.Components.Other.Growable;
 import com.jessematty.black.tower.Components.Other.InfoComponent;
 import com.jessematty.black.tower.Components.Other.Ingestable;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Item.PickUpItemComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Other.Light;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.BoundsChangeable;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.RandomlyCreateAndPlaceEntity;
@@ -153,7 +153,7 @@ public class GameComponentMapper {
     private static ComponentMapper<BooleanStatChanged> booleanStatChangedComponentMapper = ComponentMapper.getFor(BooleanStatChanged.class);
     private static ComponentMapper<StringStatChanged> stringStatChangedComponentMapper = ComponentMapper.getFor(StringStatChanged.class);
     private static ComponentMapper<StatChanged> statChangedComponentMapper = ComponentMapper.getFor(StatChanged.class);
-    private static ComponentMapper<ActionComponents> actionComponentsComponentMapper = ComponentMapper.getFor(ActionComponents.class);
+    private static ComponentMapper<ItemActionComponents> actionComponentsComponentMapper = ComponentMapper.getFor(ItemActionComponents.class);
     private static ComponentMapper<InfoComponent> infoComponentMapper = ComponentMapper.getFor(InfoComponent.class);
     private static ComponentMapper<Ingestable> ingestableComponentMapper = ComponentMapper.getFor(Ingestable.class);
     private static ComponentMapper<Ingest> ingestingComponentMapper = ComponentMapper.getFor(Ingest.class);
@@ -258,7 +258,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NumericStatChanged.class, numericStatChangedComponentMapper);
         componentComponentMapperMap.put(BooleanStatChanged.class, booleanStatChangedComponentMapper);
         componentComponentMapperMap.put(StatChanged.class, statChangedComponentMapper);
-        componentComponentMapperMap.put(ActionComponents.class, actionComponentsComponentMapper);
+        componentComponentMapperMap.put(ItemActionComponents.class, actionComponentsComponentMapper);
         componentComponentMapperMap.put(InfoComponent.class, infoComponentMapper);
         componentComponentMapperMap.put(Ingestable.class, ingestableComponentMapper);
         componentComponentMapperMap.put(Ingest.class, ingestingComponentMapper);
@@ -617,7 +617,7 @@ public class GameComponentMapper {
     public static ComponentMapper<StatChanged> getStatChangedComponentMapper() {
         return statChangedComponentMapper;
     }
-    public static ComponentMapper<ActionComponents> getActionComponentsComponentMapper() {
+    public static ComponentMapper<ItemActionComponents> getActionComponentsComponentMapper() {
         return actionComponentsComponentMapper;
     }
     public static ComponentMapper<InfoComponent> getInfoComponentMapper() {

@@ -18,11 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionImageComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponents;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
@@ -39,7 +39,7 @@ private ArrayList<CheckBox> itemBoxes= new ArrayList<CheckBox>();
 private ArrayList<Entity> usableItems= new ArrayList<Entity>();
 private ComponentMapper<NameComponent> nameComponentMapper;
 	private ComponentMapper<ImageComponent> itemImageComponentMapper;
-	private ComponentMapper<ActionComponents> actionComponentsComponentMapper;
+	private ComponentMapper<ItemActionComponents> actionComponentsComponentMapper;
 
 
 	public PackDisplay(Skin skin, GameAssets gameAssets) {
@@ -102,11 +102,11 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 			if(itemImage!=null) {
 				table.add((Actor) itemImage);
 			}
-			ActionComponents actionComponents=actionComponentsComponentMapper.get(item);
-			if(actionComponents!=null){
+			ItemActionComponents itemActionComponents =actionComponentsComponentMapper.get(item);
+			if(itemActionComponents !=null){
 
 				HorizontalGroup buttons= new HorizontalGroup();
-				Array<ItemActionImageComponent>  actionComponentsArray= actionComponents.getActionComponents();
+				Array<ItemActionImageComponent>  actionComponentsArray= itemActionComponents.getActionComponents();
 
 				int actions=actionComponentsArray.size;
 				for(int count2=0; count2<actions; count2++){

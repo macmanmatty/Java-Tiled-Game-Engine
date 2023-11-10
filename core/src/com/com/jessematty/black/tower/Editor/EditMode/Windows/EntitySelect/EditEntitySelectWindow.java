@@ -5,12 +5,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.AtlasRegionSetable;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
-public class EntitySelectWindow extends EditWindow {
+public class EditEntitySelectWindow extends EditWindow {
     protected EntitySelect textureRegionSelect; // the region select window  that display the regions
     protected SelectBox<String> textureNames; // the selected texture names to choose from and display
     protected SelectBox<TextureAtlasRegionNames> atlasNames; // select box for texture atlases used
@@ -18,7 +16,7 @@ public class EntitySelectWindow extends EditWindow {
     protected Window window;
     protected ScrollPane textureRegionTable;
     protected AtlasRegionSetable atlasRegionSetable;
-    public EntitySelectWindow(final GameAssets  gameAssets , final Skin skin) {
+    public EditEntitySelectWindow(final GameAssets  gameAssets , final Skin skin) {
         super(gameAssets,"Entities", skin, "default");
         this.skin = skin;
     }

@@ -3,29 +3,18 @@ package com.jessematty.black.tower.GameBaseClasses.Character;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Read;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Shoot;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
-import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
+import com.jessematty.black.tower.Components.Item.ItemAction.DropItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Other.DominateHand;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Other.HoldPosition;
-import com.jessematty.black.tower.Components.Other.Ingest;
-import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Item.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ItemActionWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 
@@ -64,8 +53,8 @@ public class CharacterItemFunctions {
     }
 
     public static void dropItem(ZRPGCharacter player) {
-        Drop drop = new Drop();
-        player.getHand(1).add(drop);
+        DropItemComponent dropItemClass = new DropItemComponent();
+        player.getHand(1).add(dropItemClass);
     }
 
     public static void eatItem(ZRPGCharacter player) {

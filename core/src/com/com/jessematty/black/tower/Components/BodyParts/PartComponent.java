@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Component;
 public class PartComponent implements Component {
     private  int size;
 
-    private String partName;
+    private String partClass;
 
     public int getSize() {
         return size;
@@ -15,12 +15,12 @@ public class PartComponent implements Component {
         this.size = size;
     }
 
-    public String getPartName() {
-        return partName;
+    public String getPartClass() {
+        return partClass;
     }
 
-    public void setPartName(String partName) {
-        this.partName = partName;
+    public void setPartClass(String partClass) {
+        this.partClass = partClass;
     }
 }
 

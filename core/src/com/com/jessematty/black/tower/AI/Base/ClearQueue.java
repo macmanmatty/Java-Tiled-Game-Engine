@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.AI.Base;
 
 import com.jessematty.black.tower.AI.ZRPGAIAction;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 
 /**
  * removes all actions from a ai characters brain

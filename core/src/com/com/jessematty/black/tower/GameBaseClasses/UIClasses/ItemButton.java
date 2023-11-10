@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.UIClasses;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 
 public class ItemButton extends TextButton {
 	public ItemButton(String text, Skin skin) {

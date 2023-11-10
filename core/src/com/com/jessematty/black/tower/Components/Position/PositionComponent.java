@@ -33,8 +33,8 @@ public class PositionComponent implements Component {
     private float boundsXOffset; // the offset of the bounds from the screen locations where  the entities texture region (if it has one) will be drawn
     private float boundsYOffset;
     private boolean hasBounds=true; // does the entity currently have bounds
-    private float height; // entities physical  height
-    private float heightFromGround; // height from the ground or z coordinate of the entity
+    private float height; // entities physical  height or z coordinate of the entity
+    private float heightFromGround; // height from the ground
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
     /**

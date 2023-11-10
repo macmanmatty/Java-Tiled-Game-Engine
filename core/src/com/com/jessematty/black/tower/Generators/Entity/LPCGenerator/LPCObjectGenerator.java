@@ -19,7 +19,7 @@ import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
@@ -96,7 +96,7 @@ public class LPCObjectGenerator {
             Entity attached=attachedEntityBag.getOwner();
             if(lpcObjectGeneratorDTOAttached.isPart()){
                 PartComponent partComponent= new PartComponent();
-                partComponent.setPartName(lpcObjectGeneratorDTOAttached.partName);
+                partComponent.setPartClass(lpcObjectGeneratorDTOAttached.partClass);
                 attached.add(partComponent );
                 EntityUtilities.attachPart(lpcActor, attached);
             }
@@ -146,35 +146,13 @@ public class LPCObjectGenerator {
 
         return  entity;
     }
-    
-    private Entity generateAnimatedLPCActor( Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-        lpcSpriteGenerator.setHasWalkFrames(true);
-        lpcSpriteGenerator.setHasDieFrames(true);
-        lpcSpriteGenerator.setHasEatFrames(true);
-        lpcSpriteGenerator.setHasShootFrames(true);
-        lpcSpriteGenerator.setHasThrustFrames(true);
-        lpcSpriteGenerator.setHasSlashFrames(true);
-        lpcSpriteGenerator.setHasSpellCastFrames(true);
-        lpcSpriteGenerator.setHasPickUpFrames(true);
-        lpcSpriteGenerator.setHasThrowFrames(true);
-     AnimatableComponent animatableComponent  = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
-        animatableComponent.setCurrentAction("rest");
-        animatableComponent.nextFrame();
-        entity.add(animatableComponent);
-            DrawableComponent drawableComponent = new DrawableComponent();
-            drawableComponent.setCurrentRegion(animatableComponent.getCurrentTexture());
-            drawableComponent.setDraw(true);
-            drawableComponent.setLayerNumber(1);
-            drawableComponent.setColor(new NamedColor());
-            drawableComponent.setBrightness(lpcObjectGeneratorDTO.getBrightness());
-            entity.add(drawableComponent);
-            return entity;
-    }
+
     public  EntityBag generateLPCEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
         EntityBag entityBag=new EntityBag();
         Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
         entityBag.setOwner(entity);
         NameComponent nameComponent = new NameComponent();
+        nameComponent.setStat(lpcObjectGeneratorDTO.getName());
         entity.add(nameComponent);
         ActionComponent actionComponent = new ActionComponent();
         entity.add(actionComponent);
@@ -267,6 +245,11 @@ public class LPCObjectGenerator {
         entity.add(numericStatsChangeable);
         if(lpcObjectGeneratorDTO.isItem()){
             generateItem( entityBag, lpcObjectGeneratorDTO);
+        }
+        if(lpcObjectGeneratorDTO.isPart()){
+            PartComponent partComponent= new PartComponent();
+            partComponent.setPartClass(lpcObjectGeneratorDTO.getPartClass());
+            entity.add(partComponent);
         }
         if(lpcObjectGeneratorDTO.isPack()){
             generatePack( entityBag, lpcObjectGeneratorDTO);

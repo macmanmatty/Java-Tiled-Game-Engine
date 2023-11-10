@@ -3,7 +3,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -52,7 +52,10 @@ public class InelasticCollision extends EventSystem {
     @Override
     public void act(float deltaTime) {
         float speed1= movableComponent1.getCurrentSpeed();
-        float speed2= movableComponent2.getCurrentSpeed();
+        float speed2=10;
+        if(movableComponent2!=null) {
+            speed2 = movableComponent2.getCurrentSpeed();
+        }
         float mass1=physicalObject1.getMass();
         float mass2=physicalObject2.getMass();
         MovableComponent movableComponent =movableComponentMapper.get(entity1);

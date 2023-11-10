@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.MouseInput;
 
 import com.jessematty.black.tower.AI.Movement.MoveToLocation;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.BaseLockingInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;

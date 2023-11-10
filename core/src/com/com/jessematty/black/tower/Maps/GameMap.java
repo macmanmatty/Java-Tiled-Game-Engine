@@ -15,10 +15,14 @@ import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
+import com.sun.tools.classfile.Opcode;
 
 import java.rmi.server.UID;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 /**
  * class with map of 2d tiles  the game map that all other maps extend from
  */
@@ -59,7 +63,7 @@ public abstract  class GameMap  implements Map {
 	 * the Entities currently on the map NOT including the map of tiles
 	 * note entities do not have to have  a x, y location to be present on the map
 	 */
-	protected  transient Array<Entity> entities = new Array<Entity>();
+	protected  transient Array<Entity> entities = new Array<>();
 	/**
 	 *  maps that are linked to this one
 	 *  */

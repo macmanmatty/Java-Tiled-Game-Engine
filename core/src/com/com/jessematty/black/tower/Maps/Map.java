@@ -9,6 +9,8 @@ import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.List;
+import java.util.Set;
+
 public interface Map {
   
     public void mapTurnActions(float deltaTime, GameTime gameTime);

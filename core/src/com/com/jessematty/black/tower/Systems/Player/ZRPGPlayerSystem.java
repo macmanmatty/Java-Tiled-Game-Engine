@@ -8,7 +8,7 @@ import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.Other.Ingestable;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Other.Readable;
 import com.jessematty.black.tower.Components.Attacks.Shootable;
 import com.jessematty.black.tower.Components.Attacks.Slashable;

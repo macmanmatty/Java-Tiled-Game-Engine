@@ -1,4 +1,4 @@
-package com.jessematty.black.tower.Components.Other;
+package com.jessematty.black.tower.Components.Position;
 import com.badlogic.ashley.core.Component;
 
 /**

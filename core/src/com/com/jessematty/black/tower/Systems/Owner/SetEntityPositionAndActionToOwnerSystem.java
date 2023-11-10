@@ -45,6 +45,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
                     map.removeEntity(entityPosition.getTiles(), entity);
                     // add entity to map  add the tiles
                     entityPosition.setTiles(map.getAllTilesAndAddEntity(entityPosition.getBoundsBoundingRectangle(), entity));
+                    entityPosition.setMapID(ownerPosition.getMapId());
                 }
                 if (ownedComponent.isSetEntityActionToOwner()) {
                     ActionComponent ownerActionComponent = actionComponentMapper.get(owner);

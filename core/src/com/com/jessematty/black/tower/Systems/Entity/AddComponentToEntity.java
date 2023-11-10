@@ -14,7 +14,6 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 public  class AddComponentToEntity extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
     private ComponentMapper<AddComponent> addComponentComponentMapper;
-
     private BitMask bitMask= new BitMask();
     public AddComponentToEntity(MapDraw draw) {
         super(draw);

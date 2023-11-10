@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -17,7 +17,7 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 /**
- * system for adding an item to player  pack
+ * delete this class?
  */
 
 public class UpdatePackContentsSystem extends GameEntitySystem {

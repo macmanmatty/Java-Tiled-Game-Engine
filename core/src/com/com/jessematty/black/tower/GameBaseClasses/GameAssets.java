@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
@@ -447,7 +447,7 @@ public class GameAssets implements Disposable {
         this.mapDraw= new MapDraw( this, true);
         mapDraw.setWorld(world);
         mapDraw.showCurrentWorld();
-        mapDraw.setPlayer(new ZRPGCharacter(world, world.getPlayer()));
+        mapDraw.setPlayer(new ZRPGCharacter( world, world.getPlayer()));
     }
     public void showGame(){
         game.setScreen(mapDraw);

@@ -17,12 +17,14 @@ public class NameComponent extends com.jessematty.black.tower.Components.Stats.S
 
 
     public NameComponent(boolean displayable, String stat) {
-        super(displayable, "name", stat);
+        super(displayable, "Name", stat);
     }
 
     public NameComponent(String stat) {
-        super(true, "name", stat);
+        super(true, "Name", stat);
     }
 
-
+    @Override
+    public void setName(String name) {
+    }
 }

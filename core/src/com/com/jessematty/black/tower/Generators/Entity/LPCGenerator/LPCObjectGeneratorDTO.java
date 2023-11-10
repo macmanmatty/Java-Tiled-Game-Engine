@@ -187,9 +187,9 @@ public class LPCObjectGeneratorDTO {
      */
     boolean part;
     /**
-     * if this is part entity the name of the part
+     * if this is part entity the class  (not JAVA Class) of the part
      */
-    String partName;
+    String partClass;
     /**
      *  the array of attachable  parts if the entity has a body
      */
@@ -706,12 +706,12 @@ public class LPCObjectGeneratorDTO {
         this.drawable=true;
     }
 
-    public String getPartName() {
-        return partName;
+    public String getPartClass() {
+        return partClass;
     }
 
-    public void setPartName(String partName) {
-        this.partName = partName;
+    public void setPartClass(String partClass) {
+        this.partClass = partClass;
     }
 
     public Array<String> getAttachableParts() {
@@ -761,4 +761,5 @@ public class LPCObjectGeneratorDTO {
     public void setRightLayerOffset(int rightLayerOffset) {
         this.rightLayerOffset = rightLayerOffset;
     }
+
 }

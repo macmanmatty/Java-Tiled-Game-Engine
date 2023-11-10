@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Drop;
+import com.jessematty.black.tower.Components.Item.ItemAction.DropItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
@@ -48,22 +49,28 @@ public class DropItemSystem extends GameEntitySystem {
 
     }
 
-
-
-
     @Override
     public void update(float deltaTime) {
-        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( ActionComponent.class, Attachable.class, PositionComponent.class, OwnedComponent.class, Drop.class).get());
+        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( ItemComponent.class, ActionComponent.class,   PositionComponent.class, DropItemComponent.class).get());
         int size = entities.size();
-        for (int count = 0; count < size; count++) {
-            Entity itemToDrop= entities.get(count);
-            itemToDrop.remove(Drop.class);
+        for (Entity itemToDrop: entities) {
+            itemToDrop.remove(DropItemComponent.class);
                 ItemComponent item=itemComponentMapper.get(itemToDrop);
                 ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
+                OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToDrop);
+                PositionComponent positionComponent=positionComponentMapper.get(itemToDrop);
                 actionComponent.setActing(false);
                 actionComponent.setStat("rest");
                 item.setInContainer(false);
                 item.setOnGround(true);
+                if(ownedComponent!=null && ownedComponent.isRemoveOnPhysicalDetachment()){
+                    itemToDrop.remove(OwnedComponent.class);
+                }
+                positionComponent.reInstateBounds();
+            GameMap map= getWorld().getMap(positionComponent.getMapId());
+           positionComponent.setTiles( map.getAllTilesAndAddEntity(positionComponent.getBoundsBoundingRectangle(), itemToDrop));
+
+
 
         }
 

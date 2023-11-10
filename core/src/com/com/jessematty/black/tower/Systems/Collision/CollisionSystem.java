@@ -7,12 +7,11 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
@@ -116,11 +115,11 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
                            ActionComponent entityActionComponent =actionComponentMapper.get(entity);
                          ActionComponent occupantActionComponent =actionComponentMapper.get(occupant);
-                         if(actionComponentMapper!=null) {
-                             entityActionComponent.setStat("collide");
+                         if(entityActionComponent!=null) {
+                            // entityActionComponent.setStat("collide");
                          }
                          if(occupantActionComponent !=null) {
-                             occupantActionComponent.setStat("collide");
+                             //occupantActionComponent.setStat("collide");
                          }
                          return;
                         }

@@ -1,4 +1,6 @@
-package com.jessematty.black.tower.Components.Item;
+package com.jessematty.black.tower.Components.Item.ItemAction;
+
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
 
 public class PickUpItemComponent extends ItemActionComponent {
    private  String entityToPickUpId;
