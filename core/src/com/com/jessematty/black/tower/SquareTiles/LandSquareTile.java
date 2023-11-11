@@ -31,9 +31,12 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	protected  transient boolean inArea;
 	protected  transient PositionComponent position;
 	protected  transient TileComponent tileComponent;
+
+	/**
+	 * used for deserialization
+	 */
 	public  LandSquareTile() {
 		tileComponent= new TileComponent();
-
 		NumericStats numericStats= new NumericStats();
 		BooleanStats booleanStats= new BooleanStats();
 		StringStats stringStats=new StringStats();
@@ -68,10 +71,9 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 		this();
 		position.setTileLocationX(locationX);
 		position.setTileLocationY(locationY);
-		add(position);
-		float screenLocationX = (position.getTileLocationX() ) * 32;
-		float screenLocationY =  (yTiles - position.getTileLocationY()) * 32;
-		position.setPosition(screenLocationX, screenLocationY);
+		float worldUnitsX = (position.getTileLocationX() ) * 32;
+		float worldUnitsY =  (yTiles - position.getTileLocationY()) * 32;
+		position.setPosition(worldUnitsX, worldUnitsY);
 	}
 
 	public void addEntity(Entity occupant) { // adds  a new Object to the square
@@ -115,7 +117,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 		return tileComponent;
 	}
 	@Override
-	public String toString() { // overridden for scene 2d ui list to display thing name rather than class name.
+	public String toString() {
 		return  "tile  x "+ position.getTileLocationX() +" y "+ position.getTileLocationY();
 	}
     public Array<Entity> getEntities() {
@@ -130,7 +132,7 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 	}
 
 	/**
-	 * get all entities with  that match all of the passed in stats and components
+	 * gets all entities with  that match all of the passed in stats and components
 	 * @param numericStats the array of strings that map to  the numeric stat names an entity must have to be returned
 	 * @param stringStats the array of strings that map to  the string stat names an entity must have to be returned
 	 * @param booleanStats the array of strings that map to  the booleanstat names an entity must have to be returned
@@ -169,6 +171,13 @@ public class  LandSquareTile extends Entity  { // base class all other tile clas
 			}
 		}
 		return false;
+	}
+
+	public void setBounds(float x, float y){
+		position.setBounds(x,y);
+	}
+	public void makeSolid(){
+		position.setBounds(32,32);
 	}
 	public void setPosition(PositionComponent position) {
 		this.position = position;

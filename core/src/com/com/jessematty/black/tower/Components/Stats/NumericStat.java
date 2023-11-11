@@ -40,6 +40,11 @@ public   class NumericStat extends Stat {
      * GUI bar to show the stat a bar in the UI
      */
      transient protected  StatBar statBar ;
+
+    /**
+     * whether or not this stat will have  have a stat bar
+     */
+    public boolean hasStatBar=true;
     public NumericStat(boolean displayable, String name, double value) {
         super(displayable, name);
         this.value = value;
@@ -55,7 +60,9 @@ public   class NumericStat extends Stat {
         this.value = value;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        if(hasStatBar) {
             createStatBar(assets);
+        }
     }
     public NumericStat(String name) {
         super(name);
@@ -222,5 +229,13 @@ public   class NumericStat extends Stat {
     }
     public Array<SelfChangableNumericStatChangeable> getLinkedStatsToChange() {
         return linkedStatsToChange;
+    }
+
+    public boolean isHasStatBar() {
+        return hasStatBar;
+    }
+
+    public void setHasStatBar(boolean hasStatBar) {
+        this.hasStatBar = hasStatBar;
     }
 }

@@ -13,7 +13,10 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
  */
 
 public class PositionComponent implements Component {
-    private  float locationX = 0f; // the location the entity  on the current map in world units
+    /**
+     * entity position in world units
+     */
+    private  float locationX = 0f;
     private float locationY = 0f;
     private int tileLocationX; // the current location of the entity in tiles units  where is x and y are the lower left tile aka tiles.get(0);
     private int tileLocationY;

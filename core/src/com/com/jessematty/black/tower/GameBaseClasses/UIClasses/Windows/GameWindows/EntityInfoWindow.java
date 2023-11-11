@@ -28,7 +28,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Maps.World;
-public class FullInfoWindow extends GameWindow {
+public class EntityInfoWindow extends GameWindow {
    private MapDraw mapDraw;
    private Entity entity;
     private ComponentMapper<NameComponent> nameComponentMapper;
@@ -39,10 +39,10 @@ public class FullInfoWindow extends GameWindow {
    private ComponentMapper<BooleanStats>booleanStatsComponentMapper;
    private final String displayName="FullInfoWindow";
    
-    public FullInfoWindow( MapDraw mapDraw, Entity entity) {
+    public EntityInfoWindow(MapDraw mapDraw, Entity entity) {
         this("Info", mapDraw.getCurrentMap().getSkin(), "default", mapDraw, entity);
     }
-    public FullInfoWindow(String title, Skin skin, String styleName, MapDraw mapDraw, Entity entity) {
+    public EntityInfoWindow(String title, Skin skin, String styleName, MapDraw mapDraw, Entity entity) {
         super(title, skin, styleName, mapDraw.getGameAssets());
         this.mapDraw = mapDraw;
         this.entity = entity;
@@ -56,14 +56,19 @@ public class FullInfoWindow extends GameWindow {
     }
     private  void makeUI(){
         String name=nameComponentMapper.get(entity).getStat();
+        getTitleLabel().setText(name);
         Skin skin=getSkin();
-        Image image=imageComponentMapper.get(entity).getImage();
-        HorizontalGroup nameAndImage=new HorizontalGroup();
-        Label nameLabel= new Label(name, skin);
+        ImageComponent imageComponent=imageComponentMapper.get(entity);
+        HorizontalGroup nameAndImage = new HorizontalGroup();
+        Label nameLabel = new Label(name, skin);
         nameAndImage.addActor(nameLabel);
-        nameAndImage.addActor(image);
-        nameAndImage.space(5);
-      add(nameAndImage);
+        if(imageComponent!=null ) {
+            Image image=imageComponent.getImage();
+            nameAndImage.addActor(image);
+            nameAndImage.space(5);
+        }
+        add(nameAndImage);
+
         World world=mapDraw.getWorld();
         double [] weightMassVolume= EntityUtilities.getMassVolumeWeight(world, entity);
         Label mass= new Label("Mass: "+weightMassVolume[0], skin);

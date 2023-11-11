@@ -135,11 +135,9 @@ public class InList {
 		}
 		return false;
 	}
-
 	/** check if two lists have one object that is the same if so returns true else returns false
 	 * also returns true if both lists are empty
 	 */
-
 	public static  boolean isInList(Array<? extends Object> names, Array<? extends Object> otherNames) {
 		int size = otherNames.size;
 		int size2 = names.size;
@@ -187,7 +185,17 @@ public class InList {
 		}
 		return false;
 	}
-
+	public static  boolean isInListOrAll(Iterable<String> names, String name) {
+		if(name.equalsIgnoreCase("all")){
+			return true;
+		}
+		for (String name2: names) {
+			if (name.equals(name2)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	/** checks to see if an object is in a given array
 	 * if equals is false == will be used for comparison else
 	 * the object equals method will be used

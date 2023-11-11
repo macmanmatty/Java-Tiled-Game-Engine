@@ -50,18 +50,20 @@ public class TestEntities {
     static LPCObjectGeneratorDTO axe= new LPCObjectGeneratorDTO();
 
    static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
+    static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
 
       static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
 
 
     static BooleanStat on= new BooleanStat(true, "on", true);
-    static StringStat classuz= new StringStat(true, "class", "normal");
+    static StringStat classuz= new StringStat(true, "class", "lizard");
 
 
 
 
 
     static  {
+
         health.getChangeGroups().add("all");
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         lizard.setAnimatableBodyName("lizard");
