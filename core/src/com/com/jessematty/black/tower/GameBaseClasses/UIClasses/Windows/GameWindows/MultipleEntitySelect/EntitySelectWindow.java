@@ -1,14 +1,12 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.EntityHorizontalGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.EntitySelectHorizontalGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 /**(
@@ -35,6 +33,10 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
      * whether or not to close the window once an entity ha been picked;
      */
    boolean closeOnSelect=true;
+
+   boolean selectActions;
+
+
     public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets, OnSelected<Entity> onSelected){
         super("Pick An Entity", skin, true, false, false);
         this.entities = entities;
@@ -48,8 +50,8 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
     public void createWindow(){
         Table table = new Table();
         for(final  Entity entity: entities){
-            EntityHorizontalGroup entityHorizontalGroup= new EntityHorizontalGroup(this, gameAssets, getSkin(), entity);
-            table.add(entityHorizontalGroup);
+            EntitySelectHorizontalGroup entitySelectHorizontalGroup = new EntitySelectHorizontalGroup(this, gameAssets, getSkin(), entity);
+            table.add(entitySelectHorizontalGroup);
             table.row();
             
         }
@@ -85,4 +87,9 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
     public void setCloseOnSelect(boolean closeOnSelect) {
         this.closeOnSelect = closeOnSelect;
     }
+
+    public boolean isSelectActions() {
+        return selectActions;
+    }
+
 }

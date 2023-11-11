@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionImageComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
 import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
@@ -106,11 +106,11 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 			if(itemActionComponents !=null){
 
 				HorizontalGroup buttons= new HorizontalGroup();
-				Array<ItemActionImageComponent>  actionComponentsArray= itemActionComponents.getActionComponents();
+				Array<ItemActionComponent>  actionComponentsArray= null;
 
 				int actions=actionComponentsArray.size;
 				for(int count2=0; count2<actions; count2++){
-					final ItemActionImageComponent componentClass=actionComponentsArray.get(count2);
+					final ItemActionComponent componentClass=actionComponentsArray.get(count2);
 
 					final TextButton actionButton= new TextButton(componentClass.toString(), skin);
 					actionButton.addListener(new ClickListener(){

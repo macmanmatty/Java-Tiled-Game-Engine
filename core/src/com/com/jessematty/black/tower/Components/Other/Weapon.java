@@ -16,24 +16,6 @@ public class Weapon implements Component {
         return attackModes;
     }
 
-
-    public void setCurrentAction(){
-
-        if(attackModes.size()>0) {
-            currentAttackMode = attackModes.get(actionCounter);
-            actionCounter++;
-            if (actionCounter == attackModes.size() - 1) {
-
-                actionCounter = 0;
-
-            }
-
-        }
-
-    }
-
-
-
     public ActionComponent getCurrentAttackMode() {
         return currentAttackMode;
     }

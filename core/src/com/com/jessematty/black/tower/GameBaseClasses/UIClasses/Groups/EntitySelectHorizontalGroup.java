@@ -8,25 +8,42 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.kryo.NotNull;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Other.InfoComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
-public   class EntityHorizontalGroup extends HorizontalGroup {
+import lombok.NonNull;
+
+/**
+ * ui class that extends the libGDX HorizontalGroup
+ * that contains and entities name, image ( if it has one) and button to pick one
+ */
+public   class EntitySelectHorizontalGroup extends HorizontalGroup {
+    /**
+     * libGDX skin
+     */
     private Skin skin;
+    /**
+     * the ashely  Entity object
+     */
     private Entity entity;
 
+    /**
+     * game assets object used to retrieve an entities  image
+     */
     private GameAssets gameAssets;
-
+    /**
+     * the button to select and entity
+     */
     private Button select;
-
+    /**
+     * the entity  settable object to set
+     */
     private EntitySettable entitySettable;
-
-    public EntityHorizontalGroup(EntitySettable entitySettable, GameAssets gameAssets, Skin skin, Entity entity) {
+    public EntitySelectHorizontalGroup(EntitySettable entitySettable, GameAssets gameAssets, Skin skin, Entity entity) {
         this.skin = skin;
         this.entity = entity;
         this.gameAssets=gameAssets;
@@ -38,10 +55,12 @@ public   class EntityHorizontalGroup extends HorizontalGroup {
                 System.out.println("clicked");
                 entitySettable.setEntity(entity);}
         });
-
         makeGroup();
     }
 
+    /**
+     *  makes the horizontal group
+     */
     private void makeGroup(){
         NameComponent nameComponent = GameComponentMapper.getNameComponentMapper().get(entity);
         String name="*** Name Missing ***";
@@ -59,27 +78,14 @@ public   class EntityHorizontalGroup extends HorizontalGroup {
         addActor(label);
         addActor(select);
         space(10);
-
-
-
     }
-
-
     public Skin getSkin() {
         return skin;
     }
-
-    public void setSkin(Skin skin) {
-        this.skin = skin;
-    }
-
     public Entity getEntity() {
         return entity;
     }
-
     public Button getSelect() {
         return select;
     }
-
 }
-
