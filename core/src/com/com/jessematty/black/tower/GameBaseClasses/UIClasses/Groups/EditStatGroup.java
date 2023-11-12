@@ -9,7 +9,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.BasicLists.Add
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.ActionTextField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 
-public class StatGroup  extends UpdatableHorizontalGroup{
+public class EditStatGroup extends UpdatableHorizontalGroup{
 
     boolean editable;
     private ActionTextField nameField;
@@ -18,7 +18,7 @@ public class StatGroup  extends UpdatableHorizontalGroup{
     protected StatMode statMode=StatMode.ENTITY;
 
 
-    public StatGroup(  Stat stat, Skin skin) {
+    public EditStatGroup(Stat stat, Skin skin) {
         super(skin);
         this.stat=stat;
     }

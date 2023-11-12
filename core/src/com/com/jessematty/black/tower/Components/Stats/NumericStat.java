@@ -206,8 +206,9 @@ public   class NumericStat extends Stat {
     public StatBar getStatBar() {
         return statBar;
     }
-    public void createStatBar(GameAssets assets) {
-        statBar =new StatBar(this, assets);
+    public StatBar createStatBar(GameAssets assets) {
+     statBar =new StatBar(this, assets);
+        return statBar;
     }
     public boolean isDisplayMinAndMax() {
         return displayMinAndMax;

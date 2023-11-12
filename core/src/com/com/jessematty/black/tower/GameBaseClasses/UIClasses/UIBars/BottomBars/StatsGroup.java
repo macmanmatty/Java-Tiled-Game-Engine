@@ -15,9 +15,9 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringEditStatEditGroup;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 public class StatsGroup extends VerticalGroup {
     private Skin skin;
@@ -57,8 +57,8 @@ public class StatsGroup extends VerticalGroup {
             while (stringStatValues.hasNext) {
                 StringStat stringStat = stringStatValues.next();
                 if (stringStat.isDisplayable() && InList.isInList(stringStat.getDisplayGroups(), groupName)) {
-                StringStatGroup stringStatGroup=new StringStatGroup(skin, stringStat);
-                addActor(stringStatGroup);
+                StringEditStatEditGroup stringStatEditGroup =new StringEditStatEditGroup(skin, stringStat);
+                addActor(stringStatEditGroup);
                 }
             }
         }
@@ -68,7 +68,7 @@ public class StatsGroup extends VerticalGroup {
             while (numericStatValues.hasNext()) {
                 NumericStat numericStat = numericStatValues.next();
                 if (numericStat.isDisplayable() && InList.isInList(numericStat.getDisplayGroups(), groupName)) {
-                    NumericStatGroup numericStatGroup= new NumericStatGroup(skin, numericStat, false);
+                    NumericEditStatEditGroup numericStatGroup= new NumericEditStatEditGroup(skin, numericStat, false);
                     addActor(numericStatGroup);
                 }
             }
@@ -79,8 +79,8 @@ public class StatsGroup extends VerticalGroup {
             while (booleanStatValues.hasNext()) {
                 BooleanStat booleanStat = booleanStatValues.next();
                 if (booleanStat.isDisplayable() && InList.isInList(booleanStat.getDisplayGroups(), groupName)) {
-                    BooleanStatGroup booleanStatGroup= new BooleanStatGroup(skin, booleanStat);
-                    addActor(booleanStatGroup);
+                    BooleanEditStatEditGroup booleanStatEditGroup = new BooleanEditStatEditGroup(skin, booleanStat);
+                    addActor(booleanStatEditGroup);
                 }
             }
         }

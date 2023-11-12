@@ -34,6 +34,11 @@ public class EntityUtilitiesTest {
        owned.add(new OwnedComponent());
         owner.add(new OwnerComponent());
         owned.add(new OwnerComponent());
+        PositionComponent positionComponent=new PositionComponent();
+        positionComponent.setMapID(testMap.testMap1.getId());
+        owned.add(positionComponent);
+        owner.add(positionComponent);
+        owned2.add(positionComponent);
         testWorld=testMap.testWorld;
         testWorld.addEntityToWorld(owner);
         testWorld.addEntityToWorld(owned);
@@ -176,6 +181,7 @@ public class EntityUtilitiesTest {
         double[] massAndVolume = EntityUtilities.getEntityMassAndVolume(testWorld, owner);
         assertEquals(250,massAndVolume[1] ,1);
         assertEquals(250, massAndVolume[0] ,1);
+        assertEquals(250*9.8, massAndVolume[2], 1);
     }
     @Test
     public void testGetEntityPosition() {

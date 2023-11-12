@@ -8,6 +8,9 @@ import java.util.Stack;
 
 public class BlackTower extends Game {
 private GameAssets gameAssets;
+
+boolean uiTest=true;
+
 public void MainGame(){
 }
 	public void makeMainWindow(){
@@ -18,7 +21,12 @@ public void MainGame(){
 	public void create () {
 		gameAssets =new GameAssets("game", this);
 		gameAssets.setup();
-		setScreen(new MainScreen(gameAssets));
+		if(uiTest) {
+			setScreen(new UITEST(gameAssets));
+		}
+		else {
+			setScreen(new MainScreen(gameAssets));
+		}
 	}
 	@Override
 	public void render () {

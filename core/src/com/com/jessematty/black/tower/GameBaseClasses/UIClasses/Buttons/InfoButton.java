@@ -32,7 +32,6 @@ public class InfoButton extends TextButton {
 
     private void addListener(){
 
-        mapDraw.getUiStage().addWindow(new EntityInfoWindow(mapDraw, entity), ScreenPosition.CENTER);
 
     }
 }

@@ -51,15 +51,9 @@ public class TestEntities {
 
    static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
-
-      static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
-
-
+    static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
     static BooleanStat on= new BooleanStat(true, "on", true);
     static StringStat classuz= new StringStat(true, "class", "lizard");
-
-
-
 
 
     static  {
@@ -403,6 +397,7 @@ public class TestEntities {
         sword.setVolume(100);
         sword.setAnimated(false);
         sword.setDrawable(false);
+        sword.getStats().add(condition, price, classuz, on);
 
 
         spear.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");

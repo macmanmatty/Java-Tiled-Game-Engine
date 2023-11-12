@@ -58,8 +58,8 @@ public class LPCObjectGenerator {
         this.world=world;
         this.idComponentMapper=GameComponentMapper.getIdComponentMapper();
         lpcSpriteGenerator= new LPCSpriteGenerator(assets);
-
     }
+
     private Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
         Entity entity= new Entity();
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
@@ -359,7 +359,7 @@ public class LPCObjectGenerator {
      * @return an map  of entities with the entity as the value and the and either the entities id or  entities name  as  the key
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
-    public ObjectMap<String, EntityBag> loadEntities(String path, boolean useIdAsKey, boolean addToWorld){
+    public ObjectMap<String, EntityBag> loadEntities( String path, boolean useIdAsKey, boolean addToWorld){
         lpcObjectGeneratorDTOMap.clear();
         ObjectMap<String, EntityBag> entities= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();

@@ -26,7 +26,7 @@ public class StatBar extends Widget implements Serializable {
     /** whether or not to display the state bar */
     boolean display=true;
     /** the name of The libGDX texture atlas the region is in */
-    String atlasName="assets.atlas";
+    String atlasName="textureAtlases/testAssets/testAssets.atlas";
     /** the libGDX AtlasRegion Name  of the parts */
     private String statBarPartsName="statBar";
     public StatBar(StatBar other) {

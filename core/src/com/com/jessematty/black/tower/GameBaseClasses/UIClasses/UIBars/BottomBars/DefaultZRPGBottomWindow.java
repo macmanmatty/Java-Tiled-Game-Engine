@@ -12,8 +12,8 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringEditStatEditGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Table.UITable;
 import com.jessematty.black.tower.Maps.GameMap;
 
@@ -88,17 +88,17 @@ public class DefaultZRPGBottomWindow extends UITable {
     public void setZrpgCharacter(ZRPGCharacter zrpgCharacter) {
         this.zrpgCharacter = zrpgCharacter;
         StringStat name= zrpgCharacter.getNameComponent();
-        StringStatGroup stringStatGroup= new StringStatGroup(getSkin(), name);
+        StringEditStatEditGroup stringStatEditGroup = new StringEditStatEditGroup(getSkin(), name);
         StringStat attackMode= zrpgCharacter.getAttackMode();
 
         NumericStats numericStats= zrpgCharacter.getNumericStats();
-        NumericStatGroup numericStatGroup= new NumericStatGroup(getSkin(), numericStats.getNumericStat("health"), false);
-        add(stringStatGroup).pad(7.5f);
+        NumericEditStatEditGroup numericStatGroup= new NumericEditStatEditGroup(getSkin(), numericStats.getNumericStat("health"), false);
+        add(stringStatEditGroup).pad(7.5f);
         row();
         add(numericStatGroup);
         row();
         numericStatGroup.getStatLabel().setFontScale(.6f);
-        stringStatGroup.getStatLabel().setFontScale(.6f);
+        stringStatEditGroup.getStatLabel().setFontScale(.6f);
 
 
         makeUI();

@@ -37,6 +37,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 /**
  * Utilities class that  contains  basic helper methods for an entity
@@ -369,14 +370,15 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         OwnerComponent  ownerComponent=GameComponentMapper.getOwnerComponentComponentMapper().get(entity);
         ComponentMapper<PhysicalObjectComponent> physicalObjectComponentMapper=GameComponentMapper.getPhysicalObjectComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
+        PositionComponent positionComponent=GameComponentMapper.getPositionComponentMapper().get(entity);
        PhysicalObjectComponent physicalObject=physicalObjectComponentMapper.get(entity);
         if(physicalObject==null ) {
         // no physical  object or position  = no mass or volume return empty array
-        return  new double[2];
+        return  new double[3];
         }
             float mass = physicalObject.getMass();
             float volume = physicalObject.getVolume();
-           double[]  massAndVolume = new double[] {mass,  volume};
+           double[]  massAndVolume = new double[] {mass,  volume, 0};
             if (ownerComponent != null) {
                Array<Entity> allOwnedEntities=getAllOwnedEntities(entity, world);
                for(Entity attachedEntity:allOwnedEntities){
@@ -391,7 +393,13 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
                    }
                }
            }
-            return new double[]{massAndVolume[0],  massAndVolume[1]};
+            if(world!=null) {
+                GameMap map=world.getMap(positionComponent.getMapId());
+                if(map!=null){
+                    massAndVolume[2] = massAndVolume[0] * map.getGravity();
+                }
+            }
+            return massAndVolume;
    }
 
   public static  double [] getMassVolumeWeight( World world, Entity entity) {
@@ -400,7 +408,13 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ComponentMapper<PositionComponent> positionComponentMapper = GameComponentMapper.getPositionComponentMapper();
         PositionComponent position = positionComponentMapper.get(entity);
        double massNumber = physicalObject.getMass();
-        double gravity = world.getMap(position.getMapId()).getGravity();
+      double gravity = 0;
+      if(world!=null) {
+            GameMap map = world.getMap(position.getMapId());
+            if (map != null) {
+                gravity = map.getGravity();
+            }
+        }
         double weightNumber = massNumber * gravity;
         double volumeNumber = physicalObject.getVolume();
        return new double[]{massNumber, weightNumber, volumeNumber};

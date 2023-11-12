@@ -1,9 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,10 +9,8 @@ import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.GamePrefecences;
 import com.jessematty.black.tower.GameBaseClasses.Settings.GameSettings.KeyStat;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
 
 public class SettingsScreen implements NamedScreen {
 

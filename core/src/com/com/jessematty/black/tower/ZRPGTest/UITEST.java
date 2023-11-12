@@ -9,10 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.LandMap;
+import com.jessematty.black.tower.Maps.World;
 
 
 /**
@@ -28,6 +34,8 @@ public class UITEST  implements Screen {
     Stage testStage= new Stage();
     Array<Entity> entityArray= new Array<Entity>();
     EntitySelectWindow entitySelectWindow;
+
+    EntityInfoWindow entityInfoWindow;
 
     public UITEST(GameAssets gameAssets) {
         super();
@@ -45,15 +53,20 @@ public class UITEST  implements Screen {
             entityArray.add(entity);
 
         }
-        Skin skin=gameAssets.loadInternalSkin("os8ui/OS Eight", "os8ui/OS Eight");
+        Skin skin=gameAssets.getDefaultSkin();
         entitySelectWindow= new EntitySelectWindow(skin, entityArray, gameAssets, null);
 
         entitySelectWindow.setPosition(200,200);
         entitySelectWindow.setMovable(true);
         entitySelectWindow.setSkin(skin);
+        World world= new World();
+        GameMap gameMap=  new LandMap(50,50);
+        world.addMap(gameMap);
 
-        testStage.addActor(entitySelectWindow);
-        testStage.setDebugAll(true);
+        EntityBag entityBag= new LPCObjectGenerator(this.gameAssetts, null ).generateLPCEntity(TestEntities.sword);
+        entityInfoWindow= new EntityInfoWindow(  skin, "default",  entityBag.getOwner(), gameAssets);
+        entityInfoWindow.setPosition(200,200);
+        testStage.addActor(entityInfoWindow);
 
 
     }
