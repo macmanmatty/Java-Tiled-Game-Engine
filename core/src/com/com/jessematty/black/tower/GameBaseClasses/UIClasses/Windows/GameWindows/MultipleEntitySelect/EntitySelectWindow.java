@@ -35,17 +35,26 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
    boolean closeOnSelect=true;
 
    boolean selectActions;
+    /**
+     * the text of the select button
+     */
+   String buttonText;
 
 
-    public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets, OnSelected<Entity> onSelected){
+    public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets, String buttonText,  OnSelected<Entity> onSelected){
         super("Pick An Entity", skin, true, false, false);
         this.entities = entities;
-       this.gameAssets=gameAssets;
+        this.gameAssets=gameAssets;
         this.onSelected=onSelected;
+        this.buttonText=buttonText;
         createWindow();
     }
+    public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets,  OnSelected<Entity> onSelected){
+        this(skin, entities, gameAssets, "Select" , onSelected);
+
+    }
     public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets){
-        this(skin, entities, gameAssets, null);
+        this(skin, entities, gameAssets, "Select" , null);
     }
     public void createWindow(){
         Table table = new Table();

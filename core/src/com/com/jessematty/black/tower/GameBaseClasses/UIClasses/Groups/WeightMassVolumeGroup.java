@@ -4,12 +4,13 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.World;
 
 
 
-public class WeightMassVolumeGroup extends HorizontalGroup {
+public class WeightMassVolumeGroup extends VerticalGroup {
 
     Entity entity;
     Skin skin;
@@ -20,6 +21,7 @@ public class WeightMassVolumeGroup extends HorizontalGroup {
         this.entity = entity;
         this.skin = skin;
         this.world = world;
+        makeUI();
     }
 
     public void makeUI() {
@@ -39,6 +41,5 @@ public class WeightMassVolumeGroup extends HorizontalGroup {
         totalWeightMassVolumeGroup.addActor(totalMass);
         totalWeightMassVolumeGroup.addActor(totalVolume);
         totalWeightMassVolumeGroup.space(10);
-       space(10);
     }
 }

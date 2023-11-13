@@ -183,7 +183,7 @@ public class LPCObjectGenerator {
             entity.add(bodyComponent);
         }
         numericStats.addStat(new NumericStat(true, "health", 100, 0, 100));
-        numericStats.addStat(new NumericStat(true, "speed", 20, 0, 40));
+        numericStats.addStat(new NumericStat(true, "speed", 10, 0, 40));
         boolean lpcActorAnimated=lpcObjectGeneratorDTO.isLpcActorAnimated();
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
         AnimatableComponent animatableComponent=null;

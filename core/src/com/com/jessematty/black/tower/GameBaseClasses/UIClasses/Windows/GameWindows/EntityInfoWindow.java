@@ -6,7 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -26,6 +28,8 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.WeightMassVolumeGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars.HandGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -55,48 +59,31 @@ public class EntityInfoWindow extends ClosableWindow {
         booleanStatsComponentMapper=GameComponentMapper.getBooleanStatsComponentMapper();
         numericStatsComponentMapper=GameComponentMapper.getNumericStatsComponentMapper();
         stringStatsComponentMapper=GameComponentMapper.getStringStatsComponentMapper();
+        setDisplayResizeButton(false);
         setRemoveOnClose(true);
         makeUI();
 
     }
     private  void makeUI(){
+        Table table= new Table();
         String name=nameComponentMapper.get(entity).getStat();
-        getTitleLabel().setText(name);
+        getTitleLabel().setText("Info For "+ name+" ");
         Skin skin=getSkin();
         ImageComponent imageComponent=imageComponentMapper.get(entity);
         HorizontalGroup nameAndImage = new HorizontalGroup();
-        Label nameLabel = new Label(name, skin);
+        Label nameLabel = new Label( "Name: "+ name, skin);
         nameAndImage.addActor(nameLabel);
         if(imageComponent!=null ) {
             Image image=imageComponent.getImage();
             nameAndImage.addActor(image);
             nameAndImage.space(5);
         }
-        add(nameAndImage);
-        row();
-        World world=gameAssets.getWorld();
-        double [] weightMassVolume= EntityUtilities.getMassVolumeWeight(world, entity);
-        Label mass= new Label("Mass: "+weightMassVolume[0], skin);
-        Label weight=new Label("Weight: "+ weightMassVolume[1], skin);
-        Label volume=new Label("Volume: "+ weightMassVolume[2], skin);
-        HorizontalGroup weightMassVolumeGroup=new HorizontalGroup();
-        weightMassVolumeGroup.addActor(weight);
-        weightMassVolumeGroup.addActor(mass);
-        weightMassVolumeGroup.addActor(volume);
-        double [] totalWeightMassVolume= EntityUtilities.getEntityMassAndVolume(world, entity);
-        HorizontalGroup totalWeightMassVolumeGroup=new HorizontalGroup();
-        Label total= new Label("Total Weight Including All Attached Items", skin);
-        Label totalMass= new Label("  Mass: "+totalWeightMassVolume[0], skin);
-        Label totalVolume=new Label(" volume: "+ totalWeightMassVolume[1], skin);
-        totalWeightMassVolumeGroup.addActor(total);
-        totalWeightMassVolumeGroup.addActor(totalMass);
-        totalWeightMassVolumeGroup.addActor(totalVolume);
-        totalWeightMassVolumeGroup.space(10);
-        weightMassVolumeGroup.space(10);
-        add(weightMassVolumeGroup);
-        row();
-        add(totalWeightMassVolumeGroup);
-        row();
+        table.add(nameAndImage);
+        table.row();
+       WeightMassVolumeGroup weightMassVolumeGroup= new WeightMassVolumeGroup(entity, skin, gameAssets.getWorld());
+        table.add(weightMassVolumeGroup);
+        table.row();
+        table.row();
         StringStats stringStats=stringStatsComponentMapper.get(entity);
         if(stringStats!=null) {
             ObjectMap<String, StringStat> stringStatsMap = stringStats.getStringStats();
@@ -106,8 +93,8 @@ public class EntityInfoWindow extends ClosableWindow {
                 StringStat stringStat = stringStatsMap.get(key);
                 if (stringStat.isDisplayable()) {
                     StringStatGroup stringStatGroup= new StringStatGroup(stringStat, skin);
-                   add(stringStatGroup);
-                   row();
+                   table.add(stringStatGroup);
+                   table.row();
                 }
             }
         }
@@ -121,8 +108,8 @@ public class EntityInfoWindow extends ClosableWindow {
                 NumericStat numericStat = numericStatsMap.get(key);
                 if (numericStat.isDisplayable()) {
                     NumericStatGroup numericStatGroup= new NumericStatGroup(gameAssets, numericStat, skin);
-                    add(numericStatGroup);
-                    row();
+                    table.add(numericStatGroup);
+                    table.row();
                 }
             }
         }
@@ -135,11 +122,15 @@ public class EntityInfoWindow extends ClosableWindow {
                 BooleanStat booleanStat = booleanStatsMap.get(key);
                 if (booleanStat.isDisplayable()) {
                     BooleanStatGroup booleanStatGroup= new BooleanStatGroup(booleanStat, skin);
-                  add(booleanStatGroup);
-                  row();
+                 table.add(booleanStatGroup);
+                  table.row();
                 }
             }
         }
+        ScrollPane scrollPane=  new ScrollPane(table);
+        scrollPane.setScrollingDisabled(true, false);
+        scrollPane.setTransform(true);
+        add(scrollPane);
         pack();
 
     }

@@ -67,23 +67,25 @@ public class StatBar extends Widget implements Serializable {
     /**
      *  calculates the the array of numbers to change on based on the min and max values for the tracked numeric stat
      */
-    private void calculateParts(){
+    private boolean calculateParts(){
         if(atlasName==null  || atlasName.isEmpty()){
             display=false;
-            return;
+            return false;
         }
         int numberOfParts=(int)(stat.getMaxValue()/parts);
         for(int count=1; count<=parts; count++)        {
-            numbers[count-1]=parts*numberOfParts;
+            numbers[count-1]=count*numberOfParts;
             AtlasRegion region= assets.getAtlasRegionByName(statBarPartsName+count, atlasName);
             if(region!=null) {
                 regions[count - 1] = region;
             }
             else{
                 display=false;
-                return;
+                return false;
             }
         }
+
+        return  true;
     }
 
     /**
@@ -111,25 +113,31 @@ public class StatBar extends Widget implements Serializable {
      * @return
      */
     public AtlasRegion getRegion(double stat){
-        if (stat >=numbers[6]){
-            return regions[6];
-        }
-        if (stat <=numbers[5]&& stat >numbers[4]){
-            return regions[5];
-        }
-        if (stat <=numbers[4]&& stat >numbers[3]){
-            return regions[4];
-        }
-        if (stat <=numbers[3]&& stat >numbers[2]){
-            return regions[3];
-        }
-        if (stat <=numbers[2]&& stat >numbers[1]){
-            return regions[2];
-        }
-        if (stat <=numbers[1]&& stat >numbers[0]){
-            return regions[1];
-        }
-        return regions[0];
+       boolean hasParts= calculateParts();
+       if(hasParts) {
+           if (stat >= numbers[6]) {
+               return regions[6];
+           }
+           if (stat <= numbers[5] && stat > numbers[4]) {
+               return regions[5];
+           }
+           if (stat <= numbers[4] && stat > numbers[3]) {
+               return regions[4];
+           }
+           if (stat <= numbers[3] && stat > numbers[2]) {
+               return regions[3];
+           }
+           if (stat <= numbers[2] && stat > numbers[1]) {
+               return regions[2];
+           }
+           if (stat <= numbers[1] && stat > numbers[0]) {
+               return regions[1];
+           }
+           return regions[0];
+       }
+       else{
+           return  null;
+       }
     }
 
     /**
@@ -176,4 +184,5 @@ public class StatBar extends Widget implements Serializable {
             calculateParts();
         }
     }
+
 }

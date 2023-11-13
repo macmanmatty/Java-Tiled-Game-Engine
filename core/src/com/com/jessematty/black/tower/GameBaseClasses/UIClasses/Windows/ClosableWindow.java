@@ -175,7 +175,7 @@ public class ClosableWindow extends Window {
             move.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    setResizable(!isResizable());
+                    setMovable(!isMovable());
                 }
             });
             buttons.addActor(move);
@@ -190,7 +190,7 @@ public class ClosableWindow extends Window {
             resize.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    setMovable(!isMovable());
+                    setResizable(!isResizable());
                 }
             });
             buttons.addActor(resize);
