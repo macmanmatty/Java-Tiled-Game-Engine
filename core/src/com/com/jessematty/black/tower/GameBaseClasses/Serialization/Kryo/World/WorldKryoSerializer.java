@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;

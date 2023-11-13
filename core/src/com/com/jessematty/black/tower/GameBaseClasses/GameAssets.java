@@ -58,15 +58,21 @@ public class GameAssets implements Disposable {
      *  the current game world
      */
     private World world; // the game world
+
+    /**
+     *  the default game skin loaded skin
+     */
+    private Skin defaultSkin;
     /**
      *  the current loaded skin
+     *  changes with each  map
      */
-    private Skin skin;
+    private Skin currentSkin;
 
     /**
      * The Style Used By the libGDX skin
      */
-    String skinStyle="Brick";
+    String currentSkinStyle ="Brick";
     /**
      * libGDX assetManager  @see AssetManager
      */
@@ -128,8 +134,10 @@ public class GameAssets implements Disposable {
     public void setup(){
         // register serializing classes
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
-        this.skin= loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
-         getGameLogger().setSkin(skin);
+        this.currentSkin = loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
+        this.defaultSkin= currentSkin;
+
+        getGameLogger().setSkin(currentSkin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
@@ -453,7 +461,7 @@ public class GameAssets implements Disposable {
         game.setScreen(mapDraw);
     }
     public Skin getDefaultSkin() {
-        return skin;
+        return currentSkin;
     }
     public MapDraw getMapDraw() {
         return mapDraw;
@@ -477,11 +485,11 @@ public class GameAssets implements Disposable {
     public  static GameInput getGameInput() {
         return gameInput;
     }
-    public Skin getSkin() {
-        return skin;
+    public Skin getCurrentSkin() {
+        return currentSkin;
     }
-    public void setSkin(Skin skin) {
-        this.skin = skin;
+    public void setCurrentSkin(Skin currentSkin) {
+        this.currentSkin = currentSkin;
     }
 
     public TextureAtlas getCurrentTextureAtlas() {
@@ -492,16 +500,18 @@ public class GameAssets implements Disposable {
         this.currentTextureAtlas = currentTextureAtlas;
     }
 
-    public String getSkinStyle() {
-        return skinStyle;
+    public String getCurrentSkinStyle() {
+        return currentSkinStyle;
     }
 
-    public void setSkinStyle(String skinStyle) {
-        this.skinStyle = skinStyle;
+    public void setCurrentSkinStyle(String currentSkinStyle) {
+        this.currentSkinStyle = currentSkinStyle;
     }
 
     public static  GameLogger getGameLogger() {
 
         return gameLogger;
     }
+
+
 }

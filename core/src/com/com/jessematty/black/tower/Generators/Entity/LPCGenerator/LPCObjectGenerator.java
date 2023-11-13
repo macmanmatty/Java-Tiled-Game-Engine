@@ -39,6 +39,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
+import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
 
@@ -47,7 +48,7 @@ import java.util.List;
 /**
  * class that generates various entities based of the LPC assets
  */
-public class LPCObjectGenerator {
+public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDTO> {
    private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
      private   World  world;
@@ -92,7 +93,7 @@ public class LPCObjectGenerator {
     public EntityBag linkAttachedEntitiesViaDTO(EntityBag lpcActorBag, LPCObjectGeneratorDTO lpcActorGeneratorDTO, Array<LPCObjectGeneratorDTO> lpcObjectGenerators) {
         Entity lpcActor=lpcActorBag.getOwner();
         for(LPCObjectGeneratorDTO lpcObjectGeneratorDTOAttached:lpcObjectGenerators) {
-            EntityBag attachedEntityBag=generateLPCEntity(lpcObjectGeneratorDTOAttached);
+            EntityBag attachedEntityBag= generateEntity(lpcObjectGeneratorDTOAttached);
             Entity attached=attachedEntityBag.getOwner();
             if(lpcObjectGeneratorDTOAttached.isPart()){
                 PartComponent partComponent= new PartComponent();
@@ -123,7 +124,7 @@ public class LPCObjectGenerator {
                 Gdx.app.getApplicationLogger().debug("Generation Exception", " No LPCObjectGeneratorDTO found for given Id "+lpcEntityDtoId);
                 continue;
             }
-            EntityBag attachedEntityBag=generateLPCEntity(lpcObjectGeneratorDTOAttached);
+            EntityBag attachedEntityBag= generateEntity(lpcObjectGeneratorDTOAttached);
             Entity attached=attachedEntityBag.getOwner();
             if(lpcObjectGeneratorDTOAttached.isPart()){
                 EntityUtilities.attachPart(lpcActor, attached);
@@ -147,7 +148,7 @@ public class LPCObjectGenerator {
         return  entity;
     }
 
-    public  EntityBag generateLPCEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
         EntityBag entityBag=new EntityBag();
         Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
         entityBag.setOwner(entity);
@@ -304,7 +305,7 @@ public class LPCObjectGenerator {
     
     
     private EntityBag  generatePack(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-        EntityBag pack= generateLPCEntity(lpcObjectGeneratorDTO);
+        EntityBag pack= generateEntity(lpcObjectGeneratorDTO);
         PackComponent packComponent = new PackComponent();
         packComponent.setMaxHoldWeight(lpcObjectGeneratorDTO.getMaxAtachedWeight());
         packComponent.setMaxVolume(lpcObjectGeneratorDTO.getInternalVolume());
@@ -341,7 +342,7 @@ public class LPCObjectGenerator {
         private   Entity makeBodyPart(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
 
         BodyComponent bodyComponent =GameComponentMapper.getBodyComponentComponentMapper().get(entityBag.getOwner());
-        EntityBag bodyPartEntityBag=generateLPCEntity(lpcObjectGeneratorDTO);
+        EntityBag bodyPartEntityBag= generateEntity(lpcObjectGeneratorDTO);
         Entity bodyPart=bodyPartEntityBag.getOwner();
         Entity ownerBody=entityBag.getOwner();
         EntityUtilities.attachEntity(ownerBody, bodyPart);
@@ -372,7 +373,7 @@ public class LPCObjectGenerator {
            if(!lpcObjectGeneratorDTO.isLoad()){
                continue;
            }
-           EntityBag entity = generateLPCEntity(lpcObjectGeneratorDTO);
+           EntityBag entity = generateEntity(lpcObjectGeneratorDTO);
            String name=lpcObjectGeneratorDTO.getTmxObjectId();
            if(!useIdAsKey) {
               name= getName(entities, lpcObjectGeneratorDTO.getName());

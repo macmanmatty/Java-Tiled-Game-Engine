@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components.Containers;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -27,6 +28,11 @@ public class ContainerComponent implements Component {
      * the ids of the entities in the container
      */
    private Array<String > entitiesInContainerIds = new Array<String>();
+    /**
+     * an libGDX array of all entities in the container
+     */
+    private transient Array<Entity> entitiesInContainer = new Array<Entity>();
+
     /**
      *  the allowable groups to add  to the container
      *  if this any array is empty any item that is small enough
@@ -93,6 +99,11 @@ public class ContainerComponent implements Component {
     public Array<String> getEntitiesInContainerIds() {
         return entitiesInContainerIds;
     }
+
+    public Array<Entity> getEntitiesInContainer() {
+        return entitiesInContainer;
+    }
+
     public Array<String> getGroupsAddable() {
         return groupsAddable;
     }

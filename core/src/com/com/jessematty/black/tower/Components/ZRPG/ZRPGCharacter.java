@@ -16,6 +16,7 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Other.DominateHand;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
@@ -72,7 +73,6 @@ public class ZRPGCharacter implements Component {
     private DominateHand dominateHand;
     private boolean autoAddToFirstPack;
     private ZRPGPlayerButtonModes buttonMode;
-    private int handToUse;
 
     public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
@@ -216,12 +216,6 @@ public class ZRPGCharacter implements Component {
     }
     public void setButtonMode(ZRPGPlayerButtonModes buttonMode) {
         this.buttonMode = buttonMode;
-    }
-    public int getHandToUse() {
-        return handToUse;
-    }
-    public void setHandToUse(int handToUse) {
-        this.handToUse = handToUse;
     }
     public ImageComponent getImageComponent() {
         return imageComponent;

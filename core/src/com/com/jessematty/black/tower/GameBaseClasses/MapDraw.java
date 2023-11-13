@@ -191,7 +191,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
       tiledMapRenderer = new OrthogonalTiledMapRenderer(currentMap.getTiledMap(), 1);
       Skin skin= newMap.getSkin();
         if(skin!=null){
-            gameAssets.setSkin(skin);
+            gameAssets.setCurrentSkin(skin);
         }
     }
     public ZRPGCharacter getPlayer() {

@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -273,6 +275,10 @@ public class World implements Disposable {
            addEntityToEngine(entity);
         if (position!=null) { // has  position add entity to map
             addEntityToMap(entity, position);
+            String containerId=position.getContainerEntityId();
+            if(!position.getContainerEntityId().isEmpty()){
+                entity.add(new AddItemToContainer(entitiesInWorld.get(containerId), true));
+            }
         }
     }
     /**

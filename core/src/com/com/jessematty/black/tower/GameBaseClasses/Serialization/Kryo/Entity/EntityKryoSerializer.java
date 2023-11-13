@@ -22,6 +22,7 @@ public class EntityKryoSerializer extends Serializer<Entity> {
 
     /**
      * writes te entities object
+     * if an entity is marked with @Transient it will no be serialized
      * @param kryo the kryo object
      * @param output the Kryo Output class
      * @param entity the Entity to save

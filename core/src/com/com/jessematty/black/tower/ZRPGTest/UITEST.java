@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
@@ -63,7 +61,7 @@ public class UITEST  implements Screen {
         GameMap gameMap=  new LandMap(50,50);
         world.addMap(gameMap);
 
-        EntityBag entityBag= new LPCObjectGenerator(this.gameAssetts, null ).generateLPCEntity(TestEntities.sword);
+        EntityBag entityBag= new LPCObjectGenerator(this.gameAssetts, null ).generateEntity(TestEntities.sword);
         entityInfoWindow= new EntityInfoWindow(  skin, "default",  entityBag.getOwner(), gameAssets);
         entityInfoWindow.setPosition(200,200);
         testStage.addActor(entityInfoWindow);

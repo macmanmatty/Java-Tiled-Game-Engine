@@ -18,7 +18,7 @@ public class AddItemToContainer extends ItemActionComponent implements EventComp
 
     /**
      * if this flag is true the container will become  owner of the Entity
-     * The Entity will get ann Owned component  and the Enity will be added to the list of
+     * The Entity will get an Owned component  and the Enity will be added to the list of
      * owned components in the Owner Component
      */
  private boolean setContainerAsOwner=true;

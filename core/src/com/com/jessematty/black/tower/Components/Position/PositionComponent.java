@@ -43,7 +43,7 @@ public class PositionComponent implements Component {
     /**
      * if this is not null this is id of the container the entity is located in
      */
-    private String containerEntityId;
+    private String containerEntityId="";
     private String mapId="";
     public PositionComponent() {
     }

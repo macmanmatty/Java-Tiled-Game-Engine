@@ -9,7 +9,7 @@ import java.util.Stack;
 public class BlackTower extends Game {
 private GameAssets gameAssets;
 
-boolean uiTest=true;
+boolean uiTest=false;
 
 public void MainGame(){
 }

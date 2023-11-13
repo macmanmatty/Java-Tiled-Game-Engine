@@ -67,6 +67,7 @@ public class AddToContainerSystem extends GameEntitySystem {
             if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
                 String itemToAddId = idComponentMapper.get(entity).getId();
                 containerComponent.getEntitiesInContainerIds().add(itemToAddId);
+                containerComponent.getEntitiesInContainer().add(entity);
                 if (addItemToContainer.isRemoveItemBoundsOnAdd()) {
                     itemToAddPosition.removeBounds();
                 }
