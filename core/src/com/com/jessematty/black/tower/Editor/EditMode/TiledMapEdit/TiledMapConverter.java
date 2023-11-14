@@ -19,11 +19,8 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import java.rmi.server.UID;
 public final  class TiledMapConverter {
     private static  ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
-
         private TiledMapConverter() {
-
     }
-
     /**
      * converts .tmx tiled tiled map to a texture atlas based  tiled map
      * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
@@ -48,7 +45,6 @@ public final  class TiledMapConverter {
         if (layers == 0) {
             return null;
         }
-
         MapLayer oldTiledLayer =  oldMapLayers.get(0);
         if(oldTiledLayer instanceof  TiledMapTileLayer) {
             TiledMapTileLayer oldTiledMapTileLayer = (TiledMapTileLayer) oldTiledLayer;
@@ -60,10 +56,8 @@ public final  class TiledMapConverter {
             }
         }
         }
-
         return newTiledMap;
     }
-
     /**
      * creates a new map layer from an old map layer
      * @param oldLayer the old tiled map tile layer
@@ -85,10 +79,7 @@ public final  class TiledMapConverter {
                     newMapTiledMapTileLayer.setCell(countx, county, newCell);
                 }
             }
-
     }
-
-
     /**
      * copies an TMX Tiled Map  old map cell
      * to a new  map cell for easier game serialization;
@@ -118,9 +109,6 @@ public final  class TiledMapConverter {
         newCell.setRotation(oldCell.getRotation());
         return  newCell;
     }
-
-
-
     /**
      *  Creates a new Tiled Map Tiled with a  Static AtlasTiledMap tile From a Cell and add its to the texture atlas
      * @param oldCell the old tiled map cell
@@ -192,5 +180,4 @@ public final  class TiledMapConverter {
     public ObjectMap<TextureRegion, String> getRegionNames() {
         return regionNames;
     }
-
 }
