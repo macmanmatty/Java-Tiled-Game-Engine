@@ -5,6 +5,7 @@
     },
     "activeFile": "testMap.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "magecity.tsx": {
@@ -13,10 +14,10 @@
         },
         "testMap.tmx": {
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": -1,
             "viewCenter": {
-                "x": 436,
-                "y": 420.66666666666663
+                "x": 428.66666666666663,
+                "y": 1000.6666666666666
             }
         }
     },

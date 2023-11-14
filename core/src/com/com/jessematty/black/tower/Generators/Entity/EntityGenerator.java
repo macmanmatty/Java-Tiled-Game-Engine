@@ -21,12 +21,9 @@ import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntity
 import com.jessematty.black.tower.Maps.World;
 // create a basic  with all  of the  required components.
 public class EntityGenerator {
-
-
     protected  static CopyObject copyObject;
     protected  World world;
     protected GameAssets gameAssets;
-
     public EntityGenerator(World world, GameAssets gameAssets) {
         this.world = world;
         this.gameAssets = gameAssets;

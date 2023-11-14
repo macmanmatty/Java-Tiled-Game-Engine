@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
-import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapConverter;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
@@ -96,20 +96,22 @@ public class MapTools {
         return world;
     }
 
-    /**
-     *
-     * Method that creates a new map of tiles
-     * @param gravity
-     * @param name
-     * @param mapWidth
-     * @param mapHeight
-     * @param tileWidth
-     * @param tileHeight
-     * @return
-     * @throws MapLoadingException
-     */
-    public static LandMap newLandMap(double gravity, String name, int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
 
+
+
+        /**
+         *
+         * Method that creates a new map of tiles
+         * @param gravity
+         * @param name
+         * @param mapWidth
+         * @param mapHeight
+         * @param tileWidth
+         * @param tileHeight
+         * @return
+         * @throws MapLoadingException
+         */
+    public static LandMap newLandMap(double gravity, String name, int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
         if(name==null){
 
         }
@@ -212,7 +214,7 @@ public class MapTools {
      */
         public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingException {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(path);
-           tiledMap= TiledMapTools.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
+           tiledMap= TiledMapConverter.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
             MapProperties mapProperties=tiledMap.getProperties();
             int width= mapProperties.get("width", java.lang.Integer.class);
             int  height= mapProperties.get("height", Integer.class);

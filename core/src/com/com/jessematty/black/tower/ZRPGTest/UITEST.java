@@ -61,7 +61,7 @@ public class UITEST  implements Screen {
         GameMap gameMap=  new LandMap(50,50);
         world.addMap(gameMap);
 
-        EntityBag entityBag= new LPCObjectGenerator(this.gameAssetts, null ).generateEntity(TestEntities.sword);
+        EntityBag entityBag= new LPCObjectGenerator(this.gameAssetts).generateEntity(TestEntities.sword);
         entityInfoWindow= new EntityInfoWindow(  skin, "default",  entityBag.getOwner(), gameAssets);
         entityInfoWindow.setPosition(200,200);
         testStage.addActor(entityInfoWindow);

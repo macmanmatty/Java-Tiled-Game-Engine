@@ -5,6 +5,7 @@ import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChange
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.Stat;
+import com.jessematty.black.tower.Generators.Entity.EntityGeneratorDTO;
 
 import java.util.UUID;
 

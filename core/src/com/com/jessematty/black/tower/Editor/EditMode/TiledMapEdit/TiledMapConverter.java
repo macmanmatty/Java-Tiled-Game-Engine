@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Editor.EditMode.TiledMapEdit;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,16 +17,15 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAni
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import java.rmi.server.UID;
-public final  class TiledMapTools {
+public final  class TiledMapConverter {
     private static  ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
 
-        private TiledMapTools() {
+        private TiledMapConverter() {
 
     }
 
     /**
      * converts .tmx tiled tiled map to a texture atlas based  tiled map
-     *
      * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
      * @param mapName   the name of the map which will also be the name of the atlas
      * @return NamedTextureAtlas the texture atlas generated from the tiled map
@@ -36,10 +36,7 @@ public final  class TiledMapTools {
         MapProperties oldMapProperties = oldTiledMap.getProperties();
         MapProperties newMapProperties=newTiledMap.getProperties();
         if(oldMapProperties!=null) {
-        newMapProperties.put("width", oldMapProperties.get("width", Integer.class));
-            newMapProperties.put("height", oldMapProperties.get("height", Integer.class));
-            newMapProperties.put("tilewidth", oldMapProperties.get("tilewidth", Integer.class));
-            newMapProperties.put("tileheight", oldMapProperties.get("tileheight", Integer.class));
+            newMapProperties.putAll(oldMapProperties);
            }
         newMapProperties.put("atlasName", atlasName);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
@@ -51,39 +48,75 @@ public final  class TiledMapTools {
         if (layers == 0) {
             return null;
         }
-        TiledMapTileLayer oldTiledMapTileLayer = (TiledMapTileLayer) oldMapLayers.get(0);
-        int width = oldTiledMapTileLayer.getWidth();
-        int height = oldTiledMapTileLayer.getHeight();
-        for (int count = 0; count < layers; count++) {
-            oldTiledMapTileLayer = (TiledMapTileLayer) oldMapLayers.get(count);
+
+        MapLayer oldTiledLayer =  oldMapLayers.get(0);
+        if(oldTiledLayer instanceof  TiledMapTileLayer) {
+            TiledMapTileLayer oldTiledMapTileLayer = (TiledMapTileLayer) oldTiledLayer;
+            int width = oldTiledMapTileLayer.getWidth();
+            int height = oldTiledMapTileLayer.getHeight();
+            for (MapLayer oldLayer: oldMapLayers) {
+                if(oldLayer instanceof  TiledMapTileLayer) {
+                addTiledMapTileLayer(oldLayer, newMapMapLayers, width, height, worldAtlas, mapName);
+            }
+        }
+        }
+
+        return newTiledMap;
+    }
+
+    /**
+     * creates a new map layer from an old map layer
+     * @param oldLayer the old tiled map tile layer
+     * @param newMapMapLayers the new tiled MapLayers object
+     * @param width the tiled map width
+     * @param height the tiled map height
+     * @param worldAtlas the world's texture atlas
+     * @param mapName the name of the new map
+     */
+    private static  void addTiledMapTileLayer(MapLayer oldLayer, MapLayers newMapMapLayers, int width, int height, TextureAtlas worldAtlas, String mapName){
+         TiledMapTileLayer   oldTiledMapTileLayer = (TiledMapTileLayer) oldLayer;
             TiledMapTileLayer newMapTiledMapTileLayer = new TiledMapTileLayer(oldTiledMapTileLayer.getWidth(), oldTiledMapTileLayer.getHeight(), (int) oldTiledMapTileLayer.getTileWidth(), (int) oldTiledMapTileLayer.getTileHeight());
+            newMapTiledMapTileLayer.getProperties().putAll(oldLayer.getProperties());
             newMapMapLayers.add(newMapTiledMapTileLayer);
             for (int countx = 0; countx < width; countx++) {
                 for (int county = 0; county < height; county++) {
                     Cell oldCell = oldTiledMapTileLayer.getCell(countx, county);
-                    if(oldCell==null){
-                       continue;
-                    }
-                    TiledMapTile oldTile = oldCell.getTile();
-                    if(oldTile==null){
-                        continue;
-                    }
-                    TiledMapTile newTile = null;
-                    if (oldTile instanceof StaticTiledMapTile) {
-                        newTile = addStaticTileTextureToAtlas(worldAtlas, oldCell, mapName);
-                    } else if (oldTile instanceof AnimatedTiledMapTile) {
-                        newTile = addAnimatedTileTextureToAtlas(worldAtlas, oldCell, mapName);
-                    }
-                    Cell newCell = new Cell();
-                    newCell.setTile(newTile);
-                    newCell.setFlipHorizontally(oldCell.getFlipHorizontally());
-                    newCell.setFlipVertically(oldCell.getFlipVertically());
-                    newCell.setRotation(oldCell.getRotation());
+                    Cell newCell=copyCell(worldAtlas, oldCell, mapName);
                     newMapTiledMapTileLayer.setCell(countx, county, newCell);
                 }
             }
+
+    }
+
+
+    /**
+     * copies an TMX Tiled Map  old map cell
+     * to a new  map cell for easier game serialization;
+     * @param worldAtlas the world's TextureAtlas
+     * @param oldCell the old map cell
+     * @param mapName the nme of the new map
+     * @return
+     */
+    private  static Cell copyCell( TextureAtlas worldAtlas, Cell oldCell, String mapName){
+        if (oldCell == null) {
+            return null ;
         }
-        return newTiledMap;
+        TiledMapTile oldTile = oldCell.getTile();
+        if (oldTile == null) {
+            return null;
+        }
+        TiledMapTile newTile = null;
+        if (oldTile instanceof StaticTiledMapTile) {
+            newTile = addStaticTileTextureToAtlas(worldAtlas, oldCell, mapName);
+        } else if (oldTile instanceof AnimatedTiledMapTile) {
+            newTile = addAnimatedTileTextureToAtlas(worldAtlas, oldCell, mapName);
+        }
+        Cell newCell = new Cell();
+        newCell.setTile(newTile);
+        newCell.setFlipHorizontally(oldCell.getFlipHorizontally());
+        newCell.setFlipVertically(oldCell.getFlipVertically());
+        newCell.setRotation(oldCell.getRotation());
+        return  newCell;
     }
 
 
@@ -159,4 +192,5 @@ public final  class TiledMapTools {
     public ObjectMap<TextureRegion, String> getRegionNames() {
         return regionNames;
     }
+
 }

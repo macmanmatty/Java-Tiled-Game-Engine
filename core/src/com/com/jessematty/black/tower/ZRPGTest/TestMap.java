@@ -2,7 +2,6 @@ package com.jessematty.black.tower.ZRPGTest;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
@@ -11,7 +10,7 @@ import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.SolidObject;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapConverter;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -35,12 +34,7 @@ public class TestMap {
     public void testMap(){
         JsonLoader jsonLoader= new JsonLoader();
         jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
-
-        //assetts.loadInternalTextureAtlas("swordWalk");
-       TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
-       //assetts.loadExternalTextureAtlas("/world/worldAssetts.atlas");
-       //assetts.loadExternalTextureAtlas("/world/gameAssets.atlas");
-
+        TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
         LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
@@ -52,8 +46,8 @@ public class TestMap {
         World world= new World();
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
-        LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts, world);
-        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false, false );
+        LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
 
         EntityBag lizard= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
@@ -101,19 +95,11 @@ public class TestMap {
 
         world.setPlayer( lizard.getOwner());
        world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
-        //assetts.setWorld(world);
-
-//        Entity hood=lpcActorGenerator.generateArmor("assetts.atlas", "hoodClothMale", "name", "armor", true,  true, true, new Color(1,1,1,1), 1, 100,100,100,100,100,100,100,new NumericStatsChangable(), new BooleanStatsChangable());
-        //map2.addEntity(hood);
-         //Entity sword=lpcActorGenerator.generateMeeleWeapon("spearMale", "assets", "spear", "is a spear", false,  true, true, true, NamedColor.WHITE, 1, 100,100,100,80,10,true, 100,100,new NumericStatsChangeable(), new BooleanStatsChangeable());
-    //    Entity wings=lpcActorGenerator.makeWings("assetts" , "wingsLizardMale", entity, "wings", entity.getComponent(Body.class), new NamedColor(.1f, 1, 0, 1),  1.1f, 4, 12, 12);
         world.addEntityToWorld(tree);
-       // world.addEntity(wings);
-         //world.addEntityToWorld(sword);
         map2.setTiledMap(map);
         TiledMap  tiledMap=null;
         try {
-       tiledMap =TiledMapTools.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "textureAtlases/testAssets/testAssets.atlas");
+       tiledMap = TiledMapConverter.convertToAtlasBasedTiledMap(map2.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "textureAtlases/testAssets/testAssets.atlas");
          map2.setTiledMap(tiledMap);
         } catch (MapLoadingException mapLoadingException) {
             mapLoadingException.printStackTrace();

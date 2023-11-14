@@ -42,6 +42,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.Maps.World;
+import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.List;
 
@@ -51,12 +52,10 @@ import java.util.List;
 public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDTO> {
    private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
-     private   World  world;
      private ComponentMapper<EntityId> idComponentMapper;
      private ObjectMap<String,LPCObjectGeneratorDTO> lpcObjectGeneratorDTOMap= new ObjectMap<>();
-    public LPCObjectGenerator(GameAssets assets, World world ) {
+    public LPCObjectGenerator(GameAssets assets) {
         this.assets = assets;
-        this.world=world;
         this.idComponentMapper=GameComponentMapper.getIdComponentMapper();
         lpcSpriteGenerator= new LPCSpriteGenerator(assets);
     }
@@ -348,19 +347,37 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         EntityUtilities.attachEntity(ownerBody, bodyPart);
         return bodyPart;
     }
+    /**
+     * loads an map  of  LPCObjectDTO's from  an LPCGeneratorDTO json file
+     * and returns an the object map
+     * @param path
+     * @return an map  of entities with the entity as the value and the and either the entities id or  entities name  as  the key
+     * if an entity(s) have duplicate  names a number will be appended to the reference name;
+     */
+
+    public ObjectMap<String, LPCObjectGeneratorDTO> generateObjectDTOMap(String path){
+      lpcObjectGeneratorDTOMap= new ObjectMap<>();
+        JsonLoader jsonLoader=assets.getJsonLoader();
+        List<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path);
+        for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
+            lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
+
+        }
+        return  lpcObjectGeneratorDTOMap;
+    }
+
     private void makeHand(Entity entity){
-       entity.add(new Holder());
+        entity.add(new Holder());
     }
     /**
      * loads an array of  LPC entities from  an LPCGeneratorDTO json file
      * and returns an object map of the entities
      * @param path
-     * @param addToWorld whether or not add the entity to the world object
      * @param useIdAsKey  whether or not use to the entities is as the primary key in the returned map of entities
      * @return an map  of entities with the entity as the value and the and either the entities id or  entities name  as  the key
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
-    public ObjectMap<String, EntityBag> loadEntities( String path, boolean useIdAsKey, boolean addToWorld){
+    public ObjectMap<String, EntityBag> loadEntities( String path, boolean useIdAsKey){
         lpcObjectGeneratorDTOMap.clear();
         ObjectMap<String, EntityBag> entities= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
@@ -379,9 +396,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
               name= getName(entities, lpcObjectGeneratorDTO.getName());
            }
            entities.put(name, entity);
-           if(addToWorld){
-              world.addEntityToWorld(entity);
-           }
        }
        return entities;
     }
@@ -396,4 +410,8 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         return newName;
     }
 
+    public LandSquareTile generateTile(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+            LandSquareTile landSquareTile= new LandSquareTile();
+        return  landSquareTile;
+    }
 }
