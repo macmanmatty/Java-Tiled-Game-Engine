@@ -72,7 +72,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: e0060a4c-d71d-42b9-a016-0ca36b11ab71
+	tmxObjectId: b28fde74-0045-49e5-8615-912609070332
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -209,7 +209,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: b5846fd5-8f1e-4a69-a61f-73e4cb95e7e2
+	tmxObjectId: f3618c8a-34b5-426f-bbcd-730b5a5686b7
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -334,7 +334,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 6bd58395-aa74-4ebf-a306-47356316c6c5
+			tmxObjectId: f424f199-e77f-4ad5-99db-05240425391c
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1118,7 +1118,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: ec9fd4e9-0179-4980-9352-8db6257d7341
+			tmxObjectId: c778cb9c-e7d0-4df0-964a-fb8685584da9
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1243,7 +1243,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 6bd58395-aa74-4ebf-a306-47356316c6c5
+					tmxObjectId: f424f199-e77f-4ad5-99db-05240425391c
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -2036,7 +2036,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: ae756510-1cf6-490c-8631-14bbf8ce294b
+	tmxObjectId: 4f31599a-8f9e-4340-baa2-42bce1cefda4
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2120,7 +2120,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: f355b6d9-156c-438f-b590-8cee5c611dcf
+	tmxObjectId: 8b798b20-d969-46d4-9b97-4cbbfc77a23c
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2262,7 +2262,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 909ecc58-e6a5-4efa-9420-4d5b06f808d8
+	tmxObjectId: 5a79fa49-6412-463e-af10-654a51caab6c
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2346,7 +2346,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: a751013c-9604-46ad-b12c-809fe47fbf36
+	tmxObjectId: 1fff66c7-5a65-44cf-9663-49dd3ac1c88a
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2430,7 +2430,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 804d4105-18f5-4fa4-ade5-64dbc200498f
+	tmxObjectId: 9dcfd5e8-3b88-4eea-89d5-2f8680099819
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2514,7 +2514,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 74b287d8-2177-4878-98c8-8820434c0570
+	tmxObjectId: 0a03274f-6ead-4582-ab48-9648faa99585
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2698,7 +2698,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 2062f133-f882-44d2-a926-8a8c83acd5ad
+	tmxObjectId: b3bbe45f-e1ac-486b-b123-e58d60f7eec7
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2825,7 +2825,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d8b8817e-8431-49ae-a9bd-cf3b789006d1
+	tmxObjectId: 1fa585f2-9b16-45e8-bdf8-99d47e077c5d
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2909,7 +2909,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 628292f9-023a-4426-b79a-7814e2b4bd9b
+	tmxObjectId: 4b5d260b-bf5a-4b2b-ab24-1e923322966f
 	bounds: null
 	groups: []
 	groupsAddable: []

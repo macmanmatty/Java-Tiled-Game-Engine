@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="11">
+ <properties>
+  <property name="Gravity" value="9.0"/>
+  <property name="Map Name" value="Test Map"/>
+  <property name="Object DTO Path" value="/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json"/>
+ </properties>
  <tileset firstgid="1" source="magecity.tsx"/>
  <layer id="1" name="Tile Layer 1" width="50" height="50">
   <data encoding="csv">

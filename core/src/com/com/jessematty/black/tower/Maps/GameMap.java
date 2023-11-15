@@ -16,13 +16,11 @@ import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 import com.sun.tools.classfile.Opcode;
-
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 /**
  * class with map of 2d tiles  the game map that all other maps extend from
  */
@@ -58,7 +56,6 @@ public abstract  class GameMap  implements Map {
 	 * the libGDX Skin the map will use for it's UI
 	 */
 	protected transient Skin skin;
-
 	/**
 	 * the Entities currently on the map NOT including the map of tiles
 	 * note entities do not have to have  a x, y location to be present on the map
@@ -250,7 +247,6 @@ public abstract  class GameMap  implements Map {
 	 * @param mapLocationY the  y location  map in world units 
 	 * @return the LandSquareTile at point location.
 	 */
-
 	/**
 	 *  takes  in float world unit coordinates and returns the   the tile area at that point.
 	 * @param mapLocationX the  x location  map in world units
@@ -369,7 +365,6 @@ public abstract  class GameMap  implements Map {
 					continue;
 				}
 					tiles.add(tile);
-
 			}
 		}
 		return tiles;

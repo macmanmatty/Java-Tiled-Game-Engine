@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
@@ -18,23 +19,29 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import java.rmi.server.UID;
 public final  class TiledMapConverter {
+    /**
+     * the map of the texture region names
+     */
     private static  ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
+    
         private TiledMapConverter() {
     }
-    /**
-     * converts .tmx tiled tiled map to a texture atlas based  tiled map
-     * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
-     * @param mapName   the name of the map which will also be the name of the atlas
-     * @return NamedTextureAtlas the texture atlas generated from the tiled map
-     * @ throws MapLoadingException
-     */
+        /**
+         * converts .tmx tiled tiled map to a texture atlas based  tiled map
+         * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
+         * @param mapName   the name of the map which will also be the name of the atlas
+         * @return NamedTextureAtlas the texture atlas generated from the tiled map
+         * @ throws MapLoadingException
+         */
     public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingException {
         TiledMap newTiledMap= new TiledMap();
         MapProperties oldMapProperties = oldTiledMap.getProperties();
         MapProperties newMapProperties=newTiledMap.getProperties();
-        if(oldMapProperties!=null) {
+        if(oldMapProperties==null ) {
+            throw new MapLoadingException("Tiled Map Is Missing Properties");
+        }
             newMapProperties.putAll(oldMapProperties);
-           }
+           
         newMapProperties.put("atlasName", atlasName);
         MapLayers oldMapLayers = oldTiledMap.getLayers();
         if(oldMapLayers==null){
@@ -43,35 +50,30 @@ public final  class TiledMapConverter {
         MapLayers newMapMapLayers = newTiledMap.getLayers();
         int layers = oldMapLayers.size();
         if (layers == 0) {
-            return null;
+            throw new MapLoadingException("Tiled Map Has No Layers");
         }
-        MapLayer oldTiledLayer =  oldMapLayers.get(0);
-        if(oldTiledLayer instanceof  TiledMapTileLayer) {
-            TiledMapTileLayer oldTiledMapTileLayer = (TiledMapTileLayer) oldTiledLayer;
-            int width = oldTiledMapTileLayer.getWidth();
-            int height = oldTiledMapTileLayer.getHeight();
             for (MapLayer oldLayer: oldMapLayers) {
                 if(oldLayer instanceof  TiledMapTileLayer) {
-                addTiledMapTileLayer(oldLayer, newMapMapLayers, width, height, worldAtlas, mapName);
+                addTiledMapTileLayer(oldLayer, newMapMapLayers, worldAtlas, mapName);
             }
         }
-        }
+
         return newTiledMap;
     }
     /**
      * creates a new map layer from an old map layer
      * @param oldLayer the old tiled map tile layer
      * @param newMapMapLayers the new tiled MapLayers object
-     * @param width the tiled map width
-     * @param height the tiled map height
      * @param worldAtlas the world's texture atlas
      * @param mapName the name of the new map
      */
-    private static  void addTiledMapTileLayer(MapLayer oldLayer, MapLayers newMapMapLayers, int width, int height, TextureAtlas worldAtlas, String mapName){
+    private static  void addTiledMapTileLayer(MapLayer oldLayer, MapLayers newMapMapLayers, TextureAtlas worldAtlas, String mapName){
          TiledMapTileLayer   oldTiledMapTileLayer = (TiledMapTileLayer) oldLayer;
             TiledMapTileLayer newMapTiledMapTileLayer = new TiledMapTileLayer(oldTiledMapTileLayer.getWidth(), oldTiledMapTileLayer.getHeight(), (int) oldTiledMapTileLayer.getTileWidth(), (int) oldTiledMapTileLayer.getTileHeight());
             newMapTiledMapTileLayer.getProperties().putAll(oldLayer.getProperties());
             newMapMapLayers.add(newMapTiledMapTileLayer);
+            int width = oldTiledMapTileLayer.getWidth();
+            int height = oldTiledMapTileLayer.getHeight();
             for (int countx = 0; countx < width; countx++) {
                 for (int county = 0; county < height; county++) {
                     Cell oldCell = oldTiledMapTileLayer.getCell(countx, county);
