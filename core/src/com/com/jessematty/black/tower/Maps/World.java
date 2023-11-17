@@ -67,7 +67,7 @@ public class World implements Disposable {
      */
     private String name="world";
     /**
-     * the game currently running
+     *  is the game currently running
      */
         private boolean gameInProgress;
         private  boolean newWorld =true;
@@ -86,7 +86,7 @@ public class World implements Disposable {
     private transient TextureAtlas worldTextureAtlas= new NamedTextureAtlas();
 
     /**  custom added the ashley systems in the world these do NOT include the game  base systems  such as render,
-     die, or animation  as tthose should not be removed  or modified once the game has started
+     die, or animation  as those should not be removed  or modified once the game has started
      */
     private OrderedMap< Class<? extends EntitySystem>, EntitySystem> systemsInWorld = new OrderedMap<>();
         // used for  deserialization

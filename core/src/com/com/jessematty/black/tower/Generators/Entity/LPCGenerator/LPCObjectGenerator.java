@@ -36,6 +36,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
@@ -147,7 +148,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         return  entity;
     }
 
-    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO)  {
         EntityBag entityBag=new EntityBag();
         Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
         entityBag.setOwner(entity);
@@ -186,8 +187,10 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         numericStats.addStat(new NumericStat(true, "speed", 10, 0, 40));
         boolean lpcActorAnimated=lpcObjectGeneratorDTO.isLpcActorAnimated();
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
+        boolean animated=lpcObjectGeneratorDTO.isAnimated();
         AnimatableComponent animatableComponent=null;
-        if(lpcActorAnimated) {
+
+            if(lpcActorAnimated) {
             lpcSpriteGenerator.setHasWalkFrames(lpcObjectGeneratorDTO.isHasWalkFrames());
             lpcSpriteGenerator.setHasDieFrames(lpcObjectGeneratorDTO.isHasDieFrames());
             lpcSpriteGenerator.setHasEatFrames(lpcObjectGeneratorDTO.isHasEatFrames());

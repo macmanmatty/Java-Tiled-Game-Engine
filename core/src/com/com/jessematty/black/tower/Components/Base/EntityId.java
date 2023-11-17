@@ -12,7 +12,8 @@ public class EntityId implements Component {
     /**
      *  the entities id;
      */
-    private  String id= UUID.randomUUID().toString();
+    private  final  String id= UUID.randomUUID().toString();
+
 
     public String getId() {
         return id;

@@ -11,15 +11,18 @@ import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.SolidObject;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapConverter;
+import com.jessematty.black.tower.Editor.GameMapEdit.GameMapEdit;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.TiledMapGameLoader;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -46,9 +49,9 @@ public class TestMap {
         World world= new World();
         world.addMap(map2);
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
+
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
         ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
-
         EntityBag lizard= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
@@ -74,7 +77,6 @@ public class TestMap {
             lizard.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
         }
         world.addEntityToWorld(lizard);
-
       EntityBag tree= entityBagObjectMap.get("tree");
         tree.getOwner().add(new SolidObject());
        PositionComponent position2 =tree.getOwner().getComponent(PositionComponent.class);
@@ -132,5 +134,68 @@ public class TestMap {
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }
+    public void createMapByTMXFile(){
+        JsonLoader jsonLoader= new JsonLoader();
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
+        TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
+        TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
+        assetts.finishLoading();
+        World world= new World();
+        GameMap gameMap=null;
+        try {
+         gameMap= new TiledMapGameLoader(assetts, world).createMapFromTmxMap(map);
+        } catch (MapLoadingException e) {
+            throw new RuntimeException(e);
+        }
+        world.addMap(gameMap);
+        LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
+        EntityBag pack=entityBagObjectMap.get("pack");
+        EntityBag lizard=null;
+        BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
+        String id=body.getBodyParts().get("torso");
+        Entity torso=world.getEntity(id);
+
+        String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
+        world.addEntityToWorld(pack.getOwner());
+        world.setPlayer( lizard.getOwner());
+        world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
+        gameMap.setTiledMap(map);
+        TiledMap  tiledMap=null;
+        try {
+            tiledMap = TiledMapConverter.convertToAtlasBasedTiledMap(gameMap.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "textureAtlases/testAssets/testAssets.atlas");
+            gameMap.setTiledMap(tiledMap);
+        } catch (MapLoadingException mapLoadingException) {
+            mapLoadingException.printStackTrace();
+        }
+
+        //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
+        for(int count = 33; count<gameMap.getXTiles(); count++){
+            LandSquareTile landSquareTile= gameMap.getTile(count, 15);
+            PhysicalObjectComponent physicalObjectComponent=new PhysicalObjectComponent();
+            physicalObjectComponent.setMass(Float.MAX_VALUE);
+            physicalObjectComponent.setVolume(100);
+            landSquareTile.add(physicalObjectComponent);
+            landSquareTile.getComponent(PositionComponent.class).setBounds(32, 64);
+        }
+
+        world.setStartMap(gameMap.getId());
+        world.setName("game");
+        LandMap map4= MapTools.newLandMap(9.8, "map", 20, 20, 32, 32);
+        world.addMap(map4);
+        map4.setTiledMap(tiledMap);
+
+        try {
+            assetts.saveGameWithAssets(world, "~/world", 2048, 2048);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        World newWorld=assetts.loadGame("~/world/game.bin");
+        newWorld.getMap(gameMap.getId()).setSkin(assetts.getDefaultSkin());
+        assetts.setWorld(newWorld);
+        assetts.getMapDraw().setDrawEntityDebugBounds(true);
+        assetts.showGame();
+    }
+
 
 }

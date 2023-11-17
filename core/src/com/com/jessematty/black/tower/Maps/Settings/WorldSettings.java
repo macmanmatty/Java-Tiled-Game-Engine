@@ -18,17 +18,10 @@ public   class WorldSettings extends Settings {
         settings.put("yMaps", 10);
         settings.put("startMapX", 0);
         settings.put("startMapY", 0);
-        settings.put("assetsPath", "/world/assetts.atlas");
         settings.put("currentMapX", 0);
         settings.put("currentMapY", 0);
         settings.put("playerId", "id");
         settings.put("textureAtlasPath", "/worldAssets.atlas");
     }
-    public void setTiles(int tilesX, int tilesY){
-        settings.put("xTiles", tilesX);
-        settings.put("yTiles", tilesY);
-        settings.put("width", tilesX* getSimpleSetting("tileWidth", Integer.class));
-        settings.put("height", tilesY* getSimpleSetting("tileHeight", Integer.class));
 
-    }
 }

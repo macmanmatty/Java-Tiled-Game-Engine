@@ -46,7 +46,6 @@ import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
 import java.io.IOException;
 import java.util.UUID;
 /**
@@ -58,7 +57,6 @@ public class GameAssets implements Disposable {
      *  the current game world
      */
     private World world; // the game world
-
     /**
      *  the default game skin loaded skin
      */
@@ -68,7 +66,6 @@ public class GameAssets implements Disposable {
      *  changes with each  map
      */
     private Skin currentSkin;
-
     /**
      * The Style Used By the libGDX skin
      */
@@ -117,12 +114,7 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
-
     private final static GameLogger gameLogger= new GameLogger();
-
-
-
-
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -136,7 +128,6 @@ public class GameAssets implements Disposable {
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         this.currentSkin = loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
         this.defaultSkin= currentSkin;
-
         getGameLogger().setSkin(currentSkin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
@@ -148,7 +139,6 @@ public class GameAssets implements Disposable {
         kryo.register(ObjectMap.class, new ObjectMapSerializer());
         kryo.register(OrderedMap.class, new OrderedMapSerializer());
     }
-
     public void showPreviousScreen(){ // changes the screen back to the screen that was displayed before
        game.setScreen(previousScreen);
     }
@@ -269,7 +259,8 @@ public class GameAssets implements Disposable {
      * @return  AtlasNamedAtlasRegion may be null if no region exists
      */
     public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName,  String atlasPath){
-         TextureAtlas atlas= assetManager.get(atlasPath, TextureAtlas.class);
+        TextureAtlas atlas = assetManager.get(atlasPath, TextureAtlas.class);
+            assetManager.load(atlasPath, TextureAtlas.class);
          AtlasRegion region=atlas.findRegion(atlasRegionName);
          if(region!=null) {
              return new AtlasNamedAtlasRegion(region, atlasPath);
@@ -300,7 +291,7 @@ public class GameAssets implements Disposable {
         return map;
     }
     /**
-     *  retrieves a libGDX tiled map from the asset manager
+     *  retrieves a LOADED  libGDX  tiled map from the asset manager
      * @param name the name of the map to retrieve
      * @return
      */
@@ -471,7 +462,6 @@ public class GameAssets implements Disposable {
     }
     public void exit() {
         dispose();
-
     }
     public GamePrefecences getSettings() {
         return settings;
@@ -491,27 +481,19 @@ public class GameAssets implements Disposable {
     public void setCurrentSkin(Skin currentSkin) {
         this.currentSkin = currentSkin;
     }
-
     public TextureAtlas getCurrentTextureAtlas() {
         return currentTextureAtlas;
     }
-
     public void setCurrentTextureAtlas(TextureAtlas currentTextureAtlas) {
         this.currentTextureAtlas = currentTextureAtlas;
     }
-
     public String getCurrentSkinStyle() {
         return currentSkinStyle;
     }
-
     public void setCurrentSkinStyle(String currentSkinStyle) {
         this.currentSkinStyle = currentSkinStyle;
     }
-
     public static  GameLogger getGameLogger() {
-
         return gameLogger;
     }
-
-
 }

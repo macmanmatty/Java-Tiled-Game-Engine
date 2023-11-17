@@ -29,9 +29,9 @@ public class LPCActorGeneratorTest {
        gameAssets = new GameAssets("game", Mockito.any());
     }
     @Test
-    public void  testLoadAssets(){
-        LPCObjectGenerator lpcObjectGenerator= new LPCObjectGenerator(gameAssets, new TestMap().testWorld);
-     ObjectMap<String, EntityBag> entityBagArray= lpcObjectGenerator.loadEntities("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/core/src/test/java/Generators/LPCObjectGenerator/testEntities.json", false, false);
+    public void  testLoadEntities(){
+        LPCObjectGenerator lpcObjectGenerator= new LPCObjectGenerator(gameAssets);
+     ObjectMap<String, EntityBag> entityBagArray= lpcObjectGenerator.loadEntities("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/core/src/test/java/Generators/LPCObjectGenerator/testEntities.json", false);
         assertEquals(11, entityBagArray.size);
         assertEquals(6, entityBagArray.get("lizard").getEntities().size);
         assertEquals(0, entityBagArray.get("tree").getEntities().size);

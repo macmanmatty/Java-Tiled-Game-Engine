@@ -55,7 +55,7 @@ private com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.Te
      */
     private void packAssets(String path, String atlasName, String fullAtlasPath, World world, int packWidth, int packHeight) throws IOException {
         textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(), packWidth  ,packHeight, 2);
-       // setMapAtlasName(fullAtlasPath,world.getWorldMaps() );
+      // setMapAtlasName(fullAtlasPath,world.getWorldMaps() );
     }
     /**
      * sets  worlds maps the tiled map
