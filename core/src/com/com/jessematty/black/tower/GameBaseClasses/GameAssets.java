@@ -334,6 +334,11 @@ public class GameAssets implements Disposable {
     public void finishLoading(){
          assetManager.finishLoading();
     }
+    public float getProgress(){
+       float progress=  assetManager.getProgress();
+       return  progress;
+    }
+
    public void  loadTextureAtlasAsync(final String path){
         Runnable runnable= new Runnable() {
             @Override

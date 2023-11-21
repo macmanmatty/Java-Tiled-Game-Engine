@@ -1,5 +1,6 @@
 package com.jessematty.black.tower.ZRPGTest;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +17,7 @@ import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.TiledMapGameLoader;
@@ -135,29 +137,31 @@ public class TestMap {
         assetts.showGame();
     }
     public void createMapByTMXFile(){
-        JsonLoader jsonLoader= new JsonLoader();
-        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
         World world= new World();
         GameMap gameMap=null;
+        TiledMapGameLoader tiledMapLoader= new TiledMapGameLoader(assetts, world);
+
         try {
-         gameMap= new TiledMapGameLoader(assetts, world).createMapFromTmxMap(map);
+            gameMap=tiledMapLoader.createMapFromTmxMap(map);
         } catch (MapLoadingException e) {
+            throw new RuntimeException(e);
+        } catch (EntityLoadingException e) {
             throw new RuntimeException(e);
         }
         world.addMap(gameMap);
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
         ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
-        EntityBag pack=entityBagObjectMap.get("pack");
-        EntityBag lizard=null;
+        //EntityBag pack=entityBagObjectMap.get("pack");
+        EntityBag lizard=tiledMapLoader.getEntityBagArray().get("player");
         BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
         String id=body.getBodyParts().get("torso");
         Entity torso=world.getEntity(id);
 
-        String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
-        world.addEntityToWorld(pack.getOwner());
+      //  String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
+       // world.addEntityToWorld(pack.getOwner());
         world.setPlayer( lizard.getOwner());
         world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
         gameMap.setTiledMap(map);

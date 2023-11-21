@@ -137,6 +137,6 @@ public class MainScreen implements Screen  {
         Gdx.input.setInputProcessor(stage);
     }
     public void testMap() {
-        new TestMap(gameAssets).testMap();
+        new TestMap(gameAssets).createMapByTMXFile();
     }
 }

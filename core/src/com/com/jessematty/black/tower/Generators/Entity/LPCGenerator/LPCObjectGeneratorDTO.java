@@ -15,7 +15,6 @@ public class LPCObjectGeneratorDTO {
      * into the game
      */
     boolean load=true;
-
     String atlasName;
     /**
      * the base name of the animation

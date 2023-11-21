@@ -53,15 +53,13 @@ import java.util.List;
 public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDTO> {
    private LPCSpriteGenerator lpcSpriteGenerator;
      private    GameAssets assets;
-     private ComponentMapper<EntityId> idComponentMapper;
      private ObjectMap<String,LPCObjectGeneratorDTO> lpcObjectGeneratorDTOMap= new ObjectMap<>();
     public LPCObjectGenerator(GameAssets assets) {
         this.assets = assets;
-        this.idComponentMapper=GameComponentMapper.getIdComponentMapper();
         lpcSpriteGenerator= new LPCSpriteGenerator(assets);
     }
 
-    private Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+    private Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id) {
         Entity entity= new Entity();
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(lpcObjectGeneratorDTO.getMass());
@@ -77,7 +75,13 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         }
         entity.add(position);
         entity.add(physicalObject);
-        EntityId entityId = new EntityId();
+        EntityId entityId;
+        if(id!=null) {
+        entityId =new EntityId(id);
+        }
+        else{
+            entityId=new EntityId();
+        }
         entity.add(entityId);
         return  entity;
     }
@@ -147,10 +151,13 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
 
         return  entity;
     }
+    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+    return  generateEntity(lpcObjectGeneratorDTO, null);
+        }
 
-    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO)  {
+    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id)  {
         EntityBag entityBag=new EntityBag();
-        Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO);
+        Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO, id);
         entityBag.setOwner(entity);
         NameComponent nameComponent = new NameComponent();
         nameComponent.setStat(lpcObjectGeneratorDTO.getName());

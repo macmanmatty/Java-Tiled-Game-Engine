@@ -15,11 +15,11 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
@@ -28,7 +28,6 @@ import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenera
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
-import com.jessematty.black.tower.Maps.Map;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -84,7 +83,7 @@ public class TiledMapGameLoader {
      * into the game
      * @param tiledMaps
      */
-    public  void createGameFromTmxMaps(Array<TiledMap> tiledMaps) throws MapLoadingException { // loads tiles TMXTileMap from a given file path
+    public  void createGameFromTmxMaps(Array<TiledMap> tiledMaps) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
                 for(TiledMap map: tiledMaps){
                GameMap gameMap= createMapFromTmxMap(map);
                 }
@@ -252,7 +251,7 @@ public class TiledMapGameLoader {
      * @return The Created Game Map
      * @throws MapLoadingException
      */
-    public GameMap  createMapFromTmxMap(TiledMap tiledMap) throws MapLoadingException { // loads tiles TMXTileMap from a given file path
+    public GameMap  createMapFromTmxMap(TiledMap tiledMap) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
         MapProperties mapProperties = tiledMap.getProperties();
         String objectGeneratorDTOPath = mapProperties.get("objectDTOPath", String.class);
         String name = mapProperties.get("mapName", String.class);
@@ -328,36 +327,63 @@ public class TiledMapGameLoader {
        return  map;
    }
 
-    private Array<EntityBag> loadMapObjects (Array<EntityBag> entityBags, ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) {
+    private Array<EntityBag> loadMapObjects (Array<EntityBag> entityBags, ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) throws EntityLoadingException {
         for (MapObject mapObject : mapObjects) {
             MapProperties properties = mapObject.getProperties();
-            float x=properties.get("X" , float.class);
-            float y=properties.get("Y" , float.class);
-            String tmxObjectID = properties.get("objectId", String.class);
-            LPCObjectGeneratorDTO lpcObjectGeneratorDTO=lpcObjectGeneratorObjectMap.get(tmxObjectID);
+            Float  x=properties.get("X" , float.class);
+            Float y=properties.get("Y" , float.class);
+            String entityId=properties.get("entityId", String.class);
+
+            String tmxObjectID = properties.get("tmxObjectID", String.class);
+            if(tmxObjectID==null) {
+                continue;
+            }
+
+                LPCObjectGeneratorDTO lpcObjectGeneratorDTO = lpcObjectGeneratorObjectMap.get(tmxObjectID);
+
             String textureAtlasPath=lpcObjectGeneratorDTO.getAtlasName();
-            TextureAtlas textureAtlas=null;
-            if(!assets.getAssetManager().isLoaded(textureAtlasPath)){
-              textureAtlas= assets.loadExternalTextureAtlas(textureAtlasPath);
-              TextureAtlas worldTextureAtlas=world.getWorldTextureAtlas();
-              worldTextureAtlas.getRegions().addAll(textureAtlas.getRegions());
-                worldTextureAtlas.getTextures().addAll(textureAtlas.getTextures());
-            }
-            else{
-                textureAtlas=assets.getAssetManager().get(textureAtlasPath);
-            }
+            TextureAtlas textureAtlas= getTextureAtlas(textureAtlasPath);
             textureAtlases.add(textureAtlas);
             lpcObjectGeneratorDTO.setAtlasName(world.getWorldSettings().getSimpleSetting("textureAtlasPath", String.class));
-            EntityBag entityBag = lpcObjectGenerator.generateEntity(lpcObjectGeneratorDTO);
-            Entity entity=   entityBag.getOwner();
+            EntityBag entityBag=null;
+            if(entityId!=null){
+                entityBag = lpcObjectGenerator.generateEntity(lpcObjectGeneratorDTO, entityId);
+
+            }
+            else {
+                entityBag = lpcObjectGenerator.generateEntity(lpcObjectGeneratorDTO);
+            }
+            Entity entity=entityBag.getOwner();
             PositionComponent positionComponent= GameComponentMapper.getPositionComponentMapper().get(entity);
             positionComponent.setPosition(x,y);
             entityBags.add(entityBag);
             world.addEntityToWorld(entityBag);
-            String reference=tmxObjectID+x+y;
-            entityBagArray.put(reference, entityBag);
+            String id=GameComponentMapper.getIdComponentMapper().get(entity).getId();
+            if(entityBagArray.get(id)!=null){
+                throw new EntityLoadingException("Duplicate Entity Id: "+id+" detected  please check your entity ids");
+            }
+            entityBagArray.put(id,  entityBag);
         }
         return entityBags;
+    }
+
+
+
+    public TextureAtlas getTextureAtlas(String textureAtlasPath){
+        TextureAtlas textureAtlas=null;
+        if(!assets.getAssetManager().isLoaded(textureAtlasPath)){
+            getTextureAtlas(textureAtlasPath);
+
+        textureAtlas= assets.loadExternalTextureAtlas(textureAtlasPath);
+        TextureAtlas worldTextureAtlas=world.getWorldTextureAtlas();
+        worldTextureAtlas.getRegions().addAll(textureAtlas.getRegions());
+        worldTextureAtlas.getTextures().addAll(textureAtlas.getTextures());
+        }
+        else{
+            textureAtlas=assets.getAssetManager().get(textureAtlasPath);
+        }
+
+        return textureAtlas;
     }
 
     private  void createEntity(  Array<EntityBag> entityBags,  ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap,  MapProperties properties){
