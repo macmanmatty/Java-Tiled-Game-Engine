@@ -1,14 +1,11 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
-
 public class NumericStatsSelfChangable implements Component {
    private Array<SelfChangableNumericStatChangeable> statsToChange = new Array<>();
-
     public Array<SelfChangableNumericStatChangeable> getStatsToChange() {
         return statsToChange;
     }
-
     public void addStatToChange(SelfChangableNumericStatChangeable amount ){
         statsToChange.add(amount);
     }

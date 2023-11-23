@@ -15,11 +15,7 @@ public class LandMap extends GameMap implements Serializable {
 		gameMapSettings.getSettings().put("lightChanges", true);
 		this.lightChanges=true;
 	}
-	public LandMap(int xSize, int ySize) {
-		super(xSize, ySize);
-		gameMapSettings.getSettings().put("lightChanges", true);
-		this.lightChanges=true;
-	}
+
 	public void mapTurnActions(float deltaTime, GameTime gameTime){ // method for updating the map and the tiles on it each game loop call
 		super.mapTurnActions(deltaTime, gameTime);
 		if(lightChanges) {

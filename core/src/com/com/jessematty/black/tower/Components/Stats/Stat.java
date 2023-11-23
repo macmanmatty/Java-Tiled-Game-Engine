@@ -9,7 +9,7 @@ import java.util.Objects;
  * is Copyable  so you can  deep copy  stats
  *
  */
-public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
+abstract public  class   Stat   implements Component , Nameable{
     /**
      * whether or the stat is displayable in the UI
      */
@@ -57,8 +57,7 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
         this.displayable = displayable;
         this.name = name;
     }
-    public abstract String getStatAsString();
-    
+
     public Stat(String name) {
         this.name = name;
     }
@@ -111,5 +110,9 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
     }
     public void setUnchangeable(boolean unchangeable) {
         this.unchangeable = unchangeable;
+    }
+
+    public void setChangeGroups(Array<String> changeGroups) {
+        this.changeGroups = changeGroups;
     }
 }

@@ -1,4 +1,4 @@
-package Systems;
+package Systems.Entity;
 
 public class OwnerSystemTest {
 }

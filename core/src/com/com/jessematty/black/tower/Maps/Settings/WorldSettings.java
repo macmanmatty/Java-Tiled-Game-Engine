@@ -21,7 +21,7 @@ public   class WorldSettings extends Settings {
         settings.put("currentMapX", 0);
         settings.put("currentMapY", 0);
         settings.put("playerId", "id");
-        settings.put("textureAtlasPath", "/worldAssets.atlas");
+       // settings.put("textureAtlasPath", "/worldAssets.atlas");
     }
 
 }

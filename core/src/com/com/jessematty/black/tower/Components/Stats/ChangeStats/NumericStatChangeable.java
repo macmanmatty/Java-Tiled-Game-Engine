@@ -2,7 +2,6 @@ package com.jessematty.black.tower.Components.Stats.ChangeStats;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-
 /**
  * class the represents a numeric stat that changes  a numeric stat with same name
  * it extends the numeric stat fo the same name and entity that has stats that change other stats
@@ -19,7 +18,6 @@ public   class NumericStatChangeable extends NumericStat {// class for changing 
      * what actions this stat changes  the other stat on like collision , touch, inView, onHera etc.
      */
     protected Array<String> actionsToChangeOn = new Array<String>();
-
     /**
      * // if this flag is the change to the other state  will occur randomly between the min and min and max values for this stat
      */
@@ -35,13 +33,10 @@ public   class NumericStatChangeable extends NumericStat {// class for changing 
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.amountOfTimeToChangeFor = amountOfTimeToChangeFor;
-
     }
-
     public NumericStatChangeable(String name) {
         super(name);
     }
-
     public NumericStatChangeable(boolean displayable, String name, double value, double minValue, double maxValue) {
         super(displayable, name, value, minValue, maxValue);
     }
@@ -52,10 +47,7 @@ public   class NumericStatChangeable extends NumericStat {// class for changing 
         this.value = other.getDoubleValue();
         this.minValue = other.getMinValue();
         this.maxValue = other.getMaxValue();
-
     }
-
-
     /**
      * copy constructor
      * @param  other the stat to copy
@@ -64,26 +56,19 @@ public   class NumericStatChangeable extends NumericStat {// class for changing 
         super(other);
         this.amountOfTimeToChangeFor = other.amountOfTimeToChangeFor;
         this.randomChange = other.randomChange;
-
         this.value = other.value;
         this.minValue = other.minValue;
         this.maxValue = other.maxValue;
         this.amountOfTimeToChangeFor = other.amountOfTimeToChangeFor;
         this.actionsToChangeOn=new Array<>(other.actionsToChangeOn);
-
-
     }
-
     public void setAmountOfTimeToChangeFor(int amountOfTimeToChangeFor) {
         this.amountOfTimeToChangeFor = amountOfTimeToChangeFor;
     }
     public int getAmountOfTimeToChangeFor() {
         return amountOfTimeToChangeFor;
     }
-    @Override
-    public Stat makeCopy() {
-        return new NumericStatChangeable(this);
-    }
+ 
     public Array<String> getActionsToChangeOn() {
         return actionsToChangeOn;
     }
@@ -107,5 +92,4 @@ public   class NumericStatChangeable extends NumericStat {// class for changing 
         this.randomChange = randomChange;
     }
   
-
 }

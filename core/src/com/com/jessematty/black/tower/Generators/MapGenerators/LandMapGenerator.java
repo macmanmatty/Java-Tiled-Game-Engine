@@ -60,7 +60,7 @@ public class LandMapGenerator extends MapGenerator {
     public LandMapGenerator(GameAssets assetts, LandMapSpecs specs) {
         super(assetts, specs.getxSize(), specs.getySize());
         this.mapSpecs=specs;
-        map= new LandMap(xSize, ySize);
+        map= new LandMap();
         map.setSkin(assetts.getDefaultSkin());
         tiledMap= new TiledMap();
        MapProperties properties= tiledMap.getProperties();

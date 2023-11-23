@@ -3,7 +3,7 @@
  <properties>
   <property name="Gravity" value="9.0"/>
   <property name="Map Name" value="Test Map"/>
-  <property name="objectDTOPath" value="/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json"/>
+  <property name="objectDTOPath" value="/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntitiesTmx.json"/>
  </properties>
  <tileset firstgid="1" source="magecity.tsx"/>
  <layer id="1" name="Tile Layer 1" width="50" height="50">
@@ -171,19 +171,19 @@
  <objectgroup id="5" name="Object Layer 1">
   <object id="11" x="1036" y="141.333">
    <properties>
-    <property name="tmxObjectID" value="1fa585f2-9b16-45e8-bdf8-99d47e077c5d"/>
+    <property name="tmxObjectID" value="tree"/>
     <property name="type" value="lpcEntity"/>
    </properties>
   </object>
   <object id="12" x="709.333" y="908">
    <properties>
-    <property name="tmxObjectID" value="f424f199-e77f-4ad5-99db-05240425391c"/>
+    <property name="tmxObjectID" value="tree"/>
    </properties>
   </object>
   <object id="14" x="1052" y="1354.67">
    <properties>
     <property name="entityId" value="player"/>
-    <property name="tmxObjectID" value="1fa585f2-9b16-45e8-bdf8-99d47e077c5d"/>
+    <property name="tmxObjectID" value="lizard"/>
    </properties>
   </object>
  </objectgroup>

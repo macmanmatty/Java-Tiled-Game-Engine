@@ -4,13 +4,11 @@ import com.jessematty.black.tower.Components.Other.CompareMode;
 import com.jessematty.black.tower.Components.Stats.FollowingNumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-
 public   class SelfChangableNumericStatChangeable extends NumericStatChangeable {
     private double changePercent;
     protected  boolean changesWithTime; // flag for whether or not the  base numeric stat changes by itself with time.
     protected Array<com.jessematty.black.tower.Components.Stats.FollowingNumericStat> statsToFollow= new Array<>();
     protected int counter;
-
     public SelfChangableNumericStatChangeable(boolean displayable, String name, double value, int amountOfTimeToChangeFor) {
         super(displayable, name, value, amountOfTimeToChangeFor);
     }
@@ -22,11 +20,9 @@ public   class SelfChangableNumericStatChangeable extends NumericStatChangeable 
     }
     public SelfChangableNumericStatChangeable() {
     }
-
     public SelfChangableNumericStatChangeable(String name) {
         super(name);
     }
-
     public SelfChangableNumericStatChangeable(SelfChangableNumericStatChangeable other) {
         super(other);
         this.value = other.value;
@@ -47,10 +43,6 @@ public   class SelfChangableNumericStatChangeable extends NumericStatChangeable 
     }
     public int getAmountOfTimeToChangeFor() {
         return amountOfTimeToChangeFor;
-    }
-    @Override
-    public Stat makeCopy() {
-        return new SelfChangableNumericStatChangeable(this);
     }
     public void addValues(SelfChangableNumericStatChangeable stat) {
         super.addValues(stat);
@@ -91,18 +83,12 @@ public   class SelfChangableNumericStatChangeable extends NumericStatChangeable 
     public void setChangesWithTime(boolean changesWithTime) {
         this.changesWithTime = changesWithTime;
     }
-
     public void tick() {
-
         counter++;
     }
-
     public void resetCounter(){
-
         counter=0;
-
     }
-
     public int getCounter() {
         return counter;
     }

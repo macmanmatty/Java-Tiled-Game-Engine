@@ -101,33 +101,33 @@ public class MemoryEfficientTiledMapSaver implements  TiledMapSaver {
                     CellSaver saver;
                     Cell cell = layer.getCell(countx, county);
                     if (cell != null) { // cell has a tile associated with it save the cells information
-                        saver=new CellSaver();
+                        saver = new CellSaver();
                         saver.setFlipHorizontal(cell.getFlipHorizontally());
                         saver.setFlipVertical(cell.getFlipVertically());
-                        Class tileClass = cell.getTile().getClass();
                         TiledMapTile tile = cell.getTile();
-                        if (tileClass.equals(AtlasStaticTiledMapTile.class) ) {
-                            AtlasStaticTiledMapTile tile2 = (AtlasStaticTiledMapTile) tile;
-                            saver.setRegionNames(tile2.getNames());
-                            saver.setColor(tile2.getColor());
-                            saver.setTileClass(AtlasStaticTiledMapTile.class);
-                        } else if (tileClass.equals(AtlasAnimatedTiledMapTile.class) ) {
-                            AtlasAnimatedTiledMapTile tile2 = (AtlasAnimatedTiledMapTile) tile;
-                            saver.setAnimated(true);
-                            saver.setRegionNames((tile2.getNames()));
-                            saver.setColor(tile2.getColor());
-                            saver.setTileClass(AtlasAnimatedTiledMapTile.class);
+                            Class tileClass = tile.getClass();
+                            if (tileClass.equals(AtlasStaticTiledMapTile.class)) {
+                                AtlasStaticTiledMapTile tile2 = (AtlasStaticTiledMapTile) tile;
+                                saver.setRegionNames(tile2.getNames());
+                                saver.setColor(tile2.getColor());
+                                saver.setTileClass(AtlasStaticTiledMapTile.class);
+                            } else if (tileClass.equals(AtlasAnimatedTiledMapTile.class)) {
+                                AtlasAnimatedTiledMapTile tile2 = (AtlasAnimatedTiledMapTile) tile;
+                                saver.setAnimated(true);
+                                saver.setRegionNames((tile2.getNames()));
+                                saver.setColor(tile2.getColor());
+                                saver.setTileClass(AtlasAnimatedTiledMapTile.class);
+                            } else {
+                                throw new MapLoadingException("Invalid Tile Class: " +tile.getClass());
+                            }
+                            if (!InList.isInList(uniqueCells, saver)) {
+                                uniqueCells.add(saver);
+                            }
+                            cells[count][countx][ySize - county - 1] = saver.hashCode();
                         }
-                        else{
-                            throw new MapLoadingException("Invalid Tile Class");
-                        }
-                        if(!InList.isInList(uniqueCells, saver)){
-                            uniqueCells.add(saver);
-                        }
-                        cells[count][countx][ySize-county-1]=saver.hashCode();
                     }
                 }
-            }
+
         }
     }
    CellSaver getCellSaver( Array<CellSaver> cellSaverArray, int hashCode){

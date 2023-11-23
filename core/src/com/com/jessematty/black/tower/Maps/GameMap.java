@@ -3,6 +3,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -125,8 +126,11 @@ public abstract  class GameMap  implements Map {
 		this();
 		this.xTiles = xTiles;
 		this.yTiles = yTiles;
-		this.gameMapSettings.setTiles(xTiles, yTiles);
+
 	}
+
+
+
 	/**
 	 * // method calculates  daylight based on game time
 	 * @param gameTime
@@ -139,10 +143,7 @@ public abstract  class GameMap  implements Map {
 	 */
 	public void mapTurnActions(float deltaTime, GameTime gameTime) { // method for updating the map and the tiles on it each game loop call
 		this.gameTime = gameTime;
-		gameMapSettings= new GameMapSettings();
-		Boolean lightChanges=gameMapSettings.getSimpleSetting("lightChanges", Boolean.class);
-		
-		if (lightChanges!=null && lightChanges==true) {
+		if (lightChanges) {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
@@ -267,7 +268,9 @@ public abstract  class GameMap  implements Map {
 		this.yTiles = map[0].length;
 		maxXWorld = xTiles * tileWidth;
 		maxYWorld = yTiles * tileHeight;
-		gameMapSettings.setTiles(map.length, map[0].length);
+		gameMapSettings.getSettings().put("width", map.length);
+		gameMapSettings.getSettings().put("height", map.length);
+
 		gameMapSettings.getSettings().put("newMap", true);
 	}
 	/**
@@ -459,7 +462,7 @@ public abstract  class GameMap  implements Map {
 		gameMapSettings.getSettings().put("tileHeight", tileHeight);
 	}
 	@Override
-	public Settings getMapSettings() {
+	public GameMapSettings getMapSettings() {
 		return gameMapSettings;
 	}
 	/**

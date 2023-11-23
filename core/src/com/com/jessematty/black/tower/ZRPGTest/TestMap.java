@@ -138,10 +138,12 @@ public class TestMap {
     }
     public void createMapByTMXFile(){
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
-        TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
+        assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
         World world= new World();
-        GameMap gameMap=null;
+        world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
+        world.getWorldSettings().getSettings().put("textureAtlasPath", "textureAtlases/testAssets/testAssets.atlas");
+        GameMap gameMap;
         TiledMapGameLoader tiledMapLoader= new TiledMapGameLoader(assetts, world);
 
         try {
@@ -151,43 +153,21 @@ public class TestMap {
         } catch (EntityLoadingException e) {
             throw new RuntimeException(e);
         }
-        world.addMap(gameMap);
-        LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
-        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
         //EntityBag pack=entityBagObjectMap.get("pack");
-        EntityBag lizard=tiledMapLoader.getEntityBagArray().get("player");
-        BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
-        String id=body.getBodyParts().get("torso");
-        Entity torso=world.getEntity(id);
+     EntityBag lizard=tiledMapLoader.getEntityBagArray().get("player");
+        NumericStats numericStats=lizard.getOwner().getComponent(NumericStats.class);
+        numericStats.getNumericStat("speed").setMinValue(10);
+        numericStats.getNumericStat("speed").setMaxValue(10000);
+        numericStats.getNumericStat("speed").setValue(100);
+//        BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
+//        String id=body.getBodyParts().get("torso");
+//        Entity torso=world.getEntity(id);
 
       //  String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
        // world.addEntityToWorld(pack.getOwner());
         world.setPlayer( lizard.getOwner());
-        world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
-        gameMap.setTiledMap(map);
-        TiledMap  tiledMap=null;
-        try {
-            tiledMap = TiledMapConverter.convertToAtlasBasedTiledMap(gameMap.getTiledMap(), "tiledMap", world.getWorldTextureAtlas(), "textureAtlases/testAssets/testAssets.atlas");
-            gameMap.setTiledMap(tiledMap);
-        } catch (MapLoadingException mapLoadingException) {
-            mapLoadingException.printStackTrace();
-        }
-
-        //Boolean hold= EntityUtilities.holdItem(world,  entityBag.getEntities().get(1), sword);
-        for(int count = 33; count<gameMap.getXTiles(); count++){
-            LandSquareTile landSquareTile= gameMap.getTile(count, 15);
-            PhysicalObjectComponent physicalObjectComponent=new PhysicalObjectComponent();
-            physicalObjectComponent.setMass(Float.MAX_VALUE);
-            physicalObjectComponent.setVolume(100);
-            landSquareTile.add(physicalObjectComponent);
-            landSquareTile.getComponent(PositionComponent.class).setBounds(32, 64);
-        }
-
         world.setStartMap(gameMap.getId());
         world.setName("game");
-        LandMap map4= MapTools.newLandMap(9.8, "map", 20, 20, 32, 32);
-        world.addMap(map4);
-        map4.setTiledMap(tiledMap);
 
         try {
             assetts.saveGameWithAssets(world, "~/world", 2048, 2048);

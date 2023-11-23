@@ -66,6 +66,7 @@ public class TiledMapGameLoader {
         lpcObjectGenerator = new LPCObjectGenerator(gameAssets);
         this.assets = gameAssets;
         this.world = world;
+        assets.setCurrentTextureAtlas(world.getWorldTextureAtlas());
 
     }
     /**
@@ -268,7 +269,10 @@ public class TiledMapGameLoader {
         }
        GameMap gameMap= createLandMap(width, height, tileSizeX, tileSizeY , gravity, name);
         TiledMap newTiledMap=new TiledMap();
-        newTiledMap.getProperties().putAll(tiledMap.getProperties());
+        MapProperties newMapProperties=newTiledMap.getProperties();
+        newMapProperties.putAll(tiledMap.getProperties());
+        newMapProperties.put("atlasName", world.getWorldSettings().getSimpleSetting("textureAtlasPath", String.class));
+
         MapLayers newMapLayers=newTiledMap.getLayers();
         gameMap.setTiledMap(newTiledMap);
         world.addMap(gameMap);
@@ -277,7 +281,7 @@ public class TiledMapGameLoader {
             throw new MapLoadingException("Map Has no Layers");
         }
         for (MapLayer mapLayer : mapLayers) {
-        loadMapObjects(entityBags, generatorDTOObjectMap, mapLayer.getObjects());
+        loadMapObjects(gameMap.getId(), entityBags, generatorDTOObjectMap, mapLayer.getObjects());
         if(mapLayer instanceof  TiledMapTileLayer){
             addTiledMapTileLayer(mapLayer,newMapLayers, world.getWorldTextureAtlas(), gameMap.getMapName());
         }
@@ -324,14 +328,15 @@ public class TiledMapGameLoader {
        map.setGravity(gravity);
        map.setTileSize(tileSizeX, tileSizeY);
        map.setMapName(name);
+       map.setMap(tiles);
        return  map;
    }
 
-    private Array<EntityBag> loadMapObjects (Array<EntityBag> entityBags, ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) throws EntityLoadingException {
+    private Array<EntityBag> loadMapObjects (String mapId, Array<EntityBag> entityBags, ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) throws EntityLoadingException {
         for (MapObject mapObject : mapObjects) {
             MapProperties properties = mapObject.getProperties();
-            Float  x=properties.get("X" , float.class);
-            Float y=properties.get("Y" , float.class);
+            Float  x=properties.get("x" , float.class);
+            Float y=properties.get("y" , float.class);
             String entityId=properties.get("entityId", String.class);
 
             String tmxObjectID = properties.get("tmxObjectID", String.class);
@@ -339,12 +344,15 @@ public class TiledMapGameLoader {
                 continue;
             }
 
-                LPCObjectGeneratorDTO lpcObjectGeneratorDTO = lpcObjectGeneratorObjectMap.get(tmxObjectID);
+            LPCObjectGeneratorDTO lpcObjectGeneratorDTO = lpcObjectGeneratorObjectMap.get(tmxObjectID);
+            if(lpcObjectGeneratorDTO==null){
+                continue;
+            }
 
             String textureAtlasPath=lpcObjectGeneratorDTO.getAtlasName();
             TextureAtlas textureAtlas= getTextureAtlas(textureAtlasPath);
             textureAtlases.add(textureAtlas);
-            lpcObjectGeneratorDTO.setAtlasName(world.getWorldSettings().getSimpleSetting("textureAtlasPath", String.class));
+          //  lpcObjectGeneratorDTO.setAtlasName(world.getWorldSettings().getSimpleSetting("textureAtlasPath", String.class));
             EntityBag entityBag=null;
             if(entityId!=null){
                 entityBag = lpcObjectGenerator.generateEntity(lpcObjectGeneratorDTO, entityId);
@@ -356,6 +364,7 @@ public class TiledMapGameLoader {
             Entity entity=entityBag.getOwner();
             PositionComponent positionComponent= GameComponentMapper.getPositionComponentMapper().get(entity);
             positionComponent.setPosition(x,y);
+            positionComponent.setMapID(mapId);
             entityBags.add(entityBag);
             world.addEntityToWorld(entityBag);
             String id=GameComponentMapper.getIdComponentMapper().get(entity).getId();
@@ -371,17 +380,20 @@ public class TiledMapGameLoader {
 
     public TextureAtlas getTextureAtlas(String textureAtlasPath){
         TextureAtlas textureAtlas=null;
-        if(!assets.getAssetManager().isLoaded(textureAtlasPath)){
-            getTextureAtlas(textureAtlasPath);
-
-        textureAtlas= assets.loadExternalTextureAtlas(textureAtlasPath);
-        TextureAtlas worldTextureAtlas=world.getWorldTextureAtlas();
-        worldTextureAtlas.getRegions().addAll(textureAtlas.getRegions());
-        worldTextureAtlas.getTextures().addAll(textureAtlas.getTextures());
+        if(!assets.getAssetManager().isLoaded(textureAtlasPath)) {
+            textureAtlas = assets.loadInternalTextureAtlas(textureAtlasPath);
         }
         else{
             textureAtlas=assets.getAssetManager().get(textureAtlasPath);
         }
+        textureAtlases.add(textureAtlas);
+        if(!InList.isInList(textureAtlases, textureAtlas)) {
+            TextureAtlas worldTextureAtlas = world.getWorldTextureAtlas();
+            worldTextureAtlas.getRegions().addAll(textureAtlas.getRegions());
+            worldTextureAtlas.getTextures().addAll(textureAtlas.getTextures());
+        }
+
+
 
         return textureAtlas;
     }

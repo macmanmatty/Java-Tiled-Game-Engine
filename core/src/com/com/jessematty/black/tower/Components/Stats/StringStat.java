@@ -18,10 +18,6 @@ public class StringStat extends Stat {
     }
     public StringStat() {
     }
-    @Override
-    public String getStatAsString() {
-      return toString();
-    }
     public String getStat() {
         return stat;
     }
@@ -58,10 +54,6 @@ public class StringStat extends Stat {
     @Override
     public String toString() {
         return name+": "+stat;
-    }
-    @Override
-    public Stat makeCopy() {
-        return  new StringStat(this);
     }
 
 }

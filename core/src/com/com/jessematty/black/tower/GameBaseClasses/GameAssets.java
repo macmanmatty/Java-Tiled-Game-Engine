@@ -253,20 +253,23 @@ public class GameAssets implements Disposable {
     }
     /**
     /**
-     * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else returns null
+     * / returns AtlasNamedAtlasRegion From a Currently LOADED  based on a given name from a given atlas name loaded into the asset manager if it exists else
+     * checks the default loaded atlas if it can't found there returns null
      * @param atlasRegionName the name of the atlasRegion
      * @param  atlasPath the name of libGDX texture atlas the atlas the region is in
      * @return  AtlasNamedAtlasRegion may be null if no region exists
      */
     public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName,  String atlasPath){
-        TextureAtlas atlas = assetManager.get(atlasPath, TextureAtlas.class);
-            assetManager.load(atlasPath, TextureAtlas.class);
-         AtlasRegion region=atlas.findRegion(atlasRegionName);
+        AtlasRegion region=null;
+        if(assetManager.isLoaded(atlasPath)) {
+            TextureAtlas atlas = assetManager.get(atlasPath, TextureAtlas.class);
+           region = atlas.findRegion(atlasRegionName);
+        }
          if(region!=null) {
              return new AtlasNamedAtlasRegion(region, atlasPath);
          }
          else{
-             return  null;
+             return  getAtlasRegionByName(atlasRegionName);
          }
     }
     /**
@@ -274,7 +277,8 @@ public class GameAssets implements Disposable {
      * @param atlasRegionName the name of the atlasRegion
      * @return AtlasNamedAtlasRegion may be null if no region exists
      */    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
-        return   new AtlasNamedAtlasRegion(currentTextureAtlas.findRegion(atlasRegionName));
+        AtlasRegion atlasRegion=currentTextureAtlas.findRegion(atlasRegionName);
+         return   new AtlasNamedAtlasRegion(atlasRegion);
     }
     public AssetManager getAssetManager() {
         return assetManager;

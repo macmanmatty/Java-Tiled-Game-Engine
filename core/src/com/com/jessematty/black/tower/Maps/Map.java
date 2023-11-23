@@ -1,11 +1,13 @@
 package com.jessematty.black.tower.Maps;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
+import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 import java.util.List;
@@ -45,7 +47,7 @@ public interface Map {
     public Skin getSkin();
     public Array<Entity> getEntities() ;
     public void setTileSize(int sizeX, int sizeY) ;
-    public Settings getMapSettings();
+    public GameMapSettings getMapSettings();
     public String getId();
 
 

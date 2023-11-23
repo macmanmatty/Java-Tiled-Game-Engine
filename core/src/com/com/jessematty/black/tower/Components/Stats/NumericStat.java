@@ -69,15 +69,6 @@ public   class NumericStat extends Stat {
     }
     public NumericStat() {
     }
-    @Override
-    public String getStatAsString() {
-        if(displayMinAndMax =true) {
-            return name + ": " + value + " Min: " + minValue + "Max: " + maxValue;
-        }
-        else{
-            return name + ": " + value;
-        }
-    }
     /**
      * copy constructor
      * @param other
@@ -199,10 +190,7 @@ public   class NumericStat extends Stat {
             return name + ": " + value;
         }
     }
-    @Override
-    public Stat makeCopy() {
-        return new NumericStat(this);
-    }
+
     public StatBar getStatBar() {
         return statBar;
     }

@@ -25,10 +25,6 @@ public class BooleanStat extends Stat {
     public BooleanStat() {
     }
 
-    @Override
-    public String getStatAsString() {
-        return toString();
-    }
 
     public BooleanStat(String name) {
         super(name);
@@ -79,10 +75,6 @@ public class BooleanStat extends Stat {
     @Override
     public String toString() {
         return name+": "+flag;
-    }
-    @Override
-    public Stat makeCopy() {
-        return new BooleanStat(this);
     }
 
     public List<BooleanStatChangeable> getLinkedStatsToChange() {

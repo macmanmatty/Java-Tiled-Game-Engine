@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-
 /**
  * serializer  that serializes  a libGDX ObjectMap by write the keys  and the values
  * of the object map and then reading the keys and values back into a new ObjectMap instance
@@ -13,9 +12,7 @@ import com.esotericsoftware.kryo.io.Output;
  */
 public class ObjectMapSerializer extends Serializer<ObjectMap> {
     public ObjectMapSerializer() {
-
     }
-
     /**
      * writes the  object map by saving they key and values pairs as arrays
      * @param kryo the kryo object
@@ -28,9 +25,7 @@ public class ObjectMapSerializer extends Serializer<ObjectMap> {
         Array values=map.values().toArray();
         kryo.writeClassAndObject(output, keys);
         kryo.writeClassAndObject(output, values);
-
     }
-
     /**
      * reads an  ObjectMap from a saved file as the key and value arrays
      * @param kryo the Kryo reader
@@ -47,7 +42,6 @@ public class ObjectMapSerializer extends Serializer<ObjectMap> {
             return  objectMap;
              }
              int size=keys.size;
-
              for(int count=0; count<size; count++){
                  if(keys.get(count)==null){
                      continue;
@@ -55,6 +49,5 @@ public class ObjectMapSerializer extends Serializer<ObjectMap> {
                  objectMap.put(keys.get(count),values.get(count) );
              }
         return  objectMap;
-
     }
 }
