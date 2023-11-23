@@ -3,13 +3,7 @@ package Generators.LPCObjectGenerator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
@@ -18,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import Maps.TestMap;
 import libGDX.HeadlesslibGDX;
 
 public class LPCActorGeneratorTest {

@@ -1,5 +1,7 @@
 package Maps;
 
+import static junit.framework.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -14,8 +16,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import TestEntities.TestEntity;
-
-import static junit.framework.Assert.assertEquals;
 
 public final  class TestMap {
    public   final  LandMap testMap1 = MapTools.newLandMap(9.8, "map", 50, 50, 32, 32);

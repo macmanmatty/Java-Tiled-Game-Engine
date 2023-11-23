@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -17,11 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;

@@ -1,11 +1,11 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
+
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.Generators.Entity.EntityGeneratorDTO;
 
 import java.util.UUID;
 

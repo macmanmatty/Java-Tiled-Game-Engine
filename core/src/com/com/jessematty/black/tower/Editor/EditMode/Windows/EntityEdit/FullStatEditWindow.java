@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,12 +15,12 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStatCombine;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;

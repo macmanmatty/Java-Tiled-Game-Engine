@@ -8,18 +8,18 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
+import com.jessematty.black.tower.Components.Stats.BooleanStats;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeComponent;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 @Transient

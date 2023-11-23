@@ -1,36 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
-import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenuWorld;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Generators.Entity.EntityGenerator;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
-import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
-import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
-import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateWorldOptionPane;
-import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
-import com.jessematty.black.tower.Maps.WorldSettable;
-
 public    class WorldEditScreen  {
        /* private   World world;
         private final  GameAssets gameAssets;

@@ -1,10 +1,5 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations;
 
-import com.badlogic.gdx.utils.ObjectMap;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class LPCAnimations {
  public String maleName;
 public  String femaleName;

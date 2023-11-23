@@ -3,7 +3,6 @@ package com.jessematty.black.tower.Generators.MapGenerators;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.Maps.Area;
 
 import java.util.ArrayList;
 

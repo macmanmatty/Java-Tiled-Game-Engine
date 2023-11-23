@@ -1,9 +1,12 @@
 package Input;
-import com.badlogic.gdx.InputProcessor;
+
+import static org.junit.Assert.assertEquals;
+
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputMultiplexer;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.internal.AllMembersSupplier;
+
 import Input.TestInputProcessors.AllKeyInputLockedInputProcessor;
 import Input.TestInputProcessors.AllMouseInputLockedInputProcessor;
 import Input.TestInputProcessors.KeyDownInputLockedInputProcessor;
@@ -14,7 +17,6 @@ import Input.TestInputProcessors.ScrolledLockedInputProcessor;
 import Input.TestInputProcessors.TouchDownLockedInputProcessor;
 import Input.TestInputProcessors.TouchDraggedLockedInputProcessor;
 import Input.TestInputProcessors.TouchUpLockedInputProcessor;
-import static org.junit.Assert.assertEquals;
 public class TestLockableInputMultiplexer {
     AllKeyInputLockedInputProcessor allKeyInputLockedInputProcessor;
     AllMouseInputLockedInputProcessor allMouseInputLockedInputProcessor;

@@ -1,7 +1,9 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStatCombine;
+
 import java.util.List;
 public class BooleanStatChangeable extends com.jessematty.black.tower.Components.Stats.BooleanStat {
    private  int amountOfTimeToChangeFor;

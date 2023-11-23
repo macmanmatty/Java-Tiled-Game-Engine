@@ -1,4 +1,7 @@
 package TestEntities;
+
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -8,8 +11,6 @@ import com.jessematty.black.tower.Maps.World;
 import org.junit.Test;
 
 import Maps.TestMap;
-
-import static org.junit.Assert.assertEquals;
 public class BaseEntityTests {
   private   Engine engine;
   private Entity movable1;

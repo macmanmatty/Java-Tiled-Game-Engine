@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.Components.Tiles;
+
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Stats.Stat;
 public   class TileWeatherChangableNumericStatChangeable extends NumericStatChangeable {
     private float changePoint;
     public TileWeatherChangableNumericStatChangeable(boolean displayable, String name, double value, int amountOfTimeToChangeFor) {

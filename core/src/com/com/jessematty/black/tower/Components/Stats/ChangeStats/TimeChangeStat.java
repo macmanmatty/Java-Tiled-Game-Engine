@@ -1,7 +1,5 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
-import com.badlogic.ashley.core.Entity;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
-import com.jessematty.black.tower.Components.Stats.NumericStats;
+
 import com.jessematty.black.tower.Components.Stats.Stat;
 public class TimeChangeStat {
     private  int timeToChange;

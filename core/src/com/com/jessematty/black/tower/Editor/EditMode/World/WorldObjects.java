@@ -5,17 +5,17 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Other.EditorImageComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
+import com.jessematty.black.tower.Components.Other.EditorImageComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EntityEdit.NamedComponent;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class WorldObjects {

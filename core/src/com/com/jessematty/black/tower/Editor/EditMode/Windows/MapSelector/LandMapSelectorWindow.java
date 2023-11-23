@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,7 +18,6 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.ContextMenu.Co
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.DeleteOptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
 /**

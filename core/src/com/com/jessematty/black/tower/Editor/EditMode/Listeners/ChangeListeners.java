@@ -2,9 +2,7 @@ package com.jessematty.black.tower.Editor.EditMode.Listeners;
 
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
-import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;

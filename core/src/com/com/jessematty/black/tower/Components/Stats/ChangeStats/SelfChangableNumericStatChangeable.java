@@ -1,9 +1,9 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Other.CompareMode;
 import com.jessematty.black.tower.Components.Stats.FollowingNumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
-import com.jessematty.black.tower.Components.Stats.Stat;
 public   class SelfChangableNumericStatChangeable extends NumericStatChangeable {
     private double changePercent;
     protected  boolean changesWithTime; // flag for whether or not the  base numeric stat changes by itself with time.

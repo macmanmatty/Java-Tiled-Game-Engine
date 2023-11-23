@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
-import com.jessematty.black.tower.Components.Stats.Stat;
 /**
  * class the represents a numeric stat that changes  a numeric stat with same name
  * it extends the numeric stat fo the same name and entity that has stats that change other stats

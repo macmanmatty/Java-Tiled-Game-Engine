@@ -1,12 +1,13 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
-import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
+import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;

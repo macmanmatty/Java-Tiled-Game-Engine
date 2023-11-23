@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Collision;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -14,12 +15,12 @@ import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
-import com.jessematty.black.tower.Systems.Stats.ChangeStats;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
+import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 
 /**

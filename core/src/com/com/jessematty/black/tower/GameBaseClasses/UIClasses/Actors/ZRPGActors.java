@@ -1,6 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Actors;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 public class ZRPGActors {

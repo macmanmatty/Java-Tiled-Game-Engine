@@ -1,5 +1,7 @@
 package Systems.Entity;
 
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,16 +16,14 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Systems.Owner.SetEntityPositionAndActionToOwnerSystem;
 import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
+import com.jessematty.black.tower.Systems.Owner.SetEntityPositionAndActionToOwnerSystem;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import Maps.TestMap;
 import TestEntities.TestEntity;
-
-import static org.junit.Assert.assertEquals;
 
 public final class SetOwnerActionAndPositionTest {
 

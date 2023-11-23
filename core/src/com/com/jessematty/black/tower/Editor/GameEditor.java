@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Editor;
+
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.kotcrab.vis.ui.VisUI;
 public class GameEditor extends Game {

@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.Stats.StringStat;
 
 /**
  * group for displaying a numeric stat

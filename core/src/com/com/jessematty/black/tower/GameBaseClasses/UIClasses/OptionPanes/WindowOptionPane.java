@@ -7,10 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
-
-import java.util.List;
 
 
 public class WindowOptionPane extends Dialog {

@@ -1,11 +1,8 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Table;
 
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 
 public abstract class  UITable extends Table {

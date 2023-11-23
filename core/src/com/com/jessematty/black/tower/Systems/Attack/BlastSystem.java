@@ -9,13 +9,13 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Explode;
 import com.jessematty.black.tower.Components.Other.Explodable;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 

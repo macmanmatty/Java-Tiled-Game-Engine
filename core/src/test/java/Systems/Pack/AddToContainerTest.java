@@ -1,6 +1,10 @@
 package Systems.Pack;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -19,10 +23,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Maps.TestMap;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class AddToContainerTest {
         Entity container = new Entity();

@@ -1,20 +1,16 @@
 package com.jessematty.black.tower.Generators.Entity.EntityContainers;
+
 import com.badlogic.ashley.core.Entity;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.Base.EntityId;
-import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
-import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
-import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.jessematty.black.tower.Components.Stats.NumericStats;
+import com.jessematty.black.tower.Components.Stats.StringStats;
 
 // entity container class containing all of the basic components required by the engine.
 // used for faster component access

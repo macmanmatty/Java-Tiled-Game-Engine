@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Drawing;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -9,8 +10,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 
 @Transient
 

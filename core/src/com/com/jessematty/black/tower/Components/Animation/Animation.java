@@ -1,9 +1,10 @@
 package com.jessematty.black.tower.Components.Animation;
+
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 /**

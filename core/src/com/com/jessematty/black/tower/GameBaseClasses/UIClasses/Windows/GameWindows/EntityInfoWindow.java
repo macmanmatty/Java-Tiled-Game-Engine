@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,8 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
@@ -29,13 +30,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGr
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.WeightMassVolumeGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars.HandGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Maps.World;
 public class EntityInfoWindow extends ClosableWindow {
     private final GameAssets gameAssets;

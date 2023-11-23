@@ -1,8 +1,9 @@
 package com.jessematty.black.tower.Components.Stats;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Interfaces.Copyable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
+
 import java.util.Objects;
 /**
  *  libGDX Ashley Component class that all other game stats extend

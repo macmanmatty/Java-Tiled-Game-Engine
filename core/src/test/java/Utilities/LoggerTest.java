@@ -1,5 +1,7 @@
 package Utilities;
 
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogLevel;
@@ -8,8 +10,6 @@ import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
 import org.junit.Test;
 
 import libGDX.HeadlesslibGDX;
-
-import static org.junit.Assert.assertEquals;
 
 public class LoggerTest {
 

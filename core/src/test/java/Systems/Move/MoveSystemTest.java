@@ -1,5 +1,7 @@
 package Systems.Move;
 
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,8 +21,6 @@ import org.junit.Test;
 
 import Maps.TestMap;
 import TestEntities.TestEntity;
-
-import static org.junit.Assert.assertEquals;
 
 public final class MoveSystemTest {
 

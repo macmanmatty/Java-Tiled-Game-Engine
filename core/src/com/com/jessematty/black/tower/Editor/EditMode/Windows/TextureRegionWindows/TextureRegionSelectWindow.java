@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -6,13 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
-
-import java.awt.datatransfer.Clipboard;
 
 public class TextureRegionSelectWindow extends EditWindow {
     protected com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureRegionSelect textureRegionSelect; // the region select window  that display the regions

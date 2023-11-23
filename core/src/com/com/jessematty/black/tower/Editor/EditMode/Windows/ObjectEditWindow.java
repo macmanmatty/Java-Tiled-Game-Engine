@@ -1,8 +1,8 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
 
 public  abstract class ObjectEditWindow extends EditWindow  implements WorldSettable {

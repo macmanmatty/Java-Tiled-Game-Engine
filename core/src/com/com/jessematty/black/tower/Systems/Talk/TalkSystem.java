@@ -5,15 +5,13 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-
-
-import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Other.TalkComponent;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.MessageBoxes.TalkBox;
-import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.Engine.EventSystem;
 
 public class TalkSystem extends EventSystem { // talking fighter action that displays a speech bubble

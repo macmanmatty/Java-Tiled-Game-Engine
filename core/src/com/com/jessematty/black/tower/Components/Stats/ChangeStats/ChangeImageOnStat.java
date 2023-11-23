@@ -1,7 +1,9 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
+
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
+
 import java.util.ArrayList;
 import java.util.List;
 public class ChangeImageOnStat {

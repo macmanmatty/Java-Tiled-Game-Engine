@@ -1,5 +1,7 @@
 package Utilities;
 
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
@@ -20,8 +22,6 @@ import org.junit.Test;
 
 import Maps.TestMap;
 import TestEntities.TestEntity;
-
-import static org.junit.Assert.assertEquals;
 
 public
 class PackUtilitiesTest {

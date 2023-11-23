@@ -1,5 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;

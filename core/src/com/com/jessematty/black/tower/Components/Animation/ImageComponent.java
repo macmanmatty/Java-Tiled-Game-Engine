@@ -3,8 +3,8 @@ package com.jessematty.black.tower.Components.Animation;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
 public class ImageComponent implements SerializableComponet {
    private transient Image image;

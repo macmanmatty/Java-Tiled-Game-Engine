@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.Editor.GameMapEdit.GameMapEdit;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapEdit;
+import com.jessematty.black.tower.Editor.GameMapEdit.GameMapEdit;
 import com.jessematty.black.tower.GameBaseClasses.Input.LockableInputProcessor;
 import com.jessematty.black.tower.Maps.GameMap;
 

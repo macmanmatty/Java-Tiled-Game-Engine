@@ -1,17 +1,12 @@
 package com.jessematty.black.tower.Maps;
+
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
-import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
-import java.util.List;
-import java.util.Set;
 
 public interface Map {
   

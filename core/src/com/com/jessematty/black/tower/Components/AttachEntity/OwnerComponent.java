@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Components.AttachEntity;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 
 public class OwnerComponent implements Component {
     /**

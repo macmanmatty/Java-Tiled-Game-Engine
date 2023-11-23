@@ -1,9 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
+
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.util.ArrayList;
 /** @author Nathan Sweet */
 public class Astar4MapGenerator {

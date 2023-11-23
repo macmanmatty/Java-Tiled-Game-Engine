@@ -1,6 +1,5 @@
 package com.jessematty.black.tower.Components.Other;
 
-import com.badlogic.ashley.core.Component;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class SystemComponent  {

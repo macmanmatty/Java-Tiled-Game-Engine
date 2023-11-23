@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components.Stats.ChangeStats;
-import com.jessematty.black.tower.Components.Stats.Stat;
+
 import com.jessematty.black.tower.Components.Stats.StringStat;
+
 import java.util.ArrayList;
 import java.util.List;
 public class StringStatChangeable extends StringStat {

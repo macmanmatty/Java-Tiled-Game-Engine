@@ -1,5 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World;
-import com.badlogic.gdx.maps.MapProperties;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;

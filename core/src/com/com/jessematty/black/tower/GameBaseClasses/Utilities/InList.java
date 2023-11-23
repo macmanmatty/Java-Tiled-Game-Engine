@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,6 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.Unused.Node;
+
 import java.util.List;
 public class InList {
 	private InList() {

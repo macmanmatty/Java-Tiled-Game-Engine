@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,21 +21,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragScrollListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.SelectBox.ObservableSelectBox;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.CellSettable;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Textures.TextureImage;
+import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.SelectBox.ObservableSelectBox;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
+
 import java.io.File;
 import java.io.IOException;
 public class TextureDisplayWindow extends EditWindow implements TextureRegionSettable {

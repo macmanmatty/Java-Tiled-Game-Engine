@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -13,31 +14,31 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors.MapEditInputProcessors;
 import com.jessematty.black.tower.Editor.EditMode.Input.InputProcessors.MapEditProcessor;
 import com.jessematty.black.tower.Editor.EditMode.Input.MapEditKeys;
 import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapEdit;
 import com.jessematty.black.tower.Editor.EditMode.TopMenuBar.TopMenu;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindows;
-import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
-import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
-import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
-import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
-import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
-import com.jessematty.black.tower.Maps.MapSettable;
-import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
-import com.jessematty.black.tower.Maps.WorldSettable;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
+import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
 import com.jessematty.black.tower.Editor.GameMapEdit.GameMapEdit;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
-import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapEdit;
-import com.jessematty.black.tower.Editor.EditMode.World.WorldObjects;
+import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
+import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
+import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
+import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
+import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.LandMap;
+import com.jessematty.black.tower.Maps.MapSettable;
+import com.jessematty.black.tower.Maps.World;
+import com.jessematty.black.tower.Maps.WorldSettable;
 
 /**
  *  screen instance for editing the map

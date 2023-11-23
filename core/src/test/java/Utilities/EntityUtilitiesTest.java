@@ -1,4 +1,8 @@
 package Utilities;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
@@ -14,11 +18,11 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Maps.World;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import Maps.TestMap;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 public class EntityUtilitiesTest {
     Entity owner= new Entity();
     Entity owned= new Entity();

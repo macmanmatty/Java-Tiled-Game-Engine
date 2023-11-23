@@ -1,9 +1,10 @@
 package com.jessematty.black.tower.Components.Stats;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 /**
  * class that represents a number stat in the game
  */

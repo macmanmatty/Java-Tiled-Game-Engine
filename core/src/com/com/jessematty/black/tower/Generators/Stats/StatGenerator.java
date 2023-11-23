@@ -3,7 +3,6 @@ package com.jessematty.black.tower.Generators.Stats;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.Stat;
-import com.jessematty.black.tower.Components.Stats.Stats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 
 public class StatGenerator {

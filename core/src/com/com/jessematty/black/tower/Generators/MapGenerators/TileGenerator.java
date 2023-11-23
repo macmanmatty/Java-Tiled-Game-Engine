@@ -1,15 +1,15 @@
 package com.jessematty.black.tower.Generators.MapGenerators;
 
+import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
-import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
