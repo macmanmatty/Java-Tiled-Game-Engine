@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Move;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;

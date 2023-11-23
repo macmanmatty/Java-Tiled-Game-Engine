@@ -11,19 +11,18 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Other.Grass;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TerrainSet;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.PathFind;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.PathFind;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Generators.Sets.CliffSet;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.Generators.ObjectGenerator;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.Area;
 import com.jessematty.black.tower.Maps.Buildings.Building;
@@ -56,13 +55,12 @@ public class LandMapGenerator extends MapGenerator {
     protected int [] [] townSizes;
     protected int [] [] roadMap;
 
-    com.jessematty.black.tower.Generators.ObjectGenerator objectGenerator;
    PathFind pathFind;
    LandMapSpecs mapSpecs;
     public LandMapGenerator(GameAssets assetts, LandMapSpecs specs) {
         super(assetts, specs.getxSize(), specs.getySize());
         this.mapSpecs=specs;
-        map= new LandMap(xSize, ySize);
+        map= new LandMap();
         map.setSkin(assetts.getDefaultSkin());
         tiledMap= new TiledMap();
        MapProperties properties= tiledMap.getProperties();
@@ -76,7 +74,6 @@ public class LandMapGenerator extends MapGenerator {
         landSquareTileMap =new LandSquareTile[xSize][ySize];
         makeTiles();
         pathFind= new PathFind(map);
-    objectGenerator=new ObjectGenerator(map, assetts);
     }
     public boolean makeTiledMap(){
         makeBaseTiles();

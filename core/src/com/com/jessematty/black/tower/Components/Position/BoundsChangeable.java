@@ -2,10 +2,8 @@ package com.jessematty.black.tower.Components.Position;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.Position.EntityBounds;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 
 public class BoundsChangeable  implements Component {

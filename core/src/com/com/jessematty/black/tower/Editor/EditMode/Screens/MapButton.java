@@ -1,5 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Screens;
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,9 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.Maps.LandMap;
-import com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows.CreateMapOptionPane;
 class MapButton extends com.badlogic.gdx.scenes.scene2d.ui.ImageButton{
      private LandMap map;
      private MapEditScreen worldEditScreen;

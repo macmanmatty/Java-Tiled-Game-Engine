@@ -10,11 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.Align;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.GameTimes.Season;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveFloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.GameBaseClasses.GameTimes.Season;
 
 public class LandSquareTileEdit extends ObjectEdit {
    protected  VerticalGroup vGroup = new VerticalGroup();

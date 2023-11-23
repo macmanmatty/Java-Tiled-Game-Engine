@@ -1,10 +1,11 @@
 package com.jessematty.black.tower.Components.Stats;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangingStat;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 
 /**
  * class that holds all numeric stats for a given class
@@ -16,6 +17,7 @@ public class NumericStats implements Component {
     protected Array<NumericStat> dieWhenZero= new Array<>(); // list of stats when  they reach zero destroty the entity
     protected Array<SelfChangableNumericStatChangeable> selfChangableNumericStats= new Array<>();
     private boolean statHasChanged; // flag for whether or not a stat was changed during the lst run of the loop
+
     public void addStat(NumericStat stat){ // adds a stat if doesn't  already exist
         if(numericStats.get(stat.getName())!=null){
             return;

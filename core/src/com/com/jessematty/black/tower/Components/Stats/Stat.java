@@ -1,16 +1,16 @@
 package com.jessematty.black.tower.Components.Stats;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Interfaces.Copyable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
-import java.util.Objects;
 
+import java.util.Objects;
 /**
  *  libGDX Ashley Component class that all other game stats extend
  * is Copyable  so you can  deep copy  stats
  *
  */
-public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
+abstract public  class   Stat   implements Component , Nameable{
     /**
      * whether or the stat is displayable in the UI
      */
@@ -54,15 +54,11 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
         this.displayGroups= new Array<>(other.displayGroups);
         this.unchangeable=other.unchangeable;
     }
-
-
-
     public Stat(boolean displayable, String name) {
         this.displayable = displayable;
         this.name = name;
     }
-    public abstract String getStatAsString();
-    
+
     public Stat(String name) {
         this.name = name;
     }
@@ -80,7 +76,6 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
     public void setName(String name) {
         this.name = name;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,12 +83,10 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
         Stat stat = (Stat) o;
         return Objects.equals(name, stat.name);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
-
     public Array<String> getChangeGroups() {
         return changeGroups;
     }
@@ -118,5 +111,9 @@ public  abstract class  Stat   implements Component , Copyable<Stat>, Nameable{
     }
     public void setUnchangeable(boolean unchangeable) {
         this.unchangeable = unchangeable;
+    }
+
+    public void setChangeGroups(Array<String> changeGroups) {
+        this.changeGroups = changeGroups;
     }
 }

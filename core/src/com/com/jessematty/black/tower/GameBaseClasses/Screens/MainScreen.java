@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Screens;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,10 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.TestMap;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.FileSelectPane;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.Maps.World;
+import com.jessematty.black.tower.ZRPGTest.TestMap;
 
 import java.io.File;
 
@@ -137,6 +138,6 @@ public class MainScreen implements Screen  {
         Gdx.input.setInputProcessor(stage);
     }
     public void testMap() {
-        new TestMap(gameAssets).testMap();
+        new TestMap(gameAssets).createMapByTMXFile();
     }
 }

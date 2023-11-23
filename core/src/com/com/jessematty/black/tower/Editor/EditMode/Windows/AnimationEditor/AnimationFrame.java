@@ -1,9 +1,6 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.AnimationEditor;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.jessematty.black.tower.Editor.EditMode.UIElements.TextureRegionSettableImage;
 

@@ -10,36 +10,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Item.ItemActionComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
-
 public class ItemActionWindow extends GameWindow {
-
     private Array<Entity> entities= new Array<>();
     private ItemActionComponent itemActionComponent;
     private World world;
     private String text;
-
-
-
     public ItemActionWindow(String text, String title, Array<Entity> entities, ItemActionComponent itemActionComponent, MapDraw draw) {
         super(title, draw.getCurrentMap().getSkin(), draw.getGameAssets() );
         this.entities = entities;
         this.itemActionComponent = itemActionComponent;
         this.world = world;
         makeWindow();
-
     }
-
     public void makeWindow(){
         Skin skin=getSkin();
         Label label= new Label(text, skin);
         add(label);
-        ComponentMapper<ImageComponent> imageComponentComponentMapper=world.getGameComponentMapper().getImageComponentMapper();
-        ComponentMapper<NameComponent> nameComponentMapper=world.getGameComponentMapper().getNameComponentMapper();
+        ComponentMapper<ImageComponent> imageComponentComponentMapper= GameComponentMapper.getImageComponentMapper();
+        ComponentMapper<NameComponent> nameComponentMapper=GameComponentMapper.getNameComponentMapper();
         int size=entities.size;
         for(int count=0; count<size; count++) {
             final Entity entity=entities.get(count);
@@ -56,17 +50,11 @@ public class ItemActionWindow extends GameWindow {
                 @Override
                 public boolean handle(Event event) {
                     entity.add(itemActionComponent);
-
                     return true;
                 }
             });
-
             horizontalGroup.addActor(button);
             add(horizontalGroup);
-
-
         }
-
-
     }
 }

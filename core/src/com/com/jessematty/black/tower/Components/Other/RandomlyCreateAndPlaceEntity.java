@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Components.Other;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 

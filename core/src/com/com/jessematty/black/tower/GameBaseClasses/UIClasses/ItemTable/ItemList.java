@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -50,11 +51,11 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     /**
      *  are the names in the list editable
      */
-    private boolean editable;
+    protected boolean editable;
     /**
      *  can you drag to change list order
      */
-    private boolean dragToChangeOrder;
+    protected boolean dragToChangeOrder;
     /**
      *  is the list sortable? if true clicking
      *  on the title will sort the contents of the list ascending  using a basic comparator or one you specify
@@ -118,7 +119,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     /**
      * custom libGDX UI styles for the title label and item labels
      */
-    private ItemListLabelStyle itemListLabelStyle;
+    protected ItemListLabelStyle itemListLabelStyle;
     private ItemListTitleStyle itemListTitleStyle;
     /**
      * whether for not to display  the title for the list of items
@@ -127,16 +128,13 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     /**
      * if true the list will be non editable and the objects to string method result will be displayed for the list text
      */
-    private boolean useToString;
-
+    protected boolean useToString;
     /**
      * whether or not  an item can be deleted by pressing the delete key
      * this  is linked to the  table as well so if table is set to delete on delete
      * this cant be true
      */
-
     private boolean pressDeleteToDeleteItem;
-
     /**
      * whether or not  to display a dialog  box to confirm your delete
      * if true a DeleteOptionPane box will be displayed at the center of the screen
@@ -145,7 +143,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      *
      */
     private boolean confirmDelete;
-
     /**
      * functional interface method that called when an item is selected
      */
@@ -155,15 +152,12 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
      * the default uses the items .compareTo() method
      *
      */
-
     /**
      *  they key input combo for deleting  a item from the list
      *  if it is enabled. this will use the delete key to remove
      *  the selected item from the list
      */
     private  final InputKeyCombo deleteCombo;
-
-
     /**
      * the comparator  used for ascending   item sorting can be  replaced with a custom comparator
      * the default uses the items .compareTo() method with items swapped for descending sorting
@@ -235,14 +229,11 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
                         items.removeValue(selectedItem, true);
                         remakeList =true;
                     }
-
                 }
-
         };
         deleteCombo= new InputKeyCombo(keyAction,"Delete Item "+this, Keys.DEL );
         deleteCombo.setFocusActor(this);
         GameAssets.getGameInput().getKeyListener().addInputKeyCombo(deleteCombo);
-
     }
     /**
      * libGDX ui act method called by the stage object or parent UI object
@@ -267,7 +258,7 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     /**
      * creates the UI list Of Items  fro the array of items
      */
-    private void makeItems(){
+    protected void makeItems(){
         int size=items.size;
         itemLabels.clear();
         clear();
@@ -290,7 +281,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         setBounds(getX(), getY(), columnWidth, getPrefHeight());
         invalidateHierarchy();
-
     }
     public Array<T> getItems() {
         return items;
@@ -340,7 +330,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
         }
         fire(new ChangeEvent());
     }
-
     /**
      *
      * @return the currently selected item
@@ -348,16 +337,13 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public T getSelectedItem() {
         return selectedItem;
     }
-
     /**
      *
      * @return the ItemLabel of the selected Item
      */
-
     public ItemLabel<T> getSelectedLabel() {
         return selectedLabel;
     }
-
     /**
      * returns
      * @return the index in the array of the selected item
@@ -412,7 +398,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public boolean isEditable() {
         return editable;
     }
-
     /**
      * set the force remake flag to rue to remake the  the list / column
      * if there is linked table sets the parents ItemTable force remake flags too.
@@ -485,7 +470,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
                 else {
                     method = cls.getDeclaredMethod("get" + methodName);
                 }
-
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException("Method Not Found");
@@ -503,7 +487,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public float getColumnWidth() {
         return columnWidth;
     }
-
     /**
      * sets the width for the column  or if  a single list the width of the list
      * forces remaking of the ItemTable and  columns if there is table associated with it
@@ -537,7 +520,6 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public boolean isUseToString() {
         return useToString;
     }
-
     /**
      * sets wether or not to use  the to string for the list data
      * if true sets editable to false as to string cannot be set
@@ -573,51 +555,37 @@ public class ItemList<T > extends Table implements  ItemListAdapter<T>, ItemSett
     public void setItem(T item) {
         setSelected(item, false);
     }
-
     public OnSelected<T> getOnSelected() {
         return onSelected;
     }
-
     public void setOnSelected(OnSelected<T> onSelected) {
         this.onSelected = onSelected;
     }
-
-
-
     public Comparator<T> getItemComparator() {
         return itemComparator;
     }
-
     public void setItemComparator(Comparator<T> itemComparator) {
         this.itemComparator = itemComparator;
     }
-
     public Comparator<T> getReverseItemComparator() {
         return reverseItemComparator;
     }
-
     public void setReverseItemComparator(Comparator<T> reverseItemComparator) {
         this.reverseItemComparator = reverseItemComparator;
     }
-
-
     public boolean isPressDeleteToDeleteItem() {
         return pressDeleteToDeleteItem;
     }
-
     public void setPressDeleteToDeleteItem(boolean pressDeleteToDeleteItem) {
         this.pressDeleteToDeleteItem = pressDeleteToDeleteItem;
         deleteCombo.setDisabled(!pressDeleteToDeleteItem);
     }
-
     public boolean isConfirmDelete() {
         return confirmDelete;
     }
-
     public void setConfirmDelete(boolean confirmDelete) {
         this.confirmDelete = confirmDelete;
     }
-
     public void setDisplayTitle(boolean displayTitle) {
         this.displayTitle = displayTitle;
     }

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -10,14 +11,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.Map;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.util.ArrayList;
 import java.util.List;
 public class MapUtilities {
     private final static  RandomNumbers value= new RandomNumbers();
+
+    private MapUtilities() {
+    }
+
     public static void addEntityToTile(GameMap map, LandSquareTile tile, Entity entity, PositionComponent position){
         float screenLocationX=tile.getScreenLocationX();
        float screenLocationY= tile.getScreenLocationY();
@@ -67,19 +74,20 @@ public class MapUtilities {
      *  for given square of tiles  in the  x and y axis on a given map
      *  by adding all of the Entities from the tile components
      * @param map the map to search on
-     * @param screenLocationX the x  location of the center tile
-     * @param screenLocationY the y location of the center tile
+     * @param worldUnitsX the x  location of the center tile
+     * @param worldUnitsY the y location of the center tile
      * @param xTiles the x distance  to search from the center tile
      * @param yTiles the y distance  to search from the center tile
      * @return an Array of Entities  an array of all entities including the tiles themselves Tiles are Entities
      */
-    public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles){
-        int tileSizeX=map.getTileWidth();
-        int tileSizeY=map.getTileHeight();
+    public static  Array<Entity> getAllEntitiesAndTiles (GameMap map , float worldUnitsX, float worldUnitsY, int xTiles, int yTiles){
         Array<Entity> entities= new Array<>();
+        LandSquareTile currentTile=map.getTileFromWorldUnitCoordinates(worldUnitsX, worldUnitsY);
+        int xTile=currentTile.getLocationX();
+        int yTile=currentTile.getLocationY();
         for (int countx = -xTiles; countx < xTiles; countx++ ){
             for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
+                LandSquareTile tile = map.getMapSquareOrNull(xTile + countx, yTile + county);
                 // get tile occupants
                 if (tile != null) {
                     // add the tile entity
@@ -125,7 +133,7 @@ public class MapUtilities {
        int tilesX=(int)(diameter/map.getTileWidth())+1;
        int tilesY=(int)(diameter/map.getTileHeight())+1;
        Array<Entity> entitiesInCircle= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
        int size=entities.size;
        for(int count=0; count<size; count++){
@@ -143,7 +151,7 @@ public class MapUtilities {
         int tilesX=(int)(width/map.getTileWidth())+1;
         int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInRectangle= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
         int size=entities.size;
         for(int count=0; count<size; count++){
@@ -162,7 +170,7 @@ public class MapUtilities {
         int tilesX=(int)(width/map.getTileWidth())+1;
         int tilesY=(int)(height/map.getTileHeight())+1;
         Array<Entity> entitiesInPolygon= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=world.getGameComponentMapper().getPositionComponentMapper();
+        ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
         Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
         int size=entities.size;
         for(int count=0; count<size; count++){
@@ -660,6 +668,20 @@ public class MapUtilities {
         positionComponent.setMapID(tile.getMapId());
         positionComponent.getTiles().clear();
         positionComponent.getTiles().add(tile);
+    }
+
+    /**
+     * Returns a center LandSquareTile for a libGDx Rectangle
+     * @param map The GameMap Object
+     * @param rectangle the bounding box rectangle
+     * @return the LandSquareTile in the center of the Rectangle
+     */
+    public static LandSquareTile getCenterTile(GameMap map, Rectangle rectangle){
+        float centerX=rectangle.getWidth()/2;
+        float centerY=rectangle.getHeight()/2;
+        int centerPointX= (int) (rectangle.x+centerX);
+        int centerPointY= (int) (rectangle.y+centerY);
+        return map.getTileFromWorldUnitCoordinates(centerPointX, centerPointY);
     }
 
     public static  double calculateWeight(GameMap map, double mass){

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Stats;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -9,6 +10,7 @@ import com.jessematty.black.tower.Components.FlagComponents.BooleanStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
@@ -18,7 +20,6 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;

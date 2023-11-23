@@ -1,8 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 public class GameWindow extends ClosableWindow {
     boolean created;
     /**

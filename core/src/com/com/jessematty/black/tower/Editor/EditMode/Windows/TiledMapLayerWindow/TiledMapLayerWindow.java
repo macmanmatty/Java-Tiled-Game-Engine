@@ -1,20 +1,19 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapEdit;
+import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ScrollableItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.DeleteOptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.NamedField;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.MapSettable;
 
@@ -39,12 +38,12 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
     
     public void makeWindow(){
         clearWindow();
-        mapLayers= new TiledMapTileLayerList( tiledMapEdit,skin, "Map Layers", "DisplayName", String.class);
+        mapLayers= new TiledMapTileLayerList( tiledMapEdit,getSkin(), "Map Layers", "DisplayName", String.class);
         mapLayers.setEditable(true);
         mapLayers.setSortable(false);
         this.tiledMapEdit=tiledMapEdit;
-        layerLabel = new Label("Current Layer Layer 0", skin);
-        addLayerButton = new TextButton("Add New Layer", skin);
+        layerLabel = new Label("Current Layer Layer 0", getSkin());
+        addLayerButton = new TextButton("Add New Layer", getSkin());
         addLayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -52,7 +51,7 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
                 scrollPane.setScrollY(scrollPane.getMaxY());
             }
         });
-        removeButton = new TextButton("Remove Layer", skin);
+        removeButton = new TextButton("Remove Layer", getSkin());
         removeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -71,7 +70,7 @@ public class TiledMapLayerWindow extends MapEditWindow implements MapSettable {
         });
         add(layerLabel).height(layerLabel.getPrefHeight());
         row();
-        scrollPane= new ScrollableItemList<>(mapLayers, skin).getScrollPane();
+        scrollPane= new ScrollableItemList<>(mapLayers, getSkin()).getScrollPane();
         add(scrollPane).setActorY(getMaxHeight());
         row();
         this.addLayerButton.getLabel().setFontScale(getFontScale());

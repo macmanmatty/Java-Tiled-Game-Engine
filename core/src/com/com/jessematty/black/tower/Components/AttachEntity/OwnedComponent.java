@@ -47,6 +47,14 @@ public class OwnedComponent implements Component {
      */
     private String rootOwnerID;
 
+    /**
+     * if true the this component and any
+     * links to the owner entity will removed on
+     * physically detaching the entity from the owner
+     */
+
+    private  boolean removeOnPhysicalDetachment=true;
+
 
     public OwnedComponent() {
     }
@@ -127,5 +135,13 @@ public class OwnedComponent implements Component {
 
     public void setRemoveEntityFromEngineOnOwnerRemoval(boolean removeEntityFromEngineOnOwnerRemoval) {
         this.removeEntityFromEngineOnOwnerRemoval = removeEntityFromEngineOnOwnerRemoval;
+    }
+
+    public boolean isRemoveOnPhysicalDetachment() {
+        return removeOnPhysicalDetachment;
+    }
+
+    public void setRemoveOnPhysicalDetachment(boolean removeOnPhysicalDetachment) {
+        this.removeOnPhysicalDetachment = removeOnPhysicalDetachment;
     }
 }

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Tiles;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -10,8 +11,8 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Movi
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Spread;
 import com.jessematty.black.tower.Components.FlagComponents.Moved;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.Spreadable;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;

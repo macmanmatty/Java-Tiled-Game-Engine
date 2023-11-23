@@ -11,7 +11,6 @@ import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnTime;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.Systems.GameEntitySystem;

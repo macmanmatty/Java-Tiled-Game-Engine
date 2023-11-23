@@ -2,7 +2,7 @@ package com.jessematty.black.tower.Systems.Collision;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.GameMap;

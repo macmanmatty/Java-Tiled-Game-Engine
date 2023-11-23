@@ -2,8 +2,8 @@ package com.jessematty.black.tower.Components.Other;
 
 import com.badlogic.gdx.graphics.Color;
 import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
 public class EditorImageComponent implements SerializableComponet {
    private  transient AtlasNamedAtlasRegion atlasRegion;

@@ -1,5 +1,7 @@
 package Maps;
 
+import static junit.framework.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -14,8 +16,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import TestEntities.TestEntity;
-
-import static junit.framework.Assert.assertEquals;
 
 public final  class TestMap {
    public   final  LandMap testMap1 = MapTools.newLandMap(9.8, "map", 50, 50, 32, 32);
@@ -66,11 +66,26 @@ public final  class TestMap {
 
     }
     @Test
+    public void getAllTilesAndAddEntityNoBounds(){
+        Entity entity= new TestEntity().movable;
+        PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
+        positionComponent.setBounds(64, 64);
+        positionComponent.setPosition(640 , 640);
+        positionComponent.removeBounds();
+        Array<LandSquareTile> tiles= testMap1.getAllTilesAndAddEntity(positionComponent.getBoundsBoundingRectangle(), entity);
+        assertEquals(1, tiles.size);
+        int size=tiles.size;
+        for(int count=0; count<size; count++) {
+            assertEquals(1,tiles.get(count).getEntities().size);
+        }
+
+    }
+    @Test
     public void getAllTilesAndAddEntity2(){
         Entity entity= new TestEntity().movable;
         PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
-        positionComponent.setBounds(68, 68);
-        positionComponent.setPosition(64 , 64);
+        positionComponent.setBounds(65, 65);
+        positionComponent.setPosition(74 , 64);
         Array<LandSquareTile> tiles= testMap1.getAllTilesAndAddEntity(positionComponent.getBoundsBoundingRectangle(), entity);
         assertEquals(9, tiles.size);
         int size=tiles.size;
@@ -82,19 +97,31 @@ public final  class TestMap {
     public void getAllTiles(){
         Entity entity= new TestEntity().movable;
         PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
-        positionComponent.setBounds(64, 64);
+        positionComponent.setBounds(65, 65);
         positionComponent.setPosition(74 , 64);
         Array<LandSquareTile> tiles=testMap1.getAllTiles(positionComponent.getBoundsBoundingRectangle());
         assertEquals(9, tiles.size);
 
     }
+    @Test
+    public void getAllTilesNoBounds(){
+        Entity entity= new TestEntity().movable;
+        PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
+        positionComponent.setBounds(65, 65);
+        positionComponent.setPosition(74 , 64);
+        positionComponent.removeBounds();
+        Array<LandSquareTile> tiles=testMap1.getAllTiles(positionComponent.getBoundsBoundingRectangle());
+        assertEquals(1, tiles.size);
+
+    }
+
 
     @Test
     public void getAllTiles2(){
         Entity entity= new TestEntity().movable;
         PositionComponent positionComponent=entity.getComponent(PositionComponent.class);
-        positionComponent.setBounds(64, 32);
-        positionComponent.setPosition(64 , 32);
+        positionComponent.setBounds(65, 33);
+        positionComponent.setPosition(65 , 33);
         Array<LandSquareTile> tiles=testMap1.getAllTiles(positionComponent.getBoundsBoundingRectangle());
         assertEquals(6, tiles.size);
 

@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Editor.EditMode.EditorSettable;
-import com.jessematty.black.tower.Editor.EditMode.Screens.Interfaces.EditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindow;
@@ -13,7 +13,7 @@ public   class EditWindow extends GameWindow  implements EditorSettable {
     }
 
     public void clearWindow(){
-        clear();
+        getChildren().clear();
     }
     public void setWindowSize(float width, float height){
         setHeight(height);

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -9,12 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPaneAction;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 public class CreateWorldOptionPane extends EditWindow {
     private PositiveIntegerField xSize;
     private PositiveIntegerField ySize;
@@ -49,22 +49,22 @@ public class CreateWorldOptionPane extends EditWindow {
         }
     }
     public void makeWindow() {
-        xSize=new PositiveIntegerField("2", skin);
-        ySize=new PositiveIntegerField("2", skin);
-        name= new TextField("Enter world Name" , skin);
-        Label label=new Label("Enter X World Size", skin);
+        xSize=new PositiveIntegerField("2", getSkin());
+        ySize=new PositiveIntegerField("2", getSkin());
+        name= new TextField("Enter world Name" , getSkin());
+        Label label=new Label("Enter X World Size", getSkin());
        HorizontalGroup xSizeBox= new HorizontalGroup();
-       Label label1=new Label("Enter Y World Size", skin);
+       Label label1=new Label("Enter Y World Size", getSkin());
        xSizeBox.addActor(label);
        xSizeBox.addActor(xSize);
         HorizontalGroup ySizeBox= new HorizontalGroup();
         ySizeBox.addActor(label1);
         ySizeBox.addActor(ySize);
-        Label label2=new Label("Enter World Name", skin);
+        Label label2=new Label("Enter World Name", getSkin());
         HorizontalGroup nameBox= new HorizontalGroup();
         nameBox.addActor(label2);
         nameBox.addActor(name);
-        createWorld= new TextButton("Create World",skin);
+        createWorld= new TextButton("Create World", getSkin());
         createWorld.addListener( new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

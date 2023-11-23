@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -23,6 +24,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.NameUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.TextureTools;
+
 import java.io.IOException;
 import java.util.UUID;
 /** class that saves  a  dynamically created texture atlas to png images  and a .atlas file at runtime

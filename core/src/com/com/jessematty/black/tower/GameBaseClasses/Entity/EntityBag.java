@@ -8,8 +8,14 @@ import com.badlogic.gdx.utils.Array;
  */
 public class EntityBag {
 
-   private Array<Entity> entities = new Array<>(); // the owned entities
-   private Entity owner; // the entity owner
+    /**
+     * the owned entities by the owner
+     */
+   private Array<Entity> entities = new Array<>();
+    /**
+     * the owner Entity
+     */
+   private Entity owner;
     public Array<Entity> getEntities() {
         return entities;
     }

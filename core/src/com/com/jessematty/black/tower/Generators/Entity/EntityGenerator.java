@@ -2,31 +2,28 @@ package com.jessematty.black.tower.Generators.Entity;
 
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeable;
-import com.jessematty.black.tower.Components.Base.EntityId;
-import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsSelfChangable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStats;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatsChangeable;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.World;
 // create a basic  with all  of the  required components.
 public class EntityGenerator {
-
-
     protected  static CopyObject copyObject;
     protected  World world;
     protected GameAssets gameAssets;
-
     public EntityGenerator(World world, GameAssets gameAssets) {
         this.world = world;
         this.gameAssets = gameAssets;

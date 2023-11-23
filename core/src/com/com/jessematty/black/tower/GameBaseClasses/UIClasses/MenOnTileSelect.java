@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,16 +14,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
-import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Stats.BooleanStat;
+import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -98,10 +98,10 @@ public class MenOnTileSelect
 			 }
 
 		 }
-			Holder[]  heldItems = player.getHolders();
+			//Holder[]  heldItems = player.getHolders();
 			
 			for(int count=0; count<2; count++) {
-				Entity item = gameAssets.getMapDraw().getWorld().getEntity(heldItems[count].getItemToHoldId());
+				Entity item = gameAssets.getMapDraw().getWorld().getEntity("uuu");
 				if (item != null) {
 					NameComponent nameComponent = nameComponentMapper.get(item);
 					String itemName="";

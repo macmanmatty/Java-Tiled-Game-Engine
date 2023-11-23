@@ -4,8 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.AI.Brain;
-import com.jessematty.black.tower.Components.Other.AIComponent;
+import com.jessematty.black.tower.AI.ZRPGBrainComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.CreateEntity;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
@@ -15,13 +14,12 @@ import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slas
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.SpellCast;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Talk;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Thrust;
-import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Other.Armor;
 import com.jessematty.black.tower.Components.AttachEntity.AttachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
+import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
@@ -29,7 +27,6 @@ import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
-import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.UnEquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.UnHoldItem;
 import com.jessematty.black.tower.Components.Attacks.Breather;
@@ -39,7 +36,13 @@ import com.jessematty.black.tower.Components.Attacks.Slashable;
 import com.jessematty.black.tower.Components.Attacks.SpellCastable;
 import com.jessematty.black.tower.Components.Attacks.Throwable;
 import com.jessematty.black.tower.Components.Attacks.Thrustable;
-import com.jessematty.black.tower.Components.Tiles.BitMaskable;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
+import com.jessematty.black.tower.Components.BodyParts.Ears;
+import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValueChanges;
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
@@ -47,14 +50,8 @@ import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnBoolea
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnNumericStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnAction;
-import com.jessematty.black.tower.Components.BodyParts.Ears;
-import com.jessematty.black.tower.Components.Other.EditorImageComponent;
-import com.jessematty.black.tower.Components.Base.EntityId;
-import com.jessematty.black.tower.Components.Other.ErrorComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.EventComponents.RemoveItemFromContainer;
-import com.jessematty.black.tower.Components.Other.Explodable;
-import com.jessematty.black.tower.Components.BodyParts.Eyes;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.BooleanStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
@@ -63,24 +60,31 @@ import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StringStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
-import com.jessematty.black.tower.Components.Other.Glow;
-import com.jessematty.black.tower.Components.Base.GroupsComponent;
-import com.jessematty.black.tower.Components.Other.Growable;
-import com.jessematty.black.tower.Components.Other.Info;
-import com.jessematty.black.tower.Components.Other.Ingestable;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
+import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Item.PickUpItem;
+import com.jessematty.black.tower.Components.Other.AIComponent;
+import com.jessematty.black.tower.Components.Other.Armor;
+import com.jessematty.black.tower.Components.Other.EditorImageComponent;
+import com.jessematty.black.tower.Components.Other.ErrorComponent;
+import com.jessematty.black.tower.Components.Other.Explodable;
+import com.jessematty.black.tower.Components.Other.GlowComponent;
+import com.jessematty.black.tower.Components.Other.Growable;
+import com.jessematty.black.tower.Components.Other.InfoComponent;
+import com.jessematty.black.tower.Components.Other.Ingestable;
 import com.jessematty.black.tower.Components.Other.Light;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Position.BoundsChangeable;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.RandomlyCreateAndPlaceEntity;
 import com.jessematty.black.tower.Components.Other.Readable;
 import com.jessematty.black.tower.Components.Other.Root;
 import com.jessematty.black.tower.Components.Other.SolidObject;
 import com.jessematty.black.tower.Components.Other.SoundComponent;
+import com.jessematty.black.tower.Components.Other.TalkComponent;
+import com.jessematty.black.tower.Components.Other.Target;
+import com.jessematty.black.tower.Components.Other.Weapon;
+import com.jessematty.black.tower.Components.Position.BoundsChangeable;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatsChangeComponent;
@@ -97,13 +101,11 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.Systems.AddSystemsComponent;
 import com.jessematty.black.tower.Components.Systems.RemoveSystemsComponent;
-import com.jessematty.black.tower.Components.Other.TalkComponent;
-import com.jessematty.black.tower.Components.Other.Target;
-import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
+import com.jessematty.black.tower.Components.Tiles.BitMaskable;
 import com.jessematty.black.tower.Components.Tiles.OnEnterTileComponent;
 import com.jessematty.black.tower.Components.Tiles.OnExitTileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileComponent;
-import com.jessematty.black.tower.Components.Other.Weapon;
+import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.Maps.World;
 
@@ -144,15 +146,15 @@ public class GameComponentMapper {
     private static ComponentMapper<TileWeatherNumericStatsChangable> tileNumericStatsChangableComponentMapper = ComponentMapper.getFor(TileWeatherNumericStatsChangable.class);
     private static ComponentMapper<ImageComponent> imageComponentMapper = ComponentMapper.getFor(ImageComponent.class);
     private static ComponentMapper<EntityId> idComponentMapper = ComponentMapper.getFor(EntityId.class);
-    private static ComponentMapper<Glow> glowComponentMapper = ComponentMapper.getFor(Glow.class);
+    private static ComponentMapper<GlowComponent> glowComponentMapper = ComponentMapper.getFor(GlowComponent.class);
     private static ComponentMapper<NumericStatsSelfChangable> numericStatsSelfChangableComponentMapper = ComponentMapper.getFor(NumericStatsSelfChangable.class);
     private static ComponentMapper<ChangeImageOnStatsValueChanges> changeImageOnStatsValueChangesComponentMapper = ComponentMapper.getFor(ChangeImageOnStatsValueChanges.class);
     private static ComponentMapper<NumericStatChanged> numericStatChangedComponentMapper = ComponentMapper.getFor(NumericStatChanged.class);
     private static ComponentMapper<BooleanStatChanged> booleanStatChangedComponentMapper = ComponentMapper.getFor(BooleanStatChanged.class);
     private static ComponentMapper<StringStatChanged> stringStatChangedComponentMapper = ComponentMapper.getFor(StringStatChanged.class);
     private static ComponentMapper<StatChanged> statChangedComponentMapper = ComponentMapper.getFor(StatChanged.class);
-    private static ComponentMapper<ActionComponents> actionComponentsComponentMapper = ComponentMapper.getFor(ActionComponents.class);
-    private static ComponentMapper<Info> infoComponentMapper = ComponentMapper.getFor(Info.class);
+    private static ComponentMapper<ItemActionComponents> actionComponentsComponentMapper = ComponentMapper.getFor(ItemActionComponents.class);
+    private static ComponentMapper<InfoComponent> infoComponentMapper = ComponentMapper.getFor(InfoComponent.class);
     private static ComponentMapper<Ingestable> ingestableComponentMapper = ComponentMapper.getFor(Ingestable.class);
     private static ComponentMapper<Ingest> ingestingComponentMapper = ComponentMapper.getFor(Ingest.class);
     private static ComponentMapper<Slashable> slashableComponentMapper = ComponentMapper.getFor(Slashable.class);
@@ -192,7 +194,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Target> targetComponentMapper = ComponentMapper.getFor(Target.class);
     private static ComponentMapper<CreateEntityOnAction> entityCreateableComponentMapper = ComponentMapper.getFor(CreateEntityOnAction.class);
     private static ComponentMapper<CreateEntity> createEntityComponentMapper = ComponentMapper.getFor(CreateEntity.class);
-    private static ComponentMapper<PickUpItem> pickUpComponentMapper = ComponentMapper.getFor(PickUpItem.class);
+    private static ComponentMapper<PickUpItemComponent> pickUpComponentMapper = ComponentMapper.getFor(PickUpItemComponent.class);
     private static ComponentMapper<EditorImageComponent> editorImageComponentComponentMapper = ComponentMapper.getFor(EditorImageComponent.class);
     private static ComponentMapper<CreateEntitiesOnTime> createEntitiesOnTimeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnTime.class);
     private static ComponentMapper<CreateEntitiesOnNumericStatChange> createEntitiesOnNumericStatChangeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnNumericStatChange.class);
@@ -209,14 +211,16 @@ public class GameComponentMapper {
     private static ComponentMapper<OnCurrentMap> onCurrentMapComponentMapper = ComponentMapper.getFor(OnCurrentMap.class);
     private static ComponentMapper<AddSystemsComponent> addSystemsComponentComponentMapper = ComponentMapper.getFor(AddSystemsComponent.class);
     private static ComponentMapper<RemoveSystemsComponent> removeSystemsComponentComponentMapper = ComponentMapper.getFor(RemoveSystemsComponent.class);
-    private static ComponentMapper<Brain> brainComponentComponentMapper = ComponentMapper.getFor(Brain.class);
+    private static ComponentMapper<ZRPGBrainComponent> brainComponentComponentMapper = ComponentMapper.getFor(ZRPGBrainComponent.class);
     private static ComponentMapper<SolidObject> solidObjectComponentMapper = ComponentMapper.getFor(SolidObject.class);
     private static ComponentMapper<GameLog> logComponentMapper = ComponentMapper.getFor(GameLog.class);
     private static ComponentMapper<RemoveItemFromContainer> removeItemFromContainerComponentComponentMapper = ComponentMapper.getFor(RemoveItemFromContainer.class);
     private static ComponentMapper<AddItemToContainer> addItemToContainerComponentMapper = ComponentMapper.getFor(AddItemToContainer.class);
+    private static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
+    private static ComponentMapper<PartComponent> partComponentComponentMapper = ComponentMapper.getFor(PartComponent.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
-    public GameComponentMapper() {
+    static {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
         componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
         componentComponentMapperMap.put(AnimatableComponent.class, animatableComponentMapper);
@@ -246,7 +250,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Attachable.class, attachableComponentMapper);
         componentComponentMapperMap.put(VisibleOnScreen.class, visibleOnScreenComponentMapper);
         componentComponentMapperMap.put(TileWeatherNumericStatsChangable.class, tileNumericStatsChangableComponentMapper);
-        componentComponentMapperMap.put(Glow.class, glowComponentMapper);
+        componentComponentMapperMap.put(GlowComponent.class, glowComponentMapper);
         componentComponentMapperMap.put(EntityId.class, idComponentMapper);
         componentComponentMapperMap.put(NumericStatsSelfChangable.class, numericStatsChangableComponentMapper);
         componentComponentMapperMap.put(ChangeImageOnStatsValueChanges.class, changeImageOnStatsValueChangesComponentMapper);
@@ -254,8 +258,8 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(NumericStatChanged.class, numericStatChangedComponentMapper);
         componentComponentMapperMap.put(BooleanStatChanged.class, booleanStatChangedComponentMapper);
         componentComponentMapperMap.put(StatChanged.class, statChangedComponentMapper);
-        componentComponentMapperMap.put(ActionComponents.class, actionComponentsComponentMapper);
-        componentComponentMapperMap.put(Info.class, infoComponentMapper);
+        componentComponentMapperMap.put(ItemActionComponents.class, actionComponentsComponentMapper);
+        componentComponentMapperMap.put(InfoComponent.class, infoComponentMapper);
         componentComponentMapperMap.put(Ingestable.class, ingestableComponentMapper);
         componentComponentMapperMap.put(Ingest.class, ingestingComponentMapper);
         componentComponentMapperMap.put(Slashable.class, slashableComponentMapper);
@@ -295,7 +299,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Target.class, targetComponentMapper);
         componentComponentMapperMap.put(CreateEntityOnAction.class, entityCreateableComponentMapper);
         componentComponentMapperMap.put(CreateEntity.class, createEntityComponentMapper);
-        componentComponentMapperMap.put(PickUpItem.class, pickUpComponentMapper);
+        componentComponentMapperMap.put(PickUpItemComponent.class, pickUpComponentMapper);
         componentComponentMapperMap.put(EditorImageComponent.class, equipItemComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnTime.class, createEntitiesOnTimeComponentMapper);
         componentComponentMapperMap.put(CreateEntitiesOnNumericStatChange.class, createEntitiesOnNumericStatChangeComponentMapper);
@@ -314,8 +318,14 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(RemoveSystemsComponent.class, removeSystemsComponentComponentMapper);
         componentComponentMapperMap.put(SolidObject.class, solidObjectComponentMapper);
         componentComponentMapperMap.put(GameLog.class, logComponentMapper);
+        componentComponentMapperMap.put(BodyComponent.class, bodyComponentComponentMapper);
+        componentComponentMapperMap.put(PartComponent.class, partComponentComponentMapper);
 
     }
+
+    private GameComponentMapper() {
+    }
+
     public static <T extends Component> void addComponentToMapper(Class<T> componentClass) {
         ComponentMapper<T> componentMapper = ComponentMapper.getFor(componentClass);
         componentComponentMapperMap.put(componentClass, componentMapper);
@@ -586,7 +596,7 @@ public class GameComponentMapper {
     public static ComponentMapper<EntityId> getIdComponentMapper() {
         return idComponentMapper;
     }
-    public static ComponentMapper<Glow> getGlowComponentMapper() {
+    public static ComponentMapper<GlowComponent> getGlowComponentMapper() {
         return glowComponentMapper;
     }
     public static ComponentMapper<NumericStatsSelfChangable> getNumericStatsSelfChangableComponentMapper() {
@@ -607,10 +617,10 @@ public class GameComponentMapper {
     public static ComponentMapper<StatChanged> getStatChangedComponentMapper() {
         return statChangedComponentMapper;
     }
-    public static ComponentMapper<ActionComponents> getActionComponentsComponentMapper() {
+    public static ComponentMapper<ItemActionComponents> getActionComponentsComponentMapper() {
         return actionComponentsComponentMapper;
     }
-    public static ComponentMapper<Info> getInfoComponentMapper() {
+    public static ComponentMapper<InfoComponent> getInfoComponentMapper() {
         return infoComponentMapper;
     }
     public static ComponentMapper<Ingestable> getIngestableComponentMapper() {
@@ -735,7 +745,7 @@ public class GameComponentMapper {
     public static ComponentMapper<CreateEntity> getCreateEntityComponentMapper() {
         return createEntityComponentMapper;
     }
-    public static ComponentMapper<PickUpItem> getPickUpComponentMapper() {
+    public static ComponentMapper<PickUpItemComponent> getPickUpComponentMapper() {
         return pickUpComponentMapper;
     }
     public static ComponentMapper<EditorImageComponent> getEditorImageComponentComponentMapper() {
@@ -786,7 +796,7 @@ public class GameComponentMapper {
     public static ComponentMapper<RemoveSystemsComponent> getRemoveSystemsComponentComponentMapper() {
         return removeSystemsComponentComponentMapper;
     }
-    public static ComponentMapper<Brain> getBrainComponentComponentMapper() {
+    public static ComponentMapper<ZRPGBrainComponent> getBrainComponentComponentMapper() {
         return brainComponentComponentMapper;
     }
 
@@ -804,5 +814,13 @@ public class GameComponentMapper {
 
     public static ComponentMapper<GameLog> getLogComponentMapper() {
         return logComponentMapper;
+    }
+
+    public static ComponentMapper<BodyComponent> getBodyComponentComponentMapper() {
+        return bodyComponentComponentMapper;
+    }
+
+    public static ComponentMapper<PartComponent> getPartComponentComponentMapper() {
+        return partComponentComponentMapper;
     }
 }

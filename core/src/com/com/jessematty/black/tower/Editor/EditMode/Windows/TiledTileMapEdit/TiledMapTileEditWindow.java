@@ -2,9 +2,7 @@ package com.jessematty.black.tower.Editor.EditMode.Windows.TiledTileMapEdit;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoardChangeListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
-import com.jessematty.black.tower.Editor.EditMode.Windows.MapEditWindow;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 

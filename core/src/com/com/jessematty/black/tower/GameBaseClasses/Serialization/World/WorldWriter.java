@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.World;
+
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
@@ -8,8 +9,8 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.Tex
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Maps.Buildings.Building;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -55,7 +56,7 @@ private com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.Te
      */
     private void packAssets(String path, String atlasName, String fullAtlasPath, World world, int packWidth, int packHeight) throws IOException {
         textureAtlasPacker.packAtlas(path, atlasName, world.getWorldTextureAtlas(), packWidth  ,packHeight, 2);
-       // setMapAtlasName(fullAtlasPath,world.getWorldMaps() );
+      // setMapAtlasName(fullAtlasPath,world.getWorldMaps() );
     }
     /**
      * sets  worlds maps the tiled map

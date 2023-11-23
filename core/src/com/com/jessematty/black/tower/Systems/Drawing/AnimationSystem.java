@@ -1,25 +1,23 @@
 package com.jessematty.black.tower.Systems.Drawing;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.FlagComponents.AnimationFinished;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Components.Actions.ActionComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
-import com.jessematty.black.tower.Components.Animation.DrawableComponent;
-import com.jessematty.black.tower.Components.Other.Glow;
-import com.jessematty.black.tower.Components.Animation.AnimationState;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
-
 @Transient
 public  class AnimationSystem extends GameEntitySystem {
     private ImmutableArray<Entity> entities;
@@ -27,7 +25,6 @@ public  class AnimationSystem extends GameEntitySystem {
     private ComponentMapper<AnimatableComponent> animatableComponentMapper;
     private ComponentMapper<ActionComponent> actionComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentMapper;
-    private  ComponentMapper<Glow> glowComponentMapper;
     private RenderSystem renderSystem;
     public AnimationSystem(MapDraw draw, RenderSystem system, int priority) {
         super(priority, draw );
@@ -39,39 +36,36 @@ public  class AnimationSystem extends GameEntitySystem {
         animatableComponentMapper =GameComponentMapper.getAnimatableComponentMapper();
         actionComponentMapper =GameComponentMapper.getActionComponentMapper();
         positionComponentMapper =GameComponentMapper.getPositionComponentMapper();
-        glowComponentMapper=GameComponentMapper.getGlowComponentMapper();
     }
     @Override
     public void update(float deltaTime) {
-        entities=getEngine().getEntitiesFor(Family.all(OnCurrentMap.class,  AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, ActionComponent.class).get());
-        int size=entities.size();
-        for(int count=0; count<size; count++){
-            Entity entity=entities.get(count);
-            PositionComponent position= positionComponentMapper.get(entity);
+        entities = getEngine().getEntitiesFor(Family.all(OnCurrentMap.class, AnimatableComponent.class, DrawableComponent.class, PositionComponent.class, ActionComponent.class).get());
+        int size = entities.size();
+        for (int count = 0; count < size; count++) {
+            Entity entity = entities.get(count);
+            PositionComponent position = positionComponentMapper.get(entity);
             DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
             drawableComponent.setDraw(true);
-            AnimatableComponent animatable= animatableComponentMapper.get(entity);
-
-            if(animatable!=null) {
-
+            AnimatableComponent animatable = animatableComponentMapper.get(entity);
+            if (animatable != null) {
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
-                Direction direction=position.getDirection();
+                Direction direction = position.getDirection();
                 if (animatable.isEightDirections()) {
                     animatable.setCurrentDirection(position.getDirection());
                 } else {
                     animatable.setCurrentDirection(Direction.getBaseDirection(direction));
                 }
-
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
-                String currentAction= actionComponent.getStat();
+                int turnsToComplete = actionComponent.getTurnsToCompletion();
+                actionComponent.addTurn();
+                String currentAction = actionComponent.getStat();
                 actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
                 actionComponent.setCurrentFrame(animatable.getCurrentFrameNumber());
-                actionComponent.setFrameRate(animatable.getFrameRate(direction,currentAction ));
+                actionComponent.setFrameRate(animatable.getFrameRate(direction, currentAction));
                 //set actions
                 if ((!animatable.getCurrentAction().equals(currentAction))) {
                     animatable.setCurrentAction(currentAction);
-                    animatable.setAnimationState(AnimationState.ACTING);
                 }
                 drawableComponent.setSubLayerNumber(animatable.getCurrentLayerNumber());
                 drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
@@ -87,51 +81,15 @@ public  class AnimationSystem extends GameEntitySystem {
                     }
                 }
                 animatable.nextFrame();
-                if (animatable.getFinishedAnimating()) {
+                if (animatable.isFinishedAnimating()) {
                     entity.add(new AnimationFinished());
+                    actionComponent.stopAction();
                 }
-
-
-            }
-
-
-            Glow glow= glowComponentMapper.get(entity);
-            if(glow!=null){
-                drawableComponent.setDraw(true);
-                drawableComponent.setCalculateColor(true);
-            float brightness= drawableComponent.getBrightness();
-            if(!glow.isDecreaseBrightness()) {
-                brightness = brightness + glow.getIncrease();
-                double  maxValue=glow.getMaxValue();
-                if (brightness > maxValue) {
-                    glow.setDecreaseBrightness(true);
-                    brightness= (float) maxValue;
+                drawableComponent.setLayerNumber(-position.getLocationY() - drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
+                if (drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()) { // layer changed sort entities before drawing them
+                    renderSystem.forceSort();
                 }
-                drawableComponent.setBrightness(brightness);
-                glow.setValue(brightness);
             }
-
-            else{
-                brightness = brightness - glow.getIncrease();
-                double  minValue=glow.getMinValue();
-                if (brightness < minValue) {
-                    glow.setDecreaseBrightness(true);
-                    brightness= (float) minValue;
-                }
-                drawableComponent.setBrightness(brightness);
-                glow.setValue(brightness);
-
-            }
-
-
-        }
-            drawableComponent.setLayerNumber(-position.getLocationY()- drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
-            if(drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()){ // layer changed sort entities before drawing them
-                renderSystem.forceSort();
-            }
-
-
-
         }
     }
 }

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.TiledMapEdit;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
@@ -7,25 +8,25 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BucketFill;
+import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
 import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BitMaskTiledMapCells;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.Editor.Tools.MapTools.Tools.BucketFill;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
-import com.jessematty.black.tower.Generators.MapGenerators.HeightMapGen;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskException;
+import com.jessematty.black.tower.Generators.MapGenerators.HeightMapGen;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 
 public class TiledMapEdit implements MapSettable {
    private  TiledMap currentTiledMap;

@@ -1,13 +1,14 @@
 package com.jessematty.black.tower.AI.Movement;
+
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.AI.ZRPGAIAction;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Character.CharacterMoveFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind.AStar;
-import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -46,7 +47,6 @@ public class MoveToLocation extends ZRPGAIAction {
         if (placesToMove == null) {
             placesToMove = pathFind(map,position.getLocationX() ,position.getLocationY() , targetTile.getScreenLocationX(), targetTile.getScreenLocationY(),0,0, xSize, ySize);
         }
-
         // no place to move to you are either done or can't get to the tile
         if (placesToMove.size == 0) {
             // stop movable is done moving

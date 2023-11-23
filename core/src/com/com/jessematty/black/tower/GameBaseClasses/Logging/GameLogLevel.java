@@ -1,6 +1,9 @@
 package com.jessematty.black.tower.GameBaseClasses.Logging;
 
 
+/**
+ * enum for the  GameLogger Level @See GameLogger
+ */
 
 public enum GameLogLevel {
 
@@ -11,7 +14,6 @@ public enum GameLogLevel {
          String name;
          int value;
     private GameLogLevel(String name, int value) {
-
             this.name = name;
             this.value = value;
 

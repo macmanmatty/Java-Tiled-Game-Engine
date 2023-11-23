@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Systems;
 
 import com.badlogic.ashley.systems.IntervalSystem;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 

@@ -7,13 +7,12 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Polygon;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Slash;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Attacks.Slashable;
+import com.jessematty.black.tower.Components.Other.MovableComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;

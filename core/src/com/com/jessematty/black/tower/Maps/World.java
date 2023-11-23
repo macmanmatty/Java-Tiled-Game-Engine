@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Maps;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.FlagComponents.AddedToEngine;
 import com.jessematty.black.tower.Components.FlagComponents.NotAddedToEngine;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
@@ -61,15 +63,11 @@ public class World implements Disposable {
      */
     private  final  transient Engine engine=new PooledEngine(); //  ashley game engine
     /**
-     *  the game component mapper class
-     */
-    private transient final GameComponentMapper gameComponentMapper= new GameComponentMapper();
-    /**
      * the name of the world
      */
     private String name="world";
     /**
-     * the game currently running
+     *  is the game currently running
      */
         private boolean gameInProgress;
         private  boolean newWorld =true;
@@ -88,7 +86,7 @@ public class World implements Disposable {
     private transient TextureAtlas worldTextureAtlas= new NamedTextureAtlas();
 
     /**  custom added the ashley systems in the world these do NOT include the game  base systems  such as render,
-     die, or animation  as tthose should not be removed  or modified once the game has started
+     die, or animation  as those should not be removed  or modified once the game has started
      */
     private OrderedMap< Class<? extends EntitySystem>, EntitySystem> systemsInWorld = new OrderedMap<>();
         // used for  deserialization
@@ -235,8 +233,8 @@ public class World implements Disposable {
      * @param entity entity to add
      */
     private void addEntityToEngine(Entity entity){
-       NotAddedToEngine notAddedToEngine= gameComponentMapper.getNotAddedToEngineComponentMapper().get(entity);
-        AddedToEngine addedToEngine= gameComponentMapper.getAddedToEngineComponentMapper().get(entity);
+       NotAddedToEngine notAddedToEngine= GameComponentMapper.getNotAddedToEngineComponentMapper().get(entity);
+        AddedToEngine addedToEngine= GameComponentMapper.getAddedToEngineComponentMapper().get(entity);
        // if entity has the not add to engine marker  so don't add it the engine return instead
        if(notAddedToEngine!=null) {
            return;
@@ -265,8 +263,8 @@ public class World implements Disposable {
      * @param entity the entity to add
      */
        public void addEntityToWorld(Entity entity) {
-        PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
-           EntityId entityId = gameComponentMapper.getIdComponentMapper().get(entity);
+        PositionComponent position=GameComponentMapper.getPositionComponentMapper().get(entity);
+           EntityId entityId = GameComponentMapper.getIdComponentMapper().get(entity);
           // if entity has no id give it one
            if(entityId ==null){
                entityId = new EntityId();
@@ -277,6 +275,10 @@ public class World implements Disposable {
            addEntityToEngine(entity);
         if (position!=null) { // has  position add entity to map
             addEntityToMap(entity, position);
+            String containerId=position.getContainerEntityId();
+            if(!position.getContainerEntityId().isEmpty()){
+                entity.add(new AddItemToContainer(entitiesInWorld.get(containerId), true));
+            }
         }
     }
     /**
@@ -286,6 +288,7 @@ public class World implements Disposable {
     public void addEntityToWorld(EntityBag entityBag) {
         Array<Entity> entities=entityBag.getEntities();
         int size=entities.size;
+        addEntityToWorld(entityBag.getOwner());
         for(int count=0; count<size; count++) {
             Entity entity=entities.get(count);
             addEntityToWorld(entity);
@@ -309,10 +312,10 @@ public class World implements Disposable {
      *   adds an antity   to the world, engine, and the map stored in its position
      * @param entity the entity to add to the world
      */    public void removeEntityFromWorld(Entity entity){
-        PositionComponent position=gameComponentMapper.getPositionComponentMapper().get(entity);
+        PositionComponent position=GameComponentMapper.getPositionComponentMapper().get(entity);
         removeEntityFromEngine(entity);
         removeEntityFromMap(entity, position);
-        entitiesInWorld.remove(gameComponentMapper.getIdComponentMapper().get(entity).getId());
+        entitiesInWorld.remove(GameComponentMapper.getIdComponentMapper().get(entity).getId());
     }
     /**
      *    adds the game map tiles to the engine
@@ -344,9 +347,7 @@ public class World implements Disposable {
     public ObjectMap<String, Entity> getEntitiesInWorld() {
         return entitiesInWorld;
     }
-    public GameComponentMapper getGameComponentMapper() {
-        return gameComponentMapper;
-    }
+
     /**
      *  creates a new world
 

@@ -1,8 +1,7 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows;
-import com.badlogic.gdx.InputProcessor;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.jessematty.black.tower.Editor.EditMode.Buttons.MapEditButtons;
@@ -11,17 +10,11 @@ import com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector.LandMapSel
 import com.jessematty.black.tower.Editor.EditMode.Windows.TextureRegionWindows.TextureDisplayWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TileSetCreationWindow.BitMaskedTileSetCreationWindow;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.TiledMapLayerWindow;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.MapSettable;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
-
-import java.awt.event.KeyListener;
-import java.util.HashMap;
 
 /**
  *

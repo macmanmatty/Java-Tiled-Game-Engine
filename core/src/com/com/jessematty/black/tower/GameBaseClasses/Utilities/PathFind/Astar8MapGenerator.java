@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities.PathFind;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
@@ -6,6 +7,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.util.ArrayList;
 import java.util.List;
 /** @author Nathan Sweet */

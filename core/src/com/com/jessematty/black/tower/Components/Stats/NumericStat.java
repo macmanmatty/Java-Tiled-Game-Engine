@@ -1,9 +1,10 @@
 package com.jessematty.black.tower.Components.Stats;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.StatBar;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 /**
  * class that represents a number stat in the game
  */
@@ -40,6 +41,11 @@ public   class NumericStat extends Stat {
      * GUI bar to show the stat a bar in the UI
      */
      transient protected  StatBar statBar ;
+
+    /**
+     * whether or not this stat will have  have a stat bar
+     */
+    public boolean hasStatBar=true;
     public NumericStat(boolean displayable, String name, double value) {
         super(displayable, name);
         this.value = value;
@@ -55,21 +61,14 @@ public   class NumericStat extends Stat {
         this.value = value;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        if(hasStatBar) {
             createStatBar(assets);
+        }
     }
     public NumericStat(String name) {
         super(name);
     }
     public NumericStat() {
-    }
-    @Override
-    public String getStatAsString() {
-        if(displayMinAndMax =true) {
-            return name + ": " + value + " Min: " + minValue + "Max: " + maxValue;
-        }
-        else{
-            return name + ": " + value;
-        }
     }
     /**
      * copy constructor
@@ -192,15 +191,13 @@ public   class NumericStat extends Stat {
             return name + ": " + value;
         }
     }
-    @Override
-    public Stat makeCopy() {
-        return new NumericStat(this);
-    }
+
     public StatBar getStatBar() {
         return statBar;
     }
-    public void createStatBar(GameAssets assets) {
-        statBar =new StatBar(this, assets);
+    public StatBar createStatBar(GameAssets assets) {
+     statBar =new StatBar(this, assets);
+        return statBar;
     }
     public boolean isDisplayMinAndMax() {
         return displayMinAndMax;
@@ -222,5 +219,13 @@ public   class NumericStat extends Stat {
     }
     public Array<SelfChangableNumericStatChangeable> getLinkedStatsToChange() {
         return linkedStatsToChange;
+    }
+
+    public boolean isHasStatBar() {
+        return hasStatBar;
+    }
+
+    public void setHasStatBar(boolean hasStatBar) {
+        this.hasStatBar = hasStatBar;
     }
 }

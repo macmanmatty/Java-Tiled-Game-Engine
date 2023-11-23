@@ -1,6 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.World;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
@@ -9,8 +9,6 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-
-import java.rmi.server.UID;
 
 public class MapKryoSerializer extends Serializer<LandMap> {
     private final GameAssets gameAssets;

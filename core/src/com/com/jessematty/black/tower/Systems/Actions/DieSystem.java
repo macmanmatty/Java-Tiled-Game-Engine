@@ -8,7 +8,6 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Dying;
-
 import com.jessematty.black.tower.Components.FlagComponents.Killable;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;

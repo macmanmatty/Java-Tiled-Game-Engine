@@ -2,8 +2,8 @@ package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.TextureAtl
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
 public class AtlasNamedAtlasRegionSerializer implements Json.Serializer<AtlasNamedAtlasRegion> { // serializer for the libgdx atlas region class
     GameAssets assetts;

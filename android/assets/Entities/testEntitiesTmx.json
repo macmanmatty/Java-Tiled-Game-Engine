@@ -1,0 +1,2923 @@
+[
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: bow
+	sex: Male
+	name: bow
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: bow1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: bow
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: lizard
+	sex: Male
+	name: lizard
+	info: info
+	brightness: 0.67
+	colorR: 0
+	colorG: 1
+	colorB: 0.1
+	colorA: 1
+	mass: 1.0E-4
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: true
+	lpcActorAnimated: true
+	drawable: true
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: null
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: true
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: [
+				all
+			]
+			name: health
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: [
+		leftHand
+		rightHand
+		leftFoot
+		rightFoot
+		torso
+		head
+		wings
+		tail
+		horns
+	]
+	body: true
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: lizard
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: [ 1, 2, 3, 4, 5, 6 ]
+	attachedEntityDTOs: [
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: leftFoot
+			sex: Male
+			name: leftFoot
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: leftFoot
+			attachableParts: [
+				ring
+				shoe
+				bracelet
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: false
+			tmxObjectId: 4
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: rightFoot
+			sex: Male
+			name: rightFoot
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: rightFoot
+			attachableParts: [
+				ring
+				shoe
+				bracelet
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: true
+			tmxObjectId: 3
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: rightHand
+			sex: Male
+			name: rightHand
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: rightHand
+			attachableParts: [
+				ring
+				glove
+				bracelet
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: true
+			tmxObjectId: 2
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: leftHand
+			sex: Male
+			name: leftHand
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: leftHand
+			attachableParts: [
+				ring
+				glove
+				bracelet
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: true
+			tmxObjectId: 1
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: head
+			sex: Male
+			name: head
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: torso
+			attachableParts: [
+				hat
+				helmet
+				mask
+				glasses
+			]
+			body: false
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: true
+			tmxObjectId: 6
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: torso
+			sex: Male
+			name: torso
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 1
+			volume: 1
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: false
+			lpcActorAnimated: false
+			drawable: false
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: true
+			part: true
+			partClass: torso
+			attachableParts: [
+				armor
+				shirt
+				belt
+				pants
+				vest
+				backPack
+				pouch
+				quiver
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: true
+			tmxObjectId: 5
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: []
+			attachedEntityDTOs: []
+			upLayerOffset: 0
+			downLayerOffset: 0
+			leftLayerOffset: 0
+			rightLayerOffset: 0
+		}
+		{
+			load: true
+			atlasName: textureAtlases/testAssets/testAssets.atlas
+			animatableBodyName: wingsLizard
+			sex: Male
+			name: wing
+			info: info
+			brightness: 0.67
+			colorR: 0
+			colorG: 1
+			colorB: 0.1
+			colorA: 1
+			mass: 10
+			volume: 100
+			boundsX: 0
+			boundsY: 0
+			health: 100
+			maxHealth: 0
+			killWhenZeroHealth: true
+			hardness: 0
+			hashSlashFrames: true
+			overSizeSlash: true
+			hasThrustFrames: true
+			hasWalkFrames: true
+			hasShootFrames: true
+			hasDieFrames: true
+			hasSpellCastFrames: true
+			hasEatFrames: true
+			hasPickupFrames: true
+			hasThrowFrames: true
+			animated: true
+			lpcActorAnimated: true
+			drawable: true
+			hasImage: false
+			useDownFrame1AsImage: false
+			imageName: null
+			drawOnStart: true
+			drawLayer: 1
+			maxSpeed: 100
+			hands: 2
+			shirtSize: 0
+			shoeSize: 0
+			pantSize: 0
+			gloveSize: 0
+			moveable: true
+			numericStatsChangeableList: []
+			booleanStatChangeableList: []
+			stringStatChangeableList: []
+			stats: [
+				{
+					class: com.jessematty.black.tower.Components.Stats.NumericStat
+					displayable: true
+					combinable: true
+					changeGroups: [
+						all
+					]
+					name: health
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					value: 100
+					minValue: 0
+					maxValue: 100
+					killWhenZero: false
+					displayMinAndMax: true
+					linkedStatsToChange: []
+					hasStatBar: true
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.BooleanStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: on
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					flag: true
+					linkedBooleanStats: []
+				}
+				{
+					class: com.jessematty.black.tower.Components.Stats.StringStat
+					displayable: true
+					combinable: true
+					changeGroups: []
+					name: class
+					removable: false
+					displayGroups: []
+					unchangeable: false
+					stat: lizard
+				}
+			]
+			price: 0
+			condition: 0
+			slots: 0
+			maxAtachedWeight: 0
+			internalVolume: 0
+			maxPrice: 0
+			minPrice: 0
+			item: false
+			readable: false
+			ingestable: false
+			drinkable: false
+			slashable: false
+			thrustable: false
+			shootable: false
+			holder: false
+			part: false
+			partClass: null
+			attachableParts: [
+				ring
+			]
+			body: true
+			wearable: false
+			pack: false
+			plant: false
+			humanLikeCharacter: false
+			tmxObjectId: wings
+			bounds: null
+			groups: []
+			groupsAddable: []
+			attachedEntities: [ 1, 2, 3, 4, 5, 6 ]
+			attachedEntityDTOs: [
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: leftFoot
+					sex: Male
+					name: leftFoot
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: leftFoot
+					attachableParts: [
+						ring
+						shoe
+						bracelet
+					]
+					body: true
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: false
+					tmxObjectId: 52205ecf-4711-437b-ba4c-054d39f04d32
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: rightFoot
+					sex: Male
+					name: rightFoot
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: rightFoot
+					attachableParts: [
+						ring
+						shoe
+						bracelet
+					]
+					body: true
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: true
+					tmxObjectId: 3
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: rightHand
+					sex: Male
+					name: rightHand
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: rightHand
+					attachableParts: [
+						ring
+						glove
+						bracelet
+					]
+					body: true
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: true
+					tmxObjectId: 2
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: leftHand
+					sex: Male
+					name: leftHand
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: leftHand
+					attachableParts: [
+						ring
+						glove
+						bracelet
+					]
+					body: true
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: true
+					tmxObjectId: 1
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: head
+					sex: Male
+					name: head
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: torso
+					attachableParts: [
+						hat
+						helmet
+						mask
+						glasses
+					]
+					body: false
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: true
+					tmxObjectId: 6
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+				{
+					load: true
+					atlasName: textureAtlases/testAssets/testAssets.atlas
+					animatableBodyName: torso
+					sex: Male
+					name: torso
+					info: info
+					brightness: 0.67
+					colorR: 0
+					colorG: 1
+					colorB: 0.1
+					colorA: 1
+					mass: 1
+					volume: 1
+					boundsX: 0
+					boundsY: 0
+					health: 100
+					maxHealth: 0
+					killWhenZeroHealth: true
+					hardness: 0
+					hashSlashFrames: true
+					overSizeSlash: true
+					hasThrustFrames: true
+					hasWalkFrames: true
+					hasShootFrames: true
+					hasDieFrames: true
+					hasSpellCastFrames: true
+					hasEatFrames: true
+					hasPickupFrames: true
+					hasThrowFrames: true
+					animated: false
+					lpcActorAnimated: false
+					drawable: false
+					hasImage: false
+					useDownFrame1AsImage: false
+					imageName: null
+					drawOnStart: true
+					drawLayer: 1
+					maxSpeed: 100
+					hands: 2
+					shirtSize: 0
+					shoeSize: 0
+					pantSize: 0
+					gloveSize: 0
+					moveable: true
+					numericStatsChangeableList: []
+					booleanStatChangeableList: []
+					stringStatChangeableList: []
+					stats: [
+						{
+							class: com.jessematty.black.tower.Components.Stats.NumericStat
+							displayable: true
+							combinable: true
+							changeGroups: [
+								all
+							]
+							name: health
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							value: 100
+							minValue: 0
+							maxValue: 100
+							killWhenZero: false
+							displayMinAndMax: true
+							linkedStatsToChange: []
+							hasStatBar: true
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.BooleanStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: on
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							flag: true
+							linkedBooleanStats: []
+						}
+						{
+							class: com.jessematty.black.tower.Components.Stats.StringStat
+							displayable: true
+							combinable: true
+							changeGroups: []
+							name: class
+							removable: false
+							displayGroups: []
+							unchangeable: false
+							stat: lizard
+						}
+					]
+					price: 0
+					condition: 0
+					slots: 0
+					maxAtachedWeight: 0
+					internalVolume: 0
+					maxPrice: 0
+					minPrice: 0
+					item: false
+					readable: false
+					ingestable: false
+					drinkable: false
+					slashable: false
+					thrustable: false
+					shootable: false
+					holder: true
+					part: true
+					partClass: torso
+					attachableParts: [
+						armor
+						shirt
+						belt
+						pants
+						vest
+						backPack
+						pouch
+						quiver
+					]
+					body: true
+					wearable: false
+					pack: false
+					plant: false
+					humanLikeCharacter: true
+					tmxObjectId: 5
+					bounds: null
+					groups: []
+					groupsAddable: []
+					attachedEntities: []
+					attachedEntityDTOs: []
+					upLayerOffset: 0
+					downLayerOffset: 0
+					leftLayerOffset: 0
+					rightLayerOffset: 0
+				}
+			]
+			upLayerOffset: -1
+			downLayerOffset: 1
+			leftLayerOffset: 1
+			rightLayerOffset: 1
+		}
+	]
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: humanMale
+	sex: Male
+	name: scroll
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: scroll1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: condition
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: f5246b9a-cd53-4664-b875-1b6244f6c71b
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: shovel
+	sex: Male
+	name: shovel
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: shovel1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: 8f0dad13-8fa8-40d1-a390-842057b29370
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: swordMale
+	sex: Male
+	name: sword
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: sword1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: condition
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: health
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: 2262ff15-5101-40c9-b73c-251668d5f958
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: spear
+	sex: Male
+	name: spear
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: false
+	hasDieFrames: false
+	hasSpellCastFrames: false
+	hasEatFrames: false
+	hasPickupFrames: false
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: spear1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: 65726216-a31c-4026-9a79-083a81266815
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: humanMale
+	sex: Male
+	name: apple
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: true
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: apple1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: ed6cdda3-6e75-4ad9-beb5-682bca396fdd
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: humanMale
+	sex: Male
+	name: potion
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: potion1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: 5d88b8c8-501e-4582-9b26-baccecd1418d
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: backPack
+	sex: ""
+	name: pack
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 1
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: true
+	lpcActorAnimated: true
+	drawable: true
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: null
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: condition
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: condition
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: [
+				all
+			]
+			name: health
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: true
+	partClass: backPack
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: backPack
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: tree
+	sex: Male
+	name: tree
+	info: info
+	brightness: 1
+	colorR: 1
+	colorG: 1
+	colorB: 1
+	colorA: 1
+	mass: 0
+	volume: 0
+	boundsX: 0
+	boundsY: 0
+	health: 0
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: true
+	hasImage: true
+	useDownFrame1AsImage: false
+	imageName: tree
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: [
+				all
+			]
+			name: health
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: tree
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: axe
+	sex: Male
+	name: axe
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 100
+	volume: 100
+	boundsX: 32
+	boundsY: 64
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: false
+	lpcActorAnimated: false
+	drawable: false
+	hasImage: false
+	useDownFrame1AsImage: false
+	imageName: axe1
+	drawOnStart: true
+	drawLayer: 1
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: []
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: false
+	partClass: null
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: d5fce3fd-02da-4c13-af82-775bf7481e48
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntities: []
+	attachedEntityDTOs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+}
+]

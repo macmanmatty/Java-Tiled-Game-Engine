@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
@@ -19,16 +20,16 @@ import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.Drawing.BoundingBoxRenderer;
 import com.jessematty.black.tower.Systems.Drawing.LightRenderSystem;
+import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
 import com.jessematty.black.tower.Systems.Player.ZRPGPlayerSystem;
 import com.jessematty.black.tower.Systems.Sound.PlaySoundSystem;
-import com.jessematty.black.tower.Systems.Drawing.RenderSystem;
 import com.jessematty.black.tower.Systems.UI.UIBarSystem;
 
 import java.io.IOException;
@@ -191,7 +192,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
       tiledMapRenderer = new OrthogonalTiledMapRenderer(currentMap.getTiledMap(), 1);
       Skin skin= newMap.getSkin();
         if(skin!=null){
-            gameAssets.setSkin(skin);
+            gameAssets.setCurrentSkin(skin);
         }
     }
     public ZRPGCharacter getPlayer() {

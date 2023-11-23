@@ -31,7 +31,7 @@ public class DualActionKeyInputCombo {
      */
     public DualActionKeyInputCombo(KeyAction keyUpAction, KeyAction keyDownAction, String name, int... keys) {
         inputKeyCombos[0]= new InputKeyCombo(keyUpAction,  KeyPressMode.KEY_UP, name+" Key Up", keys);
-        inputKeyCombos[1]= new InputKeyCombo(keyDownAction, KeyPressMode.KEY_DOWN,  name+" Key Up", keys);
+        inputKeyCombos[1]= new InputKeyCombo(keyDownAction, KeyPressMode.KEY_DOWN,  name+" Key Down", keys);
     }
 
     public InputKeyCombo[] getInputKeyCombos() {

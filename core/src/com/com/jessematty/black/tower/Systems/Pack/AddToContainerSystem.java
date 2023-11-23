@@ -6,14 +6,12 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
-import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -24,13 +22,11 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 /**
- * system for adding an item to player  pack
+ * system for adding an item to a container
  */
 
 public class AddToContainerSystem extends GameEntitySystem {
     private ComponentMapper<ContainerComponent> containerComponentComponentMapper;
-    private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
-    private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;
     private ComponentMapper<PhysicalObjectComponent> physicalObjectComponentComponentMapper;
@@ -43,8 +39,6 @@ public class AddToContainerSystem extends GameEntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
         containerComponentComponentMapper =GameComponentMapper.getContainerComponentMapper();
-        ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
-        ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
         idComponentMapper=GameComponentMapper.getIdComponentMapper();
         physicalObjectComponentComponentMapper=GameComponentMapper.getPhysicalObjectComponentMapper();
         addItemToContainerComponentMapper=GameComponentMapper.getAddItemToContainerComponentMapper();
@@ -62,30 +56,26 @@ public class AddToContainerSystem extends GameEntitySystem {
     public void update(float deltaTime) {
         ImmutableArray<Entity> entities=getEngine().getEntitiesFor(Family.all(AddItemToContainer.class).get());
         for(Entity entity: entities) {
-            AddItemToContainer addItemToContainer=addItemToContainerComponentMapper.get(entity);
-            Entity container = getWorld().getEntity(addItemToContainer.getContainerId());
-            Entity itemToAdd = getWorld().getEntity(addItemToContainer.getItemId());
+            AddItemToContainer addItemToContainer = addItemToContainerComponentMapper.get(entity);
+            Entity container =addItemToContainer.getContainer();
             ContainerComponent containerComponent = containerComponentComponentMapper.get(container);
-            PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(itemToAdd);
-            PositionComponent containerPosition=positionComponentComponentMapper.get(container);
-            PositionComponent  itemToAddPosition=positionComponentComponentMapper.get(itemToAdd);
-            GroupsComponent groupsComponent =groupsComponentMapper.get(itemToAdd);
+            PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(entity);
+            PositionComponent containerPosition = positionComponentComponentMapper.get(container);
+            PositionComponent itemToAddPosition = positionComponentComponentMapper.get(entity);
+            GroupsComponent groupsComponent = groupsComponentMapper.get(entity);
 
-            boolean addable=checkAddable(groupsComponent, containerComponent, physicalObjectComponent, containerPosition);
-                if(addable){
-                    String itemToAddId=idComponentMapper.get(itemToAdd).getId();
-                    containerComponent.getEntitiesInContainerIds().add(itemToAddId);
-                    if(addItemToContainer.isRemoveItemBoundsOnAdd()){
-                        itemToAddPosition.removeBounds();
-                    }
-                    if(addItemToContainer.isSetContainerAsOwner()){
-                        EntityUtilities.attachEntity( container, itemToAdd);
-                    }
+            if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
+                String itemToAddId = idComponentMapper.get(entity).getId();
+                containerComponent.getEntitiesInContainerIds().add(itemToAddId);
+                containerComponent.getEntitiesInContainer().add(entity);
+                if (addItemToContainer.isRemoveItemBoundsOnAdd()) {
+                    itemToAddPosition.removeBounds();
                 }
-                else{
+                if (addItemToContainer.isSetContainerAsOwner()) {
+                    EntityUtilities.attachEntity(container, entity);
                 }
+            }
         }
-
     }
 
     /**

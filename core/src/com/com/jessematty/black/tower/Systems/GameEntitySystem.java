@@ -1,11 +1,9 @@
 package com.jessematty.black.tower.Systems;
+
 import com.badlogic.ashley.core.EntitySystem;
-import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 /**
  * class that extends EntitySystem that holds a reference to the GameAssets
  * MapDraw  World  and KeyListener  for Easy access 

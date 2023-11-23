@@ -1,10 +1,12 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+
 import java.io.Serializable;
 public class StatBar extends Widget implements Serializable {
     /** the texture regions for stat bar */
@@ -26,7 +28,7 @@ public class StatBar extends Widget implements Serializable {
     /** whether or not to display the state bar */
     boolean display=true;
     /** the name of The libGDX texture atlas the region is in */
-    String atlasName="assets.atlas";
+    String atlasName="textureAtlases/testAssets/testAssets.atlas";
     /** the libGDX AtlasRegion Name  of the parts */
     private String statBarPartsName="statBar";
     public StatBar(StatBar other) {
@@ -67,23 +69,25 @@ public class StatBar extends Widget implements Serializable {
     /**
      *  calculates the the array of numbers to change on based on the min and max values for the tracked numeric stat
      */
-    private void calculateParts(){
+    private boolean calculateParts(){
         if(atlasName==null  || atlasName.isEmpty()){
             display=false;
-            return;
+            return false;
         }
         int numberOfParts=(int)(stat.getMaxValue()/parts);
         for(int count=1; count<=parts; count++)        {
-            numbers[count-1]=parts*numberOfParts;
+            numbers[count-1]=count*numberOfParts;
             AtlasRegion region= assets.getAtlasRegionByName(statBarPartsName+count, atlasName);
             if(region!=null) {
                 regions[count - 1] = region;
             }
             else{
                 display=false;
-                return;
+                return false;
             }
         }
+
+        return  true;
     }
 
     /**
@@ -111,25 +115,31 @@ public class StatBar extends Widget implements Serializable {
      * @return
      */
     public AtlasRegion getRegion(double stat){
-        if (stat >=numbers[6]){
-            return regions[6];
-        }
-        if (stat <=numbers[5]&& stat >numbers[4]){
-            return regions[5];
-        }
-        if (stat <=numbers[4]&& stat >numbers[3]){
-            return regions[4];
-        }
-        if (stat <=numbers[3]&& stat >numbers[2]){
-            return regions[3];
-        }
-        if (stat <=numbers[2]&& stat >numbers[1]){
-            return regions[2];
-        }
-        if (stat <=numbers[1]&& stat >numbers[0]){
-            return regions[1];
-        }
-        return regions[0];
+       boolean hasParts= calculateParts();
+       if(hasParts) {
+           if (stat >= numbers[6]) {
+               return regions[6];
+           }
+           if (stat <= numbers[5] && stat > numbers[4]) {
+               return regions[5];
+           }
+           if (stat <= numbers[4] && stat > numbers[3]) {
+               return regions[4];
+           }
+           if (stat <= numbers[3] && stat > numbers[2]) {
+               return regions[3];
+           }
+           if (stat <= numbers[2] && stat > numbers[1]) {
+               return regions[2];
+           }
+           if (stat <= numbers[1] && stat > numbers[0]) {
+               return regions[1];
+           }
+           return regions[0];
+       }
+       else{
+           return  null;
+       }
     }
 
     /**
@@ -176,4 +186,5 @@ public class StatBar extends Widget implements Serializable {
             calculateParts();
         }
     }
+
 }

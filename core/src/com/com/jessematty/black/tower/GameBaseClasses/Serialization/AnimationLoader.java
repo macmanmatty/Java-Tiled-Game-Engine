@@ -3,8 +3,8 @@ package com.jessematty.black.tower.GameBaseClasses.Serialization;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCAnimations;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
+import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCAnimations;
 
 import org.apache.commons.lang3.StringUtils;
 

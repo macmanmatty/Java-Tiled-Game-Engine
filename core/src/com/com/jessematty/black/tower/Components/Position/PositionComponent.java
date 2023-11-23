@@ -13,7 +13,10 @@ import com.jessematty.black.tower.SquareTiles.LandSquareTile;
  */
 
 public class PositionComponent implements Component {
-    private  float locationX = 0f; // the location the entity  on the current map in world units
+    /**
+     * entity position in world units
+     */
+    private  float locationX = 0f;
     private float locationY = 0f;
     private int tileLocationX; // the current location of the entity in tiles units  where is x and y are the lower left tile aka tiles.get(0);
     private int tileLocationY;
@@ -33,19 +36,14 @@ public class PositionComponent implements Component {
     private float boundsXOffset; // the offset of the bounds from the screen locations where  the entities texture region (if it has one) will be drawn
     private float boundsYOffset;
     private boolean hasBounds=true; // does the entity currently have bounds
-    private float height; // entities physical  height
-    private float heightFromGround; // height from the ground or z coordinate of the entity
+    private float height; // entities physical  height or z coordinate of the entity
+    private float heightFromGround; // height from the ground
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
     /**
-     *if true the position will mirror the position of the of the owner entity specified in the Owner Component
-     * @See OwnerComponent;
-     */
-    private boolean positionSetByOwner;
-    /**
      * if this is not null this is id of the container the entity is located in
      */
-    private String containerEntityId;
+    private String containerEntityId="";
     private String mapId="";
     public PositionComponent() {
     }
@@ -239,11 +237,4 @@ public class PositionComponent implements Component {
         this.mapId = mapId;
     }
 
-    public boolean isPositionSetByOwner() {
-        return positionSetByOwner;
-    }
-
-    public void setPositionSetByOwner(boolean positionSetByOwner) {
-        this.positionSetByOwner = positionSetByOwner;
-    }
 }

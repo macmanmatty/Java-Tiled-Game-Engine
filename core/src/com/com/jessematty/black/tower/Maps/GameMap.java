@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Maps;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +12,6 @@ import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.KryoSerialized;
-import com.jessematty.black.tower.GameBaseClasses.Settings.Settings;
 import com.jessematty.black.tower.Maps.Settings.GameMapSettings;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -54,12 +54,11 @@ public abstract  class GameMap  implements Map {
 	 * the libGDX Skin the map will use for it's UI
 	 */
 	protected transient Skin skin;
-
 	/**
 	 * the Entities currently on the map NOT including the map of tiles
 	 * note entities do not have to have  a x, y location to be present on the map
 	 */
-	protected  transient Array<Entity> entities = new Array<Entity>();
+	protected  transient Array<Entity> entities = new Array<>();
 	/**
 	 *  maps that are linked to this one
 	 *  */
@@ -123,8 +122,11 @@ public abstract  class GameMap  implements Map {
 		this();
 		this.xTiles = xTiles;
 		this.yTiles = yTiles;
-		this.gameMapSettings.setTiles(xTiles, yTiles);
+
 	}
+
+
+
 	/**
 	 * // method calculates  daylight based on game time
 	 * @param gameTime
@@ -137,10 +139,7 @@ public abstract  class GameMap  implements Map {
 	 */
 	public void mapTurnActions(float deltaTime, GameTime gameTime) { // method for updating the map and the tiles on it each game loop call
 		this.gameTime = gameTime;
-		gameMapSettings= new GameMapSettings();
-		Boolean lightChanges=gameMapSettings.getSimpleSetting("lightChanges", Boolean.class);
-		
-		if (lightChanges!=null && lightChanges==true) {
+		if (lightChanges) {
 			setDayLightAmount(gameTime.getTotalGameTimeLapsedInSeconds());
 		}
 	}
@@ -200,10 +199,10 @@ public abstract  class GameMap  implements Map {
 			return;
 		}
 		if(position.getMapId()!=id) {
-			entities.add(entity);
 			position.setMapID(id);
 		}
-			Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
+		entities.add(entity);
+		Array<LandSquareTile> tiles=getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
 			position.setTiles(tiles);
 		}
 	/**
@@ -246,8 +245,14 @@ public abstract  class GameMap  implements Map {
 	 * @param mapLocationY the  y location  map in world units 
 	 * @return the LandSquareTile at point location.
 	 */
+	/**
+	 *  takes  in float world unit coordinates and returns the   the tile area at that point.
+	 * @param mapLocationX the  x location  map in world units
+	 * @param mapLocationY the  y location  map in world units
+	 * @return the LandSquareTile at point location.
+	 */
 	public LandSquareTile getTileFromWorldUnitCoordinates(float mapLocationX, float mapLocationY) {
-		return getMapSquareOrNull((int) Math.ceil(mapLocationX / tileWidth)-1, yTiles - (int) Math.ceil(mapLocationY / tileHeight));
+		return getTile((int) Math.ceil(mapLocationX / tileWidth)-1,  yTiles-(int) Math.ceil(mapLocationY / tileHeight));
 	}
 	/**
 	 *
@@ -259,7 +264,9 @@ public abstract  class GameMap  implements Map {
 		this.yTiles = map[0].length;
 		maxXWorld = xTiles * tileWidth;
 		maxYWorld = yTiles * tileHeight;
-		gameMapSettings.setTiles(map.length, map[0].length);
+		gameMapSettings.getSettings().put("width", map.length);
+		gameMapSettings.getSettings().put("height", map.length);
+
 		gameMapSettings.getSettings().put("newMap", true);
 	}
 	/**
@@ -312,7 +319,7 @@ public abstract  class GameMap  implements Map {
 	 * @return
 	 */
 	public Array<LandSquareTile> getAllTilesAndAddEntity(Rectangle rectangle, Entity entity) {
-		return getAllTilesAndAddEntity(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y, entity);
+		return getAllTilesAndAddEntity(rectangle.x, rectangle.y,Math.max(rectangle.width+rectangle.x, 1), Math.max(rectangle.height+rectangle.y, 1), entity);
 	}
 	/**
 	 * finds all tiles for a given  rectangle bounds  and adds them to a list and returns them
@@ -327,7 +334,7 @@ public abstract  class GameMap  implements Map {
 	public Array<LandSquareTile> getAllTilesAndAddEntity(float xMin, float yMin, float xMax, float yMax, Entity entity){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
 		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
-			for (float county = yMin; county < yMax; county = county + tileHeight) {
+			for (float county = yMin; county <yMax; county = county + tileHeight) {
 				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;
@@ -339,7 +346,7 @@ public abstract  class GameMap  implements Map {
 		return tiles;
 	}
 	public Array<LandSquareTile> getAllTiles(Rectangle rectangle) {
-		return getAllTiles(rectangle.x, rectangle.y,rectangle.width+rectangle.x, rectangle.height+rectangle.y);
+		return getAllTiles(rectangle.x, rectangle.y,Math.max(rectangle.width+rectangle.x, 1), Math.max(rectangle.height+rectangle.y, 1));
 	}
 	/**
 	 * finds all tiles for a given  rectangle bounds with given side points and adds them to a list and returns them .
@@ -351,14 +358,13 @@ public abstract  class GameMap  implements Map {
 	 */
 	public Array<LandSquareTile> getAllTiles(float xMin, float yMin, float xMax, float yMax){
 		Array<LandSquareTile> tiles= new Array<LandSquareTile>();
-		for (float countx=xMin-10; countx<xMax; countx=countx+ tileWidth) {
-			for (float county = yMin-10; county < yMax; county = county + tileHeight) {
+		for (float countx=xMin; countx<xMax; countx=countx+ tileWidth) {
+			for (float county = yMin; county < yMax; county = county + tileHeight) {
 				LandSquareTile tile= getTileFromWorldUnitCoordinates(countx, county);
 				if(tile==null){
 					continue;
 				}
 					tiles.add(tile);
-
 			}
 		}
 		return tiles;
@@ -439,6 +445,7 @@ public abstract  class GameMap  implements Map {
 		this.dayLightAmount=dayLightAmount;
 		this.gameMapSettings.getSettings().put("dayLightAmount", lightChangeAmount);
 	}
+
 	/**
 	 * sets the tile size for the map
 	 * @param tileWidth
@@ -452,7 +459,7 @@ public abstract  class GameMap  implements Map {
 		gameMapSettings.getSettings().put("tileHeight", tileHeight);
 	}
 	@Override
-	public Settings getMapSettings() {
+	public GameMapSettings getMapSettings() {
 		return gameMapSettings;
 	}
 	/**
@@ -504,4 +511,6 @@ public abstract  class GameMap  implements Map {
 		this.id = id;
 		gameMapSettings.getSettings().put("id", id);
 	}
+
+
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Game.GameKind;
 import com.jessematty.black.tower.Game.TileKind;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 
 public class GamePrefecences {

@@ -31,11 +31,6 @@ public  class Building extends GameMap  {
 
 	}
 
-	public Building(int xSize, int ySize) {
-		super(xSize, ySize);
-		buildingID= UUID.randomUUID().toString();
-
-	}
 
 	protected void makeBuildingShadow(){ // makes the shadow texture using pixmaps for y part each part of the building.
 		int size=buildingLengths.size();

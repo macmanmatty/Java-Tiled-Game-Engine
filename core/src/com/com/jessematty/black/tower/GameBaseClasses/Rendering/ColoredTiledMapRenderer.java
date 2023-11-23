@@ -1,15 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Rendering;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
-
 import static com.badlogic.gdx.graphics.g2d.Batch.C1;
 import static com.badlogic.gdx.graphics.g2d.Batch.C2;
 import static com.badlogic.gdx.graphics.g2d.Batch.C3;
@@ -30,6 +20,16 @@ import static com.badlogic.gdx.graphics.g2d.Batch.Y1;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y2;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y3;
 import static com.badlogic.gdx.graphics.g2d.Batch.Y4;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 
 public class ColoredTiledMapRenderer extends OrthogonalTiledMapRenderer {
 

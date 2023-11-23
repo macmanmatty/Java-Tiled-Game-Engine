@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -17,12 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.ItemActionImageComponent;
-import com.jessematty.black.tower.Components.Actions.ActionComponents;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Containers.Pack;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.World;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 public class PackDisplay {
 private Skin skin;
-private Pack pack;
+private PackComponent packComponent;
 private Window window;
 private GameAssets gameAssets;
 private World world;
@@ -39,7 +40,7 @@ private ArrayList<CheckBox> itemBoxes= new ArrayList<CheckBox>();
 private ArrayList<Entity> usableItems= new ArrayList<Entity>();
 private ComponentMapper<NameComponent> nameComponentMapper;
 	private ComponentMapper<ImageComponent> itemImageComponentMapper;
-	private ComponentMapper<ActionComponents> actionComponentsComponentMapper;
+	private ComponentMapper<ItemActionComponents> actionComponentsComponentMapper;
 
 
 	public PackDisplay(Skin skin, GameAssets gameAssets) {
@@ -53,8 +54,8 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 
 	}
 
-	public Window displayPack(Pack pack, ZRPGCharacter player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
-		this.pack=pack;
+	public Window displayPack(PackComponent packComponent, ZRPGCharacter player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
+		this.packComponent = packComponent;
 		this.skin=skin;
 	window= new Window("Pack Contents", skin);
 		ArrayList<Integer> itemAmounts= new ArrayList<Integer>();
@@ -102,15 +103,15 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 			if(itemImage!=null) {
 				table.add((Actor) itemImage);
 			}
-			ActionComponents actionComponents=actionComponentsComponentMapper.get(item);
-			if(actionComponents!=null){
+			ItemActionComponents itemActionComponents =actionComponentsComponentMapper.get(item);
+			if(itemActionComponents !=null){
 
 				HorizontalGroup buttons= new HorizontalGroup();
-				Array<ItemActionImageComponent>  actionComponentsArray= actionComponents.getActionComponents();
+				Array<ItemActionComponent>  actionComponentsArray= null;
 
 				int actions=actionComponentsArray.size;
 				for(int count2=0; count2<actions; count2++){
-					final ItemActionImageComponent componentClass=actionComponentsArray.get(count2);
+					final ItemActionComponent componentClass=actionComponentsArray.get(count2);
 
 					final TextButton actionButton= new TextButton(componentClass.toString(), skin);
 					actionButton.addListener(new ClickListener(){

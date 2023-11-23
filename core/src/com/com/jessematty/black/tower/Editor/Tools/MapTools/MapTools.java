@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.Tools.MapTools;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
@@ -14,26 +15,25 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Throw;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
+import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapConverter;
 import com.jessematty.black.tower.Editor.EditMode.Windows.TiledMapLayerWindow.NamedTiledMapTileLayer;
-import com.jessematty.black.tower.Editor.EditMode.TiledMapEdit.TiledMapTools;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.NumberedTile;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.NamedTextureAtlas;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
+import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.ColorUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Generators.MapGenerators.NumberMapGenerator;
 import com.jessematty.black.tower.Generators.Sets.MaskMode;
@@ -42,6 +42,7 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.io.File;
 import java.util.UUID;
 public class MapTools {
@@ -97,20 +98,22 @@ public class MapTools {
         return world;
     }
 
-    /**
-     *
-     * Method that creates a new map of tiles
-     * @param gravity
-     * @param name
-     * @param mapWidth
-     * @param mapHeight
-     * @param tileWidth
-     * @param tileHeight
-     * @return
-     * @throws MapLoadingException
-     */
-    public static LandMap newLandMap(double gravity, String name, int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
 
+
+
+        /**
+         *
+         * Method that creates a new map of tiles
+         * @param gravity
+         * @param name
+         * @param mapWidth
+         * @param mapHeight
+         * @param tileWidth
+         * @param tileHeight
+         * @return
+         * @throws MapLoadingException
+         */
+    public static LandMap newLandMap(double gravity, String name, int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
         if(name==null){
 
         }
@@ -213,7 +216,7 @@ public class MapTools {
      */
         public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingException {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(path);
-           tiledMap= TiledMapTools.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
+           tiledMap= TiledMapConverter.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
             MapProperties mapProperties=tiledMap.getProperties();
             int width= mapProperties.get("width", java.lang.Integer.class);
             int  height= mapProperties.get("height", Integer.class);

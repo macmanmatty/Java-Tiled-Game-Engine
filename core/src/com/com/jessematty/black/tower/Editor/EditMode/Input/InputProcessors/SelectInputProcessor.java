@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.Tools.EntityTools.EntityTools;
-import com.jessematty.black.tower.Editor.Tools.MapTools.SelectMode;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 /**

@@ -1,12 +1,13 @@
 package com.jessematty.black.tower.GameBaseClasses.Rendering;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.utils.Disposable;
+
 import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 import static com.badlogic.gdx.graphics.GL20.GL_DST_ALPHA;
 import static com.badlogic.gdx.graphics.GL20.GL_ONE_MINUS_DST_ALPHA;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * class that renders the light objects to the frame buffers 

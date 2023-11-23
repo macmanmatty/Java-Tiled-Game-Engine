@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,12 +10,12 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.TextureAtlasRegionNames;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.Unused.Node;
+
 import java.util.List;
 public class InList {
-	public InList() {
+	private InList() {
 	}
-
-    public  static boolean stringNonCaseSenstiveIsInList(String name, List<String> names) {
+    public  static boolean stringNonCaseSensitiveIsInList(String name, List<String> names) {
         int number = names.size();
         for (int count = 0; count < number; count++) {
             if (name.equalsIgnoreCase(names.get(count)) == true) {
@@ -23,8 +24,6 @@ public class InList {
         }
         return false;
     }
-
-
 	public  static boolean isInList(Object object, List<? extends Object> names) {
 		int number = names.size();
 		for (int count = 0; count < number; count++) {
@@ -43,7 +42,6 @@ public class InList {
 		}
 		return false;
 	}
-
 	public  static boolean isInList(Object object, Keys<? extends Object> keys) {
 		while (keys.hasNext()){
 			if (object.equals(keys.next())) {
@@ -52,8 +50,6 @@ public class InList {
 		}
 		return false;
 	}
-
-
 	public  static boolean isInList(Object object, Array<? extends Object> names) {
 		int number = names.size;
 		for (int count = 0; count < number; count++) {
@@ -63,9 +59,7 @@ public class InList {
 		}
 		return false;
 	}
-
 	public static boolean isInList(TextureAtlas atlas, TextureRegion region) {
-
 		Array<AtlasRegion> regions=atlas.getRegions();
 		int number = regions.size;
 		for (int count = 0; count < number; count++) {
@@ -75,9 +69,7 @@ public class InList {
 		}
 		return false;
 	}
-
 	public static boolean isInList(TextureRegionPage textureRegionPage, String name) {
-
 		Array<AtlasNamedAtlasRegion> regions=textureRegionPage.getPageRegions();
 		int number = regions.size;
 		for (int count = 0; count < number; count++) {
@@ -145,7 +137,9 @@ public class InList {
 		}
 		return false;
 	}
-	// check if two lists have one object that is the same if so returns true else returns false  also returns true if both lists are empty
+	/** check if two lists have one object that is the same if so returns true else returns false
+	 * also returns true if both lists are empty
+	 */
 	public static  boolean isInList(Array<? extends Object> names, Array<? extends Object> otherNames) {
 		int size = otherNames.size;
 		int size2 = names.size;
@@ -193,8 +187,26 @@ public class InList {
 		}
 		return false;
 	}
-
-	// check to see if an object is in a given array  if equals is false == will be used for comparison else  the object equals method will be used
+	public static  boolean isInListOrAll(Iterable<String> names, String name) {
+		if(name.equalsIgnoreCase("all")){
+			return true;
+		}
+		for (String name2: names) {
+			if (name.equals(name2)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/** checks to see if an object is in a given array
+	 * if equals is false == will be used for comparison else
+	 * the object equals method will be used
+	 *
+	 * @param names
+	 * @param object
+	 * @param equals
+	 * @return
+	 */
 	public static  boolean isInList(Array<? extends Object> names, Object object, boolean equals) {
 		int number = names.size;
 		for (int count = 0; count < number; count++) {
@@ -202,16 +214,12 @@ public class InList {
 			if (object.equals(object2) && equals==false) {
 				return true;
 			}
-
 			else if (object.equals(object2)){
-
 				return true;
 			}
 		}
 		return false;
 	}
-
-
 	public static  boolean allInList(List list, List list2){
 		int size=list.size();
 		int size2=list2.size();
@@ -221,18 +229,11 @@ public class InList {
 		for(int count=0; count<size; count++){
 			for(int count2=0; count2<size2; count2++){
 				if(!(list.get(count).equals(list2.get(count2)))){
-
 					return false;
-
 				}
 			}
-
-
 		}
-
 		return true;
-
-
 	}
 	public  static TextureAtlasRegionNames isInList(List<TextureAtlasRegionNames> regionNames, String atlasName) {
 		int size = regionNames.size();

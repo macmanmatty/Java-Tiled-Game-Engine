@@ -297,11 +297,9 @@ public class KeyListener implements LockableInputProcessor {
           boolean pressed=  keysPressedDown.get(keys[count]);
           if(pressed==false){
               return  false;
-              
           }
             
         }
-        
         return true;
         
     }

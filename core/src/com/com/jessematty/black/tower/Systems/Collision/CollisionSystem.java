@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Collision;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -11,15 +12,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
-import com.jessematty.black.tower.Systems.Stats.ChangeStats;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
+import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 
 /**
@@ -78,7 +79,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
             int checkDistanceX = (int)((Math.abs(entitySpeed.x)+entityBounds.width)/tileSizeX)+1; // how far to check in the xAxis;
              int checkDistanceY = (int)(( Math.abs(entitySpeed.y)+entityBounds.height)/tileSizeY)+1; // how far to check in the yAxis;
             // get all owned entities of the movable
-        Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX, checkDistanceY);
+        Array<Entity> occupants= MapUtilities.getAllEntitiesAndTiles(map, screenLocationX, screenLocationY, checkDistanceX+1, checkDistanceY+1);
                 int size2 = occupants.size;
                 for (int count = 0; count < size2; count++) {
                     Entity occupant = occupants.get(count);
@@ -88,7 +89,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                         continue;
                     }
                     PhysicalObjectComponent occupantBody = objects.get(occupant);
-                   boolean connected= EntityUtilities.isEntityConnected(entity, occupant, getWorld(), true);
+                   boolean connected= EntityUtilities.isEntityConnected(occupant, entity, getWorld(), true);
                     if (connected==true) { // check to make sure the object isn't colliding into itself
                         continue;
                     }
@@ -102,7 +103,7 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                             collide = Intersector.overlapConvexPolygons(occupantBounds1, occupantBounds2);
                         }
                      if (collide == true) {
-                         if(occupantBody.getEntitySolidity()==1) {
+                         if(occupantBody.getSolidity()==1) {
                              entityMovableComponent.setCollided(true);
                              if(occupantMovableComponent!=null) {
                                  occupantMovableComponent.setCollided(true);
@@ -115,11 +116,11 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                            ChangeStats.changeStats(entity, occupant, "collide",  true, true, true);
                            ActionComponent entityActionComponent =actionComponentMapper.get(entity);
                          ActionComponent occupantActionComponent =actionComponentMapper.get(occupant);
-                         if(actionComponentMapper!=null) {
-                             entityActionComponent.setStat("collide");
+                         if(entityActionComponent!=null) {
+                            // entityActionComponent.setStat("collide");
                          }
                          if(occupantActionComponent !=null) {
-                             occupantActionComponent.setStat("collide");
+                             //occupantActionComponent.setStat("collide");
                          }
                          return;
                         }

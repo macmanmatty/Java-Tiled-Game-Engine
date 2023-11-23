@@ -2,9 +2,9 @@ package com.jessematty.black.tower.GameBaseClasses.Crafting.LookUpTables;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 

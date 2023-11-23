@@ -1,40 +1,30 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups;
 
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 
-public class BooleanStatGroup extends StatGroup {
+/**
+ * group for displaying a numeric stat
+ */
+public class BooleanStatGroup extends HorizontalGroup {
+    /**
+     * the groups numeric stat;
+     */
+    BooleanStat booleanStat;
+    /**
+     * libgdx Skin;
+     */
+    Skin skin;
+    public BooleanStatGroup(BooleanStat booleanStat, Skin skin) {
+        this.booleanStat=booleanStat;
+        this.skin = skin;
+        make();
+    }
 
-          private BooleanStat booleanStat;
-            private  Label statLabel;
-            private boolean isEditable;
-            private CheckBox value;
-            public BooleanStatGroup(Skin skin, BooleanStat booleanStat) {
-        super(booleanStat, skin);
-
-        this.booleanStat = booleanStat;
-        statLabel= new Label(booleanStat.getName() + ": " + booleanStat.getFlag(), skin);
+    public void make(){
+        Label statLabel = new Label(booleanStat.getName() + ": " +  String.valueOf(booleanStat.getFlag()) , skin);
         addActor(statLabel);
-
-    }
-
-    public void makeGroup(){
-    }
-    @Override
-    public void act(float delta){
-        super.act(delta);
-        statLabel.setText(booleanStat.getName() + ": " + booleanStat.getFlag());
-
-            }
-
-    public Label getStatLabel() {
-        return statLabel;
     }
 }
-
-
-
-
-

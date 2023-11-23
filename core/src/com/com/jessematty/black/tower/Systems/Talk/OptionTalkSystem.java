@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.Systems.Talk;
 
 
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 
 import java.util.ArrayList;

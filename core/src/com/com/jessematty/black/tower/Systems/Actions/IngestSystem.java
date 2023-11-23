@@ -6,8 +6,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.Ingest;
-import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Other.Ingestable;
+import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
@@ -51,7 +51,7 @@ public class IngestSystem extends GameEntitySystem {
                     Entity entity=entities.get(count);
                     Ingestable ingestable=ingestableComponentMapper.get(entity);
                     Ingest ingest=ingestingComponentMapper.get(entity);
-                    String ingestorId=ingest.getIngestorID();
+                    String ingestorId="";
                     if(ingestorId!=null){
                         Entity ingestor=getWorld().getEntity(ingestorId);
 

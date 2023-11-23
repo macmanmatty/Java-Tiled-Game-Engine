@@ -2,7 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.MouseInput;
 
 import com.jessematty.black.tower.AI.Movement.MoveToLocation;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.BaseLockingInputProcessor;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -39,10 +39,10 @@ public   class PlayerMoveOnClickInputProcessor extends BaseLockingInputProcessor
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
             LandSquareTile tile = mapDraw.screenToTile(screenX, screenY);
             if(moveToLocation!=null){
-                player.getBrain().removeAction(moveToLocation);
+                player.getZRPGBrainComponen().removeAction(moveToLocation);
             }
             moveToLocation = new MoveToLocation(player, mapDraw.getCurrentMap(), tile);
-            player.getBrain().addAction(moveToLocation);
+            player.getZRPGBrainComponen().addAction(moveToLocation);
             player.getMovableComponent().setCurrentSpeed(20);
             player.getPlayerEntity().add(new MovingOnGroundComponent());
 

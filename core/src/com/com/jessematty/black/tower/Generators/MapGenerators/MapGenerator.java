@@ -16,16 +16,15 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
-import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-import com.jessematty.black.tower.GameBaseClasses.Lights.LightSource;
+import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
+import com.jessematty.black.tower.GameBaseClasses.Lights.LightSource;
+import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.ColoredTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMask;
-import com.jessematty.black.tower.Generators.ObjectGenerator;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
@@ -52,14 +51,12 @@ public  abstract class MapGenerator {
     protected ArrayList<LandSquareTile> exitGates = new ArrayList<LandSquareTile>();
     protected transient Skin skin; // UI skin  for landSquareTileMap
     protected ArrayList<LightSource> lightSources = new ArrayList<LightSource>();
-    com.jessematty.black.tower.Generators.ObjectGenerator objectGenerator;
     public MapGenerator(GameAssets assetts, int xSize, int ySize) {
         this.assetts = assetts;
         this.xSize = xSize;
         this.ySize = ySize;
         tiledMap = new TiledMap();
         mapLayers = tiledMap.getLayers();
-        objectGenerator = new ObjectGenerator( map, assetts);
     }
     public GameMap makeMap() {
         return map;

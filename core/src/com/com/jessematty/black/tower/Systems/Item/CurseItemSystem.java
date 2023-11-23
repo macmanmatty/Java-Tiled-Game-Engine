@@ -6,21 +6,21 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
-import com.jessematty.black.tower.Components.BodyParts.Body;
-import com.jessematty.black.tower.Components.Other.CurseItem;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
-import com.jessematty.black.tower.Components.Base.GroupsComponent;
-import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
+import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Base.GroupsComponent;
+import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.Other.CurseItem;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class CurseItemSystem extends GameEntitySystem {
     private ComponentMapper<Attachable> attachableComponentMapper;
-    private ComponentMapper<Body> bodyComponentMapper;
+    private ComponentMapper<BodyComponent> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
     private ComponentMapper<OwnerComponent> ownerComponentComponentMapper;
     private ComponentMapper<EntityId> idComponentMapper;

@@ -1,25 +1,26 @@
 package com.jessematty.black.tower.Systems.Stats;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.AttachEntity.Attachable;
+import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.FlagComponents.NumericStatChanged;
 import com.jessematty.black.tower.Components.FlagComponents.StatChanged;
-import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatsChangeable;
+import com.jessematty.black.tower.Components.Stats.ChangeStats.SelfChangableNumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangeStat;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.TimeChangingStats;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class NumericStatChangeSystem extends GameEntitySystem {

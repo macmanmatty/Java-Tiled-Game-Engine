@@ -28,6 +28,7 @@ public class Attachable implements Component {
         this.heightOffset = heightOffset;
         this.positionYOffset = positionYOffset;
         this.positionXOffset = positionXOffset;
+        drawAttachedItem=true;
 
     }
 

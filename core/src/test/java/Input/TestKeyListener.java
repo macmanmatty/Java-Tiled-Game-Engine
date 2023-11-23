@@ -1,13 +1,15 @@
 package Input;
+
+import static org.junit.Assert.assertEquals;
+
 import com.badlogic.gdx.Input.Keys;
 import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyListener;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
+
 import org.junit.Test;
-import org.mockito.Mockito;
-import static org.junit.Assert.assertEquals;
 public class TestKeyListener {
    private KeyListener keyListener= new KeyListener();
     @Test

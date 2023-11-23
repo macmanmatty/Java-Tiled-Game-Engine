@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.TileSetCreationWindow;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.jessematty.black.tower.GameBaseClasses.BitMask.BitMaskableTileSet;
 import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.GameBaseClasses.BitMask.Tiles.TileSet;
 

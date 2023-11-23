@@ -1,11 +1,12 @@
 package com.jessematty.black.tower.Editor.GameMapEdit;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.Editor.EditMode.Brushes.ClipBoard;
 public class GameMapEdit {
    private GameMap currentMap;
    private int xSize;

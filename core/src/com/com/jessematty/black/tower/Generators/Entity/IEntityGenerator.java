@@ -1,12 +1,10 @@
 package com.jessematty.black.tower.Generators.Entity;
 
 
-import com.badlogic.ashley.core.Entity;
+import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
+import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityLoadingException;
 
-public interface IEntityGenerator {
-
-    Entity generateEntity(String name);
-
-
+public interface IEntityGenerator<T> {
+    EntityBag generateEntity(T dtoObject) throws EntityLoadingException;
 
 }

@@ -1,8 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
-import com.kotcrab.vis.ui.widget.file.FileUtils;
-
-import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -11,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

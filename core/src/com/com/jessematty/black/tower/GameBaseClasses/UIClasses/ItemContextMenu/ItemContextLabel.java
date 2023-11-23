@@ -1,19 +1,11 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemContextMenu;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemList;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemListAdapter;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.ItemListLabelStyle;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.FloatField;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.IntegerField;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  *  class for  label that runs into a TextField on double clicking to allow you to edit the contents the 

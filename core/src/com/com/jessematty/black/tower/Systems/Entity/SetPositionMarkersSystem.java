@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Entity;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -9,9 +10,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.FlagComponents.VisibleOnScreen;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Other.SolidObject;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MathUtilities;

@@ -11,8 +11,8 @@ import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.RemoveItemFromContainer;
-import com.jessematty.black.tower.Components.Other.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
+import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -69,6 +69,8 @@ public class RemoveFromContainerSystem extends GameEntitySystem {
                 if(removable){
                     String itemToAddId=idComponentMapper.get(itemToAdd).getId();
                     containerComponent.getEntitiesInContainerIds().removeValue(itemToAddId, false);
+                    containerComponent.getEntitiesInContainer().removeValue(itemToAdd, false);
+
                     if(removeItemFromContainer.isDetachOnRemove()){
                         EntityUtilities.detachEntity( container, itemToAdd);
                     }
@@ -86,7 +88,6 @@ public class RemoveFromContainerSystem extends GameEntitySystem {
      * @return boolean true if  the entity can be removed  from  the container based on something
      */
     private boolean checkRemoveable(ContainerComponent containerComponent, GroupsComponent  groupsComponent){
-        //TODO future cool code  goes here
         return true;
     }
 

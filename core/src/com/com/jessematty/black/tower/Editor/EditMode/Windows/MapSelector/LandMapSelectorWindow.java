@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.MapSelector;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,7 +18,6 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Lists.ContextMenu.Co
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.DeleteOptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.Maps.GameMap;
-import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.Maps.WorldSettable;
 /**
@@ -91,11 +91,11 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
     }
     public void makeWindow(){
         clearWindow();
-        itemList = new ItemList<GameMap>(skin, listTitle, methodName, String.class, false);
+        itemList = new ItemList<GameMap>(getSkin(), listTitle, methodName, String.class, false);
         itemList.setEditable(listNameEditable);
         itemList.setSortable(false);
-        itemLabel = new Label("Current "+itemName+"  :", skin);
-        addButton = new TextButton("Add New "+itemName, skin);
+        itemLabel = new Label("Current "+itemName+"  :", getSkin());
+        addButton = new TextButton("Add New "+itemName, getSkin());
         addButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -107,7 +107,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
             }
         });
 
-        removeButton = new TextButton("Remove Map", skin);
+        removeButton = new TextButton("Remove Map", getSkin());
         removeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -131,7 +131,7 @@ public class LandMapSelectorWindow extends MapEditWindow implements WorldSettabl
         });
         add(itemLabel).height(itemLabel.getPrefHeight());
         row();
-        itemListScrollPane = new ScrollableItemList<>(itemList, skin).getScrollPane();
+        itemListScrollPane = new ScrollableItemList<>(itemList, getSkin()).getScrollPane();
         add(itemListScrollPane);
         tiledMapLayersPane.setTransform(true);
         tiledMapLayersPane.setScrollbarsVisible(true);

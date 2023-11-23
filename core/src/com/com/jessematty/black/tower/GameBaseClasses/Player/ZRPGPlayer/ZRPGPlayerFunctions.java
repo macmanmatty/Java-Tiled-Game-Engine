@@ -1,17 +1,19 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
+
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Other.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterItemFunctions;
-import com.jessematty.black.tower.GameBaseClasses.Entity.Functions.CharacterMoveFunctions;
-import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
+import com.jessematty.black.tower.GameBaseClasses.Character.CharacterItemFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Character.CharacterMoveFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Character.PlayerItemFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
-import com.jessematty.black.tower.GameBaseClasses.Input.DualActionKeyInputCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.PackUtilities;
 
 /**
  * class that holds all InputKeyCombos related to player actions
@@ -56,23 +58,56 @@ public class ZRPGPlayerFunctions {
         DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.O);
         playerControlFunctions.addAll(  moveLeftUpCombo.getInputKeyCombos());
         KeyPressMode []  keyPressMode= new KeyPressMode []{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED};
-        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", Keys.CONTROL_RIGHT);
+        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", Keys.CONTROL_LEFT);
         playerControlFunctions.add(increaseSpeedCombo);
         InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
         playerControlFunctions.add(decreaseSpeedCombo);
         InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
         playerControlFunctions.add(displayPackWindow);
+        InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
+        playerControlFunctions.add(slashCombo);
+
 
     }
+    private KeyAction slash =new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.slashItem(player);
+        }};
 
+
+    private KeyAction thrust=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.thrustItem(player);
+        }};
+    private KeyAction shoot=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.shootItem(player);
+
+        }};
+    private KeyAction pickUpItem=new KeyAction(){
+        @Override
+        public void act()  {
+
+
+        }};
+
+    private KeyAction eat=new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.eatItem(player);
+
+        }};
     /**
      * displays the players pack window
      */
     private   KeyAction displayPack= new KeyAction() {
         @Override
         public void act() {
-            GameAssets.getGameInput().getLockableInputMultiplexer().lockAllOtherProcessorMouseInput(mapDraw.getUiStage());
-            mapDraw.getUiStage().addWindow(new OptionPane(mapDraw.getCurrentMap().getSkin(),  "Are You Ok?", "Click Me!!!", "packWindow"), ScreenPosition.CENTER);
+            PlayerItemFunctions.displayPack(mapDraw, player);
+
         }
     };
     /**
@@ -142,9 +177,8 @@ public class ZRPGPlayerFunctions {
             CharacterMoveFunctions.increaseSpeed(player);
 
         }};
-    /**
-     *  end player movement functions
-     */
+
+
 
     /**
      * increases a players speed
@@ -156,11 +190,26 @@ public class ZRPGPlayerFunctions {
 
         }};
 
+
+
+    private KeyAction addItemToPackLeft =new KeyAction(){
+        @Override
+        public void act()  {
+
+        }};
+
+     private void  addItemToPack(int hand){
+
+     }
+
     private KeyAction pickupItem =new KeyAction(){
         @Override
           public void act()  {
-            CharacterItemFunctions.pickUpItem(player);
+            Array<Entity> entities=player.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
+            if(entities.size>0){
+            }
 
+            PackUtilities.getAvailableContainers(mapDraw.getWorld(), player.getPacks(), null);
     }};
 
     public Array<InputKeyCombo> getPlayerControlFunctions() {

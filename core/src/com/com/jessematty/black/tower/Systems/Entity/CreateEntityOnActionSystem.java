@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Systems.Entity;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -10,8 +11,8 @@ import com.jessematty.black.tower.Components.CreateEntity.CreateEntityOnAction;
 import com.jessematty.black.tower.Components.CreateEntity.ParticleEntity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class CreateEntityOnActionSystem extends GameEntitySystem {

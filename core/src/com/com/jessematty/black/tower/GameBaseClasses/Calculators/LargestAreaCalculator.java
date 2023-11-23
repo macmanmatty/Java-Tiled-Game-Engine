@@ -1,5 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Calculators;
+
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

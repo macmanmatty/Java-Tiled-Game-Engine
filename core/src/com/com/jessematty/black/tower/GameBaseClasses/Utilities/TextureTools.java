@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,14 +8,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TextureAtlas.TextureRegionPage;
+
 import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 public class TextureTools {
     final static List<Texture> textures = Collections.synchronizedList(new ArrayList<Texture>());

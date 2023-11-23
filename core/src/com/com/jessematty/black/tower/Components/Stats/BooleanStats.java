@@ -2,7 +2,6 @@ package com.jessematty.black.tower.Components.Stats;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.jessematty.black.tower.Components.Stats.BooleanStat;
 
 /**
  * class the holds the map of boolean stats for an entity

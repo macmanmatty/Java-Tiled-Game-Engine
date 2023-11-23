@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Editor.EditMode.Windows.OptionPaneWindows;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
@@ -7,14 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.Editor.EditMode.Windows.EditWindow;
+import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveFloatField;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.TextFields.PositiveIntegerField;
 import com.jessematty.black.tower.Maps.LandMap;
-import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.Maps.World;
 
 /**
@@ -39,37 +38,37 @@ public class CreateMapOptionPane extends EditWindow {
         world.addMap(map);
     }
     public void makeWindow() {
-        xSize=new PositiveIntegerField("2", skin);
-        ySize=new PositiveIntegerField("2", skin);
-        gravity=new PositiveFloatField("9.8", skin);
-        tileSizeX= new PositiveIntegerField("32", skin);
-        tileSizeY= new PositiveIntegerField("32", skin);
-        name= new TextField("Enter Map  Name" , skin);
-        Label label=new Label("Enter Map Width", skin);
+        xSize=new PositiveIntegerField("2", getSkin());
+        ySize=new PositiveIntegerField("2", getSkin());
+        gravity=new PositiveFloatField("9.8", getSkin());
+        tileSizeX= new PositiveIntegerField("32", getSkin());
+        tileSizeY= new PositiveIntegerField("32", getSkin());
+        name= new TextField("Enter Map  Name" , getSkin());
+        Label label=new Label("Enter Map Width", getSkin());
        HorizontalGroup xSizeBox= new HorizontalGroup();
-       Label label1=new Label("Enter Map Height", skin);
+       Label label1=new Label("Enter Map Height", getSkin());
        xSizeBox.addActor(label);
        xSizeBox.addActor(xSize);
         HorizontalGroup ySizeBox= new HorizontalGroup();
         ySizeBox.addActor(label1);
         ySizeBox.addActor(ySize);
-        Label label2=new Label("Enter World Name", skin);
+        Label label2=new Label("Enter World Name", getSkin());
         HorizontalGroup nameBox= new HorizontalGroup();
         nameBox.addActor(label2);
         nameBox.addActor(name);
-        Label label3=new Label("Enter Maps Gravity ", skin);
+        Label label3=new Label("Enter Maps Gravity ", getSkin());
         HorizontalGroup gravityBox= new HorizontalGroup();
         gravityBox.addActor(label3);
         gravityBox.addActor(gravity);
-        Label label4=new Label(" Enter Tile Width ", skin);
+        Label label4=new Label(" Enter Tile Width ", getSkin());
         HorizontalGroup tileWdithBox= new HorizontalGroup();
         tileWdithBox.addActor(label4);
         tileWdithBox.addActor(tileSizeX);
-        Label label5=new Label(" Enter Tile Height ", skin);
+        Label label5=new Label(" Enter Tile Height ", getSkin());
         HorizontalGroup tileheightBox= new HorizontalGroup();
         tileheightBox.addActor(label5);
         tileheightBox.addActor(tileSizeY);
-        createWorld= new TextButton("Create Map",skin);
+        createWorld= new TextButton("Create Map", getSkin());
         createWorld.addListener( new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
