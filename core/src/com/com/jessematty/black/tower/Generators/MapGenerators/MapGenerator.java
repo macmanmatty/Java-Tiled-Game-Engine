@@ -61,20 +61,7 @@ public  abstract class MapGenerator {
     public GameMap makeMap() {
         return map;
     }
-    protected void loadEntity(String path) {
-        Entity[] things = (Entity[]) assetts.loadObject(path, Entity[].class);
-        int size = things.length;
-        for (int count = 0; count < size; count++) {
-             ImmutableArray<Component> components= things[count].getComponents();
-             int size2=components.size();
-             for(int count2=0; count2<size2; count2++){
-                 Component component=components.get(count2);
-                 if(component instanceof SerializableComponet){
-                     ((SerializableComponet) component).deSerialize(assetts);
-                 }
-             }
-        }
-    }
+
 protected void eraseTiles (ArrayList<LandSquareTile> tiles, TiledMapTileLayer layer){ // sets all of the tiled map  tiles
         // that corrosponed to the landsquare tiles for a given layer in the array to null so they aren't rawn;
     Cell cell=null;

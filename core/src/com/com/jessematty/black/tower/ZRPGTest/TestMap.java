@@ -19,6 +19,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.EntityLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.TiledMapGameLoader;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
@@ -37,11 +38,11 @@ public class TestMap {
     }
     public void testMap(){
         JsonLoader jsonLoader= new JsonLoader();
-        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false);
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false, FileUtilities.FileHandleType.ABSOLUTE);
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
-        LandMapSpecs specs= (LandMapSpecs) assetts.loadInternalObject("maps/mapLandSpecs1.json", LandMapSpecs.class);
+        LandMapSpecs specs= (LandMapSpecs) assetts.getJsonLoader().loadInternalObject(LandMapSpecs.class, "maps/mapLandSpecs1.json");
         Skin skin=assetts.getDefaultSkin();
         LandMapGenerator generator2= new LandMapGenerator(assetts, specs);
         generator2.makeTiledMap();
@@ -52,7 +53,7 @@ public class TestMap {
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
 
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
-        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false );
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false , FileUtilities.FileHandleType.EXTERNAL);
         EntityBag lizard= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
@@ -146,7 +147,7 @@ public class TestMap {
         TiledMapGameLoader tiledMapLoader= new TiledMapGameLoader(assetts, world);
 
         try {
-            gameMap=tiledMapLoader.createMapFromTmxMap(map);
+            gameMap=tiledMapLoader.createMapFromTmxMap(map, FileUtilities.FileHandleType.ABSOLUTE);
         } catch (MapLoadingException e) {
             throw new RuntimeException(e);
         } catch (EntityLoadingException e) {

@@ -84,9 +84,9 @@ public class TiledMapGameLoader {
      * into the game
      * @param tiledMaps
      */
-    public  void createGameFromTmxMaps(Array<TiledMap> tiledMaps) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
+    public  void createGameFromTmxMaps(Array<TiledMap> tiledMaps, FileUtilities.FileHandleType fileHandleType) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
                 for(TiledMap map: tiledMaps){
-               GameMap gameMap= createMapFromTmxMap(map);
+               GameMap gameMap= createMapFromTmxMap(map, fileHandleType);
                 }
     }
 
@@ -252,11 +252,11 @@ public class TiledMapGameLoader {
      * @return The Created Game Map
      * @throws MapLoadingException
      */
-    public GameMap  createMapFromTmxMap(TiledMap tiledMap) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
+    public GameMap  createMapFromTmxMap(TiledMap tiledMap, FileUtilities.FileHandleType fileHandleType) throws MapLoadingException, EntityLoadingException { // loads tiles TMXTileMap from a given file path
         MapProperties mapProperties = tiledMap.getProperties();
         String objectGeneratorDTOPath = mapProperties.get("objectDTOPath", String.class);
         String name = mapProperties.get("mapName", String.class);
-        ObjectMap<String, LPCObjectGeneratorDTO> generatorDTOObjectMap = lpcObjectGenerator.generateObjectDTOMap(objectGeneratorDTOPath);
+        ObjectMap<String, LPCObjectGeneratorDTO> generatorDTOObjectMap = lpcObjectGenerator.generateObjectDTOMap(objectGeneratorDTOPath, fileHandleType);
         Array<EntityBag> entityBags = new Array<>();
         Integer width = mapProperties.get("width", java.lang.Integer.class);
         Integer height = mapProperties.get("height", Integer.class);

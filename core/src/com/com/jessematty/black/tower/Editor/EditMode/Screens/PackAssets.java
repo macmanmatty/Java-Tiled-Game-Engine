@@ -113,7 +113,7 @@ public class PackAssets implements NamedScreen  {
             public void run() {
                 synchronized (lock) {
                     String packFilePath=inputPathButton.getFile().getAbsolutePath()+ FileUtilities.getFileSeparator() +"pack.json";
-                    assetts.getJsonLoader().writeObjectToFile(texturePackerSettings, packFilePath, false);
+                    assetts.getJsonLoader().writeObjectToFile(texturePackerSettings, packFilePath, false, FileUtilities.FileHandleType.ABSOLUTE);
                     TexturePacker.process(inputPathButton.getFile().getAbsolutePath(), outputPathButton.getFile().getAbsolutePath(), atlasName.getField().getText());
                 }
             }
