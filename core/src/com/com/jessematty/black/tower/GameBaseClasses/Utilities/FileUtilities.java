@@ -1,7 +1,7 @@
 package com.jessematty.black.tower.GameBaseClasses.Utilities;
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -13,7 +13,9 @@ import java.util.Collections;
 import java.util.List;
 public class FileUtilities {
         private static ArrayList<File> files = new ArrayList<File>();
-        private static  ArrayList<String> fileNames = new ArrayList<String>();
+    private static ArrayList<FileHandle> fileHandles = new ArrayList<>();
+
+    private static  ArrayList<String> fileNames = new ArrayList<String>();
         private  static Character exclude = new Character('?'); // exclude files or folders  that start with this char
         private static   ArrayList<File> directories = new ArrayList<File>();
         private  static  List<String> imageExtensions = new ArrayList<String>(); // list of supported images for album artwork
@@ -23,14 +25,10 @@ public class FileUtilities {
             imageExtensions.add("jpg");
             imageExtensions.add("png");
         }
-
         public static String  getFileSeparator(){
             fileSeperator=System.getProperty("file.separator");
-
             return  fileSeperator;
-
         }
-
     public static String getOperatingSystem(){
         return System.getProperties().getProperty("os.name").toLowerCase();
     }
@@ -86,27 +84,25 @@ public class FileUtilities {
         fileNames.clear();
         return  findFilesInternal(filesToSearch);
     }
-
-
-
     public static  List<File>  actOnFiles(List<File> files, FileAction fileAction) {
         files.clear();
         fileNames.clear();
      return actOnFilesInternal( files, fileAction);
     }
-
     public static  List<File> actOnFiles(String path, FileAction fileAction) {
         files.clear();
         fileNames.clear();
         return  actOnFilesInternal(path, fileAction);
     }
-
+    public static  List<File> actOnFiles(String path, FileHandleAction fileAction, String extension) {
+        fileHandles.clear();
+        fileNames.clear();
+        return  actOnFilesInternal(path, fileAction, extension);
+    }
     private static  List<File> actOnFilesInternal(String path, FileAction fileAction){ // gets all assetts names used as strings in WoodWand selceted directory with given path
-
         File folder= new File(path);
         File [] listOfFiles=folder.listFiles((FileFilter) null);
         ArrayList<String> names= new ArrayList<String>();
-
         int size=listOfFiles.length;
         for (int count = 0; count < size; count++) {
             if(!(listOfFiles[count].getName().charAt(0)==exclude)) {
@@ -120,26 +116,34 @@ public class FileUtilities {
                         e.printStackTrace();
                     }
                 } else if (file.isDirectory()) {
-
-
                     actOnFilesInternal(file.getPath(), fileAction);
-
-
                 }
-
             }
-
         }
-
-
-
-
-
         return files;
-
     }
-
-
+    private static  List<File> actOnFilesInternal(String path, FileHandleAction fileAction, String extension){ // gets all assetts names used as strings in WoodWand selceted directory with given path
+        FileHandle folder= new FileHandle(path);
+        FileHandle [] listOfFiles=folder.list((FileFilter) null);
+        int size=listOfFiles.length;
+        for (int count = 0; count < size; count++) {
+            if(!(listOfFiles[count].name().charAt(0)==exclude)) {
+                FileHandle file=listOfFiles[count];
+                if (!file.isDirectory() && getExtensionOfFile(file.file()).equals(extension)) {
+                    fileHandles.add(file);
+                    fileNames.add(file.name());
+                    try {
+                        fileAction.act(file);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (file.isDirectory()) {
+                    actOnFilesInternal(file.path(), fileAction, extension);
+                }
+            }
+        }
+        return files;
+    }
     private static List<File> actOnFilesInternal(List<File> filesToSearch, FileAction fileAction) {
         int size=filesToSearch.size();
         for(int count=0; count<size; count++){
@@ -160,9 +164,6 @@ public class FileUtilities {
         }
         return files;
     }
-
-
-
 
     public static ArrayList<File> findFilesInternal(List<File> filesToSearch) {
             int size=filesToSearch.size();
@@ -247,59 +248,34 @@ public class FileUtilities {
             }
             return false;
         }
-
            public static  boolean createDirectories(String path){
         // creates directories from a path  to a directory returns true if the directory was created or if it allready exists returns false if the
         // directory was not created  or if the path  is not to a  directory.
         File file= new File(path);
         if(!file.isDirectory()){
             return false;
-
         }
-
-
         if( !file.exists()) {
             return file.mkdirs();
         }
-
         return true;
-
-
     }
-
     public static  File createFile(String path, String fileName) throws IOException {
         // creates directories from a path  to a directory returns the file or null if no file was created
         if(fileName==null ||  path==null|| path.isEmpty()){
-
             return null;
-
         }
         File directory= new File(path);
-
         if( !directory.exists()) {
              directory.mkdirs();
         }
-
         String fullPath=path+getFileSeparator()+fileName;
-
         File file= new File(fullPath);
         if(!file.exists()){
-
                 file.createNewFile();
-
-
         }
-
-
         return file;
-
-
-
     }
-
-
-
-
     public static  boolean isAudioFile(File file) { // checks to see the file extension matches on the  given audio file extensions
             String extension=getExtensionOfFile(file);
             int size= codecExtensions.size();
@@ -377,11 +353,38 @@ public class FileUtilities {
                 }
             }
         }
+       public static FileHandle getFileHandle(String path, FileHandleType fileHandleType){
+           FileHandle fileHandle;
+           switch (fileHandleType) {
+               case ABSOLUTE:
+                   fileHandle= Gdx.files.absolute(path);
+                   break;
+               case INTERNAL:
+                   fileHandle= Gdx.files.internal(path);
+                   break;
+               case EXTERNAL:
+                   fileHandle= Gdx.files.external(path);
+                   break;
+               case LOCAL:
+                   fileHandle= Gdx.files.local(path);
+                   break;
+
+               default:{
+                   fileHandle= Gdx.files.absolute(path);
+               }
+           }
+           return  fileHandle;
+       }
 
     public  static Character getExclude() {
         return exclude;
     }
     public  static void setExclude(Character exclude) {
         exclude = exclude;
+    }
+
+    public enum FileHandleType {
+        ABSOLUTE, INTERNAL, EXTERNAL, LOCAL
+
     }
 }

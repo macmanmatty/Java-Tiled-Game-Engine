@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -292,8 +293,6 @@ public class GameAssets implements Disposable {
      */
     public TiledMap loadExternalTMXMap(String path) { // loads tiles TMXTileMap from a given file path
         TiledMap map = new TmxMapLoader().load(path);
-        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load(path, TiledMap.class);
         return map;
     }
     /**
@@ -414,16 +413,9 @@ public class GameAssets implements Disposable {
             throw new IllegalArgumentException("No Screen With Name Found");
         }
     }
-          public <T> T  loadObject(String filePath, Class<T> thingClass){
-        T object= jsonLoader.loadObject(thingClass, filePath);
-        return  object;
-    }
     public <T> T  loadInternalObject(String filePath, Class<T> thingClass){
         T object= jsonLoader.loadInternalObject(thingClass, filePath);
         return  object;
-    }
-    public void saveObject(Object object, String path, boolean append){
-        jsonLoader.writeObjectToFile(object, path, append);
     }
     /**
      *  the libGDX dispose method called before closing the game to prevent memory leaks

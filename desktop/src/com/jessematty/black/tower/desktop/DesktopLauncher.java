@@ -8,6 +8,12 @@ import com.jessematty.black.tower.GameBaseClasses.BlackTower;
 public class DesktopLauncher {
 
 	public static void main (String[] arg) {
+		String userDirectoryPath = System.getProperty("user.dir");
+		System.out.println("******");
+		System.out.println("******");
+		System.out.println("Working Directory: "+userDirectoryPath);
+		System.out.println("******");
+		System.out.println("******");
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		Graphics.DisplayMode dm = Lwjgl3ApplicationConfiguration.getDisplayMode();
 		config.setWindowedMode((int) (dm.width*.75), (int) (dm.height*.75));

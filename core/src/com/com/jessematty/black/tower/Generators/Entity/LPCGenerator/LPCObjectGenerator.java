@@ -2,6 +2,7 @@ package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -39,6 +40,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -289,7 +291,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         if(lpcObjectGeneratorDTO.getAttachedEntityDTOs().size>0) {
           linkAttachedEntitiesViaDTO(entityBag,lpcObjectGeneratorDTO,  lpcObjectGeneratorDTO.attachedEntityDTOs);
         }
-        else{
+        else if (lpcObjectGeneratorDTO.getAttachedEntities().size>0){
             linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntities);
         }
 
@@ -363,10 +365,10 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
 
-    public ObjectMap<String, LPCObjectGeneratorDTO> generateObjectDTOMap(String path){
+    public ObjectMap<String, LPCObjectGeneratorDTO> generateObjectDTOMap(String path, FileUtilities.FileHandleType fileHandleType){
       lpcObjectGeneratorDTOMap= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
-        List<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path);
+        Array<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path, fileHandleType);
         for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
             lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
 
@@ -385,14 +387,17 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
      * @return an map  of entities with the entity as the value and the and either the entities id or  entities name  as  the key
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
-    public ObjectMap<String, EntityBag> loadEntities( String path, boolean useIdAsKey){
+    public ObjectMap<String, EntityBag> loadEntities(String path, boolean useIdAsKey, FileUtilities.FileHandleType fileHandleType){
         lpcObjectGeneratorDTOMap.clear();
         ObjectMap<String, EntityBag> entities= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
-       List<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path);
+        FileHandle fileHandle=FileUtilities.getFileHandle(path, fileHandleType);
+
+
+        Array<LPCObjectGeneratorDTO>  lpcObjectGeneratorDTOS=  jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path, fileHandleType);
+
        for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
            lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
-
        }
        for (LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS) {
            if(!lpcObjectGeneratorDTO.isLoad()){
