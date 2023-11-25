@@ -30,7 +30,6 @@ public class MoveOnGround {
             movableComponent.setDistanceMoved(distanceX, distanceY, 0);
             float screenLocationX = position.getLocationX() + distanceX;
             float screenLocationY = position.getLocationY() + distanceY;
-
             if (screenLocationX >= map.getMaxXWorld() - map.getTileWidth()-10 || screenLocationY >= map.getMaxYWorld() - map.getTileHeight()-10 || screenLocationY < 10 || screenLocationX < 10) {
                 return; //  trying to  move out of map bounds bounds exit move function
             }
