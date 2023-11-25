@@ -118,14 +118,12 @@ public abstract  class GameMap  implements Map {
 	protected GameMap() {
 		gameMapSettings.getSettings().put("id", id);
 	}
-	public GameMap(int xTiles, int yTiles) {
-		this();
-		this.xTiles = xTiles;
-		this.yTiles = yTiles;
+
+	public GameMap(String id) {
+		this.id = id;
+		gameMapSettings.getSettings().put("id", id);
 
 	}
-
-
 
 	/**
 	 * // method calculates  daylight based on game time

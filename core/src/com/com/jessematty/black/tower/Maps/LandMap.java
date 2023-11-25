@@ -10,8 +10,15 @@ import java.io.Serializable;
  * with additional buildings on it
  */
 public class LandMap extends GameMap implements Serializable {
+
 	public  LandMap() {
-		super();
+			super();
+		gameMapSettings.getSettings().put("lightChanges", true);
+		this.lightChanges=true;
+	}
+
+	public LandMap(String id) {
+		super(id);
 		gameMapSettings.getSettings().put("lightChanges", true);
 		this.lightChanges=true;
 	}

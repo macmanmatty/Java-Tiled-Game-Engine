@@ -44,6 +44,13 @@ public class LPCObjectGeneratorDTO {
      */
     float boundsX;
     float boundsY;
+
+    /**
+     * the entities bounds offsets
+     */
+    float boundsXOffset;
+    float boundsYOffset;
+    /**
     /**
      * if using basic health these are the stats
      */
@@ -237,15 +244,38 @@ public class LPCObjectGeneratorDTO {
   
     Array<String> groupsAddable= new Array<>();
 
-    Array<String> attachedEntities= new Array();
+    /**
+     * the array of attached entities referenced by TMX Object ID
+     */
+    Array<String> attachedEntitiesTmxObjectIDs = new Array();
+    /**
+     * the array of attached DTO Objects
+     */
     Array<LPCObjectGeneratorDTO> attachedEntityDTOs= new Array();
+    /**
+     * the array of attached entities referenced by the entities id
+     */
+    Array<String> attachedEntitiesIDs = new Array();
 
-    private int upLayerOffset;
-    private int downLayerOffset;
+    int upLayerOffset;
+     int downLayerOffset;
 
-    private int leftLayerOffset;
+     int leftLayerOffset;
 
-    private int rightLayerOffset;
+     int rightLayerOffset;
+
+
+     float heightFromGround;
+
+     float height;
+
+    /**
+     * if true the entity will  be placed on the map
+     * at the spot of the object point on the tmx map
+     *
+     */
+    private boolean placeOnMap=true;
+
 
 
     public String getAtlasName() {
@@ -680,12 +710,12 @@ public class LPCObjectGeneratorDTO {
         this.tmxObjectId = tmxObjectId;
     }
 
-    public Array<String> getAttachedEntities() {
-        return attachedEntities;
+    public Array<String> getAttachedEntitiesTmxObjectIDs() {
+        return attachedEntitiesTmxObjectIDs;
     }
 
-    public void setAttachedEntities(Array<String> attachedEntities) {
-        this.attachedEntities = attachedEntities;
+    public void setAttachedEntitiesTmxObjectIDs(Array<String> attachedEntitiesTmxObjectIDs) {
+        this.attachedEntitiesTmxObjectIDs = attachedEntitiesTmxObjectIDs;
     }
 
     public Array<LPCObjectGeneratorDTO> getAttachedEntityDTOs() {
@@ -762,4 +792,51 @@ public class LPCObjectGeneratorDTO {
         this.rightLayerOffset = rightLayerOffset;
     }
 
+    public Array<String> getAttachedEntitiesIDs() {
+        return attachedEntitiesIDs;
+    }
+
+    public void setAttachedEntitiesIDs(Array<String> attachedEntitiesIDs) {
+        this.attachedEntitiesIDs = attachedEntitiesIDs;
+    }
+
+    public boolean isPlaceOnMap() {
+        return placeOnMap;
+    }
+
+    public void setPlaceOnMap(boolean placeOnMap) {
+        this.placeOnMap = placeOnMap;
+    }
+
+    public float getBoundsXOffset() {
+        return boundsXOffset;
+    }
+
+    public void setBoundsXOffset(float boundsXOffset) {
+        this.boundsXOffset = boundsXOffset;
+    }
+
+    public float getBoundsYOffset() {
+        return boundsYOffset;
+    }
+
+    public void setBoundsYOffset(float boundsYOffset) {
+        this.boundsYOffset = boundsYOffset;
+    }
+
+    public float getHeightFromGround() {
+        return heightFromGround;
+    }
+
+    public void setHeightFromGround(float heightFromGround) {
+        this.heightFromGround = heightFromGround;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
 }
