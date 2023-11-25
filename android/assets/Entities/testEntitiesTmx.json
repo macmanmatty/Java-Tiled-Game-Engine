@@ -16,6 +16,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -72,16 +74,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: bow
+	tmxObjectId: 4df16e13-e08b-4180-8031-a346c6133d8f
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -98,8 +104,10 @@
 	colorA: 1
 	mass: 1.0E-4
 	volume: 100
-	boundsX: 32
+	boundsX: 40
 	boundsY: 64
+	boundsXOffset: 16
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -213,7 +221,7 @@
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: [ 1, 2, 3, 4, 5, 6 ]
+	attachedEntitiesTmxObjectIDs: [ 1, 2, 3, 4, 5, 6 ]
 	attachedEntityDTOs: [
 		{
 			load: true
@@ -231,6 +239,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -334,16 +344,20 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 4
+			tmxObjectId: 7328967f-ea7a-4912-811d-6c6f453dc947
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -361,6 +375,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -468,12 +484,16 @@
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -491,6 +511,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -598,12 +620,16 @@
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -621,6 +647,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -728,12 +756,16 @@
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -751,6 +783,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -859,12 +893,16 @@
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -882,6 +920,8 @@
 			volume: 1
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -994,12 +1034,16 @@
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: []
+			attachedEntitiesTmxObjectIDs: []
 			attachedEntityDTOs: []
+			attachedEntitiesIDs: []
 			upLayerOffset: 0
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
 		{
 			load: true
@@ -1017,6 +1061,8 @@
 			volume: 100
 			boundsX: 0
 			boundsY: 0
+			boundsXOffset: 0
+			boundsYOffset: 0
 			health: 100
 			maxHealth: 0
 			killWhenZeroHealth: true
@@ -1118,11 +1164,11 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: wings
+			tmxObjectId: db5be1d0-ccca-47fc-a57f-5e9bcd65611d
 			bounds: null
 			groups: []
 			groupsAddable: []
-			attachedEntities: [ 1, 2, 3, 4, 5, 6 ]
+			attachedEntitiesTmxObjectIDs: [ 1, 2, 3, 4, 5, 6 ]
 			attachedEntityDTOs: [
 				{
 					load: true
@@ -1140,6 +1186,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1243,16 +1291,20 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 52205ecf-4711-437b-ba4c-054d39f04d32
+					tmxObjectId: 7328967f-ea7a-4912-811d-6c6f453dc947
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 				{
 					load: true
@@ -1270,6 +1322,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1377,12 +1431,16 @@
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 				{
 					load: true
@@ -1400,6 +1458,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1507,12 +1567,16 @@
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 				{
 					load: true
@@ -1530,6 +1594,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1637,12 +1703,16 @@
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 				{
 					load: true
@@ -1660,6 +1730,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1768,12 +1840,16 @@
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 				{
 					load: true
@@ -1791,6 +1867,8 @@
 					volume: 1
 					boundsX: 0
 					boundsY: 0
+					boundsXOffset: 0
+					boundsYOffset: 0
 					health: 100
 					maxHealth: 0
 					killWhenZeroHealth: true
@@ -1903,24 +1981,38 @@
 					bounds: null
 					groups: []
 					groupsAddable: []
-					attachedEntities: []
+					attachedEntitiesTmxObjectIDs: []
 					attachedEntityDTOs: []
+					attachedEntitiesIDs: []
 					upLayerOffset: 0
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
+					placeOnMap: true
 				}
 			]
+			attachedEntitiesIDs: []
 			upLayerOffset: -1
 			downLayerOffset: 1
 			leftLayerOffset: 1
 			rightLayerOffset: 1
+			heightFromGround: 0
+			height: 0
+			placeOnMap: true
 		}
+	]
+	attachedEntitiesIDs: [
+		pack1
 	]
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 5
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -1939,6 +2031,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2036,16 +2130,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: f5246b9a-cd53-4664-b875-1b6244f6c71b
+	tmxObjectId: 78a246fe-9e97-4708-b044-8bfdf03536aa
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2064,6 +2162,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2120,16 +2220,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 8f0dad13-8fa8-40d1-a390-842057b29370
+	tmxObjectId: 3185ce42-3b60-4fcb-9856-04b7071f672f
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2148,6 +2252,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2262,16 +2368,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 2262ff15-5101-40c9-b73c-251668d5f958
+	tmxObjectId: 27e02d72-93e3-49b1-9265-0f22d5c400e9
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2290,6 +2400,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2346,16 +2458,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 65726216-a31c-4026-9a79-083a81266815
+	tmxObjectId: 1f915329-8dc6-4c57-902c-42e7fb755bb0
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2374,6 +2490,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2430,16 +2548,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: ed6cdda3-6e75-4ad9-beb5-682bca396fdd
+	tmxObjectId: 485dc2df-7888-4265-b703-5cf92a7527eb
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2458,6 +2580,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2514,16 +2638,20 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 5d88b8c8-501e-4582-9b26-baccecd1418d
+	tmxObjectId: a41a010b-d144-4bc9-bf16-29ce009258f9
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2542,6 +2670,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2702,12 +2832,16 @@
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2722,10 +2856,12 @@
 	colorG: 1
 	colorB: 1
 	colorA: 1
-	mass: 0
-	volume: 0
-	boundsX: 0
-	boundsY: 0
+	mass: 100
+	volume: 100
+	boundsX: 300
+	boundsY: 300
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 0
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2829,12 +2965,16 @@
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 100
+	placeOnMap: true
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2853,6 +2993,8 @@
 	volume: 100
 	boundsX: 32
 	boundsY: 64
+	boundsXOffset: 0
+	boundsYOffset: 0
 	health: 100
 	maxHealth: 0
 	killWhenZeroHealth: true
@@ -2909,15 +3051,19 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d5fce3fd-02da-4c13-af82-775bf7481e48
+	tmxObjectId: 72758bf1-991e-4fe7-900b-13a59df67ea3
 	bounds: null
 	groups: []
 	groupsAddable: []
-	attachedEntities: []
+	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
 	upLayerOffset: 0
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
 }
 ]

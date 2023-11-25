@@ -41,7 +41,6 @@ public class MoveOnGround {
             position.setTiles(newTiles);
             position.setTileLocationX(newTiles.get(0).getLocationX());
             position.setTileLocationY(newTiles.get(0).getLocationY());
-
             movableComponent.setVelocity(speedX, speedY, 0);
         }
 }

@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
-
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -45,7 +44,7 @@ import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
-import java.util.List;
+import java.util.UUID;
 
 /**
  * class that generates various entities based of the LPC assets
@@ -58,7 +57,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         this.assets = assets;
         lpcSpriteGenerator= new LPCSpriteGenerator(assets);
     }
-
     private Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id) {
         Entity entity= new Entity();
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
@@ -69,23 +67,22 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         PositionComponent position= new PositionComponent();
         if(bounds!=null){
             position.setBounds(bounds);
+
         }
         else {
             position.setBounds(lpcObjectGeneratorDTO.getBoundsX(), lpcObjectGeneratorDTO.getBoundsY());
         }
+        position.setBoundsXOffset(lpcObjectGeneratorDTO.getBoundsXOffset());
+        position.setBoundsYOffset(lpcObjectGeneratorDTO.getBoundsYOffset());
+        position.setHeight(lpcObjectGeneratorDTO.getHeight());
+        position.setHeightFromGround(position.getHeightFromGround());
         entity.add(position);
         entity.add(physicalObject);
         EntityId entityId;
-        if(id!=null) {
         entityId =new EntityId(id);
-        }
-        else{
-            entityId=new EntityId();
-        }
         entity.add(entityId);
         return  entity;
     }
-
     /**
      * links attached entities to the owner  entity
      * where the attached entities are generated an array of LPC Generation DTO's
@@ -148,13 +145,18 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         drawableComponent.setLayerNumber(1);
         drawableComponent.setColor(color);
         drawableComponent.setBrightness(brightness);
-
         return  entity;
     }
-    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-    return  generateEntity(lpcObjectGeneratorDTO, null);
-        }
 
+    /**
+     * generates a new entity  from a lpcObjectGeneratorDTO
+     * with random id generated from a UUID
+     * @param lpcObjectGeneratorDTO
+     * @return The Entity Bag containing the owner entity and all sub entities
+     */
+    public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
+    return  generateEntity(lpcObjectGeneratorDTO, UUID.randomUUID().toString());
+        }
     public  EntityBag generateEntity(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id)  {
         EntityBag entityBag=new EntityBag();
         Entity entity = generatePhysicalObject(lpcObjectGeneratorDTO, id);
@@ -196,7 +198,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
         boolean animated=lpcObjectGeneratorDTO.isAnimated();
         AnimatableComponent animatableComponent=null;
-
             if(lpcActorAnimated) {
             lpcSpriteGenerator.setHasWalkFrames(lpcObjectGeneratorDTO.isHasWalkFrames());
             lpcSpriteGenerator.setHasDieFrames(lpcObjectGeneratorDTO.isHasDieFrames());
@@ -211,7 +212,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
             lpcSpriteGenerator.downLayerNumberOffset=lpcObjectGeneratorDTO.getDownLayerOffset();
             lpcSpriteGenerator.rightLayerNumberOffset=lpcObjectGeneratorDTO.getRightLayerOffset();
             lpcSpriteGenerator.leftLayerNumberOffset=lpcObjectGeneratorDTO.getLeftLayerOffset();
-
             animatableComponent = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
             animatableComponent.setCurrentAction("rest");
             animatableComponent.nextFrame();
@@ -287,22 +287,17 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         if(lpcObjectGeneratorDTO.isHolder()) {
             generateHolder(entityBag, lpcObjectGeneratorDTO);
         }
-
         if(lpcObjectGeneratorDTO.getAttachedEntityDTOs().size>0) {
           linkAttachedEntitiesViaDTO(entityBag,lpcObjectGeneratorDTO,  lpcObjectGeneratorDTO.attachedEntityDTOs);
         }
-        else if (lpcObjectGeneratorDTO.getAttachedEntities().size>0){
-            linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntities);
+        if (lpcObjectGeneratorDTO.getAttachedEntitiesTmxObjectIDs().size>0){
+            linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntitiesTmxObjectIDs);
         }
-
         return  entityBag;
         }
-
     private Array<Entity> createOwnedEntities( Entity owner, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-
         return new Array<>();
     }
-
     private void generateHolder(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
     }
     private void generateBowedWeapon(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
@@ -335,7 +330,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         }
     }
     private  void generateArmor(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-
     }
     private void generateItem(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGenerator){
         ItemComponent itemComponent= new ItemComponent();
@@ -343,13 +337,10 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         itemComponent.setMaxPrice(lpcObjectGenerator.getMaxPrice());
         itemComponent.setMinPrice(lpcObjectGenerator.getMinPrice());
         entityBag.getOwner().add(itemComponent);
-
     }
     private void generateWeapon(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-
     }
         private   Entity makeBodyPart(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-
         BodyComponent bodyComponent =GameComponentMapper.getBodyComponentComponentMapper().get(entityBag.getOwner());
         EntityBag bodyPartEntityBag= generateEntity(lpcObjectGeneratorDTO);
         Entity bodyPart=bodyPartEntityBag.getOwner();
@@ -364,18 +355,15 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
      * @return an map  of entities with the entity as the value and the and either the entities id or  entities name  as  the key
      * if an entity(s) have duplicate  names a number will be appended to the reference name;
      */
-
     public ObjectMap<String, LPCObjectGeneratorDTO> generateObjectDTOMap(String path, FileUtilities.FileHandleType fileHandleType){
       lpcObjectGeneratorDTOMap= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
         Array<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path, fileHandleType);
         for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
             lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
-
         }
         return  lpcObjectGeneratorDTOMap;
     }
-
     private void makeHand(Entity entity){
         entity.add(new Holder());
     }
@@ -392,10 +380,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         ObjectMap<String, EntityBag> entities= new ObjectMap<>();
         JsonLoader jsonLoader=assets.getJsonLoader();
         FileHandle fileHandle=FileUtilities.getFileHandle(path, fileHandleType);
-
-
         Array<LPCObjectGeneratorDTO>  lpcObjectGeneratorDTOS=  jsonLoader.loadArrayFromFile(LPCObjectGeneratorDTO.class, path, fileHandleType);
-
        for(LPCObjectGeneratorDTO lpcObjectGeneratorDTO: lpcObjectGeneratorDTOS){
            lpcObjectGeneratorDTOMap.put(lpcObjectGeneratorDTO.getTmxObjectId(), lpcObjectGeneratorDTO);
        }
@@ -412,7 +397,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
        }
        return entities;
     }
-
     public String getName(ObjectMap<String, EntityBag> entityObjectMap, String name){
         int counter=2;
         String newName=name;
@@ -422,7 +406,6 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         }
         return newName;
     }
-
     public LandSquareTile generateTile(LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
             LandSquareTile landSquareTile= new LandSquareTile();
         return  landSquareTile;

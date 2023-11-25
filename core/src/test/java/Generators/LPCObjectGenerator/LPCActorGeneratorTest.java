@@ -26,8 +26,7 @@ public class LPCActorGeneratorTest {
     public void  testLoadEntitiesFromFile(){
         LPCObjectGenerator lpcObjectGenerator= new LPCObjectGenerator(gameAssets);
      ObjectMap<String, EntityBag> entityBagArray= lpcObjectGenerator.loadEntities("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/core/src/test/java/Generators/LPCObjectGenerator/testEntities.json", false, FileUtilities.FileHandleType.ABSOLUTE);
-        System.out.println();
-     assertEquals(11, entityBagArray.size);
+        assertEquals(11, entityBagArray.size);
         assertEquals(13, entityBagArray.get("lizard").getEntities().size);
         assertEquals(0, entityBagArray.get("tree").getEntities().size);
         assertNotNull(entityBagArray.get("lizard").getOwner());

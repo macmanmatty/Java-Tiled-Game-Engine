@@ -30,6 +30,7 @@
         "magecity.tsx"
     ],
     "project": "testMap.tiled-project",
+    "property.type": "string",
     "recentFiles": [
         "magecity.tsx",
         "testMap.tmx"

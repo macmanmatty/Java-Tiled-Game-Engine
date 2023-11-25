@@ -60,6 +60,7 @@ public class TestEntities {
 
         health.getChangeGroups().add("all");
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        lizard.setTmxObjectId("lizard");
         lizard.setAnimatableBodyName("lizard");
         lizard.setSex("Male");
         lizard.setName("lizard");
@@ -78,11 +79,15 @@ public class TestEntities {
         lizard.setLpcActorAnimated(true);
         lizard.setDrawable(true);
         lizard.getStats().add(health, on, classuz);
-        lizard.getAttachedEntities().addAll("1", "2", "3", "4","5", "6");
+        lizard.getAttachedEntitiesTmxObjectIDs().addAll("1", "2", "3", "4","5", "6");
         lizard.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso, tail);
         lizard.setBody(true);
         lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
-
+        lizard.getAttachedEntitiesIDs().add("pack1");
+        lizard.setBoundsX(40);
+        lizard.setBoundsY(64);
+        lizard.setBoundsXOffset(16);
+        lizard.setHeight(5);
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");
@@ -102,7 +107,7 @@ public class TestEntities {
         tail.setLpcActorAnimated(true);
         tail.setDrawable(true);
         tail.getStats().add(health, on, classuz);
-        tail.getAttachedEntities().addAll("1", "2", "3", "4","5", "6");
+        tail.getAttachedEntitiesTmxObjectIDs().addAll("1", "2", "3", "4","5", "6");
         tail.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso);
         tail.setBody(true);
         tail.setUpLayerOffset(-1);
@@ -110,9 +115,6 @@ public class TestEntities {
         tail.setRightLayerOffset(1);
         tail.setLeftLayerOffset(1);
         tail.getAttachableParts().addAll("ring");
-
-
-
         leftHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         leftHand.setAnimatableBodyName("leftHand");
         leftHand.setSex("Male");
@@ -139,9 +141,6 @@ public class TestEntities {
         leftHand.setPartClass("leftHand");
         leftHand.setBody(true);
         leftHand.getAttachableParts().addAll("ring", "glove", "bracelet");
-
-
-
 
         rightHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         rightHand.setAnimatableBodyName("rightHand");
@@ -297,6 +296,13 @@ public class TestEntities {
         tree.setDrawable(true);
         tree.setDrawOnStart(true);
         tree.getStats().add(health, on, classuz);
+        tree.setTmxObjectId("tree");
+        tree.setBoundsY(300);
+        tree.setBoundsX(300);
+        tree.setMass(100);
+        tree.setVolume(100);
+        tree.setHeight(100);
+
 
 
         pack.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -320,6 +326,8 @@ public class TestEntities {
         pack.setLoad(true);
         pack.setPart(true);
         pack.setPartClass("backPack");
+        pack.setTmxObjectId("backPack");
+        pack.setPlaceOnMap(false);
 
 
 

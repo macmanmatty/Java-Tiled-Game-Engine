@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
@@ -20,7 +21,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.Enti
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.TiledMapGameLoader;
+import com.jessematty.black.tower.Generators.GameGenerator.TiledMapGameLoader;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
@@ -53,7 +54,7 @@ public class TestMap {
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
 
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
-        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("android/assets/Entities/testEntities.json",false , FileUtilities.FileHandleType.EXTERNAL);
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json",false , FileUtilities.FileHandleType.ABSOLUTE);
         EntityBag lizard= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
@@ -73,7 +74,6 @@ public class TestMap {
         numericStats.getNumericStat("speed").setMinValue(10);
         numericStats.getNumericStat("speed").setMaxValue(10000);
         numericStats.getNumericStat("speed").setValue(100);
-
         int size=lizard.getEntities().size;
         for(int count=0; count<size; count++){
             lizard.getEntities().get(count).getComponent(PositionComponent.class).setMapID(map2.getId());
@@ -140,14 +140,19 @@ public class TestMap {
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
+        JsonLoader jsonLoader= new JsonLoader();
+
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntitiesTmx.json", false, FileUtilities.FileHandleType.ABSOLUTE);
+
         World world= new World();
         world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");
         world.getWorldSettings().getSettings().put("textureAtlasPath", "textureAtlases/testAssets/testAssets.atlas");
-        GameMap gameMap;
         TiledMapGameLoader tiledMapLoader= new TiledMapGameLoader(assetts, world);
 
         try {
-            gameMap=tiledMapLoader.createMapFromTmxMap(map, FileUtilities.FileHandleType.ABSOLUTE);
+            Array<TiledMap> maps= new Array<>();
+            maps.add(map);
+           tiledMapLoader.createGameFromTmxMaps(maps, FileUtilities.FileHandleType.ABSOLUTE);
         } catch (MapLoadingException e) {
             throw new RuntimeException(e);
         } catch (EntityLoadingException e) {
@@ -166,7 +171,8 @@ public class TestMap {
       //  String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
        // world.addEntityToWorld(pack.getOwner());
         world.setPlayer( lizard.getOwner());
-        world.setStartMap(gameMap.getId());
+
+        world.setStartMap(world.getWorldMaps().values().toArray().get(0).getId());
         world.setName("game");
 
         try {
@@ -175,7 +181,7 @@ public class TestMap {
             e.printStackTrace();
         }
         World newWorld=assetts.loadGame("~/world/game.bin");
-        newWorld.getMap(gameMap.getId()).setSkin(assetts.getDefaultSkin());
+        newWorld.getMap(world.getWorldMaps().values().toArray().get(0).getId());
         assetts.setWorld(newWorld);
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
