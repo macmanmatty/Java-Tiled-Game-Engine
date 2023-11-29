@@ -341,6 +341,26 @@ public class World implements Disposable {
             }
         }
     }
+
+    /**
+     * converts an array of  string entity ids to an array  of ashley entities
+     * @param entityIds the array of entities
+     * @return
+     */
+    public Array<Entity> getEntitiesFromEntityIdsArray( Array<String> entityIds){
+        Array<Entity> entities= new Array<>();
+        for(String entityId: entityIds){
+            Entity entity=  entitiesInWorld.get(entityId);
+            if(entity!=null){
+                entities.add(entity);
+            }
+        }
+        return  entities;
+    }
+
+
+
+
     public Engine getEngine() {
         return engine;
     }

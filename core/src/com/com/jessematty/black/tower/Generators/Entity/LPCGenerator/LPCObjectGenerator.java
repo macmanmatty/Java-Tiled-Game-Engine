@@ -57,7 +57,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         this.assets = assets;
         lpcSpriteGenerator= new LPCSpriteGenerator(assets);
     }
-    private Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id) {
+    public  Entity generatePhysicalObject(LPCObjectGeneratorDTO lpcObjectGeneratorDTO, String id) {
         Entity entity= new Entity();
         PhysicalObjectComponent physicalObject= new PhysicalObjectComponent();
         physicalObject.setMass(lpcObjectGeneratorDTO.getMass());
@@ -238,6 +238,8 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
                 }
                 drawableComponent.setDraw(lpcObjectGeneratorDTO.isDrawOnStart());
                 drawableComponent.setLayerNumber(lpcObjectGeneratorDTO.getDrawLayer());
+                drawableComponent.setSubLayerNumber(lpcObjectGeneratorDTO.getDrawSubLayer());
+                drawableComponent.setSetLayerToYPosition(lpcObjectGeneratorDTO.isSetDrawLayerToYPosition());
                 NamedColor color = new NamedColor(lpcObjectGeneratorDTO.getColorR(), lpcObjectGeneratorDTO.getColorG(), lpcObjectGeneratorDTO.getColorB(), lpcObjectGeneratorDTO.getColorA());
                 drawableComponent.setColor(color);
                 drawableComponent.setBrightness(lpcObjectGeneratorDTO.getBrightness());
@@ -309,12 +311,35 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
     
     
     private EntityBag  generatePack(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-        EntityBag pack= generateEntity(lpcObjectGeneratorDTO);
         PackComponent packComponent = new PackComponent();
         packComponent.setMaxHoldWeight(lpcObjectGeneratorDTO.getMaxAtachedWeight());
         packComponent.setMaxVolume(lpcObjectGeneratorDTO.getInternalVolume());
-        pack.getOwner().add(packComponent);
-        return pack;
+       entityBag.getOwner().add(packComponent);
+        return entityBag;
+    }
+
+    private Entity  createAnimatedLpcActor(Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
+        AnimatableComponent animatableComponent;
+        lpcSpriteGenerator.setHasWalkFrames(lpcObjectGeneratorDTO.isHasWalkFrames());
+        lpcSpriteGenerator.setHasDieFrames(lpcObjectGeneratorDTO.isHasDieFrames());
+        lpcSpriteGenerator.setHasEatFrames(lpcObjectGeneratorDTO.isHasEatFrames());
+        lpcSpriteGenerator.setHasShootFrames(lpcObjectGeneratorDTO.isHasShootFrames());
+        lpcSpriteGenerator.setHasThrustFrames(lpcObjectGeneratorDTO.isHasThrustFrames());
+        lpcSpriteGenerator.setHasSlashFrames(lpcObjectGeneratorDTO.isHashSlashFrames());
+        lpcSpriteGenerator.setHasSpellCastFrames(lpcObjectGeneratorDTO.isHasSpellCastFrames());
+        lpcSpriteGenerator.setHasPickUpFrames(lpcObjectGeneratorDTO.isHasPickupFrames());
+        lpcSpriteGenerator.setHasThrowFrames(lpcObjectGeneratorDTO.isHasThrowFrames());
+        lpcSpriteGenerator.upLayerNumberOffset=lpcObjectGeneratorDTO.getUpLayerOffset();
+        lpcSpriteGenerator.downLayerNumberOffset=lpcObjectGeneratorDTO.getDownLayerOffset();
+        lpcSpriteGenerator.rightLayerNumberOffset=lpcObjectGeneratorDTO.getRightLayerOffset();
+        lpcSpriteGenerator.leftLayerNumberOffset=lpcObjectGeneratorDTO.getLeftLayerOffset();
+        animatableComponent = lpcSpriteGenerator.makeBody(lpcObjectGeneratorDTO.getSex(), lpcObjectGeneratorDTO.getAnimatableBodyName(), lpcObjectGeneratorDTO.getAtlasName());
+        animatableComponent.setCurrentAction("rest");
+        animatableComponent.nextFrame();
+        entity.add(animatableComponent);
+
+        return entity;
+
     }
     private void addStats(Array<Stat> stats , NumericStats numericStats, BooleanStats booleanStats, StringStats stringStats){
         for(Stat stat: stats ){

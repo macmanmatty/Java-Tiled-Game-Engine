@@ -74,7 +74,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d10674b3-b3e7-4f4e-96e1-bc43656ef950
+	tmxObjectId: c2aaf6e1-ba4c-4ac9-bc12-9ff4c4834884
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -85,6 +85,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -342,7 +344,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 7a016701-aebd-4bd5-b883-4e86486b5b5f
+			tmxObjectId: 755aedee-e0b2-4021-b901-6a091df52bd8
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -353,6 +355,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -487,6 +491,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -621,6 +627,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -755,6 +763,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -890,6 +900,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -1029,6 +1041,8 @@
 			downLayerOffset: 0
 			leftLayerOffset: 0
 			rightLayerOffset: 0
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 		{
@@ -1150,7 +1164,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 11973383-4402-4cf4-94cd-483cee9f923f
+			tmxObjectId: 21ab6e12-e5f9-4d15-b563-0ad1ebe09886
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1277,7 +1291,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 7a016701-aebd-4bd5-b883-4e86486b5b5f
+					tmxObjectId: 755aedee-e0b2-4021-b901-6a091df52bd8
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1288,6 +1302,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 				{
@@ -1422,6 +1438,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 				{
@@ -1556,6 +1574,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 				{
@@ -1690,6 +1710,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 				{
@@ -1825,6 +1847,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 				{
@@ -1964,6 +1988,8 @@
 					downLayerOffset: 0
 					leftLayerOffset: 0
 					rightLayerOffset: 0
+					heightFromGround: 0
+					height: 0
 					placeOnMap: true
 				}
 			]
@@ -1972,6 +1998,8 @@
 			downLayerOffset: 1
 			leftLayerOffset: 1
 			rightLayerOffset: 1
+			heightFromGround: 0
+			height: 0
 			placeOnMap: true
 		}
 	]
@@ -1982,6 +2010,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 5
 	placeOnMap: true
 }
 {
@@ -2100,7 +2130,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: bd283571-51d2-47f5-aaa0-f8c830a617f1
+	tmxObjectId: 22c85cc9-e666-42db-a5d7-65ad7e8196d5
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2111,6 +2141,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2188,7 +2220,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: e6388609-a8dc-4c9b-b24a-50b45750340b
+	tmxObjectId: fe8519b7-c236-4ec0-8528-fe097817f79b
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2199,6 +2231,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2334,7 +2368,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 4d468afa-0bd9-4d77-a1c3-7ce81ac43e15
+	tmxObjectId: 8e54a70b-2184-4a2a-9c9b-f4e35bc6bceb
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2345,6 +2379,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2422,7 +2458,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 734c5ebb-78eb-4c30-8525-1e68b1d35f9d
+	tmxObjectId: 496e70da-9d48-4ac8-a8df-8c3282dc394b
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2433,6 +2469,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2510,7 +2548,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 508a80e6-96bd-4bab-b9ed-c6509a64ce0f
+	tmxObjectId: 9b376357-10ab-4fb3-a4fc-74dd93b14f63
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2521,6 +2559,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2598,7 +2638,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 1b1d4bb1-0711-439e-a719-1aae7a36e918
+	tmxObjectId: dec8ab4d-7652-48cb-9db4-b9902a23556d
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2609,6 +2649,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 {
@@ -2797,6 +2839,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: false
 }
 {
@@ -2928,6 +2972,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 100
 	placeOnMap: true
 }
 {
@@ -3005,7 +3051,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 78019e92-68c8-4f41-a136-bab643dddaa5
+	tmxObjectId: c770a63b-fe2f-4315-87f8-e651c983f24d
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3016,6 +3062,8 @@
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
 	placeOnMap: true
 }
 ]

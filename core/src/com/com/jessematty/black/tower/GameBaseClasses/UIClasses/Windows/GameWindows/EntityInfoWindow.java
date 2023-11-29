@@ -26,10 +26,10 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringStatGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.WeightMassVolumeGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.BooleanStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.NumericStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.StringStatGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.WeightMassVolumeGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 import com.jessematty.black.tower.Maps.World;
 public class EntityInfoWindow extends ClosableWindow {

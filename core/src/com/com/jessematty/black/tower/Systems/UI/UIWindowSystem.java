@@ -44,7 +44,7 @@ public class UIWindowSystem extends GameEntitySystem {
     public void update(float deltaTime) {
 
         if(player.isShowBottomBar()) {
-            Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(getWorld(), player.getPlayerEntity(), PackComponent.class);
+            Array<Entity> packs = EntityUtilities.getAllOwnedEntitiesWithComponents(getWorld(), player.getPlayerEntity(), PackComponent.class);
 
 
 

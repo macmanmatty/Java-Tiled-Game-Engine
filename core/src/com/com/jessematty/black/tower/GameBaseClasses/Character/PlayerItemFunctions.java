@@ -16,6 +16,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 
 public class PlayerItemFunctions {
@@ -83,7 +84,8 @@ public class PlayerItemFunctions {
 
                     }
                 };
-                EntitySelectWindow entitySelectWindow = new EntitySelectWindow(mapDraw.getGameAssets().getDefaultSkin(),packComponent.getEntitiesInContainer() , mapDraw.getGameAssets(), onSelected1);
+                World world=mapDraw.getWorld();
+                EntitySelectWindow entitySelectWindow = new EntitySelectWindow(mapDraw.getGameAssets().getDefaultSkin(),world.getEntitiesFromEntityIdsArray(packComponent.getEntitiesInContainerIds()) , mapDraw.getGameAssets(), onSelected1);
                 mapDraw.getUiStage().addWindow(entitySelectWindow, ScreenPosition.CENTER);
 
             }

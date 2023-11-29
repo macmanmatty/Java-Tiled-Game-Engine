@@ -16,6 +16,8 @@ import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
@@ -331,7 +333,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        }
        return entityIds;
    }
- public static  Array<Entity> getOwnedEntitiesWithComponents(World world, Entity entity , Class<? extends Component>... components ){
+ public static  Array<Entity> getAllOwnedEntitiesWithComponents(World world, Entity entity , Class<? extends Component>... components ){
         Array<Entity>  entities=getAllOwnedEntities(entity, world);
         return  GameComponentMapper.getEntitiesWithComponents(entities, components);
    }
@@ -566,13 +568,32 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         item.setHeld(true);
       return  true;
    }
-public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToDetach){
+
+    /**
+     * detaches one entity from another
+     * removes the the entity's id  from the owner component array of id's
+     * and removes the owned component from  the entity
+     * also will remove the entity from a container component of the owner has one.
+     * @param entityToDetachFrom the Owner to detach the other entity from
+     * @param entityToDetach the Entity to detach fromm the owner
+     */
+    public  static  void detachEntity( Entity entityToDetachFrom,   Entity entityToDetach){
         ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
         ComponentMapper<OwnerComponent> ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
         ComponentMapper<OwnedComponent> ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
         OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToDetachFrom);
-      EntityId entityTodetachID=idComponentMapper.get(entityToDetach);
-            ownerComponent.getOwnedEntityIDs().removeValue(entityTodetachID.getId(), false);
+      String entityToDetachID=idComponentMapper.get(entityToDetach).getId();
+
+    ownerComponent.getOwnedEntityIDs().removeValue(entityToDetachID, false);
+    PackComponent packComponent=GameComponentMapper.getPackComponentComponentMapper().get(entityToDetachFrom);
+            if(packComponent!=null){
+                packComponent.getEntitiesInContainerIds().removeValue(entityToDetachID, false);
+            }
+            ContainerComponent containerComponent;
+             containerComponent = GameComponentMapper.getContainerComponentMapper().get(entityToDetachFrom);
+                if(containerComponent!=null){
+                     containerComponent.getEntitiesInContainerIds().removeValue(entityToDetachID, false);
+                }
             ownedComponentComponentMapper.get(entityToDetach);
                 entityToDetach.remove(OwnedComponent.class);
                       }

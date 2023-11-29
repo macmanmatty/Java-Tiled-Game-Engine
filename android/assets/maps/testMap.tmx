@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="16">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="31">
  <properties>
   <property name="Gravity" value="9.0"/>
   <property name="Map Name" value="Test Map"/>
@@ -192,6 +192,24 @@
     <property name="entityId" value="pack1"/>
     <property name="tmxObjectID" value="backPack"/>
    </properties>
+  </object>
+  <object id="30" x="764" y="1342.67">
+   <properties>
+    <property name="entityId" value="armor1"/>
+    <property name="tmxObjectID" value="armorChest"/>
+   </properties>
+  </object>
+  <object id="18" x="281.333" y="112"/>
+  <object id="23" x="384" y="88"/>
+  <object id="25" x="169.333" y="-222.667" width="229.333" height="125.333"/>
+  <object id="26" x="124" y="224">
+   <polygon points="0,0 65.3333,54.6667 22.6667,165.333 -34.6667,160 -76,92"/>
+  </object>
+  <object id="28" x="114.667" y="306.667">
+   <ellipse/>
+  </object>
+  <object id="29" x="141.333" y="257.333">
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

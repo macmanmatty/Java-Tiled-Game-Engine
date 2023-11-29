@@ -11,9 +11,7 @@ import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-
 import java.util.Comparator;
-
 /**
  * system for rendering  entities with  drawable and position components
  * and the on current map marker component
@@ -30,8 +28,6 @@ public  class RenderSystem extends SortedRenderingSystem {
      * the entity frame buffer used for drawing entities
      */
     private FrameBuffer frameBuffer;
-
-
     public RenderSystem(Family family , Comparator<Entity>  comparator, Batch batch, FrameBuffer frameBuffer, int priority) {
         super(  family, comparator, batch , frameBuffer,  priority);
         this.batch = batch;
@@ -43,9 +39,7 @@ public  class RenderSystem extends SortedRenderingSystem {
         positionComponentMapper= GameComponentMapper.getPositionComponentMapper();
         drawableComponentMapper=GameComponentMapper.getDrawableComponentMapper();
        onCurrentMapComponentMapper= GameComponentMapper.getOnCurrentMapComponentMapper();
-
     }
-
     /**
      *  Renders an entities current texture region  based on it's texture region and color
      * @param entity the entity to process
@@ -53,7 +47,6 @@ public  class RenderSystem extends SortedRenderingSystem {
      */
     @Override
     protected void processEntity(Entity entity, float delta) {
-
          DrawableComponent drawableComponent =drawableComponentMapper.get(entity);
         OnCurrentMap onCurrentMap= onCurrentMapComponentMapper.get(entity);
         if (drawableComponent != null && onCurrentMap!=null) {
@@ -61,7 +54,6 @@ public  class RenderSystem extends SortedRenderingSystem {
                 TextureRegion textureRegion = drawableComponent.getTextureRegion();
                 if (textureRegion != null) {
                 PositionComponent position = positionComponentMapper.get(entity);
-
                     Color color=calculateColor(drawableComponent.getColor(), drawableComponent.getBrightness());
                     if(color!=null) {
                         batch.setColor(color);
@@ -69,21 +61,16 @@ public  class RenderSystem extends SortedRenderingSystem {
                 float positionX = position.getLocationX() + drawableComponent.getDrawOffsets().x;
                 float positionY = position.getLocationY() + drawableComponent.getDrawOffsets().y;
                     batch.draw(textureRegion, positionX, positionY);
-
                 }
             }
         }
-
     }
-
     public FrameBuffer getFrameBuffer() {
         return frameBuffer;
     }
-
     public void setFrameBuffer(FrameBuffer frameBuffer) {
         this.frameBuffer = frameBuffer;
     }
-
     /**
      *  // calculates an entities  brightness based on color
      * @param entityColor the color of the entity

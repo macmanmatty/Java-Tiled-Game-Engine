@@ -13,8 +13,8 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericEditStatEditGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.NumericEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.StringEditStatEditGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Table.UITable;
 import com.jessematty.black.tower.Maps.GameMap;
 

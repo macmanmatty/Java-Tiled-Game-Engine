@@ -1,18 +1,5 @@
 
 testAssets.png
-size: 64, 64
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-noImage
-  rotate: false
-  xy: 2, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-
-testAssets2.png
 size: 256, 512
 format: RGBA8888
 filter: Nearest, Nearest
@@ -29,6 +16,19 @@ tree114
   xy: 2, 2
   size: 115, 127
   orig: 115, 127
+  offset: 0, 0
+  index: -1
+
+testAssets2.png
+size: 64, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+noImage
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 
@@ -2633,6 +2633,13 @@ tailLizardMaledie1
 tailLizardMaledie2
   rotate: false
   xy: 68, 398
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+tailLizardMaledie4
+  rotate: false
+  xy: 2, 266
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -5375,6 +5382,74 @@ lizardMalewalkUp8
   index: -1
 
 testAssets9.png
+size: 64, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+targetIcon
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+testAssets10.png
+size: 256, 16
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+statBar1
+  rotate: false
+  xy: 2, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar2
+  rotate: false
+  xy: 32, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar3
+  rotate: false
+  xy: 62, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar4
+  rotate: false
+  xy: 92, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar5
+  rotate: false
+  xy: 122, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar6
+  rotate: false
+  xy: 152, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+statBar7
+  rotate: false
+  xy: 182, 2
+  size: 28, 8
+  orig: 28, 8
+  offset: 0, 0
+  index: -1
+
+testAssets11.png
 size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
@@ -7484,5 +7559,95 @@ backPackwalkUp8
   xy: 254, 2
   size: 61, 61
   orig: 61, 61
+  offset: 0, 0
+  index: -1
+
+testAssets12.png
+size: 512, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+apple1
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+apple2
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+armor1
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+armor2
+  rotate: false
+  xy: 104, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+goldpile
+  rotate: false
+  xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+helmet1
+  rotate: false
+  xy: 172, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+potion0
+  rotate: false
+  xy: 206, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+potion1
+  rotate: false
+  xy: 240, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+potion2
+  rotate: false
+  xy: 274, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+spear1
+  rotate: false
+  xy: 308, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sword1
+  rotate: false
+  xy: 342, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sword2
+  rotate: false
+  xy: 376, 2
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

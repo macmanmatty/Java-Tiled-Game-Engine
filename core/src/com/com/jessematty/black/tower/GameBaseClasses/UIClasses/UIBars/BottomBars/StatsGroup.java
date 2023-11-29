@@ -15,9 +15,9 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.BooleanEditStatEditGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.NumericEditStatEditGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.StringEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.BooleanEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.NumericEditStatEditGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.StringEditStatEditGroup;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 public class StatsGroup extends VerticalGroup {
     private Skin skin;

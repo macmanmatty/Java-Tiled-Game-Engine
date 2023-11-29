@@ -39,7 +39,8 @@
 	useDownFrame1AsImage: false
 	imageName: bow1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -74,7 +75,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 4df16e13-e08b-4180-8031-a346c6133d8f
+	tmxObjectId: d5e30b14-6ea2-4b33-b65f-b350e914da58
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -88,6 +89,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -129,7 +131,8 @@
 	useDownFrame1AsImage: false
 	imageName: null
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -211,6 +214,7 @@
 		wings
 		tail
 		horns
+		backPack
 	]
 	body: true
 	wearable: false
@@ -262,7 +266,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -344,7 +349,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 7328967f-ea7a-4912-811d-6c6f453dc947
+			tmxObjectId: 5d2080a2-66ee-47c4-8b73-be716146564f
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -358,6 +363,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -398,7 +404,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -494,6 +501,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -534,7 +542,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -630,6 +639,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -670,7 +680,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -766,6 +777,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -806,7 +818,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -903,6 +916,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -943,7 +957,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -1044,6 +1059,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 		{
 			load: true
@@ -1084,7 +1100,8 @@
 			useDownFrame1AsImage: false
 			imageName: null
 			drawOnStart: true
-			drawLayer: 1
+			drawSubLayer: 1
+			drawLayer: 2
 			maxSpeed: 100
 			hands: 2
 			shirtSize: 0
@@ -1164,7 +1181,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: db5be1d0-ccca-47fc-a57f-5e9bcd65611d
+			tmxObjectId: 32c805bd-532f-467b-b243-1e28596b2bb7
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1209,7 +1226,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1291,7 +1309,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 7328967f-ea7a-4912-811d-6c6f453dc947
+					tmxObjectId: 5d2080a2-66ee-47c4-8b73-be716146564f
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1305,6 +1323,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 				{
 					load: true
@@ -1345,7 +1364,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1441,6 +1461,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 				{
 					load: true
@@ -1481,7 +1502,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1577,6 +1599,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 				{
 					load: true
@@ -1617,7 +1640,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1713,6 +1737,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 				{
 					load: true
@@ -1753,7 +1778,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1850,6 +1876,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 				{
 					load: true
@@ -1890,7 +1917,8 @@
 					useDownFrame1AsImage: false
 					imageName: null
 					drawOnStart: true
-					drawLayer: 1
+					drawSubLayer: 1
+					drawLayer: 2
 					maxSpeed: 100
 					hands: 2
 					shirtSize: 0
@@ -1991,6 +2019,7 @@
 					heightFromGround: 0
 					height: 0
 					placeOnMap: true
+					setDrawLayerToYPosition: false
 				}
 			]
 			attachedEntitiesIDs: []
@@ -2001,6 +2030,7 @@
 			heightFromGround: 0
 			height: 0
 			placeOnMap: true
+			setDrawLayerToYPosition: false
 		}
 	]
 	attachedEntitiesIDs: [
@@ -2013,6 +2043,7 @@
 	heightFromGround: 0
 	height: 5
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2054,7 +2085,8 @@
 	useDownFrame1AsImage: false
 	imageName: scroll1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2130,7 +2162,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 78a246fe-9e97-4708-b044-8bfdf03536aa
+	tmxObjectId: 15172fd8-13bb-4b79-acea-3099ea87c1ec
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2144,6 +2176,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2185,7 +2218,8 @@
 	useDownFrame1AsImage: false
 	imageName: shovel1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2220,7 +2254,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 3185ce42-3b60-4fcb-9856-04b7071f672f
+	tmxObjectId: 91d71e5f-4c5f-4464-b003-b8fd6629d5d8
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2234,6 +2268,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2275,7 +2310,8 @@
 	useDownFrame1AsImage: false
 	imageName: sword1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2368,7 +2404,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 27e02d72-93e3-49b1-9265-0f22d5c400e9
+	tmxObjectId: deb53ad5-4d2a-43f1-9d1d-ecef281b8b99
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2382,6 +2418,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2423,7 +2460,8 @@
 	useDownFrame1AsImage: false
 	imageName: spear1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2458,7 +2496,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 1f915329-8dc6-4c57-902c-42e7fb755bb0
+	tmxObjectId: af98b9b5-56f8-4074-8cf4-faf7f78149ae
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2472,6 +2510,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2513,7 +2552,8 @@
 	useDownFrame1AsImage: false
 	imageName: apple1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2548,7 +2588,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 485dc2df-7888-4265-b703-5cf92a7527eb
+	tmxObjectId: 6a959096-9aa8-4994-af35-e5fdbd5433e4
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2562,6 +2602,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2603,7 +2644,8 @@
 	useDownFrame1AsImage: false
 	imageName: potion1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2638,7 +2680,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: a41a010b-d144-4bc9-bf16-29ce009258f9
+	tmxObjectId: c070d8d4-60fd-4cca-93dd-9104d8879310
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2652,6 +2694,7 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2693,7 +2736,8 @@
 	useDownFrame1AsImage: false
 	imageName: null
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 4
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2808,8 +2852,8 @@
 	price: 0
 	condition: 0
 	slots: 0
-	maxAtachedWeight: 0
-	internalVolume: 0
+	maxAtachedWeight: 100000
+	internalVolume: 1000000
 	maxPrice: 0
 	minPrice: 0
 	item: false
@@ -2825,7 +2869,7 @@
 	attachableParts: []
 	body: false
 	wearable: false
-	pack: false
+	pack: true
 	plant: false
 	humanLikeCharacter: false
 	tmxObjectId: backPack
@@ -2835,13 +2879,14 @@
 	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
 	attachedEntitiesIDs: []
-	upLayerOffset: 0
+	upLayerOffset: -1
 	downLayerOffset: 0
 	leftLayerOffset: 0
 	rightLayerOffset: 0
 	heightFromGround: 0
 	height: 0
 	placeOnMap: false
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2858,8 +2903,8 @@
 	colorA: 1
 	mass: 100
 	volume: 100
-	boundsX: 300
-	boundsY: 300
+	boundsX: 0
+	boundsY: 0
 	boundsXOffset: 0
 	boundsYOffset: 0
 	health: 0
@@ -2883,7 +2928,8 @@
 	useDownFrame1AsImage: false
 	imageName: tree
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2147483647
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -2975,6 +3021,7 @@
 	heightFromGround: 0
 	height: 100
 	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3016,7 +3063,8 @@
 	useDownFrame1AsImage: false
 	imageName: axe1
 	drawOnStart: true
-	drawLayer: 1
+	drawSubLayer: 1
+	drawLayer: 2
 	maxSpeed: 100
 	hands: 2
 	shirtSize: 0
@@ -3051,7 +3099,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 72758bf1-991e-4fe7-900b-13a59df67ea3
+	tmxObjectId: 72017123-ae1e-4335-9ec3-b986bf923a6b
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3065,5 +3113,139 @@
 	heightFromGround: 0
 	height: 0
 	placeOnMap: true
+	setDrawLayerToYPosition: false
+}
+{
+	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
+	load: true
+	atlasName: textureAtlases/testAssets/testAssets.atlas
+	animatableBodyName: chestArmor
+	sex: Male
+	name: Chest Armor
+	info: info
+	brightness: 0.67
+	colorR: 1
+	colorG: 0
+	colorB: 0.1
+	colorA: 1
+	mass: 1
+	volume: 100
+	boundsX: 0
+	boundsY: 0
+	boundsXOffset: 0
+	boundsYOffset: 0
+	health: 100
+	maxHealth: 0
+	killWhenZeroHealth: true
+	hardness: 0
+	hashSlashFrames: true
+	overSizeSlash: true
+	hasThrustFrames: true
+	hasWalkFrames: true
+	hasShootFrames: true
+	hasDieFrames: true
+	hasSpellCastFrames: true
+	hasEatFrames: true
+	hasPickupFrames: true
+	hasThrowFrames: true
+	animated: true
+	lpcActorAnimated: true
+	drawable: true
+	hasImage: false
+	useDownFrame1AsImage: true
+	imageName: null
+	drawOnStart: true
+	drawSubLayer: -2147483648
+	drawLayer: -2147483648
+	maxSpeed: 100
+	hands: 2
+	shirtSize: 0
+	shoeSize: 0
+	pantSize: 0
+	gloveSize: 0
+	moveable: false
+	numericStatsChangeableList: []
+	booleanStatChangeableList: []
+	stringStatChangeableList: []
+	stats: [
+		{
+			class: com.jessematty.black.tower.Components.Stats.NumericStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: condition
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			value: 100
+			minValue: 0
+			maxValue: 100
+			killWhenZero: false
+			displayMinAndMax: true
+			linkedStatsToChange: []
+			hasStatBar: true
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.BooleanStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: on
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			flag: true
+			linkedBooleanStats: []
+		}
+		{
+			class: com.jessematty.black.tower.Components.Stats.StringStat
+			displayable: true
+			combinable: true
+			changeGroups: []
+			name: class
+			removable: false
+			displayGroups: []
+			unchangeable: false
+			stat: lizard
+		}
+	]
+	price: 0
+	condition: 0
+	slots: 0
+	maxAtachedWeight: 0
+	internalVolume: 0
+	maxPrice: 0
+	minPrice: 0
+	item: false
+	readable: false
+	ingestable: false
+	drinkable: false
+	slashable: false
+	thrustable: false
+	shootable: false
+	holder: false
+	part: true
+	partClass: armor
+	attachableParts: []
+	body: false
+	wearable: false
+	pack: false
+	plant: false
+	humanLikeCharacter: false
+	tmxObjectId: armorChest
+	bounds: null
+	groups: []
+	groupsAddable: []
+	attachedEntitiesTmxObjectIDs: []
+	attachedEntityDTOs: []
+	attachedEntitiesIDs: []
+	upLayerOffset: 0
+	downLayerOffset: 0
+	leftLayerOffset: 0
+	rightLayerOffset: 0
+	heightFromGround: 0
+	height: 0
+	placeOnMap: true
+	setDrawLayerToYPosition: false
 }
 ]

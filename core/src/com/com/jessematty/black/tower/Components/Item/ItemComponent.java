@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Components.Item;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * component for an Item
@@ -59,6 +60,11 @@ public class ItemComponent implements Component {
      *  the pack slot the item is in if the item is a slotted pack
      */
     private int slot;
+
+
+
+    public ItemComponent() {
+    }
 
     public boolean isInContainer() {
         return inContainer;

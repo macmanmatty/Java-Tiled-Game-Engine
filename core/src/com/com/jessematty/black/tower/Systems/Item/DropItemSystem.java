@@ -52,9 +52,8 @@ public class DropItemSystem extends GameEntitySystem {
     @Override
     public void update(float deltaTime) {
         ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( ItemComponent.class, ActionComponent.class,   PositionComponent.class, DropItemComponent.class).get());
-        int size = entities.size();
         for (Entity itemToDrop: entities) {
-            itemToDrop.remove(DropItemComponent.class);
+                itemToDrop.remove(DropItemComponent.class);
                 ItemComponent item=itemComponentMapper.get(itemToDrop);
                 ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
                 OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToDrop);

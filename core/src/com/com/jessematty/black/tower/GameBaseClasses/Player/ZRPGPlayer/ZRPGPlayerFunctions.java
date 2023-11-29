@@ -3,6 +3,8 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Character.CharacterItemFunctions;
@@ -13,6 +15,10 @@ import com.jessematty.black.tower.GameBaseClasses.Input.InputKeyCombo;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyAction;
 import com.jessematty.black.tower.GameBaseClasses.Input.KeyPressMode;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.OnEntitySelectFunctions;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.PackUtilities;
 
 /**
@@ -62,11 +68,10 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(increaseSpeedCombo);
         InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
         playerControlFunctions.add(decreaseSpeedCombo);
-        InputKeyCombo displayPackWindow= new InputKeyCombo(displayPack, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
-        playerControlFunctions.add(displayPackWindow);
         InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
         playerControlFunctions.add(slashCombo);
-
+        InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        playerControlFunctions.add(packDisplay);
 
     }
     private KeyAction slash =new KeyAction(){
@@ -211,6 +216,14 @@ public class ZRPGPlayerFunctions {
 
             PackUtilities.getAvailableContainers(mapDraw.getWorld(), player.getPacks(), null);
     }};
+
+    private KeyAction viewPacks =new KeyAction(){
+        @Override
+        public void act()  {
+            Array<Entity> containers=EntityUtilities.getAllOwnedEntitiesWithComponents( player.getWorld(), player.getPlayerEntity(), PackComponent.class);
+         EntitySelectWindow window=  new EntitySelectWindow(mapDraw.getGameAssets().getCurrentSkin(), containers, mapDraw.getGameAssets(), new OnEntitySelectFunctions(mapDraw).packDisplay);
+            mapDraw.getUiStage().addWindow(window, ScreenPosition.CENTER);
+        }};
 
     public Array<InputKeyCombo> getPlayerControlFunctions() {
         return playerControlFunctions;
