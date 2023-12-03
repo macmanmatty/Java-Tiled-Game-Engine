@@ -1,14 +1,18 @@
 package TestEntities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
 
 import org.junit.Test;
+
+import java.lang.reflect.Array;
 
 import Maps.TestMap;
 public class BaseEntityTests {
@@ -40,4 +44,14 @@ public class BaseEntityTests {
     world.removeEntityFromWorld(movable1);
     assertEquals(engine.getEntities().size(), 50*50);
     }
+
+    @Test
+    public void gameComponentTest(){
+      Entity entity= new Entity();
+      entity.add( new PositionComponent());
+      PositionComponent positionComponent= GameComponentMapper.getPositionComponentMapper().get(entity);
+      assertNotNull(positionComponent);
+    }
+
+
 }

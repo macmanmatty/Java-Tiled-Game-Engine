@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
@@ -18,7 +19,7 @@ public class GameComponentMapperTest {
     @Test
   public void   getAllEntitiesWithComponents(){
         Entity entity=new Entity();
-        entity.add( new PackComponent());
+        entity.add( new ContainerComponent());
         entity.add( new ItemComponent());
         Entity entity2= new Entity();
         entity2.add(new ItemComponent());

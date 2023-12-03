@@ -16,6 +16,7 @@ import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
@@ -311,7 +312,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
     
     
     private EntityBag  generatePack(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
-        PackComponent packComponent = new PackComponent();
+        ContainerComponent packComponent = new ContainerComponent();
         packComponent.setMaxHoldWeight(lpcObjectGeneratorDTO.getMaxAtachedWeight());
         packComponent.setMaxVolume(lpcObjectGeneratorDTO.getInternalVolume());
        entityBag.getOwner().add(packComponent);

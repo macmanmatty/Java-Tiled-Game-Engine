@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Other.DominateHand;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
@@ -29,6 +30,7 @@ import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Maps.World;
 
 /**
@@ -36,6 +38,7 @@ import com.jessematty.black.tower.Maps.World;
  * be it a Enemy, Friendly,  NPC, Quest Giver, Shop Owner or the Player
  * with convenience  access to commonly used components;
  */
+@Transient
 public class ZRPGCharacter implements Component {
     /**
      * commonly used the components
@@ -76,41 +79,35 @@ public class ZRPGCharacter implements Component {
 
     public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
-        AIComponent aiComponent= new AIComponent();
+        this.playerEntity.add(new CharacterComponent());
+        AIComponent aiComponent= GameComponentMapper.getAiComponentMapper().get(playerEntity);
+        if (aiComponent==null){
+            aiComponent=new AIComponent();
+            playerEntity.add(aiComponent);
+        }
         this.ZRPGBrainComponen =aiComponent.getZRPGBrainComponen();
-        playerEntity.add(aiComponent);
         this.world=world;
-        this.movableComponent = playerEntity.getComponent(MovableComponent.class);
-        this.position = playerEntity.getComponent(PositionComponent.class);
-        this.numericStats = playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.NumericStats.class);
-        this.booleanStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.BooleanStats.class);
-        this.stringStats= playerEntity.getComponent(com.jessematty.black.tower.Components.Stats.StringStats.class);
-        this.physicalObject = playerEntity.getComponent(PhysicalObjectComponent.class);
-        this.drawableComponent = playerEntity.getComponent(DrawableComponent.class);
-        this.animatable = playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.AnimatableComponent.class);
-        this.actionComponent = playerEntity.getComponent(ActionComponent.class);
-        this.ears= playerEntity.getComponent(Ears.class);
-        this.eyes= playerEntity.getComponent(Eyes.class);
-        this.nose= playerEntity.getComponent(Nose.class);
-        this.bodyComponent =playerEntity.getComponent(BodyComponent.class);
-        this.imageComponent=playerEntity.getComponent(com.jessematty.black.tower.Components.Animation.ImageComponent.class);
-        this.ownerComponent= playerEntity.getComponent(com.jessematty.black.tower.Components.AttachEntity.OwnerComponent.class);
-        this.id=playerEntity.getComponent(EntityId.class).getId();
+        this.movableComponent=GameComponentMapper.getMovableComponentMapper().get(playerEntity);
+        this.position = GameComponentMapper.getPositionComponentMapper().get(playerEntity);
+        this.numericStats = GameComponentMapper.getNumericStatsComponentMapper().get(playerEntity);
+        this.booleanStats= GameComponentMapper.getBooleanStatsComponentMapper().get(playerEntity);
+        this.stringStats= GameComponentMapper.getStringStatsComponentMapper().get(playerEntity);
+        this.physicalObject = GameComponentMapper.getPhysicalObjectComponentMapper().get(playerEntity);
+        this.drawableComponent =GameComponentMapper.getDrawableComponentMapper().get(playerEntity);
+        this.animatable = GameComponentMapper.getAnimatableComponentMapper().get(playerEntity);
+        this.actionComponent = GameComponentMapper.getActionComponentMapper().get(playerEntity);
+        this.bodyComponent =GameComponentMapper.getBodyComponentComponentMapper().get(playerEntity);
+        this.imageComponent=GameComponentMapper.getImageComponentMapper().get(playerEntity);
+        this.ownerComponent= GameComponentMapper.getOwnerComponentComponentMapper().get(playerEntity);
+        this.id=GameComponentMapper.getIdComponentMapper().get(playerEntity).getId();
        this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
        this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-       handHolders[1]=hands[1].getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
-        handHolders[0]=hands[0].getComponent(com.jessematty.black.tower.Components.AttachEntity.Holder.class);
+       handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
+        handHolders[0]= GameComponentMapper.getHolderComponentMapper().get(hands[1]);
         this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
         this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));
-        this.thrower= playerEntity.getComponent(com.jessematty.black.tower.Components.Attacks.Thrower.class);
-        this.nameComponent = playerEntity.getComponent(NameComponent.class);
+        this.nameComponent = GameComponentMapper.getNameComponentMapper().get(playerEntity);
         this.speed=numericStats.getNumericStat("speed");
-        Playable playable= playerEntity.getComponent(Playable.class);
-        if(playable==null){
-            playable= new Playable();
-            playerEntity.add(playable);
-        }
-        playable.setCurrentPlayer(true);
     }
     public MovableComponent getMovableComponent() {
         return movableComponent;

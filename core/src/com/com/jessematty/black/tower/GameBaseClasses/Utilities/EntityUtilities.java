@@ -584,11 +584,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         OwnerComponent ownerComponent=ownerComponentComponentMapper.get(entityToDetachFrom);
       String entityToDetachID=idComponentMapper.get(entityToDetach).getId();
 
-    ownerComponent.getOwnedEntityIDs().removeValue(entityToDetachID, false);
-    PackComponent packComponent=GameComponentMapper.getPackComponentComponentMapper().get(entityToDetachFrom);
-            if(packComponent!=null){
-                packComponent.getEntitiesInContainerIds().removeValue(entityToDetachID, false);
-            }
+        ownerComponent.getOwnedEntityIDs().removeValue(entityToDetachID, false);
             ContainerComponent containerComponent;
              containerComponent = GameComponentMapper.getContainerComponentMapper().get(entityToDetachFrom);
                 if(containerComponent!=null){

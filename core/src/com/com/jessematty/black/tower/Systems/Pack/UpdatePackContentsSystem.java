@@ -22,7 +22,7 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class UpdatePackContentsSystem extends GameEntitySystem {
     private ComponentMapper<ContainerComponent> containerComponentComponentMapper;
-    private ComponentMapper<PackComponent> packComponentMapper;
+    private ComponentMapper<ContainerComponent> packComponentMapper;
     private ComponentMapper<PositionComponent> positionComponentComponentMapper;
     public UpdatePackContentsSystem(MapDraw draw) {
         super(draw);

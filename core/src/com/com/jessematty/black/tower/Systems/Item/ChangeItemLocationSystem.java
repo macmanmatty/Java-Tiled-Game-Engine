@@ -14,7 +14,6 @@ import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class ChangeItemLocationSystem extends GameEntitySystem {
 
-       private PackComponent packComponent;
        private  Entity entity;
        private PhysicalObjectComponent object;
        private PositionComponent position;
@@ -23,9 +22,8 @@ public class ChangeItemLocationSystem extends GameEntitySystem {
        private ComponentMapper<ItemComponent> itemComponentMapper;
 
 
-    public ChangeItemLocationSystem(MapDraw draw, PackComponent packComponent, Entity entity) {
+    public ChangeItemLocationSystem(MapDraw draw, Entity entity) {
         super(draw);
-        this.packComponent = packComponent;
         this.entity = entity;
         idComponentMapper= GameComponentMapper.getIdComponentMapper();
     }

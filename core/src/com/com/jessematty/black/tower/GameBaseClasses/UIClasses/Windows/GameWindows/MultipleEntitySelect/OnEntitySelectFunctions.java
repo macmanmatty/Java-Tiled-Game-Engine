@@ -20,7 +20,7 @@ public class OnEntitySelectFunctions {
    public  OnSelected<Entity> packDisplay= new OnSelected<Entity>() {
         @Override
         public void onSelected(Entity item) {
-            PackComponent packComponent= GameComponentMapper.getPackComponentComponentMapper().get(item);
+            ContainerComponent packComponent= GameComponentMapper.getContainerComponentMapper().get(item);
             OnSelected onSelected= new OnSelected() {
                 @Override
                 public void onSelected(Object item) {

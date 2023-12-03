@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
+import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
 import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 
 public class PackDisplay {
 private Skin skin;
-private PackComponent packComponent;
+private ContainerComponent packComponent;
 private Window window;
 private GameAssets gameAssets;
 private World world;
@@ -54,7 +55,7 @@ private ComponentMapper<NameComponent> nameComponentMapper;
 
 	}
 
-	public Window displayPack(PackComponent packComponent, ZRPGCharacter player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
+	public Window displayPack(ContainerComponent packComponent, ZRPGCharacter player, Skin skin, String style, Class<? extends Component> ...components){ // displays the contents of fighters pack
 		this.packComponent = packComponent;
 		this.skin=skin;
 	window= new Window("Pack Contents", skin);
