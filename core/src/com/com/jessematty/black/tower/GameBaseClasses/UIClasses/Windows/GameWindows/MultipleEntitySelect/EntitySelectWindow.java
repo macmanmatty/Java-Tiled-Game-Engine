@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.EntitySelectHorizontalGroup;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Entity.EntitySelectHorizontalGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ClosableWindow;
 /**(
@@ -41,13 +41,16 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
    String buttonText;
 
 
-    public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets, String buttonText,  OnSelected<Entity> onSelected){
-        super("Pick An Entity", skin, true, false, false);
+    public EntitySelectWindow(String title, Skin skin, Array<Entity> entities, GameAssets gameAssets, String buttonText,  OnSelected<Entity> onSelected){
+        super(title, skin, true, false, false);
         this.entities = entities;
         this.gameAssets=gameAssets;
         this.onSelected=onSelected;
         this.buttonText=buttonText;
         createWindow();
+    }
+    public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets, String buttonText,  OnSelected<Entity> onSelected){
+        this("Pick An Entity", skin, entities, gameAssets, buttonText, onSelected);
     }
     public EntitySelectWindow(Skin skin, Array<Entity> entities, GameAssets gameAssets,  OnSelected<Entity> onSelected){
         this(skin, entities, gameAssets, "Select" , onSelected);
@@ -62,7 +65,6 @@ public class EntitySelectWindow extends ClosableWindow implements EntitySettable
             EntitySelectHorizontalGroup entitySelectHorizontalGroup = new EntitySelectHorizontalGroup(this, gameAssets, getSkin(), entity);
             table.add(entitySelectHorizontalGroup);
             table.row();
-            
         }
         ScrollPane scrollPane=  new ScrollPane(table);
         scrollPane.setTransform(true);

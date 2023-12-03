@@ -85,7 +85,9 @@ public  class AnimationSystem extends GameEntitySystem {
                     entity.add(new AnimationFinished());
                     actionComponent.stopAction();
                 }
-                drawableComponent.setLayerNumber(-position.getLocationY() - drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
+                if(drawableComponent.isSetLayerToYPosition()) {
+                    drawableComponent.setLayerNumber(-position.getLocationY() - drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position
+                }
                 if (drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()) { // layer changed sort entities before drawing them
                     renderSystem.forceSort();
                 }

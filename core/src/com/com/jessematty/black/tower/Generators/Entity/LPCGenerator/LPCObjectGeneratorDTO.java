@@ -108,9 +108,13 @@ public class LPCObjectGeneratorDTO {
      */
     boolean drawOnStart=true;
     /**
+     * what z sub layer to draw the item on
+     */
+    int drawSubLayer =1;
+    /**
      * what z layer to draw the item on
      */
-    int drawLayer=1;
+    int drawLayer =2;
     /**
      * the entities max speed
      */
@@ -275,8 +279,7 @@ public class LPCObjectGeneratorDTO {
      *
      */
     private boolean placeOnMap=true;
-
-
+    private boolean setDrawLayerToYPosition;
 
     public String getAtlasName() {
         return atlasName;
@@ -483,11 +486,11 @@ public class LPCObjectGeneratorDTO {
     public void setDrawOnStart(boolean drawOnStart) {
         this.drawOnStart = drawOnStart;
     }
-    public int getDrawLayer() {
-        return drawLayer;
+    public int getDrawSubLayer() {
+        return drawSubLayer;
     }
-    public void setDrawLayer(int drawLayer) {
-        this.drawLayer = drawLayer;
+    public void setDrawSubLayer(int drawSubLayer) {
+        this.drawSubLayer = drawSubLayer;
     }
     
     
@@ -838,5 +841,21 @@ public class LPCObjectGeneratorDTO {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public int getDrawLayer() {
+        return drawLayer;
+    }
+
+    public void setDrawLayer(int drawLayer) {
+        this.drawLayer = drawLayer;
+    }
+
+    public boolean isSetDrawLayerToYPosition() {
+        return setDrawLayerToYPosition;
+    }
+
+    public void setSetDrawLayerToYPosition(boolean setDrawLayerToYPosition) {
+        this.setDrawLayerToYPosition = setDrawLayerToYPosition;
     }
 }

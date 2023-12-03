@@ -5,6 +5,7 @@
     },
     "activeFile": "testMap.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "magecity.tsx": {
@@ -13,10 +14,10 @@
         },
         "testMap.tmx": {
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 436,
-                "y": 420.66666666666663
+                "x": 1645.3333333333333,
+                "y": 680.6666666666667
             }
         }
     },
@@ -29,6 +30,7 @@
         "magecity.tsx"
     ],
     "project": "testMap.tiled-project",
+    "property.type": "string",
     "recentFiles": [
         "magecity.tsx",
         "testMap.tmx"

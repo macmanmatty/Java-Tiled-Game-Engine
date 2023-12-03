@@ -49,7 +49,10 @@ public class TestEntities {
 
     static LPCObjectGeneratorDTO axe= new LPCObjectGeneratorDTO();
 
-   static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
+    static LPCObjectGeneratorDTO armorChest = new LPCObjectGeneratorDTO();
+
+
+    static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
     static BooleanStat on= new BooleanStat(true, "on", true);
@@ -82,7 +85,7 @@ public class TestEntities {
         lizard.getAttachedEntitiesTmxObjectIDs().addAll("1", "2", "3", "4","5", "6");
         lizard.getAttachedEntityDTOs().addAll(leftFoot, rightFoot, rightHand, leftHand, head, torso, tail);
         lizard.setBody(true);
-        lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns");
+        lizard.getAttachableParts().addAll("leftHand", "rightHand", "leftFoot", "rightFoot", "torso", "head", "wings", "tail", "horns", "backPack");
         lizard.getAttachedEntitiesIDs().add("pack1");
         lizard.setBoundsX(40);
         lizard.setBoundsY(64);
@@ -297,11 +300,12 @@ public class TestEntities {
         tree.setDrawOnStart(true);
         tree.getStats().add(health, on, classuz);
         tree.setTmxObjectId("tree");
-        tree.setBoundsY(300);
-        tree.setBoundsX(300);
+//        tree.setBoundsY(300);
+//        tree.setBoundsX(300);
         tree.setMass(100);
         tree.setVolume(100);
         tree.setHeight(100);
+        tree.setDrawLayer(Integer.MAX_VALUE);
 
 
 
@@ -328,6 +332,11 @@ public class TestEntities {
         pack.setPartClass("backPack");
         pack.setTmxObjectId("backPack");
         pack.setPlaceOnMap(false);
+        pack.setDrawSubLayer(4);
+        pack.setUpLayerOffset(-1);
+        pack.setPack(true);
+        pack.setMaxAtachedWeight(100000);
+        pack.setInternalVolume(1000000);
 
 
 
@@ -490,6 +499,35 @@ public class TestEntities {
         bow.setDrawable(false);
 
 
+        armorChest.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        armorChest.setAnimatableBodyName("chestArmor");
+        armorChest.setDrawSubLayer(Integer.MIN_VALUE);
+        armorChest.setName("Chest Armor");
+        armorChest.setSex("Male");
+        armorChest.setBrightness( .67f);
+        armorChest.setColorA(1);
+        armorChest.setColorB(.1f);
+        armorChest.setColorR(1);
+        armorChest.setColorG(0);
+        armorChest.setHeight(0);
+        armorChest.setBoundsX(0);
+        armorChest.setBoundsY(0);
+        armorChest.setHealth(100);
+        armorChest.setMass(1);
+        armorChest.setVolume(100);
+        armorChest.setAnimated(true);
+        armorChest.setDrawable(true);
+        armorChest.setDrawOnStart(true);
+        armorChest.setLpcActorAnimated(true);
+        armorChest.getStats().add(condition, on, classuz);
+        armorChest.setLoad(true);
+        armorChest.setPart(true);
+        armorChest.setUseDownFrame1AsImage(true);
+        armorChest.setPartClass("armor");
+        armorChest.setTmxObjectId("armorChest");
+        armorChest.setPlaceOnMap(true);
+        armorChest.setDrawLayer(Integer.MIN_VALUE);
+
     }
 
     public TestEntities() {
@@ -514,6 +552,7 @@ public class TestEntities {
         lpcObjectGeneratorDTOS.add(pack);
         lpcObjectGeneratorDTOS.add(tree);
         lpcObjectGeneratorDTOS.add(axe);
+        lpcObjectGeneratorDTOS.add(armorChest);
 
 
 

@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
@@ -63,6 +64,13 @@ public class TiledMapGameLoader {
      * string [1]= entity to attach id
      */
     private Array<String []> entitiesToAttach= new Array<>();
+
+    /**
+     * array of linked parts to attach
+     * string [0] = entity to attach to id
+     * string [1]= part to attach id
+     */
+    private Array<String []> partsToAttach= new Array<>();
     /**
      * creates a new TiledMaGameLoader  object from a existing world
      * @param gameAssets the game assets object
@@ -257,7 +265,6 @@ public class TiledMapGameLoader {
         String objectGeneratorDTOPath = mapProperties.get("objectDTOPath", String.class);
         String name = mapProperties.get("mapName", String.class);
         ObjectMap<String, LPCObjectGeneratorDTO> generatorDTOObjectMap = lpcObjectGenerator.generateObjectDTOMap(objectGeneratorDTOPath, fileHandleType);
-        Array<EntityBag> entityBags = new Array<>();
         Integer width = mapProperties.get("width", java.lang.Integer.class);
         Integer height = mapProperties.get("height", Integer.class);
         Integer tileSizeX = mapProperties.get("tilewidth", Integer.class);
@@ -281,7 +288,7 @@ public class TiledMapGameLoader {
             throw new MapLoadingException("Map Has no Layers");
         }
         for (MapLayer mapLayer : mapLayers) {
-        loadMapObjects(gameMap.getId(), entityBags, generatorDTOObjectMap, mapLayer.getObjects());
+        loadMapObjects(gameMap.getId(), generatorDTOObjectMap, mapLayer.getObjects());
         if(mapLayer instanceof  TiledMapTileLayer){
             addTiledMapTileLayer(mapLayer,newMapLayers, world.getWorldTextureAtlas(), gameMap.getMapName());
         }
@@ -335,19 +342,36 @@ public class TiledMapGameLoader {
        map.setMap(tiles);
        return  map;
    }
-    private Array<EntityBag> loadMapObjects (String mapId, Array<EntityBag> entityBags, ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) throws EntityLoadingException {
-        for (MapObject mapObject : mapObjects) {
-            MapProperties properties = mapObject.getProperties();
-            Float  x=properties.get("x" , float.class);
-            Float y=properties.get("y" , float.class);
+
+    private void loadMapObjects (String mapId,  ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapObjects mapObjects) throws EntityLoadingException {
+       for (MapObject mapObject : mapObjects) {
+           MapProperties properties = mapObject.getProperties();
+           loadLpcMapObject( mapObject, mapId, lpcObjectGeneratorObjectMap, properties);
+       }
+
+       }
+
+    /**
+     * loads a tmx tiled map object from the object layer.
+     * @param mapObject the tmx map object
+     * @param mapId the id of the game map
+     * @param lpcObjectGeneratorObjectMap the map of lpc object generation dtos
+     * @param properties the map properties object aka object properties for the map object
+     * @throws EntityLoadingException
+     */
+    private void  loadLpcMapObject ( MapObject mapObject, String mapId,  ObjectMap<String, LPCObjectGeneratorDTO> lpcObjectGeneratorObjectMap, MapProperties properties) throws EntityLoadingException {
+            Float  x=properties.get("x" , Float.class);
+            Float y=properties.get("y" , Float.class);
+            Float width=properties.get("width" , Float.class);
+            Float height=properties.get("height", Float.class);
             String entityId=properties.get("entityId", String.class);
             String tmxObjectID = properties.get("tmxObjectID", String.class);
             if(tmxObjectID==null) {
-                continue;
+                return;
             }
             LPCObjectGeneratorDTO lpcObjectGeneratorDTO = lpcObjectGeneratorObjectMap.get(tmxObjectID);
             if(lpcObjectGeneratorDTO==null){
-                continue;
+                return;
             }
             String textureAtlasPath=lpcObjectGeneratorDTO.getAtlasName();
             TextureAtlas textureAtlas= getTextureAtlas(textureAtlasPath);
@@ -363,23 +387,34 @@ public class TiledMapGameLoader {
             Entity entity=entityBag.getOwner();
             addEntityLinks( entity, lpcObjectGeneratorDTO);
             PositionComponent positionComponent = GameComponentMapper.getPositionComponentMapper().get(entity);
-            if (lpcObjectGeneratorDTO.isPlaceOnMap()) {
+            if (lpcObjectGeneratorDTO.isPlaceOnMap() && y>0 && x>0) {
                 positionComponent.setPosition(x, y);
-                positionComponent.setMapID(mapId);
+                if(width!=null && width>0 && height!=null && height>0){
+                   positionComponent.setBounds(width, height);
+                }
             }
             else{
                 positionComponent.removeBounds();
             }
-            entityBags.add(entityBag);
+            positionComponent.setMapID(mapId);
             world.addEntityToWorld(entityBag);
             String id=GameComponentMapper.getIdComponentMapper().get(entity).getId();
             if(entityBagArray.get(id)!=null){
                 throw new EntityLoadingException("Duplicate Entity Id: "+id+" detected  please check your entity ids");
             }
             entityBagArray.put(id,  entityBag);
-        }
-        return entityBags;
+
+        return;
     }
+
+    /**
+     * add the entity of the owner and the id of the
+     * owned entity to in to the array of entities to attach
+     *  to be later attached  to each other.
+     * @param entity the entity to attach
+     * @param lpcObjectGeneratorDTO the object generation dto containing
+     *  the array on entity ids to link
+     */
     private void addEntityLinks(Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
         Array<String> attachedEntityIds=lpcObjectGeneratorDTO.getAttachedEntitiesIDs();
         String ownerId=entity.getComponent(EntityId.class).getId();
@@ -401,7 +436,19 @@ public class TiledMapGameLoader {
             if(owner==null){
                 throw new EntityLoadingException("cannot link entity  as  owner  entity with id: "+ids[0] +" doesn't exist");
             }
-            EntityUtilities.attachEntity(owner, owned);
+            PartComponent partComponent=GameComponentMapper.getPartComponentComponentMapper().get(owned);
+            if(partComponent!=null){
+                String entityId=EntityUtilities.attachPart( owner, owned);
+                if(entityId!=null){
+                    throw new EntityLoadingException("part " +partComponent.getPartClass()+ " could not be  attached  entity with id: "+ids[1] +" check your configuration");
+                }
+            }
+            else {
+                boolean entity = EntityUtilities.attachEntity(owner, owned);
+                if (!entity) {
+                    throw new EntityLoadingException("entity with id : " + ids[0] + " could not be  attached  entity with id: " + ids[1] + " check your configuration did you try to attach the same entity twice?");
+                }
+            }
         }
     }
     public TextureAtlas getTextureAtlas(String textureAtlasPath){

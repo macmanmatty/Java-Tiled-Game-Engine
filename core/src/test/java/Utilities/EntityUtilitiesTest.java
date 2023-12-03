@@ -5,9 +5,14 @@ import static org.junit.Assert.assertNotNull;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Animation.ImageComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
+import com.jessematty.black.tower.Components.Attacks.Shootable;
+import com.jessematty.black.tower.Components.Attacks.Slashable;
 import com.jessematty.black.tower.Components.Base.EntityId;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.Other.Weapon;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
@@ -105,6 +110,45 @@ public class EntityUtilitiesTest {
         assertEquals(owned, entities.get(0));
         assertEquals(owned2, entities.get(2));
         assertEquals(subOwned, entities.get(1));
+    }
+
+    @Test
+    public void testGetAllOwnedEntitiesLevel3WithItem(){
+        subOwned.add(new ItemComponent());
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.attachEntity( owner, owned2);
+        EntityUtilities.attachEntity(owned, subOwned);
+        Array<Entity> entities= EntityUtilities.getAllOwnedEntitiesWithComponents( testWorld, owner, ItemComponent.class);
+        assertEquals(1,entities.size);
+    }
+    @Test
+    public void testGetAllOwnedEntitiesLevel3WithItems(){
+        subOwned.add(new ItemComponent());
+        owned.add(new ItemComponent());
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.attachEntity( owner, owned2);
+        EntityUtilities.attachEntity(owned, subOwned);
+        Array<Entity> entities= EntityUtilities.getAllOwnedEntitiesWithComponents( testWorld, owner, ItemComponent.class);
+        assertEquals(2,entities.size);
+    }
+    @Test
+    public void testGetAllOwnedEntitiesLevel3WithNoComponents(){
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.attachEntity( owner, owned2);
+        EntityUtilities.attachEntity(owned, subOwned);
+        Array<Entity> entities= EntityUtilities.getAllOwnedEntitiesWithComponents( testWorld, owner, Shootable.class);
+        assertEquals(0,entities.size);
+    }
+    @Test
+    public void testGetAllOwnedEntitiesLevel3With2Components(){
+        subOwned.add(new ItemComponent());
+        owned.add(new ItemComponent());
+        owned.add( new Weapon());
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.attachEntity( owner, owned2);
+        EntityUtilities.attachEntity(owned, subOwned);
+        Array<Entity> entities= EntityUtilities.getAllOwnedEntitiesWithComponents( testWorld, owner, ItemComponent.class, Weapon.class);
+        assertEquals(1,entities.size);
     }
     @Test
     public void testAttachEntityWithOwnedComponentWithGetAllOwnedEntitiesIDs(){

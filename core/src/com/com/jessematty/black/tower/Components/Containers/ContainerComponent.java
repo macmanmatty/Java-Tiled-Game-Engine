@@ -28,10 +28,6 @@ public class ContainerComponent implements Component {
      * the ids of the entities in the container
      */
    private Array<String > entitiesInContainerIds = new Array<String>();
-    /**
-     * an libGDX array of all entities in the container
-     */
-    private transient Array<Entity> entitiesInContainer = new Array<Entity>();
 
     /**
      *  the allowable groups to add  to the container
@@ -99,11 +95,6 @@ public class ContainerComponent implements Component {
     public Array<String> getEntitiesInContainerIds() {
         return entitiesInContainerIds;
     }
-
-    public Array<Entity> getEntitiesInContainer() {
-        return entitiesInContainer;
-    }
-
     public Array<String> getGroupsAddable() {
         return groupsAddable;
     }

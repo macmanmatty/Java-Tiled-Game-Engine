@@ -16,6 +16,7 @@ import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.RandomNumbers;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -51,22 +52,24 @@ public class DropItemSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( ItemComponent.class, ActionComponent.class,   PositionComponent.class, DropItemComponent.class).get());
-        int size = entities.size();
+        ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all(ItemComponent.class, ActionComponent.class,   PositionComponent.class, DropItemComponent.class).get());
         for (Entity itemToDrop: entities) {
-            itemToDrop.remove(DropItemComponent.class);
+                itemToDrop.remove(DropItemComponent.class);
                 ItemComponent item=itemComponentMapper.get(itemToDrop);
                 ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
-                OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToDrop);
                 PositionComponent positionComponent=positionComponentMapper.get(itemToDrop);
                 actionComponent.setActing(false);
                 actionComponent.setStat("rest");
                 item.setInContainer(false);
                 item.setOnGround(true);
-                if(ownedComponent!=null && ownedComponent.isRemoveOnPhysicalDetachment()){
-                    itemToDrop.remove(OwnedComponent.class);
-                }
+                item.setHeld(false);
                 positionComponent.reInstateBounds();
+            OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToDrop);
+            if(ownedComponent!=null) {
+                String ownerId = ownedComponent.getOwnerEntityID();
+                Entity entity = getWorld().getEntity(ownerId);
+                EntityUtilities.detachEntity(itemToDrop, entity);
+            }
             GameMap map= getWorld().getMap(positionComponent.getMapId());
            positionComponent.setTiles( map.getAllTilesAndAddEntity(positionComponent.getBoundsBoundingRectangle(), itemToDrop));
 

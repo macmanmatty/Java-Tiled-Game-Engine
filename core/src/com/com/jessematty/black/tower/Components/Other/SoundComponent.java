@@ -10,10 +10,8 @@ public class SoundComponent implements Component {
     private int timesPlayed;
   private String currentAction;
   private boolean playSound=false;
-    public SoundComponent() {// used for deserialization
-    }
-    public SoundComponent(String soundFilePath) {
-       sound = Gdx.audio.newSound(Gdx.files.internal(soundFilePath));
+
+    public SoundComponent() {
     }
     public Sound getCurrentSound() {
         sound=null;

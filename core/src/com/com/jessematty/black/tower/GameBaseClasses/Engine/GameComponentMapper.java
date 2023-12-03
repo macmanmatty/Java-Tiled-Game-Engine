@@ -46,6 +46,7 @@ import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValueChanges;
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
+import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnBooleanStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnNumericStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
@@ -218,6 +219,7 @@ public class GameComponentMapper {
     private static ComponentMapper<AddItemToContainer> addItemToContainerComponentMapper = ComponentMapper.getFor(AddItemToContainer.class);
     private static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
     private static ComponentMapper<PartComponent> partComponentComponentMapper = ComponentMapper.getFor(PartComponent.class);
+    private static ComponentMapper<PackComponent> packComponentComponentMapper = ComponentMapper.getFor(PackComponent.class);
 
     private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
     static {
@@ -262,12 +264,9 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(InfoComponent.class, infoComponentMapper);
         componentComponentMapperMap.put(Ingestable.class, ingestableComponentMapper);
         componentComponentMapperMap.put(Ingest.class, ingestingComponentMapper);
-        componentComponentMapperMap.put(Slashable.class, slashableComponentMapper);
         componentComponentMapperMap.put(Slash.class, slashingComponentMapper);
         componentComponentMapperMap.put(Thrust.class, thrustingComponentMapper);
-        componentComponentMapperMap.put(Thrustable.class, thrustableComponentMapper);
         componentComponentMapperMap.put(Shoot.class, shootingComponentMapper);
-        componentComponentMapperMap.put(Shootable.class, shootableComponentMapper);
         componentComponentMapperMap.put(SpellCastable.class, spellCastableComponentMapper);
         componentComponentMapperMap.put(SpellCast.class, spellCastingComponentMapper);
         componentComponentMapperMap.put(NumericStatsChangeComponent.class, numericStatChangeComponentMapper);
@@ -320,6 +319,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(GameLog.class, logComponentMapper);
         componentComponentMapperMap.put(BodyComponent.class, bodyComponentComponentMapper);
         componentComponentMapperMap.put(PartComponent.class, partComponentComponentMapper);
+        componentComponentMapperMap.put(PackComponent.class, packComponentComponentMapper);
 
     }
 
@@ -358,13 +358,11 @@ public class GameComponentMapper {
         int size = entities.size;
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
-            int length = components.length;
-            for (int count2 = 0; count2 < length; count2++) {
                 boolean hasComponents = hasComponents(entity, components);
                 if (hasComponents == true) {
                     entitiesToReturn.add(entity);
                 }
-            }
+
         }
         return entitiesToReturn;
     }
@@ -373,13 +371,11 @@ public class GameComponentMapper {
         int size = entityIDs.size;
         for (int count = 0; count < size; count++) {
             Entity entity = world.getEntity(entityIDs.get(count));
-            int length = components.length;
-            for (int count2 = 0; count2 < length; count2++) {
                 boolean hasComponents = hasComponents(entity, components);
                 if (hasComponents == true) {
                     entitiesToReturn.add(entity);
                 }
-            }
+
         }
         return entitiesToReturn;
     }
@@ -458,6 +454,9 @@ public class GameComponentMapper {
         int length = components.length;
         for (int count2 = 0; count2 < length; count2++) {
             ComponentMapper component=componentComponentMapperMap.get(components[count2]);
+            if(component==null){
+                throw new NullPointerException("Component has not been added to componentComponentMapperMap variable  please do so!");
+            }
             if (component.get(entity) == null) {
                 return false;
             }
@@ -822,5 +821,9 @@ public class GameComponentMapper {
 
     public static ComponentMapper<PartComponent> getPartComponentComponentMapper() {
         return partComponentComponentMapper;
+    }
+
+    public static ComponentMapper<PackComponent> getPackComponentComponentMapper() {
+        return packComponentComponentMapper;
     }
 }

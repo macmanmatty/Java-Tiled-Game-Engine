@@ -90,7 +90,7 @@ public class CharacterItemFunctions {
         if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
             PositionComponent position = player.getPositionComponent();
             GameMap map = mapDraw.getWorld().getMap(position.getMapId());
-            Array<Entity> packs = EntityUtilities.getOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), ContainerComponent.class);
+            Array<Entity> packs = EntityUtilities.getAllOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), ContainerComponent.class);
             AddItemToContainer addItemToPackComponent= new AddItemToContainer();
             if (packs.size > 0) {
                 String text="Select A Pack To Add To";

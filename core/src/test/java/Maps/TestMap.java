@@ -5,6 +5,7 @@ import static junit.framework.Assert.assertEquals;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.Tools.MapTools.MapTools;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -137,6 +138,27 @@ public final  class TestMap {
          assertEquals(1, testMap1.getEntities().size);
          testMap1.removeEntity(entity);
         assertEquals(0, testMap1.getEntities().size);
+
+    }
+    @Test
+    public void getAllEntitiesById(){
+        Entity entity= new Entity();
+        EntityId entityId= new EntityId("1");
+        entity.add(entityId);
+        Entity entity1= new Entity();
+        EntityId entityId1= new EntityId("2");
+        entity1.add(entityId1);
+        Entity entity2= new Entity();
+        EntityId entityId2= new EntityId("3");
+        entity2.add(entityId2);
+        testWorld.addEntityToWorld(entity2);
+        testWorld.addEntityToWorld(entity);
+        testWorld.addEntityToWorld(entity1);
+        Array<String> entityIds=new Array<>();
+        entityIds.add("1");
+        entityIds.add("3");
+     Array<Entity>  entities=  testWorld.getEntitiesFromEntityIdsArray(entityIds);
+     assertEquals(2, entities.size);
 
     }
 }

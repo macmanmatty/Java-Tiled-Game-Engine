@@ -21,7 +21,9 @@ import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFu
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars.DefaultZRPGBottomWindow;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -206,9 +208,10 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         this.player = player;
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
         engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
-      // DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getCurrentMap().getSkin(),  "windowCompass", this );
-       // defaultZRPGBottomWindow.setZrpgPlayer(player);
-      // addUIBarWindow(defaultZRPGBottomWindow, Direction.DOWN);
+      DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getGameAssets().getDefaultSkin(),  "windowCompass", this );
+       defaultZRPGBottomWindow.setZrpgCharacter(player);
+       defaultZRPGBottomWindow.makeUI();
+        uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
        gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPositionComponent());
         GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(this, player).getPlayerControlFunctions());

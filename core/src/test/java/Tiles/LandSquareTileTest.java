@@ -1,7 +1,5 @@
 package Tiles;
-
 import static org.junit.Assert.assertEquals;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -19,13 +17,9 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
-
 import org.junit.Test;
-
 import Maps.TestMap;
-
 public class LandSquareTileTest {
-
     private Engine engine;
     private Entity movable2;
     private Entity nonMovable;
@@ -37,12 +31,7 @@ public class LandSquareTileTest {
     public Entity item2= new Entity();
     PositionComponent positionComponent;
     public    Entity staticWall= new Entity();
-
-
     {
-
-
-
             movable.add(new PhysicalObjectComponent());
             movable.add(new PositionComponent());
             movable.add(new NameComponent());
@@ -55,7 +44,6 @@ public class LandSquareTileTest {
             item.add(new NameComponent());
             NumericStats numericStats2= new NumericStats();
         numericStats2.addStat(new NumericStat(true, "hate", 1));
-
         item.add(numericStats2 );
             item.add(new ActionComponent());
             item.add(new ItemComponent());
@@ -83,13 +71,11 @@ public class LandSquareTileTest {
         positionComponent2.setMapID(mapDraw.getCurrentMap().getId());
         positionComponent2.setLocationX(0);
         positionComponent2.setLocationY(0);
-
         PositionComponent positionComponent3=  item2.getComponent(PositionComponent.class);
         positionComponent3.setMapID(mapDraw.getCurrentMap().getId());
         positionComponent3.setLocationX(0);
         positionComponent3.setLocationY(0);
     }
-
     @Test
     public void testEntitiesOnTile(){
         world.addEntityToWorld(movable);
@@ -99,7 +85,6 @@ public class LandSquareTileTest {
         assertEquals(0, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(33, 33).getEntities().size);
         assertEquals(0, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(33, 0).getEntities().size);
         assertEquals(0, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 33).getEntities().size);
-
         assertEquals(3, mapDraw.getCurrentMap().getEntities().size);
     }
     @Test
@@ -109,7 +94,6 @@ public class LandSquareTileTest {
         world.addEntityToWorld(item2);
         assertEquals(2, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(ItemComponent.class).size);
         assertEquals(2, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(new Array<>(), null, null, ItemComponent.class).size);
-
     }
     @Test
     public void testEntitiesWithNumericStat(){
@@ -120,7 +104,6 @@ public class LandSquareTileTest {
         numericStats.add("love");
         assertEquals(1, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(numericStats, null, null).size);
         assertEquals(1, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(numericStats, null, null, ItemComponent.class).size);
-
     }
     @Test
     public void testEntitiesWithNumericStats(){
@@ -132,7 +115,6 @@ public class LandSquareTileTest {
         numericStats.add("hate");
         assertEquals(0, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(numericStats, null, null).size);
         assertEquals(0, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(numericStats, null, null, ItemComponent.class).size);
-
     }
     @Test
     public void testEntitiesWithBooleanStat(){
@@ -142,8 +124,6 @@ public class LandSquareTileTest {
         Array<String> booleanStats=new Array<>();
         booleanStats.add("foo");
         assertEquals(1, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(null, booleanStats, null).size);
-
-
     }
     @Test
     public void testEntitiesWithStringStat(){
@@ -153,6 +133,5 @@ public class LandSquareTileTest {
         Array<String> stats=new Array<>();
         stats.add("string");
         assertEquals(1, mapDraw.getCurrentMap().getTileFromWorldUnitCoordinates(0, 0).getEntities(null, null, stats).size);
-
     }
 }
