@@ -100,9 +100,9 @@ public class ZRPGCharacter implements Component {
         this.imageComponent=GameComponentMapper.getImageComponentMapper().get(playerEntity);
         this.ownerComponent= GameComponentMapper.getOwnerComponentComponentMapper().get(playerEntity);
         this.id=GameComponentMapper.getIdComponentMapper().get(playerEntity).getId();
-       this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
-       this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-       handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
+         this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
+        this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
+        handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
         handHolders[0]= GameComponentMapper.getHolderComponentMapper().get(hands[1]);
         this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
         this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));

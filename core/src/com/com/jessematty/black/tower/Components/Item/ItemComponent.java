@@ -22,33 +22,6 @@ public class ItemComponent implements Component {
      */
     private boolean onGround;
     /**
-     * the   price of the item
-     * not what a shop keeper will pay
-     * but is used in calculations
-     */
-    private float price=1;
-    /**
-     * the minimum  price of the item
-     * not what a shop keeper will pay
-     * but is used in calculations
-     */
-    private float minPrice=1;
-    /**
-     * the maximum  price of the item
-     * not what a shop keeper will pay
-     * but is used in calculations
-     */
-    private float maxPrice=100;
-    /**
-     * the items condition  usually calculated by external factors
-     */
-    private float condition;
-    /**
-     * whether or not the item has the ability
-     * to drop when owner dies
-     */
-    private boolean dropOnoDie;
-    /**
      * whether or not the item  is on the ground
      */
     private boolean held;
@@ -93,22 +66,6 @@ public class ItemComponent implements Component {
         return onGround;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public boolean isDropOnoDie() {
-        return dropOnoDie;
-    }
-
-    public void setDropOnoDie(boolean dropOnoDie) {
-        this.dropOnoDie = dropOnoDie;
-    }
-
 
     public boolean isHeld() {
         return held;
@@ -134,27 +91,4 @@ public class ItemComponent implements Component {
         this.slot = slot;
     }
 
-    public float getCondition() {
-        return condition;
-    }
-
-    public void setCondition(float condition) {
-        this.condition = condition;
-    }
-
-    public float getMinPrice() {
-        return minPrice;
-    }
-
-    public void setMinPrice(float minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    public float getMaxPrice() {
-        return maxPrice;
-    }
-
-    public void setMaxPrice(float maxPrice) {
-        this.maxPrice = maxPrice;
-    }
 }

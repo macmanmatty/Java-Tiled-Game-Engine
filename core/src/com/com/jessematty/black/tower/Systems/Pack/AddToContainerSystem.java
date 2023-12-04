@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
+import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
@@ -71,6 +73,11 @@ public class AddToContainerSystem extends GameEntitySystem {
                     itemToAddPosition.removeBounds();
                 }
                 if (addItemToContainer.isSetContainerAsOwner()) {
+                    OwnedComponent ownedComponent=GameComponentMapper.getOwnedComponentComponentMapper().get(entity);
+                    if(ownedComponent!=null){
+                        Entity currentOwner=getWorld().getEntity(ownedComponent.getOwnerEntityID());
+                        EntityUtilities.detachEntity(currentOwner, entity);
+                    }
                     EntityUtilities.attachEntity(container, entity);
                 }
             }

@@ -3,9 +3,7 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Character.CharacterItemFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Character.CharacterMoveFunctions;
@@ -19,7 +17,6 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.OnEntitySelectFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.PackUtilities;
 
 /**
  * class that holds all InputKeyCombos related to player actions
@@ -55,13 +52,13 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.addAll(  moveUpCombo.getInputKeyCombos());
         DualActionKeyInputCombo moveDownCombo= new DualActionKeyInputCombo( stop, moveDown, "Move Player Down", Keys.DOWN);
         playerControlFunctions.addAll(  moveDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveRightDownCombo= new DualActionKeyInputCombo( stop, moveRightDown, "Move Player RightDown", Keys.L);
+        DualActionKeyInputCombo moveRightDownCombo= new DualActionKeyInputCombo( stop, moveRightDown, "Move Player RightDown", Keys.M);
         playerControlFunctions.addAll(  moveRightDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveRightUpCombo= new DualActionKeyInputCombo( stop, moveRightUp, "Move Player RightUpDown", Keys.P);
+        DualActionKeyInputCombo moveRightUpCombo= new DualActionKeyInputCombo( stop, moveRightUp, "Move Player RightUp", Keys.K);
         playerControlFunctions.addAll(  moveRightUpCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveLeftDownCombo= new DualActionKeyInputCombo( stop, moveLeftDown, "Move Player LeftDown", Keys.K);
+        DualActionKeyInputCombo moveLeftDownCombo= new DualActionKeyInputCombo( stop, moveLeftDown, "Move Player LeftDown", Keys.N);
         playerControlFunctions.addAll(  moveLeftDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.O);
+        DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.J);
         playerControlFunctions.addAll(  moveLeftUpCombo.getInputKeyCombos());
         KeyPressMode []  keyPressMode= new KeyPressMode []{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED};
         InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", Keys.CONTROL_LEFT);
@@ -70,8 +67,12 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(decreaseSpeedCombo);
         InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
         playerControlFunctions.add(slashCombo);
-        InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.P);
         playerControlFunctions.add(packDisplay);
+        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        playerControlFunctions.add(pickUpItemLeftHand);
+        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.R);
+        playerControlFunctions.add(pickUpItemRightHand);
 
     }
     private KeyAction slash =new KeyAction(){
@@ -207,15 +208,18 @@ public class ZRPGPlayerFunctions {
 
      }
 
-    private KeyAction pickupItem =new KeyAction(){
+    private KeyAction pickupItemLeftHand =new KeyAction(){
         @Override
           public void act()  {
-            Array<Entity> entities=player.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
-            if(entities.size>0){
-            }
+            PlayerItemFunctions.pickUpItem(player, mapDraw, 0);
 
-            PackUtilities.getAvailableContainers(mapDraw.getWorld(), player.getPacks(), null);
     }};
+    private KeyAction pickupItemRightHand =new KeyAction(){
+        @Override
+        public void act()  {
+            PlayerItemFunctions.pickUpItem(player, mapDraw, 1);
+
+        }};
 
     private KeyAction viewPacks =new KeyAction(){
         @Override

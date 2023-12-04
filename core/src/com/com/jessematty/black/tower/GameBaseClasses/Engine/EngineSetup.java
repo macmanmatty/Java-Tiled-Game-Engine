@@ -33,6 +33,7 @@ import com.jessematty.black.tower.Systems.Entity.TimeRemovingEntitySystem;
 import com.jessematty.black.tower.Systems.Item.ChangeHeldItemBoundsSystem;
 import com.jessematty.black.tower.Systems.Item.DropItemSystem;
 import com.jessematty.black.tower.Systems.Item.EquipItemSystem;
+import com.jessematty.black.tower.Systems.Item.HoldItemSystem;
 import com.jessematty.black.tower.Systems.Item.UnEquipItemSystem;
 import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 import com.jessematty.black.tower.Systems.Owner.AddOwnerSystem;
@@ -133,6 +134,7 @@ public class EngineSetup {
        engine.addSystem(new SlashSystem(draw));
        engine.addSystem(new ThrustSystem(draw));
         engine.addSystem( new ZRPGPlayerSystem( draw  ));
+        engine.addSystem(new HoldItemSystem( draw));
 
 
        if(drawBounds){

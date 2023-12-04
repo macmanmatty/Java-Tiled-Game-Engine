@@ -178,6 +178,18 @@ public class EntityUtilitiesTest {
         assertEquals( 0, ownerComponent.getOwnedEntityIDs().size);
         assertEquals(null, ownedComponent);
     }
+
+    @Test
+    public void testDetachEntity2(){
+        Entity entity=new Entity();
+        entity.add(new EntityId());
+        EntityUtilities.attachEntity( owner, owned);
+        EntityUtilities.detachEntity(owner, entity);
+        OwnerComponent ownerComponent=owner.getComponent(OwnerComponent.class);
+        OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
+        assertNotNull(ownerComponent);
+        assertEquals( 1, ownerComponent.getOwnedEntityIDs().size);
+    }
     @Test
     public void testDetachSameEntityTwice(){
         EntityUtilities.attachEntity( owner, owned);

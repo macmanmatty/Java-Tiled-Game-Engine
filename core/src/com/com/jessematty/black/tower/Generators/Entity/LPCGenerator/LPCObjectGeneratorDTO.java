@@ -146,7 +146,7 @@ public class LPCObjectGeneratorDTO {
     /**
      * the items condition
      */
-    float condition;
+    float condition=100;
     /**
      * if the item is a slotted pack 
      * the number of slots it has
@@ -186,7 +186,8 @@ public class LPCObjectGeneratorDTO {
      * is the item drinkable
      */
     boolean drinkable;
-    
+
+    boolean dropOnDie;
     boolean slashable;
     boolean thrustable;
     boolean shootable;
@@ -857,5 +858,13 @@ public class LPCObjectGeneratorDTO {
 
     public void setSetDrawLayerToYPosition(boolean setDrawLayerToYPosition) {
         this.setDrawLayerToYPosition = setDrawLayerToYPosition;
+    }
+
+    public boolean isDropOnDie() {
+        return dropOnDie;
+    }
+
+    public void setDropOnDie(boolean dropOnDie) {
+        this.dropOnDie = dropOnDie;
     }
 }

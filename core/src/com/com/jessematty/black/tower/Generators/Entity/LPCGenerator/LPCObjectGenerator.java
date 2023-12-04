@@ -257,14 +257,17 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         entity.add(booleanStatsChangeable);
         entity.add(numericStatsChangeable);
         if(lpcObjectGeneratorDTO.isItem()){
-            generateItem( entityBag, lpcObjectGeneratorDTO);
+            groupsComponent.getGroups().add("item");
+            generateItem( numericStats, booleanStats, entityBag, lpcObjectGeneratorDTO);
         }
         if(lpcObjectGeneratorDTO.isPart()){
+            groupsComponent.getGroups().add("part");
             PartComponent partComponent= new PartComponent();
             partComponent.setPartClass(lpcObjectGeneratorDTO.getPartClass());
             entity.add(partComponent);
         }
         if(lpcObjectGeneratorDTO.isPack()){
+            groupsComponent.getGroups().add("pack");
             generatePack( entityBag, lpcObjectGeneratorDTO);
         }
         
@@ -357,12 +360,25 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
     }
     private  void generateArmor(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
     }
-    private void generateItem(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGenerator){
+    private void generateItem( NumericStats numericStats, BooleanStats stats,  EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGenerator){
         ItemComponent itemComponent= new ItemComponent();
-        itemComponent.setPrice(lpcObjectGenerator.getPrice());
-        itemComponent.setMaxPrice(lpcObjectGenerator.getMaxPrice());
-        itemComponent.setMinPrice(lpcObjectGenerator.getMinPrice());
+        NumericStat price= new NumericStat();
+        price.setName("price");
+        price.setValue(lpcObjectGenerator.getPrice());
+        price.setMaxValue(lpcObjectGenerator.getMaxPrice());
+        price.setMinValue(lpcObjectGenerator.getMinPrice());
+        NumericStat condition= new NumericStat();
+        condition.setMaxValue(100d);
+        condition.setMinValue(0d);
+        condition.setValue(lpcObjectGenerator.getCondition());
+        condition.setName("condition");
         entityBag.getOwner().add(itemComponent);
+        numericStats.addStat(price);
+        numericStats.addStat(condition);
+        BooleanStat dropOnDie= new BooleanStat();
+        dropOnDie.setFlag(lpcObjectGenerator.isDropOnDie());
+        stats.addStat(dropOnDie);
+
     }
     private void generateWeapon(EntityBag entityBag, LPCObjectGeneratorDTO lpcObjectGeneratorDTO){
     }

@@ -73,7 +73,7 @@ public class DyingSystem extends GameEntitySystem {
                     Entity ownedEntity = entities.get(count2);
                     ItemComponent item = itemComponentMapper.get(ownedEntity);
                     // unless owned entity is an item and is drop able remove it from engine
-                    if (item != null && item.isDropOnoDie()) {
+                    if (item != null) {
                         DropItemComponent dropItemClass = new DropItemComponent();
                         entity.add(dropItemClass);
                     } else {
