@@ -62,7 +62,6 @@ public class AddToContainerSystem extends GameEntitySystem {
             Entity container =addItemToContainer.getContainer();
             ContainerComponent containerComponent = containerComponentComponentMapper.get(container);
             PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(entity);
-            PositionComponent containerPosition = positionComponentComponentMapper.get(container);
             PositionComponent itemToAddPosition = positionComponentComponentMapper.get(entity);
             GroupsComponent groupsComponent = groupsComponentMapper.get(entity);
 
