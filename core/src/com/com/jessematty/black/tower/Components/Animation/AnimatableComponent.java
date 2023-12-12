@@ -79,9 +79,13 @@ public class AnimatableComponent implements SerializableComponet{
 
     /**
      * get an Animation object based on a direction and action
+     * if only four directions exist will use the
+     * base direction animation for the animation frames
+     * if only a single animation exists for given action
+     * and direction mapping that single animation will be used
      * @param direction the direction of the animation
      * @param action the action of the animation
-     * @return
+     * @return the Animation Object
      */
     public Animation getAnimation(Direction direction, String action) {
         ObjectMap<String , Animation> animationObjectMap=animations.get(action);
@@ -279,6 +283,12 @@ public class AnimatableComponent implements SerializableComponet{
     public boolean isLayerChanged() {
         return layerChanged;
     }
+
+    /**
+     * method for deserializing  a Animatable component using
+     * the GameAssets Class to retrieve the texture regions for the animation frames
+     * @param assets
+     */
     @Override
     public void deSerialize(GameAssets assets) {
         Keys<String> keys=animations.keys();
