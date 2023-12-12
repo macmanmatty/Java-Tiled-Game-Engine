@@ -15,10 +15,16 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.AnimationUtilities;
  */
 public class AnimatableComponent implements SerializableComponet{
     /**
-     *     ObjectMap of directions  that links to ObjectMap of actions that links
+     *     ObjectMap of actions  that links to ObjectMap of directions that links
      *     to the animations;
+     *     map 1
+     *     key = action as string
+     *     value= object map of direction and animations
+     *     map 2
+     *     key= the toString() value of a Direction enum
+     *     value= the Animation object @see Animation.class
      */
-    protected    ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
+  protected  ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
     /**
      * does this animation have eight directions
      * if true the map of animations will initialized with
