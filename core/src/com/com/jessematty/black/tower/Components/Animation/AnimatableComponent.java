@@ -15,16 +15,22 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.AnimationUtilities;
  */
 public class AnimatableComponent implements SerializableComponet{
     /**
-     *     ObjectMap of directions  that links to ObjectMap of actions that links
+     *     ObjectMap of actions  that links to ObjectMap of directions that links
      *     to the animations;
+     *     map 1
+     *     key = action as string
+     *     value= object map of direction and animations
+     *     map 2
+     *     key= the toString() value of a Direction enum
+     *     value= the Animation object @see Animation.class
      */
-    protected    ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
+  protected  ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
     /**
      * does this animation have eight directions
      * if true the map of animations will initialized with
      * sub maps to actions for all eight directions;
      */
-    protected boolean eightDirections=true;
+    protected boolean eightDirections=false;
     /**
      *  the number of the current animation the frame
      */
@@ -68,35 +74,28 @@ public class AnimatableComponent implements SerializableComponet{
     protected boolean layerChanged;
     private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
-        this(true);
-    }
-    public AnimatableComponent(boolean eightDirections) {
-        this.eightDirections=eightDirections;
-        animations.put(Direction.UP.toString(), new ObjectMap<String, Animation>());
-        animations.put(Direction.DOWN.toString(), new ObjectMap<String, Animation>());
-        animations.put(Direction.LEFT.toString(), new ObjectMap<String, Animation>());
-        animations.put(Direction.RIGHT.toString(), new ObjectMap<String, Animation>());
-        if(eightDirections){
-            animations.put(Direction.RIGHTUP.toString(), new ObjectMap<String, Animation>());
-            animations.put(Direction.LEFTUP.toString(), new ObjectMap<String, Animation>());
-            animations.put(Direction.LEFTDOWN.toString(), new ObjectMap<String, Animation>());
-            animations.put(Direction.RIGHTDOWN.toString(), new ObjectMap<String, Animation>());
-        }
-    }
 
-
+    }
 
     /**
      * get an Animation object based on a direction and action
+     * if only four directions exist will use the
+     * base direction animation for the animation frames
+     * if only a single animation exists for given action
+     * and direction mapping that single animation will be used
      * @param direction the direction of the animation
      * @param action the action of the animation
-     * @return
+     * @return the Animation Object
      */
     public Animation getAnimation(Direction direction, String action) {
-        if(!eightDirections){
+        ObjectMap<String , Animation> animationObjectMap=animations.get(action);
+        if(animationObjectMap.size==1){
+           return animationObjectMap.values().next();
+        }
+        else if(!eightDirections){
             direction=Direction.getBaseDirection(direction);
         }
-        return animations.get(direction.toString()).get(action);
+        return animations.get(action).get(direction.toString());
     }
 
     /**
@@ -110,7 +109,7 @@ public class AnimatableComponent implements SerializableComponet{
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
         }
-        Animation animation=animations.get(direction.toString()).get(action);
+        Animation animation=animations.get(action).get(direction.toString());
         if(animation!=null) {
             return animation.getFrames().length;
         }
@@ -129,7 +128,7 @@ public class AnimatableComponent implements SerializableComponet{
         if(eightDirections=false){
             direction=Direction.getBaseDirection(direction);
         }
-        Animation animation=animations.get(direction.toString()).get(action);
+        Animation animation=animations.get(action).get(direction.toString());
         if(animation!=null) {
             return animation.getFrameRate();
         }
@@ -144,23 +143,26 @@ public class AnimatableComponent implements SerializableComponet{
     public void addAnimation(Animation animation){
         Direction direction=animation.getDirection();
         String action=animation.getAction();
-        animations.get(direction.toString()).put(action,animation);
+       ObjectMap<String, Animation>  animationObjectMap;
+       animationObjectMap=animations.get(action);
+       if(animationObjectMap==null) {
+           animationObjectMap= new ObjectMap<>();
+           animations.put(action, animationObjectMap);
+       }
+        animations.get(action).put(direction.toString(),animation);
     }
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int subLayerNumber, int  layerNumber){
       Animation animation=  AnimationUtilities.createAnimation(regions, direction, action, frameRate, offsets, subLayerNumber, layerNumber);
-            animations.get(direction.toString()).put(action, animation);
+      addAnimation(animation);
     }
     public boolean isEightDirections() {
         return eightDirections;
-    }
-    public void  addFrames(String action, Direction direction, AtlasNamedAtlasRegion[] frames) {
-        animations.get(direction.toString()).get(action).setFrames(frames);
     }
     public int getCurrentFrameNumber() {
         return currentFrameNumber;
     }
     public NamedColor getCurrentColor(){
-        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
         if(animation!=null) {
             return animation.getColor();
         }
@@ -184,7 +186,7 @@ public class AnimatableComponent implements SerializableComponet{
         if(singleImage) {
             return staticTexture;
         }
-        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
         if(animation!=null) {
             return animation.getFrames()[currentFrameNumber];
         }
@@ -215,7 +217,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentNumberOfFrames(){
-        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
         if(animation!=null) {
             return animation.getFrames().length;
         }
@@ -228,7 +230,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentFrameRate(){
-        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
         if(animation!=null) {
             return animation.getFrameRate();
         }
@@ -241,7 +243,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentLayerNumber(){
-     Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+     Animation animation=animations.get(currentAction).get(currentDirection.toString());
      if(animation!=null) {
      currentLayerNumber=animation.getSubLayerNumber();
      }
@@ -254,7 +256,7 @@ public class AnimatableComponent implements SerializableComponet{
         return currentLayerNumber;
     }
     public Vector2 getCurrentDrawOffsets(){
-        Animation animation=animations.get(currentDirection.toString()).get(currentAction);
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
         if(animation!=null) {
             return animation.getOffsets();
         }
@@ -275,12 +277,18 @@ public class AnimatableComponent implements SerializableComponet{
         this.singleImage = singleImage;
     }
     public Float getCurrentBrightness() {
-            return animations.get(currentDirection.toString()).get(currentAction).getBrightness();
+            return animations.get(currentAction).get(currentDirection.toString()).getBrightness();
     }
   
     public boolean isLayerChanged() {
         return layerChanged;
     }
+
+    /**
+     * method for deserializing  a Animatable component using
+     * the GameAssets Class to retrieve the texture regions for the animation frames
+     * @param assets
+     */
     @Override
     public void deSerialize(GameAssets assets) {
         Keys<String> keys=animations.keys();
