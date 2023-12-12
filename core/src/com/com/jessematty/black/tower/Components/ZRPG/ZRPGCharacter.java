@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Other.DominateHand;
@@ -62,7 +63,7 @@ public class ZRPGCharacter implements Component {
     private  Holder[]  handHolders= new Holder[2];
     private   Entity leftFoot;
     private  Entity rightFoot;
-    private Array<Entity> packs= new Array<>();
+    private CharacterPacksComponent packs= new CharacterPacksComponent();
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
@@ -226,7 +227,7 @@ public class ZRPGCharacter implements Component {
     }
 
 
-    public Array<Entity> getPacks() {
+    public CharacterPacksComponent getPacks() {
         return packs;
     }
 

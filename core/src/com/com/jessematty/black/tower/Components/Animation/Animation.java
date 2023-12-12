@@ -5,12 +5,13 @@ import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Labels.NameEditableLabel.Nameable;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 
 /**
  * the animation class
  */
-public class Animation implements ColorSettable {
+public class Animation implements ColorSettable, Nameable {
     /**
      * the atlas regions that make up the the animation
      */
@@ -22,6 +23,8 @@ public class Animation implements ColorSettable {
      */
   private String [] atlasRegionNames = new String [0];
 
+  private String name;
+
     /**
      * the name of the atlas that holds the texture regions
      */
@@ -31,16 +34,21 @@ public class Animation implements ColorSettable {
      * the action the animation corresponds to
      */
   
-   private  String action="";
+   private  String action;
     /**
      * the sub layer number of the animation
      */
-    private int layerNumber;
+    private int subLayerNumber;
+
+    /**
+     * the layer number of the animation
+     */
+    private int layerNumber=1;
 
     /**
      * the direction of the animation
      */
-    private Direction direction;
+    private Direction direction=Direction.DOWN;
     /**
      * the color of the animation
      */
@@ -89,11 +97,11 @@ public class Animation implements ColorSettable {
     public void setAction(String action) {
         this.action = action;
     }
-    public int getLayerNumber() {
-        return layerNumber;
+    public int getSubLayerNumber() {
+        return subLayerNumber;
     }
-    public void setLayerNumber(int layerNumber) {
-        this.layerNumber = layerNumber;
+    public void setSubLayerNumber(int subLayerNumber) {
+        this.subLayerNumber = subLayerNumber;
     }
     public Direction getDirection() {
         return direction;
@@ -134,6 +142,15 @@ public class Animation implements ColorSettable {
     public String[] getAtlasRegionNames() {
         return atlasRegionNames;
     }
+
+    public int getLayerNumber() {
+        return layerNumber;
+    }
+
+    public void setLayerNumber(int layerNumber) {
+        this.layerNumber = layerNumber;
+    }
+
     public void deSerialize(GameAssets assets){
         
         int size= atlasRegionNames.length;
@@ -143,6 +160,15 @@ public class Animation implements ColorSettable {
                     frames [count] = assets.getAtlasRegionByName(name, atlasName);
                 }
             }
-        
-    
+
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name=name;
+    }
 }

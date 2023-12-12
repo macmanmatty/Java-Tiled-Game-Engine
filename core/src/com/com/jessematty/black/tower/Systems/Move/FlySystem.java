@@ -41,7 +41,7 @@ public class FlySystem extends GameEntitySystem {
         for(int count=0; count<size; count++){
            Entity entity=entities.get(count);
             ActionComponent actionComponent = actions.get(entity);
-            actionComponent.setStat("move");
+            actionComponent.setAction("move");
                 PositionComponent position = positions.get(entity);
                 MovableComponent movableComponent = moveables.get(entity);
                 GameMap  map=getWorld().getMap(position.getMapId());

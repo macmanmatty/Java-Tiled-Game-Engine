@@ -22,6 +22,9 @@ import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
+/**
+ * system that drops an item on the ground.
+ */
 public class DropItemSystem extends GameEntitySystem {
 
     RandomNumbers value = new RandomNumbers();
@@ -46,8 +49,6 @@ public class DropItemSystem extends GameEntitySystem {
         actionComponentMapper=GameComponentMapper.getActionComponentMapper();
         holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
         ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
-
-
     }
 
     @Override
@@ -59,11 +60,12 @@ public class DropItemSystem extends GameEntitySystem {
                 ActionComponent actionComponent =actionComponentMapper.get(itemToDrop);
                 PositionComponent positionComponent=positionComponentMapper.get(itemToDrop);
                 actionComponent.setActing(false);
-                actionComponent.setStat("rest");
+                actionComponent.setAction("rest");
                 item.setInContainer(false);
                 item.setOnGround(true);
                 item.setHeld(false);
                 positionComponent.reInstateBounds();
+                positionComponent.setOnGround(true);
             OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToDrop);
             if(ownedComponent!=null) {
                 String ownerId = ownedComponent.getOwnerEntityID();

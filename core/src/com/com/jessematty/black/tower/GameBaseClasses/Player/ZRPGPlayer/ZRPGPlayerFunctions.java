@@ -67,11 +67,13 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(decreaseSpeedCombo);
         InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
         playerControlFunctions.add(slashCombo);
+        InputKeyCombo thrustCombo= new InputKeyCombo(thrust, KeyPressMode.KEY_DOWN, "Slash", Keys.T);
+        playerControlFunctions.add(thrustCombo);
         InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.P);
         playerControlFunctions.add(packDisplay);
-        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.T);
+        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Pick Up Item Left Hand", Keys.E);
         playerControlFunctions.add(pickUpItemLeftHand);
-        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.R);
+        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Pick Up Item Right Hand", Keys.R);
         playerControlFunctions.add(pickUpItemRightHand);
 
     }

@@ -47,6 +47,7 @@ import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValue
 import com.jessematty.black.tower.Components.Components.AddComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
+import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnBooleanStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnNumericStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
@@ -221,7 +222,9 @@ public class GameComponentMapper {
     private static ComponentMapper<PartComponent> partComponentComponentMapper = ComponentMapper.getFor(PartComponent.class);
     private static ComponentMapper<PackComponent> packComponentComponentMapper = ComponentMapper.getFor(PackComponent.class);
 
-    private static Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
+    private static ComponentMapper<CharacterPacksComponent> characterPacksComponentComponentMapper = ComponentMapper.getFor(CharacterPacksComponent.class);
+
+    private static final Map<Class<? extends Component>, ComponentMapper> componentComponentMapperMap = new HashMap<Class<? extends Component>, ComponentMapper>();
     static {
         componentComponentMapperMap.put(AddedToEngine.class, actionComponentMapper);
         componentComponentMapperMap.put(DrawableComponent.class, drawableComponentMapper);
@@ -320,7 +323,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(BodyComponent.class, bodyComponentComponentMapper);
         componentComponentMapperMap.put(PartComponent.class, partComponentComponentMapper);
         componentComponentMapperMap.put(PackComponent.class, packComponentComponentMapper);
-
+        componentComponentMapperMap.put(CharacterPacksComponent.class, characterPacksComponentComponentMapper);
     }
 
     private GameComponentMapper() {
@@ -362,7 +365,6 @@ public class GameComponentMapper {
                 if (hasComponents == true) {
                     entitiesToReturn.add(entity);
                 }
-
         }
         return entitiesToReturn;
     }
@@ -825,5 +827,9 @@ public class GameComponentMapper {
 
     public static ComponentMapper<PackComponent> getPackComponentComponentMapper() {
         return packComponentComponentMapper;
+    }
+
+    public static ComponentMapper<CharacterPacksComponent> getCharacterPacksComponentComponentMapper() {
+        return characterPacksComponentComponentMapper;
     }
 }

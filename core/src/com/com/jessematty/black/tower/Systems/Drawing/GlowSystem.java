@@ -61,6 +61,8 @@ public class GlowSystem extends GameEntitySystem {
                     drawableComponent.setBrightness(brightness);
                     glowComponent.setValue(brightness);
                 }
+
+
             }
         }
 

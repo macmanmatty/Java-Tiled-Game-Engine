@@ -77,7 +77,7 @@ public class SlashSystem extends GameEntitySystem {
                     slashable.setStartDegrees(weaponBounds1.getRotation());
 
                     String slash="slash";
-                    actionComponent.setStat(slash);
+                    actionComponent.setAction(slash);
                     actionComponent.setActing(true);
                     slashable.setSlashing(true);
                     AnimatableComponent animatableComponent=animatableComponentComponentMapper.get(entity);

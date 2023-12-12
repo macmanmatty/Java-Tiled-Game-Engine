@@ -77,7 +77,7 @@ public class ThrustSystem extends GameEntitySystem {
                 thrustable.setMaxDistance(maxDistance);
                 actionComponent.setActing(true);
                 String thrust="thrust";
-                actionComponent.setStat(thrust);
+                actionComponent.setAction(thrust);
                 thrustable.setStartPosition(new Vector2(weaponBounds.getX(), weaponBounds.getY()));
                 thrustable.setThrusting(true);
                 float thrustSpeedNumber=thrustable.getThrustSpeed();

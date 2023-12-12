@@ -1,13 +1,13 @@
 package com.jessematty.black.tower.Components.Containers;
 
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 
-public class PackComponent extends ContainerComponent{
+/**
+ * marks A Container as Pack.
+ */
+public class PackComponent implements Component {
 
-    private Array<PackSlot> slots =new Array();
 
-    public Array<PackSlot> getSlots() {
-        return slots;
-    }
 }

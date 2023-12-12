@@ -77,7 +77,7 @@ public class LaunchEntity extends GameEntitySystem {
                 movableComponent.setMoveAngle(angle);
                 entity.add(movableComponent);
                 entity.add(new MovingOnGroundComponent());
-                actionComponent.setStat("move");
+                actionComponent.setAction("move");
                 entity.remove(Target.class);
 
         }

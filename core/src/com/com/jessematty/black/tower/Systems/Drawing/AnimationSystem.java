@@ -12,11 +12,9 @@ import com.jessematty.black.tower.Components.FlagComponents.AnimationFinished;
 import com.jessematty.black.tower.Components.FlagComponents.OnCurrentMap;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
-import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 @Transient
 public  class AnimationSystem extends GameEntitySystem {
@@ -43,11 +41,11 @@ public  class AnimationSystem extends GameEntitySystem {
         int size = entities.size();
         for (int count = 0; count < size; count++) {
             Entity entity = entities.get(count);
+            String name=GameComponentMapper.getNameComponentMapper().get(entity).getStat();
             PositionComponent position = positionComponentMapper.get(entity);
             DrawableComponent drawableComponent = drawableComponentMapper.get(entity);
             drawableComponent.setDraw(true);
             AnimatableComponent animatable = animatableComponentMapper.get(entity);
-            if (animatable != null) {
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
                 Direction direction = position.getDirection();
@@ -57,29 +55,18 @@ public  class AnimationSystem extends GameEntitySystem {
                     animatable.setCurrentDirection(Direction.getBaseDirection(direction));
                 }
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
-                int turnsToComplete = actionComponent.getTurnsToCompletion();
                 actionComponent.addTurn();
-                String currentAction = actionComponent.getStat();
+                String currentAction = actionComponent.getAction();
                 actionComponent.setAnimationFrames(animatable.getFrames(currentAction, direction));
                 actionComponent.setCurrentFrame(animatable.getCurrentFrameNumber());
                 actionComponent.setFrameRate(animatable.getFrameRate(direction, currentAction));
                 //set actions
                 if ((!animatable.getCurrentAction().equals(currentAction))) {
-                    animatable.setCurrentAction(currentAction);
+                    animatable.changeAction(currentAction);
                 }
                 drawableComponent.setSubLayerNumber(animatable.getCurrentLayerNumber());
                 drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
                 drawableComponent.setDrawOffsets(animatable.getCurrentDrawOffsets());
-                if (drawableComponent.getColorChangeMode() == ColorChangeMode.ACTION) {
-                    NamedColor color = animatable.getCurrentColor();
-                    Float brightness = animatable.getCurrentBrightness();
-                    if (color != null) {
-                        drawableComponent.setColor(color);
-                    }
-                    if (brightness != null) {
-                        drawableComponent.setBrightness(brightness);
-                    }
-                }
                 animatable.nextFrame();
                 if (animatable.isFinishedAnimating()) {
                     entity.add(new AnimationFinished());
@@ -91,7 +78,7 @@ public  class AnimationSystem extends GameEntitySystem {
                 if (drawableComponent.isLayerChanged() || drawableComponent.isSubLayerChanged()) { // layer changed sort entities before drawing them
                     renderSystem.forceSort();
                 }
-            }
+
         }
     }
 }

@@ -40,6 +40,7 @@ public class PositionComponent implements Component {
     private float heightFromGround; // height from the ground
     private boolean directionChanged; // flag for direction changing
     private boolean drawBounds;
+    private boolean onGround;
     /**
      * if this is not null this is id of the container the entity is located in
      */
@@ -237,4 +238,11 @@ public class PositionComponent implements Component {
         this.mapId = mapId;
     }
 
+    public boolean isOnGround() {
+        return onGround;
+    }
+
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
+    }
 }

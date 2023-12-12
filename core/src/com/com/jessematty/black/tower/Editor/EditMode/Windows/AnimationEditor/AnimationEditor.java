@@ -102,7 +102,7 @@ public class AnimationEditor extends Table {
         textFieldZ.setTextFieldOnEnterAction(new TextFieldOnEnterAction() {
             @Override
             public void action() {
-                animation.setLayerNumber(textFieldZ.getInteger());
+                animation.setSubLayerNumber(textFieldZ.getInteger());
             }
         });
         makeTable();
@@ -175,7 +175,7 @@ public class AnimationEditor extends Table {
         }
         actionTextField.setText(animation.getAction());
         Vector2 vector2=animation.getOffsets();
-        pointsField.setValues(vector2.x, vector2.y, animation.getLayerNumber());
+        pointsField.setValues(vector2.x, vector2.y, animation.getSubLayerNumber());
     }
     public void setAnimation(AtlasAnimatedTiledMapTile animatedTiledMapTile){
         this.animatedTiledMapTile=animatedTiledMapTile;
@@ -191,7 +191,7 @@ public class AnimationEditor extends Table {
         }
         actionTextField.setText(animation.getAction());
         Vector2 vector2=animation.getOffsets();
-        pointsField.setValues(vector2.x, vector2.y, animation.getLayerNumber());
+        pointsField.setValues(vector2.x, vector2.y, animation.getSubLayerNumber());
     }
     public Animation getAnimation() {
         return animation;

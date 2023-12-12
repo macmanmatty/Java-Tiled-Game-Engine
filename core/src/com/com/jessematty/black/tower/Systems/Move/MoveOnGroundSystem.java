@@ -73,11 +73,13 @@ public class MoveOnGroundSystem extends GameEntitySystem {
             ActionComponent actionComponent = actions.get(entity);
             MovableComponent movableComponent = movables.get(entity);
             movableComponent.setCurrentSpeed(speedValue);
-            actionComponent.setStat("move");
+            actionComponent.setAction("move");
                 PositionComponent position = positions.get(entity);
                 GameMap  map=getDraw().getWorld().getMap(position.getMapId());
                 if (movableComponent.getCurrentSpeed() > 0) {
                     MoveOnGround.move(map, movableComponent, entity, position, deltaTime);
+//                    Array<Entity> entities =position.getTiles().get(0).getEntities();
+//                    getDraw().getUiStage().getGameLogger().logInfo("Entities on Tile: " + entities.size+" " +position.getTiles().get(0).getLocationX()+" "+position.getTiles().get(0).getLocationY()  );
                     entity.add(new Moved());
                 }
                 else{

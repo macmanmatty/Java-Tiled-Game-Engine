@@ -51,7 +51,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
                     ActionComponent ownerActionComponent = actionComponentMapper.get(owner);
                     ActionComponent entityActionComponent = actionComponentMapper.get(entity);
                     if (ownerActionComponent != null && entityActionComponent != null) {
-                        entityActionComponent.setStat(ownerActionComponent.getStat());
+                        entityActionComponent.setAction(ownerActionComponent.getAction());
                     }
                 }
                 if (ownedComponent.isSetOwnerPositionToEntity()) {
@@ -68,7 +68,7 @@ public class SetEntityPositionAndActionToOwnerSystem extends GameEntitySystem {
                     ActionComponent ownerActionComponent = actionComponentMapper.get(owner);
                     ActionComponent entityActionComponent = actionComponentMapper.get(entity);
                     if (ownerActionComponent != null && entityActionComponent != null) {
-                        ownerActionComponent.setStat(entityActionComponent.getStat());
+                        ownerActionComponent.setAction(entityActionComponent.getAction());
                     }
                 }
             }

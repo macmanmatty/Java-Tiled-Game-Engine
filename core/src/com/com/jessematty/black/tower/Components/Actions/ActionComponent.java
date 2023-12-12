@@ -1,9 +1,11 @@
 package com.jessematty.black.tower.Components.Actions;
-
-import com.jessematty.black.tower.Components.Stats.StringStat;
-
-public class ActionComponent extends StringStat {
-
+import com.badlogic.ashley.core.Component;
+/**
+ * class for an action component
+ * Contains a string the represents the action
+ *
+ */
+public class ActionComponent implements Component {
     /**
      * whether or not the action is action is acting;
      */
@@ -21,71 +23,63 @@ public class ActionComponent extends StringStat {
      * the number of turns passed in the game;
      */
     private int turns;
-
-
-
-
+    /**
+     * the current the action represented as a string
+     */
+    private String action;
     public ActionComponent() {
-        setStat("rest");
-
+        setAction("rest");
     }
-
     public boolean isActing() {
         return acting;
     }
-
     public void setActing(boolean acting) {
         this.acting = acting;
     }
-
     public int getAnimationFrames() {
         return animationFrames;
     }
-
     public void setAnimationFrames(int animationFrames) {
         this.animationFrames = animationFrames;
     }
-
     public int getCurrentFrame() {
         return currentFrame;
     }
-
     public void setCurrentFrame(int currentFrame) {
         this.currentFrame = currentFrame;
     }
-
     public int getFrameRate() {
         return frameRate;
     }
-
     public void setFrameRate(int frameRate) {
         this.frameRate = frameRate;
     }
-
     public void stopAction(){
         acting=false;
-        setStat("rest");
+        action="rest";
         currentFrame=0;
         frameRate=1;
         turns=0;
     }
-
     public int getTurnsToCompletion() {
         return turnsToCompletion;
     }
-
     public void setTurnsToCompletion(int turnsToCompletion) {
         this.turnsToCompletion = turnsToCompletion;
     }
-
     public int getTurns() {
         return turns;
     }
-
     public void setTurns(int turns) {
         this.turns = turns;
     }
     public void addTurn(){
         this.turns++;
+    }
+    public String getAction() {
+        return action;
+    }
+    public void setAction(String action) {
+        this.action = action;
     }
 }

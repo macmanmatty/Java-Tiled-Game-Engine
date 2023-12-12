@@ -89,8 +89,13 @@ public class DrawableComponent implements Component , ColorSettable , Serializab
     }
     public void setCurrentRegion(AtlasNamedAtlasRegion currentRegion) {
         this.currentRegion = currentRegion;
-        this.currentRegionName=currentRegion.name;
-        this.currentRegionAtlasName=currentRegion.getAtlasName();
+        if(currentRegion!=null) {
+            this.currentRegionName = currentRegion.name;
+            this.currentRegionAtlasName = currentRegion.getAtlasName();
+        }
+        else{
+            this.currentRegionName = null;
+            this.currentRegionAtlasName = null;       }
     }
     public NamedColor getColor() {
         return color;
@@ -174,7 +179,9 @@ public class DrawableComponent implements Component , ColorSettable , Serializab
     }
     @Override
     public void deSerialize(GameAssets assets) {
-        currentRegion=assets.getAtlasRegionByName(currentRegionName, currentRegionAtlasName);
+        if(currentRegionName!=null && currentRegionAtlasName!=null) {
+            currentRegion = assets.getAtlasRegionByName(currentRegionName, currentRegionAtlasName);
+        }
     }
     @Override
     public void serialize() {

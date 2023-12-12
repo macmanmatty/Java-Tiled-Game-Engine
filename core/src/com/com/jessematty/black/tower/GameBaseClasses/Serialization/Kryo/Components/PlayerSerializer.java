@@ -52,9 +52,9 @@ public class PlayerSerializer extends Serializer<AnimatableComponent> {
        animatableComponent.setAnimations((ObjectMap<String, ObjectMap<String, Animation>>) kryo.readClassAndObject(input));
        animatableComponent.setEightDirections( kryo.readObject(input, Boolean.class));
         animatableComponent.setSingleImage(kryo.readObject(input, Boolean.class));
-       animatableComponent.setCurrentAction( kryo.readObject(input, String.class));
+       animatableComponent.changeAction( kryo.readObject(input, String.class));
         animatableComponent.setCurrentFrameNumber(kryo.readObject(input, Integer.class));
-        animatableComponent.setCurrrentFrameRate(kryo.readObject(input, Integer.class));
+        animatableComponent.setCurrentFrameRate(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentLayerNumber(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentDirection((Direction) kryo.readClassAndObject(input));
         boolean singleImage=kryo.readObject(input, Boolean.class);

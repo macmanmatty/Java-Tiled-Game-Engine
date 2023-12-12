@@ -17,6 +17,11 @@ public class PhysicalObjectComponent implements Component { // component for obj
      * entity solidity  0=gas .5=fluid 1=solid used for collision Detection
      */
     private float solidity = 1f;
+    /**
+     * whether or not the entity can be collided into
+     */
+    private boolean collidable;
+
 
     public PhysicalObjectComponent(float mass, float volume) {
         this.mass = mass;
@@ -65,4 +70,14 @@ public class PhysicalObjectComponent implements Component { // component for obj
     public void setSolidity(float solidity) {
         this.solidity = solidity;
     }
+
+    public boolean isCollidable() {
+        return collidable;
+    }
+
+    public void setCollidable(boolean collidable) {
+        this.collidable = collidable;
+    }
+
+
 }

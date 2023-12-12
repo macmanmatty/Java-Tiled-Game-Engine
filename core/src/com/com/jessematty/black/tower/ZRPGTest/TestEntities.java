@@ -51,6 +51,15 @@ public class TestEntities {
 
     static LPCObjectGeneratorDTO armorChest = new LPCObjectGeneratorDTO();
 
+    static LPCObjectGeneratorDTO armorPants = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO helmet = new LPCObjectGeneratorDTO();
+
+
+    static LPCObjectGeneratorDTO gloves = new LPCObjectGeneratorDTO();
+
+    static LPCObjectGeneratorDTO shoes = new LPCObjectGeneratorDTO();
+
 
     static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
@@ -91,6 +100,7 @@ public class TestEntities {
         lizard.setBoundsY(64);
         lizard.setBoundsXOffset(16);
         lizard.setHeight(5);
+        lizard.setDrawLayer(1);
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");
@@ -118,6 +128,7 @@ public class TestEntities {
         tail.setRightLayerOffset(1);
         tail.setLeftLayerOffset(1);
         tail.getAttachableParts().addAll("ring");
+        tail.setDrawLayer(1);
         leftHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         leftHand.setAnimatableBodyName("leftHand");
         leftHand.setSex("Male");
@@ -143,8 +154,8 @@ public class TestEntities {
         leftHand.setPart(true);
         leftHand.setPartClass("leftHand");
         leftHand.setBody(true);
+        leftHand.setHand(true);
         leftHand.getAttachableParts().addAll("ring", "glove", "bracelet");
-
         rightHand.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         rightHand.setAnimatableBodyName("rightHand");
         rightHand.setSex("Male");
@@ -170,6 +181,7 @@ public class TestEntities {
         rightHand.setPart(true);
         rightHand.setPartClass("rightHand");
         rightHand.setBody(true);
+        rightHand.setHand(true);
         rightHand.getAttachableParts().addAll("ring", "glove", "bracelet");
 
 
@@ -335,8 +347,9 @@ public class TestEntities {
         pack.setDrawSubLayer(4);
         pack.setUpLayerOffset(-1);
         pack.setPack(true);
-        pack.setMaxAtachedWeight(100000);
+        pack.setMaxAttachedWeight(100000);
         pack.setInternalVolume(1000000);
+        pack.setDrawLayer(1);
 
 
 
@@ -367,11 +380,11 @@ public class TestEntities {
         potion.setColorB(.1f);
         potion.setColorR(1);
         potion.setColorG(0);
-        potion.setBoundsX(32);
-        potion.setBoundsY(64);
+        potion.setBoundsX(0);
+        potion.setBoundsY(0);
         potion.setHealth(100);
-        potion.setMass(100);
-        potion.setVolume(100);
+        potion.setMass(1);
+        potion.setVolume(3);
         potion.setAnimated(false);
         potion.setDrawable(false);
         pack.getStats().add(condition,health,  on, classuz);
@@ -387,34 +400,48 @@ public class TestEntities {
         scroll.setColorB(.1f);
         scroll.setColorR(1);
         scroll.setColorG(0);
-        scroll.setBoundsX(32);
-        scroll.setBoundsY(64);
-        scroll.setHealth(100);
-        scroll.setMass(100);
-        scroll.setVolume(100);
+        potion.setBoundsX(0);
+        potion.setBoundsY(0);
+        potion.setHealth(100);
+        potion.setMass(1);
+        potion.setVolume(1);
         scroll.setAnimated(false);
         scroll.setDrawable(false);
         scroll.getStats().add(condition, on, classuz);
-
-
-
         sword.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
-        sword.setAnimatableBodyName("swordMale");
+        sword.setAnimatableBodyName("longSword");
         sword.setName("sword");
-        sword.setImageName("sword1");
+        sword.setImageName("sword2");
+        sword.setTmxObjectId("sword");
         sword.setBrightness( .67f);
         sword.setColorA(1);
-        sword.setColorB(.1f);
+        sword.setColorB(.9f);
         sword.setColorR(1);
-        sword.setColorG(0);
-        sword.setBoundsX(32);
-        sword.setBoundsY(64);
+        sword.setColorG(1);
+        sword.setBoundsX(30);
+        sword.setBoundsY(40);
         sword.setHealth(100);
-        sword.setMass(100);
-        sword.setVolume(100);
-        sword.setAnimated(false);
-        sword.setDrawable(false);
+        sword.setMass(5);
+        sword.setVolume(10);
+        sword.setAnimated(true);
+        sword.setDrawable(true);
+        sword.setLpcActorAnimated(true);
+        sword.setSex(null);
+        sword.setUseDownFrame1AsImage(false);
+        sword.setItem(true);
+        sword.setHasPickupFrames(false);
+        sword.setHasEatFrames(false);
+        sword.setHasSpellCastFrames(false);
+        sword.setHasShootFrames(false);
         sword.getStats().add(condition, price, classuz, on);
+        sword.setCollidable(false);
+        sword.setDrawLayer(1);
+        sword.setDownLayerOffset(-1);
+        sword.setUpLayerOffset(3);
+        sword.setUseOverSizedWeaponSlashOffsets(true);
+        sword.setUseOverSizedWeaponThrustOffsets(true);
+
+
 
 
         spear.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
@@ -453,11 +480,11 @@ public class TestEntities {
         axe.setColorB(.1f);
         axe.setColorR(1);
         axe.setColorG(0);
-        axe.setBoundsX(32);
-        axe.setBoundsY(64);
-        axe.setHealth(100);
-        axe.setMass(100);
-        axe.setVolume(100);
+        potion.setBoundsX(0);
+        potion.setBoundsY(0);
+        potion.setHealth(100);
+        potion.setMass(1);
+        potion.setVolume(3);
         axe.setAnimated(false);
         axe.setDrawable(false);
 
@@ -528,6 +555,37 @@ public class TestEntities {
         armorChest.setPlaceOnMap(true);
         armorChest.setDrawLayer(Integer.MIN_VALUE);
 
+
+
+        armorPants.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
+        armorPants.setAnimatableBodyName("pantsArmor");
+        armorPants.setDrawSubLayer(Integer.MIN_VALUE);
+        armorPants.setName("Pants Armor");
+        armorPants.setSex("Male");
+        armorPants.setBrightness( .67f);
+        armorPants.setColorA(1);
+        armorPants.setColorB(.1f);
+        armorPants.setColorR(1);
+        armorPants.setColorG(0);
+        armorPants.setHeight(0);
+        armorPants.setBoundsX(0);
+        armorPants.setBoundsY(0);
+        armorPants.setHealth(100);
+        armorPants.setMass(1);
+        armorPants.setVolume(100);
+        armorPants.setAnimated(true);
+        armorPants.setDrawable(true);
+        armorPants.setDrawOnStart(true);
+        armorPants.setLpcActorAnimated(false);
+        armorPants.getStats().add(condition, on, classuz);
+        armorPants.setLoad(true);
+        armorPants.setPart(true);
+        armorPants.setUseDownFrame1AsImage(true);
+        armorPants.setPartClass("armor");
+        armorPants.setTmxObjectId("armorPants");
+        armorPants.setPlaceOnMap(true);
+        armorPants.setDrawLayer(Integer.MIN_VALUE);
+        
     }
 
     public TestEntities() {
