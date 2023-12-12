@@ -58,28 +58,28 @@ public class CharacterItemFunctions {
     }
 
     public static void eatItem(ZRPGCharacter player) {
-       player.getActionComponent().setStat("eat");
+       player.getActionComponent().setAction("eat");
     }
     public static void slashItem(ZRPGCharacter player) {
 
-            player.getActionComponent().setStat("slash");
+            player.getActionComponent().setAction("slash");
 
     }
     public static void thrustItem(ZRPGCharacter player) {
-            player.getActionComponent().setStat("thrust");
+            player.getActionComponent().setAction("thrust");
     }
     public static void readItem( ZRPGCharacter player, int hand) {
-        player.getActionComponent().setStat("read");
+        player.getActionComponent().setAction("read");
     }
     public static void shootItem( ZRPGCharacter player) {
-        player.getActionComponent().setStat("shoot");
+        player.getActionComponent().setAction("shoot");
     }
     public static void throwItem(ZRPGCharacter player, int handNumber) {
-        player.getActionComponent().setStat("throw");
+        player.getActionComponent().setAction("throw");
 
     }
     private void spellCast(ZRPGCharacter player, int handNumber) {
-        player.getActionComponent().setStat("spellCast");
+        player.getActionComponent().setAction("spellCast");
 
     }
     private void equipItem(ZRPGCharacter player) {

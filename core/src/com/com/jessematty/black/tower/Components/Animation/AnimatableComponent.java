@@ -8,6 +8,7 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.AnimationUtilities;
 
 /**
  * component for animations
@@ -45,7 +46,7 @@ public class AnimatableComponent implements SerializableComponet{
      * the frame rate of the animation for the given
      * direction and action
      */
-    protected  int currrentFrameRate=1;
+    protected  int currentFrameRate =1;
     /**
      *  the current state of the animation
      */
@@ -65,19 +66,14 @@ public class AnimatableComponent implements SerializableComponet{
      * if true this will cause a resort of the render  system
      */
     protected boolean layerChanged;
-    protected boolean newlyCreated =true;
-    /**
-     * the default action for getting default frame rates
-     */
-    protected String defaultAction="rest";
     private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
         this(true);
     }
     public AnimatableComponent(boolean eightDirections) {
         this.eightDirections=eightDirections;
-        animations.put(Direction.DOWN.toString(), new ObjectMap<String, Animation>());
         animations.put(Direction.UP.toString(), new ObjectMap<String, Animation>());
+        animations.put(Direction.DOWN.toString(), new ObjectMap<String, Animation>());
         animations.put(Direction.LEFT.toString(), new ObjectMap<String, Animation>());
         animations.put(Direction.RIGHT.toString(), new ObjectMap<String, Animation>());
         if(eightDirections){
@@ -88,6 +84,8 @@ public class AnimatableComponent implements SerializableComponet{
         }
     }
 
+
+
     /**
      * get an Animation object based on a direction and action
      * @param direction the direction of the animation
@@ -95,7 +93,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public Animation getAnimation(Direction direction, String action) {
-        if(eightDirections=false){
+        if(!eightDirections){
             direction=Direction.getBaseDirection(direction);
         }
         return animations.get(direction.toString()).get(action);
@@ -117,7 +115,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrames().length;
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
+            return 1;
         }
     }
     /**
@@ -136,7 +134,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrameRate();
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
+            return 1;
         }   }
 
     /**
@@ -148,14 +146,8 @@ public class AnimatableComponent implements SerializableComponet{
         String action=animation.getAction();
         animations.get(direction.toString()).put(action,animation);
     }
-    public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int layerNumber){
-            Animation animation = new Animation();
-            animation.setFrames(regions);
-            animation.setDirection(direction);
-            animation.setAction(action);
-            animation.setFrameRate(frameRate);
-            animation.setOffsets(offsets);
-            animation.setLayerNumber(layerNumber);
+    public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int subLayerNumber, int  layerNumber){
+      Animation animation=  AnimationUtilities.createAnimation(regions, direction, action, frameRate, offsets, subLayerNumber, layerNumber);
             animations.get(direction.toString()).put(action, animation);
     }
     public boolean isEightDirections() {
@@ -173,12 +165,12 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getColor();
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getColor();
+            return NamedColor.WHITE;
         }    }
     public String getCurrentAction() {
         return currentAction;
     }
-    public void setCurrentAction(String currentAction) {
+    public void changeAction(String currentAction) {
         this.currentAction = currentAction;
         currentFrameNumber=0;
     }
@@ -189,7 +181,7 @@ public class AnimatableComponent implements SerializableComponet{
         this.currentDirection = currentDirection;
     }
    public  AtlasNamedAtlasRegion getCurrentTexture(){
-        if(singleImage==true) {
+        if(singleImage) {
             return staticTexture;
         }
         Animation animation=animations.get(currentDirection.toString()).get(currentAction);
@@ -197,7 +189,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrames()[currentFrameNumber];
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getFrames()[0];
+            return null;
         }
     }
 
@@ -207,8 +199,8 @@ public class AnimatableComponent implements SerializableComponet{
      */
     public void nextFrame(){
         finishedAnimating =false;
-        currrentFrameRate= getFrameRate(currentDirection, currentAction);
-        if(frameRateCounter%currrentFrameRate==0 && singleImage==false) {
+        currentFrameRate = getFrameRate(currentDirection, currentAction);
+        if(frameRateCounter% currentFrameRate ==0 && singleImage==false) {
             currentFrameNumber++;
             if (currentFrameNumber >= getCurrentNumberOfFrames()) {
                 currentFrameNumber = 0;
@@ -228,7 +220,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrames().length;
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getFrames().length;
+            return 1;
         }    }
     /**
      * returns the current number of frame rate
@@ -241,7 +233,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getFrameRate();
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getFrameRate();
+            return 1;
         }    }
     /**
      * returns the current sub layer number
@@ -250,11 +242,8 @@ public class AnimatableComponent implements SerializableComponet{
      */
     public   int getCurrentLayerNumber(){
      Animation animation=animations.get(currentDirection.toString()).get(currentAction);
-     if(!currentAction.equals("move") && !currentAction.equals("rest")){
-         System.out.println(currentAction);
-     }
      if(animation!=null) {
-     currentLayerNumber=animation.getLayerNumber();
+     currentLayerNumber=animation.getSubLayerNumber();
      }
         if(previousLayerNumber!=currentLayerNumber){
             layerChanged=true;
@@ -270,7 +259,7 @@ public class AnimatableComponent implements SerializableComponet{
             return animation.getOffsets();
         }
         else{
-            return animations.get(currentDirection.toString()).get(defaultAction).getOffsets();
+            return new Vector2();
         }
     }
     public AtlasNamedAtlasRegion getStaticTexture() {
@@ -291,13 +280,6 @@ public class AnimatableComponent implements SerializableComponet{
   
     public boolean isLayerChanged() {
         return layerChanged;
-    }
-    public boolean isNewlyCreated() {
-        return newlyCreated;
-    }
-    public void onCreate(){
-        newlyCreated =false;
-        nextFrame();
     }
     @Override
     public void deSerialize(GameAssets assets) {
@@ -320,12 +302,6 @@ public class AnimatableComponent implements SerializableComponet{
     @Override
     public void serialize() {
     }
-    public String getDefaultAction() {
-        return defaultAction;
-    }
-    public void setDefaultAction(String defaultAction) {
-        this.defaultAction = defaultAction;
-    }
     public void setAnimations(ObjectMap<String, ObjectMap<String, Animation>> animations) {
         this.animations = animations;
     }
@@ -338,22 +314,12 @@ public class AnimatableComponent implements SerializableComponet{
     public void setFrameRateCounter(int frameRateCounter) {
         this.frameRateCounter = frameRateCounter;
     }
-    public void setCurrrentFrameRate(int currrentFrameRate) {
-        this.currrentFrameRate = currrentFrameRate;
-    }
-    public void setPreviousLayerNumber(int previousLayerNumber) {
-        this.previousLayerNumber = previousLayerNumber;
+    public void setCurrentFrameRate(int currentFrameRate) {
+        this.currentFrameRate = currentFrameRate;
     }
     public void setCurrentLayerNumber(int currentLayerNumber) {
         this.currentLayerNumber = currentLayerNumber;
     }
-    public void setLayerChanged(boolean layerChanged) {
-        this.layerChanged = layerChanged;
-    }
-    public void setNewlyCreated(boolean newlyCreated) {
-        this.newlyCreated = newlyCreated;
-    }
-
     public boolean isFinishedAnimating() {
         return finishedAnimating;
     }

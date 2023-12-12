@@ -85,12 +85,14 @@ public class CollisionSystem extends GameEntitySystem { // system that detects f
                     Entity occupant = occupants.get(count);
                     MovableComponent occupantMovableComponent = movables.get(occupant);
                     PositionComponent occupantPosition = positions.get(occupant);
-                    if(occupantPosition.isHasBounds()==false){
+
+                    PhysicalObjectComponent occupantBody = objects.get(occupant);
+                    if(occupantPosition.isHasBounds()==false || !occupantBody.isCollidable()){
                         continue;
                     }
-                    PhysicalObjectComponent occupantBody = objects.get(occupant);
-                   boolean connected= EntityUtilities.isEntityConnected(occupant, entity, getWorld(), true);
-                    if (connected==true) { // check to make sure the object isn't colliding into itself
+                    boolean connected = EntityUtilities.isEntityConnected(occupant, entity, getWorld(), true);
+
+                    if (connected) { // check to make sure the object isn't colliding into itself
                         continue;
                     }
                     if ( occupantPosition != null  && physicalObject!=null ) { // collide with a object

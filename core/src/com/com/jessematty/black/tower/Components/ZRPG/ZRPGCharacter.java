@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.Ears;
 import com.jessematty.black.tower.Components.BodyParts.Eyes;
+import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Other.DominateHand;
@@ -62,7 +63,7 @@ public class ZRPGCharacter implements Component {
     private  Holder[]  handHolders= new Holder[2];
     private   Entity leftFoot;
     private  Entity rightFoot;
-    private Array<Entity> packs= new Array<>();
+    private CharacterPacksComponent packs= new CharacterPacksComponent();
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
@@ -100,9 +101,9 @@ public class ZRPGCharacter implements Component {
         this.imageComponent=GameComponentMapper.getImageComponentMapper().get(playerEntity);
         this.ownerComponent= GameComponentMapper.getOwnerComponentComponentMapper().get(playerEntity);
         this.id=GameComponentMapper.getIdComponentMapper().get(playerEntity).getId();
-       this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
-       this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-       handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
+         this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
+        this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
+        handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
         handHolders[0]= GameComponentMapper.getHolderComponentMapper().get(hands[1]);
         this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
         this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));
@@ -226,7 +227,7 @@ public class ZRPGCharacter implements Component {
     }
 
 
-    public Array<Entity> getPacks() {
+    public CharacterPacksComponent getPacks() {
         return packs;
     }
 

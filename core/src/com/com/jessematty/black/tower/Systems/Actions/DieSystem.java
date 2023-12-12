@@ -76,7 +76,7 @@ public class DieSystem extends GameEntitySystem { // checks  the die when zero  
 
              }
              if(zeroStats==numberOfKillWhenZeroStats && numberOfKillWhenZeroStats!=0) {
-                 actions.get(entity).setStat("die");
+                 actions.get(entity).setAction("die");
                  entity.add(new Dying());
              }
 

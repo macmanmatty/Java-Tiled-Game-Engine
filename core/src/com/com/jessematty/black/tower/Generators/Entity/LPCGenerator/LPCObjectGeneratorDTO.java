@@ -1,14 +1,14 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
-
+import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.BooleanStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.NumericStatChangeable;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.StringStatChangeable;
 import com.jessematty.black.tower.Components.Stats.Stat;
 
 import java.util.UUID;
-
 public class LPCObjectGeneratorDTO {
     /**
      * whether or not to load the entity
@@ -44,7 +44,6 @@ public class LPCObjectGeneratorDTO {
      */
     float boundsX;
     float boundsY;
-
     /**
      * the entities bounds offsets
      */
@@ -61,6 +60,7 @@ public class LPCObjectGeneratorDTO {
     float hardness;
     /**
      * what LPC animation frames the object has
+     * lpcActorAnimated must set to true if using these for lpc actors
      */
     
     boolean hashSlashFrames=true;
@@ -73,6 +73,10 @@ public class LPCObjectGeneratorDTO {
     boolean hasEatFrames=true;
     boolean hasPickupFrames=true;
     boolean hasThrowFrames=true;
+    boolean hasRestOnGroundActionImage;
+    boolean restOnGroundSingleImage=true;
+    boolean restOnGroundEightDirections=false;
+    int restOnGroundFrames=1;
     /**
      * is the object animated
      */
@@ -146,7 +150,7 @@ public class LPCObjectGeneratorDTO {
     /**
      * the items condition
      */
-    float condition;
+    float condition=100;
     /**
      * if the item is a slotted pack 
      * the number of slots it has
@@ -155,7 +159,7 @@ public class LPCObjectGeneratorDTO {
     /**
      * the max weight an Entity can have attached to it
      */
-    float maxAtachedWeight;
+    float maxAttachedWeight;
     /**
      * if the Entity is hollow ie pack , hollow tree etc.
      * the internal volume of the entity
@@ -186,7 +190,7 @@ public class LPCObjectGeneratorDTO {
      * is the item drinkable
      */
     boolean drinkable;
-    
+    boolean dropOnDie;
     boolean slashable;
     boolean thrustable;
     boolean shootable;
@@ -205,12 +209,10 @@ public class LPCObjectGeneratorDTO {
      *  the array of attachable  parts if the entity has a body
      */
     Array<String> attachableParts= new Array<>();
-
     /**
      * does this entity have body component;
      */
     boolean body;
-
     boolean wearable;
     /**
      * is the entity  a pack?
@@ -247,7 +249,6 @@ public class LPCObjectGeneratorDTO {
     Array<String> groups= new Array<>();
   
     Array<String> groupsAddable= new Array<>();
-
     /**
      * the array of attached entities referenced by TMX Object ID
      */
@@ -260,19 +261,26 @@ public class LPCObjectGeneratorDTO {
      * the array of attached entities referenced by the entities id
      */
     Array<String> attachedEntitiesIDs = new Array();
-
+    /**
+     * the offsets for the animatable SUBLayer Z-Index
+     * in  the UP DOWN , LEFT , and RIGHT dierctions
+     */
     int upLayerOffset;
      int downLayerOffset;
-
      int leftLayerOffset;
-
      int rightLayerOffset;
-
-
      float heightFromGround;
-
+    boolean collidable=true;
      float height;
-
+     boolean physicalObject=true;
+     boolean hand;
+    /**
+     * a map of the  libGDX Ashley components to be externally loaded
+     * key= component class
+     * value = the path to component file
+     * each different  component must have it's own file
+     */
+    private ObjectMap<Class<? extends Component>, String> componentsMap = new ObjectMap<>();
     /**
      * if true the entity will  be placed on the map
      * at the spot of the object point on the tmx map
@@ -280,7 +288,8 @@ public class LPCObjectGeneratorDTO {
      */
     private boolean placeOnMap=true;
     private boolean setDrawLayerToYPosition;
-
+    private boolean useOverSizedWeaponSlashOffsets;
+    private boolean useOverSizedWeaponThrustOffsets;
     public String getAtlasName() {
         return atlasName;
     }
@@ -579,11 +588,11 @@ public class LPCObjectGeneratorDTO {
     public void setSlots(int slots) {
         this.slots = slots;
     }
-    public float getMaxAtachedWeight() {
-        return maxAtachedWeight;
+    public float getMaxAttachedWeight() {
+        return maxAttachedWeight;
     }
-    public void setMaxAtachedWeight(float maxAtachedWeight) {
-        this.maxAtachedWeight = maxAtachedWeight;
+    public void setMaxAttachedWeight(float maxAttachedWeight) {
+        this.maxAttachedWeight = maxAttachedWeight;
     }
     public float getInternalVolume() {
         return internalVolume;
@@ -712,150 +721,184 @@ public class LPCObjectGeneratorDTO {
     public void setTmxObjectId(String tmxObjectId) {
         this.tmxObjectId = tmxObjectId;
     }
-
     public Array<String> getAttachedEntitiesTmxObjectIDs() {
         return attachedEntitiesTmxObjectIDs;
     }
-
     public void setAttachedEntitiesTmxObjectIDs(Array<String> attachedEntitiesTmxObjectIDs) {
         this.attachedEntitiesTmxObjectIDs = attachedEntitiesTmxObjectIDs;
     }
-
     public Array<LPCObjectGeneratorDTO> getAttachedEntityDTOs() {
         return attachedEntityDTOs;
     }
-
     public void setAttachedEntityDTOs(Array<LPCObjectGeneratorDTO> attachedEntityDTOs) {
         this.attachedEntityDTOs = attachedEntityDTOs;
     }
-
     public boolean isLpcActorAnimated() {
         return lpcActorAnimated;
     }
-
     public void setLpcActorAnimated(boolean lpcActorAnimated) {
         this.lpcActorAnimated = lpcActorAnimated;
         this.animated =true;
         this.drawable=true;
     }
-
     public String getPartClass() {
         return partClass;
     }
-
     public void setPartClass(String partClass) {
         this.partClass = partClass;
     }
-
     public Array<String> getAttachableParts() {
         return attachableParts;
     }
-
     public void setAttachableParts(Array<String> attachableParts) {
         this.attachableParts = attachableParts;
     }
-
     public boolean isBody() {
         return body;
     }
-
     public void setBody(boolean body) {
         this.body = body;
     }
-
     public int getUpLayerOffset() {
         return upLayerOffset;
     }
-
     public void setUpLayerOffset(int upLayerOffset) {
         this.upLayerOffset = upLayerOffset;
     }
-
     public int getDownLayerOffset() {
         return downLayerOffset;
     }
-
     public void setDownLayerOffset(int downLayerOffset) {
         this.downLayerOffset = downLayerOffset;
     }
-
     public int getLeftLayerOffset() {
         return leftLayerOffset;
     }
-
     public void setLeftLayerOffset(int leftLayerOffset) {
         this.leftLayerOffset = leftLayerOffset;
     }
-
     public int getRightLayerOffset() {
         return rightLayerOffset;
     }
-
     public void setRightLayerOffset(int rightLayerOffset) {
         this.rightLayerOffset = rightLayerOffset;
     }
-
     public Array<String> getAttachedEntitiesIDs() {
         return attachedEntitiesIDs;
     }
-
     public void setAttachedEntitiesIDs(Array<String> attachedEntitiesIDs) {
         this.attachedEntitiesIDs = attachedEntitiesIDs;
     }
-
     public boolean isPlaceOnMap() {
         return placeOnMap;
     }
-
     public void setPlaceOnMap(boolean placeOnMap) {
         this.placeOnMap = placeOnMap;
     }
-
     public float getBoundsXOffset() {
         return boundsXOffset;
     }
-
     public void setBoundsXOffset(float boundsXOffset) {
         this.boundsXOffset = boundsXOffset;
     }
-
     public float getBoundsYOffset() {
         return boundsYOffset;
     }
-
     public void setBoundsYOffset(float boundsYOffset) {
         this.boundsYOffset = boundsYOffset;
     }
-
     public float getHeightFromGround() {
         return heightFromGround;
     }
-
     public void setHeightFromGround(float heightFromGround) {
         this.heightFromGround = heightFromGround;
     }
-
     public float getHeight() {
         return height;
     }
-
     public void setHeight(float height) {
         this.height = height;
     }
-
     public int getDrawLayer() {
         return drawLayer;
     }
-
     public void setDrawLayer(int drawLayer) {
         this.drawLayer = drawLayer;
     }
-
     public boolean isSetDrawLayerToYPosition() {
         return setDrawLayerToYPosition;
     }
-
     public void setSetDrawLayerToYPosition(boolean setDrawLayerToYPosition) {
         this.setDrawLayerToYPosition = setDrawLayerToYPosition;
+    }
+    public boolean isDropOnDie() {
+        return dropOnDie;
+    }
+    public void setDropOnDie(boolean dropOnDie) {
+        this.dropOnDie = dropOnDie;
+    }
+    public boolean isCollidable() {
+        return collidable;
+    }
+    public void setCollidable(boolean collidable) {
+        this.collidable = collidable;
+    }
+    public boolean isHand() {
+        return hand;
+    }
+    public void setHand(boolean hand) {
+        this.hand = hand;
+    }
+    public boolean isHasRestOnGroundActionImage() {
+        return hasRestOnGroundActionImage;
+    }
+    public void setHasRestOnGroundActionImage(boolean hasRestOnGroundActionImage) {
+        this.hasRestOnGroundActionImage = hasRestOnGroundActionImage;
+    }
+    public boolean isRestOnGroundSingleImage() {
+        return restOnGroundSingleImage;
+    }
+    public void setRestOnGroundSingleImage(boolean restOnGroundSingleImage) {
+        this.restOnGroundSingleImage = restOnGroundSingleImage;
+    }
+    public boolean isRestOnGroundEightDirections() {
+        return restOnGroundEightDirections;
+    }
+    public void setRestOnGroundEightDirections(boolean restOnGroundEightDirections) {
+        this.restOnGroundEightDirections = restOnGroundEightDirections;
+    }
+    public int getRestOnGroundFrames() {
+        return restOnGroundFrames;
+    }
+    public void setRestOnGroundFrames(int restOnGroundFrames) {
+        this.restOnGroundFrames = restOnGroundFrames;
+    }
+    public boolean isUseOverSizedWeaponSlashOffsets() {
+        return useOverSizedWeaponSlashOffsets;
+    }
+    public void setUseOverSizedWeaponSlashOffsets(boolean useOverSizedWeaponSlashOffsets) {
+        this.useOverSizedWeaponSlashOffsets = useOverSizedWeaponSlashOffsets;
+    }
+    public boolean isUseOverSizedWeaponThrustOffsets() {
+        return useOverSizedWeaponThrustOffsets;
+    }
+    public void setUseOverSizedWeaponThrustOffsets(boolean useOverSizedWeaponThrustOffsets) {
+        this.useOverSizedWeaponThrustOffsets = useOverSizedWeaponThrustOffsets;
+    }
+
+    public ObjectMap<Class<? extends com.badlogic.ashley.core.Component>, String> getComponentsMap() {
+        return componentsMap;
+    }
+
+    public void setComponentsMap(ObjectMap<Class<? extends Component>, String> componentsMap) {
+        this.componentsMap = componentsMap;
+    }
+
+    public boolean isPhysicalObject() {
+        return physicalObject;
+    }
+
+    public void setPhysicalObject(boolean physicalObject) {
+        this.physicalObject = physicalObject;
     }
 }

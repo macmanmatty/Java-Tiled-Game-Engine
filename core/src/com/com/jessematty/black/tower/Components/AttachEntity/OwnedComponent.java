@@ -56,6 +56,9 @@ public class OwnedComponent implements Component {
     private  boolean removeOnPhysicalDetachment=true;
 
 
+
+
+
     public OwnedComponent() {
     }
 

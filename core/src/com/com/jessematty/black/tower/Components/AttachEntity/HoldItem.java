@@ -3,14 +3,19 @@ package com.jessematty.black.tower.Components.AttachEntity;
 import com.badlogic.ashley.core.Component;
 
 public class HoldItem implements Component {
-    private String itemToHoldId;
 
-    public String getItemToHoldId() {
-        return itemToHoldId;
+    public HoldItem(String holderId) {
+        this.holderId = holderId;
     }
 
-    public void setItemToHoldId(String itemToHoldId) {
-        this.itemToHoldId = itemToHoldId;
+    private String holderId;
+
+    public String getHolderId() {
+        return holderId;
+    }
+
+    public void setHolderId(String holderId) {
+        this.holderId = holderId;
     }
 
 }

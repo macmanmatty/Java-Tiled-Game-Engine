@@ -7,7 +7,6 @@ import com.jessematty.black.tower.Components.Other.EditorImageComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Editor.EditMode.Screens.MapEdit.MapEditScreen;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 
 public class CreateEntity extends MapEditScreenMenuItem {
 
@@ -18,8 +17,7 @@ public class CreateEntity extends MapEditScreenMenuItem {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                BasicEntityContainer container= EntityUtilities.makeBasicEntity();
-                Entity entity=container.getEntity();
+                Entity entity=EntityUtilities.makeBasicEntity();
                 PositionComponent position= new PositionComponent();
                 position.setLocationX(x);
                 position.setLocationY(y);

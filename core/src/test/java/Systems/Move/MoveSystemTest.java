@@ -65,7 +65,7 @@ public final class MoveSystemTest {
       assertEquals(rectangle.x, 128f, 1);
       assertEquals(rectangle.y, 96f, 1);
       ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-      assertEquals(actionComponent.getStat(), "move");
+      assertEquals(actionComponent.getAction(), "move");
 
     }
 
@@ -84,7 +84,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.y, 160f, 1);
     assertEquals(rectangle.x, 128f, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
 
   }
 
@@ -103,7 +103,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.x, 96f, 1);
     assertEquals(rectangle.y, 128f, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
   }
 
   @Test
@@ -120,7 +120,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.x, 160f, 1);
     assertEquals(rectangle.y, 128f, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
   }
 
   @Test
@@ -141,7 +141,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.y, y, 1);
     assertEquals(rectangle.x, x, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
   }
 
   @Test
@@ -163,7 +163,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.y, y, 1);
     assertEquals(rectangle.x, x, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
 
 
   }
@@ -185,7 +185,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.y, y, 1);
     assertEquals(rectangle.x, x, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
 
   }
   @Test
@@ -206,7 +206,7 @@ public final class MoveSystemTest {
     assertEquals(rectangle.y, y, 1);
     assertEquals(rectangle.x, x, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
 
   }
 

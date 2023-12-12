@@ -1,6 +1,7 @@
 package com.jessematty.black.tower.Systems.Move;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
@@ -33,6 +34,7 @@ public class MoveOnGround {
             if (screenLocationX >= map.getMaxXWorld() - map.getTileWidth()-10 || screenLocationY >= map.getMaxYWorld() - map.getTileHeight()-10 || screenLocationY < 10 || screenLocationX < 10) {
                 return; //  trying to  move out of map bounds bounds exit move function
             }
+
             movableComponent.setMoved(true);
             position.setLocationX(screenLocationX);
             position.setLocationY(screenLocationY);
@@ -41,6 +43,8 @@ public class MoveOnGround {
             position.setTiles(newTiles);
             position.setTileLocationX(newTiles.get(0).getLocationX());
             position.setTileLocationY(newTiles.get(0).getLocationY());
+
+
             movableComponent.setVelocity(speedX, speedY, 0);
         }
 }

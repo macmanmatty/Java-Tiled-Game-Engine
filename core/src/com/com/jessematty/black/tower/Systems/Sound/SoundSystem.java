@@ -35,14 +35,14 @@ public  class SoundSystem extends GameEntitySystem {
 
             SoundComponent soundComponent=soundComponentComponentMapper.get(entity);
             ActionComponent actionComponent =actionComponentMapper.get(entity);
-            String newAction= actionComponent.getStat();
+            String newAction= actionComponent.getAction();
             String currentAction=soundComponent.getCurrentAction();
             // action changed play Sound;
             if(!currentAction.equalsIgnoreCase(newAction)){
 
                 soundComponent.setPlaySound(true);
             }
-            soundComponent.setCurrentAction(actionComponent.getStat());
+            soundComponent.setCurrentAction(actionComponent.getAction());
 
 
             int timesToPlay = soundComponent.getCurrentSoundTimesToPlay();

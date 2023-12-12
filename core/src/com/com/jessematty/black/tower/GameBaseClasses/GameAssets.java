@@ -281,6 +281,10 @@ public class GameAssets implements Disposable {
      * @return AtlasNamedAtlasRegion may be null if no region exists
      */    public AtlasNamedAtlasRegion getAtlasRegionByName(String atlasRegionName){ // returns texture region based on a name from the current loaded atlas
         AtlasRegion atlasRegion=currentTextureAtlas.findRegion(atlasRegionName);
+        if(atlasRegion==null){
+            System.out.println("Region is Null: "+atlasRegionName);
+            return  null;
+        }
          return   new AtlasNamedAtlasRegion(atlasRegion);
     }
     public AssetManager getAssetManager() {

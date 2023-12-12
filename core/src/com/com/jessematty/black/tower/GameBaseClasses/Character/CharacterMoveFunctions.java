@@ -20,7 +20,7 @@ public class CharacterMoveFunctions {
         if (player.getMovableComponent().getCurrentSpeed() > 0) {
             player.getPlayerEntity().remove(MovingOnGroundComponent.class);
             player.getPlayerEntity().remove(Moved.class);
-            player.getActionComponent().setStat("rest");
+            player.getActionComponent().setAction("rest");
             player.getMovableComponent().setMoved(false);
             player.getMovableComponent().setCurrentSpeed(0);
         }
@@ -36,7 +36,7 @@ public class CharacterMoveFunctions {
      */
     public static void moveRight (ZRPGCharacter player){
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveRight();
         }
 
@@ -48,7 +48,7 @@ public class CharacterMoveFunctions {
         public static void moveLeft (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveLeft();
         }
     /**
@@ -58,7 +58,7 @@ public class CharacterMoveFunctions {
         public static void moveUp (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveUp();
         }
     /**
@@ -68,31 +68,31 @@ public class CharacterMoveFunctions {
         public static void moveDown (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveDown();
         }
         public static void moveRightUp (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveRightUp();
         }
         public static void moveLeftUp (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveLeftUp();
         }
         public static void moveLeftDown (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveLeftDown();
         }
         public static void moveRightDown (ZRPGCharacter player){
      
             player.getPlayerEntity().add(new MovingOnGroundComponent());
-            player.getActionComponent().setStat("move");
+            player.getActionComponent().setAction("move");
             player.getMovableComponent().moveRightDown();
         }
 

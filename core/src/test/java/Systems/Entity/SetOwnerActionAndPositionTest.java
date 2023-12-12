@@ -84,7 +84,7 @@ public final class SetOwnerActionAndPositionTest {
       assertEquals(rectangle.x, 128f, 1);
       assertEquals(rectangle.y, 96f, 1);
       ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-      assertEquals(actionComponent.getStat(), "move");
+      assertEquals(actionComponent.getAction(), "move");
 
     }
 
@@ -109,7 +109,7 @@ public final class SetOwnerActionAndPositionTest {
     assertEquals(rectangle.y, 160f, 1);
     assertEquals(rectangle.x, 128f, 1);
     ActionComponent actionComponent=movable1.getComponent(ActionComponent.class);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
 
   }
 
@@ -119,7 +119,7 @@ public final class SetOwnerActionAndPositionTest {
     MovableComponent movableComponent = movable1.getComponent(MovableComponent.class);
     PositionComponent positionComponent=  movable1.getComponent(PositionComponent.class);
     ActionComponent actionComponent=owned.getComponent(ActionComponent.class);
-    actionComponent.setStat("roll");
+    actionComponent.setAction("roll");
     OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
     ownedComponent.setSetEntityActionToOwner(false);
     movableComponent.moveLeft();
@@ -131,7 +131,7 @@ public final class SetOwnerActionAndPositionTest {
     Rectangle rectangle=positionComponent.getBoundsBoundingRectangle();
     assertEquals(rectangle.x, 96f, 1);
     assertEquals(rectangle.y, 128f, 1);
-    assertEquals( "roll", actionComponent.getStat());
+    assertEquals( "roll", actionComponent.getAction());
   }
 
   @Test
@@ -139,7 +139,7 @@ public final class SetOwnerActionAndPositionTest {
     MovableComponent movableComponent = movable1.getComponent(MovableComponent.class);
     PositionComponent positionComponent=  movable1.getComponent(PositionComponent.class);
     ActionComponent actionComponent=owned.getComponent(ActionComponent.class);
-    actionComponent.setStat("roll");
+    actionComponent.setAction("roll");
     OwnedComponent ownedComponent=owned.getComponent(OwnedComponent.class);
     ownedComponent.setSetEntityActionToOwner(true);
     movableComponent.moveRight();
@@ -151,7 +151,7 @@ public final class SetOwnerActionAndPositionTest {
     Rectangle rectangle=positionComponent.getBoundsBoundingRectangle();
     assertEquals(rectangle.x, 160f, 1);
     assertEquals(rectangle.y, 128f, 1);
-    assertEquals(actionComponent.getStat(), "move");
+    assertEquals(actionComponent.getAction(), "move");
   }
 
 

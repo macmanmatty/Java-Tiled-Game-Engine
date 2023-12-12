@@ -38,7 +38,7 @@ public class CreateEntityOnActionSystem extends GameEntitySystem {
         for(int count=0; count<size; count++){
             Entity entity=entities.get(count);
              CreateEntityOnAction createEntityOnAction =entityCreateableComponentMapper.get(entity);
-             String action=actionComponentMapper.get(entity).getStat();
+             String action=actionComponentMapper.get(entity).getAction();
              ParticleEntity particleEntity= createEntityOnAction.getEntitiesToCreate().get(action);
              if(particleEntity==null){
                  continue;

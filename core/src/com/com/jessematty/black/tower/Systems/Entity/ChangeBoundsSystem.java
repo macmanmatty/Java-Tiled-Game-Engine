@@ -61,7 +61,7 @@ public class ChangeBoundsSystem extends GameEntitySystem {
             PositionComponent position = positions.get(entity);
             ActionComponent actionComponent =actionComponentMapper.get(entity);
             Direction direction=position.getDirection();
-            String actionValue= actionComponent.getStat();
+            String actionValue= actionComponent.getAction();
             Polygon bounds =boundsChangeable.getBounds(direction, actionValue);
             if(bounds!=null){
                 position.setBounds(bounds);

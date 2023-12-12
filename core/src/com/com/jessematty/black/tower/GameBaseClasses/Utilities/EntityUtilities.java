@@ -16,8 +16,8 @@ import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
+import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Other.RemoveFromEngine;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
@@ -39,7 +39,6 @@ import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
-import com.jessematty.black.tower.Generators.Entity.EntityContainers.BasicEntityContainer;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 /**
@@ -195,7 +194,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
        entities.add(entity);
         entityIds.add(idComponentMapper.get(entity).getId());
         ActionComponent actionComponent=GameComponentMapper.getActionComponentMapper().get(entity);
-        actionComponent.setStat(action);
+        actionComponent.setAction(action);
        setActionToAllConnectedEntitiesInternal(entity, world, action);
         return;
    }
@@ -205,7 +204,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
       OwnerComponent entityOwnerComponent =ownerComponentMapper.get(entity);
         OwnedComponent ownedComponent=ownedComponentComponentMapperr.get(entity);
         ActionComponent actionComponent=GameComponentMapper.getActionComponentMapper().get(entity);
-        actionComponent.setStat(action);
+        actionComponent.setAction(action);
         if(entityOwnerComponent==null && ownedComponent==null ){
             return;
         }
@@ -436,7 +435,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
      * base components and stats
      * @return a Basic Entity
      */
-   public static BasicEntityContainer makeBasicEntity() {
+   public static Entity makeBasicEntity() {
         Entity entity = new Entity();
        EntityId entityId = new EntityId();
         entity.add(entityId);
@@ -465,7 +464,7 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         entity.add(ownerComponent);
         ImageComponent imageComponent= new ImageComponent();
         entity.add(imageComponent);
-     return new BasicEntityContainer(entity, entityId, nameComponent, groupsComponent,  numericStats, booleanStats, stringStats, stringStatsChangeable, numericStatsSelfChangable, booleanStatsChangeable, numericStatsChangeable);
+        return  entity;
    }
   public static Entity combineEntities(World world, Entity entity1, Entity entity2) {
        Entity entity=new Entity();
@@ -496,6 +495,23 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         }
         return leftoverPartId;
     }
+
+    /**
+     * adds a new pack to the packs component
+     * if no packs component exists adds one  to the character entity
+     * @param character
+     * @param pack
+     */
+    public void addPack(Entity character, Entity pack){
+        CharacterPacksComponent packs=GameComponentMapper.getCharacterPacksComponentComponentMapper().get(character);
+        if(packs==null){
+            packs= new CharacterPacksComponent();
+        }
+        String id=GameComponentMapper.getIdComponentMapper().get(pack).getId();
+        packs.getPackEntityIds().add(id);
+
+    }
+
     public  static  boolean attachEntity(Entity entityToAttachTo,   Entity entityToAttach) {
      return  attachEntity(  entityToAttachTo,  entityToAttach, true);
         }

@@ -208,11 +208,10 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         this.player = player;
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
         engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
-      DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getGameAssets().getDefaultSkin(),  "windowCompass", this );
-       defaultZRPGBottomWindow.setZrpgCharacter(player);
-       defaultZRPGBottomWindow.makeUI();
-        uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
-       gameCamera.setEntityToFollow(player.getPlayerEntity());
+    //  DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getGameAssets().getDefaultSkin(),  "windowCompass", this );
+    //   defaultZRPGBottomWindow.setZrpgCharacter(player);
+//        uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
+      gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPositionComponent());
         GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(this, player).getPlayerControlFunctions());
     }

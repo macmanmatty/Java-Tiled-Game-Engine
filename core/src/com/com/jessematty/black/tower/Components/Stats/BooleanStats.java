@@ -21,7 +21,6 @@ public class BooleanStats implements Component {
     public void addStat(BooleanStat stat){
         if(booleanStats.get(stat.getName())!=null){
             return;
-
         }
             booleanStats.put((stat.getName()), (BooleanStat)stat);
 
