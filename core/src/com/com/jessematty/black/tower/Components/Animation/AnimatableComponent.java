@@ -74,9 +74,7 @@ public class AnimatableComponent implements SerializableComponet{
     protected boolean layerChanged;
     private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
-
     }
-
     /**
      * get an Animation object based on a direction and action
      * if only four directions exist will use the
