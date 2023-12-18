@@ -49,11 +49,7 @@ public  class AnimationSystem extends GameEntitySystem {
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
                 Direction direction = position.getDirection();
-                if (animatable.isEightDirections()) {
                     animatable.setCurrentDirection(position.getDirection());
-                } else {
-                    animatable.setCurrentDirection(Direction.getBaseDirection(direction));
-                }
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
                 actionComponent.addTurn();
                 String currentAction = actionComponent.getAction();

@@ -15,7 +15,7 @@ public class ComponentGenerators {
      *  value= the component generator object that generates the components
      *
      */
-  private final   ObjectMap<Class<? extends Component>, ComponentGenerator<? extends Component>> componentGenerators=new ObjectMap<>();
+  private final   ObjectMap<String, ComponentGenerator<? extends Component>> componentGenerators=new ObjectMap<>();
     /**
      * the map of loaded components
      * key= the file to the component
@@ -23,9 +23,9 @@ public class ComponentGenerators {
      */
   private ObjectMap<String, Component> loadedComponents= new ObjectMap<>();
     public ComponentGenerators(GameAssets gameAssets) {
-        componentGenerators.put(AnimatableComponent.class,  new AnimationGenerator(gameAssets));
+        componentGenerators.put(AnimatableComponent.class.toString(),  new AnimationGenerator(gameAssets));
     }
-    public  ObjectMap<Class<? extends Component>, ComponentGenerator<? extends Component>> getComponentGenerators() {
+    public  ObjectMap<String,  ComponentGenerator<? extends Component>> getComponentGenerators() {
         return componentGenerators;
     }
     public ObjectMap<String, Component> getLoadedComponents() {

@@ -44,6 +44,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerator;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerators;
+import com.jessematty.black.tower.Generators.Components.ComponentLoadingException;
 import com.jessematty.black.tower.Generators.Entity.IEntityGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.Animations.LPCSpriteGenerator;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -58,7 +59,7 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
      private    GameAssets assets;
      private ComponentGenerators componentGenerators;
 
-     private FileUtilities.FileHandleType fileHandleType= FileUtilities.FileHandleType.EXTERNAL;
+     private FileUtilities.FileHandleType fileHandleType= FileUtilities.FileHandleType.LOCAL;
      private ObjectMap<String,LPCObjectGeneratorDTO> lpcObjectGeneratorDTOMap= new ObjectMap<>();
     public LPCObjectGenerator(GameAssets assets) {
         this.assets = assets;
@@ -334,14 +335,14 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
      * @param entity the entity to add the components to
      * @param lpcObjectGeneratorDTO
      */
-    private void generateComponents( Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO) {
-        ObjectMap<Class<? extends Component>, String> componentMap= lpcObjectGeneratorDTO.getComponentsMap();
-        ObjectMap.Keys<Class<? extends Component>> keys=componentMap.keys();
+    private void generateComponents( Entity entity, LPCObjectGeneratorDTO lpcObjectGeneratorDTO)  {
+        ObjectMap<String, String> componentMap= lpcObjectGeneratorDTO.getComponentsMap();
+        ObjectMap.Keys<String> keys=componentMap.keys();
         while(keys.hasNext) {
-            Class<  ? extends Component> componentClass =  keys.next();
+            String componentClass =  keys.next();
           ComponentGenerator componentGenerator= componentGenerators.getComponentGenerators().get(componentClass);
           if(componentGenerator==null){
-            throw new ComponentGenerationException("No component Generator Exists for Component Type: "+componentClass.getName());
+            throw new ComponentLoadingException("No component Generator Exists for Component Type: "+componentClass);
           }
           String filePath=componentMap.get(componentClass);
           Component component=componentGenerator.generateComponent(filePath, fileHandleType);

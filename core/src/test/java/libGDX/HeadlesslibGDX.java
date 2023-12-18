@@ -7,6 +7,9 @@ import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 public class HeadlesslibGDX {
     /**
      * Initialise a test headless application.
+     * you must create a new HeadLessLibgdx instance for any tests
+     * that require core libGDX functionality to be tested
+     *
      */
      static HeadlessApplication headlessApplication;
    static  {

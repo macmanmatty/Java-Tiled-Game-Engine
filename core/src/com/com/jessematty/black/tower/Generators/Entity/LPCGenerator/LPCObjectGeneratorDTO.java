@@ -280,7 +280,7 @@ public class LPCObjectGeneratorDTO {
      * value = the path to component file
      * each different  component must have it's own file
      */
-    private ObjectMap<Class<? extends Component>, String> componentsMap = new ObjectMap<>();
+    private ObjectMap<String, String> componentsMap = new ObjectMap<>();
     /**
      * if true the entity will  be placed on the map
      * at the spot of the object point on the tmx map
@@ -886,11 +886,11 @@ public class LPCObjectGeneratorDTO {
         this.useOverSizedWeaponThrustOffsets = useOverSizedWeaponThrustOffsets;
     }
 
-    public ObjectMap<Class<? extends com.badlogic.ashley.core.Component>, String> getComponentsMap() {
+    public ObjectMap<String, String> getComponentsMap() {
         return componentsMap;
     }
 
-    public void setComponentsMap(ObjectMap<Class<? extends Component>, String> componentsMap) {
+    public void setComponentsMap(ObjectMap<String,  String> componentsMap) {
         this.componentsMap = componentsMap;
     }
 

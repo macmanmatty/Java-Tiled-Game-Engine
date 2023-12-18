@@ -86,7 +86,15 @@ public class MemoryEfficientTiledMapSaver implements  TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap) throws MapLoadingException {
+
+    /**
+     * saves an tiled map composed of AtlasStaticTiledMapTiles @See AtlasStaticTiledMapTile
+     * @param tiledMap the libGDX tiled map to save
+     * @throws MapLoadingException if the class of tiled to serialize
+     * is not a AtlasStaticTiledMapTile  or AtlasAnimatedTiledMapTile
+     *
+     */
+    public void saveMap(TiledMap tiledMap)  {
         this. mapProperties=tiledMap.getProperties();
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);

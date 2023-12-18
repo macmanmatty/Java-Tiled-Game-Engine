@@ -80,7 +80,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 0fafaf9e-5302-418e-802d-b85eac50a8dd
+	tmxObjectId: db544a2f-3e27-431e-9f88-2a1928226bea
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -108,7 +108,7 @@
 	atlasName: textureAtlases/testAssets/testAssets.atlas
 	animatableBodyName: lizard
 	sex: Male
-	name: lizard
+	name: John The Great
 	info: info
 	brightness: 0.67
 	colorR: 0
@@ -370,7 +370,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 597f3c86-208a-48c9-9e18-215a1a12daba
+			tmxObjectId: c3fbff9c-1ef8-4201-a484-8affa0fdd3fd
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1268,7 +1268,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: fe265801-b911-405c-9497-9a2477463130
+			tmxObjectId: afd246d9-8e77-4983-8dd4-da158928a37d
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1401,7 +1401,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 597f3c86-208a-48c9-9e18-215a1a12daba
+					tmxObjectId: c3fbff9c-1ef8-4201-a484-8affa0fdd3fd
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -2332,7 +2332,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: aa3f7bf5-06ae-4d3a-865a-05a5943c13a0
+	tmxObjectId: 2012f2d7-5476-4893-a716-f1e52ee3df41
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2435,7 +2435,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: b806691b-95fc-41f4-85b0-b231c9fbcd5b
+	tmxObjectId: c5d87d4b-c925-48c1-a891-83a6a6a00e4c
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2612,7 +2612,9 @@
 	height: 0
 	physicalObject: true
 	hand: false
-	componentsMap: {}
+	componentsMap: {
+		class com.jessematty.black.tower.Components.Animation.AnimatableComponent: "/android/assets/Animations/sword.json"
+	}
 	placeOnMap: true
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: true
@@ -2699,7 +2701,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 110436f5-5620-4291-a050-f71a81cb4203
+	tmxObjectId: 23275060-b2c7-4abc-9f9a-2fc55c2a1462
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2802,7 +2804,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d1d5196f-7716-44a3-87bd-0808b0684a0d
+	tmxObjectId: 9fa7cd17-e898-4055-bba1-289dc7268472
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2905,7 +2907,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: fb6a82a8-ded9-4bc2-8c5b-87b22b9c7784
+	tmxObjectId: 4b700bc2-e4ed-4b32-ac73-e0e3661fc752
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2921,7 +2923,9 @@
 	height: 0
 	physicalObject: true
 	hand: false
-	componentsMap: {}
+	componentsMap: {
+		class com.jessematty.black.tower.Components.Animation.AnimatableComponent: "/android/assets/Animations/potion.json"
+	}
 	placeOnMap: true
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
@@ -3357,7 +3361,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 1fbdfeeb-61f6-42b2-bb3a-4308990fbb8f
+	tmxObjectId: 3395bc8b-88c7-4eff-ae5e-338c990c37c3
 	bounds: null
 	groups: []
 	groupsAddable: []

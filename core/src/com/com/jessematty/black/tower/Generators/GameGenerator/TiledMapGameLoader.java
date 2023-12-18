@@ -28,6 +28,7 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
+import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 import com.jessematty.black.tower.Maps.GameMap;
@@ -106,31 +107,7 @@ public class TiledMapGameLoader {
      * the map of the texture region names
      */
     private static  ObjectMap<TextureRegion, String> regionNames = new ObjectMap<>();
-    /**
-     * converts .tmx tiled tiled map to a texture atlas based  tiled map
-     * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
-     * @param mapName   the name of the map which will also be the name of the atlas
-     * @return NamedTextureAtlas the texture atlas generated from the tiled map
-     * @ throws MapLoadingException
-     */
-    private    TiledMap convertToAtlasBasedTiledMap( TiledMap newTiledMap, TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingException {
-        MapProperties oldMapProperties = oldTiledMap.getProperties();
-        MapProperties newMapProperties=newTiledMap.getProperties();
-        newMapProperties.putAll(oldMapProperties);
-        newMapProperties.put("atlasName", atlasName);
-        MapLayers oldMapLayers = oldTiledMap.getLayers();
-        MapLayers newMapMapLayers = newTiledMap.getLayers();
-        int layers = oldMapLayers.size();
-        if (layers == 0) {
-            throw new MapLoadingException("Tiled Map Has No Layers");
-        }
-        for (MapLayer oldLayer: oldMapLayers) {
-            if(oldLayer instanceof TiledMapTileLayer) {
-                addTiledMapTileLayer(oldLayer, newMapMapLayers, worldAtlas, mapName);
-            }
-        }
-        return newTiledMap;
-    }
+
     /**
      * creates a new map layer from an old map layer
      * @param oldLayer the old tiled map tile layer

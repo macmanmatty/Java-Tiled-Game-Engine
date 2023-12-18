@@ -7,18 +7,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver;
-import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MemoryEfficientTiledMapSaver;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.FileAction;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileHandleAction;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class JsonLoader {
     /**
@@ -117,7 +111,7 @@ public class JsonLoader {
         HashMap<T , T2> object  = (HashMap<T, T2>) json.fromJson(HashMap.class,  type2Class,  object2);
         return object;
     }
-    public void saveTiledMap(  TiledMap map, String path) throws MapLoadingException { //saves tiled map using the map saver class
+    public void saveTiledMap(  TiledMap map, String path)  { //saves tiled map using the map saver class
         if(fastSaveTiledMaps ==true) {
             com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver saver = new com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.FastTiledMapSaver();
             saver.saveMap(map);

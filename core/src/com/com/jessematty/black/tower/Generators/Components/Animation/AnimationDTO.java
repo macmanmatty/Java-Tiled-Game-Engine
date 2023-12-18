@@ -52,22 +52,22 @@ public class AnimationDTO {
     private float yOffset;
     /**
      * the list of layer  numbers for the animation frames based on direction
-     *            0 = Direction.DOWN
+     *            0 = Direction.DOWN;
      *            1 =Direction.UP;
-                  2= Direction.LEFT
-                  3 =Direction.RIGHT
-                  4 = Direction.LEFTDOWN
-                  5= Direction.RIGHTDOWN
-                  6 = Direction.RIGHTUP
-                  7 = Direction.LEFTUP
+                  2= Direction.LEFT;
+                  3 =Direction.RIGHT;
+                  4 = Direction.LEFTDOWN;
+                  5= Direction.RIGHTDOWN;
+                  6 = Direction.RIGHTUP;
+                  7 = Direction.LEFTUP;
      */
-    private int []  layerNumbers;
+    private int []  layerNumbers= new int [] {1};
     /**
      * the list of  subLayer  numbers for the animation frames based on direction
      * the directions are the same as layer numbers
      *
      */
-    private int [] sublayerNumbers;
+    private int [] sublayerNumbers= new int []{1};
 
 
 
