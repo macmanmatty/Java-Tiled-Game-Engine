@@ -69,8 +69,6 @@ public class AnimationDTO {
      */
     private int [] sublayerNumbers= new int []{1};
 
-
-
     public int getAnimationDirections() {
         return animationDirections;
     }

@@ -66,8 +66,11 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
     private Animation generateAnimation(AnimationDTO animationDTO, int count) {
         Direction direction=getDirection(count);
         String action=animationDTO.getAction();
-       String directionString= StringUtils.capitalize(direction.toString().toLowerCase());
-        String animationName=animationDTO.getBodyName()+action+directionString;
+        String animationName = animationDTO.getBodyName() + action;
+        if(animationDTO.getAnimationDirections()==1) {
+            String directionString= StringUtils.capitalize(direction.toString().toLowerCase());
+            animationName=animationName+directionString;
+        }
         int numberOfFrames=animationDTO.getFrames();
         int frameRate=animationDTO.getFrameRate();
         if(numberOfFrames<=0){
