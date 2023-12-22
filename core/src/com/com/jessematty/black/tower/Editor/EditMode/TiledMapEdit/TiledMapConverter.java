@@ -32,9 +32,10 @@ public final  class TiledMapConverter {
          * @param oldTiledMap   the libGDX .tmx  tiled map  to generate an atlas from
          * @param mapName   the name of the map which will also be the name of the atlas
          * @return NamedTextureAtlas the texture atlas generated from the tiled map
-         * @ throws MapLoadingException
+         * @ throws MapLoadingException if  the properties are missing  or  the map  is empty
+         *
          */
-    public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) throws MapLoadingException {
+    public  static TiledMap convertToAtlasBasedTiledMap(TiledMap oldTiledMap, String mapName, TextureAtlas worldAtlas, String atlasName) {
         TiledMap newTiledMap= new TiledMap();
         MapProperties oldMapProperties = oldTiledMap.getProperties();
         MapProperties newMapProperties=newTiledMap.getProperties();

@@ -1,63 +1,38 @@
 package com.jessematty.black.tower.ZRPGTest;
-
-
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
+import com.jessematty.black.tower.Generators.Components.Animation.AnimationDTO;
+import com.jessematty.black.tower.Generators.Components.Animation.AnimationDirections;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
-
 public class TestEntities {
-
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO leftHand = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO rightHand = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO leftFoot = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO rightFoot = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO torso= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO head = new LPCObjectGeneratorDTO();
-
-
-
-
+    
     static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO pack = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO sword= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO spear= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO apple= new LPCObjectGeneratorDTO();
-
-
     static LPCObjectGeneratorDTO potion= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO potion2= new LPCObjectGeneratorDTO();
-
-
     static LPCObjectGeneratorDTO scroll= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO bow= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO shovel= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO tail= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO axe= new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO armorChest = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO armorPants = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO helmet = new LPCObjectGeneratorDTO();
-
-
     static LPCObjectGeneratorDTO gloves = new LPCObjectGeneratorDTO();
-
     static LPCObjectGeneratorDTO shoes = new LPCObjectGeneratorDTO();
 
 
@@ -66,16 +41,13 @@ public class TestEntities {
     static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
     static BooleanStat on= new BooleanStat(true, "on", true);
     static StringStat classuz= new StringStat(true, "class", "lizard");
-
-
     static  {
-
         health.getChangeGroups().add("all");
         lizard.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         lizard.setTmxObjectId("lizard");
         lizard.setAnimatableBodyName("lizard");
         lizard.setSex("Male");
-        lizard.setName("lizard");
+        lizard.setName("John The Great");
         lizard.setBrightness( .67f);
         lizard.setColorA(1);
         lizard.setColorB(.1f);
@@ -183,9 +155,6 @@ public class TestEntities {
         rightHand.setBody(true);
         rightHand.setHand(true);
         rightHand.getAttachableParts().addAll("ring", "glove", "bracelet");
-
-
-
         rightFoot.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         rightFoot.setAnimatableBodyName("rightFoot");
         rightFoot.setSex("Male");
@@ -213,10 +182,6 @@ public class TestEntities {
         rightFoot.setBody(true);
         rightFoot.getAttachableParts().addAll("ring", "shoe", "bracelet");
 
-
-
-
-
         leftFoot.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         leftFoot.setAnimatableBodyName("leftFoot");
         leftFoot.setSex("Male");
@@ -241,9 +206,6 @@ public class TestEntities {
         leftFoot.setPartClass("leftFoot");
         leftFoot.setBody(true);
         leftFoot.getAttachableParts().addAll("ring", "shoe", "bracelet");
-
-
-
 
         torso.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         torso.setAnimatableBodyName("torso");
@@ -272,9 +234,6 @@ public class TestEntities {
         torso.getAttachableParts().addAll("armor", "shirt", "belt", "pants", "vest", "backPack", "pouch", "quiver");
         torso.setPartClass("torso");
 
-
-
-
         head.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         head.setAnimatableBodyName("head");
         head.setSex("Male");
@@ -301,8 +260,6 @@ public class TestEntities {
         head.setPartClass("head");
         head.getAttachableParts().addAll("hat", "helmet", "mask", "glasses");
         head.setPartClass("torso");
-
-
         tree.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tree.setImageName("tree");
         tree.setName("tree");
@@ -318,9 +275,6 @@ public class TestEntities {
         tree.setVolume(100);
         tree.setHeight(100);
         tree.setDrawLayer(Integer.MAX_VALUE);
-
-
-
         pack.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         pack.setAnimatableBodyName("backPack");
         pack.setSex("");
@@ -351,9 +305,6 @@ public class TestEntities {
         pack.setInternalVolume(1000000);
         pack.setDrawLayer(1);
 
-
-
-
         apple.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         apple.setName("apple");
         apple.setImageName("apple1");
@@ -370,7 +321,6 @@ public class TestEntities {
         apple.setVolume(100);
         apple.setAnimated(true);
         apple.setDrawable(false);
-
         potion.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         potion.setName("potion");
         potion.setImageName("potion1");
@@ -387,10 +337,9 @@ public class TestEntities {
         potion.setVolume(3);
         potion.setAnimated(false);
         potion.setDrawable(false);
+        potion.getComponentsMap().put(AnimatableComponent.class.toString(), "/android/assets/Animations/potion.json");
+
         pack.getStats().add(condition,health,  on, classuz);
-
-
-
         scroll.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         scroll.setName("scroll");
         scroll.setImageName("scroll1");
@@ -440,9 +389,8 @@ public class TestEntities {
         sword.setUpLayerOffset(3);
         sword.setUseOverSizedWeaponSlashOffsets(true);
         sword.setUseOverSizedWeaponThrustOffsets(true);
-
-
-
+        sword.getComponentsMap().put(AnimatableComponent.class.toString(), "/android/assets/Animations/sword.json");
+        sword.setAction("restOnGround");
 
         spear.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         spear.setAnimatableBodyName("spear");
@@ -469,8 +417,6 @@ public class TestEntities {
         spear.setVolume(100);
         spear.setAnimated(false);
         spear.setDrawable(false);
-
-
         axe.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         axe.setAnimatableBodyName("axe");
         axe.setName("axe");
@@ -487,8 +433,6 @@ public class TestEntities {
         potion.setVolume(3);
         axe.setAnimated(false);
         axe.setDrawable(false);
-
-
         shovel.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         shovel.setAnimatableBodyName("shovel");
         shovel.setName("shovel");
@@ -505,9 +449,6 @@ public class TestEntities {
         shovel.setVolume(100);
         shovel.setAnimated(false);
         shovel.setDrawable(false);
-
-
-
         bow.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         bow.setAnimatableBodyName("bow");
         bow.setName("bow");
@@ -524,8 +465,6 @@ public class TestEntities {
         bow.setVolume(100);
         bow.setAnimated(false);
         bow.setDrawable(false);
-
-
         armorChest.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         armorChest.setAnimatableBodyName("chestArmor");
         armorChest.setDrawSubLayer(Integer.MIN_VALUE);
@@ -554,9 +493,6 @@ public class TestEntities {
         armorChest.setTmxObjectId("armorChest");
         armorChest.setPlaceOnMap(true);
         armorChest.setDrawLayer(Integer.MIN_VALUE);
-
-
-
         armorPants.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         armorPants.setAnimatableBodyName("pantsArmor");
         armorPants.setDrawSubLayer(Integer.MIN_VALUE);
@@ -585,18 +521,16 @@ public class TestEntities {
         armorPants.setTmxObjectId("armorPants");
         armorPants.setPlaceOnMap(true);
         armorPants.setDrawLayer(Integer.MIN_VALUE);
-        
-    }
 
+
+
+
+    }
     public TestEntities() {
-
-
     }
-
     public static LPCObjectGeneratorDTO getLizard() {
         return lizard;
     }
-
     public static Array<LPCObjectGeneratorDTO> getAll(){
         Array<LPCObjectGeneratorDTO> lpcObjectGeneratorDTOS= new Array<>( );
         lpcObjectGeneratorDTOS.add(bow);
@@ -611,10 +545,6 @@ public class TestEntities {
         lpcObjectGeneratorDTOS.add(tree);
         lpcObjectGeneratorDTOS.add(axe);
         lpcObjectGeneratorDTOS.add(armorChest);
-
-
-
                   return  lpcObjectGeneratorDTOS;
     }
-
 }

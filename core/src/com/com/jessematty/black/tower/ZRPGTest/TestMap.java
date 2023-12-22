@@ -39,7 +39,7 @@ public class TestMap {
     }
     public void testMap(){
         JsonLoader jsonLoader= new JsonLoader();
-        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", false, FileUtilities.FileHandleType.ABSOLUTE);
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/android/assets/Entities/testEntities.json", false, FileUtilities.FileHandleType.LOCAL);
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         TextureAtlas atlas= assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         assetts.finishLoading();
@@ -54,7 +54,7 @@ public class TestMap {
         world.setWorldTextureAtlas(atlas, "textureAtlases/testAssets/testAssets.atlas");
 
         LPCObjectGenerator lpcObjectGenerator = new LPCObjectGenerator(assetts);
-        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json",false , FileUtilities.FileHandleType.ABSOLUTE);
+        ObjectMap<String, EntityBag> entityBagObjectMap=lpcObjectGenerator.loadEntities("/android/assets/Entities/testEntities.json",false , FileUtilities.FileHandleType.LOCAL);
         EntityBag lizard= entityBagObjectMap.get("lizard");
         // Entity entity2=new CopyObject(assetts).copyObject(entity, Entity.class);
         //entity2.add(player);
@@ -142,7 +142,9 @@ public class TestMap {
         assetts.finishLoading();
         JsonLoader jsonLoader= new JsonLoader();
 
-        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntitiesTmx.json", false, FileUtilities.FileHandleType.ABSOLUTE);
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/android/assets/Entities/testEntitiesTmx.json", false, FileUtilities.FileHandleType.LOCAL);
+        jsonLoader.writeObjectToFile(TestAnimations.potion,"/android/assets/Animations/potion.json", false,  FileUtilities.FileHandleType.LOCAL);
+        jsonLoader.writeObjectToFile(TestAnimations.sword,"/android/assets/Animations/sword.json", false,  FileUtilities.FileHandleType.LOCAL );
 
         World world= new World();
         world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");

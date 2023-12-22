@@ -41,7 +41,7 @@ public class UITEST  implements Screen {
         this.gameAssetts=gameAssets;
         GameAssets.getGameInput().addProcessor(testStage);
         JsonLoader jsonLoader= new JsonLoader();
-        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/Entities/testEntities.json", true, FileUtilities.FileHandleType.ABSOLUTE);
+        jsonLoader.writeObjectToFile(TestEntities.getAll(), "/android/assets/Entities/testEntities.json", true, FileUtilities.FileHandleType.LOCAL);
         testStage.setDebugInvisible(false);
         TextureAtlas atlas= gameAssets.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
         gameAssets.finishLoading();

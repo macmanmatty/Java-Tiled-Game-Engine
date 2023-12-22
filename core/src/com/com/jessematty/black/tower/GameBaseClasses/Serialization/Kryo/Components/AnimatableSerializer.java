@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components;
-
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.esotericsoftware.kryo.Kryo;
@@ -11,51 +10,35 @@ import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
-
 public class AnimatableSerializer extends Serializer<AnimatableComponent> {
-
     private final GameAssets gameAssets;
-
     public AnimatableSerializer(GameAssets gameAssets) {
         this.gameAssets = gameAssets;
     }
-
     @Override
     public void write(Kryo kryo, Output output, AnimatableComponent animatableComponent) {
         kryo.writeClassAndObject(output, animatableComponent.getAnimations());
-        kryo.writeObject(output, animatableComponent.isEightDirections());
         kryo.writeObject(output, animatableComponent.isSingleImage());
         kryo.writeObject(output, animatableComponent.getCurrentAction());
         kryo.writeObject(output, animatableComponent.getCurrentFrameNumber());
         kryo.writeObject(output, animatableComponent.getCurrentFrameRate());
-        kryo.writeObject(output, animatableComponent.getCurrentLayerNumber());
+        kryo.writeObject(output, animatableComponent.getCurrentSublayerNumber());
         kryo.writeClassAndObject(output, animatableComponent.getCurrentDirection());
         kryo.writeObject(output, animatableComponent.isSingleImage());
         if(animatableComponent.isSingleImage()) {
             kryo.writeObject(output, animatableComponent.getStaticTexture().name);
             kryo.writeObject(output, animatableComponent.getStaticTexture().getAtlasName());
-
         }
-
-
-
-
-
-
-
     }
-
     @Override
     public AnimatableComponent read(Kryo kryo, Input input, Class<AnimatableComponent> type) {
-
         AnimatableComponent animatableComponent= new AnimatableComponent();
        animatableComponent.setAnimations((ObjectMap<String, ObjectMap<String, Animation>>) kryo.readClassAndObject(input));
-       animatableComponent.setEightDirections( kryo.readObject(input, Boolean.class));
         animatableComponent.setSingleImage(kryo.readObject(input, Boolean.class));
        animatableComponent.changeAction( kryo.readObject(input, String.class));
         animatableComponent.setCurrentFrameNumber(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentFrameRate(kryo.readObject(input, Integer.class));
-        animatableComponent.setCurrentLayerNumber(kryo.readObject(input, Integer.class));
+        animatableComponent.setCurrentsubLayerNumber(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentDirection((Direction) kryo.readClassAndObject(input));
         boolean singleImage=kryo.readObject(input, Boolean.class);
         animatableComponent.setSingleImage(singleImage);
@@ -63,7 +46,6 @@ public class AnimatableSerializer extends Serializer<AnimatableComponent> {
             AtlasNamedAtlasRegion atlasRegion = gameAssets.getAtlasRegionByName(kryo.readObject(input, String.class), kryo.readObject(input, String.class));
             animatableComponent.setStaticTexture(atlasRegion);
         }
-
     ObjectMap<String, ObjectMap<String, Animation>> animations=animatableComponent.getAnimations();
         Keys<String> keys=animations.keys();
         while(keys.hasNext==true ) {
@@ -74,12 +56,8 @@ public class AnimatableSerializer extends Serializer<AnimatableComponent> {
                 String key2=keys2.next();
                 Animation animation=names.get(key2);
                 animation.deSerialize(gameAssets);
-
             }
         }
-
-
         return animatableComponent;
-
     }
 }

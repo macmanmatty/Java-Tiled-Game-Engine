@@ -1,4 +1,4 @@
-package Utilities;
+package GameBaseClasses.Utilities;
 
 import static org.junit.Assert.assertEquals;
 

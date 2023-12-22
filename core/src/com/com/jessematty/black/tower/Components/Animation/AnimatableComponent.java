@@ -26,12 +26,6 @@ public class AnimatableComponent implements SerializableComponet{
      */
   protected  ObjectMap<String, ObjectMap<String, Animation >> animations = new ObjectMap<String, ObjectMap<String, Animation>>();
     /**
-     * does this animation have eight directions
-     * if true the map of animations will initialized with
-     * sub maps to actions for all eight directions;
-     */
-    protected boolean eightDirections=false;
-    /**
      *  the number of the current animation the frame
      */
     protected int currentFrameNumber; // the current animation frame number
@@ -60,12 +54,23 @@ public class AnimatableComponent implements SerializableComponet{
     /**
      * the  old  sub-layer number of the animation
      */
+    protected  int previousSublayerNumber;
+    /**
+     * the  old  layer number of the animation
+     */
     protected  int previousLayerNumber;
 
     /**
      * the  current  sub-layer number of the animation
      */
+    protected  int currentSublayerNumber;
+
+    /**
+     * the  current  layer number of the animation
+     */
     protected  int currentLayerNumber;
+
+
 
     /**
      * whether  or not the layer number has changed
@@ -74,9 +79,7 @@ public class AnimatableComponent implements SerializableComponet{
     protected boolean layerChanged;
     private AtlasNamedAtlasRegion staticTexture;
     public AnimatableComponent() {
-
     }
-
     /**
      * get an Animation object based on a direction and action
      * if only four directions exist will use the
@@ -92,12 +95,11 @@ public class AnimatableComponent implements SerializableComponet{
         if(animationObjectMap.size==1){
            return animationObjectMap.values().next();
         }
-        else if(!eightDirections){
+        else if(animationObjectMap.size>4){
             direction=Direction.getBaseDirection(direction);
         }
         return animations.get(action).get(direction.toString());
     }
-
     /**
      * returns the number of frames a given animation has  for given
      * action and direction
@@ -106,7 +108,8 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public int getFrames(  String action, Direction direction) {
-        if(eightDirections=false){
+        ObjectMap<String , Animation> animationObjectMap=animations.get(action);
+        if(animationObjectMap.size>4){
             direction=Direction.getBaseDirection(direction);
         }
         Animation animation=animations.get(action).get(direction.toString());
@@ -125,7 +128,8 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public int getFrameRate(Direction direction, String action) {
-        if(eightDirections=false){
+        ObjectMap<String , Animation> animationObjectMap=animations.get(action);
+        if(animationObjectMap.size>4){
             direction=Direction.getBaseDirection(direction);
         }
         Animation animation=animations.get(action).get(direction.toString());
@@ -154,9 +158,6 @@ public class AnimatableComponent implements SerializableComponet{
     public void addAnimation(AtlasNamedAtlasRegion [] regions, Direction direction, String action, int frameRate, Vector2 offsets, int subLayerNumber, int  layerNumber){
       Animation animation=  AnimationUtilities.createAnimation(regions, direction, action, frameRate, offsets, subLayerNumber, layerNumber);
       addAnimation(animation);
-    }
-    public boolean isEightDirections() {
-        return eightDirections;
     }
     public int getCurrentFrameNumber() {
         return currentFrameNumber;
@@ -242,12 +243,25 @@ public class AnimatableComponent implements SerializableComponet{
      * for the current animation
      * @return
      */
-    public   int getCurrentLayerNumber(){
+    public   int getCurrentSublayerNumber(){
      Animation animation=animations.get(currentAction).get(currentDirection.toString());
      if(animation!=null) {
-     currentLayerNumber=animation.getSubLayerNumber();
+     currentSublayerNumber =animation.getSubLayerNumber();
      }
-        if(previousLayerNumber!=currentLayerNumber){
+        if(previousSublayerNumber != currentSublayerNumber){
+            layerChanged=true;
+        }
+        else{
+            layerChanged=false;
+        }
+        return currentSublayerNumber;
+    }
+    public   int getCurrentLayerNumber(){
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        if(animation!=null) {
+            currentLayerNumber =animation.getLayerNumber();
+        }
+        if(previousLayerNumber != currentLayerNumber){
             layerChanged=true;
         }
         else{
@@ -313,9 +327,7 @@ public class AnimatableComponent implements SerializableComponet{
     public void setAnimations(ObjectMap<String, ObjectMap<String, Animation>> animations) {
         this.animations = animations;
     }
-    public void setEightDirections(boolean eightDirections) {
-        this.eightDirections = eightDirections;
-    }
+
     public void setCurrentFrameNumber(int currentFrameNumber) {
         this.currentFrameNumber = currentFrameNumber;
     }
@@ -325,12 +337,14 @@ public class AnimatableComponent implements SerializableComponet{
     public void setCurrentFrameRate(int currentFrameRate) {
         this.currentFrameRate = currentFrameRate;
     }
-    public void setCurrentLayerNumber(int currentLayerNumber) {
-        this.currentLayerNumber = currentLayerNumber;
+    public void setCurrentsubLayerNumber(int currentsubLayerNumber) {
+        this.currentSublayerNumber = currentsubLayerNumber;
     }
     public boolean isFinishedAnimating() {
         return finishedAnimating;
     }
+
+
 
 
 }

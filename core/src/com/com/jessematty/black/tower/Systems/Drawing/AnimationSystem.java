@@ -49,11 +49,7 @@ public  class AnimationSystem extends GameEntitySystem {
                 // set animation variables and link them to the drawable if drawable has animatable component
                 // set directions
                 Direction direction = position.getDirection();
-                if (animatable.isEightDirections()) {
                     animatable.setCurrentDirection(position.getDirection());
-                } else {
-                    animatable.setCurrentDirection(Direction.getBaseDirection(direction));
-                }
                 ActionComponent actionComponent = actionComponentMapper.get(entity);
                 actionComponent.addTurn();
                 String currentAction = actionComponent.getAction();
@@ -64,13 +60,17 @@ public  class AnimationSystem extends GameEntitySystem {
                 if ((!animatable.getCurrentAction().equals(currentAction))) {
                     animatable.changeAction(currentAction);
                 }
-                drawableComponent.setSubLayerNumber(animatable.getCurrentLayerNumber());
+                drawableComponent.setSubLayerNumber(animatable.getCurrentSublayerNumber());
+                drawableComponent.setLayerNumber(animatable.getCurrentLayerNumber());
                 drawableComponent.setCurrentRegion(animatable.getCurrentTexture());
                 drawableComponent.setDrawOffsets(animatable.getCurrentDrawOffsets());
                 animatable.nextFrame();
                 if (animatable.isFinishedAnimating()) {
                     entity.add(new AnimationFinished());
                     actionComponent.stopAction();
+                    if(position.isOnGround()){
+                        actionComponent.setAction("restOnGround");
+                    }
                 }
                 if(drawableComponent.isSetLayerToYPosition()) {
                     drawableComponent.setLayerNumber(-position.getLocationY() - drawableComponent.getTextureRegion().getRegionHeight()); //set layer number equal to y position

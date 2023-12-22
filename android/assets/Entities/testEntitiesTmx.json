@@ -80,7 +80,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 0fafaf9e-5302-418e-802d-b85eac50a8dd
+	tmxObjectId: ca404444-f0a7-4aa4-9346-631097155cc5
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -101,6 +101,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -108,7 +109,7 @@
 	atlasName: textureAtlases/testAssets/testAssets.atlas
 	animatableBodyName: lizard
 	sex: Male
-	name: lizard
+	name: John The Great
 	info: info
 	brightness: 0.67
 	colorR: 0
@@ -370,7 +371,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 597f3c86-208a-48c9-9e18-215a1a12daba
+			tmxObjectId: 45901553-b61f-4f4f-b1b3-322b9419ef92
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -391,6 +392,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -540,6 +542,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -689,6 +692,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -838,6 +842,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -988,6 +993,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -1142,6 +1148,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -1268,7 +1275,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: fe265801-b911-405c-9497-9a2477463130
+			tmxObjectId: b3d92b8f-b2c5-4162-8255-f8e745e285d9
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1401,7 +1408,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 597f3c86-208a-48c9-9e18-215a1a12daba
+					tmxObjectId: 45901553-b61f-4f4f-b1b3-322b9419ef92
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1422,6 +1429,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1571,6 +1579,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1720,6 +1729,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1869,6 +1879,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -2019,6 +2030,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -2173,6 +2185,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 			]
 			attachedEntitiesIDs: []
@@ -2190,6 +2203,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 	]
 	attachedEntitiesIDs: [
@@ -2209,6 +2223,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2332,7 +2347,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: aa3f7bf5-06ae-4d3a-865a-05a5943c13a0
+	tmxObjectId: cc2bc657-e51b-44af-847d-156dde7057bf
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2353,6 +2368,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2435,7 +2451,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: b806691b-95fc-41f4-85b0-b231c9fbcd5b
+	tmxObjectId: c0a9665d-cfa8-41df-873b-5af5c4617077
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2456,6 +2472,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2612,11 +2629,14 @@
 	height: 0
 	physicalObject: true
 	hand: false
-	componentsMap: {}
+	componentsMap: {
+		class com.jessematty.black.tower.Components.Animation.AnimatableComponent: "/android/assets/Animations/sword.json"
+	}
 	placeOnMap: true
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: true
 	useOverSizedWeaponThrustOffsets: true
+	action: restOnGround
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2699,7 +2719,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 110436f5-5620-4291-a050-f71a81cb4203
+	tmxObjectId: 3d6ce79c-fd90-4ac1-bd23-ac9eb9eaedc1
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2720,6 +2740,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2802,7 +2823,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d1d5196f-7716-44a3-87bd-0808b0684a0d
+	tmxObjectId: ebea85a4-1da2-4a7d-97a7-f60d2918073f
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2823,6 +2844,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2905,7 +2927,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: fb6a82a8-ded9-4bc2-8c5b-87b22b9c7784
+	tmxObjectId: d41fbc90-ddf7-42c9-9741-46dc64041c15
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2921,11 +2943,14 @@
 	height: 0
 	physicalObject: true
 	hand: false
-	componentsMap: {}
+	componentsMap: {
+		class com.jessematty.black.tower.Components.Animation.AnimatableComponent: "/android/assets/Animations/potion.json"
+	}
 	placeOnMap: true
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3129,6 +3154,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3275,6 +3301,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3357,7 +3384,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 1fbdfeeb-61f6-42b2-bb3a-4308990fbb8f
+	tmxObjectId: 1f9d0903-c779-44f7-a8d2-1cc227c40eb7
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3378,6 +3405,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3522,5 +3550,6 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 ]

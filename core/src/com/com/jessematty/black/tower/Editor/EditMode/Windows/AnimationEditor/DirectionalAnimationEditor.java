@@ -139,7 +139,6 @@ public class DirectionalAnimationEditor  extends Table {
     }
     public void setAnimations(AnimatableComponent animatable){
         this.animatable=animatable;
-        eightDirections=animatable.isEightDirections();
         if(eightDirections==true){
             numberOfDirections =8;
         }

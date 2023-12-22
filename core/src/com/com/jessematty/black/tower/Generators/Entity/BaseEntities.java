@@ -18,5 +18,6 @@ public class BaseEntities {
         wall.setMass(Float.MAX_VALUE);
         wall.setHeight(Float.MAX_VALUE);
         wall.setVolume(Float.MAX_VALUE);
+        wall.setTmxObjectId("wall");
     }
 }

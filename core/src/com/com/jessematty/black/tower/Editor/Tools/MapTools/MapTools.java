@@ -212,9 +212,9 @@ public class MapTools {
      * @param expandMapToFit // whether to expand the map to fit the new tiled maps size
      * @param clipMapToFit // whether to shrink the map to fit the new tiled maps size
      * @return the new tiled map object
-     * @throws MapLoadingException
+     * @ throws MapLoadingException if the properties are missing  or  the map  is empty
      */
-        public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit) throws MapLoadingException {
+        public   TiledMap loadTmxMap(  TextureAtlas worldAtlas,  GameMap gameMap,   GameAssets gameAssets, String path, boolean expandMapToFit, boolean clipMapToFit)  {
             TiledMap tiledMap = gameAssets.loadExternalTMXMap(path);
            tiledMap= TiledMapConverter.convertToAtlasBasedTiledMap(tiledMap, gameMap.getMapName(),worldAtlas,""  );
             MapProperties mapProperties=tiledMap.getProperties();

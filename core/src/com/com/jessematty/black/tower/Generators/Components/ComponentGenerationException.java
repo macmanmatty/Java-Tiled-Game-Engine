@@ -1,6 +1,9 @@
 package com.jessematty.black.tower.Generators.Components;
 
-public class ComponentGenerationException extends RuntimeException {
+/**
+ * checked exception  for loading components
+ */
+public class ComponentGenerationException extends Exception {
 
     public ComponentGenerationException() {
     }

@@ -1,5 +1,4 @@
 package com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap;
-
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -11,18 +10,13 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasAnimatedTiledMapTile;
 import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasStaticTiledMapTile;
-
 public class FastTiledMapSaver implements TiledMapSaver {
    protected  CellSaver[] [] [] cells; // the saved tiled map cells
     protected int layers; // number of map layers
    protected String [] layerNames; // the names of the layers
     protected MapProperties mapProperties = new  MapProperties();
-
-
-
     public FastTiledMapSaver() {
     }
-
     public TiledMap loadMap(GameAssets assets){
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
@@ -71,9 +65,15 @@ public class FastTiledMapSaver implements TiledMapSaver {
             }
             return tiledMap;
     }
-    public void saveMap(TiledMap tiledMap) throws MapLoadingException {
+    /**
+     * saves an tiled map composed of AtlasStaticTiledMapTiles @See AtlasStaticTiledMapTile
+     * @param tiledMap the libGDX tiled map to save
+     * @throws MapLoadingException if the class of tiled to serialize
+     * is not a AtlasStaticTiledMapTile  or AtlasAnimatedTiledMapTile 
+     * 
+     */
+    public void saveMap(TiledMap tiledMap) {
         this. mapProperties=tiledMap.getProperties();
-
         int xSize=mapProperties.get("width", Integer.class);
         int ySize=mapProperties.get("height", Integer.class);
         MapLayers tileLayers=tiledMap.getLayers();
@@ -105,31 +105,17 @@ public class FastTiledMapSaver implements TiledMapSaver {
                             saver.setColor(tile2.getColor());
                             saver.setTileClass(AtlasAnimatedTiledMapTile.class);
                         }
-
                         else{
-
                             throw new MapLoadingException("Invalid Tile Class  at Square  X "+countx +",  Y "+county );
                         }
-
-
                         cells[count][countx][ySize-county-1]=saver;
-
-
                     }
                 }
             }
         }
     }
-
     @Override
     public MapProperties getMapProperties() {
         return mapProperties;
     }
-
-
 }
-
-
-
-
-
