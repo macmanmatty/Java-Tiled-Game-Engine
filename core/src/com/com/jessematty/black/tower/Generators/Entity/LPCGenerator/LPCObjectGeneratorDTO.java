@@ -290,6 +290,8 @@ public class LPCObjectGeneratorDTO {
     private boolean setDrawLayerToYPosition;
     private boolean useOverSizedWeaponSlashOffsets;
     private boolean useOverSizedWeaponThrustOffsets;
+    private String action;
+
     public String getAtlasName() {
         return atlasName;
     }
@@ -900,5 +902,13 @@ public class LPCObjectGeneratorDTO {
 
     public void setPhysicalObject(boolean physicalObject) {
         this.physicalObject = physicalObject;
+    }
+
+    public void setAction(String action) {
+        this.action=action;
+    }
+
+    public String getAction() {
+        return action;
     }
 }

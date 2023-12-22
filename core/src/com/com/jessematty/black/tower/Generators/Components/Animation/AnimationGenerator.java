@@ -23,17 +23,18 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
     }
     @Override
     public AnimatableComponent generateComponent(String filePath, FileUtilities.FileHandleType type) {
-        Array<AnimationDTO> animationDTOS=jsonLoader.loadArrayFromFile(AnimationDTO.class, filePath, type);
+        AnimatableComponentDTO animationDTOS=jsonLoader.loadObject(AnimatableComponentDTO.class, filePath, type);
         return generateAnimatableComponent(animationDTOS);
     }
     /**
      * generates a new Animatable Component for an Entity
      * from an array of animation DTOs
-     * @param animationDTOS the Animation DTO Objects
+     * @param animatableComponentDTO the Animation Component DTO Object
      * @return AnimatableComponent
      */
-    public   AnimatableComponent generateAnimatableComponent ( Array<AnimationDTO> animationDTOS){
+    public   AnimatableComponent generateAnimatableComponent ( AnimatableComponentDTO animatableComponentDTO){
         AnimatableComponent animatableComponent= new AnimatableComponent();
+        Array<AnimationDTO> animationDTOS=animatableComponentDTO.getAnimationDTOArray();
         for(AnimationDTO animationDTO: animationDTOS){
             Array<Animation> animations=generateAnimation(animationDTO);
             for(Animation animation: animations){

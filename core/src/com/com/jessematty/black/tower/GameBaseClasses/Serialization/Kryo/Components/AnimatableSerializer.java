@@ -22,7 +22,7 @@ public class AnimatableSerializer extends Serializer<AnimatableComponent> {
         kryo.writeObject(output, animatableComponent.getCurrentAction());
         kryo.writeObject(output, animatableComponent.getCurrentFrameNumber());
         kryo.writeObject(output, animatableComponent.getCurrentFrameRate());
-        kryo.writeObject(output, animatableComponent.getCurrentLayerNumber());
+        kryo.writeObject(output, animatableComponent.getCurrentSublayerNumber());
         kryo.writeClassAndObject(output, animatableComponent.getCurrentDirection());
         kryo.writeObject(output, animatableComponent.isSingleImage());
         if(animatableComponent.isSingleImage()) {
@@ -38,7 +38,7 @@ public class AnimatableSerializer extends Serializer<AnimatableComponent> {
        animatableComponent.changeAction( kryo.readObject(input, String.class));
         animatableComponent.setCurrentFrameNumber(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentFrameRate(kryo.readObject(input, Integer.class));
-        animatableComponent.setCurrentLayerNumber(kryo.readObject(input, Integer.class));
+        animatableComponent.setCurrentsubLayerNumber(kryo.readObject(input, Integer.class));
         animatableComponent.setCurrentDirection((Direction) kryo.readClassAndObject(input));
         boolean singleImage=kryo.readObject(input, Boolean.class);
         animatableComponent.setSingleImage(singleImage);

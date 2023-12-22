@@ -177,6 +177,10 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         nameComponent.setStat(lpcObjectGeneratorDTO.getName());
         entity.add(nameComponent);
         ActionComponent actionComponent = new ActionComponent();
+        String currentAction=actionComponent.getAction();
+        if (currentAction != null) {
+            actionComponent.setAction(currentAction);
+        }
         entity.add(actionComponent);
         NumericStats numericStats = new NumericStats();
         entity.add(numericStats);

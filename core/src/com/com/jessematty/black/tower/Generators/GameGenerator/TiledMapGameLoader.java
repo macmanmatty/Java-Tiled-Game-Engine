@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
@@ -364,10 +365,15 @@ public class TiledMapGameLoader {
             Entity entity=entityBag.getOwner();
             addEntityLinks( entity, lpcObjectGeneratorDTO);
             PositionComponent positionComponent = GameComponentMapper.getPositionComponentMapper().get(entity);
-            if (lpcObjectGeneratorDTO.isPlaceOnMap() && y>0 && x>0) {
+            ItemComponent itemComponent = GameComponentMapper.getItemComponentMapper().get(entity);
+
+        if (lpcObjectGeneratorDTO.isPlaceOnMap() && y>0 && x>0) {
                 positionComponent.setPosition(x, y);
                 if(width!=null && width>0 && height!=null && height>0){
                    positionComponent.setBounds(width, height);
+                }
+                if(itemComponent!=null){
+                    positionComponent.setOnGround(true);
                 }
             }
             else{

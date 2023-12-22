@@ -23,7 +23,8 @@ public class TestAnimations {
         swordOnGround.setFrames(1);
         swordOnGround.setBodyName("sword1");
         swordOnGround.setFrameRate(1);
-        swordOnGround.setLayerNumbers(new int [] {-1});
+        swordOnGround.setLayerNumbers(new int [] {Integer.MIN_VALUE});
+
         potionAnimation.setAction("restOnGround");
         potionAnimation.setAnimationDirections(AnimationDirections.ONE);
         potionAnimation.setAtlasName("textureAtlases/testAssets/testAssets.atlas");

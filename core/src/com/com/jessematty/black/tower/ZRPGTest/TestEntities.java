@@ -390,7 +390,7 @@ public class TestEntities {
         sword.setUseOverSizedWeaponSlashOffsets(true);
         sword.setUseOverSizedWeaponThrustOffsets(true);
         sword.getComponentsMap().put(AnimatableComponent.class.toString(), "/android/assets/Animations/sword.json");
-
+        sword.setAction("restOnGround");
 
         spear.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         spear.setAnimatableBodyName("spear");

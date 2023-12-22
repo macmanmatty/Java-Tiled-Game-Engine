@@ -80,7 +80,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: db544a2f-3e27-431e-9f88-2a1928226bea
+	tmxObjectId: ca404444-f0a7-4aa4-9346-631097155cc5
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -101,6 +101,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -370,7 +371,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: c3fbff9c-1ef8-4201-a484-8affa0fdd3fd
+			tmxObjectId: 45901553-b61f-4f4f-b1b3-322b9419ef92
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -391,6 +392,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -540,6 +542,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -689,6 +692,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -838,6 +842,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -988,6 +993,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -1142,6 +1148,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 		{
 			load: true
@@ -1268,7 +1275,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: afd246d9-8e77-4983-8dd4-da158928a37d
+			tmxObjectId: b3d92b8f-b2c5-4162-8255-f8e745e285d9
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1401,7 +1408,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: c3fbff9c-1ef8-4201-a484-8affa0fdd3fd
+					tmxObjectId: 45901553-b61f-4f4f-b1b3-322b9419ef92
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1422,6 +1429,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1571,6 +1579,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1720,6 +1729,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -1869,6 +1879,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -2019,6 +2030,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 				{
 					load: true
@@ -2173,6 +2185,7 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
 				}
 			]
 			attachedEntitiesIDs: []
@@ -2190,6 +2203,7 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
 		}
 	]
 	attachedEntitiesIDs: [
@@ -2209,6 +2223,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2332,7 +2347,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 2012f2d7-5476-4893-a716-f1e52ee3df41
+	tmxObjectId: cc2bc657-e51b-44af-847d-156dde7057bf
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2353,6 +2368,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2435,7 +2451,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: c5d87d4b-c925-48c1-a891-83a6a6a00e4c
+	tmxObjectId: c0a9665d-cfa8-41df-873b-5af5c4617077
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2456,6 +2472,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2619,6 +2636,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: true
 	useOverSizedWeaponThrustOffsets: true
+	action: restOnGround
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2701,7 +2719,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 23275060-b2c7-4abc-9f9a-2fc55c2a1462
+	tmxObjectId: 3d6ce79c-fd90-4ac1-bd23-ac9eb9eaedc1
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2722,6 +2740,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2804,7 +2823,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 9fa7cd17-e898-4055-bba1-289dc7268472
+	tmxObjectId: ebea85a4-1da2-4a7d-97a7-f60d2918073f
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2825,6 +2844,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2907,7 +2927,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 4b700bc2-e4ed-4b32-ac73-e0e3661fc752
+	tmxObjectId: d41fbc90-ddf7-42c9-9741-46dc64041c15
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2930,6 +2950,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3133,6 +3154,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3279,6 +3301,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3361,7 +3384,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 3395bc8b-88c7-4eff-ae5e-338c990c37c3
+	tmxObjectId: 1f9d0903-c779-44f7-a8d2-1cc227c40eb7
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3382,6 +3405,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3526,5 +3550,6 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
 }
 ]

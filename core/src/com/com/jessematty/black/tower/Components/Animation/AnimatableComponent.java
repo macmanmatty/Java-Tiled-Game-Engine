@@ -54,12 +54,23 @@ public class AnimatableComponent implements SerializableComponet{
     /**
      * the  old  sub-layer number of the animation
      */
+    protected  int previousSublayerNumber;
+    /**
+     * the  old  layer number of the animation
+     */
     protected  int previousLayerNumber;
 
     /**
      * the  current  sub-layer number of the animation
      */
+    protected  int currentSublayerNumber;
+
+    /**
+     * the  current  layer number of the animation
+     */
     protected  int currentLayerNumber;
+
+
 
     /**
      * whether  or not the layer number has changed
@@ -232,12 +243,25 @@ public class AnimatableComponent implements SerializableComponet{
      * for the current animation
      * @return
      */
-    public   int getCurrentLayerNumber(){
+    public   int getCurrentSublayerNumber(){
      Animation animation=animations.get(currentAction).get(currentDirection.toString());
      if(animation!=null) {
-     currentLayerNumber=animation.getSubLayerNumber();
+     currentSublayerNumber =animation.getSubLayerNumber();
      }
-        if(previousLayerNumber!=currentLayerNumber){
+        if(previousSublayerNumber != currentSublayerNumber){
+            layerChanged=true;
+        }
+        else{
+            layerChanged=false;
+        }
+        return currentSublayerNumber;
+    }
+    public   int getCurrentLayerNumber(){
+        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        if(animation!=null) {
+            currentLayerNumber =animation.getLayerNumber();
+        }
+        if(previousLayerNumber != currentLayerNumber){
             layerChanged=true;
         }
         else{
@@ -313,12 +337,14 @@ public class AnimatableComponent implements SerializableComponet{
     public void setCurrentFrameRate(int currentFrameRate) {
         this.currentFrameRate = currentFrameRate;
     }
-    public void setCurrentLayerNumber(int currentLayerNumber) {
-        this.currentLayerNumber = currentLayerNumber;
+    public void setCurrentsubLayerNumber(int currentsubLayerNumber) {
+        this.currentSublayerNumber = currentsubLayerNumber;
     }
     public boolean isFinishedAnimating() {
         return finishedAnimating;
     }
+
+
 
 
 }

@@ -32,7 +32,6 @@ public class FruitSystem extends GameEntitySystem {
             Entity entity=entities.get(count);
             MovableComponent movableComponent =moveables.get(entity);
             ActionComponent actionComponent = actions.get(entity);
-            actionComponent.setAction("rest");
             movableComponent.setCurrentSpeed(0);
 
 
