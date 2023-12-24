@@ -1,0 +1,25 @@
+{
+animationDTOArray: [
+	{
+		atlasName: textureAtlases/testAssets/testAssets.atlas
+		animationDirections: 1
+		action: restOnGround
+		bodyName: sword1
+		frames: 1
+		frameRate: 1
+		namedColor: {
+			r: 1
+			g: 1
+			b: 1
+			a: 1
+			name: White
+		}
+		calculateFrames: false
+		xOffset: 0
+		yOffset: 0
+		layerNumbers: [ -2147483648 ]
+		sublayerNumbers: [ 1 ]
+		loop: false
+	}
+]
+}

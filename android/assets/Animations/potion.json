@@ -1,0 +1,25 @@
+{
+animationDTOArray: [
+	{
+		atlasName: textureAtlases/testAssets/testAssets.atlas
+		animationDirections: 1
+		action: restOnGround
+		bodyName: potionOragneABubble
+		frames: 0
+		frameRate: 1
+		namedColor: {
+			r: 1
+			g: 1
+			b: 1
+			a: 1
+			name: White
+		}
+		calculateFrames: true
+		xOffset: 0
+		yOffset: 0
+		layerNumbers: [ -1 ]
+		sublayerNumbers: [ 1 ]
+		loop: false
+	}
+]
+}

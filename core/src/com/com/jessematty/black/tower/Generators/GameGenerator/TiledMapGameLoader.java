@@ -37,6 +37,11 @@ import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 import java.rmi.server.UID;
+
+/**
+ * class for loading a game from a TMX Tiled Map
+ * and associated  .json files for the entities and components
+ */
 public class TiledMapGameLoader {
     /**
      * the lpc object generator

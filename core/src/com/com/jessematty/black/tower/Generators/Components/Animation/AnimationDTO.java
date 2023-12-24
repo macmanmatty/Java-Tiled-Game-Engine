@@ -69,6 +69,8 @@ public class AnimationDTO {
      */
     private int [] sublayerNumbers= new int []{1};
 
+    private boolean loop;
+
     public int getAnimationDirections() {
         return animationDirections;
     }
@@ -160,5 +162,13 @@ public class AnimationDTO {
 
     public void setSublayerNumbers(int[] sublayerNumbers) {
         this.sublayerNumbers = sublayerNumbers;
+    }
+
+    public boolean isLoop() {
+        return loop;
+    }
+
+    public void setLoop(boolean loop) {
+        this.loop = loop;
     }
 }

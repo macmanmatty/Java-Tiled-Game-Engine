@@ -324,6 +324,7 @@ public class TestEntities {
         potion.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         potion.setName("potion");
         potion.setImageName("potion1");
+        potion.setTmxObjectId("potion");
         potion.setAnimated(false);
         potion.setBrightness( .67f);
         potion.setColorA(1);
@@ -338,7 +339,7 @@ public class TestEntities {
         potion.setAnimated(false);
         potion.setDrawable(false);
         potion.getComponentsMap().put(AnimatableComponent.class.toString(), "/android/assets/Animations/potion.json");
-
+        potion.setAction("restOnGround");
         pack.getStats().add(condition,health,  on, classuz);
         scroll.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         scroll.setName("scroll");
@@ -349,11 +350,6 @@ public class TestEntities {
         scroll.setColorB(.1f);
         scroll.setColorR(1);
         scroll.setColorG(0);
-        potion.setBoundsX(0);
-        potion.setBoundsY(0);
-        potion.setHealth(100);
-        potion.setMass(1);
-        potion.setVolume(1);
         scroll.setAnimated(false);
         scroll.setDrawable(false);
         scroll.getStats().add(condition, on, classuz);

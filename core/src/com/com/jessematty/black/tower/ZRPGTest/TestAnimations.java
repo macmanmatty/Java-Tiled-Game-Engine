@@ -29,7 +29,7 @@ public class TestAnimations {
         potionAnimation.setAnimationDirections(AnimationDirections.ONE);
         potionAnimation.setAtlasName("textureAtlases/testAssets/testAssets.atlas");
         potionAnimation.setCalculateFrames(true);
-        potionAnimation.setBodyName("potionOrangeABubble");
+        potionAnimation.setBodyName("potionOragneABubble");
         potionAnimation.setFrameRate(1);
         potionAnimation.setLayerNumbers(new int [] {-1});
         sword.getAnimationDTOArray().add(swordOnGround);

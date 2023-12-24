@@ -217,6 +217,10 @@
   <object id="29" x="141.333" y="257.333">
    <ellipse/>
   </object>
-  <object id="31" x="716" y="1037.33"/>
+  <object id="31" x="716" y="1037.33">
+   <properties>
+    <property name="tmxObjectID" value="potion"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

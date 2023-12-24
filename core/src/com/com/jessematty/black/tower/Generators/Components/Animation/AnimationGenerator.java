@@ -67,20 +67,22 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
         Direction direction=getDirection(count);
         String action=animationDTO.getAction();
         String animationName = animationDTO.getBodyName() + action;
-        if(animationDTO.getAnimationDirections()==1) {
+        // only one direction don't require direction asd part of the name
+        if(animationDTO.getAnimationDirections()>1) {
             String directionString= StringUtils.capitalize(direction.toString().toLowerCase());
             animationName=animationName+directionString;
         }
         int numberOfFrames=animationDTO.getFrames();
         int frameRate=animationDTO.getFrameRate();
-        if(numberOfFrames<=0){
+        boolean calculateFrames=animationDTO.isCalculateFrames();
+        if(numberOfFrames<=0 && !calculateFrames){
             throw new IllegalArgumentException("number of animation frames must be >0");
         }
         if(frameRate<=0){
             throw new IllegalArgumentException("animation frame rate  must be >0");
         }
         AtlasNamedAtlasRegion [] frames=null;
-        if(animationDTO.isCalculateFrames()){
+        if(calculateFrames){
          frames=   generateFrames(animationName, animationDTO.getAtlasName());
         }else {
             frames = generateFrames(animationName, animationDTO.getAtlasName(), numberOfFrames);
@@ -147,7 +149,7 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
             counter++;
             regions.add(atlasNamedAtlasRegion);
         }
-        return  regions.toArray();
+        return  regions.toArray(AtlasNamedAtlasRegion.class);
     }
     /**
      * translates a number to a direction

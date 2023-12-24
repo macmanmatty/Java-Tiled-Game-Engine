@@ -36,7 +36,7 @@ public class AnimatableComponent implements SerializableComponet{
     /**
      * the current direction of the animation
      */
-    protected Direction currentDirection=Direction.UP; // the current animation direction;
+    protected Direction currentDirection=Direction.DOWN; // the current animation direction;
     protected boolean singleImage;
     /**
      * internal counter for the frame rate
@@ -70,6 +70,8 @@ public class AnimatableComponent implements SerializableComponet{
      */
     protected  int currentLayerNumber;
 
+    protected Animation currentAnimation;
+
 
 
     /**
@@ -92,13 +94,19 @@ public class AnimatableComponent implements SerializableComponet{
      */
     public Animation getAnimation(Direction direction, String action) {
         ObjectMap<String , Animation> animationObjectMap=animations.get(action);
+        if(animationObjectMap==null){
+            currentAnimation=null;
+            return null;
+        }
         if(animationObjectMap.size==1){
            return animationObjectMap.values().next();
         }
         else if(animationObjectMap.size>4){
             direction=Direction.getBaseDirection(direction);
         }
-        return animations.get(action).get(direction.toString());
+         Animation animation=animationObjectMap.get(direction.toString());
+        currentAnimation=animation;
+        return currentAnimation;
     }
     /**
      * returns the number of frames a given animation has  for given
@@ -108,11 +116,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public int getFrames(  String action, Direction direction) {
-        ObjectMap<String , Animation> animationObjectMap=animations.get(action);
-        if(animationObjectMap.size>4){
-            direction=Direction.getBaseDirection(direction);
-        }
-        Animation animation=animations.get(action).get(direction.toString());
+        Animation animation=getAnimation(direction, action);
         if(animation!=null) {
             return animation.getFrames().length;
         }
@@ -128,11 +132,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public int getFrameRate(Direction direction, String action) {
-        ObjectMap<String , Animation> animationObjectMap=animations.get(action);
-        if(animationObjectMap.size>4){
-            direction=Direction.getBaseDirection(direction);
-        }
-        Animation animation=animations.get(action).get(direction.toString());
+        Animation animation=getAnimation(direction, action);
         if(animation!=null) {
             return animation.getFrameRate();
         }
@@ -187,7 +187,7 @@ public class AnimatableComponent implements SerializableComponet{
         if(singleImage) {
             return staticTexture;
         }
-        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+       Animation animation=getAnimation(currentDirection, currentAction);
         if(animation!=null) {
             return animation.getFrames()[currentFrameNumber];
         }
@@ -218,7 +218,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentNumberOfFrames(){
-        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        Animation animation=getAnimation(currentDirection, currentAction);
         if(animation!=null) {
             return animation.getFrames().length;
         }
@@ -231,7 +231,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentFrameRate(){
-        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        Animation animation=getAnimation(currentDirection, currentAction);
         if(animation!=null) {
             return animation.getFrameRate();
         }
@@ -244,7 +244,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @return
      */
     public   int getCurrentSublayerNumber(){
-     Animation animation=animations.get(currentAction).get(currentDirection.toString());
+    Animation animation=getAnimation(currentDirection, currentAction);
      if(animation!=null) {
      currentSublayerNumber =animation.getSubLayerNumber();
      }
@@ -257,7 +257,7 @@ public class AnimatableComponent implements SerializableComponet{
         return currentSublayerNumber;
     }
     public   int getCurrentLayerNumber(){
-        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        Animation animation=getAnimation(currentDirection, currentAction);
         if(animation!=null) {
             currentLayerNumber =animation.getLayerNumber();
         }
@@ -270,7 +270,7 @@ public class AnimatableComponent implements SerializableComponet{
         return currentLayerNumber;
     }
     public Vector2 getCurrentDrawOffsets(){
-        Animation animation=animations.get(currentAction).get(currentDirection.toString());
+        Animation animation=getAnimation(currentDirection, currentAction);
         if(animation!=null) {
             return animation.getOffsets();
         }
