@@ -1,5 +1,5 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
-import com.badlogic.ashley.core.Component;
+
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;

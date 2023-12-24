@@ -1,7 +1,5 @@
 package com.jessematty.black.tower.ZRPGTest;
 
-import com.jessematty.black.tower.Components.Actions.ActionableComponent;
-import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Generators.Components.Animation.AnimatableComponentDTO;
 import com.jessematty.black.tower.Generators.Components.Animation.AnimationDTO;
 import com.jessematty.black.tower.Generators.Components.Animation.AnimationDirections;

@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.GameGenerator;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,13 +30,13 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.rmi.server.UID;
 
 /**

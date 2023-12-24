@@ -1,12 +1,10 @@
 package com.jessematty.black.tower.ZRPGTest;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.Generators.Components.Animation.AnimationDTO;
-import com.jessematty.black.tower.Generators.Components.Animation.AnimationDirections;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 public class TestEntities {
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();

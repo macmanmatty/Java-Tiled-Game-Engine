@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
@@ -41,7 +42,6 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerator;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerators;
 import com.jessematty.black.tower.Generators.Components.ComponentLoadingException;

@@ -5,23 +5,18 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
 import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
-import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
-import com.jessematty.black.tower.Components.Other.ErrorComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
-import com.jessematty.black.tower.Systems.Stats.ChangeStats;
 
 public class HoldItemSystem extends GameEntitySystem {
     private ComponentMapper<HoldItem> holdItemComponentMapper;

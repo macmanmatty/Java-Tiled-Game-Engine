@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.Components.Animation;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
@@ -9,6 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerator;
+
 import org.apache.commons.lang3.StringUtils;
 /**
  * class for generating a new AnimatableComponent object @See Animation.class
