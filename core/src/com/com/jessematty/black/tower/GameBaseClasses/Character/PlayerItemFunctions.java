@@ -7,7 +7,6 @@ import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
@@ -16,10 +15,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPa
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
-import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class PlayerItemFunctions {
     private PlayerItemFunctions() {
     }
@@ -93,6 +89,7 @@ public class PlayerItemFunctions {
          * @param zrpgCharacter the player zrpgCharacter
          * @param draw the map draw to add the window to if needed
          */
+
         public static void pickUpItem (ZRPGCharacter zrpgCharacter, MapDraw draw,int hand){
             String id = GameComponentMapper.getIdComponentMapper().get(zrpgCharacter.getHand(hand)).getId();
             if (zrpgCharacter.getHandHolders()[hand].getItemToHoldId() != null) {
