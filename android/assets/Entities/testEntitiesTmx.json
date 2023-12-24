@@ -80,7 +80,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 710ac864-c448-46ed-b773-d8dccc9fe0f3
+	tmxObjectId: d2c29369-f0de-445b-b6e0-a873e4f0b627
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -371,7 +371,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 65ddf34d-986d-45bb-a400-166feaf6f694
+			tmxObjectId: df4d47c0-0db7-439c-8a58-a1bb51e3f57e
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1275,7 +1275,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 48c1ea7e-7b78-4edb-a918-48f8d5c823bc
+			tmxObjectId: 50aad726-4971-40e6-9299-3bd73d7f219a
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1408,7 +1408,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 65ddf34d-986d-45bb-a400-166feaf6f694
+					tmxObjectId: df4d47c0-0db7-439c-8a58-a1bb51e3f57e
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -2347,7 +2347,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 6a6e7272-1cc8-45d7-808a-444bdc71b8f9
+	tmxObjectId: 33486c71-b5f9-4bc4-be7c-d01d08f858e6
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2451,7 +2451,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 02109ec8-227d-4b13-9060-14ecb58e2cb9
+	tmxObjectId: 05be4a89-e400-4179-8004-0a7b2ae42ccf
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2719,7 +2719,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 51bd60e6-a0d1-446a-9c98-5e904e8704f4
+	tmxObjectId: 6e7c971a-e5ec-4df4-9672-9ffd5b2f80b6
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2823,7 +2823,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 1f6901b4-7dbc-41da-838d-b4f2c437f4a8
+	tmxObjectId: 9dc042ad-7e2d-46cf-8fed-df101e7b1eb3
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3384,7 +3384,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 187b0c19-e0d7-4b80-a542-28b1768e26d9
+	tmxObjectId: b2be30fc-3107-4738-887b-7a89c845e797
 	bounds: null
 	groups: []
 	groupsAddable: []
