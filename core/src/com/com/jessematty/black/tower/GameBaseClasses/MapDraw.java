@@ -17,6 +17,7 @@ import com.jessematty.black.tower.Editor.EditMode.Listeners.ChangeListeners;
 import com.jessematty.black.tower.GameBaseClasses.Camera.GameCamera;
 import com.jessematty.black.tower.GameBaseClasses.Engine.EngineSetup;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
+import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.PlayerKeys;
 import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFunctions;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
@@ -53,6 +54,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
     private final String  name="Map Draw Screen";
     private GameTime gameTime;
     private final ChangeListeners changeListeners;
+    private PlayerKeys playerKeys= new PlayerKeys();
     public MapDraw(GameAssets gameAssets){
         this(gameAssets,false);
     }
@@ -211,7 +213,7 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
 //        uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
       gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPositionComponent());
-        GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(this, player).getPlayerControlFunctions());
+        GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(playerKeys, this, player).getPlayerControlFunctions());
     }
 
 
