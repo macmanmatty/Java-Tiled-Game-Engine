@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
@@ -47,8 +46,6 @@ public class ZRPGPlayerFunctions {
      * @param player
      */
 
-
-
     public ZRPGPlayerFunctions( PlayerKeys playerKeys, MapDraw draw , ZRPGCharacter player) {
         this.player = player;
         this.mapDraw=draw;
@@ -80,12 +77,33 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(thrustCombo);
         InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", playerKeys.getDisplayPack());
         playerControlFunctions.add(packDisplay);
-        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Pick Up Item Left Hand", playerKeys.getPickupItemLeft());
-        playerControlFunctions.add(pickUpItemLeftHand);
-        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Pick Up Item Right Hand", playerKeys.getPickupItemRight());
-        playerControlFunctions.add(pickUpItemRightHand);
+        InputKeyCombo pickUpItem= new InputKeyCombo(pickupItem, KeyPressMode.KEY_DOWN, "Pick Up Item", playerKeys.getPickupItem());
+        playerControlFunctions.add(pickUpItem);
+        InputKeyCombo addItemToPackCombo= new InputKeyCombo(addItemToPack,  KeyPressMode.KEY_DOWN, "Add Item To Pack", playerKeys.getAddItemToPack());
+        playerControlFunctions.add(addItemToPackCombo);
+        InputKeyCombo dropItemCombo= new InputKeyCombo(dropItem,  KeyPressMode.KEY_DOWN, "Drop Item", playerKeys.getDropItem());
+        playerControlFunctions.add(dropItemCombo);
+        InputKeyCombo switchHand= new InputKeyCombo(this.switchHand,  KeyPressMode.KEY_DOWN, "Switch Hand", playerKeys.getDropItem());
+        playerControlFunctions.add(switchHand);
 
     }
+    private KeyAction switchHand =new KeyAction(){
+        @Override
+        public void act()  {
+            CharacterItemFunctions.switchHand(player);
+        }};
+
+    private KeyAction addItemToPack =new KeyAction(){
+        @Override
+        public void act()  {
+           PlayerItemFunctions.addItemToPackFromHand(player,mapDraw );
+        }};
+
+    private KeyAction dropItem =new KeyAction(){
+        @Override
+        public void act()  {
+        }};
+
     private KeyAction slash =new KeyAction(){
         @Override
         public void act()  {
@@ -104,13 +122,6 @@ public class ZRPGPlayerFunctions {
             CharacterItemFunctions.shootItem(player);
 
         }};
-    private KeyAction pickUpItem=new KeyAction(){
-        @Override
-        public void act()  {
-
-
-        }};
-
     private KeyAction eat=new KeyAction(){
         @Override
         public void act()  {
@@ -219,19 +230,12 @@ public class ZRPGPlayerFunctions {
 
      }
 
-    private KeyAction pickupItemLeftHand =new KeyAction(){
+    private KeyAction pickupItem =new KeyAction(){
         @Override
           public void act()  {
-            PlayerItemFunctions.pickUpItem(player, mapDraw, 0);
+            PlayerItemFunctions.pickUpItem(player, mapDraw, player.getCurrentHand());
 
     }};
-    private KeyAction pickupItemRightHand =new KeyAction(){
-        @Override
-        public void act()  {
-            PlayerItemFunctions.pickUpItem(player, mapDraw, 1);
-
-        }};
-
     private KeyAction viewPacks =new KeyAction(){
         @Override
         public void act()  {

@@ -74,6 +74,8 @@ public class ZRPGCharacter implements Component {
     private DominateHand dominateHand;
     private boolean autoAddToFirstPack;
     private ZRPGPlayerButtonModes buttonMode;
+    private int currentHand;
+
 
     public ZRPGCharacter(World world, Entity playerEntity) {
         this.playerEntity = playerEntity;
@@ -240,4 +242,11 @@ public class ZRPGCharacter implements Component {
         return hands[i];
     }
 
+    public int getCurrentHand() {
+        return currentHand;
+    }
+
+    public void setCurrentHand(int currentHand) {
+        this.currentHand = currentHand;
+    }
 }

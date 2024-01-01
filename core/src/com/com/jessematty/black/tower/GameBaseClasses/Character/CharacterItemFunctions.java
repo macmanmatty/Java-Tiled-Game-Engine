@@ -23,34 +23,6 @@ public class CharacterItemFunctions {
     private  static ComponentMapper<EntityId> idComponentMapper=ComponentMapper.getFor(EntityId.class);
     private static  MapDraw mapDraw;
     private static  World world;
-    public static  void pickUpItem(ZRPGCharacter zrpgCharacter) {
-//        Holder[] holder = zrpgCharacter.getHandHolders();
-//        if (holder[0].getItemToHoldId() == null || holder[1].getItemToHoldId() == null) {
-//            PositionComponent position = zrpgCharacter.getPositionComponent();
-//            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
-//            Array<Entity> entities = MapUtilities.getClosestEntities(map, position, map.getTileWidth(), ItemComponent.class);
-//            PickUpItemComponent pickUpItemComponent = new PickUpItemComponent();
-//            String handId = "";
-//            DominateHand dominateHand = zrpgCharacter.getDominateHand();
-//            if (dominateHand == DominateHand.RIGHT) {
-//                if (holder[0].getItemToHoldId() == null) {
-//                    handId = idComponentMapper.get(zrpgCharacter.getHand(0)).getId();
-//                }
-//            } else if (holder[1].getItemToHoldId() == null) {
-//                handId = idComponentMapper.get(zrpgCharacter.getHand(1)).getId();
-//            }
-//            pickUpItemComponent.setEntityToPickUpId(handId);
-//            if (entities.size > 0) {
-//                if (zrpgCharacter.isAutoPickUpFirstItem()) {
-//                    entities.get(0).add(pickUpItemComponent);
-//                    return;
-//                } else {
-//                    String text = "Select an Item to Pick Up";
-//                    mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", entities, pickUpItemComponent, mapDraw), ScreenPosition.CENTER);
-//                }
-//            }
-//        }
-    }
 
     public static void dropItem(ZRPGCharacter player) {
         DropItemComponent dropItemClass = new DropItemComponent();
@@ -65,6 +37,20 @@ public class CharacterItemFunctions {
             player.getActionComponent().setAction("slash");
 
     }
+    public static void switchHand(ZRPGCharacter player) {
+
+       int hand= player.getCurrentHand();
+       if(hand==0){
+           player.setCurrentHand(1);
+       }
+       else{
+           player.setCurrentHand(0);
+       }
+
+    }
+
+
+
     public static void thrustItem(ZRPGCharacter player) {
             player.getActionComponent().setAction("thrust");
     }
@@ -100,42 +86,7 @@ public class CharacterItemFunctions {
     }
     private void target(float screenX, float screenY){
     }
-    public Entity getItem( ZRPGCharacter player, int hand) {
-        Holder[] holder = player.getHandHolders();
-        String handId;
-        if (hand == 1) {
-            handId =holder[1].getItemToHoldId();
-        } else {
-            handId =holder[0].getItemToHoldId();
-        }
-        return  mapDraw.getWorld().getEntity(handId);
-    }
-    public Entity getAnyItem( ZRPGCharacter player, int hand) {
-        World world = mapDraw.getWorld();
-        Holder[] holder = player.getHandHolders();
-        String handId;
-        if (hand == 1) {
-            handId = holder[1].getItemToHoldId();
-            Entity entity = world.getEntity(handId);
-            if (entity != null) {
-                return entity;
-            } else {
-                handId = holder[0].getItemToHoldId();
-                entity = world.getEntity(handId);
-                return entity;
-            }
-        } else {
-            handId = holder[0].getItemToHoldId();
-            Entity entity = world.getEntity(handId);
-            if (entity != null) {
-                return entity;
-            } else {
-                handId = holder[1].getItemToHoldId();
-                entity = world.getEntity(handId);
-                return entity;
-            }
-        }
-    }
+
     private void changeHoldPosition( ZRPGCharacter player, int hand) {
         Holder holder = player.getHandHolders()[hand];
         HoldPosition[]  holdPosition=HoldPosition.values();

@@ -63,7 +63,8 @@ public class PlayerItemFunctions {
     }
 
 
-    public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw, Holder hand) {
+    public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw) {
+        Holder hand=zrpgCharacter.getHandHolders()[zrpgCharacter.getCurrentHand()];
         String itemId = hand.getItemToHoldId();
         Entity item = draw.getWorld().getEntity(itemId);
         Array<Entity> packs = draw.getWorld().getEntitiesFromEntityIdsArray(zrpgCharacter.getPacks().getPackEntityIds());
