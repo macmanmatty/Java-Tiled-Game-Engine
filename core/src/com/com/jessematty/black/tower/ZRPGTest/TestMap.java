@@ -135,6 +135,10 @@ public class TestMap {
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }
+
+    /**
+     * creates a new test map from the test tmx file testMap.tmx in the android assets folder
+     */
     public void createMapByTMXFile(){
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");

@@ -35,45 +35,54 @@ public class ZRPGPlayerFunctions {
      * the games map draw class
      */
     private final MapDraw mapDraw;
+    /**
+     * the key mappings  the for the player actions
+     */
+
+    private PlayerKeys playerKeys;
 
     /**
      * adds default player functions
      * @param draw
      * @param player
      */
-    public ZRPGPlayerFunctions(MapDraw draw , ZRPGCharacter player) {
+
+
+
+    public ZRPGPlayerFunctions( PlayerKeys playerKeys, MapDraw draw , ZRPGCharacter player) {
         this.player = player;
         this.mapDraw=draw;
-        DualActionKeyInputCombo moveRightCombo= new DualActionKeyInputCombo( stop, moveRight, "Move Player Right", Keys.RIGHT);
+        this.playerKeys=playerKeys;
+        DualActionKeyInputCombo moveRightCombo= new DualActionKeyInputCombo( stop, moveRight, "Move Player Right", playerKeys.getMoveRight());
         playerControlFunctions.addAll(  moveRightCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveLeftCombo= new DualActionKeyInputCombo( stop, moveLeft, "Move Player Left", Keys.LEFT);
+        DualActionKeyInputCombo moveLeftCombo= new DualActionKeyInputCombo( stop, moveLeft, "Move Player Left", playerKeys.getMoveLeft());
         playerControlFunctions.addAll(  moveLeftCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveUpCombo= new DualActionKeyInputCombo( stop, moveUp, "Move Player Up", Keys.UP);
+        DualActionKeyInputCombo moveUpCombo= new DualActionKeyInputCombo( stop, moveUp, "Move Player Up", playerKeys.getMoveUp());
         playerControlFunctions.addAll(  moveUpCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveDownCombo= new DualActionKeyInputCombo( stop, moveDown, "Move Player Down", Keys.DOWN);
+        DualActionKeyInputCombo moveDownCombo= new DualActionKeyInputCombo( stop, moveDown, "Move Player Down", playerKeys.getMoveDown());
         playerControlFunctions.addAll(  moveDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveRightDownCombo= new DualActionKeyInputCombo( stop, moveRightDown, "Move Player RightDown", Keys.M);
+        DualActionKeyInputCombo moveRightDownCombo= new DualActionKeyInputCombo( stop, moveRightDown, "Move Player RightDown", playerKeys.getMoveDownRight());
         playerControlFunctions.addAll(  moveRightDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveRightUpCombo= new DualActionKeyInputCombo( stop, moveRightUp, "Move Player RightUp", Keys.K);
+        DualActionKeyInputCombo moveRightUpCombo= new DualActionKeyInputCombo( stop, moveRightUp, "Move Player RightUp", playerKeys.getMoveUpRight());
         playerControlFunctions.addAll(  moveRightUpCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveLeftDownCombo= new DualActionKeyInputCombo( stop, moveLeftDown, "Move Player LeftDown", Keys.N);
+        DualActionKeyInputCombo moveLeftDownCombo= new DualActionKeyInputCombo( stop, moveLeftDown, "Move Player LeftDown", playerKeys.getMoveDownLeft());
         playerControlFunctions.addAll(  moveLeftDownCombo.getInputKeyCombos());
-        DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", Keys.J);
+        DualActionKeyInputCombo moveLeftUpCombo= new DualActionKeyInputCombo( stop, moveLeftUp, "Move Player LeftUp", playerKeys.getMoveUpLeft());
         playerControlFunctions.addAll(  moveLeftUpCombo.getInputKeyCombos());
         KeyPressMode []  keyPressMode= new KeyPressMode []{KeyPressMode.KEY_DOWN, KeyPressMode.KEY_PRESSED};
-        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", Keys.CONTROL_LEFT);
+        InputKeyCombo increaseSpeedCombo= new InputKeyCombo(increaseSpeed, keyPressMode, "Increase Player Speed", playerKeys.getIncreaseSpeed());
         playerControlFunctions.add(increaseSpeedCombo);
-        InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", Keys.ALT_RIGHT);
+        InputKeyCombo decreaseSpeedCombo= new InputKeyCombo(decreaseSpeed,keyPressMode, "Decrease Player Speed", playerKeys.getDecreaseSpeed());
         playerControlFunctions.add(decreaseSpeedCombo);
-        InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", Keys.S);
+        InputKeyCombo slashCombo= new InputKeyCombo(slash, KeyPressMode.KEY_DOWN, "Slash", playerKeys.getSlash());
         playerControlFunctions.add(slashCombo);
-        InputKeyCombo thrustCombo= new InputKeyCombo(thrust, KeyPressMode.KEY_DOWN, "Slash", Keys.T);
+        InputKeyCombo thrustCombo= new InputKeyCombo(thrust, KeyPressMode.KEY_DOWN, "Thrust", playerKeys.getThrust());
         playerControlFunctions.add(thrustCombo);
-        InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", Keys.P);
+        InputKeyCombo packDisplay= new InputKeyCombo(viewPacks, KeyPressMode.KEY_DOWN, "Display Pack Window", playerKeys.getDisplayPack());
         playerControlFunctions.add(packDisplay);
-        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Pick Up Item Left Hand", Keys.E);
+        InputKeyCombo pickUpItemLeftHand= new InputKeyCombo(pickupItemLeftHand, KeyPressMode.KEY_DOWN, "Pick Up Item Left Hand", playerKeys.getPickupItemLeft());
         playerControlFunctions.add(pickUpItemLeftHand);
-        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Pick Up Item Right Hand", Keys.R);
+        InputKeyCombo pickUpItemRightHand= new InputKeyCombo(pickupItemRightHand,  KeyPressMode.KEY_DOWN, "Pick Up Item Right Hand", playerKeys.getPickupItemRight());
         playerControlFunctions.add(pickUpItemRightHand);
 
     }
