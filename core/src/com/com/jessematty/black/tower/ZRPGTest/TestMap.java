@@ -159,18 +159,8 @@ public class TestMap {
         } catch (EntityLoadingException e) {
             throw new RuntimeException(e);
         }
-        //EntityBag pack=entityBagObjectMap.get("pack");
      EntityBag lizard=tiledMapLoader.getEntityBagArray().get("player");
-        NumericStats numericStats=lizard.getOwner().getComponent(NumericStats.class);
-        numericStats.getNumericStat("speed").setMinValue(10);
-        numericStats.getNumericStat("speed").setMaxValue(10000);
-        numericStats.getNumericStat("speed").setValue(100);
-//        BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
-//        String id=body.getBodyParts().get("torso");
-//        Entity torso=world.getEntity(id);
 
-      //  String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
-       // world.addEntityToWorld(pack.getOwner());
         world.setPlayer( lizard.getOwner());
 
         world.setStartMap(world.getWorldMaps().values().toArray().get(0).getId());

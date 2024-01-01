@@ -209,7 +209,8 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
             entity.add(bodyComponent);
         }
         numericStats.addStat(new NumericStat(true, "health", 100, 0, 100));
-        numericStats.addStat(new NumericStat(true, "speed", 10, 0, 40));
+        float maxSpeed=lpcObjectGeneratorDTO.getMaxSpeed();
+        numericStats.addStat(new NumericStat(true, "speed",   lpcObjectGeneratorDTO.getMaxSpeed()/2,.1,  maxSpeed));
         boolean lpcActorAnimated=lpcObjectGeneratorDTO.isLpcActorAnimated();
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
         boolean animated=lpcObjectGeneratorDTO.isAnimated();

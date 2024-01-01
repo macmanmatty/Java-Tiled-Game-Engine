@@ -56,6 +56,7 @@ public class TestEntities {
         lizard.setHealth(100);
         lizard.setMass(.0001f);
         lizard.setVolume(100);
+        lizard.setMaxSpeed(200);
         lizard.setMoveable(true);
         lizard.setAnimated(true);
         lizard.setLpcActorAnimated(true);
