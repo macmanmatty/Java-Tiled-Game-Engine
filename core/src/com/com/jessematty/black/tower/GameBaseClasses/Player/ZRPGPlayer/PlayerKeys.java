@@ -2,6 +2,10 @@ package com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer;
 
 import com.badlogic.gdx.Input.Keys;
 
+/**
+ *
+ * DTO class for the key functions that control the player actions
+ */
 public class PlayerKeys {
     int [] moveLeft= {Keys.LEFT};
     int []  moveRight= {Keys.RIGHT};
