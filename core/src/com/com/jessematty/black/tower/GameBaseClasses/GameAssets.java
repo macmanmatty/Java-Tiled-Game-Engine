@@ -22,7 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
+import com.jessematty.black.tower.GameBaseClasses.Logging.ScreenLogger;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
@@ -115,7 +115,7 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
-    private final static GameLogger gameLogger= new GameLogger();
+    private final static ScreenLogger gameLogger= new ScreenLogger();
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -498,7 +498,7 @@ public class GameAssets implements Disposable {
     public void setCurrentSkinStyle(String currentSkinStyle) {
         this.currentSkinStyle = currentSkinStyle;
     }
-    public static  GameLogger getGameLogger() {
+    public static ScreenLogger getGameLogger() {
         return gameLogger;
     }
 }

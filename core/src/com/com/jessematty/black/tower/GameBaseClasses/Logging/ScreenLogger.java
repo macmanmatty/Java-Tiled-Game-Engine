@@ -10,7 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
  * class that writes  logs statements to the libGDX screen extends a libGDX table for displaying the logs
  * this table  is added to the game stage
  */
-public class GameLogger  extends Table {
+public class ScreenLogger extends Table {
     /**
      * the level at which to write logs at
      * 0= no logging
@@ -37,12 +37,11 @@ public class GameLogger  extends Table {
      */
     private ScreenPosition loggerScreenPosition=ScreenPosition.BOTTOM;
     
-    public GameLogger(Skin skin) {
+    public ScreenLogger(Skin skin) {
         super(skin);
     }
-    public GameLogger() {
+    public ScreenLogger() {
     }
-
     /**
      * overridden actor  act method
      * to remove logs from the screen as new  logs appear
@@ -162,10 +161,8 @@ public class GameLogger  extends Table {
         if(logLevel>0){
             LogLabel label= new LogLabel(text, getSkin());
             addLogLabel(label);
-
         }
     }
-
     /**
      * logs an info entity action  message to the log table (this)
      * @param action the  action text to log

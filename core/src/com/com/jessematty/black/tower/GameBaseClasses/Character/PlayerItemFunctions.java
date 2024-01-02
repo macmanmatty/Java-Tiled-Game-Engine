@@ -110,7 +110,7 @@ public class PlayerItemFunctions {
             String id = GameComponentMapper.getIdComponentMapper().get(zrpgCharacter.getHand(hand)).getId();
             if (zrpgCharacter.getHandHolders()[hand].getItemToHoldId() != null) {
                 String text = "Hand Is Not Empty";
-                draw.getUiStage().getGameLogger().logInfo(text);
+                draw.getUiStage().getScreenLogger().logInfo(text);
                 return;
             }
             Array<Entity> entities = zrpgCharacter.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
