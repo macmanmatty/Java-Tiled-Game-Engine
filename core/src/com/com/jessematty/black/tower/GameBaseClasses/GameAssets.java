@@ -115,7 +115,7 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
-    private final static ScreenLogger gameLogger= new ScreenLogger();
+    private final static ScreenLogger screenLogger = new ScreenLogger();
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -129,7 +129,7 @@ public class GameAssets implements Disposable {
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         this.currentSkin = loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
         this.defaultSkin= currentSkin;
-        getGameLogger().setSkin(currentSkin);
+        getScreenLogger().setSkin(currentSkin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
@@ -498,7 +498,7 @@ public class GameAssets implements Disposable {
     public void setCurrentSkinStyle(String currentSkinStyle) {
         this.currentSkinStyle = currentSkinStyle;
     }
-    public static ScreenLogger getGameLogger() {
-        return gameLogger;
+    public static ScreenLogger getScreenLogger() {
+        return screenLogger;
     }
 }

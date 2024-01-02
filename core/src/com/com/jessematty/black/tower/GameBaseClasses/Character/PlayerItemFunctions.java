@@ -73,18 +73,23 @@ public class PlayerItemFunctions {
     public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw) {
         Holder hand=zrpgCharacter.getHandHolders()[zrpgCharacter.getCurrentHand()];
         String itemId = hand.getItemToHoldId();
+        if(itemId==null){
+            GameAssets.getScreenLogger().logInfo("Your  Hand Is Empty!!");
+            return;
+
+        }
         Entity item = draw.getWorld().getEntity(itemId);
         Array<Entity> packs = draw.getWorld().getEntitiesFromEntityIdsArray(zrpgCharacter.getPacks().getPackEntityIds());
         if (packs.size == 1) {
             item.add(new AddItemToContainer(packs.get(0)));
-            GameAssets.getGameLogger().logInfo("Item added to pack!!");
+            GameAssets.getScreenLogger().logInfo("Item added to pack!!");
 
         } else if (packs.size>1) {
             OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
                 public void onSelected(Entity pack) {
                     item.add(new AddItemToContainer(pack));
-                    GameAssets.getGameLogger().logInfo("Item added to pack!!");
+                    GameAssets.getScreenLogger().logInfo("Item added to pack!!");
 
                 }
             };
@@ -94,7 +99,7 @@ public class PlayerItemFunctions {
 
         }
         else{
-            GameAssets.getGameLogger().logInfo("You have no packs to store the item!!");
+            GameAssets.getScreenLogger().logInfo("You have no packs to store the item!!");
         }
 
     }
@@ -131,7 +136,7 @@ public class PlayerItemFunctions {
     private static  void pickupItem(Entity entity, String handId){
             entity.add(new HoldItem(handId));
             entity.add( new PickUpItemComponent());
-            GameAssets.getGameLogger().logInfo("picked up", entity);
+            GameAssets.getScreenLogger().logInfo("picked up", entity);
 
         }
 
