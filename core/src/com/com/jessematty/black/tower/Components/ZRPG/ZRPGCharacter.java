@@ -32,7 +32,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.Maps.World;
 
 /**
- * class the represents a rpg Character
+ * class the represents a Zelda Like RPG Character
  * be it a Enemy, Friendly,  NPC, Quest Giver, Shop Owner or the Player
  * with convenience  access to commonly used components;
  */

@@ -62,7 +62,13 @@ public class PlayerItemFunctions {
         }
     }
 
-
+    /**
+     * add an item to a pack from from a players hand
+     * if more han one pack exists that can accept a given item
+     * a window will pop up asking he user which pack to add
+     * @param zrpgCharacter  the player
+     * @param draw the map draw used to get the world for  getting entities from  ids
+     */
     public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw) {
         Holder hand=zrpgCharacter.getHandHolders()[zrpgCharacter.getCurrentHand()];
         String itemId = hand.getItemToHoldId();
@@ -84,7 +90,7 @@ public class PlayerItemFunctions {
 
     }
         /**
-         * pick up an item  if only  one item exists will attempt  pick up the item
+         * picks up an item  if only  one item exists will attempt  pick up the item
          * if more than one item exists will display a Entity select window
          * so the user can choose which item they wish to pick up
          * @param zrpgCharacter the player zrpgCharacter
@@ -102,11 +108,21 @@ public class PlayerItemFunctions {
             System.out.println("Picking up item!!! from items "+entities.size);
             if (entities.size == 1) {
                 Entity entity=entities.get(0);
-                entity.add(new HoldItem(id));
-                entity.add( new PickUpItemComponent());
+               pickupItem(entity, id);
             } else if (entities.size > 0) {
                 displayPickUpWindow(id, draw, entities);
             }
+        }
+
+    /**
+     * add components to picked -up entity
+     * @param entity the entity to pick up
+     * @param handId the id of the hand to pick up
+     */
+    private static  void pickupItem(Entity entity, String handId){
+            entity.add(new HoldItem(handId));
+            entity.add( new PickUpItemComponent());
+
         }
 
 
@@ -124,7 +140,7 @@ public class PlayerItemFunctions {
             OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
                 public void onSelected(Entity item) {
-                    item.add(new HoldItem(handId));
+                    pickupItem(item, handId);
                 }
             };
             String text = "Select An Item To Pick Up";
