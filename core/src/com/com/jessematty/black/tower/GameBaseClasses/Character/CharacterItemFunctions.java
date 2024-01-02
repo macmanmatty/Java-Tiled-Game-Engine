@@ -49,8 +49,6 @@ public class CharacterItemFunctions {
 
     }
 
-
-
     public static void thrustItem(ZRPGCharacter player) {
             player.getActionComponent().setAction("thrust");
     }
@@ -70,19 +68,6 @@ public class CharacterItemFunctions {
     }
     private void equipItem(ZRPGCharacter player) {
 
-    }
-    private void addItemToPack(ZRPGCharacter player, int hand){
-        Holder []  holder=player.getHandHolders();
-        if (holder[0].getItemToHoldId()== null || holder[1].getItemToHoldId() == null) {
-            PositionComponent position = player.getPositionComponent();
-            GameMap map = mapDraw.getWorld().getMap(position.getMapId());
-            Array<Entity> packs = EntityUtilities.getAllOwnedEntitiesWithComponents(mapDraw.getWorld(), player.getPlayerEntity(), ContainerComponent.class);
-            AddItemToContainer addItemToPackComponent= new AddItemToContainer();
-            if (packs.size > 0) {
-                String text="Select A Pack To Add To";
-                mapDraw.getUiStage().addWindow(new ItemActionWindow(text, "Select An Item", packs, addItemToPackComponent, mapDraw), ScreenPosition.CENTER);
-            }
-        }
     }
     private void target(float screenX, float screenY){
     }

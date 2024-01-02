@@ -9,6 +9,7 @@ import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
@@ -74,18 +75,26 @@ public class PlayerItemFunctions {
         String itemId = hand.getItemToHoldId();
         Entity item = draw.getWorld().getEntity(itemId);
         Array<Entity> packs = draw.getWorld().getEntitiesFromEntityIdsArray(zrpgCharacter.getPacks().getPackEntityIds());
-        if (packs.size > 0) {
+        if (packs.size == 1) {
             item.add(new AddItemToContainer(packs.get(0)));
-        } else {
+            GameAssets.getGameLogger().logInfo("Item added to pack!!");
+
+        } else if (packs.size>1) {
             OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
                 public void onSelected(Entity pack) {
                     item.add(new AddItemToContainer(pack));
+                    GameAssets.getGameLogger().logInfo("Item added to pack!!");
+
                 }
             };
             EntitySelectWindow entitySelectWindow = new EntitySelectWindow(draw.getGameAssets().getCurrentSkin(), packs, draw.getGameAssets(), onSelected);
             draw.getUiStage().addWindow(entitySelectWindow, ScreenPosition.CENTER);
 
+
+        }
+        else{
+            GameAssets.getGameLogger().logInfo("You have no packs to store the item!!");
         }
 
     }
@@ -122,6 +131,7 @@ public class PlayerItemFunctions {
     private static  void pickupItem(Entity entity, String handId){
             entity.add(new HoldItem(handId));
             entity.add( new PickUpItemComponent());
+            GameAssets.getGameLogger().logInfo("picked up", entity);
 
         }
 

@@ -1,8 +1,10 @@
 package com.jessematty.black.tower.GameBaseClasses.Logging;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Queue;
+import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 /**
  * class that writes  logs statements to the libGDX screen extends a libGDX table for displaying the logs
@@ -160,7 +162,21 @@ public class GameLogger  extends Table {
         if(logLevel>0){
             LogLabel label= new LogLabel(text, getSkin());
             addLogLabel(label);
-             
+
+        }
+    }
+
+    /**
+     * logs an info entity action  message to the log table (this)
+     * @param action the  action text to log
+     * @param  entity the entity to get the name of to log
+     */
+    public void logInfo(String action , Entity entity){
+        if(logLevel>0){
+            String name= GameComponentMapper.getNameComponentMapper().get(entity).getStat();
+            String text=name+" was "+action;
+            LogLabel label= new LogLabel(text, getSkin());
+            addLogLabel(label);
         }
     }
     /**
