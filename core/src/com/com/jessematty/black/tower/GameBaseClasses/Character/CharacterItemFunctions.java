@@ -21,9 +21,6 @@ import com.jessematty.black.tower.Maps.World;
 public class CharacterItemFunctions {
 
     private  static ComponentMapper<EntityId> idComponentMapper=ComponentMapper.getFor(EntityId.class);
-    private static  MapDraw mapDraw;
-    private static  World world;
-
     public static void dropItem(ZRPGCharacter player) {
         DropItemComponent dropItemClass = new DropItemComponent();
         player.getHand(1).add(dropItemClass);

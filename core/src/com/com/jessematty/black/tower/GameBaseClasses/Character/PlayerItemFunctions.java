@@ -81,6 +81,8 @@ public class PlayerItemFunctions {
         Entity item = draw.getWorld().getEntity(itemId);
         Array<Entity> packs = draw.getWorld().getEntitiesFromEntityIdsArray(zrpgCharacter.getPacks().getPackEntityIds());
         if (packs.size == 1) {
+            GameAssets.getScreenLogger().logInfo("Adding Item To Pack");
+
             item.add(new AddItemToContainer(packs.get(0)));
             GameAssets.getScreenLogger().logInfo("Item added to pack!!");
 

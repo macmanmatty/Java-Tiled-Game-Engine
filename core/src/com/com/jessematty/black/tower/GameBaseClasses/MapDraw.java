@@ -22,7 +22,9 @@ import com.jessematty.black.tower.GameBaseClasses.Player.ZRPGPlayer.ZRPGPlayerFu
 import com.jessematty.black.tower.GameBaseClasses.Rendering.BrightnessBatch;
 import com.jessematty.black.tower.GameBaseClasses.Rendering.FrameBufferRenderer;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Stages.GameStage;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars.DefaultZRPGBottomWindow;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -208,11 +210,16 @@ public class MapDraw implements NamedScreen{// class for drawing the currentGame
         this.player = player;
         engine.getSystem(PlaySoundSystem.class).setPlayer(player);
         engine.getSystem(ZRPGPlayerSystem.class).setPlayer(player);
-    //  DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getGameAssets().getDefaultSkin(),  "windowCompass", this );
-    //   defaultZRPGBottomWindow.setZrpgCharacter(player);
-//        uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
+        float bottom=Gdx.graphics.getHeight()*.15f;
+   DefaultZRPGBottomWindow defaultZRPGBottomWindow= new DefaultZRPGBottomWindow(getGameAssets().getDefaultSkin(),  "windowCompass", this );
+      defaultZRPGBottomWindow.setZrpgCharacter(player);
+      defaultZRPGBottomWindow.setZIndex(0);
+      defaultZRPGBottomWindow.setSize(Gdx.graphics.getWidth(), bottom);
+      uiStage.addWindow(defaultZRPGBottomWindow, ScreenPosition.BOTTOM);
+
       gameCamera.setEntityToFollow(player.getPlayerEntity());
         gameCamera.centerCameraToPosition(player.getPositionComponent());
+        gameCamera.setScreenMinY(-bottom);
         GameAssets.getGameInput().getKeyListener().addInputKeyCombos( new ZRPGPlayerFunctions(playerKeys, this, player).getPlayerControlFunctions());
     }
 

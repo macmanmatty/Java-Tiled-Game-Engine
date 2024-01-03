@@ -26,11 +26,7 @@ public class GameStage extends Stage implements Disposable {
     public GameStage(ScreenLogger screenLogger) {
         this.screenLogger = screenLogger;
         addActor(screenLogger);
-    }
-
-    public GameStage() {
-        this.screenLogger =new ScreenLogger();
-        addActor(screenLogger);
+        screenLogger.setZIndex(Integer.MAX_VALUE);
     }
 
     /**

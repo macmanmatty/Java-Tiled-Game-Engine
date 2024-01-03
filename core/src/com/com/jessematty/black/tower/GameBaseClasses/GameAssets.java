@@ -115,6 +115,9 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
+    /**
+     * the object that logs messages to the UI Stage
+     */
     private final static ScreenLogger screenLogger = new ScreenLogger();
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
@@ -345,17 +348,6 @@ public class GameAssets implements Disposable {
        float progress=  assetManager.getProgress();
        return  progress;
     }
-
-   public void  loadTextureAtlasAsync(final String path){
-        Runnable runnable= new Runnable() {
-            @Override
-            public void run() {
-                assetManager.load(path, TextureAtlas.class);
-                finishLoading();
-            }
-        };
-        Gdx.app.postRunnable(runnable);
-   }
     /**
      *
      * @param region the region to add

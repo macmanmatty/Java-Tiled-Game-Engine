@@ -37,9 +37,6 @@ public class ScreenLogger extends Table {
      */
     private ScreenPosition loggerScreenPosition=ScreenPosition.BOTTOM;
     
-    public ScreenLogger(Skin skin) {
-        super(skin);
-    }
     public ScreenLogger() {
     }
     /**
