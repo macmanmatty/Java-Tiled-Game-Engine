@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
-import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
+import com.jessematty.black.tower.Components.Item.ItemAction.HoldItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
@@ -19,7 +19,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 
 public class HoldItemSystem extends GameEntitySystem {
-    private ComponentMapper<HoldItem> holdItemComponentMapper;
+    private ComponentMapper<HoldItemComponent> holdItemComponentMapper;
         private ComponentMapper<Holder> holderComponentMapper;
     private ComponentMapper<BodyComponent> bodyComponentMapper;
     private ComponentMapper<OwnedComponent> ownedComponentComponentMapper;
@@ -49,11 +49,11 @@ public class HoldItemSystem extends GameEntitySystem {
 
     @Override
     public void update(float deltaTime) {
-      ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( HoldItem.class).get());
+      ImmutableArray<Entity> entities = getEngine().getEntitiesFor(Family.all( HoldItemComponent.class).get());
         int size = entities.size();
         for (int count = 0; count < size; count++) {
            Entity itemToHold= entities.get(count);
-            HoldItem holdable=holdItemComponentMapper.get(itemToHold);
+            HoldItemComponent holdable=holdItemComponentMapper.get(itemToHold);
             OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToHold);
             if(ownedComponent!=null){
                 Entity currentOwner=getWorld().getEntity(ownedComponent.getOwnerEntityID());
@@ -65,7 +65,7 @@ public class HoldItemSystem extends GameEntitySystem {
             EntityId entityId=idComponentMapper.get(itemToHold);
             holder.setItemToHoldId(entityId.getId());
             EntityUtilities.attachEntity(holderEntity,itemToHold );
-            itemToHold.remove(HoldItem.class);
+            itemToHold.remove(HoldItemComponent.class);
         }
 
     }

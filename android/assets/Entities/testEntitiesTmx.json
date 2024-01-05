@@ -35,6 +35,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -80,7 +81,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: d6cfc1e1-0673-4990-9a01-e42d3fb681eb
+	tmxObjectId: 467ca27f-f652-4343-96d7-143ca013f027
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -139,6 +140,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: true
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -279,6 +281,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -371,7 +374,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 1e5b4744-bb1e-4941-9c68-3e3010e34ccc
+			tmxObjectId: 32819dc5-45c2-406f-8815-37fc16a08741
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -429,6 +432,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -579,6 +583,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -729,6 +734,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -879,6 +885,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -1030,6 +1037,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -1185,6 +1193,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: true
 			lpcActorAnimated: true
@@ -1275,7 +1284,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 85f0fee2-a793-4d51-ab52-f5c0235c0c37
+			tmxObjectId: a61bfdf4-6eba-4d0f-b290-8c93eac561df
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1316,6 +1325,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1408,7 +1418,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 1e5b4744-bb1e-4941-9c68-3e3010e34ccc
+					tmxObjectId: 32819dc5-45c2-406f-8815-37fc16a08741
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1466,6 +1476,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1616,6 +1627,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1766,6 +1778,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1916,6 +1929,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -2067,6 +2081,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -2261,6 +2276,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2347,7 +2363,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 17240223-f606-402a-8de1-788a85b8d8ac
+	tmxObjectId: 3618b9e9-6217-4116-8404-e54a2bc6ce38
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2406,6 +2422,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2451,7 +2468,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: e531963e-f684-4655-b0f9-7dba576b9fea
+	tmxObjectId: 114c0031-9bfd-4d9d-a594-7ad8adcdc919
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2510,6 +2527,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -2674,6 +2692,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2719,7 +2738,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 68582007-3433-4408-aa59-02eb959159ef
+	tmxObjectId: d7511a22-007a-4e4d-850e-cca4e709a77b
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2778,6 +2797,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: false
@@ -2823,7 +2843,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 4ca9cfe0-1e09-4144-b367-11d7bf349791
+	tmxObjectId: 79959846-b231-45ba-a577-d32ef0b2da7c
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2882,6 +2902,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2988,6 +3009,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -3136,7 +3158,9 @@
 	tmxObjectId: backPack
 	bounds: null
 	groups: []
-	groupsAddable: []
+	groupsAddable: [
+		all
+	]
 	attachedEntitiesTmxObjectIDs: []
 	attachedEntityDTOs: []
 	attachedEntitiesIDs: []
@@ -3192,6 +3216,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -3339,6 +3364,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -3384,7 +3410,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: db500f0f-4bdc-453a-a73b-4cd0de0829d7
+	tmxObjectId: 3369bffe-642e-4801-a88e-6b98ae879126
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3443,6 +3469,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true

@@ -1,12 +1,13 @@
 package com.jessematty.black.tower.Components.Animation;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
-public class ImageComponent implements SerializableComponet {
+public class ImageComponent implements SerializableComponent {
    private transient Image image;
    private transient AtlasNamedAtlasRegion atlasRegion;
    private String imageName;
@@ -65,7 +66,7 @@ public class ImageComponent implements SerializableComponet {
 
 
     @Override
-    public void deSerialize(GameAssets assets) {
+    public void deSerialize(Entity unused, GameAssets assets) {
         if(imageName!=null && !imageName.isEmpty()) {
             AtlasNamedAtlasRegion atlasNamedAtlasRegion = assets.getAtlasRegionByName(imageName, atlasName);
 
@@ -77,7 +78,7 @@ public class ImageComponent implements SerializableComponet {
     }
 
     @Override
-    public void serialize() {
+    public void serialize(Entity unused) {
 
     }
 }

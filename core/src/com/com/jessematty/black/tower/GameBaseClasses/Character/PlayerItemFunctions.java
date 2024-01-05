@@ -1,7 +1,8 @@
 package com.jessematty.black.tower.GameBaseClasses.Character;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
+import com.jessematty.black.tower.Components.Item.ItemAction.HeldComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.HoldItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
@@ -16,6 +17,7 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPa
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
 import com.jessematty.black.tower.Maps.World;
 public class PlayerItemFunctions {
     private PlayerItemFunctions() {
@@ -65,14 +67,18 @@ public class PlayerItemFunctions {
 
     /**
      * add an item to a pack from from a players hand
-     * if more han one pack exists that can accept a given item
+     * if more than one pack exists that can accept a given item
      * a window will pop up asking he user which pack to add
      * @param zrpgCharacter  the player
      * @param draw the map draw used to get the world for  getting entities from  ids
      */
     public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw) {
-        Holder hand=zrpgCharacter.getHandHolders()[zrpgCharacter.getCurrentHand()];
-        String itemId = hand.getItemToHoldId();
+        World world=draw.getWorld();
+        Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
+
+        Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+
+        String itemId = handHolder.getItemToHoldId();
         if(itemId==null){
             GameAssets.getScreenLogger().logInfo("Your  Hand Is Empty!!");
             return;
@@ -105,6 +111,29 @@ public class PlayerItemFunctions {
         }
 
     }
+
+    /**
+     * adds an item to a hand from from a players pack
+     * @param zrpgCharacter  the player
+     * @param draw the map draw used to get the world for  getting entities from  ids
+     */
+    public static void addItemHandFromPack(ZRPGCharacter zrpgCharacter, Entity item, MapDraw draw) {
+        World world=draw.getWorld();
+        Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
+
+        Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+
+        String itemId = handHolder.getItemToHoldId();
+        if(itemId!=null){
+            GameAssets.getScreenLogger().logInfo("Your  Hand Is  Not Empty!!");
+            return;
+
+        }
+        String handId=GameComponentMapper.getIdComponentMapper().get(hand).getId();
+        item.add(new HoldItemComponent(handId));
+
+
+    }
         /**
          * picks up an item  if only  one item exists will attempt  pick up the item
          * if more than one item exists will display a Entity select window
@@ -113,9 +142,12 @@ public class PlayerItemFunctions {
          * @param draw the map draw to add the window to if needed
          */
 
-        public static void pickUpItem (ZRPGCharacter zrpgCharacter, MapDraw draw,int hand){
-            String id = GameComponentMapper.getIdComponentMapper().get(zrpgCharacter.getHand(hand)).getId();
-            if (zrpgCharacter.getHandHolders()[hand].getItemToHoldId() != null) {
+        public static void pickUpItem (ZRPGCharacter zrpgCharacter, MapDraw draw){
+            World world=draw.getWorld();
+            Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
+            String handId=GameComponentMapper.getIdComponentMapper().get(hand).getId();
+            Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+            if (handHolder.getItemToHoldId() != null) {
                 String text = "Hand Is Not Empty";
                 draw.getUiStage().getScreenLogger().logInfo(text);
                 return;
@@ -124,9 +156,9 @@ public class PlayerItemFunctions {
             System.out.println("Picking up item!!! from items "+entities.size);
             if (entities.size == 1) {
                 Entity entity=entities.get(0);
-               pickupItem(entity, id);
+               pickupItem(entity, handId);
             } else if (entities.size > 0) {
-                displayPickUpWindow(id, draw, entities);
+                displayPickUpWindow(handId, draw, entities);
             }
         }
 
@@ -136,7 +168,7 @@ public class PlayerItemFunctions {
      * @param handId the id of the hand to pick up
      */
     private static  void pickupItem(Entity entity, String handId){
-            entity.add(new HoldItem(handId));
+            entity.add(new HoldItemComponent(handId));
             entity.add( new PickUpItemComponent());
             GameAssets.getScreenLogger().logInfo("picked up", entity);
 

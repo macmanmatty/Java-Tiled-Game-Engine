@@ -39,6 +39,7 @@ import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 import com.jessematty.black.tower.Systems.Owner.AddOwnerSystem;
 import com.jessematty.black.tower.Systems.Owner.RemoveOwnerSystem;
 import com.jessematty.black.tower.Systems.Owner.SetEntityPositionAndActionToOwnerSystem;
+import com.jessematty.black.tower.Systems.Pack.AddToContainerSystem;
 import com.jessematty.black.tower.Systems.Plants.GrowSystem;
 import com.jessematty.black.tower.Systems.Player.ZRPGPlayerSystem;
 import com.jessematty.black.tower.Systems.Sound.PlaySoundSystem;
@@ -135,6 +136,7 @@ public class EngineSetup {
        engine.addSystem(new ThrustSystem(draw));
         engine.addSystem( new ZRPGPlayerSystem( draw  ));
         engine.addSystem(new HoldItemSystem( draw));
+        engine.addSystem(new AddToContainerSystem(draw));
 
 
        if(drawBounds){

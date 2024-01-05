@@ -9,21 +9,23 @@ import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemAction.DropItemComponent;
 import com.jessematty.black.tower.Components.Other.HoldPosition;
+import com.jessematty.black.tower.Components.Other.Player;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.ItemActionWindow;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 
 public class CharacterItemFunctions {
 
     private  static ComponentMapper<EntityId> idComponentMapper=ComponentMapper.getFor(EntityId.class);
-    public static void dropItem(ZRPGCharacter player) {
+    public static void dropItem(ZRPGCharacter player, World world) {
         DropItemComponent dropItemClass = new DropItemComponent();
-        player.getHand(1).add(dropItemClass);
+        ZRPGCharacterUtilities.getBodyPart("leftHand", player, world).add(dropItemClass);
     }
 
     public static void eatItem(ZRPGCharacter player) {
@@ -36,12 +38,12 @@ public class CharacterItemFunctions {
     }
     public static void switchHand(ZRPGCharacter player) {
 
-       int hand= player.getCurrentHand();
-       if(hand==0){
-           player.setCurrentHand(1);
+      String hand= player.getCurrentHand();
+       if(hand.equals("rightHand")){
+           player.setCurrentHand("leftHand");
        }
        else{
-           player.setCurrentHand(0);
+           player.setCurrentHand("rightHand");
        }
 
     }
@@ -70,9 +72,5 @@ public class CharacterItemFunctions {
     }
 
     private void changeHoldPosition( ZRPGCharacter player, int hand) {
-        Holder holder = player.getHandHolders()[hand];
-        HoldPosition[]  holdPosition=HoldPosition.values();
-        int holdPositions=holdPosition.length;
-
     }
 }

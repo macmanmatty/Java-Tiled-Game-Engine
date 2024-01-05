@@ -76,6 +76,11 @@ public class LPCObjectGeneratorDTO {
     boolean hasRestOnGroundActionImage;
     boolean restOnGroundSingleImage=true;
     boolean restOnGroundEightDirections=false;
+    /**
+     * whether  or not the entity is zelda like rpg character
+     */
+    boolean zrpgCharacter;
+
     int restOnGroundFrames=1;
     /**
      * is the object animated
@@ -261,6 +266,8 @@ public class LPCObjectGeneratorDTO {
      * the array of attached entities referenced by the entities id
      */
     Array<String> attachedEntitiesIDs = new Array();
+
+
     /**
      * the offsets for the animatable SUBLayer Z-Index
      * in  the UP DOWN , LEFT , and RIGHT dierctions
@@ -910,5 +917,13 @@ public class LPCObjectGeneratorDTO {
 
     public String getAction() {
         return action;
+    }
+
+    public boolean isZrpgCharacter() {
+        return zrpgCharacter;
+    }
+
+    public void setZrpgCharacter(boolean zrpgCharacter) {
+        this.zrpgCharacter = zrpgCharacter;
     }
 }

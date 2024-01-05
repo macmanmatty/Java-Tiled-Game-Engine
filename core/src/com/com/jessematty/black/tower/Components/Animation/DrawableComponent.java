@@ -1,14 +1,15 @@
 package com.jessematty.black.tower.Components.Animation;
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.jessematty.black.tower.Components.Interfaces.ColorSettable;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.Components.Stats.ChangeStats.ColorChangeMode;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
-public class DrawableComponent implements Component , ColorSettable , SerializableComponet{
+public class DrawableComponent implements Component , ColorSettable , SerializableComponent {
     /**
      * the current Atlas Region to be drawn
      */
@@ -178,13 +179,13 @@ public class DrawableComponent implements Component , ColorSettable , Serializab
         this.calculateBrightness = calculateBrightness;
     }
     @Override
-    public void deSerialize(GameAssets assets) {
+    public void deSerialize(Entity unused, GameAssets assets) {
         if(currentRegionName!=null && currentRegionAtlasName!=null) {
             currentRegion = assets.getAtlasRegionByName(currentRegionName, currentRegionAtlasName);
         }
     }
     @Override
-    public void serialize() {
+    public void serialize(Entity entity) {
     }
 
     public boolean isSetLayerToYPosition() {

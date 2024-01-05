@@ -34,6 +34,8 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacterComponent;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -325,6 +327,12 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         }
         if (lpcObjectGeneratorDTO.getAttachedEntitiesTmxObjectIDs().size>0){
             linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntitiesTmxObjectIDs);
+        }
+        if(lpcObjectGeneratorDTO.isZrpgCharacter()){
+           Entity owner= entityBag.getOwner();
+            ZRPGCharacter zrpgCharacter= new ZRPGCharacter(owner);
+           owner.add(zrpgCharacter);
+           owner.add(new ZRPGCharacterComponent());
         }
         return  entityBag;
         }

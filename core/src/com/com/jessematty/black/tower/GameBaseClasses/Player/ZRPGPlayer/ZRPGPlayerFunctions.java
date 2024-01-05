@@ -83,7 +83,7 @@ public class ZRPGPlayerFunctions {
         playerControlFunctions.add(addItemToPackCombo);
         InputKeyCombo dropItemCombo= new InputKeyCombo(dropItem,  KeyPressMode.KEY_DOWN, "Drop Item", playerKeys.getDropItem());
         playerControlFunctions.add(dropItemCombo);
-        InputKeyCombo switchHand= new InputKeyCombo(this.switchHand,  KeyPressMode.KEY_DOWN, "Switch Hand", playerKeys.getDropItem());
+        InputKeyCombo switchHand= new InputKeyCombo(this.switchHand,  KeyPressMode.KEY_DOWN, "Switch Hand", playerKeys.getSwitchHand());
         playerControlFunctions.add(switchHand);
 
     }
@@ -98,6 +98,8 @@ public class ZRPGPlayerFunctions {
         public void act()  {
            PlayerItemFunctions.addItemToPackFromHand(player,mapDraw );
         }};
+
+
 
     private KeyAction dropItem =new KeyAction(){
         @Override
@@ -233,13 +235,13 @@ public class ZRPGPlayerFunctions {
     private KeyAction pickupItem =new KeyAction(){
         @Override
           public void act()  {
-            PlayerItemFunctions.pickUpItem(player, mapDraw, player.getCurrentHand());
+            PlayerItemFunctions.pickUpItem(player, mapDraw);
 
     }};
     private KeyAction viewPacks =new KeyAction(){
         @Override
         public void act()  {
-            Array<Entity> containers=EntityUtilities.getAllOwnedEntitiesWithComponents( player.getWorld(), player.getPlayerEntity(), PackComponent.class);
+            Array<Entity> containers=EntityUtilities.getAllOwnedEntitiesWithComponents( mapDraw.getWorld(), player.getPlayerEntity(), PackComponent.class);
          EntitySelectWindow window=  new EntitySelectWindow(mapDraw.getGameAssets().getCurrentSkin(), containers, mapDraw.getGameAssets(), new OnEntitySelectFunctions(mapDraw).packDisplay);
             mapDraw.getUiStage().addWindow(window, ScreenPosition.CENTER);
         }};

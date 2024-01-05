@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
+import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.AttachEntity.OwnedComponent;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
@@ -33,6 +34,7 @@ public class AddToContainerSystem extends GameEntitySystem {
     private ComponentMapper<PhysicalObjectComponent> physicalObjectComponentComponentMapper;
     private ComponentMapper<AddItemToContainer> addItemToContainerComponentMapper;
     private ComponentMapper<GroupsComponent> groupsComponentMapper;
+    private ComponentMapper<DrawableComponent> drawableComponentComponentMapper;
     public AddToContainerSystem(MapDraw draw) {
         super(draw);
     }
@@ -45,6 +47,7 @@ public class AddToContainerSystem extends GameEntitySystem {
         addItemToContainerComponentMapper=GameComponentMapper.getAddItemToContainerComponentMapper();
         groupsComponentMapper=GameComponentMapper.getGroupsComponentMapper();
        positionComponentComponentMapper=GameComponentMapper.getPositionComponentMapper();
+       drawableComponentComponentMapper=GameComponentMapper.getDrawableComponentMapper();
     }
 
     @Override
@@ -63,9 +66,11 @@ public class AddToContainerSystem extends GameEntitySystem {
             PhysicalObjectComponent physicalObjectComponent = physicalObjectComponentComponentMapper.get(entity);
             PositionComponent itemToAddPosition = positionComponentComponentMapper.get(entity);
             GroupsComponent groupsComponent = groupsComponentMapper.get(entity);
-            if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
+            DrawableComponent drawableComponent=drawableComponentComponentMapper.get(entity);
+           // if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
                 String itemToAddId = idComponentMapper.get(entity).getId();
                 containerComponent.getEntitiesInContainerIds().add(itemToAddId);
+                drawableComponent.setDraw(false);
                 if (addItemToContainer.isRemoveItemBoundsOnAdd()) {
                     itemToAddPosition.removeBounds();
                 }
@@ -78,7 +83,7 @@ public class AddToContainerSystem extends GameEntitySystem {
                     EntityUtilities.attachEntity(container, entity);
                 }
             }
-        }
+       //}
     }
 
     /**
@@ -90,7 +95,7 @@ public class AddToContainerSystem extends GameEntitySystem {
      */
     private boolean checkInGroups(ContainerComponent containerComponent, GroupsComponent  groupsComponent){
         Array<String> groupsAddable=containerComponent.getGroupsAddable();
-        if (groupsComponent !=null && groupsAddable.size>0 && !InList.isInList(groupsComponent.getGroups(), containerComponent.getGroupsAddable())) {
+        if (groupsComponent !=null && groupsAddable.size>0 && !InList.isInListOrAll(groupsComponent.getGroups(), containerComponent.getGroupsAddable())) {
             return false;
         }
         return true;

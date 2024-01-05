@@ -30,18 +30,7 @@ public class DefaultZRPGBottomWindow extends UITable {
         makeUI();
     }
     public void updateHands(){
-        Holder rightHolder= zrpgCharacter.getHandHolders()[1];
-        Holder leftHolder= zrpgCharacter.getHandHolders()[0];
-        if(rightHolder!=null) {
-            String rightHandHeldEntityID = rightHolder.getItemToHoldId();
-            Entity rightHeldItem=mapDraw.getWorld().getEntity(rightHandHeldEntityID);
-            rightHandGroup.update(getSkin(), rightHeldItem);
-        }
-        if(leftHolder!=null) {
-            String leftHandHeldEntityID = leftHolder.getItemToHoldId();
-            Entity leftHeldItem = mapDraw.getWorld().getEntity(leftHandHeldEntityID);
-            leftHandGroup.update(getSkin(), leftHeldItem);
-        }
+
     }
     
     public void updatePackButtons(Array<ContainerComponent> packs){

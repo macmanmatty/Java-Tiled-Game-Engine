@@ -4,39 +4,27 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.jessematty.black.tower.AI.ZRPGBrainComponent;
 import com.jessematty.black.tower.Components.Actions.ActionComponent;
-import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Animation.DrawableComponent;
 import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.OwnerComponent;
 import com.jessematty.black.tower.Components.Attacks.AttackMode;
-import com.jessematty.black.tower.Components.Attacks.Thrower;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
-import com.jessematty.black.tower.Components.BodyParts.Ears;
-import com.jessematty.black.tower.Components.BodyParts.Eyes;
 import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
-import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.AIComponent;
-import com.jessematty.black.tower.Components.Other.DominateHand;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
-import com.jessematty.black.tower.Components.Other.Nose;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStats;
-import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.Maps.World;
 
 /**
  * class the represents a Zelda Like RPG Character
  * be it a Enemy, Friendly,  NPC, Quest Giver, Shop Owner or the Player
  * with convenience  access to commonly used components;
  */
-@Transient
 public class ZRPGCharacter implements Component {
     /**
      * commonly used the components
@@ -47,67 +35,52 @@ public class ZRPGCharacter implements Component {
     private  BooleanStats booleanStats;
     private  StringStats stringStats;
     private  OwnerComponent ownerComponent;
-    private ZRPGBrainComponent ZRPGBrainComponen;
-    private Ears ears;
-    private Nose nose;
-    private Eyes eyes;
+    private ZRPGBrainComponent zrpgBrainComponent;
     private String id;
     private PhysicalObjectComponent physicalObject;
-    private DrawableComponent drawableComponent;
-    private  AnimatableComponent animatable;
-    private Thrower thrower;
-    private  Entity [] hands= new Entity[2];
-    private  Holder[]  handHolders= new Holder[2];
-    private   Entity leftFoot;
-    private  Entity rightFoot;
     private CharacterPacksComponent packs= new CharacterPacksComponent();
     private  Entity playerEntity;
     private ActionComponent actionComponent;
     private AttackMode attackMode= new AttackMode("slash");
     private BodyComponent bodyComponent;
     private NameComponent nameComponent;
-    private  World world;
-    private  NumericStat speed;
     private ImageComponent imageComponent;
     private boolean showBottomBar;
     private boolean autoPickUpFirstItem;
-    private DominateHand dominateHand;
     private boolean autoAddToFirstPack;
+    private boolean useItemWithoutHolding;
     private ZRPGPlayerButtonModes buttonMode;
-    private int currentHand;
+    private String  currentHand="rightHand";
+    public  ZRPGCharacter() {
+    }
 
+    public ZRPGCharacter(Entity playerEntity) {
+        setFields(playerEntity);
 
-    public ZRPGCharacter(World world, Entity playerEntity) {
+    }
+
+   public void setFields(Entity playerEntity){
+
         this.playerEntity = playerEntity;
-        this.playerEntity.add(new CharacterComponent());
+        this.playerEntity.add(new ZRPGCharacterComponent());
         AIComponent aiComponent= GameComponentMapper.getAiComponentMapper().get(playerEntity);
         if (aiComponent==null){
             aiComponent=new AIComponent();
             playerEntity.add(aiComponent);
         }
-        this.ZRPGBrainComponen =aiComponent.getZRPGBrainComponen();
-        this.world=world;
+        this.zrpgBrainComponent =aiComponent.getZRPGBrainComponen();
         this.movableComponent=GameComponentMapper.getMovableComponentMapper().get(playerEntity);
         this.position = GameComponentMapper.getPositionComponentMapper().get(playerEntity);
         this.numericStats = GameComponentMapper.getNumericStatsComponentMapper().get(playerEntity);
         this.booleanStats= GameComponentMapper.getBooleanStatsComponentMapper().get(playerEntity);
         this.stringStats= GameComponentMapper.getStringStatsComponentMapper().get(playerEntity);
         this.physicalObject = GameComponentMapper.getPhysicalObjectComponentMapper().get(playerEntity);
-        this.drawableComponent =GameComponentMapper.getDrawableComponentMapper().get(playerEntity);
-        this.animatable = GameComponentMapper.getAnimatableComponentMapper().get(playerEntity);
         this.actionComponent = GameComponentMapper.getActionComponentMapper().get(playerEntity);
         this.bodyComponent =GameComponentMapper.getBodyComponentComponentMapper().get(playerEntity);
         this.imageComponent=GameComponentMapper.getImageComponentMapper().get(playerEntity);
         this.ownerComponent= GameComponentMapper.getOwnerComponentComponentMapper().get(playerEntity);
         this.id=GameComponentMapper.getIdComponentMapper().get(playerEntity).getId();
-         this.hands[0]=world.getEntity(bodyComponent.getBodyParts().get("rightHand"));
-        this.hands[1]=world.getEntity(bodyComponent.getBodyParts().get("leftHand"));
-        handHolders[1]= GameComponentMapper.getHolderComponentMapper().get(hands[0]);
-        handHolders[0]= GameComponentMapper.getHolderComponentMapper().get(hands[1]);
-        this.rightFoot=world.getEntity(bodyComponent.getBodyParts().get("rightFoot"));
-        this.leftFoot=world.getEntity(bodyComponent.getBodyParts().get("leftFoot"));
         this.nameComponent = GameComponentMapper.getNameComponentMapper().get(playerEntity);
-        this.speed=numericStats.getNumericStat("speed");
     }
     public MovableComponent getMovableComponent() {
         return movableComponent;
@@ -120,18 +93,6 @@ public class ZRPGCharacter implements Component {
     }
     public PhysicalObjectComponent getPhysicalObject() {
         return physicalObject;
-    }
-    public DrawableComponent getDrawableComponent() {
-        return drawableComponent;
-    }
-    public AnimatableComponent getAnimatable() {
-        return animatable;
-    }
-    public Thrower getThrower() {
-        return thrower;
-    }
-    public com.jessematty.black.tower.Components.AttachEntity.Holder[] getHolders() {
-        return handHolders;
     }
     public Entity getPlayerEntity() {
         return playerEntity;
@@ -148,29 +109,8 @@ public class ZRPGCharacter implements Component {
     public StringStats getStringStats() {
         return stringStats;
     }
-    public Holder[] getHandHolders() {
-        return handHolders;
-    }
-    public Entity getLeftFoot() {
-        return leftFoot;
-    }
-    public Entity getRightFoot() {
-        return rightFoot;
-    }
     public StringStat getNameComponent() {
         return nameComponent;
-    }
-    public Ears getEars() {
-        return ears;
-    }
-    public Nose getNose() {
-        return nose;
-    }
-    public Eyes getEyes() {
-        return eyes;
-    }
-    public NumericStat getSpeed() {
-        return speed;
     }
     public com.jessematty.black.tower.Components.AttachEntity.OwnerComponent getOwnerComponent() {
         return ownerComponent;
@@ -189,12 +129,6 @@ public class ZRPGCharacter implements Component {
     }
     public void setAutoPickUpFirstItem(boolean autoPickUpFirstItem) {
         this.autoPickUpFirstItem = autoPickUpFirstItem;
-    }
-    public DominateHand getDominateHand() {
-        return dominateHand;
-    }
-    public void setDominateHand(DominateHand dominateHand) {
-        this.dominateHand = dominateHand;
     }
     public String getId() {
         return id;
@@ -217,8 +151,8 @@ public class ZRPGCharacter implements Component {
     public ImageComponent getImageComponent() {
         return imageComponent;
     }
-    public ZRPGBrainComponent getZRPGBrainComponen() {
-        return ZRPGBrainComponen;
+    public ZRPGBrainComponent getZrpgBrainComponent() {
+        return zrpgBrainComponent;
     }
 
     public PositionComponent getPosition() {
@@ -233,20 +167,20 @@ public class ZRPGCharacter implements Component {
     public BodyComponent getBody() {
         return bodyComponent;
     }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public Entity getHand(int i) {
-        return hands[i];
-    }
-
-    public int getCurrentHand() {
+    public String getCurrentHand() {
         return currentHand;
     }
 
-    public void setCurrentHand(int currentHand) {
+    public void setCurrentHand(String currentHand) {
         this.currentHand = currentHand;
     }
+
+    public boolean isUseItemWithoutHolding() {
+        return useItemWithoutHolding;
+    }
+
+    public void setUseItemWithoutHolding(boolean useItemWithoutHolding) {
+        this.useItemWithoutHolding = useItemWithoutHolding;
+    }
+
 }

@@ -1,9 +1,10 @@
 package com.jessematty.black.tower.Components.Animation;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
@@ -13,7 +14,7 @@ import com.jessematty.black.tower.GameBaseClasses.Utilities.AnimationUtilities;
 /**
  * component for animations
  */
-public class AnimatableComponent implements SerializableComponet{
+public class AnimatableComponent implements SerializableComponent {
     /**
      *     ObjectMap of actions  that links to ObjectMap of directions that links
      *     to the animations;
@@ -304,7 +305,7 @@ public class AnimatableComponent implements SerializableComponet{
      * @param assets
      */
     @Override
-    public void deSerialize(GameAssets assets) {
+    public void deSerialize(Entity unused, GameAssets assets) {
         Keys<String> keys=animations.keys();
         while(keys.hasNext==true ) {
             String key=keys.next();
@@ -322,7 +323,7 @@ public class AnimatableComponent implements SerializableComponet{
         return animations;
     }
     @Override
-    public void serialize() {
+    public void serialize(Entity unused) {
     }
     public void setAnimations(ObjectMap<String, ObjectMap<String, Animation>> animations) {
         this.animations = animations;

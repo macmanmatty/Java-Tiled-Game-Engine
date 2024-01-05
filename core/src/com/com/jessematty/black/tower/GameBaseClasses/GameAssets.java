@@ -443,7 +443,7 @@ public class GameAssets implements Disposable {
         this.mapDraw= new MapDraw( this, true);
         mapDraw.setWorld(world);
         mapDraw.showCurrentWorld();
-        mapDraw.setPlayer(new ZRPGCharacter( world, world.getPlayer()));
+        mapDraw.setPlayer(world.getPlayer().getComponent(ZRPGCharacter.class));
     }
     public void showGame(){
         game.setScreen(mapDraw);

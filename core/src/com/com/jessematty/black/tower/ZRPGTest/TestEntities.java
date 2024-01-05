@@ -72,6 +72,7 @@ public class TestEntities {
         lizard.setBoundsXOffset(16);
         lizard.setHeight(5);
         lizard.setDrawLayer(1);
+        lizard.setZrpgCharacter(true);
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");
@@ -303,7 +304,7 @@ public class TestEntities {
         pack.setMaxAttachedWeight(100000);
         pack.setInternalVolume(1000000);
         pack.setDrawLayer(1);
-
+        pack.getGroupsAddable().add("all");
         apple.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         apple.setName("apple");
         apple.setImageName("apple1");
