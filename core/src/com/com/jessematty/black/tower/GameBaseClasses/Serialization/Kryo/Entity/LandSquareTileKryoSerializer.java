@@ -7,7 +7,7 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.Interfaces.NewComponent;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Tiles.TileComponent;
@@ -36,8 +36,8 @@ public class LandSquareTileKryoSerializer extends Serializer<LandSquareTile> {
             if(component.getClass().isAnnotationPresent(Transient.class)){
                 entity.remove(component.getClass());
             }
-            if(component instanceof SerializableComponet){
-                ((SerializableComponet) component).serialize();
+            if(component instanceof SerializableComponent){
+                ((SerializableComponent) component).serialize(entity);
             }
             components.add(component);
         }
@@ -50,8 +50,8 @@ public class LandSquareTileKryoSerializer extends Serializer<LandSquareTile> {
             int size=components.size;
             for(int count=0; count<size; count++) {
                 Component component=components.get(count);
-                if(components.get(count) instanceof  SerializableComponet){
-                    ((SerializableComponet) component).deSerialize(gameAssets);
+                if(components.get(count) instanceof SerializableComponent){
+                    ((SerializableComponent) component).deSerialize(landSquareTile, gameAssets);
                 }
                 landSquareTile.add(components.get(count));
                 if(component instanceof TileComponent){

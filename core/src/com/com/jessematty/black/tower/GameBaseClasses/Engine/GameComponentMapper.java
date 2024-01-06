@@ -21,7 +21,7 @@ import com.jessematty.black.tower.Components.AttachEntity.AttachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.Attachable;
 import com.jessematty.black.tower.Components.AttachEntity.DetachEntityEvent;
 import com.jessematty.black.tower.Components.AttachEntity.EquipItem;
-import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
+import com.jessematty.black.tower.Components.Item.ItemAction.HoldItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holdable;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.AttachEntity.Loadable;
@@ -45,9 +45,9 @@ import com.jessematty.black.tower.Components.BodyParts.Eyes;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.ChangeImage.ChangeImageOnStatsValueChanges;
 import com.jessematty.black.tower.Components.Components.AddComponent;
+import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnBooleanStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnNumericStatChange;
 import com.jessematty.black.tower.Components.CreateEntity.CreateEntitiesOnTime;
@@ -108,6 +108,8 @@ import com.jessematty.black.tower.Components.Tiles.OnEnterTileComponent;
 import com.jessematty.black.tower.Components.Tiles.OnExitTileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileComponent;
 import com.jessematty.black.tower.Components.Tiles.TileWeatherNumericStatsChangable;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacterComponent;
 import com.jessematty.black.tower.GameBaseClasses.Logging.GameLog;
 import com.jessematty.black.tower.Maps.World;
 
@@ -203,7 +205,7 @@ public class GameComponentMapper {
     private static ComponentMapper<CreateEntitiesOnBooleanStatChange> createEntitiesOnBooleanStatChangeComponentMapper = ComponentMapper.getFor(CreateEntitiesOnBooleanStatChange.class);
     private static ComponentMapper<Eyes> eyesComponentMapper = ComponentMapper.getFor(Eyes.class);
     private static ComponentMapper<Ears> earsComponentMapper = ComponentMapper.getFor(Ears.class);
-    private static ComponentMapper<HoldItem> holdItemComponentMapper = ComponentMapper.getFor(HoldItem.class);
+    private static ComponentMapper<HoldItemComponent> holdItemComponentMapper = ComponentMapper.getFor(HoldItemComponent.class);
     private static ComponentMapper<UnHoldItem> unholdItemComponentMapper = ComponentMapper.getFor(UnHoldItem.class);
     private static ComponentMapper<BoundsChangeable> boundsChangeableComponentMapper = ComponentMapper.getFor(BoundsChangeable.class);
     private static ComponentMapper<OnEnterTileComponent> onEnterTileComponentComponentMapper = ComponentMapper.getFor(OnEnterTileComponent.class);
@@ -221,6 +223,8 @@ public class GameComponentMapper {
     private static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
     private static ComponentMapper<PartComponent> partComponentComponentMapper = ComponentMapper.getFor(PartComponent.class);
     private static ComponentMapper<PackComponent> packComponentComponentMapper = ComponentMapper.getFor(PackComponent.class);
+    private static ComponentMapper<ZRPGCharacter> zrpgCharacterComponentMapper = ComponentMapper.getFor(ZRPGCharacter.class);
+    private static ComponentMapper<ZRPGCharacterComponent> zrpgCharacterComponentComponentMapper = ComponentMapper.getFor(ZRPGCharacterComponent.class);
 
     private static ComponentMapper<CharacterPacksComponent> characterPacksComponentComponentMapper = ComponentMapper.getFor(CharacterPacksComponent.class);
 
@@ -308,7 +312,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(CreateEntitiesOnBooleanStatChange.class, createEntitiesOnBooleanStatChangeComponentMapper);
         componentComponentMapperMap.put(Ears.class, earsComponentMapper);
         componentComponentMapperMap.put(Eyes.class, eyesComponentMapper);
-        componentComponentMapperMap.put(HoldItem.class, holdItemComponentMapper);
+        componentComponentMapperMap.put(HoldItemComponent.class, holdItemComponentMapper);
         componentComponentMapperMap.put(UnHoldItem.class, unholdItemComponentMapper);
         componentComponentMapperMap.put(BoundsChangeable.class, boundsChangeableComponentMapper);
         componentComponentMapperMap.put(OnEnterTileComponent.class, onEnterTileComponentComponentMapper);
@@ -324,6 +328,9 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(PartComponent.class, partComponentComponentMapper);
         componentComponentMapperMap.put(PackComponent.class, packComponentComponentMapper);
         componentComponentMapperMap.put(CharacterPacksComponent.class, characterPacksComponentComponentMapper);
+        componentComponentMapperMap.put(ZRPGCharacter.class, zrpgCharacterComponentMapper);
+        componentComponentMapperMap.put(ZRPGCharacterComponent.class, zrpgCharacterComponentComponentMapper);
+
     }
 
     private GameComponentMapper() {
@@ -767,7 +774,7 @@ public class GameComponentMapper {
     public static ComponentMapper<Ears> getEarsComponentMapper() {
         return earsComponentMapper;
     }
-    public static ComponentMapper<HoldItem> getHoldItemComponentMapper() {
+    public static ComponentMapper<HoldItemComponent> getHoldItemComponentMapper() {
         return holdItemComponentMapper;
     }
     public static ComponentMapper<UnHoldItem> getUnholdItemComponentMapper() {
@@ -831,5 +838,13 @@ public class GameComponentMapper {
 
     public static ComponentMapper<CharacterPacksComponent> getCharacterPacksComponentComponentMapper() {
         return characterPacksComponentComponentMapper;
+    }
+
+    public static ComponentMapper<ZRPGCharacter> getZrpgCharacterComponentMapper() {
+        return zrpgCharacterComponentMapper;
+    }
+
+    public static ComponentMapper<ZRPGCharacterComponent> getZrpgCharacterComponentComponentMapper() {
+        return zrpgCharacterComponentComponentMapper;
     }
 }

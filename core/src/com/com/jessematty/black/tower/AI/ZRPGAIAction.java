@@ -47,7 +47,7 @@ public abstract class ZRPGAIAction {
 
     public ZRPGAIAction(ZRPGCharacter zrpgCharacter) {
         this.zrpgCharacter = zrpgCharacter;
-        zrpgBrainComponent =zrpgCharacter.getZRPGBrainComponen();
+        zrpgBrainComponent =zrpgCharacter.getZrpgBrainComponent();
         this.entity=zrpgCharacter.getPlayerEntity();
     }
 

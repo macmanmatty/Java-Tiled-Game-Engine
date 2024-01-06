@@ -7,30 +7,26 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jessematty.black.tower.GameBaseClasses.GameTimes.GameTime;
-import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
+import com.jessematty.black.tower.GameBaseClasses.Logging.ScreenLogger;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 public class GameStage extends Stage implements Disposable {
 
     /**
      * the logger object for printing logs to the screen
      */
-    private  final GameLogger gameLogger;
+    private  final ScreenLogger screenLogger;
 
-    public GameStage(float width, float height, GameLogger gameLogger) {
+    public GameStage(float width, float height, ScreenLogger screenLogger) {
        Viewport stageViewPort=new FillViewport(width, height);
         setViewport(stageViewPort);
-        this.gameLogger=gameLogger;
-        addActor(gameLogger);
+        this.screenLogger = screenLogger;
+        addActor(screenLogger);
     }
 
-    public GameStage(GameLogger gameLogger) {
-        this.gameLogger = gameLogger;
-        addActor(gameLogger);
-    }
-
-    public GameStage() {
-        this.gameLogger=new GameLogger();
-        addActor(gameLogger);
+    public GameStage(ScreenLogger screenLogger) {
+        this.screenLogger = screenLogger;
+        addActor(screenLogger);
+        screenLogger.setZIndex(Integer.MAX_VALUE);
     }
 
     /**
@@ -75,8 +71,8 @@ public class GameStage extends Stage implements Disposable {
         window.show(this);
     }
 
-    public GameLogger getGameLogger() {
-        return gameLogger;
+    public ScreenLogger getScreenLogger() {
+        return screenLogger;
     }
 
 

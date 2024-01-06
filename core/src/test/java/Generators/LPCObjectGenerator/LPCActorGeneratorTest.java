@@ -9,7 +9,6 @@ import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
-import com.jessematty.black.tower.ZRPGTest.TestEntities;
 
 import org.junit.Before;
 import org.junit.Test;

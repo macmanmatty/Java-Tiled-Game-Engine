@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.Entity.LPCGenerator;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
@@ -33,6 +34,8 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.Stat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacterComponent;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -41,7 +44,6 @@ import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNam
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.NamedColor.NamedColor;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerator;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerators;
 import com.jessematty.black.tower.Generators.Components.ComponentLoadingException;
@@ -209,7 +211,8 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
             entity.add(bodyComponent);
         }
         numericStats.addStat(new NumericStat(true, "health", 100, 0, 100));
-        numericStats.addStat(new NumericStat(true, "speed", 10, 0, 40));
+        float maxSpeed=lpcObjectGeneratorDTO.getMaxSpeed();
+        numericStats.addStat(new NumericStat(true, "speed",   lpcObjectGeneratorDTO.getMaxSpeed()/2,.1,  maxSpeed));
         boolean lpcActorAnimated=lpcObjectGeneratorDTO.isLpcActorAnimated();
         boolean drawable=lpcObjectGeneratorDTO.isDrawable();
         boolean animated=lpcObjectGeneratorDTO.isAnimated();
@@ -324,6 +327,12 @@ public class LPCObjectGenerator implements IEntityGenerator<LPCObjectGeneratorDT
         }
         if (lpcObjectGeneratorDTO.getAttachedEntitiesTmxObjectIDs().size>0){
             linkAttachedEntitiesViaDTOId(entityBag, lpcObjectGeneratorDTO, lpcObjectGeneratorDTO.attachedEntitiesTmxObjectIDs);
+        }
+        if(lpcObjectGeneratorDTO.isZrpgCharacter()){
+           Entity owner= entityBag.getOwner();
+            ZRPGCharacter zrpgCharacter= new ZRPGCharacter(owner);
+           owner.add(zrpgCharacter);
+           owner.add(new ZRPGCharacterComponent());
         }
         return  entityBag;
         }

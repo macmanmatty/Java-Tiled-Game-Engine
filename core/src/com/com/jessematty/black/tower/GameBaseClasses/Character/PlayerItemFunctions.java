@@ -1,25 +1,24 @@
 package com.jessematty.black.tower.GameBaseClasses.Character;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.AttachEntity.HoldItem;
+import com.jessematty.black.tower.Components.Item.ItemAction.HeldComponent;
+import com.jessematty.black.tower.Components.Item.ItemAction.HoldItemComponent;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
-import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPane;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
-import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
-import com.jessematty.black.tower.Maps.GameMap;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
 import com.jessematty.black.tower.Maps.World;
-import com.jessematty.black.tower.SquareTiles.LandSquareTile;
 public class PlayerItemFunctions {
     private PlayerItemFunctions() {
     }
@@ -66,49 +65,114 @@ public class PlayerItemFunctions {
         }
     }
 
+    /**
+     * add an item to a pack from from a players hand
+     * if more than one pack exists that can accept a given item
+     * a window will pop up asking he user which pack to add
+     * @param zrpgCharacter  the player
+     * @param draw the map draw used to get the world for  getting entities from  ids
+     */
+    public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw) {
+        World world=draw.getWorld();
+        Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
 
-    public static void addItemToPackFromHand(ZRPGCharacter zrpgCharacter, MapDraw draw, Holder hand) {
-        String itemId = hand.getItemToHoldId();
+        Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+
+        String itemId = handHolder.getItemToHoldId();
+        if(itemId==null){
+            GameAssets.getScreenLogger().logInfo("Your  Hand Is Empty!!");
+            return;
+
+        }
         Entity item = draw.getWorld().getEntity(itemId);
         Array<Entity> packs = draw.getWorld().getEntitiesFromEntityIdsArray(zrpgCharacter.getPacks().getPackEntityIds());
-        if (packs.size > 0) {
+        if (packs.size == 1) {
+            GameAssets.getScreenLogger().logInfo("Adding Item To Pack");
+
             item.add(new AddItemToContainer(packs.get(0)));
-        } else {
+            GameAssets.getScreenLogger().logInfo("Item added to pack!!");
+
+        } else if (packs.size>1) {
             OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
                 public void onSelected(Entity pack) {
                     item.add(new AddItemToContainer(pack));
+                    GameAssets.getScreenLogger().logInfo("Item added to pack!!");
+
                 }
             };
             EntitySelectWindow entitySelectWindow = new EntitySelectWindow(draw.getGameAssets().getCurrentSkin(), packs, draw.getGameAssets(), onSelected);
             draw.getUiStage().addWindow(entitySelectWindow, ScreenPosition.CENTER);
 
+
+        }
+        else{
+            GameAssets.getScreenLogger().logInfo("You have no packs to store the item!!");
         }
 
     }
+
+    /**
+     * adds an item to a hand from from a players pack
+     * @param zrpgCharacter  the player
+     * @param draw the map draw used to get the world for  getting entities from  ids
+     */
+    public static void addItemHandFromPack(ZRPGCharacter zrpgCharacter, Entity item, MapDraw draw) {
+        World world=draw.getWorld();
+        Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
+
+        Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+
+        String itemId = handHolder.getItemToHoldId();
+        if(itemId!=null){
+            GameAssets.getScreenLogger().logInfo("Your  Hand Is  Not Empty!!");
+            return;
+
+        }
+        String handId=GameComponentMapper.getIdComponentMapper().get(hand).getId();
+        item.add(new HoldItemComponent(handId));
+
+
+    }
         /**
-         * pick up an item  if only  one item exists will attempt  pick up the item
+         * picks up an item  if only  one item exists will attempt  pick up the item
          * if more than one item exists will display a Entity select window
          * so the user can choose which item they wish to pick up
          * @param zrpgCharacter the player zrpgCharacter
          * @param draw the map draw to add the window to if needed
          */
-        public static void pickUpItem (ZRPGCharacter zrpgCharacter, MapDraw draw,int hand){
-            String id = GameComponentMapper.getIdComponentMapper().get(zrpgCharacter.getHand(hand)).getId();
-            if (zrpgCharacter.getHandHolders()[hand].getItemToHoldId() != null) {
+
+        public static void pickUpItem (ZRPGCharacter zrpgCharacter, MapDraw draw){
+            World world=draw.getWorld();
+            Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
+            String handId=GameComponentMapper.getIdComponentMapper().get(hand).getId();
+            Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+            if (handHolder.getItemToHoldId() != null) {
                 String text = "Hand Is Not Empty";
-                draw.getUiStage().getGameLogger().logInfo(text);
+                draw.getUiStage().getScreenLogger().logInfo(text);
                 return;
             }
             Array<Entity> entities = zrpgCharacter.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
             System.out.println("Picking up item!!! from items "+entities.size);
             if (entities.size == 1) {
-                Entity entity=entities.get(0);
-                entity.add(new HoldItem(id));
-                entity.add( new PickUpItemComponent());
+                Entity item=entities.get(0);
+                String itemId=GameComponentMapper.getIdComponentMapper().get(item).getId();
+               pickupItem(hand, itemId);
             } else if (entities.size > 0) {
-                displayPickUpWindow(id, draw, entities);
+                displayPickUpWindow(handId, draw, entities);
             }
+        }
+
+    /**
+     * add components to picked -up entity
+     * @param hand the hand that picks up  the item
+     * @param itemId the id of the item to pick up
+     */
+    private static  void pickupItem(Entity hand, String itemId){
+            hand.add(new HoldItemComponent(itemId));
+            hand.add( new PickUpItemComponent());
+            GameAssets.getScreenLogger().logInfo("picked up", hand);
+
         }
 
 
@@ -126,7 +190,7 @@ public class PlayerItemFunctions {
             OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
                 public void onSelected(Entity item) {
-                    item.add(new HoldItem(handId));
+                    pickupItem(item, handId);
                 }
             };
             String text = "Select An Item To Pick Up";

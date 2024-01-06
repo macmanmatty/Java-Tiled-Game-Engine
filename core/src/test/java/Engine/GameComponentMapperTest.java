@@ -6,16 +6,12 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Containers.PackComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 
 import org.junit.Test;
 
 public class GameComponentMapperTest {
-
-    Engine engine=new Engine();
-
     @Test
   public void   getAllEntitiesWithComponents(){
         Entity entity=new Entity();

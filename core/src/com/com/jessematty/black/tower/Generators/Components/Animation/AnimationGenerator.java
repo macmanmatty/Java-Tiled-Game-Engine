@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.Components.Animation;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
@@ -9,6 +10,7 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.Generators.Components.ComponentGenerator;
+
 import org.apache.commons.lang3.StringUtils;
 /**
  * class for generating a new AnimatableComponent object @See Animation.class
@@ -66,18 +68,23 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
     private Animation generateAnimation(AnimationDTO animationDTO, int count) {
         Direction direction=getDirection(count);
         String action=animationDTO.getAction();
-       String directionString= StringUtils.capitalize(direction.toString().toLowerCase());
-        String animationName=animationDTO.getBodyName()+action+directionString;
+        String animationName = animationDTO.getBodyName() + action;
+        // only one direction don't require direction asd part of the name
+        if(animationDTO.getAnimationDirections()>1) {
+            String directionString= StringUtils.capitalize(direction.toString().toLowerCase());
+            animationName=animationName+directionString;
+        }
         int numberOfFrames=animationDTO.getFrames();
         int frameRate=animationDTO.getFrameRate();
-        if(numberOfFrames<=0){
+        boolean calculateFrames=animationDTO.isCalculateFrames();
+        if(numberOfFrames<=0 && !calculateFrames){
             throw new IllegalArgumentException("number of animation frames must be >0");
         }
         if(frameRate<=0){
             throw new IllegalArgumentException("animation frame rate  must be >0");
         }
         AtlasNamedAtlasRegion [] frames=null;
-        if(animationDTO.isCalculateFrames()){
+        if(calculateFrames){
          frames=   generateFrames(animationName, animationDTO.getAtlasName());
         }else {
             frames = generateFrames(animationName, animationDTO.getAtlasName(), numberOfFrames);
@@ -144,7 +151,7 @@ public   class AnimationGenerator implements ComponentGenerator<AnimatableCompon
             counter++;
             regions.add(atlasNamedAtlasRegion);
         }
-        return  regions.toArray();
+        return  regions.toArray(AtlasNamedAtlasRegion.class);
     }
     /**
      * translates a number to a direction

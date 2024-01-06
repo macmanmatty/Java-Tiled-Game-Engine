@@ -1,5 +1,5 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.UIBars.BottomBars;
-import com.badlogic.ashley.core.ComponentMapper;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -7,15 +7,8 @@ import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.Containers.ContainerComponent;
-import com.jessematty.black.tower.Components.Containers.PackComponent;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
-import com.jessematty.black.tower.Components.Stats.NumericStats;
-import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.NumericEditStatEditGroup;
-import com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Stats.StringEditStatEditGroup;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Table.UITable;
 import com.jessematty.black.tower.Maps.GameMap;
 public class DefaultZRPGBottomWindow extends UITable {
@@ -37,18 +30,7 @@ public class DefaultZRPGBottomWindow extends UITable {
         makeUI();
     }
     public void updateHands(){
-        Holder rightHolder= zrpgCharacter.getHandHolders()[1];
-        Holder leftHolder= zrpgCharacter.getHandHolders()[0];
-        if(rightHolder!=null) {
-            String rightHandHeldEntityID = rightHolder.getItemToHoldId();
-            Entity rightHeldItem=mapDraw.getWorld().getEntity(rightHandHeldEntityID);
-            rightHandGroup.update(getSkin(), rightHeldItem);
-        }
-        if(leftHolder!=null) {
-            String leftHandHeldEntityID = leftHolder.getItemToHoldId();
-            Entity leftHeldItem = mapDraw.getWorld().getEntity(leftHandHeldEntityID);
-            leftHandGroup.update(getSkin(), leftHeldItem);
-        }
+
     }
     
     public void updatePackButtons(Array<ContainerComponent> packs){

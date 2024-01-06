@@ -6,8 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -24,7 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Input.GameInput;
-import com.jessematty.black.tower.GameBaseClasses.Logging.GameLogger;
+import com.jessematty.black.tower.GameBaseClasses.Logging.ScreenLogger;
 import com.jessematty.black.tower.GameBaseClasses.Screens.NamedScreen;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.JsonLoader;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Components.AnimatableSerializer;
@@ -117,7 +115,10 @@ public class GameAssets implements Disposable {
      * the Kryo object for saving and loading the game
      */
     private final Kryo kryo= new Kryo();
-    private final static GameLogger gameLogger= new GameLogger();
+    /**
+     * the object that logs messages to the UI Stage
+     */
+    private final static ScreenLogger screenLogger = new ScreenLogger();
     public GameAssets( String gameName, Game game){
          assetManager = new AssetManager();
         this.game = game;
@@ -131,7 +132,7 @@ public class GameAssets implements Disposable {
         Gdx.input.setInputProcessor(gameInput.getLockableInputMultiplexer());
         this.currentSkin = loadInternalSkin("GameUI/blackTower", "GameUI/blackTower");
         this.defaultSkin= currentSkin;
-        getGameLogger().setSkin(currentSkin);
+        getScreenLogger().setSkin(currentSkin);
          kryo.register(TiledMap.class, new TiledMapKryoSerializer( true,  this));
          kryo.register(Entity.class,  new EntityKryoSerializer(this));
          kryo.register(LandSquareTile.class, new LandSquareTileKryoSerializer(this));
@@ -347,17 +348,6 @@ public class GameAssets implements Disposable {
        float progress=  assetManager.getProgress();
        return  progress;
     }
-
-   public void  loadTextureAtlasAsync(final String path){
-        Runnable runnable= new Runnable() {
-            @Override
-            public void run() {
-                assetManager.load(path, TextureAtlas.class);
-                finishLoading();
-            }
-        };
-        Gdx.app.postRunnable(runnable);
-   }
     /**
      *
      * @param region the region to add
@@ -453,7 +443,7 @@ public class GameAssets implements Disposable {
         this.mapDraw= new MapDraw( this, true);
         mapDraw.setWorld(world);
         mapDraw.showCurrentWorld();
-        mapDraw.setPlayer(new ZRPGCharacter( world, world.getPlayer()));
+        mapDraw.setPlayer(world.getPlayer().getComponent(ZRPGCharacter.class));
     }
     public void showGame(){
         game.setScreen(mapDraw);
@@ -500,7 +490,7 @@ public class GameAssets implements Disposable {
     public void setCurrentSkinStyle(String currentSkinStyle) {
         this.currentSkinStyle = currentSkinStyle;
     }
-    public static  GameLogger getGameLogger() {
-        return gameLogger;
+    public static ScreenLogger getScreenLogger() {
+        return screenLogger;
     }
 }

@@ -7,7 +7,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Json.Entity.TransientChecker;
 
@@ -30,8 +30,8 @@ public class AtlasNamedAtlasRegionKryoSerializer extends Serializer<Entity> {
             if (transientChecker.isTransient(component.getClass())) {
                 continue;
             }
-            if(component instanceof SerializableComponet){
-                ((SerializableComponet) component).serialize();
+            if(component instanceof SerializableComponent){
+                ((SerializableComponent) component).serialize(entity);
             }
             components.add(component);
 
@@ -55,8 +55,8 @@ public class AtlasNamedAtlasRegionKryoSerializer extends Serializer<Entity> {
             int size=components.size;
             for(int count=0; count<size; count++) {
                 Component component=components.get(count);
-                if(components.get(count) instanceof  SerializableComponet){
-                    ((SerializableComponet) component).deSerialize(gameAssets);
+                if(components.get(count) instanceof SerializableComponent){
+                    ((SerializableComponent) component).deSerialize(entity, gameAssets);
                 }
                 entity.add(components.get(count));
 

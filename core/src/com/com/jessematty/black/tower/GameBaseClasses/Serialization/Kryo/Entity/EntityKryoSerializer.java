@@ -7,7 +7,7 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.jessematty.black.tower.Components.Interfaces.NewComponent;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
@@ -43,8 +43,8 @@ public class EntityKryoSerializer extends Serializer<Entity> {
             if(component.getClass().isAnnotationPresent(Transient.class)){
                 continue;
             }
-            if(component instanceof SerializableComponet){
-                ((SerializableComponet) component).serialize();
+            if(component instanceof SerializableComponent){
+                ((SerializableComponent) component).serialize(entity);
             }
             components.add(component);
             
@@ -67,8 +67,8 @@ public class EntityKryoSerializer extends Serializer<Entity> {
             int size=components.size;
             for(int count=0; count<size; count++) {
                 Component component=components.get(count);
-                if(components.get(count) instanceof  SerializableComponet){
-                    ((SerializableComponet) component).deSerialize(gameAssets);
+                if(components.get(count) instanceof SerializableComponent){
+                    ((SerializableComponent) component).deSerialize(entity, gameAssets);
                 }
                 entity.add(components.get(count));
             }

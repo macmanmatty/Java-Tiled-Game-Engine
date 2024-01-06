@@ -1,12 +1,10 @@
 package com.jessematty.black.tower.ZRPGTest;
+
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
-import com.jessematty.black.tower.Components.Animation.Animation;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
-import com.jessematty.black.tower.Generators.Components.Animation.AnimationDTO;
-import com.jessematty.black.tower.Generators.Components.Animation.AnimationDirections;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 public class TestEntities {
     static LPCObjectGeneratorDTO lizard = new LPCObjectGeneratorDTO();
@@ -16,7 +14,6 @@ public class TestEntities {
     static LPCObjectGeneratorDTO rightFoot = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO torso= new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO head = new LPCObjectGeneratorDTO();
-    
     static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO pack = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO sword= new LPCObjectGeneratorDTO();
@@ -53,11 +50,12 @@ public class TestEntities {
         lizard.setColorB(.1f);
         lizard.setColorR(0);
         lizard.setColorG(1);
-        lizard.setBoundsX(32);
-        lizard.setBoundsY(64);
+        lizard.setBoundsX(30);
+        lizard.setBoundsY(55);
         lizard.setHealth(100);
         lizard.setMass(.0001f);
         lizard.setVolume(100);
+        lizard.setMaxSpeed(200);
         lizard.setMoveable(true);
         lizard.setAnimated(true);
         lizard.setLpcActorAnimated(true);
@@ -73,6 +71,7 @@ public class TestEntities {
         lizard.setBoundsXOffset(16);
         lizard.setHeight(5);
         lizard.setDrawLayer(1);
+        lizard.setZrpgCharacter(true);
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");
@@ -304,7 +303,7 @@ public class TestEntities {
         pack.setMaxAttachedWeight(100000);
         pack.setInternalVolume(1000000);
         pack.setDrawLayer(1);
-
+        pack.getGroupsAddable().add("all");
         apple.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         apple.setName("apple");
         apple.setImageName("apple1");
@@ -324,6 +323,7 @@ public class TestEntities {
         potion.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         potion.setName("potion");
         potion.setImageName("potion1");
+        potion.setTmxObjectId("potion");
         potion.setAnimated(false);
         potion.setBrightness( .67f);
         potion.setColorA(1);
@@ -338,7 +338,7 @@ public class TestEntities {
         potion.setAnimated(false);
         potion.setDrawable(false);
         potion.getComponentsMap().put(AnimatableComponent.class.toString(), "/android/assets/Animations/potion.json");
-
+        potion.setAction("restOnGround");
         pack.getStats().add(condition,health,  on, classuz);
         scroll.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         scroll.setName("scroll");
@@ -349,11 +349,6 @@ public class TestEntities {
         scroll.setColorB(.1f);
         scroll.setColorR(1);
         scroll.setColorG(0);
-        potion.setBoundsX(0);
-        potion.setBoundsY(0);
-        potion.setHealth(100);
-        potion.setMass(1);
-        potion.setVolume(1);
         scroll.setAnimated(false);
         scroll.setDrawable(false);
         scroll.getStats().add(condition, on, classuz);
@@ -367,8 +362,8 @@ public class TestEntities {
         sword.setColorB(.9f);
         sword.setColorR(1);
         sword.setColorG(1);
-        sword.setBoundsX(30);
-        sword.setBoundsY(40);
+        sword.setBoundsX(15);
+        sword.setBoundsY(45);
         sword.setHealth(100);
         sword.setMass(5);
         sword.setVolume(10);

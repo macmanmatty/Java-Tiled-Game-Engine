@@ -9,7 +9,13 @@ public enum ScreenPosition {
     TOP(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()),
     CENTER(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2),
     LEFT(0, Gdx.graphics.getHeight()),
-    RIGHT(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    RIGHT(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()),
+    CENTER_RIGHT(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/2),
+    CENTER_LEFT(0, Gdx.graphics.getHeight()/2),
+    TOP_CENTER(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2),
+    BOTTOM_CENTER(Gdx.graphics.getWidth()/2, 0);
+
+
     private final  int x;
    private final  int y;
     ScreenPosition(int x, int y) {

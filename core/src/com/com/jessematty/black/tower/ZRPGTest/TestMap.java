@@ -21,11 +21,10 @@ import com.jessematty.black.tower.GameBaseClasses.Serialization.Kryo.Entity.Enti
 import com.jessematty.black.tower.GameBaseClasses.Serialization.TiledMap.MapLoadingException;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
-import com.jessematty.black.tower.Generators.GameGenerator.TiledMapGameLoader;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
+import com.jessematty.black.tower.Generators.GameGenerator.TiledMapGameLoader;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapGenerator;
 import com.jessematty.black.tower.Generators.MapGenerators.LandMapSpecs;
-import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
@@ -136,6 +135,10 @@ public class TestMap {
         assetts.getMapDraw().setDrawEntityDebugBounds(true);
         assetts.showGame();
     }
+
+    /**
+     * creates a new test map from the test tmx file testMap.tmx in the android assets folder
+     */
     public void createMapByTMXFile(){
         TiledMap map =assetts.loadExternalTMXMap("/Users/jessematty/AndroidStudioProjects/Java-Tiled-Game-Engine2/android/assets/maps/testMap.tmx");
         assetts.loadInternalTextureAtlas("textureAtlases/testAssets/testAssets.atlas");
@@ -160,18 +163,8 @@ public class TestMap {
         } catch (EntityLoadingException e) {
             throw new RuntimeException(e);
         }
-        //EntityBag pack=entityBagObjectMap.get("pack");
      EntityBag lizard=tiledMapLoader.getEntityBagArray().get("player");
-        NumericStats numericStats=lizard.getOwner().getComponent(NumericStats.class);
-        numericStats.getNumericStat("speed").setMinValue(10);
-        numericStats.getNumericStat("speed").setMaxValue(10000);
-        numericStats.getNumericStat("speed").setValue(100);
-//        BodyComponent body=lizard.getOwner().getComponent(BodyComponent.class);
-//        String id=body.getBodyParts().get("torso");
-//        Entity torso=world.getEntity(id);
 
-      //  String attached=   EntityUtilities.attachPart(torso, pack.getOwner());
-       // world.addEntityToWorld(pack.getOwner());
         world.setPlayer( lizard.getOwner());
 
         world.setStartMap(world.getWorldMaps().values().toArray().get(0).getId());

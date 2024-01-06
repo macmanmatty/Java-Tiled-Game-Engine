@@ -12,8 +12,6 @@ import com.jessematty.black.tower.Maps.World;
 
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-
 import Maps.TestMap;
 public class BaseEntityTests {
   private   Engine engine;

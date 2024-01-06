@@ -1,6 +1,5 @@
 package com.jessematty.black.tower.Generators.Components.Animation;
 
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Generators.Components.ExternalComponentDTO;
 

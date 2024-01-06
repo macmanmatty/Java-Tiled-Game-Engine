@@ -198,6 +198,29 @@ public class InList {
 		}
 		return false;
 	}
+
+	/** checks if two lists have one object that is the same or if either list contains "all" if so returns true else returns false
+	 * also returns true if both lists are empty
+	 */
+	public static  boolean isInListOrAll(Array<String> names, Array< String> otherNames) {
+		int size = otherNames.size;
+		int size2 = names.size;
+		if(names.contains("all", false) || otherNames.contains("all", false)){
+			return true;
+		}
+
+		if(size==0 && size2==0){
+			return  true;
+		}
+		for (int count = 0; count < size; count++) {
+			for (int count2 = 0; count2 < size2; count2++) {
+				if (names.get(count2).equals(otherNames.get(count))) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	/** checks to see if an object is in a given array
 	 * if equals is false == will be used for comparison else
 	 * the object equals method will be used

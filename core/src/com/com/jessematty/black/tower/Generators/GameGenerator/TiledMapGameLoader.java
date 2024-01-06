@@ -1,4 +1,5 @@
 package com.jessematty.black.tower.Generators.GameGenerator;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +19,7 @@ import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.BodyParts.PartComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.Entity.EntityBag;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -29,14 +31,20 @@ import com.jessematty.black.tower.GameBaseClasses.TiledMapTileChangable.AtlasSta
 import com.jessematty.black.tower.GameBaseClasses.Utilities.EntityUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.FileUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.InList;
-import com.jessematty.black.tower.Generators.Components.ComponentGenerationException;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGenerator;
 import com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO;
 import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.LandMap;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
+
 import java.rmi.server.UID;
+
+/**
+ * class for loading a game from a TMX Tiled Map
+ * and associated  .json files for the entities and components
+ */
 public class TiledMapGameLoader {
     /**
      * the lpc object generator
@@ -418,6 +426,11 @@ public class TiledMapGameLoader {
             }
             if(owner==null){
                 throw new EntityLoadingException("cannot link entity  as  owner  entity with id: "+ids[0] +" doesn't exist");
+            }
+            ZRPGCharacter zrpgCharacter=GameComponentMapper.getZrpgCharacterComponentMapper().get(owner);
+            if(zrpgCharacter!=null){
+                ZRPGCharacterUtilities.equipItem(zrpgCharacter, owned);
+                return;
             }
             PartComponent partComponent=GameComponentMapper.getPartComponentComponentMapper().get(owned);
             if(partComponent!=null){

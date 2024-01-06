@@ -1,7 +1,6 @@
 package com.jessematty.black.tower.Generators.Entity;
 
 import com.badlogic.ashley.core.Entity;
-
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Serialization.Copy.CopyObject;
 import com.jessematty.black.tower.Maps.World;

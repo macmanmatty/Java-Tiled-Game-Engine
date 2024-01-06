@@ -1,5 +1,7 @@
 package Tiles;
+
 import static org.junit.Assert.assertEquals;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +19,9 @@ import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Maps.World;
+
 import org.junit.Test;
+
 import Maps.TestMap;
 public class LandSquareTileTest {
     private Engine engine;

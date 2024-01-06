@@ -1,11 +1,12 @@
 package com.jessematty.black.tower.Components.Other;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 import com.jessematty.black.tower.GameBaseClasses.Textures.AtlasRegions.AtlasNamedAtlasRegion;
 
-public class EditorImageComponent implements SerializableComponet {
+public class EditorImageComponent implements SerializableComponent {
    private  transient AtlasNamedAtlasRegion atlasRegion;
    private Color color= new Color(1, 1, 1, 1);
    private float  brightness=1;
@@ -59,7 +60,7 @@ public class EditorImageComponent implements SerializableComponet {
     }
 
     @Override
-    public void deSerialize(GameAssets assets) {
+    public void deSerialize(Entity unused, GameAssets assets) {
         AtlasNamedAtlasRegion atlasNamedAtlasRegion=assets.getAtlasRegionByName(imageName, atlasName);
 
 
@@ -70,7 +71,7 @@ public class EditorImageComponent implements SerializableComponet {
     }
 
     @Override
-    public void serialize() {
+    public void serialize(Entity unused) {
 
     }
 

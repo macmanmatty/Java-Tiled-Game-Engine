@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
-import com.jessematty.black.tower.Components.Interfaces.SerializableComponet;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 /**
  * Handles serialization and deserialization of entities and their
@@ -27,8 +27,8 @@ public class EntitySerializer implements Json.Serializer<Entity> {
             if (transientChecker.isTransient(component.getClass())) {
                 continue;
             }
-            if(component instanceof SerializableComponet){
-                ((SerializableComponet) component).serialize();
+            if(component instanceof SerializableComponent){
+                ((SerializableComponent) component).serialize(entity);
             }
             write(json, component);
         }
@@ -42,8 +42,8 @@ public class EntitySerializer implements Json.Serializer<Entity> {
             JsonValue components = jsonData.get("components");
             for (JsonValue componentValue : components) {
                 Component component = read(json, componentValue);
-                if(component instanceof SerializableComponet){
-                    ((SerializableComponet) component).deSerialize(gameAssets);
+                if(component instanceof SerializableComponent){
+                    ((SerializableComponent) component).deSerialize(entity, gameAssets);
                 }
                 entity.add(component);
             }
