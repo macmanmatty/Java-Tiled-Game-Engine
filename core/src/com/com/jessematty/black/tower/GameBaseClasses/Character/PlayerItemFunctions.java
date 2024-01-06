@@ -155,8 +155,9 @@ public class PlayerItemFunctions {
             Array<Entity> entities = zrpgCharacter.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
             System.out.println("Picking up item!!! from items "+entities.size);
             if (entities.size == 1) {
-                Entity entity=entities.get(0);
-               pickupItem(entity, handId);
+                Entity item=entities.get(0);
+                String itemId=GameComponentMapper.getIdComponentMapper().get(item).getId();
+               pickupItem(hand, itemId);
             } else if (entities.size > 0) {
                 displayPickUpWindow(handId, draw, entities);
             }
@@ -164,13 +165,13 @@ public class PlayerItemFunctions {
 
     /**
      * add components to picked -up entity
-     * @param entity the entity to pick up
-     * @param handId the id of the hand to pick up
+     * @param hand the hand that picks up  the item
+     * @param itemId the id of the item to pick up
      */
-    private static  void pickupItem(Entity entity, String handId){
-            entity.add(new HoldItemComponent(handId));
-            entity.add( new PickUpItemComponent());
-            GameAssets.getScreenLogger().logInfo("picked up", entity);
+    private static  void pickupItem(Entity hand, String itemId){
+            hand.add(new HoldItemComponent(itemId));
+            hand.add( new PickUpItemComponent());
+            GameAssets.getScreenLogger().logInfo("picked up", hand);
 
         }
 

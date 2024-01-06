@@ -1,18 +1,21 @@
 package com.jessematty.black.tower.Components.AttachEntity;
 import com.badlogic.ashley.core.Component;
 public class EquipItem  implements Component {
-   private  String equiperID;
-   private  boolean holdItem;
-    public String getEquiperID() {
-        return equiperID;
+   private  String itemId;
+   private String bodyPartId;
+    public String getItemId() {
+        return itemId;
     }
-    public void setEquiperID(String equiperID) {
-        this.equiperID = equiperID;
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
-    public boolean isHoldItem() {
-        return holdItem;
+
+    public String getBodyPartId() {
+        return bodyPartId;
     }
-    public void setHoldItem(boolean holdItem) {
-        this.holdItem = holdItem;
+
+    public void setBodyPartId(String bodyPartId) {
+        this.bodyPartId = bodyPartId;
     }
 }

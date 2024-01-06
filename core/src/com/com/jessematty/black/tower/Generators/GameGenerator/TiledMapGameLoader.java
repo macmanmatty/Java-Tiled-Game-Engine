@@ -429,7 +429,7 @@ public class TiledMapGameLoader {
             }
             ZRPGCharacter zrpgCharacter=GameComponentMapper.getZrpgCharacterComponentMapper().get(owner);
             if(zrpgCharacter!=null){
-                ZRPGCharacterUtilities.addEntity(zrpgCharacter, owned);
+                ZRPGCharacterUtilities.equipItem(zrpgCharacter, owned);
                 return;
             }
             PartComponent partComponent=GameComponentMapper.getPartComponentComponentMapper().get(owned);

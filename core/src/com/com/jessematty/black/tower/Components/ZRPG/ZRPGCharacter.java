@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.Attacks.AttackMode;
 import com.jessematty.black.tower.Components.Base.NameComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
 import com.jessematty.black.tower.Components.Containers.CharacterPacksComponent;
+import com.jessematty.black.tower.Components.Interfaces.SerializableComponent;
 import com.jessematty.black.tower.Components.Other.AIComponent;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
@@ -19,13 +20,14 @@ import com.jessematty.black.tower.Components.Stats.NumericStats;
 import com.jessematty.black.tower.Components.Stats.StringStat;
 import com.jessematty.black.tower.Components.Stats.StringStats;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
+import com.jessematty.black.tower.GameBaseClasses.GameAssets;
 
 /**
  * class the represents a Zelda Like RPG Character
  * be it a Enemy, Friendly,  NPC, Quest Giver, Shop Owner or the Player
  * with convenience  access to commonly used components;
  */
-public class ZRPGCharacter implements Component {
+public class ZRPGCharacter implements SerializableComponent {
     /**
      * commonly used the components
      */
@@ -183,4 +185,13 @@ public class ZRPGCharacter implements Component {
         this.useItemWithoutHolding = useItemWithoutHolding;
     }
 
+    @Override
+    public void deSerialize(Entity entity, GameAssets assets) {
+        setFields(entity);
+    }
+
+    @Override
+    public void serialize(Entity entity) {
+
+    }
 }

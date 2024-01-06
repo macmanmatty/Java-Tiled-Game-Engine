@@ -53,7 +53,7 @@ public class PositionComponent implements Component {
     }
     public void setBounds(Polygon bounds) {
         this.bounds = bounds;
-        bounds.setPosition(locationX, locationY);
+        bounds.setPosition(locationX+boundsXOffset, locationY+boundsYOffset);
         boundsIsRectangle=false;
         hasBounds=true;
     }
@@ -79,7 +79,7 @@ public class PositionComponent implements Component {
         this.boundsY=y;
         boundsVertices = new float[]{  0 , 0 ,  0 ,  0  + boundsY,  0   + boundsX,  0   + boundsY,  0   + boundsX,  0 };
         bounds = new Polygon(boundsVertices);
-        bounds.setPosition(locationX, locationY);
+        bounds.setPosition(locationX+boundsXOffset, locationY+boundsYOffset);
         boundsIsRectangle=true;
         hasBounds=true;
     }

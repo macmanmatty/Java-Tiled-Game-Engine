@@ -547,44 +547,6 @@ public static  Array<Entity> getAllConnectedEntities(Entity entity, World world,
         ownedComponent.setOwnerEntityID(entityToAttachToID.getId());
       return  attached;
    }
-  public  static  boolean holdItem(Entity holder,   Entity itemToHold){
-        ComponentMapper<EntityId> idComponentMapper=GameComponentMapper.getIdComponentMapper();
-        ComponentMapper<OwnerComponent> ownerComponentComponentMapper=GameComponentMapper.getOwnerComponentComponentMapper();
-        ComponentMapper<Holder> holderComponentMapper=GameComponentMapper.getHolderComponentMapper();
-        ComponentMapper<OwnedComponent> ownedComponentComponentMapper=GameComponentMapper.getOwnedComponentComponentMapper();
-        ComponentMapper<ItemComponent> itemComponentMapper=GameComponentMapper.getItemComponentMapper();
-       Holder holderComponent =holderComponentMapper.get(holder);
-        OwnerComponent ownerComponent=ownerComponentComponentMapper.get(holder);
-        if(holderComponent ==null){
-            return false;
-        }
-       EntityId itemToHoldID=idComponentMapper.get(itemToHold);
-        EntityId holderID=idComponentMapper.get(holder);
-        ownerComponent.addEntity(itemToHoldID.getId());
-        if(itemToHoldID==null){
-            return false;
-        }
-        String heldItemID=holderComponent.getItemToHoldId();
-        // currently holding somthieng cant hold  somthing new
-        if(heldItemID!=null){
-           return false;
-       }
-        else{
-            holderComponent.setItemToHoldId(itemToHoldID.getId());
-        }
-        OwnedComponent ownedComponent=ownedComponentComponentMapper.get(itemToHold);
-        if(ownedComponent==null){
-            ownedComponent= new OwnedComponent();
-            itemToHold.add(ownedComponent);
-        }
-        ownedComponent.setPhysicallyAttached(true);
-        ownedComponent.setOwnerEntityID(holderID.getId());
-        ownedComponent.setSetEntityActionToOwner(true);
-        ItemComponent item=itemComponentMapper.get(itemToHold);
-        item.setHeld(true);
-      return  true;
-   }
-
     /**
      * detaches one entity from another
      * removes the the entity's id  from the owner component array of id's

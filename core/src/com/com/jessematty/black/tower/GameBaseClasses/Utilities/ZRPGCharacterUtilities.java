@@ -27,7 +27,7 @@ public class ZRPGCharacterUtilities {
      * @param zrpgCharacter the character to add the entity to.
      * @param entity   the entity to add to the character
      */
-    public static void addEntity(ZRPGCharacter zrpgCharacter, Entity entity) {
+    public static void equipItem(ZRPGCharacter zrpgCharacter, Entity entity) {
         String entityToAddId = GameComponentMapper.getIdComponentMapper().get(entity).getId();
         if (GameComponentMapper.getContainerComponentMapper().get(entity) != null) {
             zrpgCharacter.getPacks().getPackEntityIds().add(entityToAddId);
@@ -37,7 +37,6 @@ public class ZRPGCharacterUtilities {
             zrpgCharacter.getBody().getBodyParts().put(name, entityToAddId);
 
         }
-
         EntityUtilities.attachEntity(zrpgCharacter.getPlayerEntity(), entity);
     }
 
@@ -47,7 +46,7 @@ public class ZRPGCharacterUtilities {
      * @param zrpgCharacter the character to add the entity to.
      * @param entity   the entity to add to the character
      */
-    public static void removeEntity(ZRPGCharacter zrpgCharacter, Entity entity) {
+    public static void unequipItem(ZRPGCharacter zrpgCharacter, Entity entity) {
         String entityToAddId = GameComponentMapper.getIdComponentMapper().get(entity).getId();
         if (GameComponentMapper.getContainerComponentMapper().get(entity) != null) {
             zrpgCharacter.getPacks().getPackEntityIds().removeValue(entityToAddId, false);

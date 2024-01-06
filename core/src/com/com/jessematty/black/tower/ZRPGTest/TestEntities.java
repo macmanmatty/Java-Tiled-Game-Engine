@@ -14,7 +14,6 @@ public class TestEntities {
     static LPCObjectGeneratorDTO rightFoot = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO torso= new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO head = new LPCObjectGeneratorDTO();
-    
     static LPCObjectGeneratorDTO tree = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO pack = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO sword= new LPCObjectGeneratorDTO();
@@ -51,8 +50,8 @@ public class TestEntities {
         lizard.setColorB(.1f);
         lizard.setColorR(0);
         lizard.setColorG(1);
-        lizard.setBoundsX(32);
-        lizard.setBoundsY(64);
+        lizard.setBoundsX(30);
+        lizard.setBoundsY(55);
         lizard.setHealth(100);
         lizard.setMass(.0001f);
         lizard.setVolume(100);
@@ -363,8 +362,8 @@ public class TestEntities {
         sword.setColorB(.9f);
         sword.setColorR(1);
         sword.setColorG(1);
-        sword.setBoundsX(30);
-        sword.setBoundsY(40);
+        sword.setBoundsX(15);
+        sword.setBoundsY(45);
         sword.setHealth(100);
         sword.setMass(5);
         sword.setVolume(10);
