@@ -38,6 +38,8 @@ public   class EntityActionHorizontalGroup extends HorizontalGroup {
      */
     private Button select;
     /**
+
+    /**
      * the entity  settable object to set
      */
     private EntitySettable entitySettable;

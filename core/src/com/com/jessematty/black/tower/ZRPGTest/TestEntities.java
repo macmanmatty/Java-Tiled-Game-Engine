@@ -31,8 +31,6 @@ public class TestEntities {
     static LPCObjectGeneratorDTO helmet = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO gloves = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO shoes = new LPCObjectGeneratorDTO();
-
-
     static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);

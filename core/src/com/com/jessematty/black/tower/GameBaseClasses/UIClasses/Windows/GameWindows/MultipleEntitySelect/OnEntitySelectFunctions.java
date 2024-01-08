@@ -6,6 +6,7 @@ import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ItemTable.OnSelected;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 
 public class OnEntitySelectFunctions {
 
@@ -19,10 +20,11 @@ public class OnEntitySelectFunctions {
         @Override
         public void onSelected(Entity item) {
             ContainerComponent packComponent = GameComponentMapper.getContainerComponentMapper().get(item);
-            OnSelected onSelected = new OnSelected() {
+            OnSelected<Entity> onSelected = new OnSelected<Entity>() {
                 @Override
-                public void onSelected(Object item) {
-
+                public void onSelected(Entity item) {
+                    EntityInfoWindow entityInfoWindow= new EntityInfoWindow(mapDraw.getGameAssets().getCurrentSkin(), "default", item, mapDraw.getGameAssets());
+                    mapDraw.getUiStage().addWindow(entityInfoWindow, ScreenPosition.CENTER);
                 }
             };
             if (packComponent != null) {

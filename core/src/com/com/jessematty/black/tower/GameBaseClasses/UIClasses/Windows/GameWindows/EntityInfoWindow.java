@@ -45,7 +45,7 @@ public class EntityInfoWindow extends ClosableWindow {
    
 
     public EntityInfoWindow(Skin skin, String styleName, Entity entity, GameAssets gameAssets) {
-        super("Info", skin, styleName);
+        super("info for " +GameComponentMapper.getNameComponentMapper().get(entity).getStat(), skin, styleName);
         this.entity = entity;
         this.gameAssets=gameAssets;
         nameComponentMapper=GameComponentMapper.getNameComponentMapper();
@@ -59,6 +59,7 @@ public class EntityInfoWindow extends ClosableWindow {
         makeUI();
 
     }
+
     private  void makeUI(){
         Table table= new Table();
         String name=nameComponentMapper.get(entity).getStat();
