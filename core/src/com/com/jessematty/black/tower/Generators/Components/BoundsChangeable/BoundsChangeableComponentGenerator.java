@@ -21,8 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
 
 /**
- * class for generating a new AnimatableComponent object @See Animation.class
- * @See AnimatableComponent.class
+ * class for generating a new BoundsChangeableComponent object @See BoundsChangeableComponent.class
  */
 public   class BoundsChangeableComponentGenerator implements ComponentGenerator<BoundsChangeableComponent> {
   private JsonLoader jsonLoader;

@@ -33,33 +33,36 @@ public class BoundsChangeableComponent implements Component {
     public ObjectMap<String, ObjectMap<String, EntityBounds>> getBounds() {
         return bounds;
     }
-    public Polygon getBounds(Direction direction, String action){
+    /**
+     * returns the EntityBounds object for a given direction and action
+     * if no object for a given action actions exists attempts to retrieve bounds for an action named default
+     * if no bounds exist for a given action or direction
+     * will return the default bounds
+     * @param direction
+     * @param action
+     * @return
+     */
+    public EntityBounds getBounds(Direction direction, String action){
         ObjectMap<String , EntityBounds> boundsObjectMap=this.bounds.get(action);
-        EntityBounds entityBounds=null;
+        if (boundsObjectMap == null) {
+            boundsObjectMap = this.bounds.get("default");
+        }
+        if(boundsObjectMap!=null) {
+            EntityBounds entityBounds = null;
 
-        if(eightDirections) {
-               entityBounds = boundsObjectMap.get(direction.toString());
+            if (eightDirections) {
+                entityBounds = boundsObjectMap.get(direction.toString());
+            } else {
+                entityBounds = boundsObjectMap.get(Direction.getBaseDirection(direction).toString());
+
             }
-            else{ entityBounds = boundsObjectMap.get(Direction.getBaseDirection(direction).toString());
-
-        }
-        if(entityBounds!=null) {
-            return entityBounds.getBounds();
-        }
-        else{
-            return defaultBounds.getBounds();
-        }
-    }
-    public Vector2 getBoundsOffset(Direction direction, String action){
-        ObjectMap<String , EntityBounds> boundsObjectMap=this.bounds.get(direction.toString());
-        if(bounds!=null){
-            EntityBounds entityBounds=boundsObjectMap.get(action);
-            if(entityBounds!=null) {
-                return  entityBounds.getBoundsOffset();
+            if (entityBounds != null) {
+                return entityBounds;
             }
         }
-        return defaultBounds.getBoundsOffset();
+            return defaultBounds;
     }
+
 
     public boolean isEightDirections() {
         return eightDirections;

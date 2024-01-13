@@ -10,6 +10,7 @@ import com.jessematty.black.tower.Components.Actions.ActionComponent;
 import com.jessematty.black.tower.Components.Interfaces.Transient;
 import com.jessematty.black.tower.Components.Other.MovableComponent;
 import com.jessematty.black.tower.Components.Position.BoundsChangeableComponent;
+import com.jessematty.black.tower.Components.Position.EntityBounds;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
@@ -18,7 +19,7 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.Systems.GameEntitySystem;
 @Transient
 /**
- * system that changes an entities  bounds based  direction and action
+ * system that changes an entities  bounds based  on  direction and action
  */
 public class ChangeBoundsSystem extends GameEntitySystem {
     private ComponentMapper<PositionComponent> positions;
@@ -51,11 +52,11 @@ public class ChangeBoundsSystem extends GameEntitySystem {
             ActionComponent actionComponent =actionComponentMapper.get(entity);
             Direction direction=position.getDirection();
             String actionValue= actionComponent.getAction();
-            Polygon bounds = boundsChangeableComponent.getBounds(direction, actionValue);
-            if(bounds!=null){
-                position.setBounds(bounds);
+            EntityBounds entityBounds = boundsChangeableComponent.getBounds(direction, actionValue);
+            if(entityBounds!=null){
+                position.setBounds(entityBounds.getBounds());
             }
-            Vector2 boundsOffset= boundsChangeableComponent.getBoundsOffset(direction, actionValue);
+            Vector2 boundsOffset= entityBounds.getBoundsOffset();
             if(boundsOffset!=null){
                 position.setBoundsXOffset(boundsOffset.x);
                 position.setBoundsYOffset(boundsOffset.y);
