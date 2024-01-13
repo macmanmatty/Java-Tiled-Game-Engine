@@ -24,9 +24,9 @@ import java.util.Map;
  * class for generating a new AnimatableComponent object @See Animation.class
  * @See AnimatableComponent.class
  */
-public   class BoundsGenerator implements ComponentGenerator<BoundsChangeableComponent> {
+public   class BoundsChangeableComponentGenerator implements ComponentGenerator<BoundsChangeableComponent> {
   private JsonLoader jsonLoader;
-    public BoundsGenerator(GameAssets gameAssets) {
+    public BoundsChangeableComponentGenerator(GameAssets gameAssets) {
         jsonLoader=gameAssets.getJsonLoader();
     }
     @Override

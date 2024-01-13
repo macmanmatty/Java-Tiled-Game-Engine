@@ -2,8 +2,11 @@ package com.jessematty.black.tower.Generators.Components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.Position.BoundsChangeableComponent;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
-import com.jessematty.black.tower.Generators.Components.Animation.AnimationGenerator;
+import com.jessematty.black.tower.Generators.Components.Animation.AnimatableComponentGenerator;
+import com.jessematty.black.tower.Generators.Components.BoundsChangeable.BoundsChangeableComponentGenerator;
+
 /**
  * class that contains a map of all component generators
  * and loaded components
@@ -23,7 +26,8 @@ public class ComponentGenerators {
      */
   private ObjectMap<String, Component> loadedComponents= new ObjectMap<>();
     public ComponentGenerators(GameAssets gameAssets) {
-        componentGenerators.put(AnimatableComponent.class.toString(),  new AnimationGenerator(gameAssets));
+        componentGenerators.put(AnimatableComponent.class.toString(),  new AnimatableComponentGenerator(gameAssets));
+        componentGenerators.put(BoundsChangeableComponent.class.toString(), new BoundsChangeableComponentGenerator(gameAssets));
     }
     public  ObjectMap<String,  ComponentGenerator<? extends Component>> getComponentGenerators() {
         return componentGenerators;
