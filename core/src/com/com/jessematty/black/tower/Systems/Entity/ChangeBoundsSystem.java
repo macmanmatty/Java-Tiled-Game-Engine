@@ -53,8 +53,17 @@ public class ChangeBoundsSystem extends GameEntitySystem {
             Direction direction=position.getDirection();
             String actionValue= actionComponent.getAction();
             EntityBounds entityBounds = boundsChangeableComponent.getBounds(direction, actionValue);
+            if(!entityBounds.isHasBounds()){
+               position.removeBounds();
+               continue;
+            }
             if(entityBounds!=null){
-                position.setBounds(entityBounds.getBounds());
+               if( position.isBoundsIsRectangle()){
+                   position.setBounds(entityBounds.getBoundsX(), entityBounds.getBoundsY());
+               }
+               else{
+                   position.setBounds(entityBounds.getBounds());
+               }
             }
             Vector2 boundsOffset= entityBounds.getBoundsOffset();
             if(boundsOffset!=null){

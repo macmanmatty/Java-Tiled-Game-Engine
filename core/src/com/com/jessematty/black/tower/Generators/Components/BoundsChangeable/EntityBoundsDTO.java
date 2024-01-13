@@ -10,15 +10,11 @@ public class EntityBoundsDTO {
     /**
      * the action corresponding to the animation
      */
-    private String action;
+    private String action="default";
     /**
      * the direction of the entity
      */
     private  String direction;
-    /**
-     *  the bounds of the entity represented as libGDX rectangle
-     */
-    private Rectangle rectangle= new Rectangle();
    
     /**
      * whether or not  the bounds is a rectangle
@@ -41,6 +37,11 @@ public class EntityBoundsDTO {
      * when in debug mode whether or not  to draw the bounds
      */
     boolean drawBounds=true;
+
+    private float boundsX;
+    private float boundsY;
+
+    private boolean hasBounds=true;
     
     public String getAction() {
         return action;
@@ -73,12 +74,6 @@ public class EntityBoundsDTO {
     public void setDirection(String direction) {
         this.direction = direction;
     }
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
     public void setxOffset(float xOffset) {
         this.xOffset = xOffset;
     }
@@ -96,5 +91,27 @@ public class EntityBoundsDTO {
     }
     public void setDrawBounds(boolean drawBounds) {
         this.drawBounds = drawBounds;
+    }
+
+    public float getBoundsX() {
+        return boundsX;
+    }
+    public float getBoundsY() {
+        return boundsY;
+    }
+
+    public void setBounds( float boundsX, float boundsY) {
+        this.boundsY = boundsY;
+        this.boundsX = boundsX;
+        isRectangle=true;
+
+    }
+
+    public boolean isHasBounds() {
+        return hasBounds;
+    }
+
+    public void setHasBounds(boolean hasBounds) {
+        this.hasBounds = hasBounds;
     }
 }

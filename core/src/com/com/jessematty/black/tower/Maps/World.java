@@ -276,7 +276,7 @@ public class World implements Disposable {
         if (position!=null) { // has  position add entity to map
             addEntityToMap(entity, position);
             String containerId=position.getContainerEntityId();
-            if(!position.getContainerEntityId().isEmpty()){
+            if( position.getContainerEntityId()!=null&& !position.getContainerEntityId().isEmpty()){
                 entity.add(new AddItemToContainer(entitiesInWorld.get(containerId), true));
             }
         }

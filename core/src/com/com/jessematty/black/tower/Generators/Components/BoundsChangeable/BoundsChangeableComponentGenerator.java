@@ -36,12 +36,13 @@ public   class BoundsChangeableComponentGenerator implements ComponentGenerator<
     /**
      Generates a new BoundsChangeable Component from an BoundsChangeableDTO
      * from an array of entity bounds  DTOs
-     * @param boundsChangeableComponentDTOO
+     * @param boundsChangeableComponentDTO
      * @return AnimatableComponent
      */
-    public   BoundsChangeableComponent generateAnimatableComponent ( BoundsChangeableComponentDTO boundsChangeableComponentDTOO){
+    public   BoundsChangeableComponent generateAnimatableComponent ( BoundsChangeableComponentDTO boundsChangeableComponentDTO){
         BoundsChangeableComponent boundsChangeableComponent= new BoundsChangeableComponent();
-        Array<EntityBoundsDTO> bounds=boundsChangeableComponentDTOO.getBoundsDTOArray();
+        boundsChangeableComponent.setEightDirections(boundsChangeableComponentDTO.isEightDirections());
+        Array<EntityBoundsDTO> bounds=boundsChangeableComponentDTO.getBoundsDTOArray();
         for(EntityBoundsDTO entityBoundsDTO : bounds){
            addBounds(entityBoundsDTO, boundsChangeableComponent);
         }
@@ -74,21 +75,24 @@ public   class BoundsChangeableComponentGenerator implements ComponentGenerator<
      */
     private EntityBounds generateBounds(EntityBoundsDTO entityBoundsDTO) {
         EntityBounds entityBounds= new EntityBounds();
-        Rectangle rectangle= entityBoundsDTO.getRectangle();
-        Polygon polygon= entityBoundsDTO.getBounds();
-        if(polygon==null && rectangle==null){
-            throw new IllegalArgumentException("both bounding rectangle and polygon are null");
+        if(!entityBoundsDTO.isHasBounds()){
+            entityBounds.setHasBounds(false);
+            return entityBounds;
         }
-        if(entityBoundsDTO.isRectangle() && rectangle!=null){
+        Polygon polygon= entityBoundsDTO.getBounds();
+        float boundsX=entityBoundsDTO.getBoundsX();
+        float boundsY=entityBoundsDTO.getBoundsY();
+        if(entityBoundsDTO.isRectangle()){
             entityBounds.setBoundsRectangle(true);
-            entityBounds.setBoundingRectangle(rectangle);
+            entityBounds.setBounds(boundsX, boundsY);
         }
         else if (entityBounds.getBounds()!=null){
             entityBounds.setBounds(polygon);
         }
         else{
-            entityBounds.setBoundsRectangle(true);
-            entityBounds.setBoundingRectangle(rectangle);
+            if (boundsX==0f && boundsY==0f){
+                entityBounds.setHasBounds(false);
+            }
         }
         entityBounds.setBoundsOffset(entityBoundsDTO.getxOffset(), entityBoundsDTO.getyOffset());
         entityBounds.setDrawBounds(entityBoundsDTO.isDrawBounds());

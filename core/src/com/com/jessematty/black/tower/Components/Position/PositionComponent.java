@@ -22,7 +22,7 @@ public class PositionComponent implements Component {
     private int tileLocationY;
 
     /**
-     * // the current diction of the entity
+     * // the current direction of the entity
      */
     private Direction direction=Direction.DOWN;
     private transient Array<LandSquareTile> tiles= new Array<LandSquareTile>(); // the tiles the entity occupies
@@ -74,6 +74,12 @@ public class PositionComponent implements Component {
         this.locationY = locationY;
         bounds.setPosition(bounds.getX(), this.locationY +boundsYOffset);
     }
+    /**
+     * creates a rectangular shaped bounds based on an x and y length
+     * and then sets teh position of the bounds
+     * @param x the x length of the bounds
+     * @param y the y length of the bounds
+     */
     public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
         this.boundsX=x;
         this.boundsY=y;
@@ -83,7 +89,12 @@ public class PositionComponent implements Component {
         boundsIsRectangle=true;
         hasBounds=true;
     }
-    public float getBoundsX() { // returns the x size of the bounds rectangle if the bounds is a rectangle else  returns the width of the bounding rectangle
+
+    /**
+     * // returns the x size of the bounds rectangle if the bounds is a rectangle else  returns the width of the bounding rectangle
+     * @return
+     */
+    public float getBoundsX() {
         if (boundsIsRectangle=true){
             return  boundsX;
         }
@@ -91,6 +102,10 @@ public class PositionComponent implements Component {
             return bounds.getBoundingRectangle().getWidth();
         }
     }
+    /**
+     * // returns the y size of the bounds rectangle if the bounds is a rectangle else  returns the width of the bounding rectangle
+     * @return
+     */
         public float getBoundsY() { // returns the y size of the bounds rectangle if the bounds is a rectangle else  returns the height of the bounding rectangle
         if (boundsIsRectangle=true){
             return  boundsY;
@@ -104,14 +119,14 @@ public class PositionComponent implements Component {
     }
     public void setBoundsXOffset(float boundsXOffset) {
         this.boundsXOffset = boundsXOffset;
-        bounds.setPosition(locationX +boundsXOffset, bounds.getY());
+        bounds.setPosition(bounds.getX() +boundsXOffset, bounds.getY());
     }
     public float getBoundsYOffset() {
         return boundsYOffset;
     }
     public void setBoundsYOffset(float boundsYOffset) {
         this.boundsYOffset = boundsYOffset;
-        bounds.setPosition(bounds.getX(), locationY +boundsYOffset);
+        bounds.setPosition(bounds.getX(), bounds.getY() +boundsYOffset);
     }
     public float getLocationX() {
         return locationX;

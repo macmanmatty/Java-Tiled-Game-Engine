@@ -9,10 +9,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class EntityBounds {
 
-    /**
-     * the bounds of the entity expressed  as a libGDX Rectangle object
-     */
-   private Rectangle boundingRectangle= new Rectangle();
        /**
      * the bounds of the entity expressed  as a libGDX Polygon object
      */
@@ -29,20 +25,12 @@ public class EntityBounds {
      * if bounds drawing is enabled whether or not to draw this entities bounds
      */
     private boolean drawBounds;
-    /**
-     * whether or not to recalculate the bounding rectangle for the bounds
-     */
-    private boolean recalculateBoundingRectangle;
 
+    float boundsX;
 
-    public Rectangle getBoundingRectangle() {
-        if(!isBoundsRectangle && (boundingRectangle==null || recalculateBoundingRectangle) ) {
-             boundingRectangle=this.bounds.getBoundingRectangle();
-             recalculateBoundingRectangle =false;
-             return  boundingRectangle;
-        }
-        return  boundingRectangle;
-    }
+    float boundsY;
+    boolean hasBounds=true;
+
 
     public Polygon getBounds() {
         return bounds;
@@ -50,8 +38,22 @@ public class EntityBounds {
 
     public void setBounds(Polygon bounds) {
         this.bounds = bounds;
-        recalculateBoundingRectangle =true;
+        hasBounds=true;
 
+    }
+
+    /**
+     * creates a rectangular shaped bounds based on an x and y length;
+     * @param x the x length of the bounds
+     * @param y the y length of the bounds
+     */
+    public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
+        this.boundsX=x;
+        this.boundsY=y;
+       float [] boundsVertices = new float[]{  0 , 0 ,  0 ,  0  + boundsY,  0   + boundsX,  0   + boundsY,  0   + boundsX,  0 };
+        bounds = new Polygon(boundsVertices);
+        isBoundsRectangle=true;
+        hasBounds=true;
     }
 
     public boolean isBoundsRectangle() {
@@ -76,15 +78,27 @@ public class EntityBounds {
         this.drawBounds = drawBounds;
     }
 
-    public void setBoundingRectangle(Rectangle boundingRectangle) {
-        this.boundingRectangle = boundingRectangle;
-    }
-
     public void setBoundsOffset(Vector2 boundsOffset) {
         this.boundsOffset = boundsOffset;
     }
 
     public void setBoundsRectangle(boolean boundsRectangle) {
         isBoundsRectangle = boundsRectangle;
+    }
+
+    public float getBoundsX() {
+        return boundsX;
+    }
+
+    public float getBoundsY() {
+        return boundsY;
+    }
+
+    public boolean isHasBounds() {
+        return hasBounds;
+    }
+
+    public void setHasBounds(boolean hasBounds) {
+        this.hasBounds = hasBounds;
     }
 }
