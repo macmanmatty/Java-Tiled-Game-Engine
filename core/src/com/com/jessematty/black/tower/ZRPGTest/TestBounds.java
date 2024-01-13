@@ -28,11 +28,9 @@ public class TestBounds {
         left.setDirection(Direction.LEFT.toString());
         right.setBounds(40, 64);
         right.setDirection(Direction.RIGHT.toString());
-
         lizardBounds.getBoundsDTOArray().add(up);
         lizardBounds.getBoundsDTOArray().add(down);
         lizardBounds.getBoundsDTOArray().add(left);
         lizardBounds.getBoundsDTOArray().add(right);
-
     }
 }
