@@ -241,8 +241,8 @@ public class ZRPGPlayerFunctions {
     private KeyAction viewPacks =new KeyAction(){
         @Override
         public void act()  {
-            Array<Entity> containers=EntityUtilities.getAllOwnedEntitiesWithComponents( mapDraw.getWorld(), player.getPlayerEntity(), PackComponent.class);
-         EntitySelectWindow window=  new EntitySelectWindow(mapDraw.getGameAssets().getCurrentSkin(), containers, mapDraw.getGameAssets(), new OnEntitySelectFunctions(mapDraw).packDisplay);
+            Array<Entity> containers=mapDraw.getWorld().getEntitiesFromEntityIdsArray(player.getPacks().getPackEntityIds());
+         EntitySelectWindow window=  new EntitySelectWindow("Select A Pack To View Contents", mapDraw.getGameAssets().getCurrentSkin(), containers, mapDraw.getGameAssets(), "View Contents", new OnEntitySelectFunctions(mapDraw).packDisplay);
             mapDraw.getUiStage().addWindow(window, ScreenPosition.CENTER);
         }};
 

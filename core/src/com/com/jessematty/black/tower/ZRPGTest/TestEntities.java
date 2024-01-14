@@ -2,6 +2,7 @@ package com.jessematty.black.tower.ZRPGTest;
 
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Animation.AnimatableComponent;
+import com.jessematty.black.tower.Components.Position.BoundsChangeableComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.StringStat;
@@ -31,8 +32,6 @@ public class TestEntities {
     static LPCObjectGeneratorDTO helmet = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO gloves = new LPCObjectGeneratorDTO();
     static LPCObjectGeneratorDTO shoes = new LPCObjectGeneratorDTO();
-
-
     static NumericStat health= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat price= new NumericStat(true, "health", 100, 0, 100);
     static NumericStat condition= new NumericStat(true, "condition", 100, 0, 100);
@@ -72,6 +71,8 @@ public class TestEntities {
         lizard.setHeight(5);
         lizard.setDrawLayer(1);
         lizard.setZrpgCharacter(true);
+        lizard.getComponentsMap().put(BoundsChangeableComponent.class.toString(), "/android/assets/Bounds/lizard.json");
+
         tail.setAtlasName( "textureAtlases/testAssets/testAssets.atlas");
         tail.setAnimatableBodyName("wingsLizard");
         tail.setSex("Male");

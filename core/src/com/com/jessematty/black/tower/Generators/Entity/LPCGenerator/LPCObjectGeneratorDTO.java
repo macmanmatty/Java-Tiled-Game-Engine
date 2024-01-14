@@ -218,13 +218,16 @@ public class LPCObjectGeneratorDTO {
      * does this entity have body component;
      */
     boolean body;
+    /**
+     * can the entity be worn?
+     */
     boolean wearable;
     /**
      * is the entity  a pack?
      */
     boolean pack;
     /**
-     * is the entity a plant
+     * is the entity a plant?
      */
     boolean plant;
     /**
@@ -252,18 +255,24 @@ public class LPCObjectGeneratorDTO {
      * 
      */
     Array<String> groups= new Array<>();
+    /**
+     * the groups represented as strings that the entity may be added to
+     *
+     */
   
     Array<String> groupsAddable= new Array<>();
     /**
-     * the array of attached entities referenced by TMX Object ID
+     * the array of attached entities to be attached
+     * at entity generation  referenced by TMX Object ID
      */
     Array<String> attachedEntitiesTmxObjectIDs = new Array();
     /**
-     * the array of attached DTO Objects
+     * the array of attached DTO Objects to be attached when the entity is generated
      */
     Array<LPCObjectGeneratorDTO> attachedEntityDTOs= new Array();
     /**
-     * the array of attached entities referenced by the entities id
+     *the array of attached entities referenced by the entities id to be
+     * attached when the entity is generated
      */
     Array<String> attachedEntitiesIDs = new Array();
 
@@ -277,9 +286,19 @@ public class LPCObjectGeneratorDTO {
      int leftLayerOffset;
      int rightLayerOffset;
      float heightFromGround;
+
     boolean collidable=true;
+    /**
+     * the height of the entity
+     */
      float height;
-     boolean physicalObject=true;
+    /**
+     * is the entity a real physical object like a stone or tree, or person?
+     */
+    boolean physicalObject=true;
+    /**
+     * is the entity a human hand?
+     */
      boolean hand;
     /**
      * a map of the  libGDX Ashley components to be externally loaded
@@ -294,10 +313,26 @@ public class LPCObjectGeneratorDTO {
      *
      */
     private boolean placeOnMap=true;
+    /**
+     * if true the entities y position for drawing will
+     * be linked to the entities  y position in the world
+     */
     private boolean setDrawLayerToYPosition;
+    /**
+     * used  for lpc actor weapon animation   generation
+     * to set the draw offsets for over-sized weapon animations
+     */
     private boolean useOverSizedWeaponSlashOffsets;
     private boolean useOverSizedWeaponThrustOffsets;
+    /**
+     * the entities action on game start
+     */
     private String action;
+    /**
+     * is the entities bounds changeable
+     */
+    private  boolean boundsChangeable;
+
 
     public String getAtlasName() {
         return atlasName;

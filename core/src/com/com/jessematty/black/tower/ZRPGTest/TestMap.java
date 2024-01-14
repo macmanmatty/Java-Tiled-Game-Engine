@@ -148,6 +148,7 @@ public class TestMap {
         jsonLoader.writeObjectToFile(TestEntities.getAll(), "/android/assets/Entities/testEntitiesTmx.json", false, FileUtilities.FileHandleType.LOCAL);
         jsonLoader.writeObjectToFile(TestAnimations.potion,"/android/assets/Animations/potion.json", false,  FileUtilities.FileHandleType.LOCAL);
         jsonLoader.writeObjectToFile(TestAnimations.sword,"/android/assets/Animations/sword.json", false,  FileUtilities.FileHandleType.LOCAL );
+        jsonLoader.writeObjectToFile(TestBounds.lizardBounds, "/android/assets/Bounds/lizard.json", false,  FileUtilities.FileHandleType.LOCAL );
 
         World world= new World();
         world.setWorldTextureAtlas(assetts.getAssetManager().get("textureAtlases/testAssets/testAssets.atlas", TextureAtlas.class),"textureAtlases/testAssets/testAssets.atlas");

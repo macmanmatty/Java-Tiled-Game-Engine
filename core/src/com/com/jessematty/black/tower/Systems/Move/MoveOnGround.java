@@ -41,9 +41,10 @@ public class MoveOnGround {
             map.removeEntity(position.getTiles(), entity);
             Array<LandSquareTile> newTiles=map.getAllTilesAndAddEntity(position.getBoundsBoundingRectangle(), entity);
             position.setTiles(newTiles);
-            position.setTileLocationX(newTiles.get(0).getLocationX());
-            position.setTileLocationY(newTiles.get(0).getLocationY());
-
+            if(!newTiles.isEmpty()) {
+                position.setTileLocationX(newTiles.get(0).getLocationX());
+                position.setTileLocationY(newTiles.get(0).getLocationY());
+            }
 
             movableComponent.setVelocity(speedX, speedY, 0);
         }

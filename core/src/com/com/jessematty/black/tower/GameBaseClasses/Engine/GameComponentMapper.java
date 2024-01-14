@@ -84,7 +84,7 @@ import com.jessematty.black.tower.Components.Other.SoundComponent;
 import com.jessematty.black.tower.Components.Other.TalkComponent;
 import com.jessematty.black.tower.Components.Other.Target;
 import com.jessematty.black.tower.Components.Other.Weapon;
-import com.jessematty.black.tower.Components.Position.BoundsChangeable;
+import com.jessematty.black.tower.Components.Position.BoundsChangeableComponent;
 import com.jessematty.black.tower.Components.Position.PhysicalObjectComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.BooleanStat;
@@ -207,7 +207,7 @@ public class GameComponentMapper {
     private static ComponentMapper<Ears> earsComponentMapper = ComponentMapper.getFor(Ears.class);
     private static ComponentMapper<HoldItemComponent> holdItemComponentMapper = ComponentMapper.getFor(HoldItemComponent.class);
     private static ComponentMapper<UnHoldItem> unholdItemComponentMapper = ComponentMapper.getFor(UnHoldItem.class);
-    private static ComponentMapper<BoundsChangeable> boundsChangeableComponentMapper = ComponentMapper.getFor(BoundsChangeable.class);
+    private static ComponentMapper<BoundsChangeableComponent> boundsChangeableComponentMapper = ComponentMapper.getFor(BoundsChangeableComponent.class);
     private static ComponentMapper<OnEnterTileComponent> onEnterTileComponentComponentMapper = ComponentMapper.getFor(OnEnterTileComponent.class);
     private static ComponentMapper<OnExitTileComponent> onExitTileComponentComponentMapper = ComponentMapper.getFor(OnExitTileComponent.class);
     private static ComponentMapper<NotAddedToEngine> notAddedToEngineComponentMapper = ComponentMapper.getFor(NotAddedToEngine.class);
@@ -314,7 +314,7 @@ public class GameComponentMapper {
         componentComponentMapperMap.put(Eyes.class, eyesComponentMapper);
         componentComponentMapperMap.put(HoldItemComponent.class, holdItemComponentMapper);
         componentComponentMapperMap.put(UnHoldItem.class, unholdItemComponentMapper);
-        componentComponentMapperMap.put(BoundsChangeable.class, boundsChangeableComponentMapper);
+        componentComponentMapperMap.put(BoundsChangeableComponent.class, boundsChangeableComponentMapper);
         componentComponentMapperMap.put(OnEnterTileComponent.class, onEnterTileComponentComponentMapper);
         componentComponentMapperMap.put(OnExitTileComponent.class, onExitTileComponentComponentMapper);
         componentComponentMapperMap.put(NotAddedToEngine.class, notAddedToEngineComponentMapper);
@@ -780,7 +780,7 @@ public class GameComponentMapper {
     public static ComponentMapper<UnHoldItem> getUnholdItemComponentMapper() {
         return unholdItemComponentMapper;
     }
-    public static ComponentMapper<BoundsChangeable> getBoundsChangeableComponentMapper() {
+    public static ComponentMapper<BoundsChangeableComponent> getBoundsChangeableComponentMapper() {
         return boundsChangeableComponentMapper;
     }
     public static ComponentMapper<OnEnterTileComponent> getOnEnterTileComponentComponentMapper() {

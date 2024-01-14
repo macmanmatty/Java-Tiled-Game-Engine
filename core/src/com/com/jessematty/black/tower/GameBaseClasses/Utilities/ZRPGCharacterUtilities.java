@@ -2,6 +2,7 @@ package com.jessematty.black.tower.GameBaseClasses.Utilities;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
 import com.jessematty.black.tower.Components.Base.EntityId;
 import com.jessematty.black.tower.Components.Base.GroupsComponent;
 import com.jessematty.black.tower.Components.BodyParts.BodyComponent;
@@ -71,6 +72,33 @@ public class ZRPGCharacterUtilities {
             String bodyPartId = bodyComponent.getBodyParts().get(bodyPartName);
             if (bodyPartId != null) {
                 return world.getEntity(bodyPartId);
+            }
+        }
+        return  null;
+    }
+
+    /**
+     * @param zrpgCharacter th
+     * @param world         the game world
+     * @return
+     */
+    public static Holder[]  getHandHolders(ZRPGCharacter zrpgCharacter, World world) {
+        Entity character = zrpgCharacter.getPlayerEntity();
+        BodyComponent bodyComponent = GameComponentMapper.getBodyComponentComponentMapper().get(character);
+        Holder [] holders = new Holder[2];
+        if (bodyComponent != null) {
+            String leftHandId = bodyComponent.getBodyParts().get("leftHand");
+            String rightHandId = bodyComponent.getBodyParts().get("rightHand");
+
+            if (leftHandId != null) {
+              Entity leftHand=world.getEntity(leftHandId);
+              Holder leftHolder=GameComponentMapper.getHolderComponentMapper().get(leftHand);
+              holders[0]=leftHolder;
+            }
+            if (rightHandId != null) {
+                Entity rightHand=world.getEntity(rightHandId);
+                Holder rightHolder=GameComponentMapper.getHolderComponentMapper().get(rightHand);
+                holders[1]=rightHolder;
             }
         }
         return  null;

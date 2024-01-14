@@ -16,10 +16,10 @@ import org.apache.commons.lang3.StringUtils;
  * class for generating a new AnimatableComponent object @See Animation.class
  * @See AnimatableComponent.class
  */
-public   class AnimationGenerator implements ComponentGenerator<AnimatableComponent> {
+public   class AnimatableComponentGenerator implements ComponentGenerator<AnimatableComponent> {
   private GameAssets gameAssets;
   private JsonLoader jsonLoader;
-    public AnimationGenerator(GameAssets gameAssets) {
+    public AnimatableComponentGenerator(GameAssets gameAssets) {
         this.gameAssets = gameAssets;
         jsonLoader=gameAssets.getJsonLoader();
     }

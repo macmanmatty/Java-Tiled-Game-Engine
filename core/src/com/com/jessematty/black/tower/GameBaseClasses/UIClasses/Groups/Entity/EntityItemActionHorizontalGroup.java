@@ -1,18 +1,16 @@
 package com.jessematty.black.tower.GameBaseClasses.UIClasses.Groups.Entity;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.jessematty.black.tower.Components.Animation.ImageComponent;
-import com.jessematty.black.tower.Components.Base.NameComponent;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponent;
-import com.jessematty.black.tower.Components.Item.ItemAction.ItemActionComponents;
-import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
-import com.jessematty.black.tower.GameBaseClasses.Entity.EntitySettable;
+import com.jessematty.black.tower.Components.AttachEntity.Holder;
+import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemActionButtons.HoldItem;
+import com.jessematty.black.tower.GameBaseClasses.UIClasses.Buttons.ItemActionButtons.ZRPGItemActionButton;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
 
 /**
  * ui class that extends the libGDX HorizontalGroup
@@ -26,21 +24,28 @@ public   class EntityItemActionHorizontalGroup extends HorizontalGroup {
     /**
      * the ashely  Entity object
      */
-    private Entity entity;
+    private Entity item;
 
     /**
      * game assets object used to retrieve an entities  image
      */
     private GameAssets gameAssets;
     /**
-     * the entity  settable object to set
+     * the ZRPGCharacter
      */
-    private EntitySettable entitySettable;
-    public EntityItemActionHorizontalGroup(EntitySettable entitySettable, GameAssets gameAssets, Skin skin, Entity entity) {
+
+    private ZRPGCharacter zrpgCharacter;
+
+
+    private Array<ZRPGItemActionButton> buttons= new Array<>();
+
+
+
+    public EntityItemActionHorizontalGroup(ZRPGCharacter zrpgCharacter, GameAssets gameAssets, Skin skin, Entity item) {
         this.skin = skin;
-        this.entity = entity;
+        this.item = item;
         this.gameAssets=gameAssets;
-        this.entitySettable=entitySettable;
+        this.zrpgCharacter=zrpgCharacter;
         makeGroup();
     }
 
@@ -48,31 +53,32 @@ public   class EntityItemActionHorizontalGroup extends HorizontalGroup {
      *  makes the horizontal group
      */
     private void makeGroup(){
-        NameComponent nameComponent = GameComponentMapper.getNameComponentMapper().get(entity);
-        String name="*** Name Missing ***";
-        if(nameComponent!=null) {
-        name=nameComponent.getName();
+        getButtons();
+        for(Button button: buttons) {
+            addActor(button);
         }
-        Label label= new Label(name, skin);
-        addActor(label);
-        Image image= new Image(gameAssets.getAtlasRegionByName("noImage", "textureAtlases/testAssets/testAssets.atlas"));
-        ImageComponent imageComponent=GameComponentMapper.getImageComponentMapper().get(entity);
-        if(imageComponent!=null && imageComponent.getImage()!=null){
-           image=imageComponent.getImage();
-        }
-        addActor(image);
-        addActor(label);
-        ItemActionComponents itemActionComponents= GameComponentMapper.getActionComponentsComponentMapper().get(entity);
-        Array<ItemActionComponent> itemActionComponentArray=itemActionComponents.getActionComponents();
-        for(ItemActionComponent itemActionComponent: itemActionComponentArray){
+        space(5);
+    }
+
+    private void getButtons() {
+        Holder[] holders= ZRPGCharacterUtilities.getHandHolders(zrpgCharacter, gameAssets.getWorld());
+        if(holders[0].getItemToHoldId()==null || holders[0].getItemToHoldId().isEmpty()){
+            buttons.add(new HoldItem("Hold Left Hand" , skin, "default", item, zrpgCharacter, gameAssets.getMapDraw(), "leftHand"));
 
         }
-        space(10);
+        if(holders[1].getItemToHoldId()==null || holders[1].getItemToHoldId().isEmpty()){
+            buttons.add(new HoldItem("Hold Right Hand", skin, "default", item, zrpgCharacter, gameAssets.getMapDraw(), "rightHand"));
+
+        }
+
+
+
     }
+
     public Skin getSkin() {
         return skin;
     }
-    public Entity getEntity() {
-        return entity;
+    public Entity getItem() {
+        return item;
     }
 }
