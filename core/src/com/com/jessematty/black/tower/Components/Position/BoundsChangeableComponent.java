@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jessematty.black.tower.GameBaseClasses.Direction.Direction;
 import com.jessematty.black.tower.Generators.Components.Animation.AnimationDirections;
 
+import java.util.Map;
+
 /**
  * component for  an Entity whose bounds change on direction  and / or action
  */
@@ -61,6 +63,15 @@ public class BoundsChangeableComponent implements Component {
             }
         }
             return defaultBounds;
+    }
+
+    public void addBounds(Direction direction, String action, EntityBounds entityBounds){
+        ObjectMap<String, EntityBounds> boundsObjectMap=bounds.get(action);
+        if ((boundsObjectMap==null)){
+            boundsObjectMap=new ObjectMap<>();
+            bounds.put(action, boundsObjectMap);
+        }
+        boundsObjectMap.put(direction.toString(), entityBounds);
     }
 
 

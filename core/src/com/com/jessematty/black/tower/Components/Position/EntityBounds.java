@@ -48,6 +48,12 @@ public class EntityBounds {
      * @param y the y length of the bounds
      */
     public void setBounds(float x, float y){// set the bounds of the object to a new rectangle of the given x and y length
+        if(x<0){
+            x=0;
+        }
+        if(y<0){
+            y=0;
+        }
         this.boundsX=x;
         this.boundsY=y;
        float [] boundsVertices = new float[]{  0 , 0 ,  0 ,  0  + boundsY,  0   + boundsX,  0   + boundsY,  0   + boundsX,  0 };
