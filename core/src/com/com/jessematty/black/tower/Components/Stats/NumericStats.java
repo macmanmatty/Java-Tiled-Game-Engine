@@ -18,7 +18,11 @@ public class NumericStats implements Component {
     protected Array<SelfChangableNumericStatChangeable> selfChangableNumericStats= new Array<>();
     private boolean statHasChanged; // flag for whether or not a stat was changed during the lst run of the loop
 
-    public void addStat(NumericStat stat){ // adds a stat if doesn't  already exist
+    /**
+     * // adds a stat if doesn't  already exist
+     * @param stat the stat to add
+     */
+    public void addStat(NumericStat stat){
         if(numericStats.get(stat.getName())!=null){
             return;
         }
@@ -33,7 +37,10 @@ public class NumericStats implements Component {
                 dieWhenZero.add(stat);
             }
     }
-    public void addOrCombineStat(NumericStat stat){ // add a stat if  it doesn't exist  or  if does exist combines the values
+    /**
+     * add a stat if  it doesn't exist  or  if does exist combines the values
+     * @param stat the stat to add
+     */    public void addOrCombineStat(NumericStat stat){
         if(numericStats.get(stat.getName())!=null){
             numericStats.get(stat.getName()).addValues(stat);
         }

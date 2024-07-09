@@ -43,7 +43,7 @@ public   class NumericStat extends Stat {
      transient protected  StatBar statBar ;
 
     /**
-     * whether or not this stat will have  have a stat bar
+     * whether or not this stat will have  have a stat bar in ui windows
      */
     public boolean hasStatBar=true;
     public NumericStat(boolean displayable, String name, double value) {

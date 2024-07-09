@@ -69,6 +69,8 @@ public class MapUtilities {
         return  entities;
     }
 
+
+
     /**
      *  returns an array of all entities including the tiles themselves Tiles are Entities
      *  for given square of tiles  in the  x and y axis on a given map
@@ -120,6 +122,35 @@ public class MapUtilities {
                     for (int count = 0; count < size; count++) {
                         Entity entity = occupants.get(count);
                         if (!InList.isInList(entities, entity)) {
+                            entities.add(entity);
+                        }
+                    }
+                }
+            }
+        }
+        return  entities;
+    }
+    public static  Array<Entity> getAllEntitiesExcluding(Array<Entity>  entitiesToExclude, GameMap map , Rectangle rectangle,  Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
+        int tileSizeX=map.getTileWidth();
+        int tileSizeY=map.getTileHeight();
+        Array<Entity> entities= new Array<>();
+       System.out.println(rectangle.x+", "+rectangle.y);
+       float finalWidth=rectangle.width+rectangle.x+tileSizeX*.1f;
+        float finalHeight=rectangle.height+rectangle.y+tileSizeY*.1f;
+        float startX=rectangle.x+tileSizeX*.1f;
+        float startY=rectangle.y+tileSizeY*.1f;
+
+
+        for (float countx =startX; countx < finalWidth; countx=countx+tileSizeX ){
+            for (float county = startY; county < finalHeight; county=county+tileSizeY) {
+                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(countx , county);
+                if (tile != null) {
+                    Array<Entity> occupants = tile.getEntities(numericStats, stringStats, booleanStats, components);
+                    int size = occupants.size;
+                    for (int count = 0; count < size; count++) {
+                        Entity entity = occupants.get(count);
+                        if (!InList.isInList(entities, entity)) {
+                            if(entitiesToExclude!=null && !InList.isInList(entitiesToExclude, entity))
                             entities.add(entity);
                         }
                     }

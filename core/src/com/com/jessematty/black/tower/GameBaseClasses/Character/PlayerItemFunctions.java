@@ -7,6 +7,7 @@ import com.jessematty.black.tower.Components.Containers.ContainerComponent;
 import com.jessematty.black.tower.Components.EventComponents.AddItemToContainer;
 import com.jessematty.black.tower.Components.Item.ItemAction.PickUpItemComponent;
 import com.jessematty.black.tower.Components.Item.ItemComponent;
+import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.ZRPG.ZRPGCharacter;
 import com.jessematty.black.tower.GameBaseClasses.Engine.GameComponentMapper;
 import com.jessematty.black.tower.GameBaseClasses.GameAssets;
@@ -16,7 +17,9 @@ import com.jessematty.black.tower.GameBaseClasses.UIClasses.OptionPanes.OptionPa
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.ScreenPosition;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.EntityInfoWindow;
 import com.jessematty.black.tower.GameBaseClasses.UIClasses.Windows.GameWindows.MultipleEntitySelect.EntitySelectWindow;
+import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.ZRPGCharacterUtilities;
+import com.jessematty.black.tower.Maps.GameMap;
 import com.jessematty.black.tower.Maps.World;
 public class PlayerItemFunctions {
     private PlayerItemFunctions() {
@@ -140,12 +143,16 @@ public class PlayerItemFunctions {
             Entity hand= ZRPGCharacterUtilities.getBodyPart(zrpgCharacter.getCurrentHand(), zrpgCharacter, world);
             String handId=GameComponentMapper.getIdComponentMapper().get(hand).getId();
             Holder handHolder=GameComponentMapper.getHolderComponentMapper().get(hand);
+            PositionComponent positionComponent=zrpgCharacter.getPositionComponent();
             if (handHolder.getItemToHoldId() != null) {
                 String text = "Hand Is Not Empty";
                 draw.getUiStage().getScreenLogger().logInfo(text);
                 return;
             }
-            Array<Entity> entities = zrpgCharacter.getPositionComponent().getTiles().get(0).getEntities(ItemComponent.class);
+            GameMap map=world.getMap(zrpgCharacter.getPositionComponent().getMapId());
+            Array<Entity> player= new Array<>();
+            player.add(zrpgCharacter.getPlayerEntity());
+            Array<Entity> entities = MapUtilities.getAllEntitiesExcluding(player, map,positionComponent.getBoundsBoundingRectangle(), null, null, null,  ItemComponent.class);
             System.out.println("Picking up item!!! from items "+entities.size);
             if (entities.size == 1) {
                 Entity item=entities.get(0);

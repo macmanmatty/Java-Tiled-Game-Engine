@@ -73,8 +73,6 @@ public class AnimatableComponent implements SerializableComponent {
 
     protected Animation currentAnimation;
 
-
-
     /**
      * whether  or not the layer number has changed
      * if true this will cause a resort of the render  system
@@ -102,7 +100,7 @@ public class AnimatableComponent implements SerializableComponent {
         if(animationObjectMap.size==1){
            return animationObjectMap.values().next();
         }
-        else if(animationObjectMap.size>4){
+        else if(animationObjectMap.size<=4){
             direction=Direction.getBaseDirection(direction);
         }
          Animation animation=animationObjectMap.get(direction.toString());

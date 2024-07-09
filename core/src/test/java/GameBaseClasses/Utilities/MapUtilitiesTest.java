@@ -97,5 +97,18 @@ public class MapUtilitiesTest {
 
     }
 
+    @Test
+    public void  getAllEntitiesExcluding(){
+        Rectangle rectangle2= new Rectangle();
+        rectangle2.x=0;
+        rectangle2.y=0;
+        rectangle2.height=0;
+        rectangle2.width=0;
+        LandSquareTile landSquareTile2 = MapUtilities.getCenterTile(testMap.testMap1,rectangle2);
+        assertEquals(0, landSquareTile2.getLocationX());
+        assertEquals(49, landSquareTile2.getLocationY());
+
+    }
+
 
 }
