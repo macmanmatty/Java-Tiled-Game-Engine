@@ -81,7 +81,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 95bf5817-d9bf-4638-96ef-1ab41af9af62
+	tmxObjectId: 2f6ddbf5-3a08-4a1e-9d50-112b8ee46945
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -375,7 +375,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 4b150134-baaa-4060-b54b-2b2b055254a5
+			tmxObjectId: e4c07429-3938-405a-9d44-aa3ccc564712
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1291,7 +1291,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 9f810610-c573-4a5f-93ab-cc908adeb544
+			tmxObjectId: 90243496-a0a4-4dbd-ada5-9584e1b5e5e0
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1425,7 +1425,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 4b150134-baaa-4060-b54b-2b2b055254a5
+					tmxObjectId: e4c07429-3938-405a-9d44-aa3ccc564712
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -2378,7 +2378,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 856a8a8e-31bc-4028-9eb6-44cb37da1514
+	tmxObjectId: a34aac01-b8d5-4143-9dc5-d8b5c1fd0629
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2484,7 +2484,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 56e2436c-ec6b-472a-83d3-73d0e5a1f5b9
+	tmxObjectId: 9458245b-2b25-4bf2-87bb-dedf5fdaef1d
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2754,7 +2754,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 05862396-044a-4ae4-a98d-e2098bfa350e
+	tmxObjectId: 545e23ca-0a51-4bf8-932d-319f6c02e847
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2860,7 +2860,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 2e41577c-ee71-4587-8153-339d2f5801bf
+	tmxObjectId: a53b4f46-aac4-44c9-a438-2880ce1ca662
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2966,7 +2966,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: f617a53c-18b9-45bb-b079-7055a40d6f39
+	tmxObjectId: bcc037d6-5eb8-4cc2-a2f0-6bbcfbc7b0af
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3427,7 +3427,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 5d52b610-482e-4621-95a1-e906abc5d991
+	tmxObjectId: 0d0c6e3b-6d84-45ae-ac22-114091d2097e
 	bounds: null
 	groups: []
 	groupsAddable: []

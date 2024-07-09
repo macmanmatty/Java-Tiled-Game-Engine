@@ -67,10 +67,12 @@ public class AddToContainerSystem extends GameEntitySystem {
             PositionComponent itemToAddPosition = positionComponentComponentMapper.get(entity);
             GroupsComponent groupsComponent = groupsComponentMapper.get(entity);
             DrawableComponent drawableComponent=drawableComponentComponentMapper.get(entity);
-           // if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
+            if (checkAddable(groupsComponent, containerComponent, physicalObjectComponent, itemToAddPosition)) {
                 String itemToAddId = idComponentMapper.get(entity).getId();
                 containerComponent.getEntitiesInContainerIds().add(itemToAddId);
-                drawableComponent.setDraw(false);
+                if(drawableComponent!=null) {
+                    drawableComponent.setDraw(false);
+                }
                 if (addItemToContainer.isRemoveItemBoundsOnAdd()) {
                     itemToAddPosition.removeBounds();
                 }
@@ -83,7 +85,7 @@ public class AddToContainerSystem extends GameEntitySystem {
                     EntityUtilities.attachEntity(container, entity);
                 }
             }
-       //}
+       }
     }
 
     /**
