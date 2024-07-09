@@ -364,16 +364,9 @@ public class GameComponentMapper {
      * @return
      */
     public static Array<Entity> getEntitiesWithComponents(Array<Entity> entities, Class<? extends Component>... components) {
-        Array<Entity> entitiesToReturn = new Array<Entity>();
-        int size = entities.size;
-        for (int count = 0; count < size; count++) {
-            Entity entity = entities.get(count);
-                boolean hasComponents = hasComponents(entity, components);
-                if (hasComponents == true) {
-                    entitiesToReturn.add(entity);
-                }
-        }
-        return entitiesToReturn;
+
+        return getEntitiesContainingStats(entities, null, null, null, components);
+
     }
     public static Array<Entity> getEntitiesWithComponentsById(World world, Array<String> entityIDs, Class<? extends Component>... components) {
         Array<Entity> entitiesToReturn = new Array<Entity>();
@@ -412,7 +405,7 @@ public class GameComponentMapper {
                     hasNumericStats = false;
                 }
             }
-            if (hasNumericStats == false) {
+            if (!hasNumericStats) {
                 continue;
             }
             boolean hasBooleanStats = true;
@@ -424,7 +417,7 @@ public class GameComponentMapper {
                     hasBooleanStats = false;
                 }
             }
-            if (hasBooleanStats == false) {
+            if (!hasBooleanStats) {
                 continue;
             }
             boolean hasStringStats = true;
@@ -436,9 +429,10 @@ public class GameComponentMapper {
                     hasStringStats = false;
                 }
             }
-            if (hasStringStats == false) {
+            if (!hasStringStats) {
                 continue;
             }
+
             boolean hasComponents = true;
             if (components.length > 0) {
                 hasComponents = hasComponents(entity, components);

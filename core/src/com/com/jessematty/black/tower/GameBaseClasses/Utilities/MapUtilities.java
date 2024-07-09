@@ -108,28 +108,18 @@ public class MapUtilities {
         }
         return  entities;
     }
-    public static  Array<Entity> getAllEntities(GameMap map , float screenLocationX, float screenLocationY, int xTiles, int yTiles, Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
-        int tileSizeX=map.getTileWidth();
-        int tileSizeY=map.getTileHeight();
-        Array<Entity> entities= new Array<>();
-        for (int countx = -xTiles; countx < xTiles; countx++ ){
-            for (int county = -yTiles; county < yTiles; county++) {
-                LandSquareTile tile = map.getTileFromWorldUnitCoordinates(screenLocationX + (countx * tileSizeX), screenLocationY + (county * tileSizeY));
-                // get tile occupants
-                if (tile != null) {
-                    Array<Entity> occupants = tile.getEntities(numericStats, stringStats, booleanStats, components);
-                    int size = occupants.size;
-                    for (int count = 0; count < size; count++) {
-                        Entity entity = occupants.get(count);
-                        if (!InList.isInList(entities, entity)) {
-                            entities.add(entity);
-                        }
-                    }
-                }
-            }
-        }
-        return  entities;
-    }
+    /**
+     * gets all entities on the tiles  NOT including the tiles from a given bounding rectangle
+     * with a list of entities to exclude from being picked up
+     * @param entitiesToExclude
+     * @param map
+     * @param rectangle
+     * @param numericStats
+     * @param stringStats
+     * @param booleanStats
+     * @param components
+     * @return
+     */
     public static  Array<Entity> getAllEntitiesExcluding(Array<Entity>  entitiesToExclude, GameMap map , Rectangle rectangle,  Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
@@ -150,14 +140,38 @@ public class MapUtilities {
                     for (int count = 0; count < size; count++) {
                         Entity entity = occupants.get(count);
                         if (!InList.isInList(entities, entity)) {
-                            if(entitiesToExclude!=null && !InList.isInList(entitiesToExclude, entity))
-                            entities.add(entity);
+                            if(entitiesToExclude==null || !InList.isInList(entitiesToExclude, entity)) {
+                                entities.add(entity);
+                            }
                         }
                     }
                 }
             }
         }
         return  entities;
+    }
+    /**
+     * gets all entities from a given bounding rectangle
+     * @param map
+     * @param rectangle
+     * @param components
+     * @return
+     */
+    public static  Array<Entity>  getAllEntities  (GameMap map , Rectangle rectangle, Class<? extends Component> ... components){
+        return  getAllEntitiesExcluding(null, map, rectangle, null, null, null, components);
+    }
+    /**
+     * gets all entities from a given bounding rectangle
+     * @param map
+     * @param rectangle
+     * @param numericStats
+     * @param stringStats
+     * @param booleanStats
+     * @param components
+     * @return
+     */
+    public static  Array<Entity>  getAllEntities  (GameMap map , Rectangle rectangle,  Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
+        return  getAllEntitiesExcluding(null, map, rectangle, numericStats, stringStats, booleanStats, components);
     }
     public  static Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Circle circle){
        float diameter=circle.radius*2f;

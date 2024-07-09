@@ -35,6 +35,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -80,7 +81,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 6f8149f5-b1e5-4b9e-b53d-63babdb25578
+	tmxObjectId: 95bf5817-d9bf-4638-96ef-1ab41af9af62
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -101,6 +102,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -138,6 +141,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: false
@@ -278,6 +282,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -370,7 +375,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 0eaef852-7a78-416a-b79b-6ca4b526cbc9
+			tmxObjectId: 4b150134-baaa-4060-b54b-2b2b055254a5
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -391,6 +396,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -427,6 +434,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -540,6 +548,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -576,6 +586,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -689,6 +700,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -725,6 +738,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -838,6 +852,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -874,6 +890,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -988,6 +1005,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -1024,6 +1043,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: false
 			lpcActorAnimated: false
@@ -1142,6 +1162,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 		{
 			load: true
@@ -1178,6 +1200,7 @@
 			hasRestOnGroundActionImage: false
 			restOnGroundSingleImage: true
 			restOnGroundEightDirections: false
+			zrpgCharacter: false
 			restOnGroundFrames: 1
 			animated: true
 			lpcActorAnimated: false
@@ -1268,7 +1291,7 @@
 			pack: false
 			plant: false
 			humanLikeCharacter: false
-			tmxObjectId: 025bf19f-2cc1-4d32-8af4-c44d70c35346
+			tmxObjectId: 9f810610-c573-4a5f-93ab-cc908adeb544
 			bounds: null
 			groups: []
 			groupsAddable: []
@@ -1309,6 +1332,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1401,7 +1425,7 @@
 					pack: false
 					plant: false
 					humanLikeCharacter: false
-					tmxObjectId: 0eaef852-7a78-416a-b79b-6ca4b526cbc9
+					tmxObjectId: 4b150134-baaa-4060-b54b-2b2b055254a5
 					bounds: null
 					groups: []
 					groupsAddable: []
@@ -1422,6 +1446,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 				{
 					load: true
@@ -1458,6 +1484,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1571,6 +1598,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 				{
 					load: true
@@ -1607,6 +1636,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1720,6 +1750,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 				{
 					load: true
@@ -1756,6 +1788,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -1869,6 +1902,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 				{
 					load: true
@@ -1905,6 +1940,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -2019,6 +2055,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 				{
 					load: true
@@ -2055,6 +2093,7 @@
 					hasRestOnGroundActionImage: false
 					restOnGroundSingleImage: true
 					restOnGroundEightDirections: false
+					zrpgCharacter: false
 					restOnGroundFrames: 1
 					animated: false
 					lpcActorAnimated: false
@@ -2173,6 +2212,8 @@
 					setDrawLayerToYPosition: false
 					useOverSizedWeaponSlashOffsets: false
 					useOverSizedWeaponThrustOffsets: false
+					action: null
+					boundsChangeable: false
 				}
 			]
 			attachedEntitiesIDs: []
@@ -2190,6 +2231,8 @@
 			setDrawLayerToYPosition: false
 			useOverSizedWeaponSlashOffsets: false
 			useOverSizedWeaponThrustOffsets: false
+			action: null
+			boundsChangeable: false
 		}
 	]
 	attachedEntitiesIDs: [
@@ -2209,6 +2252,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2246,6 +2291,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2332,7 +2378,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 69e186cb-4c25-404d-8bcd-fd7ec8792d1b
+	tmxObjectId: 856a8a8e-31bc-4028-9eb6-44cb37da1514
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2353,6 +2399,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2390,6 +2438,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2435,7 +2484,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 96b87482-cbaf-4a87-b0b1-9fe3b12b7104
+	tmxObjectId: 56e2436c-ec6b-472a-83d3-73d0e5a1f5b9
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2456,6 +2505,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2493,6 +2544,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -2617,6 +2669,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: true
 	useOverSizedWeaponThrustOffsets: true
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2654,6 +2708,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2699,7 +2754,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 5f8c53e4-93b4-417c-947c-a40e996be4c3
+	tmxObjectId: 05862396-044a-4ae4-a98d-e2098bfa350e
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2720,6 +2775,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2757,6 +2814,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2802,7 +2860,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 81f48a3d-d6d8-43e4-aaa8-947b5c400739
+	tmxObjectId: 2e41577c-ee71-4587-8153-339d2f5801bf
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2823,6 +2881,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2860,6 +2920,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -2905,7 +2966,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: bfc7737e-2179-4f5a-9129-723c52cf7991
+	tmxObjectId: f617a53c-18b9-45bb-b079-7055a40d6f39
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -2926,6 +2987,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -2963,6 +3026,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -3129,6 +3193,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3166,6 +3232,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -3275,6 +3342,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3312,6 +3381,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: false
 	lpcActorAnimated: false
@@ -3357,7 +3427,7 @@
 	pack: false
 	plant: false
 	humanLikeCharacter: false
-	tmxObjectId: 846a3de7-c03c-441d-b7d0-d555bb7d06cb
+	tmxObjectId: 5d52b610-482e-4621-95a1-e906abc5d991
 	bounds: null
 	groups: []
 	groupsAddable: []
@@ -3378,6 +3448,8 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 {
 	class: com.jessematty.black.tower.Generators.Entity.LPCGenerator.LPCObjectGeneratorDTO
@@ -3415,6 +3487,7 @@
 	hasRestOnGroundActionImage: false
 	restOnGroundSingleImage: true
 	restOnGroundEightDirections: false
+	zrpgCharacter: false
 	restOnGroundFrames: 1
 	animated: true
 	lpcActorAnimated: true
@@ -3522,5 +3595,7 @@
 	setDrawLayerToYPosition: false
 	useOverSizedWeaponSlashOffsets: false
 	useOverSizedWeaponThrustOffsets: false
+	action: null
+	boundsChangeable: false
 }
 ]

@@ -1,12 +1,14 @@
 package GameBaseClasses.Utilities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.jessematty.black.tower.Components.Actions.ActionComponentMarkers.MovingOnGroundComponent;
+import com.jessematty.black.tower.Components.Item.ItemComponent;
 import com.jessematty.black.tower.Components.Position.PositionComponent;
 import com.jessematty.black.tower.Components.Stats.NumericStat;
 import com.jessematty.black.tower.Components.Stats.NumericStats;
@@ -14,7 +16,6 @@ import com.jessematty.black.tower.GameBaseClasses.MapDraw;
 import com.jessematty.black.tower.GameBaseClasses.Utilities.MapUtilities;
 import com.jessematty.black.tower.Maps.World;
 import com.jessematty.black.tower.SquareTiles.LandSquareTile;
-import com.jessematty.black.tower.Systems.Move.MoveOnGroundSystem;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class MapUtilitiesTest {
 
     private Engine engine;
     private Entity movable1;
-    private Entity moveable2;
+    private Entity item;
     private MapDraw mapDraw;
     private World world;
     private TestMap testMap= new TestMap();
@@ -36,17 +37,20 @@ public class MapUtilitiesTest {
     public void setup() {
         mapDraw =  testMap.mapDraw;
         mapDraw.setWorld(testMap.testWorld);
-        movable1=  new TestEntity().movable;
+        TestEntity testEntity= new TestEntity();
+        movable1=  testEntity.movable;
+        item =testEntity.item;
+
         world= testMap.testWorld;
         PositionComponent positionComponent=  movable1.getComponent(PositionComponent.class);
         positionComponent.setMapID(mapDraw.getCurrentMap().getId());
         positionComponent.setLocationX(222);
         positionComponent.setLocationY(222);
         positionComponent.setBounds(32,32);
+        item.add(positionComponent);
+        item.add(new ItemComponent());
         movable1.add(new MovingOnGroundComponent());
         movable1.getComponent(NumericStats.class).addStat(new NumericStat(true, "speed", 32));
-        engine=world.getEngine();
-        engine.addSystem(new MoveOnGroundSystem(mapDraw));
         world.addEntityToWorld(movable1);
         positionComponent.setBounds(32, 32);
 
@@ -54,7 +58,7 @@ public class MapUtilitiesTest {
     @Test
     public void testGetAllEntitiesAndTiles(){
      Array<Entity> entities = MapUtilities.getAllEntitiesAndTiles(testMap.testMap1, 161, 160,  2, 2);
-     assertEquals(true, entities.contains(movable1, true));
+        assertTrue(entities.contains(movable1, true));
      assertEquals(testMap.testMap1.getTileFromWorldUnitCoordinates(222,222).getEntities().size, 1);
      assertEquals(testMap.testMap1.getEntities().size, 1);
 
@@ -98,17 +102,39 @@ public class MapUtilitiesTest {
     }
 
     @Test
-    public void  getAllEntitiesExcluding(){
+    public void  getAllEntities(){
         Rectangle rectangle2= new Rectangle();
-        rectangle2.x=0;
-        rectangle2.y=0;
-        rectangle2.height=0;
-        rectangle2.width=0;
-        LandSquareTile landSquareTile2 = MapUtilities.getCenterTile(testMap.testMap1,rectangle2);
-        assertEquals(0, landSquareTile2.getLocationX());
-        assertEquals(49, landSquareTile2.getLocationY());
+        rectangle2.x=200;
+        rectangle2.y=200;
+        rectangle2.height=100;
+        rectangle2.width=100;
+        Array<Entity> entities = MapUtilities.getAllEntities(testMap.testMap1,  rectangle2);
+        assertEquals(1, entities.size);
 
     }
+    @Test
+    public void  getAllEntitiesExcluding(){
+        Rectangle rectangle2= new Rectangle();
+        rectangle2.x=200;
+        rectangle2.y=200;
+        rectangle2.height=100;
+        rectangle2.width=100;
+        Array<Entity> entitiesExclude= new Array<>();
+        entitiesExclude.add(movable1);
+        Array<Entity> entities = MapUtilities.getAllEntitiesExcluding(entitiesExclude, testMap.testMap1,  rectangle2, null, null, null);
+        assertEquals(0, entities.size);
 
+    }
+    @Test
+    public void  getAllEntitiesExcludingWithComponents(){
+        Rectangle rectangle2= new Rectangle();
+        rectangle2.x=200;
+        rectangle2.y=200;
+        rectangle2.height=100;
+        rectangle2.width=100;
+        Array<Entity> entities = MapUtilities.getAllEntities( testMap.testMap1,  rectangle2, ItemComponent.class);
+        assertEquals(1, entities.size);
+
+    }
 
 }
