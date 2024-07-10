@@ -108,18 +108,33 @@ public class MapUtilities {
         }
         return  entities;
     }
+
     /**
-     * gets all entities on the tiles  NOT including the tiles from a given bounding rectangle
-     * with a list of entities to exclude from being picked up
+     *
      * @param entitiesToExclude
      * @param map
      * @param rectangle
-     * @param numericStats
-     * @param stringStats
-     * @param booleanStats
      * @param components
      * @return
      */
+
+    public static  Array<Entity> getAllEntitiesExcluding(Array<Entity>  entitiesToExclude, GameMap map , Rectangle rectangle,    Class<? extends Component> ... components) {
+
+        return getAllEntitiesExcluding(entitiesToExclude, map, rectangle, null, null, null, components);
+
+    }
+        /**
+         * gets all entities on the tiles  NOT including the tiles from a given bounding rectangle
+         * with a list of entities to exclude from being picked up
+         * @param entitiesToExclude
+         * @param map
+         * @param rectangle
+         * @param numericStats
+         * @param stringStats
+         * @param booleanStats
+         * @param components
+         * @return
+         */
     public static  Array<Entity> getAllEntitiesExcluding(Array<Entity>  entitiesToExclude, GameMap map , Rectangle rectangle,  Array<String> numericStats, Array<String> stringStats , Array<String> booleanStats,  Class<? extends Component> ... components){
         int tileSizeX=map.getTileWidth();
         int tileSizeY=map.getTileHeight();
@@ -208,25 +223,7 @@ public class MapUtilities {
         }
         return  entitiesInRectangle;
     }
-    public static   Array<Entity>  getAllEntities( World world, GameMap map,  float screenX, float screenY, Polygon polygon){
-        Rectangle rectangle=polygon.getBoundingRectangle();
-        float width=rectangle.width;
-        float height=rectangle.height;
-        int tilesX=(int)(width/map.getTileWidth())+1;
-        int tilesY=(int)(height/map.getTileHeight())+1;
-        Array<Entity> entitiesInPolygon= new Array<>();
-        ComponentMapper<PositionComponent> positionComponentMapper=GameComponentMapper.getPositionComponentMapper();
-        Array<Entity> entities=getAllEntities(map, screenX, screenY, tilesX, tilesY);
-        int size=entities.size;
-        for(int count=0; count<size; count++){
-            Entity entity=entities.get(count);
-            PositionComponent position=positionComponentMapper.get(entity);
-            if(Intersector.overlapConvexPolygons(polygon, position.getBounds())){
-                entitiesInPolygon.add(entity);
-            }
-        }
-        return  entitiesInPolygon;
-    }
+
     public static ArrayList<LandSquareTile> getFourDirectionsAdjoiningTiles(Map map, LandSquareTile tile) {
         int x = tile.getLocationX();
         int y = tile.getLocationY();
@@ -249,31 +246,8 @@ public class MapUtilities {
         }
         return tiles;
     }
-    public static LandSquareTile getClosestEnterableTile( Map map , LandSquareTile tile) { // returns the closest isEnterable tile to  WoodWand given tile
-        int locationx = tile.getLocationX();
-        int locationy = tile.getLocationY();
-        LandSquareTile newTile = null;
-        int counter = 1;
-        int xSize=map.getXTiles();
-        int ySize=map.getYTiles();
-        if (locationx == xSize) {
-            locationx = xSize - 1;
-        }
-        if (locationy == ySize) {
-            locationy = ySize - 1;
-        }
-        if (locationy < 0) {
-            locationy = 0;
-        }
-        if (locationx < 0) {
-            locationx = 0;
-        }
-        return newTile;
-    }
 
 
-    
-    
     public static Entity getClosestEntity(Map map, LandSquareTile location, Direction direction, int distance, Class<? extends Component>... components) {
         Array<LandSquareTile> tiles = getAdjacentTiles( map, location, direction, distance);
         int size = tiles.size;

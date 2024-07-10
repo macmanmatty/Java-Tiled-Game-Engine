@@ -52,6 +52,7 @@ public class MapUtilitiesTest {
         movable1.add(new MovingOnGroundComponent());
         movable1.getComponent(NumericStats.class).addStat(new NumericStat(true, "speed", 32));
         world.addEntityToWorld(movable1);
+        world.addEntityToWorld(item);
         positionComponent.setBounds(32, 32);
 
     }
@@ -59,8 +60,8 @@ public class MapUtilitiesTest {
     public void testGetAllEntitiesAndTiles(){
      Array<Entity> entities = MapUtilities.getAllEntitiesAndTiles(testMap.testMap1, 161, 160,  2, 2);
         assertTrue(entities.contains(movable1, true));
-     assertEquals(testMap.testMap1.getTileFromWorldUnitCoordinates(222,222).getEntities().size, 1);
-     assertEquals(testMap.testMap1.getEntities().size, 1);
+     assertEquals(testMap.testMap1.getTileFromWorldUnitCoordinates(222,222).getEntities().size, 2);
+     assertEquals(testMap.testMap1.getEntities().size, 2);
 
     }
 
@@ -109,7 +110,7 @@ public class MapUtilitiesTest {
         rectangle2.height=100;
         rectangle2.width=100;
         Array<Entity> entities = MapUtilities.getAllEntities(testMap.testMap1,  rectangle2);
-        assertEquals(1, entities.size);
+        assertEquals(2, entities.size);
 
     }
     @Test
@@ -122,11 +123,11 @@ public class MapUtilitiesTest {
         Array<Entity> entitiesExclude= new Array<>();
         entitiesExclude.add(movable1);
         Array<Entity> entities = MapUtilities.getAllEntitiesExcluding(entitiesExclude, testMap.testMap1,  rectangle2, null, null, null);
-        assertEquals(0, entities.size);
+        assertEquals(1, entities.size);
 
     }
     @Test
-    public void  getAllEntitiesExcludingWithComponents(){
+    public void  getAllEntitiesWithComponents(){
         Rectangle rectangle2= new Rectangle();
         rectangle2.x=200;
         rectangle2.y=200;
